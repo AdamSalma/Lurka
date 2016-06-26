@@ -1,0 +1,1 @@
+{"version":3,"sources":["test.sass","index.scss"],"names":[],"mappings":"AAAA;EACC,uBAAuB;EACvB,YAAY,EAAG;;ACAhB;EACC,gBAAgB,EAAE","file":"app.styles.css","sourcesContent":["html {\n\tbackground-color: #333;\n\tcolor: #fff; }\n","@import \"test\";\r\n\r\nhtml{\r\n\tfont-size: 24px;}\r\n"],"sourceRoot":"/source/"}
