@@ -1,8 +1,88 @@
-html {
-  background-color: #333;
-  color: #fff; }
+/* Centering */
+.spinner {
+  left: 0;
+  right: 0; }
 
-html {
-  font-size: 24px; }
+.spinner {
+  top: 0;
+  bottom: 0; }
+
+@-webkit-keyframes opac {
+  100% {
+    opacity: 0.95; } }
+
+@-o-keyframes opac {
+  100% {
+    opacity: 0.95; } }
+
+@keyframes opac {
+  100% {
+    opacity: 0.95; } }
+
+@-webkit-keyframes rotatespinner {
+  0% {
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+            transform: perspective(120px) rotateX(0deg) rotateY(0deg); }
+  50% {
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+            transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg); }
+  100% {
+    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+            transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg); } }
+
+@-o-keyframes rotatespinner {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg); }
+  50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg); }
+  100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg); } }
+
+@keyframes rotatespinner {
+  0% {
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+            transform: perspective(120px) rotateX(0deg) rotateY(0deg); }
+  50% {
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+            transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg); }
+  100% {
+    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+            transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg); } }
+
+@font-face {
+  font-family: "Roboto-Medium";
+  src: url("../fonts/Roboto-Medium.ttf"); }
+
+@font-face {
+  font-family: "Montserrat-Bold";
+  src: url("../fonts/Montserrat-Bold.ttf"); }
+
+.spinner {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  margin: auto;
+  background-color: #b73229;
+  position: fixed;
+  -webkit-animation: rotatespinner 1.2s infinite ease-in-out;
+       -o-animation: rotatespinner 1.2s infinite ease-in-out;
+          animation: rotatespinner 1.2s infinite ease-in-out;
+  display: none;
+  -webkit-animation-play-state: paused;
+       -o-animation-play-state: paused;
+          animation-play-state: paused;
+  z-index: 3; }
+  .spinner.active {
+    display: initial !important;
+    -webkit-animation-play-state: running !important;
+         -o-animation-play-state: running !important;
+            animation-play-state: running !important; }
+
+body {
+  background-color: #191715;
+  color: #E9EBED;
+  width: 100vw;
+  height: 100vh;
+  font-family: "Roboto-Medium"; }
 
 /*# sourceMappingURL=app.styles.css.map */

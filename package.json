@@ -28,7 +28,6 @@
     "express": "^4.13.4",
     "morgan": "^1.7.0",
     "serve-favicon": "^2.3.0",
-    "webpack-stream": "^3.2.0",
     "@angular/common": "2.0.0-rc.3",
     "@angular/compiler": "2.0.0-rc.3",
     "@angular/core": "2.0.0-rc.3",
@@ -58,6 +57,7 @@
     "nodemon": "^1.9.2",
     "nodewebkit": "^0.11.6",
     "typings": "^1.0.4",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "webpack-stream": "^3.2.0"
   }
 }

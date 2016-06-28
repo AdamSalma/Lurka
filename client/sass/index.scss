@@ -1,4 +1,6 @@
-@import "test";
-
-html{
-	font-size: 24px;}
+@import 'common/mixins';
+@import 'common/animations';
+@import 'common/fonts';
+@import 'common/color-scheme';
+@import 'common/spinner';
+@import 'common/common';
