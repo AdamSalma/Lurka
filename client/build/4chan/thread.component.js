@@ -8,21 +8,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-// Directives
-var menu_component_1 = require('./menu/menu.component');
-var pages_component_1 = require('./pages.component');
-var AppComponent = (function () {
-    function AppComponent() {
+var core_1 = require("@angular/core");
+var ThreadComponent = (function () {
+    function ThreadComponent() {
     }
-    AppComponent = __decorate([
+    ThreadComponent = __decorate([
         core_1.Component({
-            selector: 'app',
-            template: "\n\t\t<menu></menu>\n\t\t<pages></pages>\n\t",
-            directives: [pages_component_1.PageComponent, menu_component_1.MenuComponent]
+            selector: "thread",
+            template: "\n\t\t<span>Thread Component</span>\n\t\t<img src=\"{{ threadObj.imgsrc }}\">\n\t\t<div class=\"thread-count\">\n\t\t\tR: <b>{{ threadObj.replyCount }}</b>\n\t\t\tI: <b>{{ threadObj.imgCount }}</b>\n\t\t</div>\n\t\t<div class=\"thread-op\">\n\t\t\t<b class=\"title\">{{ threadObj.subtitle }}</b>\n\t\t\t{{ threadObj.op }}\n\t\t</div>\n\t",
+            inputs: ["threadObj"]
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], ThreadComponent);
+    return ThreadComponent;
 }());
-exports.AppComponent = AppComponent;
+exports.ThreadComponent = ThreadComponent;

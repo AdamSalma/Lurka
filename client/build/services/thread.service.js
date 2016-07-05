@@ -8,21 +8,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-// Directives
-var menu_component_1 = require('./menu/menu.component');
-var pages_component_1 = require('./pages.component');
-var AppComponent = (function () {
-    function AppComponent() {
+var core_1 = require("@angular/core");
+var ThreadService = (function () {
+    function ThreadService() {
     }
-    AppComponent = __decorate([
-        core_1.Component({
-            selector: 'app',
-            template: "\n\t\t<menu></menu>\n\t\t<pages></pages>\n\t",
-            directives: [pages_component_1.PageComponent, menu_component_1.MenuComponent]
-        }), 
+    ThreadService.prototype.getThread = function (words) {
+        console.log(words);
+    };
+    ThreadService.prototype.getBoard = function () {
+        console.log("WOW");
+    };
+    ThreadService = __decorate([
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], ThreadService);
+    return ThreadService;
 }());
-exports.AppComponent = AppComponent;
+exports.ThreadService = ThreadService;

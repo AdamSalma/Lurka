@@ -53,8 +53,8 @@ gulp.task('typings', function() {
 
 
 // Webpack
-// - Compiles before bundling
-gulp.task('ng-bundle', ['sass', 'ng-ts'], function() {
+// - Compiles everything before bundling
+gulp.task('all', ['sass', 'ts'], function() {
     return gulp.src( PATH.js + "/index.js" )
         .pipe( webpack( require(PATH.webpack_config)))
         .pipe( gulp.dest( PATH.webpack ) )
@@ -69,7 +69,7 @@ gulp.task('bundle', function() {
 });
 
 // TypeScript
-gulp.task('ng-ts', function() {
+gulp.task('ts', function() {
     var tsProject = ts.createProject( PATH.ts_config );
     var tsResult = gulp.src(PATH.ts + "/**/*.ts")
         .pipe(sourcemaps.init())
@@ -100,17 +100,18 @@ gulp.task('sass', function () {
 
 gulp.task('watch', function () {
 
-    // Watch typescript files and execute using 'ng-ts'
-    gulp.watch(PATH.ts + '/**/*', ['ng-ts'])
+    // Watch typescript index.ts and bundle if saved
+    gulp.watch(PATH.ts + '/**/*', ['all'])
         .on("change", function (event) {
-            console.log('[TYPESCRIPT] File ' + event.path.replace(/^.*(\\|\/|\:)/, '') + ' was ' + event.type + ', compiling...');
+            console.log('[WEBPACK] File ' + event.path.replace(/^.*(\\|\/|\:)/, '') + ' was ' + event.type + ', compiling...');
         });
 
-    // Watch sass files and execute using 'ng-ts'
+    // Watch sass files and execute using 'ts'
     gulp.watch(PATH.sass + '/**/*', ['sass'])
         .on("change", function (event) {
             console.log('[SASS] File ' + event.path.replace(/^.*(\\|\/|\:)/, '') + ' was ' + event.type + ', compiling...');
         });
+
 });
 
 gulp.task('default', ['bundle']);

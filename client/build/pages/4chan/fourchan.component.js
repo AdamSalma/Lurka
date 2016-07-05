@@ -9,20 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-// Directives
-var menu_component_1 = require('./menu/menu.component');
-var pages_component_1 = require('./pages.component');
-var AppComponent = (function () {
-    function AppComponent() {
+var FourChanComponent = (function () {
+    function FourChanComponent() {
     }
-    AppComponent = __decorate([
+    FourChanComponent = __decorate([
         core_1.Component({
-            selector: 'app',
-            template: "\n\t\t<menu></menu>\n\t\t<pages></pages>\n\t",
-            directives: [pages_component_1.PageComponent, menu_component_1.MenuComponent]
+            selector: 'fourchan',
+            template: "\n\t\t4CHAN HERE\n\t"
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], FourChanComponent);
+    return FourChanComponent;
 }());
-exports.AppComponent = AppComponent;
+exports.FourChanComponent = FourChanComponent;

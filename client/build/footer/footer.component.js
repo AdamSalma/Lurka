@@ -9,20 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-// Directives
-var menu_component_1 = require('./menu/menu.component');
-var pages_component_1 = require('./pages.component');
-var AppComponent = (function () {
-    function AppComponent() {
+var HeaderComponent = (function () {
+    function HeaderComponent() {
     }
-    AppComponent = __decorate([
+    HeaderComponent = __decorate([
         core_1.Component({
-            selector: 'app',
-            template: "\n\t\t<menu></menu>\n\t\t<pages></pages>\n\t",
-            directives: [pages_component_1.PageComponent, menu_component_1.MenuComponent]
+            selector: 'app-footer',
+            template: "\n\t\tThis is the footer\n\t",
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], HeaderComponent);
+    return HeaderComponent;
 }());
-exports.AppComponent = AppComponent;
+exports.HeaderComponent = HeaderComponent;

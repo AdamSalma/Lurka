@@ -9,20 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-// Directives
-var menu_component_1 = require('./menu/menu.component');
-var pages_component_1 = require('./pages.component');
-var AppComponent = (function () {
-    function AppComponent() {
+var home_component_1 = require('/home/home.component');
+var PageComponent = (function () {
+    function PageComponent() {
+        this.start = ["Hello", "World", "from", "PageComponent"];
     }
-    AppComponent = __decorate([
+    PageComponent = __decorate([
         core_1.Component({
-            selector: 'app',
-            template: "\n\t\t<menu></menu>\n\t\t<pages></pages>\n\t",
-            directives: [pages_component_1.PageComponent, menu_component_1.MenuComponent]
+            selector: "pages",
+            template: "\n\t\t<fourchan *ngIf=\"page === \"fourchan\"></fourchan>\n\t",
+            directives: [home_component_1.HomeComponent]
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], PageComponent);
+    return PageComponent;
 }());
-exports.AppComponent = AppComponent;
+exports.PageComponent = PageComponent;

@@ -9,20 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-// Directives
-var menu_component_1 = require('./menu/menu.component');
-var pages_component_1 = require('./pages.component');
-var AppComponent = (function () {
-    function AppComponent() {
+var thread_service_1 = require('../services/thread.service');
+var MenuComponent = (function () {
+    function MenuComponent(_threadService) {
+        this._threadService = _threadService;
+        this.flag = true;
     }
-    AppComponent = __decorate([
+    ;
+    MenuComponent.prototype.onLog = function (message) {
+        this._threadService.getThread(message);
+    };
+    MenuComponent = __decorate([
         core_1.Component({
-            selector: 'app',
-            template: "\n\t\t<menu></menu>\n\t\t<pages></pages>\n\t",
-            directives: [pages_component_1.PageComponent, menu_component_1.MenuComponent]
+            selector: 'menu',
+            template: "\n\t\t<div>\n\t\t\t<h2>Menu Component</h2>\n\t\t\t<input type=\"text\" #message>\n\t\t\t<button \n\t\t\t\t(click)=\"onLog(flag? message.value : 'Or not...')\">Click me!</button>\n\t\t</div>\n\t",
+            providers: [thread_service_1.ThreadService]
         }), 
-        __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+        __metadata('design:paramtypes', [thread_service_1.ThreadService])
+    ], MenuComponent);
+    return MenuComponent;
 }());
-exports.AppComponent = AppComponent;
+exports.MenuComponent = MenuComponent;

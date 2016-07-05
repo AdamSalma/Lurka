@@ -9,20 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-// Directives
-var menu_component_1 = require('./menu/menu.component');
-var pages_component_1 = require('./pages.component');
-var AppComponent = (function () {
-    function AppComponent() {
+var http_1 = require('@angular/http');
+require('rxjs/Rx');
+var BoardService = (function () {
+    function BoardService(_http) {
+        this._http = _http;
     }
-    AppComponent = __decorate([
-        core_1.Component({
-            selector: 'app',
-            template: "\n\t\t<menu></menu>\n\t\t<pages></pages>\n\t",
-            directives: [pages_component_1.PageComponent, menu_component_1.MenuComponent]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ;
+    BoardService.prototype.get4chan = function (pagenumber, callback) {
+        return this._http.get('https://a.4cdn.org/g/catalog.json')
+            .map(function (res) { return res.json; });
+    };
+    BoardService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [http_1.Http])
+    ], BoardService);
+    return BoardService;
 }());
-exports.AppComponent = AppComponent;
+exports.BoardService = BoardService;
