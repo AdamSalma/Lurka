@@ -1,18 +1,21 @@
 import { Component } from '@angular/core';
+import { provideRouter, RouterConfig }  from '@angular/router';
 
 // Directives
-import { HeaderComponent } from './header/header.component';
-import { PageComponent } from './pages/page.component';
-import { FooterComponent } from './footer/footer.component';
+import { MenuComponent } from './menu/menu.component';
+import { PageComponent } from './pages.component';
 
 @Component({
 	selector: 'app',
 	template: `
-		<app-header></app-header>
+		<menu></menu>
 		<pages></pages>
 	`,
-	directives: [PageComponent, HeaderComponent]
+	directives: [PageComponent, MenuComponent]
 })
+// @RouterConfig([
+// 	{ path: '/component-1', name: "Component1", component:  }
+// ])
 export class AppComponent {
 
 }

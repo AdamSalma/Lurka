@@ -8,17 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var HomeComponent = (function () {
-    function HomeComponent() {
+var core_1 = require('@angular/core');
+var FourChanComponent = (function () {
+    function FourChanComponent() {
     }
-    HomeComponent = __decorate([
+    FourChanComponent = __decorate([
         core_1.Component({
-            selector: 'home',
-            template: "\n\t\t<div>\n\t\t\t<p>Hello world i guess</p>\n\t\t</div>\n\t\t<br>\n\t"
+            selector: 'fourchan',
+            template: "\n\t\t4CHAN HERE\n\t"
         }), 
         __metadata('design:paramtypes', [])
-    ], HomeComponent);
-    return HomeComponent;
+    ], FourChanComponent);
+    return FourChanComponent;
 }());
-exports.HomeComponent = HomeComponent;
+exports.FourChanComponent = FourChanComponent;

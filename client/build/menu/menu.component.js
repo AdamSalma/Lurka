@@ -9,19 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var home_component_1 = require('/home/home.component');
-var PageComponent = (function () {
-    function PageComponent() {
-        this.start = ["Hello", "World", "from", "PageComponent"];
+var thread_service_1 = require('../services/thread.service');
+var MenuComponent = (function () {
+    function MenuComponent(_threadService) {
+        this._threadService = _threadService;
+        this.flag = true;
     }
-    PageComponent = __decorate([
+    ;
+    MenuComponent.prototype.onLog = function (message) {
+        this._threadService.getThread(message);
+    };
+    MenuComponent = __decorate([
         core_1.Component({
-            selector: "pages",
-            template: "\n\t\t<fourchan *ngIf=\"page === \"fourchan\"></fourchan>\n\t",
-            directives: [home_component_1.HomeComponent]
+            selector: 'menu',
+            template: "\n\t\t<div>\n\t\t\t<h2>Menu Component</h2>\n\t\t\t<input type=\"text\" #message>\n\t\t\t<button \n\t\t\t\t(click)=\"onLog(flag? message.value : 'Or not...')\">Click me!</button>\n\t\t</div>\n\t",
+            providers: [thread_service_1.ThreadService]
         }), 
-        __metadata('design:paramtypes', [])
-    ], PageComponent);
-    return PageComponent;
+        __metadata('design:paramtypes', [thread_service_1.ThreadService])
+    ], MenuComponent);
+    return MenuComponent;
 }());
-exports.PageComponent = PageComponent;
+exports.MenuComponent = MenuComponent;

@@ -85,4 +85,11 @@ body {
   height: 100vh;
   font-family: "Roboto-Medium"; }
 
+main > * {
+  display: none; }
+
+.activePage {
+  z-index: 1;
+  display: initial !important; }
+
 /*# sourceMappingURL=app.styles.css.map */

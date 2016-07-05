@@ -8,17 +8,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var HomeComponent = (function () {
-    function HomeComponent() {
+var core_1 = require('@angular/core');
+var http_1 = require('@angular/http');
+require('rxjs/Rx');
+var BoardService = (function () {
+    function BoardService(_http) {
+        this._http = _http;
     }
-    HomeComponent = __decorate([
-        core_1.Component({
-            selector: 'home',
-            template: "\n\t\t<div>\n\t\t\t<p>Hello world i guess</p>\n\t\t</div>\n\t\t<br>\n\t"
-        }), 
-        __metadata('design:paramtypes', [])
-    ], HomeComponent);
-    return HomeComponent;
+    ;
+    BoardService.prototype.get4chan = function (pagenumber, callback) {
+        return this._http.get('https://a.4cdn.org/g/catalog.json')
+            .map(function (res) { return res.json; });
+    };
+    BoardService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [http_1.Http])
+    ], BoardService);
+    return BoardService;
 }());
-exports.HomeComponent = HomeComponent;
+exports.BoardService = BoardService;

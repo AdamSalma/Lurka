@@ -9,16 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var HomeComponent = (function () {
-    function HomeComponent() {
+var ThreadService = (function () {
+    function ThreadService() {
     }
-    HomeComponent = __decorate([
-        core_1.Component({
-            selector: 'home',
-            template: "\n\t\t<div>\n\t\t\t<p>Hello world i guess</p>\n\t\t</div>\n\t\t<br>\n\t"
-        }), 
+    ThreadService.prototype.getThread = function (words) {
+        console.log(words);
+    };
+    ThreadService.prototype.getBoard = function () {
+        console.log("WOW");
+    };
+    ThreadService = __decorate([
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], HomeComponent);
-    return HomeComponent;
+    ], ThreadService);
+    return ThreadService;
 }());
-exports.HomeComponent = HomeComponent;
+exports.ThreadService = ThreadService;

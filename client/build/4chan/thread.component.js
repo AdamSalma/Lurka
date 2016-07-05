@@ -9,16 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var HomeComponent = (function () {
-    function HomeComponent() {
+var ThreadComponent = (function () {
+    function ThreadComponent() {
     }
-    HomeComponent = __decorate([
+    ThreadComponent = __decorate([
         core_1.Component({
-            selector: 'home',
-            template: "\n\t\t<div>\n\t\t\t<p>Hello world i guess</p>\n\t\t</div>\n\t\t<br>\n\t"
+            selector: "thread",
+            template: "\n\t\t<span>Thread Component</span>\n\t\t<img src=\"{{ threadObj.imgsrc }}\">\n\t\t<div class=\"thread-count\">\n\t\t\tR: <b>{{ threadObj.replyCount }}</b>\n\t\t\tI: <b>{{ threadObj.imgCount }}</b>\n\t\t</div>\n\t\t<div class=\"thread-op\">\n\t\t\t<b class=\"title\">{{ threadObj.subtitle }}</b>\n\t\t\t{{ threadObj.op }}\n\t\t</div>\n\t",
+            inputs: ["threadObj"]
         }), 
         __metadata('design:paramtypes', [])
-    ], HomeComponent);
-    return HomeComponent;
+    ], ThreadComponent);
+    return ThreadComponent;
 }());
-exports.HomeComponent = HomeComponent;
+exports.ThreadComponent = ThreadComponent;

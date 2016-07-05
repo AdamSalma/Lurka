@@ -10,16 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 // Directives
-var header_component_1 = require('./header/header.component');
-var page_component_1 = require('./pages/page.component');
+var menu_component_1 = require('./menu/menu.component');
+var pages_component_1 = require('./pages.component');
 var AppComponent = (function () {
     function AppComponent() {
     }
     AppComponent = __decorate([
         core_1.Component({
             selector: 'app',
-            template: "\n\t\t<app-header></app-header>\n\t\t<pages></pages>\n\t",
-            directives: [page_component_1.PageComponent, header_component_1.HeaderComponent]
+            template: "\n\t\t<menu></menu>\n\t\t<pages></pages>\n\t",
+            directives: [pages_component_1.PageComponent, menu_component_1.MenuComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
