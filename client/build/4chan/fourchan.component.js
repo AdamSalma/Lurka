@@ -64,7 +64,7 @@ var FourChanComponent = (function () {
     FourChanComponent = __decorate([
         core_1.Component({
             selector: 'fourchan',
-            template: "\n\t\t<h2>4Chan Component</h2>\n\t\t<div *ngFor=\"let threadObj of threads\">\n\t\t\t<thread [threadObj]=\"threadObj\"></thread>\n\t\t</div>\n\t",
+            template: "\n\t\t<h2>4Chan Component</h2>\n\t\t<div *ngFor=\"let thread of threads\">\n\t\t\t<thread \n\t\t\t\t[thread]=\"thread\"\n\t\t\t\t[id]=\"thread.id\"\n\t\t\t></thread>\n\t\t</div>\n\t",
             directives: [thread_component_1.ThreadComponent]
         }), 
         __metadata('design:paramtypes', [])

@@ -11,12 +11,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var ThreadComponent = (function () {
     function ThreadComponent() {
+        this.thread = {};
     }
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], ThreadComponent.prototype, "thread", void 0);
     ThreadComponent = __decorate([
         core_1.Component({
             selector: "thread",
-            template: "\n\t\t<span>Thread Component</span>\n\t\t<img src=\"{{ threadObj.imgsrc }}\">\n\t\t<div class=\"thread-count\">\n\t\t\tR: <b>{{ threadObj.replyCount }}</b>\n\t\t\tI: <b>{{ threadObj.imgCount }}</b>\n\t\t</div>\n\t\t<div class=\"thread-op\">\n\t\t\t<b class=\"title\">{{ threadObj.subtitle }}</b>\n\t\t\t{{ threadObj.op }}\n\t\t</div>\n\t",
-            inputs: ["threadObj"]
+            template: "\n\t\t<span>Thread Component</span>\n\t\t<img src=\"{{ thread.imgsrc }}\">\n\t\t<div class=\"thread-count\">\n\t\t\tR: <b>{{ thread.replyCount }}</b>\n\t\t\tI: <b>{{ thread.imgCount }}</b>\n\t\t</div>\n\t\t<div class=\"thread-op\">\n\t\t\t<b class=\"title\">{{ thread.subtitle }}</b>\n\t\t\t{{ thread.op }}\n\t\t</div>\n\t"
         }), 
         __metadata('design:paramtypes', [])
     ], ThreadComponent);

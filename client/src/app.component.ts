@@ -13,9 +13,7 @@ import { PageComponent } from './pages.component';
 	`,
 	directives: [PageComponent, MenuComponent]
 })
-// @RouterConfig([
-// 	{ path: '/component-1', name: "Component1", component:  }
-// ])
+
 export class AppComponent {
 
 }

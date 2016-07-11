@@ -12,13 +12,12 @@ var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 require('rxjs/Rx');
 var BoardService = (function () {
-    function BoardService(_http) {
-        this._http = _http;
+    function BoardService(http) {
+        this.http = http;
     }
     ;
-    BoardService.prototype.get4chan = function (pagenumber, callback) {
-        return this._http.get('https://a.4cdn.org/g/catalog.json')
-            .map(function (res) { return res.json; });
+    BoardService.prototype.get4chan = function () {
+        return this.http.get('https://a.4cdn.org/g/catalog.json');
     };
     BoardService = __decorate([
         core_1.Injectable(), 

@@ -4,19 +4,18 @@ import { Component, Input } from "@angular/core";
 	selector: "thread",
 	template: `
 		<span>Thread Component</span>
-		<img src="{{ threadObj.imgsrc }}">
+		<img src="{{ thread.imgsrc }}">
 		<div class="thread-count">
-			R: <b>{{ threadObj.replyCount }}</b>
-			I: <b>{{ threadObj.imgCount }}</b>
+			R: <b>{{ thread.replyCount }}</b>
+			I: <b>{{ thread.imgCount }}</b>
 		</div>
 		<div class="thread-op">
-			<b class="title">{{ threadObj.subtitle }}</b>
-			{{ threadObj.op }}
+			<b class="title">{{ thread.subtitle }}</b>
+			{{ thread.op }}
 		</div>
-	`,
-	inputs: ["threadObj"]
+	`
 })
 export class ThreadComponent {
-
+	@Input() thread = {};
 }
 

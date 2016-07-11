@@ -6,8 +6,11 @@ import { ThreadComponent } from './thread.component';
 	selector: 'fourchan',
 	template: `
 		<h2>4Chan Component</h2>
-		<div *ngFor="let threadObj of threads">
-			<thread [threadObj]="threadObj"></thread>
+		<div *ngFor="let thread of threads">
+			<thread 
+				[thread]="thread"
+				[id]="thread.id"
+			></thread>
 		</div>
 	`,
 	directives: [ThreadComponent]
