@@ -20,7 +20,7 @@ var ThreadComponent = (function () {
     ThreadComponent = __decorate([
         core_1.Component({
             selector: "thread",
-            template: "\n\t\t<span>Thread Component</span>\n\t\t<img src=\"{{ thread.imgsrc }}\">\n\t\t<div class=\"thread-count\">\n\t\t\tR: <b>{{ thread.replyCount }}</b>\n\t\t\tI: <b>{{ thread.imgCount }}</b>\n\t\t</div>\n\t\t<div class=\"thread-op\">\n\t\t\t<b class=\"title\">{{ thread.subtitle }}</b>\n\t\t\t{{ thread.op }}\n\t\t</div>\n\t"
+            template: "\n\t\t<img src=\"{{ thread.imgsrc }}\">\n\t\t<div class=\"thread-count\">\n\t\t\tR: <b>{{ thread.replyCount }}</b>\n\t\t\tI: <b>{{ thread.imgCount }}</b>\n\t\t</div>\n\t\t<div class=\"thread-op\">\n\t\t\t<b \n\t\t\t\tclass=\"title\"\n\t\t\t\t[innerHTML]=\"thread.subtitle\"\n\t\t\t></b>\n\t\t\t<div\n\t\t\t\t[innerHTML]=\"thread.op\"\n\t\t\t></div>\n\t\t</div>\n\t"
         }), 
         __metadata('design:paramtypes', [])
     ], ThreadComponent);

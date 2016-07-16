@@ -5,11 +5,11 @@ import { FourChanComponent } from './4chan/fourchan.component';
 @Component({
 	selector: "pages",
 	template: `
-		<home [class.activePage]="pageVisible"></home>
-		<fourchan [class.activePage]="pageVisible"></fourchan>
+		<home></home>
+		<fourchan class="board"></fourchan>
 	`,  // Add more sites later...
 	directives: [FourChanComponent, HomeComponent]
 })
 export class PageComponent {
-	pageVisible:boolean = true;
+	catalogue: boolean = true;
 }

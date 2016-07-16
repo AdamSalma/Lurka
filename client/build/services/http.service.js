@@ -8,23 +8,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var http_1 = require('@angular/http');
 require('rxjs/Rx');
-var BoardService = (function () {
-    function BoardService(http) {
+require('path');
+var HttpService = (function () {
+    function HttpService(http) {
         this.http = http;
     }
     ;
-    BoardService.prototype.get4chan = function () {
-        return this.http.get('https://a.4cdn.org/g/catalog.json')
-            .map(function (res) { return res.json; });
+    HttpService.prototype.get = function (_path, cb) {
+        _path = 'http://localhost:3000/' + _path;
+        this.http.get(_path)
+            .map(function (res) {
+            return res.json();
+        })
+            .subscribe(function (data) { return cb(null, data); }, function (err) { return cb(err); });
     };
-    ;
-    BoardService = __decorate([
+    HttpService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
-    ], BoardService);
-    return BoardService;
+    ], HttpService);
+    return HttpService;
 }());
-exports.BoardService = BoardService;
+exports.HttpService = HttpService;

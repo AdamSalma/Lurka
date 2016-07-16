@@ -13,12 +13,12 @@ var home_component_1 = require('./home/home.component');
 var fourchan_component_1 = require('./4chan/fourchan.component');
 var PageComponent = (function () {
     function PageComponent() {
-        this.pageVisible = true;
+        this.catalogue = true;
     }
     PageComponent = __decorate([
         core_1.Component({
             selector: "pages",
-            template: "\n\t\t<home [class.activePage]=\"pageVisible\"></home>\n\t\t<fourchan [class.activePage]=\"pageVisible\"></fourchan>\n\t",
+            template: "\n\t\t<home></home>\n\t\t<fourchan class=\"board\"></fourchan>\n\t",
             directives: [fourchan_component_1.FourChanComponent, home_component_1.HomeComponent]
         }), 
         __metadata('design:paramtypes', [])

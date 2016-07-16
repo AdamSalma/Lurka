@@ -9,65 +9,89 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var http_service_1 = require('../services/http.service');
 var thread_component_1 = require('./thread.component');
 var FourChanComponent = (function () {
-    function FourChanComponent() {
-        // constructor(private boardService: BoardService) { };
-        this.threads = [
-            {
-                id: 12345,
-                threadUrl: "Thread>url",
-                imgsrc: "srcHere",
-                replyCount: 10,
-                imgCount: 2,
-                subtitle: "Thread>subtitle",
-                op: "Thread>op"
-            },
-            {
-                id: 12345,
-                threadUrl: "Thread>url",
-                imgsrc: "srcHere",
-                replyCount: 10,
-                imgCount: 2,
-                subtitle: "Thread>subtitle",
-                op: "Thread>op"
-            },
-            {
-                id: 12345,
-                threadUrl: "Thread>url",
-                imgsrc: "srcHere",
-                replyCount: 10,
-                imgCount: 2,
-                subtitle: "Thread>subtitle",
-                op: "Thread>op"
-            },
-            {
-                id: 12345,
-                threadUrl: "Thread>url",
-                imgsrc: "srcHere",
-                replyCount: 10,
-                imgCount: 2,
-                subtitle: "Thread>subtitle",
-                op: "Thread>op"
-            },
-            {
-                id: 12345,
-                threadUrl: "Thread>url",
-                imgsrc: "srcHere",
-                replyCount: 10,
-                imgCount: 2,
-                subtitle: "Thread>subtitle",
-                op: "Thread>op"
-            }
-        ];
+    function FourChanComponent(http) {
+        this.http = http;
+        this.threads = [];
+        this.pages = {};
+        this._pageCounter = 0;
+        this.baseUrls = {
+            board: 'https://a.4cdn.org/g/catalog.json',
+            img: 'https://i.4cdn.org/g/',
+            thread: "http://boards.4chan.org/g/thread/"
+        };
     }
+    ;
+    FourChanComponent.prototype.getBoard = function () {
+        var _this = this;
+        this._initStructure(15);
+        this.http.get('4chan', function (error, threads) {
+            if (error) {
+                return _this._errorHandler(error);
+            }
+            _this.pages = threads;
+            _this.threads = []; // remove placeholders
+            _this.showNextPage(15);
+        });
+    };
+    FourChanComponent.prototype.showNextPage = function (num) {
+        console.log("showNextPage");
+        var p = this.pages;
+        for (var pageObj in p) {
+            if (p.hasOwnProperty(pageObj)) {
+                if (parseInt(pageObj) > this._pageCounter) {
+                    console.log("Threads " + p);
+                    var threads = p[pageObj]['threads'];
+                    for (var i = 0; i < threads.length; i++) {
+                        if (i == num)
+                            break;
+                        console.log("Creating thread " + i);
+                        this.createThread(threads[i]);
+                    }
+                }
+            }
+        }
+    };
+    FourChanComponent.prototype.createThread = function (threadObj) {
+        var b = this.baseUrls;
+        var thread = {
+            id: threadObj['no'],
+            // imgid: thread['tim'],
+            // date: thread['now'],
+            threadurl: b.thread + threadObj['no'] + "/" + threadObj['semantic_url'],
+            subtitle: threadObj['sub'] || "",
+            imgsrc: b.img + threadObj['tim'] + "s.jpg",
+            imgsrclarge: b.img + threadObj['tim'] + ".jpg",
+            replyCount: threadObj['replies'],
+            imgCount: threadObj['images'],
+            op: threadObj['com']
+        };
+        this.threads.push(thread);
+    };
+    FourChanComponent.prototype._initStructure = function (count) {
+        // This could create a spinner in each thread while loading
+        this.threads = [];
+        var thread = {
+            klass: "thread-loading",
+            subtitle: "Loading..."
+        };
+        for (var i = 0; i < count; i++) {
+            this.threads.push(thread);
+        }
+    };
+    FourChanComponent.prototype._errorHandler = function (error) {
+        console.log("Error happened yo: error");
+    };
     FourChanComponent = __decorate([
         core_1.Component({
             selector: 'fourchan',
-            template: "\n\t\t<h2>4Chan Component</h2>\n\t\t<div *ngFor=\"let thread of threads\">\n\t\t\t<thread \n\t\t\t\t[thread]=\"thread\"\n\t\t\t\t[id]=\"thread.id\"\n\t\t\t></thread>\n\t\t</div>\n\t",
-            directives: [thread_component_1.ThreadComponent]
+            template: "\n\t\t<h1>4Chan Component</h1>\n\t\t<button type=\"button\" (click)=\"getBoard()\">Get threads!</button>\n\t\t<thread\n\t\t\t*ngFor=\"let thread of threads\"\n\t\t\t[thread]=\"thread\"\n\t\t\t[id]=\"'id' + thread.id\"\n\t\t\tclass=\"thread catalogue\"\n\t\t></thread>\n\t",
+            directives: [thread_component_1.ThreadComponent],
+            providers: [http_service_1.HttpService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_service_1.HttpService])
     ], FourChanComponent);
     return FourChanComponent;
 }());

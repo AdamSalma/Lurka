@@ -9,20 +9,16 @@ import 'rxjs/Rx';
 	template: `
 		<div>
 			<h2>Menu Component</h2>
-			<input
-				type="text" 
-				placeholder="Hi mum"
-				#message>
-			<button 
+			<button
 				(click)="getBoard()"
 			>Click me!</button>
 		</div>
 		<div [class.active]="flag">
-			<h1>Boards:</h1>
+			<h1>Board:</h1>
 			<div>
 				{{board}}
 			</div>
-			
+
 		</div>
 	`
 })
@@ -32,11 +28,11 @@ export class MenuComponent {
 	board: string = ""
 
 	getBoard() {
-		this.http.get('http://localhost:3000/board/')
-				 .map(res => res.text())
+		this.http.get('https://a.4cdn.org/g/catalog.json')
+				 .map(res => res.json())
 				 .subscribe(
 				 	data => this.board = data,
-				 	err => this.logError(err),
+				 	err => console.log(err),
 				 	() => console.log('it worked http get')
 				 );
 	}

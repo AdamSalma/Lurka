@@ -20,11 +20,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 
-
-app.use('/board', require('./routes/4chan'));
+app.use('/4chan', require('./routes/4chan'));
 
 app.use('/', function(req, res, next){
   res.render('index');
+  res.end();
 });
 
 

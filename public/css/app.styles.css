@@ -92,4 +92,64 @@ main > * {
   z-index: 1;
   display: initial !important; }
 
+.thread {
+  display: block;
+  overflow: hidden; }
+
+.board {
+  width: 100vw;
+  margin: 0 auto;
+  position: relative;
+  top: 70px; }
+  .board .container {
+    text-align: center;
+    height: -webkit-calc(100vh - 70px) !important;
+    height: calc(100vh - 70px) !important;
+    width: 100% !important; }
+  .board .quote {
+    color: #E9EBED !important; }
+
+.catalogue {
+  display: inline-block;
+  width: 155px;
+  height: 320px;
+  margin: 5px 10px 20px;
+  padding: 5px;
+  padding-bottom: 3px;
+  text-align: center;
+  border-radius: 4px;
+  -webkit-transition: -webkit-box-shadow 0.3s;
+  transition: -webkit-box-shadow 0.3s;
+  -o-transition: box-shadow 0.3s;
+  transition: box-shadow 0.3s;
+  transition: box-shadow 0.3s, -webkit-box-shadow 0.3s;
+  cursor: pointer; }
+  .catalogue::before {
+    content: "";
+    border-top: #b73229 solid 2px;
+    width: 0;
+    -webkit-transition: width 0.4s ease-out;
+    -o-transition: width 0.4s ease-out;
+    transition: width 0.4s ease-out;
+    position: relative; }
+  .catalogue:hover::before {
+    width: 100%; }
+  .catalogue img {
+    display: inline;
+    min-width: 50px;
+    max-width: 150px;
+    min-height: 50px;
+    max-height: 150px; }
+  .catalogue .thread-count {
+    font-size: 12px;
+    text-align: center; }
+  .catalogue .thread-op {
+    display: block;
+    padding: 0 15px; }
+    .catalogue .thread-op b.title {
+      display: block;
+      font-family: "Montserrat-Bold";
+      font-weight: 500;
+      margin-bottom: 10px; }
+
 /*# sourceMappingURL=app.styles.css.map */
