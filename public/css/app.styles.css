@@ -1,9 +1,9 @@
 /* Centering */
-.spinner {
+spinner {
   left: 0;
   right: 0; }
 
-.spinner {
+spinner {
   top: 0;
   bottom: 0; }
 
@@ -57,7 +57,7 @@
   font-family: "Montserrat-Bold";
   src: url("../fonts/Montserrat-Bold.ttf"); }
 
-.spinner {
+spinner {
   width: 80px;
   height: 80px;
   position: absolute;
@@ -72,7 +72,7 @@
        -o-animation-play-state: paused;
           animation-play-state: paused;
   z-index: 3; }
-  .spinner.active {
+  spinner.active {
     display: initial !important;
     -webkit-animation-play-state: running !important;
          -o-animation-play-state: running !important;
@@ -83,12 +83,14 @@ body {
   color: #E9EBED;
   width: 100vw;
   height: 100vh;
-  font-family: "Roboto-Medium"; }
+  font-family: "Roboto-Medium";
+  margin: 0;
+  padding: 0; }
 
-main > * {
+pages > * {
   display: none; }
 
-.activePage {
+.active {
   z-index: 1;
   display: initial !important; }
 
@@ -100,7 +102,7 @@ main > * {
   width: 100vw;
   margin: 0 auto;
   position: relative;
-  top: 70px; }
+  top: 100px; }
   .board .container {
     text-align: center;
     height: -webkit-calc(100vh - 70px) !important;
@@ -145,11 +147,33 @@ main > * {
     text-align: center; }
   .catalogue .thread-op {
     display: block;
-    padding: 0 15px; }
+    padding: 0 15px;
+    font-size: 12px; }
     .catalogue .thread-op b.title {
       display: block;
       font-family: "Montserrat-Bold";
       font-weight: 500;
       margin-bottom: 10px; }
+
+menu {
+  position: fixed;
+  z-index: 10;
+  height: 84px;
+  width: 100%;
+  font-size: 14px;
+  background-color: #3f3f3f;
+  top: 0;
+  margin: 0;
+  padding: 10px; }
+  menu h2 {
+    width: 300px;
+    height: 40px;
+    text-align: center;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0; }
 
 /*# sourceMappingURL=app.styles.css.map */

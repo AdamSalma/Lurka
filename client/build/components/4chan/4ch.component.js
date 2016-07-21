@@ -9,12 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var http_service_1 = require('../services/http.service');
+var http_service_1 = require('../../services/http.service');
+var board_component_1 = require('./board.component');
 var thread_component_1 = require('./thread.component');
 var FourChanComponent = (function () {
     function FourChanComponent(http) {
         this.http = http;
-        this.threads = [];
+        this.ops = [];
+        this.thread = [];
         this.pages = {};
         this._pageCounter = 0;
         this.baseUrls = {
@@ -31,14 +33,18 @@ var FourChanComponent = (function () {
     FourChanComponent.prototype.getBoard = function () {
         var _this = this;
         this._initStructure(15);
-        this.http.get('4chan', function (error, threads) {
+        this.http.get('4chan', function (error, ops) {
             if (error) {
                 return _this._errorHandler(error);
             }
-            _this.pages = threads;
-            _this.threads = []; // remove placeholders
+            _this.pages = ops;
+            _this.ops = []; // remove placeholders
             _this.showNextPage();
         });
+    };
+    FourChanComponent.prototype.getThread = function ($event) {
+        console.log($event);
+        console.log($event.target);
     };
     FourChanComponent.prototype.showNextPage = function (max) {
         if (max === void 0) { max = 15; }
@@ -60,7 +66,7 @@ var FourChanComponent = (function () {
     };
     FourChanComponent.prototype.createThread = function (threadObj) {
         var b = this.baseUrls;
-        var thread = {
+        var op = {
             id: threadObj['no'],
             // imgid: thread['tim'],
             // date: thread['now'],
@@ -70,19 +76,19 @@ var FourChanComponent = (function () {
             imgsrclarge: b.img + threadObj['tim'] + ".jpg",
             replyCount: threadObj['replies'],
             imgCount: threadObj['images'],
-            op: threadObj['com']
+            com: threadObj['com']
         };
-        this.threads.push(thread);
+        this.ops.push(op);
     };
     FourChanComponent.prototype._initStructure = function (count) {
         // This could create a spinner in each thread while loading
-        this.threads = [];
-        var thread = {
+        this.ops = [];
+        var op = {
             class: "thread-loading",
             subtitle: "Loading..."
         };
         for (var i = 0; i < count; i++) {
-            this.threads.push(thread);
+            this.ops.push(op);
         }
     };
     FourChanComponent.prototype._errorHandler = function (error) {
@@ -91,8 +97,8 @@ var FourChanComponent = (function () {
     FourChanComponent = __decorate([
         core_1.Component({
             selector: 'fourchan',
-            template: "\n\t\t<h1>4Chan Component</h1>\n\t\t<button type=\"button\" (click)=\"getBoard()\">Get threads!</button>\n\t\t<thread\n\t\t\t*ngFor=\"let thread of threads\"\n\t\t\t[thread]=\"thread\"\n\t\t\t[id]=\"'id' + thread.id\"\n\t\t\tclass=\"thread catalogue\"\n\t\t></thread>\n\t",
-            directives: [thread_component_1.ThreadComponent],
+            template: "\n        <thread [thread]=\"thread\"></thread>\n        <div class=\"board\">\n    \t\t<board\n    \t\t\t*ngFor=\"let op of ops\"\n    \t\t\t[op]=\"op\"\n    \t\t\tclass=\"thread catalogue\"\n                (click)=\"getThread(op.id)\"\n    \t\t></board>\n        </div>\n\t",
+            directives: [board_component_1.BoardComponent, thread_component_1.ThreadComponent],
             providers: [http_service_1.HttpService]
         }), 
         __metadata('design:paramtypes', [http_service_1.HttpService])

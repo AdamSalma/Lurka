@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { HomeComponent } from './home/home.component';
-import { FourChanComponent } from './4chan/fourchan.component';
+import { FourChanComponent } from './4chan/4ch.component';
 
 @Component({
 	selector: "pages",
 	template: `
-		<home></home>
-		<fourchan class="board"></fourchan>
+		<home [class.active]="page === 'Home'"></home>
+		<fourchan [class.active]="page === '4chan'"></fourchan>
 	`,  // Add more sites later...
 	directives: [FourChanComponent, HomeComponent]
 })
 export class PageComponent {
-	catalogue: boolean = true;
+	page: string = '4chan';
 }

@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 // Directives
-var menu_component_1 = require('./menu/menu.component');
-var pages_component_1 = require('./pages.component');
+var menu_component_1 = require('./components/menu/menu.component');
+var pages_component_1 = require('./components/pages.component');
 var AppComponent = (function () {
     function AppComponent() {
     }

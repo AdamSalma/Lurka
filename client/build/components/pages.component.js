@@ -18,7 +18,7 @@ var PageComponent = (function () {
     PageComponent = __decorate([
         core_1.Component({
             selector: "pages",
-            template: "\n\t\t<home [class.active]=\"page === 'Home'\"></home>\n\t\t<fourchan [class.active]=\"page === '4chan'\" class=\"board\"></fourchan>\n\t",
+            template: "\n\t\t<home [class.active]=\"page === 'Home'\"></home>\n\t\t<fourchan [class.active]=\"page === '4chan'\"></fourchan>\n\t",
             directives: [_4ch_component_1.FourChanComponent, home_component_1.HomeComponent]
         }), 
         __metadata('design:paramtypes', [])

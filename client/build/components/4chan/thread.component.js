@@ -8,21 +8,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var home_component_1 = require('./home/home.component');
-var _4ch_component_1 = require('./4chan/4ch.component');
-var PageComponent = (function () {
-    function PageComponent() {
-        this.page = '4chan';
+var core_1 = require("@angular/core");
+var post_component_1 = require('./post.component');
+var ThreadComponent = (function () {
+    function ThreadComponent() {
+        this.thread = {};
+        this.loadingThread = true;
     }
-    PageComponent = __decorate([
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], ThreadComponent.prototype, "thread", void 0);
+    ThreadComponent = __decorate([
         core_1.Component({
-            selector: "pages",
-            template: "\n\t\t<home [class.active]=\"page === 'Home'\"></home>\n\t\t<fourchan [class.active]=\"page === '4chan'\" class=\"board\"></fourchan>\n\t",
-            directives: [_4ch_component_1.FourChanComponent, home_component_1.HomeComponent]
+            selector: "thread",
+            template: "\n        <spinner\n            [class.active]=\"loadingThread\"\n        ></spinner>\n        <div\n            class=\"background\"\n            [class.fadeIn]=\"loadingThread\"\n        ></div>\n        <div class=\"scrollable\"></div>\n\t",
+            directives: [post_component_1.PostComponent]
         }), 
         __metadata('design:paramtypes', [])
-    ], PageComponent);
-    return PageComponent;
+    ], ThreadComponent);
+    return ThreadComponent;
 }());
-exports.PageComponent = PageComponent;
+exports.ThreadComponent = ThreadComponent;

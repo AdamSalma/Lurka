@@ -8,21 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var home_component_1 = require('./home/home.component');
-var _4ch_component_1 = require('./4chan/4ch.component');
-var PageComponent = (function () {
-    function PageComponent() {
-        this.page = '4chan';
+var core_1 = require("@angular/core");
+var HomeComponent = (function () {
+    function HomeComponent() {
     }
-    PageComponent = __decorate([
+    HomeComponent = __decorate([
         core_1.Component({
-            selector: "pages",
-            template: "\n\t\t<home [class.active]=\"page === 'Home'\"></home>\n\t\t<fourchan [class.active]=\"page === '4chan'\" class=\"board\"></fourchan>\n\t",
-            directives: [_4ch_component_1.FourChanComponent, home_component_1.HomeComponent]
+            selector: 'home',
+            template: "\n\t\t<h2>Home Component</h2>\n\t"
         }), 
         __metadata('design:paramtypes', [])
-    ], PageComponent);
-    return PageComponent;
+    ], HomeComponent);
+    return HomeComponent;
 }());
-exports.PageComponent = PageComponent;
+exports.HomeComponent = HomeComponent;

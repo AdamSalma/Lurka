@@ -8,21 +8,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var home_component_1 = require('./home/home.component');
-var _4ch_component_1 = require('./4chan/4ch.component');
-var PageComponent = (function () {
-    function PageComponent() {
-        this.page = '4chan';
+var core_1 = require("@angular/core");
+var BoardComponent = (function () {
+    function BoardComponent() {
+        this.op = {};
     }
-    PageComponent = __decorate([
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], BoardComponent.prototype, "op", void 0);
+    BoardComponent = __decorate([
         core_1.Component({
-            selector: "pages",
-            template: "\n\t\t<home [class.active]=\"page === 'Home'\"></home>\n\t\t<fourchan [class.active]=\"page === '4chan'\" class=\"board\"></fourchan>\n\t",
-            directives: [_4ch_component_1.FourChanComponent, home_component_1.HomeComponent]
+            selector: "board",
+            template: "\n\t\t<img src=\"{{ op.imgsrc }}\">\n\t\t<div class=\"op-count\">\n\t\t\tR: <b>{{ op.replyCount }}</b>\n\t\t\tI: <b>{{ op.imgCount }}</b>\n\t\t</div>\n\t\t<div class=\"op-op\">\n\t\t\t<b\n\t\t\t\tclass=\"title\"\n\t\t\t\t[innerHTML]=\"op.subtitle\"\n\t\t\t></b>\n\t\t\t<div\n\t\t\t\t[innerHTML]=\"op.com\"\n\t\t\t></div>\n\t\t</div>\n\t"
         }), 
         __metadata('design:paramtypes', [])
-    ], PageComponent);
-    return PageComponent;
+    ], BoardComponent);
+    return BoardComponent;
 }());
-exports.PageComponent = PageComponent;
+exports.BoardComponent = BoardComponent;

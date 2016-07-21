@@ -1,13 +1,12 @@
-main
+pages
 	> *
 		display: none
 
-.activePage
+.active
 	z-index: 1
 	display: initial !important
 
-
-.thread 
+.thread
 	display: block
 	overflow: hidden
 
@@ -15,7 +14,7 @@ main
 	width: 100vw
 	margin: 0 auto
 	position: relative
-	top: 70px
+	top: 100px
 	.container
 		text-align: center
 		height: calc(100vh - 70px) !important
@@ -25,9 +24,8 @@ main
 	.quote
 		color: $white !important
 
-
 // Catalogue Structure
-.catalogue 
+.catalogue
 	display: inline-block
 	width: 155px
 	height: 320px
@@ -39,17 +37,17 @@ main
 	transition: box-shadow 0.3s
 	cursor: pointer
 
-	&::before 
+	&::before
 		content: ""
 		border-top: $red solid 2px
 		width: 0
 		transition: width 0.4s ease-out
 		position: relative
 
-	&:hover::before 
+	&:hover::before
 		width: 100%
 
-	img 
+	img
 		display: inline
 		min-width: 50px
 		max-width: 150px
@@ -57,15 +55,16 @@ main
 		min-height: 50px
 		max-height: 150px
 
-	.thread-count 
+	.thread-count
 		font-size: 12px
 		text-align: center
 
-	.thread-op 
+	.thread-op
 		display: block
 		padding: 0 15px
+		font-size: 12px
 
-		b.title 
+		b.title
 			display: block
 			font-family: $font-bold
 			font-weight: 500

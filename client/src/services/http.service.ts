@@ -10,14 +10,14 @@ export class HttpService{
 	constructor(public http : Http){};
 
 	get(_path, cb) {
-		_path = 'http://localhost:3000/' + _path 
+		_path = 'http://localhost:3000/' + _path
 		this.http.get(_path)
-				 .map( (res) => {
-				 	return res.json()
-				 })
-				 .subscribe(
-				 	data => cb(null, data),
-				 	err => cb(err)
-				 )
+            .map( (res) => {
+            	return res.json()
+            })
+            .subscribe(
+            	data => cb(null, data),
+            	err => cb(err)
+            )
 	}
 }
