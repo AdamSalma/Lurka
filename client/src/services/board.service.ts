@@ -5,11 +5,11 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class BoardService {
-	constructor( private _http: Http ) { };
+	constructor( public http: Http ) { };
 
-	get4chan(pagenumber: number, callback): Observable<any> {
-		return this._http.get('https://a.4cdn.org/g/catalog.json')
-			.map(res => res.json)
-	}
+	get4chan(): Observable<any> {
+		return this.http.get('https://a.4cdn.org/g/catalog.json')
+						.map( res => res.json )
+	};
 }
 
