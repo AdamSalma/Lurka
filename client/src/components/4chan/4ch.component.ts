@@ -1,68 +1,85 @@
-import { Component, AfterContentInit } from '@angular/core';
+import { Component, AfterViewInit, Input } from '@angular/core';
 import { HttpService } from '../../services/http.service';
-import { BoardComponent } from './board.component';
-import { ThreadComponent } from './thread.component';
+import { BoardComponent } from './board/board.component';
+import { ThreadComponent } from './thread/thread.component';
 
 @Component({
 	selector: 'fourchan',
 	template: `
-        <thread [thread]="thread"></thread>
+
+        <thread [thread]="content.thread"></thread>
         <div class="board">
-    		<board
-    			*ngFor="let op of ops"
-    			[op]="op"
-    			class="thread catalogue"
-                (click)="getThread(op.id)"
-    		></board>
+    		<board-thread
+    			*ngFor="let thread of content.board"
+    			[thread]="thread"
+                (click)="getThread(thread.id)"
+                class="thread catalogue"
+    		></board-thread>
         </div>
 	`,
 	directives: [BoardComponent, ThreadComponent],
 	providers: [HttpService]
 })
-export class FourChanComponent implements AfterContentInit {
-	public ops = [];
-	public thread = [];
-	public pages = {};
-	private _pageCounter = 0;
+export class FourChanComponent implements AfterViewInit {
+    @Input() user = {
+        autoload: true,
+        pageSize: 20
+    };
+    private status = {
+        threadCount: 0,  // track position in content.pages
+        board: 'g',
+        threadID: null
+    };
+    public content = {
+        pages: [],
+        board: [],
+        thread: []
+    }
+    constructor(private http: HttpService) {
+    };
 
-	private baseUrls = {
-		board: 'https://a.4cdn.org/g/catalog.json',
-		img: 'https://i.4cdn.org/g/',
-		thread:"http://boards.4chan.org/g/thread/"
-	}
-
-	constructor(private http: HttpService) { };
-	ngAfterContentInit(){
-		this.getBoard();
+	ngAfterViewInit(  ) {
+        if (this.user.autoload) this.getBoard('g');
 	};
-	getBoard(){
-		this._initStructure(15);
-		this.http.get('4chan', (error, ops) => {
+	getBoard( board:string ) {
+        this.status.board = board;
+		// this._initStructure(10);
+		this.http.get(`4chan/${board}`, (error, pages) => {
 			if (error) {
 				return this._errorHandler(error);
 			}
-			this.pages = ops;
-			this.ops = []  // remove placeholders
-			this.showNextPage()
+			this.content.pages = pages;
+			this.content.board = [];  // remove placeholders
+			this.renderThreads(2);
 		});
 	}
-    getThread($event){
-        console.log($event)
-        console.log($event.target)
+    nextBoardThread(){
+        let pp = this.status.threadCount;
+
     }
-	showNextPage(max:number = 15){
-		console.log("showNextPage");
-		let p = this.pages
-		for(let pageObj in p){
-			if (
-				p.hasOwnProperty(pageObj)
-				&& parseInt(pageObj) > this._pageCounter
-			){
-				console.log("Threads " + p)
+    getThread( threadID:string ){
+        this.status.threadID = threadID;
+        console.log('getThread()');
+        let board : string = this.status.board;
+        this.http.get(`4chan/${board}/thread/${threadID}`, (error, thread) => {
+			if (error) {
+				return this._errorHandler(error);
+			}
+            console.log('it worked!');
+			this.content.thread = thread['posts'];
+            console.log(this.content.thread);
+		});
+    }
+	renderThreads( newThreads:number = 15) {
+		console.log("renderThreads()");
+		let p = this.content.pages;
+		for (let pageObj in p) {
+			if (p.hasOwnProperty(pageObj)){
+				console.log("Threads " + p);
 				let threads = p[pageObj]['threads'];
 				for(let i=0; i < threads.length; i++){
-					if (i == max) break;
-					console.log("Creating thread "+i)
+					if (i == newThreads) break;
+					console.log("Creating thread "+i);
 					this.createThread(threads[i]);
 				}
 			}
@@ -70,31 +87,28 @@ export class FourChanComponent implements AfterContentInit {
 	}
 
 	createThread( threadObj ){
-		let b = this.baseUrls;
-		let op = {
-			id: threadObj['no'],
-			// imgid: thread['tim'],
-			// date: thread['now'],
-			threadurl: b.thread + threadObj['no'] + "/" + threadObj['semantic_url'],
-			subtitle: threadObj['sub'] || "",
-			imgsrc: b.img + threadObj['tim'] + "s.jpg",
-			imgsrclarge: b.img + threadObj['tim'] + ".jpg",
-			replyCount: threadObj['replies'],
-			imgCount: threadObj['images'],
-			com: threadObj['com']
+        console.log("createThread()");
+		let i = 'https://i.4cdn.org/g/';
+		let thread = {
+			id: threadObj['no'], imgid: threadObj['tim'],
+			date: threadObj['now'],	subtitle: threadObj['sub'] || "",
+			imgsrc: i + threadObj['tim'] + "s.jpg", com: threadObj['com'],
+            replyCount: threadObj['replies'], imgCount: threadObj['images'],
+			imgsrclarge: i + threadObj['tim'] + ".jpg"
 		}
-		this.ops.push(op)
+		this.content.board.push(thread)
 	}
 
-	private _initStructure(count){
+	private _initStructure( count:number=10 ){
 		// This could create a spinner in each thread while loading
-		this.ops = [];
-		let op = {
+		this.content.board = [];
+		let placeholder = {
+            id: "placeholder",
 			class: "thread-loading",
 			subtitle: "Loading..."
 		}
 		for(let i=0; i < count; i++){
-			this.ops.push(op);
+			this.content.board.push(placeholder);
 		}
 	}
 
