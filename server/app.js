@@ -6,19 +6,19 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var app = express();
-var router = express.Router(); 
+var router = express.Router();
 
 
 
 
 
 // uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname, '../public/imgs', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, '../dist/imgs', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 app.use('/4chan', require('./routes/4chan'));
 
@@ -26,7 +26,6 @@ app.use('/', function(req, res, next){
   res.render('index');
   res.end();
 });
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -41,7 +40,7 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
-    console.log(err.message)
+    console.log(err.message);
   });
 }
 
