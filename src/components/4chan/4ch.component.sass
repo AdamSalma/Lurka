@@ -1,74 +1,18 @@
-@import '../common/color-scheme.sass'
-@import '../common/fonts.sass'
+@import '../common/color-scheme'
 
-pages
-	> *
-		display: none
+a
+    color: #6EC4E7
+    text-decoration: none
 
-.active
-	z-index: 1
-	display: initial !important
+.quote
+    color: #66B266
+    // color: #89BA20
 
-.thread
-	display: block
-	overflow: hidden
+.postInfoM, .sideArrowsP, .sideArrows
+    display: none
 
-.board
-	width: 100vw
-	margin: 0 auto
-	position: relative
-	top: 100px
-	.container
-		text-align: center
-		height: calc(100vh - 70px) !important
-		width: 100% !important
+.name, .quotelink
+    color: $red
 
-
-	.quote
-		color: $white !important
-
-// Catalogue Structure
-.catalogue
-	display: inline-block
-	width: 155px
-	height: 320px
-	margin: 5px 10px 20px
-	padding: 5px
-	padding-bottom: 3px
-	text-align: center
-	border-radius: 4px
-	transition: box-shadow 0.3s
-	cursor: pointer
-
-	&::before
-		content: ""
-		border-top: $red solid 2px
-		width: 0
-		transition: width 0.4s ease-out
-		position: relative
-
-	&:hover::before
-		width: 100%
-
-	img
-		display: inline
-		min-width: 50px
-		max-width: 150px
-
-		min-height: 50px
-		max-height: 150px
-
-	.thread-count
-		font-size: 12px
-		text-align: center
-
-	.thread-op
-		display: block
-		padding: 0 15px
-		font-size: 12px
-
-		b.title
-			display: block
-			font-family: $font-bold
-			font-weight: 500
-			margin-bottom: 10px
+b
+    font-size: 1.1em
