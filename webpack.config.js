@@ -30,10 +30,10 @@ module.exports = {
 
     entry: {
         app: root('src/index.ts'),
-        'vendor': root('src/vendor.ts'),
+        'vendor': root('src/vendor.ts')
     },
 
-    // Config for our build files
+    // Config for build files
     output: {
         path: root('./dist'),
         filename: '[name].bundle.js',
@@ -66,8 +66,8 @@ module.exports = {
                 loader: 'raw-loader!sass-loader'
             },
             // { test: /\.scss$/, loaders: ['style', 'css', 'sass'] },
-
-            { test: /\.(woff2?|ttf|eot|svg)$/, loader: 'url?limit=10000' },
+            {test: /.(ico|png|jpg|gif|svg|eot|ttf|woff|woff2)(\?.+)?$/, loader: 'url?limit=50000'}
+            // { test: /\.(woff2?|ttf|eot|svg)$/, loader: 'url?limit=10000' },
         ]
     },
 
@@ -105,7 +105,7 @@ module.exports = {
         watchOptions: { aggregateTimeout: 300, poll: 1000 }
     },
     // we need this due to problems with es6-shim
-    node: { global: 'window', progress: false, crypto: 'empty', module: false, clearImmediate: false, setImmediate: false }
+    node: { global: 'window', progress: true, crypto: 'empty', module: false, clearImmediate: false, setImmediate: false }
 };
 
 // Helper functions
