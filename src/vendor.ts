@@ -13,6 +13,7 @@ import "@angular/common";
 import "@angular/http";
 import "@angular/router";
 
-
 // Other vendors for example jQuery, Lodash or Bootstrap
 // You can import js, ts, css, sass, ...
+
+declare function require(name: string): any;
