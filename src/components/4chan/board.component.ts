@@ -33,6 +33,7 @@ export class BoardComponent implements AfterViewInit {
         board: undefined,
         pageSize: undefined
     };
+    currentBoard = null;
 
     constructor( public http: HttpService, private _helper: HelperService ) {};
 
@@ -57,16 +58,18 @@ export class BoardComponent implements AfterViewInit {
     getBoard( board: any ) {
         console.log(`Getting /${board}/`);
         console.log(board);
-        this.settings.board = board;
+        this.currentBoard = board;
         this.http.get(`/4chan/${board}`, (error, pages) => {
             if (error) return this._helper.errorHandler(error);
             this._parsePages(pages);
         });
     }
 
-    getThread( boardID: number ): void {
+    getThread( threadID: number ): void {
         this.threadChange.emit({
-            value: boardID
+            threadID: threadID,
+            currentBoard: this.currentBoard,
+
         });
     }
 

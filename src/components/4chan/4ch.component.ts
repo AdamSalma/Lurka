@@ -6,10 +6,11 @@ import { ThreadComponent } from "./thread.component";
     selector: "fourchan",
     template: `
         <thread [threadID]="threadID"
+                [currentBoard]="currentBoard"
                 [settings]="settings"></thread>
 
         <board [settings]="settings"
-               (threadChange)="threadID = $event.value"
+               (threadChange)="handleThreadChange($event)"
                class="board"></board>
     `,
     styles: [require("./4ch.component.sass")],
@@ -19,8 +20,13 @@ export class FourChanComponent {
     @Input() settings = {
         autoload: false,
         pageSize: 20,
-        board: "g",
-        loadingThread: false
+        board: "g"
     };
     threadID = null;
+    currentBoard = null
+
+    handleThreadChange(event){
+        this.threadID = event.threadID;
+        this.currentBoard = event.currentBoard;
+    }
 }

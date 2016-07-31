@@ -3,7 +3,6 @@ import { Component, Input } from "@angular/core";
 @Component({
     selector: "thread-post",
     template: `
-        <span>Thread-Post component</span>
         <div class="post-info">
             <span *ngIf="post.sub">{{post.sub}}</span>
             <span>{{post.name}}</span>
