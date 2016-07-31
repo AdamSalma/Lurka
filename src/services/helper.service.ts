@@ -2,9 +2,14 @@ import { Injectable } from "@angular/core";
 
 @Injectable()
 export class HelperService {
-    constructor(public http: Http) {};
-
+    constructor() {};
     sanitiseHTML(html: string): string {
-        return document.createTextNode(html).data
+        console.log("Sanitizing " + html)
+        return document.createTextNode(html).data;
+    }
+
+    errorHandler(error) {
+        // Initial handling
+        console.warn(`Error happened: ${error}`);
     }
 }

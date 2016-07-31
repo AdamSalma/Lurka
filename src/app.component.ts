@@ -13,8 +13,7 @@ import { PageComponent } from "./components/pages.component";
     		<pages></pages>
         </div>
 	`,
-	directives: [PageComponent, MenuComponent],
-    styles: [require("./app.component.sass")]
+	directives: [PageComponent, MenuComponent]
 })
 
 export class AppComponent {

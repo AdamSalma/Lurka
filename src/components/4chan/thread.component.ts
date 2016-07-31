@@ -1,44 +1,59 @@
-import { Component, Input, trigger, state, style, transition, animate } from "@angular/core";
+import { Component, Input, OnChanges } from "@angular/core";
 import { SpinnerComponent } from "../common/spinner.component";
 import { ThreadPostComponent } from "./thread-post.component";
+import { HttpService } from "../../services/http.service";
+import { HelperService } from "../../services/helper.service";
 
-declare function require(name: string): any;
+import $ = require("jquery");
+console.log($);
 
 @Component({
     selector: "thread",
     template: `
-        <spinner
-            [class.active]="loadingThread"
-        ></spinner>
-        <div
-            class="background"
-            [class.fadeIn]="loadingThread"
-        ></div>
-        <div
-            class="scrollable"
-            @threadState="thread.length != 0"
-        >
-            <thread-post
-                *ngFor="let post of thread"
-                [post]="post"
-            ></thread-post>
-        </div>
+        <spinner [class.active]="loadingThread"></spinner>
+        <div class="background"
+             [class.fadeIn]="settings.loadingThread"></div>
+        <div class="thread-wrap">
+             <thread-post *ngFor="let post of thread"
+                          [post]="post"
+                          class="post"></thread-post></div>
     `,
-    directives: [ThreadPostComponent],
-    styleUrls: [],
-    animations: [
-        trigger("threadState", [
-            state("inactive", style({
-                top: "100%"
-            })),
-            state("active", style({
-                top: "0"
-            })),
-            transition("inactive => active", animate("400ms ease-in"))
-        ])
-    ]
+    styles: [require("./thread.component.sass")],
+    directives: [ThreadPostComponent, SpinnerComponent],
+    providers: [HttpService, HelperService]
 })
-export class ThreadComponent {
-    @Input() thread = {};
-    @Input() loadingThread: boolean = false;
+export class ThreadComponent implements OnChanges {
+    @Input() threadID = undefined;
+    @Input() settings = {
+        autoload: undefined,
+        board: undefined,
+        pageSize: undefined,
+        loadingThread: false
+    };
+
+    constructor( public http: HttpService, private _helper: HelperService ) {};
+    thread = [];
+
+    ngOnChanges(changes){
+        console.log("thread ngOnChanges");
+        if (changes.hasOwnProperty('threadID') && changes.threadID.currentValue){
+            console.log($);
+            console.log(`ThreadID has new value ${changes.threadID.currentValue}`)
+            console.log("Getting thread")
+            this.getThread(changes.threadID.currentValue);
+        }
+    }
+    
+    getThread( threadID: number ) {
+        console.log("getThread()");
+        if (this.threadID === undefined) return false;
+        let board: string = this.settings.board;
+        this.threadID = threadID;
+        this.http.get(`/4chan/${board}/thread/${threadID}`, (error, thread) => {
+            if (error) return this._helper.errorHandler(error);
+            this.thread = thread["posts"];
+            console.log("Thread obj:", thread);
+            console.log("Posts:", this.thread);
+        });
+    }
 }

@@ -1,18 +1,22 @@
-import { Component, Input, Output, EventEmitter, OnChanges, AfterViewInit } from "@angular/core";
+import { Component, Input, Output, EventEmitter, AfterViewInit } from "@angular/core";
+import { HttpService } from "../../services/http.service";
+import { HelperService } from "../../services/helper.service";
 import { BoardPostComponent } from "./board-post.component";
-import { HelperService } from "./../../services/helper.service";
+
+// import Velocity = require("velocity-animate");
 
 @Component({
     selector: "board",
     template: `
         <div class="board">
-            <input type="button" (click)="handleClick()" value="Click Me">
+            <input type="button" (click)="getBoard('g')" value="Get Board">
             <input type="button" (click)="createPost(1)" value="Next OP">
+            <input type="button" (click)="printModels()" value="Print Models">
             <div class="scrollMe">
                 <board-post
                     *ngFor="let thread of board"
                     [thread]="thread"
-                    (click)="getThread(thread.id)"
+                    (click)="getThread(thread.no)"
                     class="thread catalogue"
                 ></board-post>
             </div>
@@ -20,93 +24,87 @@ import { HelperService } from "./../../services/helper.service";
     `,
     styles: [require("./board.component.sass")],
     directives: [BoardPostComponent],
-    providers: [HelperService]
+    providers: [HttpService, HelperService]
 })
 export class BoardComponent implements AfterViewInit {
-    @Input()  pages = [];
-    @Input()  settings = {};
-    @Output() getBoard = new EventEmitter();
-    @Output() getThread = new EventEmitter();
-
-    constructor(public helper: HelperService) { };
-    board = [];
-    threads = [];
-
-    ngAfterViewInit() {
-        if (this.settings.autoload) this.getBoard.emit({
-            value: this.settings.board
-        });
-        // this._initStructure(10);
+    @Output() threadChange = new EventEmitter();
+    @Input()  settings = {
+        autoload: undefined,
+        board: undefined,
+        pageSize: undefined
     };
 
-    handleClick() {
-        this._parse_pages();
-        this.createPost(this.settings.pageSize);
+    constructor( public http: HttpService, private _helper: HelperService ) {};
+
+    board = [];  // visible content
+    threadStack = [];  // hidden content
+
+    printModels(){
+        console.log("Board is =>", this.board);
+        console.log("ThreadStack is =>", this.threadStack);
+    }
+    ngAfterViewInit() {
+        // console.log("Velocity is...");
+        // console.log(Velocity);
+        // console.log(Velocity(".scrollMe"));
+        // this._initStructure(10);
+        if (this.settings.autoload) {
+            this.getBoard(this.settings.board);
+            this.createPost(this.settings.pageSize);
+        }
+    };
+
+    getBoard( board: any ) {
+        console.log(`Getting /${board}/`);
+        console.log(board);
+        this.settings.board = board;
+        this.http.get(`/4chan/${board}`, (error, pages) => {
+            if (error) return this._helper.errorHandler(error);
+            this._parsePages(pages);
+        });
     }
 
-    handleGetThread( boardID: any ) {
-        this.getThread.emit({
+    getThread( boardID: number ): void {
+        this.threadChange.emit({
             value: boardID
         });
     }
-    // ngOnChanges( changes ) {
-    //     if (changes.hasOwnProperty("pages") && changes.pages.currentValue.length) {
-    //         console.log(changes)
-    //         console.log(changes.pages.currentValue)
-    //         this._parse_pages()
-    //         this.createPost(this.settings.pageSize);
-    //     }
-    // }
 
-    createPost( quantity: number ) {
+    createPost( quantity: number ): void {
         for (let i = 0; i < quantity; i++) {
-            console.log("createPost");
-            let img = "https://i.4cdn.org/g/";
-            let threadObj = this._nextPost();
-            if (!threadObj) break;
-            let thread = {
-                id: threadObj["no"],
-                imgid: threadObj["tim"],
-                date: threadObj["now"],
-                subtitle: threadObj["sub"] || "",
-                imgsrc: img + threadObj["tim"] + "s.jpg",
-                com: this.helper.sanitiseHTML(threadObj["com"]),
-                replyCount: threadObj["replies"],
-                imgCount: threadObj["images"],
-                imgsrclarge: img + threadObj["tim"] + ".jpg"
-            };
-            this.board.push(thread);
+            this.board.push(this.nextPost());
         }
     }
 
-    private _nextPost() {
-        if (this.threads.length) return this.threads.pop();
+    nextPost(): any {
+        if (this.threadStack.length) return this.threadStack.pop();
         console.log("No more posts. Requesting backup memes");
-        this.getBoard.emit({
-            value: "g"
-        });
+        return this.getBoard(this.settings.board);
     }
 
-    private _parse_pages() {
-        console.log("_parse_pages()");
-        let threadList = [];
-        for (let pageObj in this.pages) {
-            console.log(pageObj);
-            if (this.pages.hasOwnProperty(pageObj)) {
-                let threads = this.pages[pageObj]["threads"];
-                for (let i = 0; i < threads.length; i++) {
-                    threadList.push(threads[i]);
-                }
+    private _parsePages( pages: {} ) {
+        console.log("_parsePages()");
+        let img = `https://i.4cdn.org/${this.settings.board}/`;
+
+        for (let pageObj in pages) {
+            if (!pages.hasOwnProperty(pageObj)) return;
+
+            let threads = pages[pageObj]["threads"];
+            for (let i = 0; i < threads.length; i++) {
+                threads[i].imgurl = img + threads[i]["tim"];
+                this.threadStack.push(threads[i]);
             }
         }
-        this.threads = threadList;
+        console.log("threadStack is ", this.threadStack);
     }
+
     private _initStructure( count: number = 10 ) {
+        // could add spinner here
         this.board = [];
         let placeholder = {
-            id: "placeholder",
+            no: "placeholder",
             class: "thread-loading",
-            subtitle: "Loading..."
+            sub: "Loading..."
         };
         for (let i = 0; i < count; i++) {
             this.board.push(placeholder);

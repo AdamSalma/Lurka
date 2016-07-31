@@ -81,14 +81,6 @@ module.exports = {
                 'ENV': JSON.stringify(metadata.ENV),
                 'NODE_ENV': JSON.stringify(metadata.ENV)
             }
-        }),
-        // jQuery, Tether
-        new ProvidePlugin({
-            jQuery: 'jquery',
-            $: 'jquery',
-            jquery: 'jquery',
-            "Tether": 'tether',
-            "window.Tether": "tether"
         })
     ],
 
