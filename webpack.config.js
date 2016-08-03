@@ -83,11 +83,11 @@ module.exports = {
                 'NODE_ENV': JSON.stringify(metadata.ENV)
             }
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        })
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         warnings: false
+        //     }
+        // })
     ],
 
     // Other module loader config

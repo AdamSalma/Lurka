@@ -45,14 +45,7 @@ export class BoardComponent implements AfterViewInit {
         console.log("ThreadStack is =>", this.threadStack);
     }
     ngAfterViewInit() {
-        // console.log("Velocity is...");
-        // console.log(Velocity);
-        // console.log(Velocity(".scrollMe"));
-        // this._initStructure(10);
-        if (this.settings.autoload) {
-            this.getBoard(this.settings.board);
-            this.createPost(this.settings.pageSize);
-        }
+        this.getBoard(this.settings.board);
     };
 
     getBoard( board: any ) {
@@ -62,14 +55,18 @@ export class BoardComponent implements AfterViewInit {
         this.http.get(`/4chan/${board}`, (error, pages) => {
             if (error) return this._helper.errorHandler(error);
             this._parsePages(pages);
+            if (this.settings.autoload) {
+                this.emptyBoard()  // clears placeholders
+                this.createPost(this.settings.pageSize);
+            }
         });
     }
 
     getThread( threadID: number ): void {
+        if (threadID === 0) return;
         this.threadChange.emit({
             threadID: threadID,
             currentBoard: this.currentBoard,
-
         });
     }
 
@@ -83,6 +80,10 @@ export class BoardComponent implements AfterViewInit {
         if (this.threadStack.length) return this.threadStack.pop();
         console.log("No more posts. Requesting backup memes");
         return this.getBoard(this.settings.board);
+    }
+
+    emptyBoard(): void {
+        this.board = [];
     }
 
     private _parsePages( pages: {} ) {
@@ -105,9 +106,9 @@ export class BoardComponent implements AfterViewInit {
         // could add spinner here
         this.board = [];
         let placeholder = {
-            no: "placeholder",
+            no: 0,
             class: "thread-loading",
-            sub: "Loading..."
+            com: "Loading..."
         };
         for (let i = 0; i < count; i++) {
             this.board.push(placeholder);

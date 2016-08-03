@@ -4,18 +4,16 @@ import { ThreadPostComponent } from "./thread-post.component";
 import { HttpService } from "../../services/http.service";
 import { HelperService } from "../../services/helper.service";
 
-import $ = require("jquery");
-console.log($);
+import $ = require("velocity-animate");
 
 @Component({
     selector: "thread",
     template: `
-        <spinner class="spinner" [class.active]="loadingThread"></spinner>
+        <spinner [isSpinning]="loadingThread"></spinner>
         <div class="background"
              [class.active]="loadingThread"
              (click)="closeThread()"></div>
-        <div
-            class="thread-wrap"
+        <div class="thread-wrap"
             [class.active]="loadingThread">
 
             <div class="thread">
@@ -47,9 +45,8 @@ export class ThreadComponent implements OnChanges {
     ngOnChanges(changes){
         console.log("thread ngOnChanges");
         if (changes.hasOwnProperty('threadID') && changes.threadID.currentValue){
-            console.log($);
-            console.log(`ThreadID has new value ${changes.threadID.currentValue}`)
-            console.log("Getting thread")
+            // console.log($(document.querySelector('.thread'), { opacity: 0.2 }));
+            // console.log(`ThreadID has new value ${changes.threadID.currentValue}`)
             this.getThread(changes.threadID.currentValue);
         }
     }
@@ -65,11 +62,23 @@ export class ThreadComponent implements OnChanges {
             console.log("Thread obj:", thread);
             console.log("Posts:", this.thread);
             this.loadingThread = true;
+            this.animateThread(true)
         });
     }
 
     closeThread() {
         this.loadingThread = false;
         this.thread = [];
+        this.animateThread(false)
+    }
+
+    animateThread(in_out: boolean){
+        console.log("Starting thread animation")
+        $(document.querySelector('.thread-wrap'), {
+            top: in_out ? "0" : "100%"
+        }, {
+            duration: in_out ? 750 : 400,
+            easing: [0.215, 0.61, 0.355, 1]
+		})
     }
 }

@@ -18,14 +18,14 @@ import { ThreadComponent } from "./thread.component";
 })
 export class FourChanComponent {
     @Input() settings = {
-        autoload: false,
+        autoload: true,
         pageSize: 20,
         board: "g"
     };
     threadID = null;
     currentBoard = null
 
-    handleThreadChange(event){
+    handleThreadChange( event ) {
         this.threadID = event.threadID;
         this.currentBoard = event.currentBoard;
     }

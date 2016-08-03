@@ -15,7 +15,6 @@ import "@angular/router";
 
 // Other vendors for example jQuery, Lodash or Bootstrap
 // You can import js, ts, css, sass, ...
-import "velocity-animate"
 // Velocity.js
 // import "jquery";
 declare function require(name: string): any;
