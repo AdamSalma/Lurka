@@ -1,13 +1,17 @@
 # Logs
 logs
 *.log
-npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# node-waf configuration
+.lock-wscript
 
 # Dependency directory
 node_modules
 
-# Typings
-typings
-
-# distribution folder
-dist/
+# Ignore build files
+dist
