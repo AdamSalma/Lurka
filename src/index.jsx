@@ -1,4 +1,6 @@
-import "./index.scss"
+import "./styles/vendor/neutron/_neutron.scss";
+import "./index.scss";
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
