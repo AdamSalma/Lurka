@@ -1,47 +1,18 @@
 import React from 'react';
-import Notes from './Notes';
-import idGen from './idGen';
+import ReactDOM from 'react';
+import { Router, Route, IndexRoute, hashHistory } from "react-router";
 
-export class App extends React.Component {
-    constructor(){
-        super()
-        this.addNote = this.addNote.bind(this);
-        this.deleteNote = this.deleteNote.bind(this);
-        this.state = {
-            notes: [
-                {
-                    id: idGen(),
-                    task: `Original Task`
-                }
-            ]
-        }
-    }
+import { Dashboard } from '../pages/Dashboard';
+import { MemeViewer } from '../pages/MemeViewer';
+import { Settings } from '../pages/Settings';
 
+export default class App extends React.Component {
 	render() {
-        const {notes} = this.state
-        return (
-            <div>
-                <button onClick={this.addNote}>+</button>
-                <Notes notes={notes} onDelete={this.deleteNote}/>
-            </div>
-        )
+        <Router history={hashHistory}>
+            <Route path="/" component={Dashboard}>
+                <Route path="memes" component={MemeViewer}></Route>
+                <Route path="settings " component={Settings}></Route>
+            </Route>
+        </Router>
     }
-
-    addNote() {
-        this.setState({
-            notes: this.state.notes.concat([{
-                id: idGen(),
-                task: 'New task'
-            }])
-        });
-    }
-
-    deleteNote( id, e ) {
-        e.stopPropagation();
-        this.setState({
-            notes: this.state.notes.filter(note => note.id !== id)
-        })
-    }
-
-
 }
