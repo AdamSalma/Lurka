@@ -1,15 +1,23 @@
 import React from "react";
 import { Link } from "react-router";
+import Board from "../components/Board"
+import Thread from "../components/Thread"
+import Header from "../components/Header"
+import Footer from "../components/Footer"
 
 export default class MemeViewer extends React.Component {
+    constructor() {
+        super()
+    }
+
     render() {
         return (
             <div>
-                <ul>
-                    <li><Link to="home">Home</Link></li>
-                    <li><Link to="settings">Settings</Link></li>
-                </ul>
-                <h1>MemeViewer Page</h1>
+                <div className="MemeViewer">
+                    <h1>MemeViewer Page</h1>
+                    <Board/>
+                    <Thread/>
+                </div>
             </div>
         )
     }

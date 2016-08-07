@@ -6,10 +6,11 @@ export default class Settings extends React.Component {
         return (
             <div>
                 <ul>
-                    <li><Link to="memes">Memes</Link></li>
-                    <li><Link to="settings">Settings</Link></li>
+                    <li><Link to="/memes">Memes</Link></li>
+                    <li><Link to="/">Dashboard</Link></li>
                 </ul>
-                <h1>Home Page</h1>
+                <h1>Settings Page</h1>
+                {this.props.children}
             </div>
         )
     }
