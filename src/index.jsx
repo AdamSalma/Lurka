@@ -1,4 +1,3 @@
-import "./styles/vendor/neutron/_neutron.scss";
 import "./index.scss";
 
 import React from 'react';

@@ -1,7 +1,18 @@
-Header
+nav
     height: 50px
-    width: 100%
-    background-color: $white
+    width: 100vw
+    background-color: $grey
+    position: fixed
+    margin: 0
 
-    h1
-        color: $green
+    ul
+        margin-top: 10px
+        @include columns(1)
+        @include breakpoint(from-tablet)
+            @include columns(3)
+
+        li
+            list-style: none
+            text-align: center
+            color: $white !important
+            text-decoration: none !important

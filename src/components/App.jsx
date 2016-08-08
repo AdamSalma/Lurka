@@ -11,17 +11,18 @@ import Settings from '../pages/Settings';
 // var FetchStream = require("fetch").FetchStream
 
 export default class App extends React.Component {
-    componentDidMount(){
+    test_something_kewl(){
         console.warn("Started");
         // let out = fs.createWriteStream('file.html');
-        // new FetchStream("http://www.example.com/index.php")
+        // new FetchStream("http://www.example.com/index.php");
         console.warn("Wrote file");
     }
 	render() {
+        this.test_something_kewl();
         return (
             <Router history={hashHistory}>
                 <Route path="/" component={Layout}>
-                    <Route path="dashboard" component={Dashboard}></Route>
+                    <IndexRoute component={Dashboard}></IndexRoute>
                     <Route path="memes" component={MemeViewer}></Route>
                     <Route path="settings" component={Settings}></Route>
                 </Route>
