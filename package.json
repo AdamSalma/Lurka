@@ -1,14 +1,19 @@
 {
+  "author": "Adam Salma <adam3salma@gmail.com>",
   "name": "Memescape",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Messaging board viewer and scraper.",
   "node-main": "./server/bin/www",
   "main": "http://localhost:3000",
   "scripts": {
     "start": "set NODE_ENV=production&& nodewebkit",
     "dev": "./node_modules/.bin/nodemon ./server/bin/www",
-    "browser": "set NODE_ENV=production&& nodemon ./server/bin/www",
     "build": "webpack -p --config webpack.production.config.js --progress --profile --colors"
+  },
+  "window": {
+    "toolbar": true,
+    "width": 1200,
+    "height": 800
   },
   "repository": {
     "type": "git",
@@ -21,7 +26,6 @@
     "Memes",
     "Viewer"
   ],
-  "author": "Adam Salma",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/AdamSalma/MemeScape/issues"
