@@ -5,8 +5,9 @@
   "node-main": "./server/bin/www",
   "main": "http://localhost:3000",
   "scripts": {
-    "start": "NODE_ENV=production nodewebkit",
+    "start": "set NODE_ENV=production&& nodewebkit",
     "dev": "./node_modules/.bin/nodemon ./server/bin/www",
+    "browser": "set NODE_ENV=production&& nodemon ./server/bin/www",
     "build": "webpack -p --config webpack.production.config.js --progress --profile --colors"
   },
   "repository": {
@@ -42,6 +43,7 @@
     "json5-loader": "^0.6.0",
     "jsx-loader": "^0.13.2",
     "node-libs-browser": "1.0.0",
+    "nodewebkit": "^0.11.6",
     "react": "15.3.0",
     "react-addons-perf": "^15.3.0",
     "react-dom": "15.3.0",
