@@ -24,11 +24,11 @@ function errorHandler(err, res){
     console.log('\n\n');
 }
 
-router.get('/:board', function(req, res){
+router.get('/:boardID', function(req, res){
+    var boardID = req.params.boardID;
     console.log('Reached board');
-    var board = req.params.board;
-	console.log("Getting board /" +board+ "/");
-    requestOpts.url = 'https://a.4cdn.org/' +board+ '/catalog.json';
+
+    requestOpts.url = 'https://a.4cdn.org/' +boardID+ '/catalog.json';
 	request(requestOpts, function(err, res2, json){
         if (err) return errorHandler(err, res2);
         res.send(json);
@@ -36,19 +36,18 @@ router.get('/:board', function(req, res){
     });
 });
 
-router.get('/:board/thread/:threadID', function(req, res, next){
-    console.log('Reached thread');
-    var board = req.params.board;
-    var id = req.params.threadID;
-    requestOpts.url = 'http://a.4cdn.org/'+board+'/thread/'+id+'.json';
-    console.log('Getting thread  url ' + requestOpts.url);
+router.get('/:board/:threadID', function(req, res, next){
+    var boardID = req.params.boardID;
+    var threadID = req.params.threadID;
+    console.log('Reached thread ' +boardID+ '/' +threadID);
+
+    requestOpts.url = 'http://a.4cdn.org/'+boardID+'/thread/'+threadID+'.json';
+    requestOpts.headers['Origin'] = 'http://boards.4chan.org/' +boardID,
     request(requestOpts, function(err, res2, json){
         if (err) return errorHandler(err, res2);
         res.send(json);
         res.end();
     });
 });
-
-console.log('Reached bottom');
 
 module.exports = router;
