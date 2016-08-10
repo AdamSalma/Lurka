@@ -6,7 +6,7 @@
   "node-main": "./server/bin/www",
   "main": "http://localhost:3000",
   "scripts": {
-    "start": "set NODE_ENV=production&& nodewebkit",
+    "start": "set NODE_ENV=production&& node_modules/.bin/nodewebkit",
     "dev": "./node_modules/.bin/nodemon ./server/bin/www",
     "build": "webpack -p --config webpack.production.config.js --progress --profile --colors"
   },
@@ -60,6 +60,7 @@
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "uuid": "^2.0.2",
+    "velocity-animate": "^1.2.3",
     "webpack": "1.13.1"
   },
   "devDependencies": {
