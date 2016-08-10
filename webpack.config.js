@@ -21,7 +21,7 @@ module.exports = {
 		filename: 'app.bundle.js'
 	},
 	resolve: {
-		extensions: ['', '.js', '.jsx', 'css', 'scss', 'sass']
+		extensions: ['', '.js', '.jsx', '.css', '.scss', '.sass']
 	},
 	module: {
 		loaders
