@@ -3,7 +3,7 @@
     $remSize: $size / 16px
     @return $remSize * 1rem
 
-@mixin font-size($size)
+=font-size($size)
     font-size: $size
     font-size: calculateRem($size)
 
@@ -17,7 +17,7 @@
 	top: 0
 	bottom: 0
 
-@mixin center($width, $height)
+=center($width, $height)
 	width: $width
 	height: $height
 	position: absolute
@@ -25,14 +25,26 @@
 	@extend %cenH
 	@extend %cenV
 
-@mixin center-horizontal($width)
+=center-horizontal($width)
 	width: $width
 	position: absolute
 	margin: 0 auto
 	@extend %cenH
 
-@mixin center-vertical($height)
+=center-vertical($height)
 	height: $height
-	position: absolute
-	margin: auto 0
-	@extend %cenV
+	position: relative
+	transform: translateY(-50%)
+
+=limit-width($max, $min)
+    max-width: $max
+    min-width: $min
+
+
+=limit-height($max, $min)
+    max-height: $max
+    min-height: $min
+
+=set-dims($w, $h)
+    width: $w
+    height: $h

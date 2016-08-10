@@ -1,16 +1,14 @@
 @import "./_typography"
 @import "./_mixins"
+@import "./_variables"
 
 body
-    background-color: $black !important
+    background-color: $grey !important
     color: $white
     font-family: $font-alt
     font-family: $font-main
     font-family: $font-alt2
-
-    #app
-        @include center(100vw, 100vh)
-        background-color: $green
+    overflow-x: hidden
 
 .container
     padding: 20px

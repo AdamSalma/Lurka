@@ -1,0 +1,29 @@
+.post
+    font-family: $font-alt
+    +font-size(13.5px)
+    +set-dims($thread-width, $thread-height)
+    overflow: hidden
+    display: inline-block
+    margin: 5px 10px 20px
+    padding: 5px
+    padding-bottom: 3px
+    text-align: center
+    border-radius: 4px
+    cursor: pointer
+
+    img
+        display: inline
+        +limit-width(150px, 50px)
+        +limit-height(150px, 50px)
+
+    .thread-count
+        text-align: center
+
+    .thread-op
+        display: block
+        padding: 0 15px
+
+    b.title
+        display: block
+        font-weight: 500
+        margin-bottom: 10px
