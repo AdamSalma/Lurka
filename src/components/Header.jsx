@@ -8,27 +8,16 @@ console.log(classNames)
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
-        console.log(this);
-        console.log(this.key);
         this.state = {
             isNavbarVisible: true,
             activeLink: 0
         }
-        this.makeActiveLink.bind(this, this.props);
-    }
-
-    componentDidMount() {
-        console.log("componentWillMount")
-        const { navbar } = this.refs;
-        var lis = navbar.children[0].children
-        console.log(lis)
-        lis.map( li => {
-            li.classList.remove('active')
-        })
+        // this.makeActiveLink.bind(this);
+        // this.makeUnactiveAll.bind(this);
     }
 
     render() {
+        console.log("Header rendered")
         const { activeLink } = this.state;
 
         return (
@@ -55,10 +44,18 @@ export default class Header extends React.Component {
     }
 
     makeActiveLink( e ) {
+        this.makeUnactiveAll()
+        // add to current
         const { classList } = e.target;
-        console.log('e is', e);
-        console.warn(this);
         if (classList.contains('active')) return classList.remove('active');
         classList.add('active')
+    }
+
+    makeUnactiveAll( ) {
+        const { navbar } = this.refs;
+        var lis = navbar.children[0].children
+        for (let i = 0; i<lis.length; i++) {
+            lis[i].classList.remove('active')
+        }
     }
 }

@@ -1,5 +1,7 @@
 import React from 'react';
+
 import ThreadPost from './BoardPost';
+import Background from './Background';
 
 export default class Thread extends React.Component {
     constructor() {
@@ -7,8 +9,24 @@ export default class Thread extends React.Component {
     }
 
     render() {
+        const { isLoading, thread } = this.state
         return (
-            <h3>Thread</h3>
+            <div>
+                <Spinner isSpinning={isLoading} />
+                <Background
+                    className={"background " + isLoading ? "on" : "off"}
+                    onThreadClose={this.onThreadClose}/>
+
+                <div className={"thread-wrap"}>
+                    <div className={"thread"}>{
+                        thread.map( post => {
+                            <ThreadPost post={post}/>
+                    })}</div>
+                </div>
+            </div>
         )
     }
+
+    onThreadClose() {}
+    toggleSpinner() {}
 }

@@ -5,12 +5,14 @@ var app = express();
 var router = express.Router();
 
 // If env is development, use webpack hot reloading
-if (process.env.NODE_ENV !== 'production') {
+var env = process.env.NODE_ENV
+if (!env || env === 'dev' || env === 'development') {
     console.log('DEVOLOPMENT ENVIRONMENT: Turning on WebPack Middleware...');
     require('./index.dev.js').useWebpackMiddleware(app);
 } else {
     console.log('PRODUCTION ENVIRONMENT');
-    app.use('/', express.static(__dirname + '/dist'));
+    app.use(express.static(path.join(__dirname, '../dist')));
+    console.log('PRODUCTION ENVIRONMENT 2');
     // TODO - Uncomment this when ready
     // app.use(favicon(path.join(__dirname, '../dist/imgs', 'favicon.ico')));
 }

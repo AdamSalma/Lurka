@@ -6,11 +6,11 @@ function unescapeHTML(html) {
     return escapeEl.textContent;
 }
 
-export default ({ post }) => {
-    const {id, title, comment, date, imgsrc, replies} = post
+export default ({ post, onThreadRequest }) => {
+    const {id, title, comment, date, imgsrc, replies} = post;
 
     return (
-        <div className="post fade-overflow">
+        <div className="post fade-overflow" onClick={onThreadRequest.bind(null, id)}>
             <img src={imgsrc.sm} />
             <div className="thread-count">
                 R: <b>{replies.textCount}</b>

@@ -9,14 +9,15 @@ export default class MemeViewer extends React.Component {
     constructor(props) {
         super(props);
 
-        this.requestBoard.bind(this);
-        // this.onThreadRequest.bind(this);
+        this.requestBoard = this.requestBoard.bind(this);
+        this.onThreadRequest = this.onThreadRequest.bind(this);
 
         this.state = {
             provider: "4chan",
             threads: [],
             thread: [],
-            board: "g"
+            boardID: "g",
+            atTop: true
         }
     }
 
@@ -25,7 +26,7 @@ export default class MemeViewer extends React.Component {
     }
 
     render() {
-        const { provider, threads, thread } = this.state;
+        const { provider, threads, thread, atTop } = this.state;
         return (
             <div ref="board" className={"board " + provider}>
                 <Board threads={ threads } onThreadRequest={this.onThreadRequest}/>
@@ -52,6 +53,9 @@ export default class MemeViewer extends React.Component {
         Axios.get(`/${provider}/${boardID}/${threadID}`).then( thread => {
             console.log("Thread success!");
             console.log(thread);
+            this.setState({
+                thread: board.data
+            });
         }).catch( err => console.error(err) );
     }
 }
