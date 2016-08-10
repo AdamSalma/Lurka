@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default ({ isSpinning }) => (
-    <div className={"spinner " + isLoading ? "active" : ""}></div>
+    <div className={"spinner " + isSpinning ? "active" : ""}></div>
 )
