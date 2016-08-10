@@ -32,7 +32,7 @@ router.get('/:boardID', function(req, res){
     });
 });
 
-router.get('/:board/:threadID', function(req, res, next){
+router.get('/:boardID/:threadID', function(req, res, next){
     var boardID = req.params.boardID;
     var threadID = req.params.threadID;
     console.log('Reached thread ' +boardID+ '/' +threadID);
