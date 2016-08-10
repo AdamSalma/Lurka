@@ -1,30 +1,33 @@
 import React from "react";
+import Axios from "axios";
 
 import Board from "../components/Board";
 import Thread from "../components/Thread";
+
 
 export default class MemeViewer extends React.Component {
     constructor(props) {
         super(props);
 
         this.requestBoard.bind(this);
-        this.onThreadRequest.bind(this);
+        // this.onThreadRequest.bind(this);
 
         this.state = {
             provider: "4chan",
-            threads: {},
-            thread: {},
+            threads: [],
+            thread: [],
             board: "g"
         }
     }
 
-    render() {
-        const { provider, thread, threads } = this.state;
-        return (
-            <div className={provider}>
-                <button onClick={this.requestBoard.bind(null, "g")}>
+    componentWillMount() {
+        this.requestBoard('g');
+    }
 
-                </button>
+    render() {
+        const { provider, threads, thread } = this.state;
+        return (
+            <div ref="board" className={"board " + provider}>
                 <Board threads={ threads } onThreadRequest={this.onThreadRequest}/>
                 <Thread thread={ thread }/>
             </div>
@@ -32,8 +35,8 @@ export default class MemeViewer extends React.Component {
     }
 
     requestBoard( boardID ) {
-        const { provider } = this.props;
-        axios.get(`/${provider}/${boardID}`).then( board => {
+        const { provider } = this.state;
+        Axios.get(`/${provider}/${boardID}`).then( board => {
             console.log("Board success!");
             console.log(board);
             this.setState({
@@ -44,8 +47,9 @@ export default class MemeViewer extends React.Component {
     }
 
     onThreadRequest( threadID ) {
+        console.log(`getting thread ${threadID}`)
         const { provider, boardID } = this.state;
-        axios.get(`/${provider}/${boardID}/${threadID}`).then( thread => {
+        Axios.get(`/${provider}/${boardID}/${threadID}`).then( thread => {
             console.log("Thread success!");
             console.log(thread);
         }).catch( err => console.error(err) );

@@ -12,7 +12,7 @@ export default class MemeViewer extends React.Component {
     render() {
         return (
             <div>
-                <Header/>
+                <Header className="header"/>
                 {this.props.children}
                 <Footer/>
             </div>

@@ -5,40 +5,45 @@ import uuid from 'uuid';
 // console.log(request);
 
 import velocity from 'velocity-animate';
-console.log(velocity);
-
-
-// var request = require("request")
-
 
 export default class Board extends React.Component {
-    constructor() {
-        super();
-        this.requestThread.bind(this);
+    constructor(props) {
+        super(props);
         this.state = {
-            posts: [{
-                id: uuid.v4(),
-                task: "task123"
-            },{
-                id: uuid.v4(),
-                task: "task123"
-            }]
+            threads: []
         }
     }
 
-    render() {
-        const {posts} = this.state;
-        return (
-            <div>{posts.map( post =>
-                <BoardPost
-                    key={post.id}
-                    onClick={this.requestThread}
-                    post={post}/>
-            )}</div>
-        )
+    componentWillReceiveProps( nextProps ) {
+        console.log("Next props");
+        console.log(nextProps);
+        var limit = 10;
+        var threads = []
+        while (limit--) {
+            threads.push(nextProps.threads[9-limit])
+        }
+
+        this.setState({
+            threads: threads
+        });
+
     }
 
-    requestThread() {
+    render() {
+        const { threads } = this.state;
+        const { onThreadRequest } = this.props;
 
+        return (
+            <div className="view">{threads.map( thread => {
+                console.log(thread);
+                let { id } = thread
+                return (
+                    <BoardPost
+                        key={id}
+                        onClick={onThreadRequest.bind(null, id)}
+                        post={thread}/>
+                )
+            })}</div>
+        )
     }
 }

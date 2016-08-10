@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-var request = require('request');
+var request = require('request'); // TODO - replace request with axios
+var boardMorph = require('../helpers/board_morph.js')
+
 var baseUrls = {
     board: 'https://a.4cdn.org/g/catalog.json',
     img: 'https://i.4cdn.org/g/',
@@ -17,13 +19,6 @@ var requestOpts = {
     }
 }
 
-function errorHandler(err, res){
-    console.log('\n\n')
-    console.error("Couldn't get url. " + res.statusCode
-                + " from " + errorHandler.caller.toString());
-    console.log('\n\n');
-}
-
 router.get('/:boardID', function(req, res){
     var boardID = req.params.boardID;
     console.log('Reached board');
@@ -31,7 +26,8 @@ router.get('/:boardID', function(req, res){
     requestOpts.url = 'https://a.4cdn.org/' +boardID+ '/catalog.json';
 	request(requestOpts, function(err, res2, json){
         if (err) return errorHandler(err, res2);
-        res.send(json);
+        data = boardMorph.chan(JSON.parse(json), boardID)
+        res.send(data);
         res.end();
     });
 });
@@ -49,5 +45,12 @@ router.get('/:board/:threadID', function(req, res, next){
         res.end();
     });
 });
+
+function errorHandler(err, res){
+    console.log('\n\n')
+    console.error("Couldn't get url. " + res.statusCode
+                + " from " + errorHandler.caller.toString());
+    console.log('\n\n');
+}
 
 module.exports = router;
