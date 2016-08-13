@@ -1,32 +1,44 @@
 import React from 'react';
 
 import ThreadPost from './BoardPost';
-import Background from './Background';
 
 export default class Thread extends React.Component {
     constructor() {
         super();
+        this.state = {
+            thread: []
+        }
+    }
+
+    // componentWillReceiveProps(nextProps) {
+    //     console.log("Thread received nextProps");
+    //     console.log(nextProps);
+    //     const { thread } = nextProps
+    //     if ( !nextProps.thread ) return false;
+    //     if
+    //     this.setState({
+    //         thread: nextProps.data.posts
+    //     })
+    // }
+
+    shouldComponentUpdate() {
+        console.log(`Should thread update? ${!!this.props.thread}`)
+        if (!this.props.thread.length) return false
+        return true
     }
 
     render() {
+        console.log("Render Thread");
         const { isLoading, thread } = this.state
+        console.log(isLoading, thread);
         return (
-            <div>
-                <Spinner isSpinning={isLoading} />
-                <Background
-                    className={"background " + isLoading ? "on" : "off"}
-                    onThreadClose={this.onThreadClose}/>
-
-                <div className={"thread-wrap"}>
-                    <div className={"thread"}>{
-                        thread.map( post => {
-                            <ThreadPost post={post}/>
-                    })}</div>
-                </div>
+            <div className={"thread-wrap"}>
+                <div className={"thread"}>{
+                    thread.map( post => {
+                        <ThreadPost post={post}/>
+                    })
+                }</div>
             </div>
         )
     }
-
-    onThreadClose() {}
-    toggleSpinner() {}
 }

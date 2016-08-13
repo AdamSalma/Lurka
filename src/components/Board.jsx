@@ -7,15 +7,12 @@ import uuid from 'uuid';
 import velocity from 'velocity-animate';
 
 export default class Board extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            threads: []
+            threads: [],
+            viewType: props.viewType || "grid"
         }
-    }
-    shouldComponentUpdate(props) {
-        console.log("should board update?", props);
-        return !this.state.threads.length
     }
 
     componentWillReceiveProps( nextProps ) {
@@ -38,15 +35,16 @@ export default class Board extends React.Component {
         const { onThreadRequest } = this.props;
 
         return (
-            <div className={"board " + viewType}>{threads.map( thread => {
-                console.log(thread);
-                let { id } = thread
-                return (
-                    <BoardPost
-                        key={id}
-                        onThreadRequest={onThreadRequest}
-                        post={thread}/>
-                )
+            <div className={"board " + viewType}>{
+                threads.map( thread => {
+                    console.log(thread);
+                    let { id } = thread
+                    return (
+                        <BoardPost
+                            key={id}
+                            onThreadRequest={onThreadRequest}
+                            post={thread}/>
+                    )
             })}</div>
         )
     }

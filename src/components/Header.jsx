@@ -12,8 +12,8 @@ export default class Header extends React.Component {
             isNavbarVisible: true,
             activeLink: 0
         }
-        // this.makeActiveLink.bind(this);
-        // this.makeUnactiveAll.bind(this);
+        this.makeActiveLink = this.makeActiveLink.bind(this);
+        this.makeUnactiveAll = this.makeUnactiveAll.bind(this);
     }
 
     render() {
