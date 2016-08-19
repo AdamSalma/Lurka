@@ -2,15 +2,13 @@ import React from 'react';
 import ReactDOM from 'react';
 import { Router, Route, IndexRoute, hashHistory } from "react-router";
 
-import Dashboard from '../pages/Dashboard';
-import Layout from '../pages/Layout';
-import MemeViewer from '../pages/MemeViewer';
-import Settings from '../pages/Settings';
+import '../index.scss';
+import Dashboard from './Dashboard';
+import Layout from './Layout';
+import MemeViewer from './MemeViewer';
+import Settings from './Settings';
 
 export default class App extends React.Component {
-    componentWillMount(){
-        console.warn("Started");
-    }
 	render() {
         return (
             <Router history={hashHistory}>

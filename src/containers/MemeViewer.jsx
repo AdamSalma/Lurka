@@ -38,7 +38,7 @@ export default class MemeViewer extends React.Component {
     }
 
     componentDidMount() {
-        console.log(document)
+        console.log("Memeviewer mounted")
     }
     render() {
         window.memeState = this.state

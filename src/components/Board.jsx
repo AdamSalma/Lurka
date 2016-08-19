@@ -3,49 +3,51 @@ import BoardPost from './BoardPost';
 import uuid from 'uuid';
 // import request from 'request';
 // console.log(request);
+import { testAction } from '../actions/MemeActions';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import velocity from 'velocity-animate';
 
-export default class Board extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            threads: [],
-            viewType: props.viewType || "grid"
-        }
+class Board extends React.Component {
+    componentWillMount() {
+        this.props.testAction()
     }
 
-    componentWillReceiveProps( nextProps ) {
-        console.log("Next props");
-        console.log(nextProps);
-        var limit = 30;
-        var threads = []
-        while (limit--) {
-            threads.push(nextProps.threads[19-limit])
-        }
-
-        this.setState({
-            threads: threads,
+    createThreads() {
+        const { onThreadRequest, board, viewType } = this.props;
+        return board.items.map( thread => {
+            return (
+                <BoardPost
+                    key={thread.id}
+                    onThreadRequest={onThreadRequest}
+                    post={thread}/>
+            );
         });
-
     }
 
     render() {
-        const { threads, viewType } = this.state;
-        const { onThreadRequest } = this.props;
-
         return (
-            <div className={"board " + viewType}>{
-                threads.map( thread => {
-                    console.log(thread);
-                    let { id } = thread
-                    return (
-                        <BoardPost
-                            key={id}
-                            onThreadRequest={onThreadRequest}
-                            post={thread}/>
-                    )
-            })}</div>
-        )
+            <div className={"board"}>{
+                this.createThreads()
+            }</div>
+        );
     }
 }
+
+function mapStateToProps(state) {
+    console.log("Mapping state to props. state is underneath:");
+    console.log(state);
+
+    return {
+        board: state.board
+    }
+}
+
+function matchDispatchToProps(dispatch) {
+    console.log("dispatching board action");
+
+    return bindActionCreators({testAction}, dispatch)
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(Board)

@@ -1,7 +1,16 @@
-import "./index.scss";
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App';
+import { Provider } from 'react-redux';
 
-ReactDOM.render(<App/>, document.querySelector("#myApp"));
+import App from './containers/App';
+import configureStore from './store';
+
+const store = configureStore()
+console.log(store.getState())
+
+ReactDOM.render(
+    <Provider store={store}>
+        <App/>
+    </Provider>,
+    document.querySelector('#App')
+);
