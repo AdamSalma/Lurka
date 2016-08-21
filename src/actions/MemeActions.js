@@ -1,6 +1,8 @@
 import {
-    TEST, BOARD_CREATE
+    BOARD_REQUEST, BOARD_LOADED, BOARD_DESTROY,
+    THREAD_REQUEST, THREAD_LOADED, THREAD_DESTROY
 } from '../constants';
+import Axios from 'axios';
 
 // export function selectProvider(provider) {
 //   return {
@@ -8,25 +10,58 @@ import {
 //     provider
 //   }
 // }
-export const testAction = (testee) => {
-    console.log("Test action")
+
+/**
+ * Creators
+**/
+function createBoard(id=1) {
     return {
-        type: TEST,
-        payload: testee || "hello darkness my old friend"
+        type: BOARD_REQUEST,
+        id: id
     }
 }
 
-// export function requestBoard(boardID) {
-//     return dispatch => {
-//         console.log("Requested board using Action")
-//         return {
-//             type: REQUEST_BOARD,
-//             board: "board_url_here"
-//         }
-//     }
-// }
+/**
+ * Receivers
+**/
+function receiveBoard(board){
+    console.log(board)
+    return {
+        type: BOARD_LOADED,
+        payload: board.data
+    }
+}
 
-//
+function receiveThread(thread){
+    console.info("Recieved thread:", thread)
+    return {
+        type: THREAD_LOADED,
+        payload: thread.data
+    }
+}
+
+/**
+ * Fetchers
+**/
+export const fetchBoard = ({ provider, boardID }) => {
+    console.log("Action FetchBoard()")
+    return dispatch => {
+        dispatch(createBoard())
+        return Axios.get(`/${provider}/${boardID}`)
+            .then(data => dispatch(receiveBoard(data)))
+            // .catch( e => console.error(e))
+    }
+}
+
+export const fetchThread = ({ provider, boardID, threadID }) => {
+    console.log("Action FetchThread()")
+    return dispatch => {
+        return Axios.get(`/${provider}/${boardID}/${threadID}`)
+            .then(data => dispatch(receiveThread(data)))
+            // .catch( e => console.error(e))
+    }
+}
+
 // function requestPosts(reddit) {
 //   return {
 //     type: REQUEST_POSTS,
