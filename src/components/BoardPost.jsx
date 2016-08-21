@@ -1,20 +1,45 @@
 import React from 'react';
 
-export default ( me ) => {
-    console.error(me)
-    const {id, title, comment, date, imgsrc, replies} = thread;
+import { fetchThread } from '../actions/MemeActions';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-    return (
-        <div className="post fade-overflow" onClick={onThreadRequest.bind(null, id)}>
-            <img src={imgsrc.sm} />
-            <div className="thread-count">
-                R: <b>{replies.textCount}</b>
-                 | I: <b>{replies.imgCount}</b>
+class BoardPost extends React.Component {
+
+
+    render(){
+        const { fetchThread, post } = this.props;
+        const {id, title, comment, date, imgsrc, replies} = post;
+
+        return (
+            <div className="post"
+                 onClick={fetchThread({threadID:id})}>
+                <img src={imgsrc.sm} />
+                <div className="thread-count">
+                    R: <b>{replies.textCount}</b>
+                     | I: <b>{replies.imgCount}</b>
+                </div>
+                <div className="thread-op">
+                    <b dangerouslySetInnerHTML={{__html: title}} className="title"></b>
+                    <div dangerouslySetInnerHTML={{__html: comment}}></div>
+                </div>
             </div>
-            <div className="thread-op">
-                <b dangerouslySetInnerHTML={{__html: title}} className="title"></b>
-                <div dangerouslySetInnerHTML={{__html: comment}}></div>
-            </div>
-        </div>
-    )
+        )
+    }
 }
+
+function mapStateToProps(state) {
+    console.log("Mapping state to props. state:", state);
+
+    return {
+        thread: state.thread
+    }
+}
+
+function matchDispatchToProps(dispatch) {
+    console.log("dispatching thread action");
+
+    return bindActionCreators({fetchThread}, dispatch)
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(BoardPost)

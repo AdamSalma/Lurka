@@ -21,12 +21,6 @@ export default class Thread extends React.Component {
     //     })
     // }
 
-    shouldComponentUpdate() {
-        console.log(`Should thread update? ${!!this.props.thread}`)
-        if (!this.props.thread.length) return false
-        return true
-    }
-
     render() {
         console.log("Render Thread");
         const { isLoading, thread } = this.state

@@ -4,7 +4,6 @@ import Velocity from 'velocity-animate';
 // import NavBar from './NavBar';  // TODO - incorporate this
 import classNames from "classnames";
 
-console.log(classNames)
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -17,7 +16,6 @@ export default class Header extends React.Component {
     }
 
     render() {
-        console.log("Header rendered")
         const { activeLink } = this.state;
 
         return (

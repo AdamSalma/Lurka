@@ -3,7 +3,7 @@ import BoardPost from './BoardPost';
 import uuid from 'uuid';
 // import request from 'request';
 // console.log(request);
-import { testAction } from '../actions/MemeActions';
+import { fetchBoard } from '../actions/MemeActions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -11,17 +11,28 @@ import velocity from 'velocity-animate';
 
 class Board extends React.Component {
     componentWillMount() {
-        this.props.testAction()
+        if (!this.props.board.items.length) {
+            console.info("WILLFETCHBOARD!")
+            this.props.fetchBoard({
+                provider: '4chan',
+                boardID: 'a'
+            });
+
+            // TODO - add "loading" action here
+        }
     }
 
     createThreads() {
-        const { onThreadRequest, board, viewType } = this.props;
+        const { fetchThread, board, viewType } = this.props;
+        var counter = 0
         return board.items.map( thread => {
+            if (counter>=20) return;
+            console.log("Creating board posts")
+            counter++
             return (
                 <BoardPost
                     key={thread.id}
-                    onThreadRequest={onThreadRequest}
-                    post={thread}/>
+                    post={thread} />
             );
         });
     }
@@ -36,8 +47,7 @@ class Board extends React.Component {
 }
 
 function mapStateToProps(state) {
-    console.log("Mapping state to props. state is underneath:");
-    console.log(state);
+    console.log("Mapping state to props. state:", state);
 
     return {
         board: state.board
@@ -47,7 +57,7 @@ function mapStateToProps(state) {
 function matchDispatchToProps(dispatch) {
     console.log("dispatching board action");
 
-    return bindActionCreators({testAction}, dispatch)
+    return bindActionCreators({fetchBoard}, dispatch)
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Board)
