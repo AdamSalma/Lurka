@@ -1,17 +1,17 @@
-import { BOARD_LOADED } from '../constants'
+import { THREAD_LOADED } from '../constants'
 
 const initialState = {
     isFetching: false,
     didInvalidate: false,
-    items: []
+    posts: []
 };
 
 export default function (state=initialState, action) {
-    console.log("Board Reducer:", state, action);
+    console.log("Thread Reducer:", state, action);
     switch (action.type) {
-        case BOARD_LOADED:
+        case THREAD_LOADED:
             return Object.assign({}, state, {
-                items: action.payload
+                posts: action.payload
             })
 
         default:
