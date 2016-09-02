@@ -1,0 +1,10 @@
+{
+  "extends": "richardkall/react",
+  "env": {
+    "mocha": true
+  },
+  "globals": {
+    "expect": true,
+    "shallow": true
+  }
+}

@@ -1,17 +1,2 @@
-# Logs
-logs
-*.log
-
-# Runtime data
-pids
-*.pid
-*.seed
-
-# node-waf configuration
-.lock-wscript
-
-# Dependency directory
+build
 node_modules
-
-# Ignore build files
-dist
