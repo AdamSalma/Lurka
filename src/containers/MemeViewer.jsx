@@ -10,11 +10,6 @@ export default class MemeViewer extends React.Component {
         super(props);
         this.state = {
             provider: "chan",
-            threads: [],
-            thread: [],
-            boardID: "g",
-            atTop: true,
-            isThreadLoading: false,
             isBackgroundOn: false,
             isSpinnerOn: false
         }

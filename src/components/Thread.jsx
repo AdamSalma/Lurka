@@ -1,38 +1,43 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
-import ThreadPost from './BoardPost';
+import ThreadPost from './ThreadPost';
+import Background from './Background';
+import Spinner from './Spinner';
 
-export default class Thread extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            thread: []
-        }
-    }
-
-    // componentWillReceiveProps(nextProps) {
-    //     console.log("Thread received nextProps");
-    //     console.log(nextProps);
-    //     const { thread } = nextProps
-    //     if ( !nextProps.thread ) return false;
-    //     if
-    //     this.setState({
-    //         thread: nextProps.data.posts
-    //     })
-    // }
+class Thread extends React.Component {
 
     render() {
-        console.log("Render Thread");
-        const { isLoading, thread } = this.state
-        console.log(isLoading, thread);
+        const { thread, isFetching } = this.props
+        console.info(`Rendering Thread with ${thread.length} posts`);
+        console.log("isFetching?", isFetching);
         return (
-            <div className={"thread-wrap"}>
-                <div className={"thread"}>{
-                    thread.map( post => {
-                        <ThreadPost post={post}/>
-                    })
+            <div className="thread-wrap">
+                <Background isVisible={thread.length || isFetching}/>
+                <Spinner isSpinning={isFetching}/>
+                <div className="thread">{
+                    thread.map( post => <ThreadPost key={post.id} post={post}/> )
                 }</div>
             </div>
         )
     }
+
+
 }
+
+function mapStateToProps(state) {
+    console.log("thread mapping to props", state)
+    return {
+        thread: state.thread.posts,
+        isFetching: state.thread.isFetching
+    }
+}
+
+function matchDispatchToProps(dispatch) {
+    console.log("dispatching board action");
+
+    return bindActionCreators({}, dispatch)
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(Thread);

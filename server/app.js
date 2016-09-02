@@ -9,7 +9,7 @@ var ENV = process.env.NODE_ENV
 // If ENV is development, use webpack hot reloading
 if (!ENV || ENV === 'dev' || ENV === 'development') {
     console.log('DEVOLOPMENT ENVIRONMENT: Turning on WebPack Middleware...');
-    require('./index.dev.js').useWebpackMiddleware(app);
+    require('./helpers/index.dev.js').useWebpackMiddleware(app);
 } else {
     console.log('PRODUCTION ENVIRONMENT');
     app.use(express.static(ROOT));
@@ -17,12 +17,18 @@ if (!ENV || ENV === 'dev' || ENV === 'development') {
     // app.use(favicon(path.join(__dirname, '../dist/imgs', 'favicon.ico')));
 }
 
+app.all('*', function(req, res, next){
+    console.info(req.url);
+    next();
+});
+
 app.use('/4chan', require('./routes/4chan'));
 
 app.use('/', function(req, res, next) {
   res.sendFile('index.html', { root: ROOT });
   res.end();
 });
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

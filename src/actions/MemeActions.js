@@ -14,10 +14,16 @@ import Axios from 'axios';
 /**
  * Creators
 **/
-function createBoard(id=1) {
+function requestBoard() {
     return {
-        type: BOARD_REQUEST,
-        id: id
+        type: BOARD_REQUEST
+    }
+}
+
+function requestThread(threadID) {
+    return {
+        type: THREAD_REQUEST,
+        threadID
     }
 }
 
@@ -33,7 +39,7 @@ function receiveBoard(board){
 }
 
 function receiveThread(thread){
-    console.info("Recieved thread:", thread)
+    console.log("Recieved thread:", thread)
     return {
         type: THREAD_LOADED,
         payload: thread.data
@@ -46,16 +52,17 @@ function receiveThread(thread){
 export const fetchBoard = ({ provider, boardID }) => {
     console.log("Action FetchBoard()")
     return dispatch => {
-        dispatch(createBoard())
+        dispatch(requestBoard())
         return Axios.get(`/${provider}/${boardID}`)
             .then(data => dispatch(receiveBoard(data)))
             // .catch( e => console.error(e))
     }
 }
 
-export const fetchThread = ({ provider, boardID, threadID }) => {
-    console.log("Action FetchThread()")
+export const fetchThread = (threadID, provider="4chan", boardID="g") => {
+    console.log("Action FetchThread(). url = ", provider, boardID, threadID)
     return dispatch => {
+        dispatch(requestThread(threadID));
         return Axios.get(`/${provider}/${boardID}/${threadID}`)
             .then(data => dispatch(receiveThread(data)))
             // .catch( e => console.error(e))
