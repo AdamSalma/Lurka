@@ -1,12 +1,8 @@
-import {
-  START_LOADING,
-  STOP_LOADING
-} from './types';
+import {fetchThread} from './thread.actions';
+import {fetchBoard} from './board.actions';
 
-export const startLoading = () => ({
-  type: START_LOADING
-});
+export {
+	fetchBoard,
+	fetchThread
+}
 
-export const stopLoading = () => ({
-  type: STOP_LOADING
-});
