@@ -7,7 +7,6 @@ import Background from './Background';
 import Spinner from './Spinner';
 
 class Thread extends React.Component {
-
     render() {
         const { thread, isFetching } = this.props
         console.info(`Rendering Thread with ${thread.length} posts`);
@@ -17,13 +16,18 @@ class Thread extends React.Component {
                 <Background isVisible={thread.length || isFetching}/>
                 <Spinner isSpinning={isFetching}/>
                 <div className="thread">{
-                    thread.map( post => <ThreadPost key={post.id} post={post}/> )
+                    thread.map( createThreads  )
                 }</div>
             </div>
         )
     }
 
-
+    createThread(thread) {
+        if (this.state.threadsLoaded < 10) {
+            this.setState({})
+            return <ThreadPost key={post.id} post={post}/>
+        }
+    }
 }
 
 function mapStateToProps(state) {

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchThread } from '../actions/MemeActions';
+import { fetchThread } from '../actions';
 
 class BoardPost extends React.Component {
     render(){
