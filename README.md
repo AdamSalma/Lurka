@@ -1,3 +1,3 @@
 # Lurka
 
-> A unified viewer app for online messaging boards.
+> A unified app for viewing online messaging boards.
