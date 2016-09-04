@@ -1,12 +1,7 @@
-import compression from 'compression';
 import express from 'express';
-import morgan from 'morgan';
 import config from '../config';
 
-import {
-  webpackMiddleware,
-  webpackHotMiddleware
-} from './middleware/webpackMiddleware';
+import webpackHotMiddleware from './middleware/webpackMiddleware';
 
 var app = express();
 var router = express.Router();
@@ -16,16 +11,17 @@ const ENV = process.env.NODE_ENV
 const DEBUG = config.env !== 'production';
 
 
-// If ENV is development, use webpack hot reloading
+// If DEV mode, use webpack hot reloading
 if (DEBUG) {
     console.info('DEVOLOPMENT ENVIRONMENT: Turning on WebPack Middleware...');
-    app.use(webpackMiddleware);
-    app.use(webpackHotMiddleware);
+    webpackHotMiddleware(app);
+} else {
+    console.log('PRODUCTION ENVIRONMENT');
+    app.use(express.static(ROOT));
+    // TODO - Uncomment this when ready:
+    // app.use(favicon(path.join(__dirname, '../dist/imgs', 'favicon.ico')));
 }
 
-app.use(compression());
-app.use(express.static(ROOT));
-app.use(morgan(DEBUG ? 'dev' : 'combined'));
 
 app.all('*', function(req, res, next){
     console.info("Request to:", req.url);
