@@ -4,6 +4,7 @@ export default {
     title: 'Lurka'
   },
   server: {
-    port: process.env.PORT || 3000
+    port: process.env.PORT || 3000,
+    host: 'localhost'
   }
 };
