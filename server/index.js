@@ -6,4 +6,4 @@ require('css-modules-require-hook')({
   mode: 'local',
   rootDir: './client'
 });
-require('./server');
+require('./bin/www');
