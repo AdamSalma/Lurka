@@ -1,14 +1,11 @@
 import React from 'react';
 import velocity from 'velocity-animate';
-
-import BoardPost from './BoardPost';
-import uuid from 'uuid';
-// import request from 'request';
-// console.log(request);
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { fetchBoard, fetchThread } from '../actions';
+import BoardPost from './BoardPost';
+import { fetchBoard } from '../actions/board.actions';
+import { fetchThread } from '../actions/thread.actions';
 
 class Board extends React.Component {
     componentWillMount() {
@@ -18,22 +15,21 @@ class Board extends React.Component {
                 provider: '4chan',
                 boardID: 'g'
             });
-
-            // TODO - add "loading" action here
         }
     }
 
     createThreads() {
-        const { board, viewType } = this.props;
+        const { board, viewType, fetchThread } = this.props;
         var counter = 0;
         return board.items.map( thread => {
             if (counter>=20) return;
-            console.log("Creating board posts");
             counter++
             return (
                 <BoardPost
                     key={thread.id}
-                    post={thread} />
+                    post={thread} 
+                    fetchThread={fetchThread}
+                />
             );
         });
     }
