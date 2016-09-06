@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export default ({ isVisible, onThreadClose }) => {
+export default ({ isVisible, closeBackground }) => {
     const backgroundClasses = classNames({
         "background": true,
         "background-active": isVisible
@@ -9,7 +9,7 @@ export default ({ isVisible, onThreadClose }) => {
     return (
         <div
             className={backgroundClasses}
-            onClick={onThreadClose}>
-        </div>
+            onClick={() => {closeBackground()}
+        }></div>
     )
 }
