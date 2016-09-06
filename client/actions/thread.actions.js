@@ -15,11 +15,18 @@ function requestThread(threadID) {
     }
 }
 
-function receiveThread(thread){
+function receiveThread(thread) {
     console.log("Action RecieveThread:", thread);
     return {
         type: THREAD_LOADED,
         payload: thread.data
+    }
+}
+
+function destroyThread() {
+    console.log('Destroying thread');
+    return {
+        type: THREAD_DESTROY
     }
 }
 
@@ -33,9 +40,8 @@ export function fetchThread(threadID, provider="4chan", boardID="g") {
     }
 }
 
-export function loadThread() {
-	console.log('Loaded thread');
-	return {
-		type: THREAD_POST_LOAD
-	}
+export function closeThread() {
+    return dispatch => {
+        return dispatch(destroyThread())
+    }
 }
