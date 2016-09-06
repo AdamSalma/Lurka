@@ -1,7 +1,13 @@
-import { THREAD_LOADED, THREAD_REQUEST } from '../constants'
+import { 
+    THREAD_LOADED, 
+    THREAD_REQUEST, 
+    THREAD_POST_LOAD,
+    THREAD_DESTROY
+} from '../constants'
 
 const initialState = {
     posts: [],
+    postsLoaded: 0,
     isFetching: false
 };
 
@@ -17,6 +23,18 @@ export default function (state=initialState, action) {
         case THREAD_LOADED:
             return Object.assign({}, state, {
                 posts: action.payload,
+                isFetching: false,
+                postsLoaded: 0
+            })
+
+        case THREAD_POST_LOAD:
+            return Object.assign({}, state, {
+                postsLoaded: state.postsLoaded++
+            })
+
+        case THREAD_DESTROY:
+            return Object.assign({}, state, {
+                posts: [],
                 isFetching: false
             })
 
