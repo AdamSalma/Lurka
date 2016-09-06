@@ -3,7 +3,7 @@ var path = require('path');
 var loaders = require('./webpack.loaders');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
-export default {
+module.exports = {
 	entry: [
         `./client/index.jsx`
     ],
