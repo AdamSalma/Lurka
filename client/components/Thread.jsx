@@ -6,42 +6,40 @@ import ThreadPost from './ThreadPost';
 import Background from './Background';
 import Spinner from './Spinner';
 
+import {closeThread} from "../actions/thread.actions";
+
 class Thread extends React.Component {
     render() {
-        const { thread, isFetching } = this.props
+        const { thread, isFetching, closeThread} = this.props
         console.info(`Rendering Thread with ${thread.length} posts`);
         console.log("isFetching?", isFetching);
         return (
             <div className="thread-wrap">
-                <Background isVisible={thread.length || isFetching}/>
+                <Background 
+                    isVisible={thread.length || isFetching} 
+                    closeBackground={closeThread}/>
                 <Spinner isSpinning={isFetching}/>
                 <div className="thread">{
-                    thread.map( createThreads  )
+                    thread.map( post => <ThreadPost key={post.id} post={post}/>)
                 }</div>
             </div>
         )
     }
-
-    createThread(thread) {
-        if (this.state.threadsLoaded < 10) {
-            this.setState({})
-            return <ThreadPost key={post.id} post={post}/>
-        }
-    }
 }
 
-function mapStateToProps(state) {
-    console.log("thread mapping to props", state)
+function mapStateToProps({thread}) {
+    console.log("thread mapping to props", thread)
     return {
-        thread: state.thread.posts,
-        isFetching: state.thread.isFetching
+        thread: thread.posts,
+        isFetching: thread.isFetching,
+        postsLoaded: thread.postsLoaded
     }
 }
 
-function matchDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
     console.log("dispatching board action");
 
-    return bindActionCreators({}, dispatch)
+    return bindActionCreators({closeThread}, dispatch)
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(Thread);
+export default connect(mapStateToProps, mapDispatchToProps)(Thread);
