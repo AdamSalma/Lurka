@@ -1,6 +1,6 @@
 {
   "author": "Adam Salma <adam3salma@gmail.com>",
-  "name": "Memescape",
+  "name": "Lurka",
   "version": "0.0.4",
   "description": "Messaging board viewer and scraper.",
   "node-main": "./server",
