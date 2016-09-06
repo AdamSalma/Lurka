@@ -1,15 +1,17 @@
 {
   "author": "Adam Salma <adam3salma@gmail.com>",
   "name": "Lurka",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Messaging board viewer and scraper.",
   "node-main": "./server",
   "main": "http://localhost:3000",
+  "node-remote": "localhost",
   "scripts": {
     "start": "cross-env NODE_ENV=production nodewebkit",
     "dev": "node ./server",
-    "dev2": "webpack-dev-server ./server/bin/www --progress --profile --colors",
-    "build": "rimraf dist && cross-env NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors"
+    "build": "rimraf dist && cross-env NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors",
+    "test": "cross-env NODE_ENV=test mocha",
+    "test-watch": "cross-env NODE_ENV=test mocha -R min -w"
   },
   "window": {
     "toolbar": true,
