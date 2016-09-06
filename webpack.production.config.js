@@ -18,13 +18,16 @@ module.exports = {
 		loaders: loaders
 	},
 	plugins: [
-		new CopyWebpackPlugin([
-			{from: './client/index.html'}
-		]),
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: '"production"'
 			}
-		})
+		}),
+		new webpack.optimize.UglifyJsPlugin({
+	      compress: { warnings: false }
+	    }),
+		new CopyWebpackPlugin([
+			{from: './client/index.html'}
+		])
 	]
 };
