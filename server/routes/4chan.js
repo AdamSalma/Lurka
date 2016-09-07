@@ -1,50 +1,31 @@
-var axios = require('axios');
-var express = require('express');
-var router = express.Router();
+import Axios from 'axios';
+import express from 'express';
+import {chan as morphBoard} from '../helpers/morph-board';
+import {chan as morphThread} from '../helpers/morph-thread';
+import defaultRequest from '../helpers/request-config-4chan.js';
 
-var morphBoard = require('../helpers/morph-board').chan
-var morphThread = require('../helpers/morph-thread').chan
-
-// TODO - delete this when ready:
-// board: 'https://a.4cdn.org/g/catalog.json',
-// img: 'https://i.4cdn.org/g/',
-
-var reqConfig = {
-    headers: {
-        'Accept': '*/*',
-        'Accept-Encoding': 'gzip, deflate, sdch',
-        'Host': 'a.4cdn.org',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:49.0)' /
-                      'Gecko/20100101 Firefox/49.0',
-        'Origin': 'http://boards.4chan.org',
-        'Referer': 'http://boards.4chan.org/',
-        'If-Modified-Since': '0'
-    }
-}
-
-
-
+console.log("Default request is", defaultRequest);
+const router = express.Router();
 
 router.get('/:boardID', function(req, res){
-    console.log("getting board")
-    var boardID = req.params.boardID;
-    var url = 'https://a.4cdn.org/' +boardID+ '/catalog.json';
-	axios(url, reqConfig)
+    const boardID = req.params.boardID;
+    const url = 'https://a.4cdn.org/' +boardID+ '/catalog.json';
+    console.log("Board::", url, defaultRequest)
+	Axios(url, defaultRequest)
         .then(function(board) {
             res.send(morphBoard(board.data, boardID))
         }).catch(err => errorHandler(err))
 });
 
 router.get('/:boardID/:threadID', function(req, res, next){
-    var boardID = req.params.boardID;
-    var threadID = req.params.threadID;
+    const boardID = req.params.boardID;
+    const threadID = req.params.threadID;
+    const url = 'http://a.4cdn.org/'+boardID+'/thread/'+threadID+'.json';
+
     if (isNaN(threadID)) next();
 
-    var url = 'http://a.4cdn.org/'+boardID+'/thread/'+threadID+'.json';
-    console.log('Reached thread', url);
-
-    // reqConfig.headers['Origin'] = 'http://boards.4chan.org/' +boardID;
-    axios(url, reqConfig)
+    defaultRequest.headers['Origin'] = 'http://boards.4chan.org/' +boardID;
+    Axios(url, defaultRequest)
         .then(function(threads) {
             res.send(morphThread(threads.data.posts, boardID));
         }).catch( err => errorHandler(err));

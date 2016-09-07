@@ -10,10 +10,7 @@ const port = normalizePort(config.server.port);
 
 app.set('port', port);
 
-console.log("\nMagic happens at port %s\n", port)
-
-var server = http.createServer(app);
-
+const server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
@@ -21,11 +18,8 @@ server.on('listening', onListening);
 // Normalize a port into a number, string, or false.
 function normalizePort(val) {
     let port = parseInt(val, 10);
-    
     if (isNaN(port)) return val;  // named pipe
-
-    if (port >= 0) return port;  // port number
-
+    if (port >= 0) return port;   // port number
     return false;
 }
 
@@ -59,5 +53,5 @@ function onListening() {
     const bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
-    debug('Listening on ' + bind);
+    console.info("\nMagic happens at localhost:%s\n", port)
 }
