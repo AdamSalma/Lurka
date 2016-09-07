@@ -1,7 +1,6 @@
 "use strict";
-var morpher = {};
 
-morpher.chan = function( board, boardID ) {
+export function chan( board, boardID ) {
     var img = 'https://i.4cdn.org/' + boardID + '/';
     var threads = [];
 
@@ -40,8 +39,6 @@ morpher.chan = function( board, boardID ) {
     }
 }
 
-morpher.reddit = function( board ) {
+export function reddit( board ) {
     console.info("Coming soon!");
 }
-
-module.exports = morpher;

@@ -1,8 +1,7 @@
 "use strict";
-var morpher = {};
 
-morpher.chan = function( posts, boardID ) {
-    var img = 'https://i.4cdn.org/' + boardID + '/';
+export function chan( posts, boardID ) {
+    let img = 'https://i.4cdn.org/' + boardID + '/';
 
     if (!posts.length) throw new Error("No threads extracted");
     let thread = [];
@@ -12,10 +11,10 @@ morpher.chan = function( posts, boardID ) {
             date: post['now'],
             title: post['sub'] || "",
             comment: post['com'],
-            imgsrc: {
+            imgsrc: !!post['ext'] ? {
                 sm: img + post['tim'] + "s.jpg",
                 lg: img + post['tim'] + post['ext']
-            },
+            } : undefined,
             ext: post['ext'],
             replies: {
                 textCount: post['replies'],
@@ -29,8 +28,6 @@ morpher.chan = function( posts, boardID ) {
     return thread
 }
 
-morpher.reddit = function( board ) {
+export function reddit ( board ) {
     console.info("Coming soon!");
 }
-
-module.exports = morpher;
