@@ -15,7 +15,7 @@ function receiveBoard(board){
     console.log(board);
     return {
         type: BOARD_LOADED,
-        payload: board.data
+        payload: board.data || []
     }
 }
 

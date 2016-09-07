@@ -1,4 +1,6 @@
 import React from 'react';
+import classNames from 'classnames';
+import Velocity from 'velocity-animate';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
@@ -12,18 +14,42 @@ class Thread extends React.Component {
     render() {
         const { thread, isFetching, closeThread} = this.props
         console.info(`Rendering Thread with ${thread.length} posts`);
-        console.log("isFetching?", isFetching);
+        const threadRef = this.refs.thread;
+        const threadWrapClasses = classNames({
+            "thread-wrap": true,
+            "thread-wrap-active": thread.length || isFetching
+        });
+        
+        if (threadRef && threadRef.offsetTop > 0) this.slideThreadUp(threadRef);
+
         return (
-            <div className="thread-wrap">
+            <div className={threadWrapClasses}>
                 <Background 
                     isVisible={thread.length || isFetching} 
                     closeBackground={closeThread}/>
-                <Spinner isSpinning={isFetching}/>
-                <div className="thread">{
-                    thread.map( post => <ThreadPost key={post.id} post={post}/>)
-                }</div>
+                <Spinner 
+                    isSpinning={isFetching}/>
+                <div 
+                    className="thread"
+                    ref="thread">
+                    {thread.map( 
+                        post => <ThreadPost 
+                                    key={post.id} 
+                                    post={post}/>
+                    )}
+                </div>
             </div>
         )
+    }
+
+    slideThreadUp(thread){
+        console.log("Starting thread animation")
+        Velocity(thread, {
+            top: "0"
+        }, {
+            duration: 750,
+            easing: [0.215, 0.61, 0.355, 1]
+        })
     }
 }
 

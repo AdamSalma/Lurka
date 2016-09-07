@@ -1,5 +1,4 @@
 import React from 'react';
-import velocity from 'velocity-animate';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -20,6 +19,7 @@ class Board extends React.Component {
 
     createThreads() {
         const { board, viewType, fetchThread } = this.props;
+        console.warn("board is", board)
         var counter = 0;
         return board.items.map( thread => {
             if (counter>=20) return;

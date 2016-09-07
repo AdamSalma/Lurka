@@ -10,11 +10,16 @@ export default ({post}) => {
                 <span className="postNum">No.{id}</span>
                 <span className="backlink"></span>
             </div>
-            <div className="post-img"><img src={imgsrc.sm} /></div>
+            {createImageIfExists(imgsrc)}
             <blockquote>
                 <div className="postMessage" 
                      dangerouslySetInnerHTML={{__html: comment}}></div>
             </blockquote>
         </div>
     )
+}
+
+
+function createImageIfExists(imgsrc) {
+    if (imgsrc) return <div className="post-img"><img src={imgsrc.sm} /></div>
 }
