@@ -24,10 +24,7 @@ function receiveThread(thread) {
 }
 
 function destroyThread() {
-    console.log('Destroying thread');
-    document.querySelector('.thread').style.top = window.innerHeight + "px !important"
-    console.info(window.innerHeight)
-    console.info(document.querySelector('.thread').offsetTop)
+    console.log('Action DestroyThread');
     return {
         type: THREAD_DESTROY
     }
