@@ -7,28 +7,38 @@ module.exports = [
     {
         test: /\.scss$/,
         exclude: /node_modules/,
-        loaders: ['style', 'css', 'sass']
+        loaders: ['style', 'css', 'postcss', 'sass']
+    },
+    {
+        test: /\.sass$/,
+        exclude: /node_modules/,
+        loaders: ['style', 'css', 'postcss', 'sass']
     },
 	{
 		test: /\.css$/,
+		exclude: /node_modules/,
 		loader: 'style-loader!css-loader'
 	},
 	{
-		test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-		loader: "file"
-	},
-	{
-		test: /\.(woff|woff2)$/,
-		loader: "url?prefix=font/&limit=5000"
-	},
-	{
+		test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+		loader: "url?limit=10000&mimetype=application/font-woff"
+    }, 
+    {
+		test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+		loader: "url?limit=10000&mimetype=application/font-woff"
+    }, 
+    {
 		test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
 		loader: "url?limit=10000&mimetype=application/octet-stream"
-	},
-	{
+    }, 
+    {
+		test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+		loader: "file"
+    }, 
+    {
 		test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
 		loader: "url?limit=10000&mimetype=image/svg+xml"
-	},
+    },
 	{
 		test: /\.gif/,
 		loader: "url-loader?limit=10000&mimetype=image/gif"
