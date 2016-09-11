@@ -1,7 +1,6 @@
 import { 
     THREAD_LOADED, 
     THREAD_REQUEST, 
-    THREAD_POST_LOAD,
     THREAD_DESTROY
 } from '../constants'
 
@@ -25,11 +24,6 @@ export default function (state=initialState, action) {
                 posts: action.payload,
                 isFetching: false,
                 postsLoaded: 0
-            })
-
-        case THREAD_POST_LOAD:
-            return Object.assign({}, state, {
-                postsLoaded: state.postsLoaded++
             })
 
         case THREAD_DESTROY:
