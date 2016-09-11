@@ -1,21 +1,30 @@
 import Axios from 'axios';
 import express from 'express';
-import {chan as morphBoard} from '../helpers/morph-board';
-import {chan as morphThread} from '../helpers/morph-thread';
+import {morphBoard, morphThread, extractBoardList} from '../helpers/morph-4chan';
 import defaultRequest from '../helpers/request-config-4chan.js';
 
 console.log("Default request is", defaultRequest);
 const router = express.Router();
 
+router.get('/boards', function(req, res, next){
+    const url = `http://a.4cdn.org/boards.json`;
+    Axios(url, defaultRequest)
+        .then(function(boardList) {
+            res.send(extractBoardList(boardList.data.boards));
+        }).catch( err => errorHandler(err));
+});
+
+
 router.get('/:boardID', function(req, res){
     const boardID = req.params.boardID;
     const url = 'https://a.4cdn.org/' +boardID+ '/catalog.json';
     console.log("Board::", url, defaultRequest)
-	Axios(url, defaultRequest)
+    Axios(url, defaultRequest)
         .then(function(board) {
             res.send(morphBoard(board.data, boardID))
         }).catch(err => errorHandler(err))
 });
+
 
 router.get('/:boardID/:threadID', function(req, res, next){
     const boardID = req.params.boardID;
@@ -30,6 +39,7 @@ router.get('/:boardID/:threadID', function(req, res, next){
             res.send(morphThread(threads.data.posts, boardID));
         }).catch( err => errorHandler(err));
 });
+
 
 function errorHandler(err){
     console.error(err.message, err);
