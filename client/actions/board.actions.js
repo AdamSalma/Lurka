@@ -2,7 +2,9 @@ import Axios from 'axios';
 import {
     BOARD_REQUEST, 
     BOARD_LOADED, 
-    BOARD_DESTROY
+    BOARD_DESTROY,
+    BOARD_LIST_REQUEST,
+    BOARD_LIST_LOADED
 } from '../constants';
 
 function requestBoard() {
@@ -19,12 +21,37 @@ function receiveBoard(board){
     }
 }
 
+function requestBoardList() {
+    return {
+        type: BOARD_LIST_REQUEST
+    }
+}
+
+function receiveBoardList(boardList){
+    console.log(boardList);
+    return {
+        type: BOARD_LIST_LOADED,
+        payload: boardList.data || []
+    }
+}
+
 export function fetchBoard({ provider, boardID }) {
     console.log(`Action FetchBoard() to /${provider}/${boardID}`);
     return dispatch => {
         dispatch(requestBoard())
         return Axios.get(`/${provider}/${boardID}`)
             .then(data => dispatch(receiveBoard(data)))
+            .catch( e => console.error(e));
+    }
+}
+
+export function fetchBoardList({provider}) {
+    http://a.4cdn.org/boards.json
+    console.log(`Action FetchBoard() to /${provider}/boards`);
+    return dispatch => {
+        dispatch(requestBoardList())
+        return Axios.get(`/${provider}/boards`)
+            .then(data => dispatch(receiveBoardList(data)))
             .catch( e => console.error(e));
     }
 }
