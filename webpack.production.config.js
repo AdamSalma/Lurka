@@ -24,7 +24,9 @@ module.exports = {
 			}
 		}),
 		new webpack.optimize.UglifyJsPlugin({
-	      compress: { warnings: false }
+			mangle: { screw_ie8 : true, keep_fnames: true },
+			compress: { screw_ie8: true },
+			comments: false
 	    }),
 		new CopyWebpackPlugin([
 			{from: './client/index.html'}

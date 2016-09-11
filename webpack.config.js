@@ -37,8 +37,13 @@ export default {
 	plugins: [
 		new webpack.NoErrorsPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
+		new webpack.ProvidePlugin({
+			$: "jquery",
+			jQuery: "jquery",
+			"window.jQuery": "jquery"
+		}),
 		new CopyWebpackPlugin([
 			{from: './client/index.html'}
-		]),
+		])
 	]
 };
