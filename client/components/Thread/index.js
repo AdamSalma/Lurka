@@ -1,1 +1,1 @@
-import {default} from './Thread'
+export {default} from './Thread'

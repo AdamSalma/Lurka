@@ -1,1 +1,1 @@
-import {default} from './Background'
+export {default} from './Background'

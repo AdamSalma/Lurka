@@ -5,11 +5,11 @@ import classNames from 'classnames';
 import $ from 'jquery'
 import Velocity from 'velocity-animate';
 
-import ThreadPost from './ThreadPost';
-import Background from './Background';
-import Spinner from './Spinner';
+import ThreadPost from '../ThreadPost';
+import Background from '../Background';
+import Spinner from '../Spinner';
 
-import {closeThread} from "../actions/thread.actions";
+import {closeThread} from "../../actions/thread.actions";
 
 class Thread extends React.Component {
     render() {

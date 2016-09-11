@@ -1,1 +1,1 @@
-import {default} from './BoardPost'
+export {default} from './BoardPost'

@@ -1,1 +1,1 @@
-import {default} from './ContentOptions'
+export {default} from './ContentOptions'

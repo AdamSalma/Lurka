@@ -1,18 +1,10 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import 'jquery'
-import 'jquery-slimscroll'
 
-import BoardPost from './BoardPost';
-import { fetchBoard } from '../actions/board.actions';
-import { fetchThread } from '../actions/thread.actions';
-
-$(function(){
-    $('#App').slimScroll({
-        height: '250px'
-    });
-})
+import BoardPost from '../BoardPost';
+import { fetchBoard } from '../../actions/board.actions';
+import { fetchThread } from '../../actions/thread.actions';
 
 class Board extends React.Component {
     componentWillMount() {

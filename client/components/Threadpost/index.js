@@ -1,1 +1,1 @@
-import {default} from './ThreadPost'
+export {default} from './ThreadPost'
