@@ -46,7 +46,6 @@ export function fetchBoard({ provider, boardID }) {
 }
 
 export function fetchBoardList({provider}) {
-    http://a.4cdn.org/boards.json
     console.log(`Action FetchBoard() to /${provider}/boards`);
     return dispatch => {
         dispatch(requestBoardList())
