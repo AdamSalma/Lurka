@@ -4,6 +4,8 @@ import {
 	BOARD_REQUEST,
 	BOARD_LOADED,
 	BOARD_DESTROY,
+  BOARD_LIST_LOADED,
+  BOARD_LIST_REQUEST,
 	THREAD_REQUEST,
 	THREAD_LOADED,
 	THREAD_DESTROY,
@@ -29,6 +31,14 @@ describe('Types', () => {
 
   it('contains BOARD_DESTROY', () => {
     expect(BOARD_DESTROY).toEqual('BOARD_DESTROY');
+  });
+
+  it('contains BOARD_LIST_LOADED', () => {
+    expect(BOARD_LIST_LOADED).toEqual('BOARD_LIST_LOADED');
+  });
+
+  it('contains BOARD_LIST_REQUEST', () => {
+    expect(BOARD_LIST_REQUEST).toEqual('BOARD_LIST_REQUEST');
   });
 
   it('contains THREAD_REQUEST', () => {

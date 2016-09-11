@@ -2,10 +2,11 @@
 export const USER_SAVE = "USER_SAVE"
 export const USER_LOAD = "USER_LOAD"
 
-// content viewer actions
 export const BOARD_REQUEST = "BOARD_REQUEST"
 export const BOARD_LOADED = "BOARD_LOADED"
 export const BOARD_DESTROY = "BOARD_DESTROY"
+export const BOARD_LIST_LOADED = "BOARD_LIST_LOADED"
+export const BOARD_LIST_REQUEST = "BOARD_LIST_REQUEST"
 
 export const THREAD_REQUEST = "THREAD_REQUEST"
 export const THREAD_LOADED = "THREAD_LOADED"
