@@ -6,14 +6,14 @@ export default function({post, fetchThread}) {
     const {id, title, comment, date, imgsrc, replies} = post;
 
     return (
-        <div className="post"
+        <div className="board-post"
              onClick={() => fetchThread(id)}>
             <img src={imgsrc.sm} />
-            <div className="thread-count">
+            <div className="count">
                 R: <b>{replies.textCount}</b> |
                 I: <b>{replies.imgCount}</b>
             </div>
-            <div className="thread-op">
+            <div className="op">
                 <b dangerouslySetInnerHTML={{__html: title}} className="title"></b>
                 <div dangerouslySetInnerHTML={{__html: comment}}></div>
             </div>

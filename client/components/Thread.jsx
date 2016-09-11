@@ -1,8 +1,9 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
+import $ from 'jquery'
 import Velocity from 'velocity-animate';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
 
 import ThreadPost from './ThreadPost';
 import Background from './Background';
@@ -44,12 +45,14 @@ class Thread extends React.Component {
 
     slideThreadUp(thread){
         console.log("Starting thread animation")
-        Velocity(thread, {
-            top: "0"
-        }, {
+        // document.querySelector('.thread').style.top = window.innerHeight + "px"
+        const $thread = $(thread)
+        $thread.css('top', window.innerHeight + "px")
+        Velocity($thread, {top: "0"}, {
             duration: 750,
             easing: [0.215, 0.61, 0.355, 1]
         })
+
     }
 }
 

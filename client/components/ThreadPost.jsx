@@ -10,7 +10,7 @@ export default ({post}) => {
     return (
         <div className='thread-post'>
             <div className='post-info'>
-                <span className={title ? 'subtitle-active' : ''}>{title}</span>
+                {() => {if (title) return <span className='title'>{title}</span>}}
                 <span className='dateTime'>{date}</span>
                 <span className='postNum'>No.{id}</span>
                 <span className='backlink'></span>
