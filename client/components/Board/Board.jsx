@@ -9,7 +9,6 @@ import { fetchThread } from '../../actions/thread.actions';
 class Board extends React.Component {
     componentWillMount() {
         if (!this.props.board.items.length) {
-            console.info("WILLFETCHBOARD!")
             this.props.fetchBoard({
                 provider: '4chan',
                 boardID: 'g'
@@ -19,7 +18,6 @@ class Board extends React.Component {
 
     createThreads() {
         const { board, viewType, fetchThread } = this.props;
-        console.warn("board is", board)
         var counter = 0;
         return board.items.map( thread => {
             if (counter>=50) return;
