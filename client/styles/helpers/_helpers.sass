@@ -11,6 +11,15 @@
 .fade-overflow
     position: relative
 
-.image-blur
-	filter: blur(2px)
-	transition: filter 0.25s ease-out
+.image-loading
+    filter: blur(2px)
+    
+    &::after
+        content: ""
+        +center(100%, 100%)
+        z-index: 2
+        background-color: $white
+        opacity: 0.6
+
+.hidden
+    display: none
