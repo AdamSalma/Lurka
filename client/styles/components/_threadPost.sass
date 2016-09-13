@@ -7,14 +7,26 @@
     text-align: left
     padding: 2px 8px
 
+    blockquote
+        padding: 0 15px 12px 15px 
+        display: inline-block
+
     .post-info
-        font-size: $font-small
+        +font-size(14px)
 
         span
             margin-left: 8px
 
     .post-img
-        max-width: 100%
+        display: inline-block
+        img
+            max-width: 100%
 
     .title
         z-index: 1
+
+    a.quotelink
+        color: $red
+        &:hover
+            color: $red-light
+            transition: color 0.2s ease-out

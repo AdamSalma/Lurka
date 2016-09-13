@@ -1,0 +1,27 @@
+.content-options
+	z-index: 100
+	position: fixed
+	right: -500px
+	top: 0
+	+set-dims(540px, 100vh)
+	background-color: $red
+	opacity: 0.7
+
+	ul.icons 
+		position: relative
+		list-style-type: none
+		right: 30px
+
+		li
+			margin-bottom: 10px
+
+		.fa
+			margin: 0 10px 10px
+			+font-size(30px)
+			&:nth-child(1)
+				margin-left: 0
+
+	&.content-options-visible
+		.icons
+			display: none
+

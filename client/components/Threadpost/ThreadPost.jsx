@@ -1,7 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 
-export default ({post}) => {
+export default ({post, children}) => {
     const { id, title, date, imgsrc, comment, ext } = post
 
     const SRC = imgsrc
@@ -11,7 +11,7 @@ export default ({post}) => {
         <div className='thread-post'>
             <div className='post-info'>
                 {() => {if (title) return <span className='title'>{title}</span>}}
-                <span className='dateTime'>{date}</span>
+                {children}
                 <span className='postNum'>No.{id}</span>
                 <span className='backlink'></span>
             </div>
@@ -34,9 +34,8 @@ export default ({post}) => {
 
 function createImage(ID, SRC) {
     return (
-        <div>
+        <div className='post-img'>
             <img 
-                className={'post-img'}
                 id={ID}
                 src={SRC.sm}
                 onClick={toggleImage.bind(null, ID, SRC)}/>
@@ -49,17 +48,16 @@ function createWebm() {
 }
 
 function toggleImage(ID, SRC) {
-    const img = $(document.getElementById(ID))
+    const img = $('#'+ID)
     if (img.attr('src') === SRC.sm) {
         // blur image while large image is loading
-        img
-            .addClass('image-blur')
+        img .addClass('image-blur')
             .on({ 
-                'load': () => img.removeClass('image-blur')
+                'load': () => img.removeClass('image-blur').addClass('expanded')
             })
 
         img.attr('src', SRC.lg);
     } else {
-        img.attr('src', SRC.sm);
+        img.attr('src', SRC.sm).removeClass('expanded');
     }
 }

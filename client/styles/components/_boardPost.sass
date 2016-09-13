@@ -1,7 +1,7 @@
 .board-post
-    font-family: $font-alt
-    font-size: $font-small
+    +font-size(14px)
     +set-dims($thread-width, $thread-height)
+    font-family: $font-main
     overflow: hidden
     display: inline-block
     margin: 5px 10px 20px
@@ -27,3 +27,7 @@
         display: block
         font-weight: 500
         margin-bottom: 10px
+
+    a
+        color: $white !important
+        text-decoration: none

@@ -1,14 +1,13 @@
 nav
     position: fixed
     +set-dims(100vw, 50px)
-    background-color: $dark-red
+    background-color: $black
     top: 0
     z-index: 5
 
     ul
-        position: relative
-
         @include columns(3, $container-width: 1000px )
+        position: relative
 
         li
             list-style: none
