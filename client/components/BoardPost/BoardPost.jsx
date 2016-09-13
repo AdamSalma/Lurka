@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-export default function({post, fetchThread}) {        
+export default function({post, fetchThread}) {
     const {id, title, comment, date, imgsrc, replies} = post;
 
     return (
