@@ -9,17 +9,14 @@ export default ({post, children}) => {
 
     return (
         <div className='thread-post'>
-            <div className='post-info'>
+            <div className='info'>
                 {() => {if (title) return <span className='title'>{title}</span>}}
                 {children}
-                <span className='postNum'>No.{id}</span>
+                <span className='number'>No.{id}</span>
                 <span className='backlink'></span>
             </div>
             {createMediaIfExists()}
-            <blockquote>
-                <div className='postMessage' 
-                     dangerouslySetInnerHTML={{__html: comment}}></div>
-            </blockquote>
+            <blockquote dangerouslySetInnerHTML={{__html: comment}}/>
         </div>
     )
 
@@ -34,11 +31,12 @@ export default ({post, children}) => {
 
 function createImage(ID, SRC) {
     return (
-        <div className='post-img'>
-            <img 
-                id={ID}
-                src={SRC.sm}
-                onClick={toggleImage.bind(null, ID, SRC)}/>
+        <div className='img-container' onClick={toggleImage.bind(null, ID, SRC)}>
+            <span className="fullscreen hidden fa-stack fa-sm">
+                <i className="fa fa-circle fa-stack-2x"></i>
+                <i className="fa fa-expand fa-stack-1x"></i>
+            </span>
+            <img id={ID} src={SRC.sm}/>
         </div>
     )
 }
@@ -49,15 +47,20 @@ function createWebm() {
 
 function toggleImage(ID, SRC) {
     const img = $('#'+ID)
+    const fullscreen = img.prev()
+
     if (img.attr('src') === SRC.sm) {
         // blur image while large image is loading
-        img .addClass('image-blur')
-            .on({ 
-                'load': () => img.removeClass('image-blur').addClass('expanded')
-            })
+        img.addClass('image-loading')
+           .on('load', function(){
+               img.removeClass('image-loading')
+                  .off('load');
+               fullscreen.removeClass('hidden');
+           })
 
         img.attr('src', SRC.lg);
     } else {
-        img.attr('src', SRC.sm).removeClass('expanded');
+        img.attr('src', SRC.sm)
+        fullscreen.addClass('hidden')
     }
 }

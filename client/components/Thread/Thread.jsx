@@ -41,6 +41,7 @@ class Thread extends React.Component {
                     id="thread">
                     {thread.map( 
                         post => {
+                            console.log(post.time);
                             return (
                                 <ThreadPost 
                                     key={post.id} 
