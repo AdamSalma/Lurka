@@ -2,26 +2,24 @@
 
 export function morphBoard( board, boardID ) {
     var img = 'https://i.4cdn.org/' + boardID + '/';
-    var threads = [];
+    var target = [];
 
-    console.log("parsing 4chan board");
-    console.log("type of board = ", typeof board);
+    console.log("Parsing 4chan board");
 
     for (let page in board) {
         if (!board.hasOwnProperty(page)) return false;
         let threads = board[page]['threads'];
-        console.log("Threads length is", threads.length)
 		for (let i = 0; i < threads.length; i++) {
 		    formatThread(threads[i]);
 		}
     }
 
-    if (!threads.length) throw new Error("No threads extracted");
-    return threads;
+    if (!target.length) throw new Error("No threads extracted");
+    console.log(`Created ${target.length} threads`);
+    return target;
 
     function formatThread(threadObj) {
-        console.log("Creating thread #"+threads.length);
-        var thread = {
+        let thread = {
         	id: threadObj['no'],
         	date: threadObj['now'],
             title: threadObj['sub'] || "",
@@ -35,7 +33,7 @@ export function morphBoard( board, boardID ) {
                 imgCount: threadObj['images']
             }
         }
-        threads.push(thread);
+        target.push(thread);
     }
 }
 
@@ -49,6 +47,7 @@ export function morphThread( posts, boardID ) {
             id: post['no'],
             date: post['now'],
             title: post['sub'] || "",
+            time: post['tim'],
             comment: post['com'],
             imgsrc: !!post['ext'] ? {
                 sm: img + post['tim'] + "s.jpg",
