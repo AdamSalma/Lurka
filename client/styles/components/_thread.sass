@@ -1,12 +1,30 @@
 .thread
     position: absolute
     width: 1004px
-    height: 100vw
     top: 100%
     left: 0
     right: 0
     z-index: 10
     margin: 0 auto
+    background-color: $grey-dark
+
+    &:before
+        content: ""
+        position: absolute
+        width: 1px
+        height: 100%
+        box-shadow: -2px 0px 1px $red-dark
+        z-index: 2
+
+    &:after
+        content: ""
+        width: 1px
+        position: absolute
+        top: 0
+        right: 0
+        height: 100%
+        box-shadow: 2px 0 1px $red-dark
+        z-index: 2
 
 .thread-wrap
 	display: none

@@ -7,26 +7,57 @@
     text-align: left
     padding: 2px 8px
 
-    blockquote
-        padding: 0 15px 12px 15px 
-        display: inline-block
+    &:last-child
+        margin-bottom: 0
 
-    .post-info
+    blockquote
+        margin: 15px 25px
+
+    .info
         +font-size(14px)
+        margin-bottom: 10px
 
         span
             margin-left: 8px
 
-    .post-img
-        display: inline-block
+    .img-container
+        float: left
+        margin-bottom: 10px
+        position: relative
+
         img
+            margin-right: 10px
             max-width: 100%
+
+        .fullscreen
+            +set-dims(30px, 30px)
+            position: absolute
+            top: 3px
+            right: 13px
+            opacity: 0.5
+            transition: opacity 0.2s ease-in
+
+            &:hover
+                opacity: 1
+                transition: opacity 0.15s ease-in
+
+
+            .fa-circle 
+                color: $grey-dark
+
+            .fa-expand
+                color: $white
+
+
+    br
+        line-height: 0.8
 
     .title
         z-index: 1
 
-    a.quotelink
+    .quotelink
         color: $red
+
         &:hover
             color: $red-light
-            transition: color 0.2s ease-out
+            transition: 0.3s ease-out
