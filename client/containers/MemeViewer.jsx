@@ -22,16 +22,16 @@ export default class MemeViewer extends React.Component {
             <div>
                 <div className="content-overview">
                     <Board />
-                    <ContentOptions 
-                        provider={provider} 
-                        toggleMenu={this.toggleMenu}
-                        menuIsOpen={menuIsOpen}/>
                 </div>
                 <Thread />
             </div>
         )
     }
 
+    // <ContentOptions 
+    //     provider={provider} 
+    //     toggleMenu={this.toggleMenu}
+    //     menuIsOpen={menuIsOpen}/>
 
     toggleMenu() {
         const {menuIsOpen} = this.state;
