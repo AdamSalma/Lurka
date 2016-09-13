@@ -2,8 +2,9 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import $ from 'jquery'
 import Velocity from 'velocity-animate';
+import screenfull from 'screenfull';
+import TimeAgo from 'react-timeago';
 
 import ThreadPost from '../ThreadPost';
 import Background from '../Background';
@@ -12,47 +13,65 @@ import Spinner from '../Spinner';
 import {closeThread} from "../../actions/thread.actions";
 
 class Thread extends React.Component {
+    constructor() {
+        super()
+        this.onThreadClose = this.onThreadClose.bind(this)
+    }
+
     render() {
-        const { thread, isFetching, closeThread} = this.props
-        console.info(`Rendering Thread with ${thread.length} posts`);
-        const threadRef = this.refs.thread;
+        const { thread, isFetching } = this.props
         const threadWrapClasses = classNames({
             "thread-wrap": true,
             "thread-wrap-active": thread.length || isFetching
         });
+
+        console.info(`Rendering Thread with ${thread.length} posts`);
         
-        if (threadRef && threadRef.offsetTop > 0) this.slideThreadUp(threadRef);
+        if (thread) this.slideThreadUp();
 
         return (
             <div className={threadWrapClasses}>
                 <Background 
                     isVisible={thread.length || isFetching} 
-                    closeBackground={closeThread}/>
+                    closeBackground={this.onThreadClose}/>
                 <Spinner 
                     isSpinning={isFetching}/>
                 <div 
                     className="thread"
-                    ref="thread">
+                    id="thread">
                     {thread.map( 
-                        post => <ThreadPost 
+                        post => {
+                            return (
+                                <ThreadPost 
                                     key={post.id} 
-                                    post={post}/>
+                                    post={post}>
+                                    <TimeAgo date={new Date(Date.now())}/>
+                                </ThreadPost>
+                            )
+                        }
                     )}
                 </div>
             </div>
         )
     }
 
-    slideThreadUp(thread){
-        console.log("Starting thread animation")
-        // document.querySelector('.thread').style.top = window.innerHeight + "px"
-        const $thread = $(thread)
-        $thread.css('top', window.innerHeight + "px")
-        Velocity($thread, {top: "0"}, {
+    slideThreadUp() {
+        console.log("slideThreadUp()")
+        Velocity($('#thread'), {top: "0"}, {
             duration: 750,
             easing: [0.215, 0.61, 0.355, 1]
         })
 
+    }
+
+    onThreadClose() {
+        console.log("onThreadClose()")
+        this.props.closeThread()
+        // $('#thread').css('top', window.innerHeight + "px");
+        Velocity($('#thread'), {top: window.innerHeight + "px"}, {
+            duration: 350,
+            easing: [0.215, 0.61, 0.355, 1]
+        })
     }
 }
 
