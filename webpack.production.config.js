@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var loaders = require('./webpack.loaders');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var autoprefixer = require('autoprefixer');
 
 module.exports = {
 	entry: [
@@ -31,5 +32,8 @@ module.exports = {
 		new CopyWebpackPlugin([
 			{from: './client/index.html'}
 		])
-	]
+	],
+	postcss: function () {
+        return [autoprefixer];
+    }
 };

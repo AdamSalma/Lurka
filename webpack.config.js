@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 import path from 'path';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import autoprefixer from 'autoprefixer';
 
 import loaders from './webpack.loaders';
 import config from './config';
@@ -45,5 +46,8 @@ export default {
 		new CopyWebpackPlugin([
 			{from: './client/index.html'}
 		])
-	]
+	],
+	postcss: function () {
+        return [autoprefixer];
+    }
 };
