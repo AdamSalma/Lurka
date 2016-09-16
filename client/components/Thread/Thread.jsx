@@ -18,6 +18,22 @@ class Thread extends React.Component {
         this.onThreadClose = this.onThreadClose.bind(this)
     }
 
+    componentDidMount() {
+        console.error('oi2')
+        $(this.refs.thread).on('click', '.fullscreen', function(event){
+            event.stopPropagation()
+            console.log('Worked!!!', this)
+        });
+    }
+
+    componentDidUpdate(prevProps) {
+        const { thread } = this.props;
+        if (prevProps.thread.length !== thread.length){
+            // Thread created or destroyed
+            this.threadToggle(this.refs.thread);            
+        } 
+    }
+
     render() {
         const { thread, isFetching } = this.props
         const threadWrapClasses = classNames({
@@ -27,7 +43,6 @@ class Thread extends React.Component {
 
         console.info(`Rendering Thread with ${thread.length} posts`);
         
-        if (thread) this.slideThreadUp();
 
         return (
             <div className={threadWrapClasses}>
@@ -38,7 +53,7 @@ class Thread extends React.Component {
                     isSpinning={isFetching}/>
                 <div 
                     className="thread"
-                    id="thread">
+                    ref="thread">
                     {thread.map( 
                         post => {
                             console.log(post.time);
@@ -46,7 +61,7 @@ class Thread extends React.Component {
                                 <ThreadPost 
                                     key={post.id} 
                                     post={post}>
-                                    <TimeAgo date={new Date(Date.now())}/>
+                                    <TimeAgo date={1473868185674}/>
                                 </ThreadPost>
                             )
                         }
@@ -56,10 +71,10 @@ class Thread extends React.Component {
         )
     }
 
-    slideThreadUp() {
+    slideThreadUp(thread) {
         console.log("slideThreadUp()")
-        Velocity($('#thread'), {top: "0"}, {
-            duration: 750,
+        Velocity(thread, {top: "0"}, {
+            duration: 850,
             easing: [0.215, 0.61, 0.355, 1]
         })
 
@@ -69,10 +84,11 @@ class Thread extends React.Component {
         console.log("onThreadClose()")
         this.props.closeThread()
         // $('#thread').css('top', window.innerHeight + "px");
-        Velocity($('#thread'), {top: window.innerHeight + "px"}, {
-            duration: 350,
-            easing: [0.215, 0.61, 0.355, 1]
-        })
+        Velocity(
+            this.refs.thread, 
+            {top: window.innerHeight + "px"}, 
+            {duration: 10}
+        )
     }
 }
 
