@@ -4,7 +4,7 @@ import {
     createWebm
 } from './helpers'
 
-export default ({post, children}) => {
+export default function ({post, children}) {
     const { id, title, date, imgsrc, comment, ext } = post
 
     const SRC = imgsrc
