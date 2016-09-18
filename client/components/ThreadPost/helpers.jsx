@@ -21,16 +21,18 @@ function toggleImage(ID, SRC) {
     const icon = img.prev()
 
     if (img.attr('src') === SRC.sm) {
-        // blur image while large image is loading
+        // blur small image while large image is loading
         img.addClass('image-loading')
            .on('load', function(){
-               img.removeClass('image-loading')
-                  .off('load');
-               icon.removeClass('hidden');
+                // remove blur + show fullscreen icon
+                img.removeClass('image-loading')
+                   .off('load');
+                icon.removeClass('hidden');
            })
 
         img.attr('src', SRC.lg);
     } else {
+        // revert to thumbnail image
         img.attr('src', SRC.sm);
         icon.addClass('hidden');
     }
