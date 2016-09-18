@@ -19,11 +19,20 @@ class Thread extends React.Component {
     }
 
     componentDidMount() {
-        console.error('oi2')
-        $(this.refs.thread).on('click', '.fullscreen', function(event){
+        $(this.refs.thread).on('click', '.fa-stack', function(event){
             event.stopPropagation()
-            console.log('Worked!!!', this)
+            if (screenfull.enabled) {
+                const target = $(event.target)
+                                    .parents('.fullscreen')
+                                    .next()[0]
+                console.warn(target)
+                screenfull.toggle(target);
+            }
         });
+    }
+
+    componentWillUnmount() {
+        $(this.refs.thread).off('click')
     }
 
     componentDidUpdate(prevProps) {
@@ -61,7 +70,7 @@ class Thread extends React.Component {
                                 <ThreadPost 
                                     key={post.id} 
                                     post={post}>
-                                    <TimeAgo date={1473868185674}/>
+                                    <TimeAgo date={post.tim || post.time}/>
                                 </ThreadPost>
                             )
                         }
