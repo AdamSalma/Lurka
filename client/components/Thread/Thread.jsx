@@ -10,25 +10,20 @@ import ThreadPost from '../ThreadPost';
 import Background from '../Background';
 import Spinner from '../Spinner';
 
+import {
+    fullscreenImageDelegation
+} from './helpers'
+
 import {closeThread} from "../../actions/thread.actions";
 
 class Thread extends React.Component {
     constructor() {
         super()
-        this.onThreadClose = this.onThreadClose.bind(this)
+        this.threadToggle = this.threadToggle.bind(this)
     }
 
     componentDidMount() {
-        $(this.refs.thread).on('click', '.fa-stack', function(event){
-            event.stopPropagation()
-            if (screenfull.enabled) {
-                const target = $(event.target)
-                                    .parents('.fullscreen')
-                                    .next()[0]
-                console.warn(target)
-                screenfull.toggle(target);
-            }
-        });
+        fullscreenImageDelegation(this.refs.thread)
     }
 
     componentWillUnmount() {
@@ -39,7 +34,7 @@ class Thread extends React.Component {
         const { thread } = this.props;
         if (prevProps.thread.length !== thread.length){
             // Thread created or destroyed
-            this.threadToggle(this.refs.thread);            
+            this.threadToggle();            
         } 
     }
 
@@ -57,7 +52,7 @@ class Thread extends React.Component {
             <div className={threadWrapClasses}>
                 <Background 
                     isVisible={thread.length || isFetching} 
-                    closeBackground={this.onThreadClose}/>
+                    closeBackground={this.threadToggle}/>
                 <Spinner 
                     isSpinning={isFetching}/>
                 <div 
@@ -70,7 +65,7 @@ class Thread extends React.Component {
                                 <ThreadPost 
                                     key={post.id} 
                                     post={post}>
-                                    <TimeAgo date={post.tim || post.time}/>
+                                    <TimeAgo date={post.time}/>
                                 </ThreadPost>
                             )
                         }
@@ -80,21 +75,22 @@ class Thread extends React.Component {
         )
     }
 
-    slideThreadUp(thread) {
-        console.log("slideThreadUp()")
-        Velocity(thread, {top: "0"}, {
-            duration: 850,
-            easing: [0.215, 0.61, 0.355, 1]
-        })
+    threadToggle() {
+        const { thread } = this.refs;
+        console.log(thread.offsetTop)
+        if (thread.offsetTop > 0) {
+            // Slide up...
+            return Velocity(thread, {top: "0"}, {
+                duration: 850,
+                easing: [0.215, 0.61, 0.355, 1]
+            })
+        }
 
-    }
-
-    onThreadClose() {
-        console.log("onThreadClose()")
+        // Slide down...
         this.props.closeThread()
         // $('#thread').css('top', window.innerHeight + "px");
         Velocity(
-            this.refs.thread, 
+            thread, 
             {top: window.innerHeight + "px"}, 
             {duration: 10}
         )
