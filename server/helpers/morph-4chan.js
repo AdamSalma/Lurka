@@ -47,7 +47,8 @@ export function morphThread( posts, boardID ) {
             id: post['no'],
             date: post['now'],
             title: post['sub'] || "",
-            time: post['tim'],
+            tim: post['tim'],
+            time: post['time'],
             comment: post['com'],
             imgsrc: !!post['ext'] ? {
                 sm: img + post['tim'] + "s.jpg",

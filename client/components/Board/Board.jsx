@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import BoardPost from '../BoardPost';
+import { catchTooltip } from './events';
 import { fetchBoard } from '../../actions/board.actions';
 import { fetchThread } from '../../actions/thread.actions';
 
@@ -14,6 +15,14 @@ class Board extends React.Component {
                 boardID: 'g'
             });
         }
+    }
+
+    componentDidMount() {
+        catchTooltip(this.refs.board);
+    }
+
+    componentWillUnmount() {
+        $(this.refs.board).off('hover');
     }
 
     createThreads() {
@@ -34,7 +43,7 @@ class Board extends React.Component {
 
     render() {
         return (
-            <div className={"board"}>
+            <div id="board" className="board">
                 {this.createThreads()}
             </div>
         );
