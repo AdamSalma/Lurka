@@ -12,8 +12,14 @@ export default ({ post, fetchThread }) => {
             <img src={imgsrc.sm} />
             <Tooltip>
                 <div className="count">
-                    R: <b>{replies.textCount}</b> |
-                    I: <b>{replies.imgCount}</b>
+                    <span>
+                        <i className="fa fa-comments"></i>
+                        <b>{replies.textCount}</b>
+                    </span>
+                    <span>
+                        <i className="fa fa-picture-o"></i>
+                        <b>{replies.imgCount}</b>
+                    </span>
                 </div>
             </Tooltip>
             <div className="op">
