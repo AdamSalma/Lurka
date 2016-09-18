@@ -1,8 +1,8 @@
 .board
     width: 100vw
     margin-top: 50px  // TODO - dynamic margin
+    min-width: 400px
 
-.boardview
     +columns(2, $container-width: 90%, $margin: 10px)
     +breakpoint(from-phablet)
         +columns(3, $container-width: 90%, $margin: 20px 10px)
@@ -11,6 +11,6 @@
     +breakpoint(from-desktop)
         +columns(5, $container-width: 90%, $margin: 20px 10px)
     +breakpoint(from-desktop-mid)
-        +columns(6, $container-width: 90%, $margin: 20px 10px)
+        +columns(7, $container-width: 90%, $margin: 20px 10px)
     +breakpoint(from-desktop-lrg)
-        +columns(8, $container-width: 85%, $margin: 20px 10px)
+        +columns(8, $container-width: 90%, $margin: 20px 10px)
