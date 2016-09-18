@@ -24,13 +24,15 @@ export function morphBoard( board, boardID ) {
         	date: threadObj['now'],
             title: threadObj['sub'] || "",
             comment: threadObj['com'],
+            time: threadObj['tim'] || threadObj['time'] * 1000,
             imgsrc: {
                 sm: img + threadObj['tim'] + "s.jpg",
                 lg: img + threadObj['tim'] + ".jpg",
             },
             replies: {
                 textCount: threadObj['replies'],
-                imgCount: threadObj['images']
+                imgCount: threadObj['images'],
+                ipCount: post['unique_ips']
             }
         }
         target.push(thread);
@@ -47,8 +49,7 @@ export function morphThread( posts, boardID ) {
             id: post['no'],
             date: post['now'],
             title: post['sub'] || "",
-            tim: post['tim'],
-            time: post['time'],
+            time: post['tim'] || post['time'] * 1000,
             comment: post['com'],
             imgsrc: !!post['ext'] ? {
                 sm: img + post['tim'] + "s.jpg",
