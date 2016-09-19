@@ -10,9 +10,10 @@ import { fetchThread } from '../../actions/thread.actions';
 class Board extends React.Component {
     componentWillMount() {
         if (!this.props.board.items.length) {
+            const { boardID, provider } = this.props
             this.props.fetchBoard({
-                provider: '4chan',
-                boardID: 'g'
+                provider: provider,
+                boardID: boardID
             });
         }
     }
@@ -51,17 +52,18 @@ class Board extends React.Component {
 }
 
 function mapStateToProps(state) {
-    console.log("Mapping state to props. state:", state);
-
     return {
-        board: state.board
+        board: state.board,
+        provider: state.status.provider,
+        boardID: state.status.boardID
     }
 }
 
 function mapDispatchToProps(dispatch) {
-    console.log("dispatching board action");
-
-    return bindActionCreators({fetchBoard, fetchThread}, dispatch)
+    return bindActionCreators({
+        fetchBoard, 
+        fetchThread
+    }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board)
