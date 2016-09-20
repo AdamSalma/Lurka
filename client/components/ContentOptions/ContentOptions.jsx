@@ -2,64 +2,69 @@ import React from 'react';
 import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchBoardList } from '../../actions/board.actions';
+import { fetchBoardList, fetchBoard } from '../../actions/board.actions';
+import { changeProvider } from '../../actions/provider.actions';
 
-import BoardList from '../BoardList'
+import Dropdown from '../Dropdown';
 
 class ContentOptions extends React.Component {
-    componentWillMount() {
-        if (!this.props.boardList) {
-            this.props.fetchBoardList({
-                provider: '4chan',
-                boardID: 'g'
-            });
-        }
+    constructor({provider, fetchBoardList}) {
+        super()
+        fetchBoardList({provider});
     }
 
     render() {
-        console.warn('ContentOptions');
-        const { provider, toggleMenu, menuIsOpen, fetchBoardList, boardList } = this.props;
+        const { provider, fetchBoardList, boardList, isFetching, handleDropdown} = this.props;
 
-        if (!boardList) fetchBoardList(provider);
+        if (!isFetching && !boardList.length) fetchBoardList(provider);
 
-        const classes = classNames("content-options", {
-            "content-options-visible": menuIsOpen
-        })
+        const classes = classNames("content-options")  // TODO - add to this
 
         return (        	
             <div id="content-options" className={classes}>
             	<ul className="icons">
                     <li>
-                        <i className="fa fa-cog" onClick={toggleMenu}></i> 
+                        <i className="fa fa-cog"></i> 
                         <span>Content Options</span>
                     </li>
                     <li>
-                        <i className="fa fa-cog" onClick={toggleMenu}></i>
+                        <i className="fa fa-cog"></i>
                         <span>Scraper Mode</span>
                     </li>
                     <li>
-                        <i className="fa fa-cog" onClick={toggleMenu}></i>
+                        <i className="fa fa-cog"></i>
                         <span>Settings</span>
                     </li>
             	</ul>
+                <Dropdown items={boardList} handleClick={handleDropdown}/>
             </div>
         )
+
+        handleDropdown({ target }) {
+            const { provider, fetchBoard } = this.props,
+                                   boardID = target.value;
+
+            fetchBoard({boardID, provider})
+        } 
     }
 }
 
 
 function mapStateToProps(state) {
-    console.log("Mapping state to props. state:", state);
-
     return {
-        boardList: state.board.boardList
+        boardList: state.board.boardList,
+        boardID: state.status.boardID,
+        provider: state.status.provider,
+        isFetching: state.board.isFetching
     }
 }
 
 function mapDispatchToProps(dispatch) {
-    console.log("dispatching board action");
-
-    return bindActionCreators({fetchBoardList}, dispatch)
+    return bindActionCreators({
+        fetchBoardList, 
+        fetchBoard, 
+        changeProvider
+    }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContentOptions)
