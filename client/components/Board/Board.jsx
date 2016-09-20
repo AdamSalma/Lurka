@@ -1,11 +1,12 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import uuid from "uuid";
 
 import BoardPost from '../BoardPost';
-import { catchTooltip } from './events';
 import { fetchBoard } from '../../actions/board.actions';
 import { fetchThread } from '../../actions/thread.actions';
+import { catchTooltip } from './events';
 
 class Board extends React.Component {
     componentWillMount() {
@@ -34,7 +35,7 @@ class Board extends React.Component {
             counter++
             return (
                 <BoardPost
-                    key={thread.id}
+                    key={uuid.v4()}
                     post={thread} 
                     fetchThread={fetchThread}
                 />

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import Velocity from 'velocity-animate';
 import TimeAgo from 'react-timeago';
+import uuid from "uuid";
 
 import ThreadPost from '../ThreadPost';
 import Background from '../Background';
@@ -62,7 +63,7 @@ class Thread extends React.Component {
                             console.log(post.time);
                             return (
                                 <ThreadPost 
-                                    key={post.id} 
+                                    key={uuid.v4()} 
                                     post={post}>
                                     <TimeAgo date={post.time}/>
                                 </ThreadPost>
