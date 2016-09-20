@@ -9,7 +9,7 @@ export default class MemeViewer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            provider: "chan",
+            provider: "4chan",
             menuIsOpen: false
         }
         this.toggleMenu = this.toggleMenu.bind(this)
@@ -21,6 +21,7 @@ export default class MemeViewer extends React.Component {
         return (
             <div>
                 <div className="content-overview">
+                    <ContentOptions />
                     <Board />
                 </div>
                 <Thread />
