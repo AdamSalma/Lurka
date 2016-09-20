@@ -32,7 +32,7 @@ export function morphBoard( board, boardID ) {
             replies: {
                 textCount: threadObj['replies'],
                 imgCount: threadObj['images'],
-                ipCount: post['unique_ips']
+                ipCount: threadObj['unique_ips']
             }
         }
         target.push(thread);
