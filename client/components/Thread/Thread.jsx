@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import Velocity from 'velocity-animate';
-import screenfull from 'screenfull';
 import TimeAgo from 'react-timeago';
 
 import ThreadPost from '../ThreadPost';
