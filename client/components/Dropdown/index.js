@@ -1,1 +1,1 @@
-export {default} from './BoardList';
+export {default} from './Dropdown';

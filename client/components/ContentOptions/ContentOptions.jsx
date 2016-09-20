@@ -11,10 +11,11 @@ class ContentOptions extends React.Component {
     constructor({provider, fetchBoardList}) {
         super()
         fetchBoardList({provider});
+        this.handleDropdown = this.handleDropdown.bind(this)
     }
 
     render() {
-        const { provider, fetchBoardList, boardList, isFetching, handleDropdown} = this.props;
+        const { provider, fetchBoardList, boardList, isFetching, handleDropdown } = this.props;
 
         if (!isFetching && !boardList.length) fetchBoardList(provider);
 
@@ -40,13 +41,15 @@ class ContentOptions extends React.Component {
             </div>
         )
 
-        handleDropdown({ target }) {
-            const { provider, fetchBoard } = this.props,
-                                   boardID = target.value;
-
-            fetchBoard({boardID, provider})
-        } 
     }
+
+    handleDropdown( event ) {
+        const { 
+            provider, fetchBoard } = this.props,
+            boardID = event.target.value;
+
+        fetchBoard({boardID, provider})
+    } 
 }
 
 
