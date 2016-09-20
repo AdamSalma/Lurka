@@ -85,6 +85,7 @@
     "screenfull": "^3.0.2",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
+    "uuid": "^2.0.3",
     "velocity-animate": "^1.2.3",
     "webpack": "^1.13.2"
   }
