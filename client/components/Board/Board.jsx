@@ -9,6 +9,10 @@ import { fetchThread } from '../../actions/thread.actions';
 import { catchTooltip } from './events';
 
 class Board extends React.Component {
+    constructor(){
+        super()
+        this.onThreadFetch = this.onThreadFetch.bind(this);
+    }
     componentWillMount() {
         if (!this.props.board.items.length) {
             const { boardID, provider } = this.props
@@ -28,7 +32,7 @@ class Board extends React.Component {
     }
 
     createThreads() {
-        const { board, viewType, fetchThread } = this.props;
+        const { board, viewType } = this.props;
         var counter = 0;
         return board.items.map( thread => {
             if (counter>=50) return;
@@ -37,7 +41,7 @@ class Board extends React.Component {
                 <BoardPost
                     key={uuid.v4()}
                     post={thread} 
-                    fetchThread={fetchThread}
+                    fetchThread={this.onThreadFetch}
                 />
             );
         });
@@ -49,6 +53,12 @@ class Board extends React.Component {
                 {this.createThreads()}
             </div>
         );
+    }
+
+    onThreadFetch( threadID ){
+        const { provider, boardID, fetchThread } = this.props;
+
+        fetchThread(provider, boardID, threadID);
     }
 }
 
