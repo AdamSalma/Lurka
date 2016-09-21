@@ -30,7 +30,7 @@ function destroyThread() {
     }
 }
 
-export function fetchThread(threadID, provider="4chan", boardID="g") {
+export function fetchThread(provider, boardID, threadID) {
     console.log(`Action FetchThread() to /${provider}/${boardID}/${threadID}`);
     return dispatch => {
         dispatch(requestThread(threadID));
