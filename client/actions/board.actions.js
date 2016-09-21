@@ -4,7 +4,8 @@ import {
     BOARD_LOADED, 
     BOARD_DESTROY,
     BOARD_LIST_REQUEST,
-    BOARD_LIST_LOADED
+    BOARD_LIST_LOADED,
+    BOARD_CHANGE
 } from '../constants';
 
 function requestBoard() {
@@ -35,10 +36,19 @@ function receiveBoardList(boardList){
     }
 }
 
+function changeBoard( boardID ) {
+    console.log("Changing board to " + boardID)
+    return {
+        type: BOARD_CHANGE,
+        payload: boardID
+    }
+}
+
 export function fetchBoard({ provider, boardID }) {
     console.log(`Action FetchBoard() to /${provider}/${boardID}`);
     return dispatch => {
         dispatch(requestBoard())
+        dispatch(changeBoard(boardID))
         return Axios.get(`/${provider}/${boardID}`)
             .then(data => dispatch(receiveBoard(data)))
             .catch( e => console.error(e));
