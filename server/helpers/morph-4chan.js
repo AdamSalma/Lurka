@@ -71,10 +71,10 @@ export function morphThread( posts, boardID ) {
 
 export function extractBoardList( boardList ) {
     let boards = []
-    boardList.map( board => {
+    boardList.map( ({board, title}) => {
         boards.push({
-            board: board.board, 
-            title: board.title
+            value: board, 
+            text: `/${board}/ - ${title}`
         })
     });
     return boards

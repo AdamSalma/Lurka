@@ -7,7 +7,7 @@ import {
 const initialState = {
     isFetching: false,
     didInvalidate: false,
-    boardList: [],
+    boardList: [1,2,3,4,5],
     items: []
 };
 
