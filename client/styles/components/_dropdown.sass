@@ -1,0 +1,21 @@
+.dropdown
+	width: 300px
+	height: 30px
+	overflow: hidden
+	transition: all .3s ease-out
+
+	.dropdown-wrap
+		.tile
+			background-color: $grey-dark
+			color: $white
+			border-bottom: $grey solid 2px
+			padding: 8px 15px
+
+			&:hover
+				background-color: lighten($grey-dark, 10%)
+				cursor: pointer
+
+	&:hover
+		overflow-y: scroll
+		height: 200px
+		width: 350px
