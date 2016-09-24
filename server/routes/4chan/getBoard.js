@@ -1,8 +1,8 @@
 import Axios from 'axios';
-import {morphBoard} from '../helpers/morph-4chan';
-import defaultRequest from '../helpers/request-config-4chan.js';
+import {morphBoard} from '../../helpers/morph-4chan';
+import defaultRequest from '../../helpers/request-config-4chan.js';
 
-export const getBoard = (req, res, next) => {
+export default function (req, res, next) {
     const boardID = req.params.boardID;
     const url = 'https://a.4cdn.org/' +boardID+ '/catalog.json';
     console.log("Board::", url, defaultRequest)

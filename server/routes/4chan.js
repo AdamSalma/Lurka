@@ -3,9 +3,9 @@ import {
 	getBoardlist, 
 	getBoard, 
 	getThread
-} from './4chan';
+} from './4chan/';
 
-console.log(getBoardlist)
+console.log("4chan getBoardlist", getBoardlist)
 
 const router = express.Router();
 
