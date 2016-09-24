@@ -4,9 +4,14 @@ import { Provider } from 'react-redux';
 
 import App from './containers/App';
 import configureStore from './store';
+import { loadState, saveState } from './store/localStorage'
 
-const store = configureStore();
-window.getState = store.getState();
+const preloadedState = loadState();
+const store = configureStore(preloadedState);
+
+store.subscribe( () => {
+	saveState(store.getState());
+})
 
 ReactDOM.render(
     <Provider store={store}>
