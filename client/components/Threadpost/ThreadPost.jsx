@@ -1,8 +1,7 @@
 import React from 'react';
 import {
-    createImage, 
-    createWebm
-} from './helpers'
+    createMediaIfExists
+} from './Media'
 
 export default function ({post, children}) {
     const { id, title, date, imgsrc, comment, ext } = post
@@ -18,17 +17,10 @@ export default function ({post, children}) {
                 <span className='number'>No.{id}</span>
                 <span className='backlink'></span>
             </div>
-            {createMediaIfExists()}
+            {createMediaIfExists(ID, SRC, ext)}
             <blockquote dangerouslySetInnerHTML={{__html: comment}}/>
         </div>
     )
-
-    function createMediaIfExists() {
-        if (SRC) {
-            if (ext === '.webm') return createWebm();
-            else return createImage(ID, SRC);
-        }
-    }
 }
 
 
