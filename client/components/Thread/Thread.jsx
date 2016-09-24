@@ -82,7 +82,7 @@ class Thread extends React.Component {
             // Slide up...
             return Velocity(thread, {top: "0"}, {
                 duration: 850,
-                easing: [0.215, 0.61, 0.355, 1]
+                easing: [0.25, 0.8, 0.25, 1]
             })
         }
 
