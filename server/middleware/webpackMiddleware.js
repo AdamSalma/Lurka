@@ -6,7 +6,8 @@ import webpackConfig from '../../webpack.config.js';
 const webpackCompiler = webpack(webpackConfig);
 
 // enable webpack middleware for hot-reloads in development
-function useWebpackMiddleware(app) {
+export default function useWebpackMiddleware(app) {
+
     app.use(webpackDevMiddleware(webpackCompiler, {
         publicPath: webpackConfig.output.publicPath,
         stats: {
@@ -15,11 +16,10 @@ function useWebpackMiddleware(app) {
             'errors-only': true
         }
     }));
+    
     app.use(webpackHotMiddleware(webpackCompiler, {
         log: console.log
     }));
 
     return app;
 }
-
-export default useWebpackMiddleware
