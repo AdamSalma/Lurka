@@ -5,7 +5,6 @@ import defaultRequest from '../../helpers/request-config-4chan.js';
 export default function (req, res, next) {
     const boardID = req.params.boardID;
     const url = 'https://a.4cdn.org/' +boardID+ '/catalog.json';
-    console.log("Board::", url, defaultRequest)
     Axios(url, defaultRequest)
         .then( board => {
             res.send(morphBoard(board.data, boardID))

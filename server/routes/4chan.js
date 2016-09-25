@@ -5,8 +5,6 @@ import {
 	getThread
 } from './4chan/';
 
-console.log("4chan getBoardlist", getBoardlist)
-
 const router = express.Router();
 
 router.get('/boards', getBoardlist);

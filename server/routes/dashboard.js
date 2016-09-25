@@ -1,10 +1,9 @@
 import express from "express";
-import {getDashboard} from './dashboard/';
-
-// console.log("main dashboard file =>", getDashboard, typeof getDashboard);
+import {
+	getDashboard
+} from './dashboard/';
 
 const router = express.Router();
-
 
 router.get('/', getDashboard)
 
