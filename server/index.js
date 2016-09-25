@@ -1,4 +1,7 @@
-/* eslint-disable import/no-commonjs */
+process.on('uncaughtException', function (err) {
+   console.log("Internal error occured");
+   console.log(err.stack);
+});
 
 require('babel-register');
 require('css-modules-require-hook')({
@@ -7,3 +10,4 @@ require('css-modules-require-hook')({
   rootDir: './client'
 });
 require('./bin/www');
+
