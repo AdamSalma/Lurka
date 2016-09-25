@@ -25,18 +25,24 @@
         margin-bottom: 10px
         position: relative
 
-        img
+        &.img-container-opened
+            float: none
+            
+        .thumbnail
             margin-right: 10px
+
+        .expanded
             max-width: 100%
 
         .fullscreen
             +set-dims(30px, 30px)
             position: absolute
             top: 3px
-            right: 13px
+            right: 3px
             opacity: 0.5
             transition: opacity 0.2s ease-in
             cursor: pointer
+            z-index: 2
 
             &:hover
                 opacity: 1
@@ -48,6 +54,7 @@
 
             .fa-expand
                 color: $white
+
 
 
     br

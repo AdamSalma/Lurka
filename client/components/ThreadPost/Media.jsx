@@ -3,42 +3,60 @@ import React from "react";
 export function createMediaIfExists(ID, SRC, ext) {
     if (!ext) return;
 
-    function bigMedia() {
-        if (ext === ".webm") {
-            return <video src={SRC.lg} type='video/mp4' loop controls autoPlay />
-        } else {
-            return <img src={SRC.lg} />
-        }
-    };
-
     return (
-        <div id={ID} className='img-container' onClick={ event => toggleMedia(event, ID)}>
+        <div id={ID} className='img-container' onClick={ () => toggleMedia(ID, SRC.lg, ext)}>
             <div className="thumbnail">
                 <img src={SRC.sm} />
             </div>
             <div className="img-large-container hidden">
-                <span className="fullscreen hidden fa-stack fa-sm">
+                <span className="fullscreen fa-stack fa-sm">
                     <i className="fa fa-circle fa-stack-2x" />
                     <i className="fa fa-expand fa-stack-1x" />
                 </span>
-                {bigMedia()}
             </div>
         </div>
     )
 }
 
-function toggleMedia(event, ID) {
-    const imgWrap = $('#'+ID)
-    const thumbnail = imgWrap.find('.thumbnail')
-    const expanded = imgWrap.find('.img-large-container')
+function toggleMedia(id, src, ext) {
+    const imgWrap = $('#'+id);
+    const thumbnail = imgWrap.find('.thumbnail');
+    const expanded = imgWrap.find('.img-large-container');
 
     if (expanded.hasClass('hidden')) {
-        // expand image
-        thumbnail.addClass('hidden')
+        // Current 
+
+        if (ext === ".webm") {
+            // Create video
+            var file = $('<video />', {
+                src: src,
+                type: 'video/mp4',
+                controls: true,
+                autoplay: true,
+                loop: true,
+                class: "expanded"
+            });
+
+        } else {
+            // Create image
+            var file = $('<img />', {
+                src: src,   
+                class: "expanded"
+            })
+        }
+
+        // Hide the thumbnail and show the new element
+        imgWrap.addClass('img-container-opened')
         expanded.removeClass('hidden')
+                .append(file);
+        thumbnail.addClass('hidden');
+
     } else {
-        // revert to thumbnail image
+        // Revert to thumbnail image
+        imgWrap.removeClass('img-container-opened')
+        expanded.addClass('hidden')
+                .find('.expanded')
+                    .remove()
         thumbnail.removeClass('hidden')
-        expanded.addClass('hidden');
     }
 }
