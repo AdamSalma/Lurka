@@ -3,6 +3,7 @@ import {extractBoardList} from '../../helpers/morph-4chan';
 import defaultRequest from '../../helpers/request-config-4chan.js';
 
 export default function (req, res, next) {
+	console.log("Getting boardlist")
     const url = `http://a.4cdn.org/boards.json`;
     Axios(url, defaultRequest)
         .then( boardlist => res.send(extractBoardList(boardlist.data.boards)) )

@@ -18,11 +18,22 @@ else
 
 
 // Print url for debugging:
-app.all('*', (req) => console.info("User request:", req.url));
+app.all('*', function(req, res, next){
+    console.info("User request:", req.url);
+    next()
+});
 
 
 // Routes
-app.use('/', require('./routes/dashboard'))
+app.use('/', function (req, res, next) {
+    console.log("Sending dashboard")
+    console.log(__dirname)
+    console.log(process.env.PWD)
+    console.log(global.root)
+    console.log("")
+    res.sendFile('index.html', { root: ROOT });
+    res.end();
+})
 app.use('/4chan', require('./routes/4chan'));
 
 

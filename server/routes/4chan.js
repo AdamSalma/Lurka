@@ -7,6 +7,7 @@ import {
 
 const router = express.Router();
 
+router.get('/', () => console.log('Hi mum'))
 router.get('/boards', getBoardlist);
 router.get('/:boardID', getBoard);
 router.get('/:boardID/:threadID', getThread);

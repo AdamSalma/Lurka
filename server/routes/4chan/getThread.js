@@ -3,6 +3,7 @@ import { morphThread } from '../../helpers/morph-4chan';
 import defaultRequest from '../../helpers/request-config-4chan.js';
 
 export default function (req, res, next) {
+	console.log("Getting Thread")
     const boardID = req.params.boardID;
     const threadID = req.params.threadID;
     const url = `http://a.4cdn.org/${ boardID }/thread/${ threadID }.json`;

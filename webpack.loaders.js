@@ -1,3 +1,5 @@
+var serverPath = require('path').join(__dirname, 'server')
+
 module.exports = [
 	{
 		test: /\.jsx?$/,
@@ -18,6 +20,10 @@ module.exports = [
 		test: /\.css$/,
 		exclude: /node_modules/,
 		loader: 'style-loader!css-loader'
+	},
+	{
+		test: /\.json$/,
+		loader: 'json'
 	},
 	{
 		test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
@@ -52,7 +58,8 @@ module.exports = [
 		loader: "url-loader?limit=10000&mimetype=image/png"
 	},
 	{ 
-		test: require.resolve('jquery'), 
-		loader: 'expose?jQuery!expose?$' 
+		test: serverPath, 
+		exclude: /node_modules/,		
+		loader: 'babel'
 	}
 ];
