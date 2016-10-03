@@ -1,0 +1,28 @@
+nav
+    position: fixed
+    +set-dims(100vw, 50px)
+    background-color: $black
+    top: 0
+    z-index: 5
+
+    ul
+        @include columns(3, $container-width: 1000px )
+        position: relative
+
+        li
+            list-style: none
+            text-align: center
+            color: $white !important
+            text-decoration: none !important
+
+    a
+        margin-top: 15px
+        position: relative
+
+
+    a.active
+        transition: all 0.3s
+        color: $red
+        margin-top: 2px
+        font-size: 20px
+        border-bottom: 1px solid $red

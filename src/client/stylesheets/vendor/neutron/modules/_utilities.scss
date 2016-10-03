@@ -1,0 +1,44 @@
+// Utilities
+//---------------------------------------------
+
+//hides the element when the 
+//provided media query is supplied.
+@mixin hide($breakpoint: null) {
+	@if $breakpoint {
+		@include breakpoint($breakpoint) {
+			& {
+				display: none;
+			}
+		}
+	} @else {
+		display: none;
+	}
+}
+
+//shows the element when the 
+//provided media query is supplied.
+@mixin show($breakpoint: null) {
+	@if $breakpoint {
+		@include breakpoint($breakpoint) {
+			& {
+				display: block;
+				display: initial;
+			}
+		}
+	} @else {
+		display: block;
+		display: initial;
+	}
+
+}
+
+//Adds block element self clearing
+@mixin clear-fix() {
+
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+
+}
