@@ -1,20 +1,24 @@
 var webpack = require('webpack');
 var loaders = require('./webpack.loaders');
 var autoprefixer = require('autoprefixer');
-var path = require('path').join(__dirname, '../app/');
+var path = require('path');
+
+var outpath = path.join(__dirname, "..", "app")
+var node_modules = path.join(outpath, "node_modules")
 
 module.exports = {
 	target: "electron",
 	entry: {
-        app: `./client/index.jsx`
+        app: `./src/client/index.jsx`
 	},
 	output: {
-		path: path,
+		path: outpath,
 		filename: '[name].bundle.js',
 		sourceMapFilename: '[name].bundle.map'
 	},
 	resolve: {
-		extensions: ['', '.js', '.jsx', '.css', '.scss', '.sass', '.json']
+		extensions: ['', '.js', '.jsx', '.css', '.scss', '.sass', '.json'],
+		root: node_modules
 	},
 	module: {
 		loaders: loaders

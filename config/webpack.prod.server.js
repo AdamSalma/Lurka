@@ -1,31 +1,33 @@
 var webpack = require('webpack');
 var loaders = require('./webpack.loaders');
-var path = require('path').join(__dirname, '../app/');
+var path = require('path')
 var fs = require('fs');
 
+var outpath = path.join(__dirname, "..", "app")
+var node_modules = path.join(outpath, "node_modules")
+
 // excludes some node_modules files from bundle to avoid errors (esp with Express)
-var nodeModules = {};
-fs.readdirSync('node_modules')
-  	.filter(function(x) {
-    	return ['.bin'].indexOf(x) === -1;
-  	})
-  	.forEach(function(mod) {
-    	nodeModules[mod] = 'commonjs ' + mod;
-  	});
+var modules = {};
+fs.readdirSync(node_modules).filter(function(x) {
+  	return ['.bin'].indexOf(x) === -1;
+}).forEach(function(mod) {
+   	modules[mod] = 'commonjs ' + mod;
+});
 
 module.exports = {
 	target: "node",
-	externals: nodeModules,
+	externals: modules,
 	entry: {
-        server: `./server/index.js`
+        server: `./src/server/index.js`
 	},
 	output: {
-		path: path,
+		path: outpath,
 		filename: '[name].bundle.js',
 		sourceMapFilename: '[name].bundle.map'
 	},
 	resolve: {
-		extensions: ['', '.js', '.json']
+		extensions: ['', '.js', '.json'],
+		root: node_modules
 	},
 	module: {
 		loaders: loaders
