@@ -1,24 +1,25 @@
 var gulp = require('gulp');
-var webpack = require('webpack-stream');
+var webpack = require('webpack');
 
-var client = {
-    config: require('./config/webpack.prod.client.js'),
-    in: './src/client/index.jsx'
-}, server = {
-    config: require('./config/webpack.prod.server.js'),
-    in: './src/server/index.js'
-};
+var clientConfig = require('./config/webpack.prod.client.js')
+var serverConfig = require('./config/webpack.prod.server.js')
 
-gulp.task('bundle-client', function() {
-    return gulp.src( client.in )
-        .pipe( webpack( client.config ) )
-        .pipe( gulp.dest('./app/') )
+
+gulp.task('bundle-client', function(done) {
+    webpack( clientConfig ).run(onBundle(done))
 });
 
-gulp.task('bundle-server', function() {
-    return gulp.src( server.in )
-        .pipe( webpack( server.config ) )
-        .pipe( gulp.dest('./app/') )
+gulp.task('bundle-server', function(done) {
+    webpack( serverConfig ).run(onBundle(done))
 });
 
 gulp.task('bundle', ['bundle-client', 'bundle-server']);
+
+
+function onBundle(done) {
+    return function(err, stats) {
+        if (err) console.log('Error', err);
+        else console.log(stats.toString());
+        done()
+    }
+}
