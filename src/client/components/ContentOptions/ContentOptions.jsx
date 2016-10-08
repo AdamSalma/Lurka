@@ -21,7 +21,7 @@ class ContentOptions extends React.Component {
 
         const classes = classNames("content-options")  // TODO - add to this
 
-        return (        	
+        return (
             <div id="content-options" className={classes}>
             	<ul className="icons">
                     <li>
