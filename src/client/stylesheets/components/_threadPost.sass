@@ -13,16 +13,20 @@
     blockquote
         margin: 15px 25px
 
-    .info
+    .thread-post-info
         +font-size(14px)
         text-shadow: 0px 0px 4px black;
 
         > *
             margin-left: 8px
 
+        .thread-post-options 
+            float: right
+
     .img-container
         float: left
         margin-bottom: 10px
+        margin-left: 10px
         position: relative
 
         &.img-container-opened
@@ -60,12 +64,18 @@
     br
         line-height: 0.8
 
-    .title
+    .thread-post-title
         z-index: 1
 
     .quotelink
         color: $red
+        cursor: pointer
 
         &:hover
             color: $red-light
             transition: 0.3s ease-out
+
+
+    .quote
+        color: $green
+        font-style: italic
