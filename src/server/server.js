@@ -1,7 +1,7 @@
 // #!/usr/bin/env node
 'use strict';
 
-import app from '../app.js';
+import app from './app.js';
 import http from 'http';
 import config from '../../config';
 
