@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react';
 import { Router, Route, IndexRoute, hashHistory } from "react-router";
 
-import '../index.scss';
+import '../styles';
 import Dashboard from './Dashboard';
 import Layout from './Layout';
 import MemeViewer from './MemeViewer';
