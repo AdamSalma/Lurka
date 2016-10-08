@@ -11,11 +11,12 @@ export default function ({post, children}) {
 
     return (
         <div className='thread-post'>
-            <div className='info'>
-                {() => {if (title) return <span className='title'>{title}</span>}}
+            <div className='thread-post-info'>
+                {() => {if (title) return <span className='thread-post-title'>{title}</span>}}
                 {children}
-                <span className='number'>No.{id}</span>
-                <span className='backlink'></span>
+                <span className='thread-post-number'>No.{id}</span>
+                <span className='thread-post-backlink'></span>
+                <span className='thread-post-options'>dd</span>
             </div>
             {createMediaIfExists(ID, SRC, ext)}
             <blockquote dangerouslySetInnerHTML={{__html: comment}}/>
