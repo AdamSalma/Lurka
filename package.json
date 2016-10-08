@@ -5,9 +5,9 @@
   "description": "Messaging board viewer and scraper",
   "main": "./src/server",
   "scripts": {
-    "start": "cross-env NODE_PATH=./app/node_modules nodemon ./src/server",
+    "dev": "cross-env NODE_PATH=./app/node_modules nodemon ./src/server",
     "bundle": "gulp bundle",
-    "build": "webpack --config ./webpack.production.config.js --progress --profile --colors",
+    "start": "electron ./app",
     "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha",
     "test-watch": "cross-env NODE_ENV=test ./node_modules/.bin/mocha -R min -w"
   },
@@ -38,6 +38,7 @@
     "copy-webpack-plugin": "^3.0.1",
     "cross-env": "^3.0.0",
     "css-loader": "^0.25.0",
+    "electron": "^1.4.3",
     "eslint": "^3.5.0",
     "eslint-plugin-import": "^1.15.0",
     "eslint-plugin-react": "^6.2.1",
