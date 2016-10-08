@@ -7,15 +7,20 @@
 #### Installation
 ```
 git clone https://github.com/AdamSalma/Lurka.git
-cd Lurka
-npm install
+
+# Install dev dependencies
+cd Lurka && npm install
+
+# Install app dependencies
+cd app && npm install
 ```
 #### Development mode:
 ```
-npm run dev
+# Run from project root (/Lurka/)
+npm start
 ```
 #### Production mode:
 ```
-npm run build
-npm start
+npm run bundle
+cd app && npm start
 ```
