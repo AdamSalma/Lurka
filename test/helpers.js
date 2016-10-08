@@ -1,9 +1,9 @@
 import {createRenderer} from 'react-addons-test-utils';
 
-export const shallow = (raw) => {
+export const shallow = (component) => {
   const renderer = createRenderer();
 
-  renderer.render(raw);
+  renderer.render(component);
 
   return {
     output: renderer.getRenderOutput(),
