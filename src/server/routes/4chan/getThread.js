@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { morphThread } from '../../helpers/morph-4chan';
-import defaultRequest from '../../helpers/request-config-4chan.js';
+import { chan as options } from '../../helpers/request-config.js';
 
 export default function (req, res, next) {
 	console.log("Getting Thread")
@@ -10,8 +10,8 @@ export default function (req, res, next) {
 
     if (isNaN(threadID)) next();
 
-    defaultRequest.headers['Origin'] = 'http://boards.4chan.org/' +boardID;
-    Axios(url, defaultRequest)
+    options.headers['Origin'] = 'http://boards.4chan.org/' +boardID;
+    Axios(url, options)
         .then( threads => res.send(morphThread(threads.data.posts, boardID)) )
         .catch( err => console.log(`ERROR - Thread fetch: ${err}`));
 };
