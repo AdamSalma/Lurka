@@ -1,9 +1,9 @@
+import { createReadStream } from 'fs';
+import { join } from 'path';
+
 export default function (req, res, next) {
-	console.log("Sending dashboard")
-	console.log(__dirname)
-	console.log(process.env.PWD)
-	console.log(global.root)
-	console.log("")
-    res.sendFile('index.html', { root: global.root });
-    res.end();
+    if (req.xhr) return next();
+    console.log("Sending dashboard");
+    let app = join(global.app_root, 'app.html');
+    createReadStream(app).pipe(res);
 }
