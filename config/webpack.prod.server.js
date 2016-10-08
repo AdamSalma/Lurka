@@ -17,7 +17,7 @@ fs.readdirSync(node_modules).filter(function(x) {
 module.exports = {
     target: "node",
     node: {
-        __dirname: true
+        __dirname: false
     },
     externals: modules,
     entry: `./src/server/server.js`,

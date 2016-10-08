@@ -5,6 +5,7 @@ import { join } from 'path';
  
 const app = Express();
 const router = Express.Router();
+
  
 // Environment
 console.info(`Environment: "${config.env}"`);
