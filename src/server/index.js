@@ -1,3 +1,5 @@
-import 'babel-polyfill';
-import './bin/www';
+
+if (process.env.NODE_ENV !== "production") 
+	require('babel-register');
+require('./server');
 
