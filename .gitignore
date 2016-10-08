@@ -1,3 +1,5 @@
-dist
+build
 node_modules
 *.log
+*.bundle.js
+app/*.ttf
