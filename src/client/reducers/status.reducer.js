@@ -1,11 +1,8 @@
-import { BOARD_CHANGE, PROVIDER_CHANGE } from '../constants'
+import { BOARD_CHANGE, PROVIDER_CHANGE } from '../constants';
+import initialState from './initialState';
 
-const initialState = {
-    provider: "4chan",
-    boardID: "g"
-};
 
-export default function (state=initialState, action) {
+export default function (state = initialState.status, action) {
     switch (action.type) {
         case BOARD_CHANGE:
             return Object.assign({}, state, {

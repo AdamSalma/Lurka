@@ -1,17 +1,11 @@
+import initialState from './initialState';
 import { 
     BOARD_LOADED, 
     BOARD_LIST_LOADED, 
     BOARD_REQUEST 
 } from '../constants'
 
-const initialState = {
-    isFetching: false,
-    didInvalidate: false,
-    boardList: [1,2,3,4,5],
-    items: []
-};
-
-export default function (state=initialState, action) {
+export default function (state = initialState.board, action) {
     switch (action.type) {
         case BOARD_REQUEST:
             return Object.assign({}, state, {

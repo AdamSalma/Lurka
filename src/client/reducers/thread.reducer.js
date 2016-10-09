@@ -1,17 +1,11 @@
+import initialState from './initialState';
 import { 
     THREAD_LOADED, 
     THREAD_REQUEST, 
     THREAD_DESTROY
 } from '../constants'
 
-const initialState = {
-    posts: [],
-    postsLoaded: 0,
-    isFetching: false
-};
-
-export default function (state=initialState, action) {
-    console.log("Thread Reducer:", state, action);
+export default function (state = initialState.thread, action) {
     switch (action.type) {
 
         case THREAD_REQUEST:
