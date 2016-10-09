@@ -13,7 +13,11 @@ gulp.task('bundle-server', function(done) {
     webpack( serverConfig ).run(onBundle(done))
 });
 
-gulp.task('bundle', ['bundle-client', 'bundle-server']);
+gulp.task('copy-html', function() {
+	gulp.src('./src/index.html').pipe(gulp.dest('./app'))
+});
+
+gulp.task('bundle', ['bundle-client', 'bundle-server', 'copy-html']);
 
 
 function onBundle(done) {
