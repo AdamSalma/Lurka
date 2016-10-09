@@ -4,6 +4,6 @@ import { join } from 'path';
 export default function (req, res, next) {
     if (req.xhr) return next();
     console.log(`Streaming dashboard from ${global.app_root}`);
-    let index = join(global.app_root, 'app.html');
+    let index = join(global.app_root, 'index.html');
     createReadStream(index).pipe(res);
 }
