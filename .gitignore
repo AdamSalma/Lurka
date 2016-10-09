@@ -2,4 +2,10 @@ build
 node_modules
 *.log
 *.bundle.js
-app/*.ttf
+
+# Ignore everything in app
+app/*
+
+# Except index.js, package.json
+!app/index.js
+!app/package.json
