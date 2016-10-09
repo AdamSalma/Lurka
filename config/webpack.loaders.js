@@ -23,8 +23,8 @@ module.exports = [
 		test: /\.json$/,
 		loader: 'json'
 	},
-	{
-    	test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
-    	loader: 'url-loader?limit=30000&name=[name]-[hash].[ext]'
+	{ 
+		test: /.(png|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/, 
+		loader: 'url-loader?limit=100000&name=[name]-[hash].[ext]' 
 	}
 ];

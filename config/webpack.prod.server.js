@@ -20,7 +20,7 @@ module.exports = {
         __dirname: false
     },
     externals: modules,
-    entry: `./src/server/server.js`,
+    entry: `./src/server/`,
     output: {
         path: outpath,
         filename: 'server.bundle.js'
