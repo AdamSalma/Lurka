@@ -11,9 +11,7 @@ function createWindow () {
   // and load the index.html of the app.
   win.loadURL(`http://localhost:3000`)
 
-  // Open the DevTools.
-  win.webContents.openDevTools()
-
+  win.setFullScreen(true);
   // Emitted when the window is closed.
   win.on('closed', () => {
     // Dereference the window object, usually you would store windows
