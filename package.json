@@ -3,13 +3,12 @@
   "name": "Lurka",
   "version": "0.4.0",
   "description": "Messaging board viewer and scraper",
-  "main": "./src/server",
   "scripts": {
     "dev": "cross-env NODE_PATH=./app/node_modules nodemon ./src/server",
     "bundle": "gulp bundle",
     "start": "electron ./app",
-    "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha",
-    "test-watch": "cross-env NODE_ENV=test ./node_modules/.bin/mocha -R min -w"
+    "test": "cross-env NODE_ENV=test NODE_PATH=./app/node_modules mocha",
+    "test-watch": "cross-env NODE_ENV=test NODE_PATH=./app/node_modules mocha -R min -w"
   },
   "repository": {
     "type": "git",
