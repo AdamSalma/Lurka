@@ -5,14 +5,18 @@ import { Provider } from 'react-redux';
 
 import App from './containers/App';
 import configureStore from './store';
-import { loadState, saveState } from './store/localStorage'
+import { loadState, saveState } from './store/localStorage';
 
 const preloadedState = loadState();
 const store = configureStore(preloadedState);
 
+// Saves changes to localstorage
 store.subscribe( () => {
 	saveState(store.getState());
 })
+
+window.storeState = store.getState();
+console.info('Initial store:', store.getState());
 
 ReactDOM.render(
     <Provider store={store}>
@@ -20,3 +24,4 @@ ReactDOM.render(
     </Provider>,
     document.querySelector('#App')
 );
+h
