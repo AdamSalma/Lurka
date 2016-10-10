@@ -16,7 +16,7 @@ export default function ({post, children}) {
                 {children}
                 <span className='thread-post-number'>No.{id}</span>
                 <span className='thread-post-backlink'></span>
-                <span className='thread-post-options'>dd</span>
+                <span className='mdi mdi-dots-vertical thread-post-options'></span>
             </div>
             {createMediaIfExists(ID, SRC, ext)}
             <blockquote dangerouslySetInnerHTML={{__html: comment}}/>

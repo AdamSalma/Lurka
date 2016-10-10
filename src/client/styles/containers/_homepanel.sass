@@ -1,0 +1,21 @@
+.page-home
+	text-align: center
+
+	#header
+		height: 270px
+		border-bottom: 1px $red solid
+		position: fixed
+		top: 0
+		width: 100vw
+		z-index: 2
+		background: $grey
+
+		@include breakpoint(to-tablet)
+			z-index: 100
+
+	.logo-wrap
+		position: fixed
+		height: 300px
+		left: 0
+		right: 0
+		margin: 0 auto

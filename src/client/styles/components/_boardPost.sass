@@ -9,25 +9,32 @@
     text-align: center
     border-radius: 4px
     cursor: pointer
+    background: $black
 
 
     img
         display: inline
-        +limit-width(150px, 50px)
+        +limit-width(175px, 50px)
         +limit-height(150px, 50px)
 
     .count
         text-align: center
 
-        span
-            padding: 0 8px
+        > span
+            width: $thread-width / 2
+            display: inline-block
+            text-align: center
+
         b
             margin-left: 4px
 
-        .fa-comments
+        .mdi 
+            font-size: 18px
+
+        .mdi-comment-text
             color: $red-light
 
-        .fa-picture-o
+        .mdi-message-image
             color: $blue-light
 
     .op

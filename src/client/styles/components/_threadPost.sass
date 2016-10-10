@@ -3,9 +3,13 @@
     overflow: hidden
     display: block
     width: 1004px
-    margin-bottom: 10px
+    margin-bottom: 4px
     text-align: left
     padding: 2px 8px
+
+    @include breakpoint(to-tablet)
+        width: 100% !important
+    // border-bottom: $grey-light solid 1px
 
     &:last-child
         margin-bottom: 0
@@ -13,12 +17,27 @@
     blockquote
         margin: 15px 25px
 
-    .info
+    .thread-post-info
         +font-size(14px)
         text-shadow: 0px 0px 4px black;
 
         > *
             margin-left: 8px
+
+        .mdi-dots-vertical
+            /* submenu */
+            float: right
+            margin-right: 20px
+            font-size: 28px
+            font-weight: bold
+            cursor: pointer
+            border-radius: 0 0 4px 4px
+            height: 42px
+            &:hover
+                border: $grey-dark solid 1px
+                border-top: none
+                background: $white
+                color: $grey-dark
 
     .img-container
         float: left
@@ -65,6 +84,7 @@
 
     .quotelink
         color: $red
+        text-decoration: none
 
         &:hover
             color: $red-light

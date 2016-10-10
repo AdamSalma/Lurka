@@ -52,7 +52,7 @@ $neutron_breakpoints: (
 	desktop-lrg: 		createBreakpoint($desktop-lrg-min),
 	
 	to-phablet: 		createBreakpoint(0, $phablet-max),
-	to-tablet: 		createBreakpoint(0, $tablet-max),
+	to-tablet:	 		createBreakpoint(0, $tablet-max),
 	to-desktop-sml:		createBreakpoint(0, $desktop-sml-max),
 	to-desktop-mid: 	createBreakpoint(0, $desktop-mid-max),
 	
