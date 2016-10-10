@@ -1,59 +1,51 @@
 import React from 'react';
 import { Link } from 'react-router';
 import Velocity from 'velocity-animate';
-// import NavBar from './NavBar';  // TODO - incorporate this
 import classNames from "classnames";
+
+import Logo from "../Logo";
 
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isNavbarVisible: true,
-            activeLink: 0
-        }
-        this.makeActiveLink = this.makeActiveLink.bind(this);
-        this.makeUnactiveAll = this.makeUnactiveAll.bind(this);
+        this.onHeaderToggle = this.onHeaderToggle.bind(this)
     }
 
     render() {
-        const { activeLink } = this.state;
-
+        const {isMainPage, loadingText} = this.props;
         return (
-            <nav ref="navbar">
-                <ul>
-                    <li><Link
-                        onClick={this.makeActiveLink}
-                        className={"route-link"}
-                        to="/">Dashboard
-                    </Link></li>
-                    <li><Link
-                        onClick={this.makeActiveLink}
-                        className={"route-link"}
-                        to="/memes">Memes
-                    </Link></li>
-                    <li><Link
-                        onClick={this.makeActiveLink}
-                        className={"route-link"}
-                        to="/settings">Settings
-                    </Link></li>
-                </ul>
-            </nav>
+            <div id="header" ref='header'>
+                <Logo isFullsize={isMainPage} loadingText={loadingText} toggleHeader={()=>this.onHeaderToggle()}/>  // Lookup how to do this again...
+            </div>
         )
     }
 
-    makeActiveLink( e ) {
-        this.makeUnactiveAll()
-        // add to current
-        const { classList } = e.target;
-        if (classList.contains('active')) return classList.remove('active');
-        classList.add('active')
-    }
+    onHeaderToggle() {
+        const { header } = this.refs;
+        console.log(this.refs)
+        console.log("onHeaderToggle() ", header);
 
-    makeUnactiveAll( ) {
-        const { navbar } = this.refs;
-        var lis = navbar.children[0].children
-        for (let i = 0; i<lis.length; i++) {
-            lis[i].classList.remove('active')
+        if (this.props.isMainPage){
+            console.log(`Toggling with ${this.refs.header}`)
+            Velocity(
+                this.refs.header,
+                {height: "70px"},
+                {
+                    duration: 1500,
+                    easing: [0.39, 0.575, 0.565, 1]
+                    // easing: "ease-out"
+                }
+            )
+        } else {
+            Velocity(
+                this.refs.header,
+                {height: "270px"},
+                {
+                    duration: 1250,
+                    easing: [0.25, 0.8, 0.25, 1]
+                }
+            )
         }
     }
+
 }
