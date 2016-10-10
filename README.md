@@ -14,11 +14,11 @@ cd Lurka && npm install
 # Install app dependencies
 cd app && npm install
 ```
-#### Development mode:
+#### Development mode (browser - localhost:3000):
 ```bash
 npm run dev
 ```
-#### Production mode:
+#### Production mode (desktop app - Electron):
 ```bash
 npm run bundle && npm start
 ```
