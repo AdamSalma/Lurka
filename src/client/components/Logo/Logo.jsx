@@ -19,11 +19,12 @@ class Logo extends React.Component {
     	const { isFullsize, loadingText } = this.props;
 		const logoClasses = classNames("logo", {"logo-fullsize": isFullsize});
 
-		console.log("isFullsize?", isFullsize)
+		const text = !isFullsize ? <span>{loadingText}</span> : ""  // create action for logo toggle, changes isFullsize, changes text
+
         return (
         	<div id="logo" ref="logo" className="logo-fullsize">
                 <img ref="logoImg" src='./logo.png' className={logoClasses}/>
-                {() => {if (!isFullsize) <span>{loadingText}</span>}}
+                {text}
             </div>
 		)
     }
