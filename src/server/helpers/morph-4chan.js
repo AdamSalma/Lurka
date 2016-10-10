@@ -43,39 +43,31 @@ export function morphThread( posts, boardID ) {
     let img = 'https://i.4cdn.org/' + boardID + '/';
 
     if (!posts.length) throw new Error("No threads extracted");
-    let thread = [];
-    posts.map( post => {
-        thread.push({
-            id: post['no'],
-            date: post['now'],
-            title: post['sub'] || "",
-            time: post['tim'] || post['time'] * 1000,
-            comment: post['com'],
-            imgsrc: !!post['ext'] ? {
-                sm: img + post['tim'] + "s.jpg",
-                lg: img + post['tim'] + post['ext']
-            } : undefined,
-            ext: post['ext'],
-            replies: {
-                textCount: post['replies'],
-                imgCount: post['images'],
-                ipCount: post['unique_ips']
-            }
-        })
-    });
+    console.log(`Created ${posts.length} 4chan posts`);
 
-    console.log(`Created ${thread.length} 4chan posts`);
-    return thread
+    
+    return posts.map( post => ({
+        id: post['no'],
+        date: post['now'],
+        title: post['sub'] || "",
+        time: post['tim'] || post['time'] * 1000,
+        comment: post['com'],
+        imgsrc: !!post['ext'] ? {
+            sm: img + post['tim'] + "s.jpg",
+            lg: img + post['tim'] + post['ext']
+        } : undefined,
+        ext: post['ext'],
+        replies: {
+            textCount: post['replies'],
+            imgCount: post['images']
+        }
+    }));
 }
 
 
 export function extractBoardList( boardList ) {
-    let boards = []
-    boardList.map( ({board, title}) => {
-        boards.push({
-            value: board, 
-            text: `/${board}/ - ${title}`
-        })
-    });
-    return boards
+    return boardList.map( ({ board, title }) => ({
+        value: board, 
+        text: `/${board}/ - ${title}`
+    }));
 }
