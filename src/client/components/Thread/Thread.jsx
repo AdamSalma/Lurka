@@ -1,6 +1,4 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import classNames from 'classnames';
 import Velocity from 'velocity-animate';
 import TimeAgo from 'react-timeago';
@@ -14,9 +12,7 @@ import {
     fullscreenImageDelegation
 } from './helpers'
 
-import {closeThread} from "../../actions/thread.actions";
-
-class Thread extends React.Component {
+export default class Thread extends React.Component {
     constructor() {
         super()
         this.threadToggle = this.threadToggle.bind(this)
@@ -45,7 +41,7 @@ class Thread extends React.Component {
             "thread-wrap-active": thread.length || isFetching
         });
 
-        console.info(`Rendering Thread with ${thread.length} posts`);
+        if (thread.length) console.info(`Rendering Thread with ${thread.length} posts`);
         
 
         return (
@@ -96,20 +92,3 @@ class Thread extends React.Component {
         )
     }
 }
-
-function mapStateToProps({thread}) {
-    console.log("thread mapping to props", thread)
-    return {
-        thread: thread.posts,
-        isFetching: thread.isFetching,
-        postsLoaded: thread.postsLoaded
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    console.log("dispatching board action");
-
-    return bindActionCreators({closeThread}, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Thread);

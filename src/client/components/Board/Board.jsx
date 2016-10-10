@@ -1,14 +1,10 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import uuid from "uuid";
 
 import BoardPost from '../BoardPost';
-import { fetchBoard } from '../../actions/board.actions';
-import { fetchThread } from '../../actions/thread.actions';
 import { catchTooltip } from './events';
 
-class Board extends React.Component {
+export default class Board extends React.Component {
     constructor(){
         super()
         this.onThreadFetch = this.onThreadFetch.bind(this);
@@ -61,20 +57,3 @@ class Board extends React.Component {
         fetchThread(provider, boardID, threadID);
     }
 }
-
-function mapStateToProps(state) {
-    return {
-        board: state.board,
-        provider: state.status.provider,
-        boardID: state.status.boardID
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        fetchBoard, 
-        fetchThread
-    }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Board)
