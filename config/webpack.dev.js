@@ -18,7 +18,7 @@ export default {
         'webpack/hot/dev-server',
         `./src/client/index.jsx`
     ],
-    devtool: process.env.WEBPACK_DEVTOOL || '#eval-source-map',
+    devtool: process.env.WEBPACK_DEVTOOL || 'eval',
     output: {
         path: "/",
         publicPath: "http://" +HOST+ ":" +PORT+ "/",

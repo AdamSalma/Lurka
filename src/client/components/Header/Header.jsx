@@ -22,18 +22,15 @@ export default class Header extends React.Component {
 
     onHeaderToggle() {
         const { header } = this.refs;
-        console.log(this.refs)
         console.log("onHeaderToggle() ", header);
 
         if (this.props.isMainPage){
-            console.log(`Toggling with ${this.refs.header}`)
             Velocity(
                 this.refs.header,
                 {height: "70px"},
                 {
                     duration: 1500,
                     easing: [0.39, 0.575, 0.565, 1]
-                    // easing: "ease-out"
                 }
             )
         } else {

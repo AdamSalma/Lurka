@@ -15,6 +15,7 @@ store.subscribe( () => {
 	saveState(store.getState());
 })
 
+// Enable checking the store start at any point 
 window.storeState = store.getState();
 console.info('Initial store:', store.getState());
 
@@ -24,4 +25,3 @@ ReactDOM.render(
     </Provider>,
     document.querySelector('#App')
 );
-h
