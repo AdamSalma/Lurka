@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import BoardReducer from "./board.reducer";
-import ThreadReducer from "./thread.reducer";
-import StateReducer from "./status.reducer";
+import BoardReducer from "./BoardReducer";
+import ThreadReducer from "./ThreadReducer";
+import StatusReducer from "./StatusReducer";
 
 const rootReducer = combineReducers({
     board: BoardReducer,
     thread: ThreadReducer,
-    status: StateReducer
+    status: StatusReducer
 });
 
 export default rootReducer
