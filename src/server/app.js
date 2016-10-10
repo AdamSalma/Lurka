@@ -11,10 +11,12 @@ const router = Express.Router();
 console.info(`Environment: "${config.env}"`);
 if (config.env === 'production') {
     global.app_root = __dirname
-    app.use(Express.static(global.app_root));
+    app.use(Express.static(__dirname));
+    app.use(Express.static(join(__dirname, '/assets')));
 } else {
     // Development
     global.app_root = join(__dirname, '../..', 'app');
+    app.use(Express.static(join(__dirname, '../assets')));
     webpackHotMiddleware(app);
     app.all('*', (req, res, next) => {
         console.info("User request:", req.url);
@@ -24,8 +26,8 @@ if (config.env === 'production') {
  
  
 // Routes
-app.use('/', require('./routes/dashboard'))
-app.use('/4chan', require('./routes/4chan'));
+app.use('/', require('./routes/dashboard'));
+app.use('/provider', require('./routes/provider'));
  
  
 // 404 handler
