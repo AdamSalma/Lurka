@@ -31,10 +31,10 @@ function destroyThread() {
 }
 
 export function fetchThread(provider, boardID, threadID) {
-    console.log(`Action FetchThread() to /${provider}/${boardID}/${threadID}`);
+    console.log(`Action FetchThread() to /provider/${provider}/${boardID}/${threadID}`);
     return dispatch => {
         dispatch(requestThread(threadID));
-        return Axios.get(`/${provider}/${boardID}/${threadID}`)
+        return Axios.get(`/provider/${provider}/${boardID}/${threadID}`)
             .then(data => dispatch(receiveThread(data)))
             .catch( e => console.error(e));
     }

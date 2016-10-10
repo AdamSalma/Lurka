@@ -45,21 +45,21 @@ function changeBoard( boardID ) {
 }
 
 export function fetchBoard({ provider, boardID }) {
-    console.log(`Action FetchBoard() to /${provider}/${boardID}`);
+    console.log(`Action FetchBoard() to /provider/${provider}/${boardID}`);
     return dispatch => {
         dispatch(requestBoard())
         dispatch(changeBoard(boardID))
-        return Axios.get(`/${provider}/${boardID}`)
+        return Axios.get(`/provider/${provider}/${boardID}`)
             .then(data => dispatch(receiveBoard(data)))
             .catch( e => console.error(e));
     }
 }
 
 export function fetchBoardList({ provider }) {
-    console.log(`Action FetchBoard() to /${provider}/boards`);
+    console.log(`Action FetchBoard() to /provider/${provider}/boards`);
     return dispatch => {
         dispatch(requestBoardList())
-        return Axios.get(`/${provider}/boards`)
+        return Axios.get(`/provider/${provider}/boards`)
             .then(data => dispatch(receiveBoardList(data)))
             .catch( e => console.error(e));
     }
