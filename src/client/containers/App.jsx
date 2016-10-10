@@ -1,23 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react';
 import { Router, Route, IndexRoute, hashHistory } from "react-router";
 
 import '../styles';
-import Dashboard from './Dashboard';
-import Layout from './Layout';
-import MemeViewer from './MemeViewer';
-import Settings from './Settings';
+import HomePanel from './HomePanel';
+import ContentPanel from './ContentPanel';
+import SettingsPanel from './SettingsPanel';
 
 export default class App extends React.Component {
-	render() {
+    render() {
         return (
-            <Router history={hashHistory}>
-                <Route path="/" component={Layout}>
-                    <IndexRoute component={Dashboard}></IndexRoute>
-                    <Route path="memes" component={MemeViewer}></Route>
-                    <Route path="settings" component={Settings}></Route>
-                </Route>
-            </Router>
+        	<Router history={hashHistory}>
+        		<Route path="/" component={HomePanel}>
+        			<Route path='content' component={ContentPanel}>
+        				<Route path='settings' component={SettingsPanel}></Route>
+        			</Route>
+        		</Route>
+        	</Router>
         )
     }
 }
