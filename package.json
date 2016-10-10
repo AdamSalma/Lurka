@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_PATH=./app/node_modules nodemon ./src/server",
     "bundle": "gulp bundle",
+    "build": "gulp build",
     "start": "electron ./app",
     "test": "cross-env NODE_ENV=test NODE_PATH=./app/node_modules mocha",
     "test-watch": "cross-env NODE_ENV=test NODE_PATH=./app/node_modules mocha -R min -w"
@@ -28,6 +29,7 @@
   "homepage": "https://github.com/AdamSalma/Lurka#readme",
   "devDependencies": {
     "autoprefixer": "^6.4.1",
+    "axios-mock-adapter": "^1.6.1",
     "babel-loader": "^6.2.5",
     "babel-polyfill": "^6.16.0",
     "babel-preset-es2015": "^6.14.0",
