@@ -13,11 +13,18 @@ gulp.task('bundle-server', function(done) {
     webpack( serverConfig ).run(onBundle(done))
 });
 
-gulp.task('copy-html', function() {
+
+gulp.task('move-index', function() {
 	gulp.src('./src/index.html').pipe(gulp.dest('./app'))
 });
 
-gulp.task('bundle', ['bundle-client', 'bundle-server', 'copy-html']);
+gulp.task('move-assets', ['move-index'], function() {
+	gulp.src('./src/assets/**/*', {base: './src'}).pipe(gulp.dest('./app/'))
+});
+
+
+gulp.task('bundle', ['bundle-client', 'bundle-server']);
+gulp.task('build', ['bundle', 'move-assets'])
 
 
 function onBundle(done) {
