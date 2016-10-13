@@ -1,7 +1,13 @@
 export default {
 	status: {
 		provider: "4chan",
+		providers: ["4chan"],
     	boardID: "g"
+	},
+	header: {
+		isMainPage: true,
+		isAnimating: false,
+		loadingText: "test"
 	},
 	thread: {
 	    posts: [],
