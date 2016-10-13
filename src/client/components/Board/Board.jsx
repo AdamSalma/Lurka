@@ -20,7 +20,7 @@ export default class Board extends React.Component {
     }
 
     componentDidMount() {
-        catchTooltip(this.refs.board);
+        catchTooltip(this.refs.board);  // TODO - Implement this
     }
 
     componentWillUnmount() {

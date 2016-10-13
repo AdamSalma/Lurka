@@ -3,7 +3,6 @@ import Tooltip from '../Tooltip';
 
 export default ({ post, fetchThread }) => {
     const {id, title, comment, date, imgsrc, replies} = post;
-    console.info(replies.ipCount)
     return (
         <div 
             className="board-post"

@@ -18,7 +18,7 @@ import {
 
 import { 
     changeProvider 
-} from '../actions/ProviderActions';
+} from '../actions/HeaderActions';
 
 
 class ContentPanel extends React.Component {

@@ -4,7 +4,6 @@ import getBoard from './getBoard'
 import getBoardlist from './getBoardlist'
 import getThread from './getThread'
 
-console.log("4chan found");
 const router = Express.Router();
 
 router.get('/', () => console.log('Hi mum'));
