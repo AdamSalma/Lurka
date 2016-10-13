@@ -15,7 +15,7 @@ export default class Header extends React.Component {
         const {isMainPage, loadingText} = this.props;
         return (
             <div id="header" ref='header'>
-                <Logo isFullsize={isMainPage} loadingText={loadingText} toggleHeader={()=>this.onHeaderToggle()}/>  // Lookup how to do this again...
+                <Logo isFullsize={isMainPage} loadingText={loadingText} toggleHeader={this.onHeaderToggle}/>
             </div>
         )
     }
@@ -24,22 +24,22 @@ export default class Header extends React.Component {
         const { header } = this.refs;
         console.log("onHeaderToggle() ", header);
 
-        if (this.props.isMainPage){
+        if (!this.props.isMainPage){
             Velocity(
-                this.refs.header,
+                header,
                 {height: "70px"},
                 {
-                    duration: 1500,
-                    easing: [0.39, 0.575, 0.565, 1]
+                    duration: 1400,
+                    easing: "ease-in"
                 }
             )
         } else {
             Velocity(
-                this.refs.header,
+                header,
                 {height: "270px"},
                 {
                     duration: 1250,
-                    easing: [0.25, 0.8, 0.25, 1]
+                    easing: "ease-out"
                 }
             )
         }
