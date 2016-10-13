@@ -23,13 +23,6 @@ function receiveThread(thread) {
     }
 }
 
-function destroyThread() {
-    console.log('Action DestroyThread');
-    return {
-        type: THREAD_DESTROY
-    }
-}
-
 export function fetchThread(provider, boardID, threadID) {
     console.log(`Action FetchThread() to /provider/${provider}/${boardID}/${threadID}`);
     return dispatch => {
@@ -42,6 +35,8 @@ export function fetchThread(provider, boardID, threadID) {
 
 export function closeThread() {
     return dispatch => {
-        return dispatch(destroyThread())
+        dispatch({
+            type: THREAD_DESTROY
+        })
     }
 }

@@ -12,18 +12,18 @@ import {
 export function toggleHeaderAnimation(){
     console.info('toggleHeaderAnimation');
     return dispatch => {
-        dispatch(() => { return {type: HEADER_ANIMATE} })
+        dispatch({
+            type: HEADER_ANIMATE
+        })
     }
 }
 
 export function changeProvider({ provider }) {
     console.info("Action changeProvider() to " + provider);
     return dispatch => {
-        dispatch(() => {
-            return {
-                type: PROVIDER_CHANGE,
-                payload: provider
-            }
+        dispatch({
+            type: PROVIDER_CHANGE,
+            payload: provider
         })
     }   
 }
