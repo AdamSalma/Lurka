@@ -1,46 +1,54 @@
 import React from "react";
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
 import { Link } from "react-router";
+
+import Velocity from 'velocity-animate';
 
 import Header from "../components/Header";
 
+import {
+	toggleHeaderAnimation,
+	changeProvider
+} from '../actions/HeaderActions';
+
 // import scroll action here
 
-export default class HomePanel extends React.Component {
+class HomePanel extends React.Component {
 	constructor() {
-		super()
-		this.handleScroll = this.handleScroll.bind(this);
-		this.state = {scrollCount: 60}
+		super();
+		this.scrollToContent = this.scrollToContent.bind(this);
+		this.onProviderClick = this.onProviderClick.bind(this);
+		this.state = {scrollCount: 60};
 	}
 
-	componentDidMount() {
-		window.addEventListener('scroll', (event) => this.handleScroll(event), false)
-	}
+	// componentDidMount() {
+	// 	window.addEventListener('scroll', (event) => this.handleScroll(event), false)
+	// }
 
-	componentWillUnmount() {
-		window.removeEventListener('scroll', () => console.log('Removed window.scroll event'), false)
-	}
+	// componentWillUnmount() {
+	// 	window.removeEventListener('scroll', () => console.log('Removed window.scroll event'), false)
+	// }
 
     render() {
-		const providers = ["4chan", "reddit"]  // this.props.providers eventually
-		
+		const {isMainPage, providers, loadingText} = this.props;
         return (
         	<div id="pages">
 	            <div className="page page-home">
 	        		{/* TODO: add text prop for logo loading animation e.g. "Fetching thread..."*/}
-	            	<Header loadingText={"loadingText"} isMainPage={true}/>  
+	            	<Header loadingText={loadingText} isMainPage={isMainPage}/>  
 	            	<div>
 	            		<h3>Providers:</h3>
 	            		<div className="providers">
-	            		{
-	            			providers.map( 
-	            				provider => <Link key={provider} to="content">
-			            			<input 
-										type="button" 
-										value={provider} 
-										onClick={this.scrollToContent}/>
-		            			</Link>
-							)
-						}
+	            		{providers.map( 
+            				provider => <Link key={provider} to="/content">
+		            			<input 
+									type="button" 
+									value={provider} 
+									onClick={this.onProviderClick}/>
+	            			</Link>
+						)}
 	            		</div>
 	            	</div>
 	            </div>
@@ -49,32 +57,39 @@ export default class HomePanel extends React.Component {
         )
     }
 
-    handleScroll() { // TODO: add logo spin actions, make own component, move isFetching to state.status
-    	if (this.state.scrollCount++ < 60) return;
-    	this.state.scrollCount = 0
-    	
-    	if (!this.state.logoImg) {
-    		this.state.logoImg = document.querySelector('#logo');
+    onProviderClick() {
+    	console.log("onProviderClick");
+    	this.props.toggleHeaderAnimation();
+    	this.scrollToContent();
+    }
+
+    scrollToContent() { // TODO: add logo spin actions, make own component, move isFetching to state.status
+    	console.log("scrollToContent");
+    	const $page = $('#pages');
+    	let offset = 0;
+
+    	if (this.props.isMainPage) {
+    		 offset = window.innerHeight;
     	}
 
-    	let classList = this.state.logoImg.classList;
-    	let isFullsize = false
-
-    	for (let i=0; i < classList.length; i++ ){
-    		if (classList[i] === 'logo-fullsize') {
-    			isFullsize = true
-    			break
-    		}
-    	}
-
-    	console.log(this.state.logoImg.classList)
-
-    	if (isFullsize) {
-    		classList.remove('logo-fullsize');
-    		classList.add('logo-shrunk');
-    	} else {
-    		classList.add('logo-fullsize');
-    		classList.remove('logo-shrunk');
-    	}
+    	Velocity(document.body, 'scroll', {offset: offset, duration: 1000});    	
     }
 }
+
+function mapStateToProps({status, header}) {
+    return {
+        provider: status.provider,
+        providers: status.providers,
+        isMainPage: header.isMainPage,
+        loadingText: header.loadingText
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        toggleHeaderAnimation,
+        changeProvider
+    }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePanel)
