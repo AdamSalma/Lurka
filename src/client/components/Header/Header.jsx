@@ -1,48 +1,30 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React, { Component } from "react";
+
 import Velocity from 'velocity-animate';
 import classNames from "classnames";
 
 import Logo from "../Logo";
 
-export default class Header extends React.Component {
+export default class Header extends Component {
     constructor(props) {
         super(props);
-        this.onHeaderToggle = this.onHeaderToggle.bind(this)
+        this.onHeaderExpand = this.onHeaderExpand.bind(this)
     }
-
     render() {
-        const {isMainPage, loadingText} = this.props;
+        const {isMainPage, loadingText, expandHeader, scrollPage} = this.props;
         return (
-            <div id="header" ref='header'>
-                <Logo isFullsize={isMainPage} loadingText={loadingText} toggleHeader={this.onHeaderToggle}/>
+            <div id="header">
+                <Logo isFullsize={isMainPage} loadingText={loadingText} expandHeader={this.onHeaderExpand}/>
             </div>
         )
     }
 
-    onHeaderToggle() {
-        const { header } = this.refs;
-        console.log("onHeaderToggle() ", header);
-
-        if (!this.props.isMainPage){
-            Velocity(
-                header,
-                {height: "70px"},
-                {
-                    duration: 1400,
-                    easing: "ease-in"
-                }
-            )
-        } else {
-            Velocity(
-                header,
-                {height: "270px"},
-                {
-                    duration: 1250,
-                    easing: "ease-out"
-                }
-            )
-        }
+    onHeaderExpand() {
+        // TODO - check if on contentpage else return
+        const {scrollPage, expandHeader} = this.props;
+        expandHeader()
+        scrollPage({mainPage:true})
     }
-
 }
+
+
