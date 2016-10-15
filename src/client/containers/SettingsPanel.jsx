@@ -1,7 +1,7 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router";
 
-export default class Settings extends React.Component {
+export default class Settings extends Component {
     render() {
         return (
             <div className="page page-settings">

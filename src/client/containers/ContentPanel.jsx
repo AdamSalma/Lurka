@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -21,7 +21,7 @@ import {
 } from '../actions/HeaderActions';
 
 
-class ContentPanel extends React.Component {
+class ContentPanel extends Component {
     render() {
         const {
             // Actions
@@ -33,13 +33,13 @@ class ContentPanel extends React.Component {
 
         } = this.props;
 
+                    // <ContentOptions 
+                    //     changeProvider={changeProvider} fetchBoardList={fetchBoardList} fetchBoard={fetchBoard}
+                    //     boardList={boardList} provider={provider}
+                    // />
         return (
             <div className="page page-content">
                 <div className="content-overview">
-                    <ContentOptions 
-                        changeProvider={changeProvider} fetchBoardList={fetchBoardList} fetchBoard={fetchBoard}
-                        boardList={boardList} provider={provider}
-                    />
                     <Board 
                         fetchBoard={fetchBoard} fetchThread={fetchThread}
                         board={board} provider={provider} boardID={boardID}

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Component } from "react";
+
 import classNames from 'classnames';
 import uuid from 'uuid';
 
 import Dropdown from '../Dropdown';
 
-export default class ContentOptions extends React.Component {
+export default class ContentOptions extends Component {
     constructor({provider, fetchBoardList}) {
         super()
         fetchBoardList({provider});

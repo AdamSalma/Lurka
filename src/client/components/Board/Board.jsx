@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Component } from "react";
+
 import uuid from "uuid";
 
 import BoardPost from '../BoardPost';
 import { catchTooltip } from './events';
 
-export default class Board extends React.Component {
+export default class Board extends Component {
     constructor(){
         super()
         this.onThreadFetch = this.onThreadFetch.bind(this);

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from "react";
+
 import classNames from 'classnames';
 import Velocity from 'velocity-animate';
 import TimeAgo from 'react-timeago';
@@ -12,7 +13,7 @@ import {
     fullscreenImageDelegation
 } from './helpers'
 
-export default class Thread extends React.Component {
+export default class Thread extends Component {
     constructor() {
         super()
         this.threadToggle = this.threadToggle.bind(this)
