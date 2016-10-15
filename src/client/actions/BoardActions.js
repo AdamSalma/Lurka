@@ -36,7 +36,7 @@ function receiveBoardList(boardList){
     }
 }
 
-function changeBoard( boardID ) {
+function setBoard( boardID ) {
     console.log("Changing board to " + boardID)
     return {
         type: BOARD_CHANGE,
@@ -48,9 +48,11 @@ export function fetchBoard({ provider, boardID }) {
     console.log(`Action FetchBoard() to /provider/${provider}/${boardID}`);
     return dispatch => {
         dispatch(requestBoard())
-        dispatch(changeBoard(boardID))
         return Axios.get(`/provider/${provider}/${boardID}`)
-            .then(data => dispatch(receiveBoard(data)))
+            .then(data => {
+                dispatch(receiveBoard(data))
+                dispatch(setBoard(boardID))
+            })
             .catch( e => console.error(e));
     }
 }
