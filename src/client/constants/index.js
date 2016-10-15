@@ -27,6 +27,12 @@ export const SERACH_BOARD = "SERACH_BOARD"
 
 
 /* Animations */
-export const HEADER_ANIMATE = "HEADER_ANIMATE"
+export const HEADER_SHRINKING = "HEADER_SHRINKING"
+export const HEADER_EXPANDING = "HEADER_EXPANDING"
+export const HEADER_ANIMATION_END = "HEADER_ANIMATION_END"
+
 export const LOGO_SPIN_START = "LOGO_SPIN_START"
 export const LOGO_SPIN_END = "LOGO_SPIN_END"
+
+export const SCROLL_START = "SCROLL_START"
+export const SCROLL_END = "SCROLL_END"
