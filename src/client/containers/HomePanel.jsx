@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -9,35 +9,31 @@ import Velocity from 'velocity-animate';
 import Header from "../components/Header";
 
 import {
-	toggleHeaderAnimation,
 	changeProvider
 } from '../actions/HeaderActions';
 
+import {
+	scrollPage,
+	shrinkHeader,
+	expandHeader
+} from '../actions/AnimationActions';
+
 // import scroll action here
 
-class HomePanel extends React.Component {
+class HomePanel extends Component {
 	constructor() {
 		super();
-		this.scrollToContent = this.scrollToContent.bind(this);
 		this.onProviderClick = this.onProviderClick.bind(this);
 		this.state = {scrollCount: 60};
 	}
 
-	// componentDidMount() {
-	// 	window.addEventListener('scroll', (event) => this.handleScroll(event), false)
-	// }
-
-	// componentWillUnmount() {
-	// 	window.removeEventListener('scroll', () => console.log('Removed window.scroll event'), false)
-	// }
-
     render() {
-		const {isMainPage, providers, loadingText} = this.props;
+		const {isMainPage, providers, loadingText, expandHeader, scrollPage} = this.props;
         return (
         	<div id="pages">
 	            <div className="page page-home">
 	        		{/* TODO: add text prop for logo loading animation e.g. "Fetching thread..."*/}
-	            	<Header loadingText={loadingText} isMainPage={isMainPage}/>  
+	            	<Header loadingText={loadingText} isMainPage={isMainPage} expandHeader={expandHeader} scrollPage={scrollPage}/>  
 	            	<div>
 	            		<h3>Providers:</h3>
 	            		<div className="providers">
@@ -58,21 +54,12 @@ class HomePanel extends React.Component {
     }
 
     onProviderClick() {
-    	console.log("onProviderClick");
-    	this.props.toggleHeaderAnimation();
-    	this.scrollToContent();
-    }
-
-    scrollToContent() { // TODO: add logo spin actions, make own component, move isFetching to state.status
-    	console.log("scrollToContent");
-    	const $page = $('#pages');
-    	let offset = 0;
-
-    	if (this.props.isMainPage) {
-    		 offset = window.innerHeight;
-    	}
-
-    	Velocity(document.body, 'scroll', {offset: offset, duration: 1000});    	
+    	const {scrollPage, shrinkHeader} = this.props;
+    	shrinkHeader();
+    	// setTimeout(function(){ scrollPage({content: true}) }, 500)
+    	console.warn(scrollPage)
+    	this.props.scrollPage({content: true})
+    	console.warn(scrollPage)
     }
 }
 
@@ -87,8 +74,10 @@ function mapStateToProps({status, header}) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        toggleHeaderAnimation,
-        changeProvider
+        changeProvider,
+        scrollPage,
+        shrinkHeader,
+        expandHeader
     }, dispatch)
 }
 
