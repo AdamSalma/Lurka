@@ -1,36 +1,39 @@
-.thread
-    position: absolute
+.thread-wrap
+    position: fixed
+    display: none
     width: 1004px
-    top: 100%
+    height: 100vh
+    top: 0
     left: 0
     right: 0
-    z-index: 10
     margin: 0 auto
-    background-color: $grey-dark
-    line-height: 1.618
+    z-index: 10
 
     @include breakpoint(to-tablet)
         width: 100% !important
 
-    &:before
-        content: ""
-        position: absolute
-        width: 1px
-        height: 100%
-        box-shadow: -2px 0px 1px $red-dark
-        z-index: 2
+    &.thread-wrap-active
+        display: initial !important
 
-    &:after
-        content: ""
-        width: 1px
-        position: absolute
-        top: 0
-        right: 0
-        height: 100%
-        box-shadow: 2px 0 1px $red-dark
-        z-index: 2
 
-.thread-wrap
-	display: none
-	&.thread-wrap-active
-		display: initial !important
+    .nano-pane
+        width: 7px
+        cursor: hand
+        background: $black
+        // display: block !important
+
+        &:hover 
+            width: 12px
+            transition: width .2 ease-in
+        &:active
+            width: 12px
+
+        .nano-slider
+            background: $red
+
+.thread
+    position: absolute
+    top: 100%
+    overflow: hidden
+    background-color: $grey-dark
+    line-height: $thread-line-height

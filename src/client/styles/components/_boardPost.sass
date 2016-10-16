@@ -1,15 +1,19 @@
 .board-post
-    +set-dims($thread-width, $thread-height)
+    // +set-mins($thread-width, $thread-height)
+    min-width: $thread-width
+    max-width: $thread-width + 60
+    max-height: $thread-height
+    
     font-family: $font-main
     overflow: hidden
-    display: inline-block
-    margin: 5px 10px 20px
+    margin: 5px 15px 20px
     padding: 5px
     padding-bottom: 3px
     text-align: center
     border-radius: 4px
     cursor: pointer
     background: $black
+    flex: 1
 
 
     img
