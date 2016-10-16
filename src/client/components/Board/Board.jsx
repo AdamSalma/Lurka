@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import uuid from "uuid";
+import '../../vendor';
 
 import BoardPost from '../BoardPost';
 import { catchTooltip } from './events';
@@ -22,39 +22,43 @@ export default class Board extends Component {
 
     componentDidMount() {
         catchTooltip(this.refs.board);  // TODO - Implement this
+        // scroller
+        $('#board').nanoScroller()
     }
 
     componentWillUnmount() {
         $(this.refs.board).off('hover');
     }
 
+
+    render() {
+        return (
+            <div id="board" className="board nano" ref='board'>
+                <div className="nano-content">
+                    {this.createThreads()}
+                </div>
+            </div>
+        );
+    }
+
     createThreads() {
         const { board, viewType } = this.props;
         var counter = 0;
-        return board.items.map( thread => {
+        return board.items.map( post => {
             if (counter>=50) return;
             counter++
             return (
                 <BoardPost
-                    key={uuid.v4()}
-                    post={thread} 
+                    key={post.id}
+                    post={post} 
                     fetchThread={this.onThreadFetch}
                 />
             );
         });
     }
 
-    render() {
-        return (
-            <div id="board" className="board">
-                {this.createThreads()}
-            </div>
-        );
-    }
-
     onThreadFetch( threadID ){
         const { provider, boardID, fetchThread } = this.props;
-
         fetchThread(provider, boardID, threadID);
     }
 }
