@@ -7,6 +7,7 @@ class Logo extends Component {
     constructor(props) {
         super(props);
         this.displayName = 'Logo';
+        this.onHeaderExpand = this.onHeaderExpand.bind(this)
     }
     
     componentDidMount() {
@@ -14,17 +15,24 @@ class Logo extends Component {
     }
 
     render() {
-    	const { isFullsize, loadingText, expandHeader} = this.props;
+    	const { isFullsize, loadingText } = this.props;
 		const logoClasses = classNames("logo", {"logo-fullsize": isFullsize});
 
 		const text = !isFullsize ? <span>{loadingText}</span> : ""  // create action for logo toggle, changes isFullsize, changes text
 
         return (
         	<div id="logo" ref="logo" className="logo-fullsize">
-                <img ref="logoImg" src='./logo.png' className={logoClasses} onClick={expandHeader}/>
+                <img ref="logoImg" src='./logo.png' className={logoClasses} onClick={this.onHeaderExpand}/>
                 {text}
             </div>
 		)
+    }
+
+    onHeaderExpand() {
+        const {isFullsize, expandHeader} = this.props
+        if (!isFullsize) {
+            expandHeader()
+        }
     }
 
     triggerLogoDropdownAnimation(logo) {
