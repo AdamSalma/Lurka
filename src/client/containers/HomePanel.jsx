@@ -55,11 +55,10 @@ class HomePanel extends Component {
 
     onProviderClick() {
     	const {scrollPage, shrinkHeader} = this.props;
+    	
     	shrinkHeader();
-    	// setTimeout(function(){ scrollPage({content: true}) }, 500)
-    	console.warn(scrollPage)
-    	this.props.scrollPage({content: true})
-    	console.warn(scrollPage)
+    	scrollPage({content: true})
+    	
     }
 }
 
