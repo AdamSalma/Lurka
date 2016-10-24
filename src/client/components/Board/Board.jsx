@@ -6,10 +6,11 @@ import BoardPost from '../BoardPost';
 import { catchTooltip } from './events';
 
 export default class Board extends Component {
-    constructor(){
-        super()
-        this.onThreadFetch = this.onThreadFetch.bind(this);
+    constructor(props) {
+        super(props);
+        this.onThreadFetch = this.onThreadFetch.bind(this)
     }
+    
     componentWillMount() {
         if (!this.props.board.items.length) {
             const { boardID, provider } = this.props
@@ -21,9 +22,13 @@ export default class Board extends Component {
     }
 
     componentDidMount() {
-        catchTooltip(this.refs.board);  // TODO - Implement this
-        // scroller
-        $('#board').nanoScroller()
+        const { board } = this.refs
+
+        // Board scroller
+        $(board).nanoScroller({ sliderMaxHeight: 120, sliderMinHeight: 60 })
+
+        // Hover over board posts reveals more info
+        catchTooltip(board);  // TODO - Implement this
     }
 
     componentWillUnmount() {

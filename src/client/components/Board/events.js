@@ -1,6 +1,6 @@
 export function catchTooltip(board) {
 	$(board).on("mouseenter", ".board-post", function( event ) {
-		console.info('UAUUU')
+		console.info('BoardPost mouseover')
         event.stopPropagation();
         $(this)
         	.find('.tooltip')
