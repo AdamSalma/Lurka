@@ -32,8 +32,12 @@ export function scrollPage({ content=false, mainPage=false })  {
 export function shrinkHeader() {
     const header = document.querySelector('#header');
     const logo   = document.querySelector('#logo');
+    const $board  = $('#board');
+
     const logoDistanceFromLeft = window.innerWidth - 90 + "px"
     let animationCompleteCount = 0
+
+    $board.nanoScroller({ sliderMaxHeight: 120, sliderMinHeight: 60, stop: true })
 
     return dispatch => {
         dispatch({type: HEADER_SHRINKING})
@@ -54,6 +58,7 @@ export function shrinkHeader() {
             animationCompleteCount++
             if (animationCompleteCount == 2) {
                 dispatch({type: HEADER_ANIMATION_END})
+                $board.nanoScroller({ stop: false })
             }
         }
         
