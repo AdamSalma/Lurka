@@ -26,5 +26,13 @@ module.exports = [
 	{ 
 		test: /.(png|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/, 
 		loader: 'url-loader?limit=100000&name=[name]-[hash].[ext]' 
+	},
+	{
+		test: /\.(md|ejs)$/, 
+		loader: 'ignore-loader' 
+	},
+	{
+		test: /\LICENSE$/, 
+		loader: 'ignore-loader' 
 	}
 ];
