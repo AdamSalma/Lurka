@@ -25,7 +25,7 @@ gulp.task('build', ['bundle', 'move-assets'])  // TODO - elctron build
 function onBundle(done) {
     return function(err, stats) {
         if (err) console.log('Error', err);
-        else console.log(stats.toString());
+        else console.log(stats.toString({chunks: false, colors: true}));
         done()
     }
 }
