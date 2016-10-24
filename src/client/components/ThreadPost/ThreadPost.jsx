@@ -7,10 +7,10 @@ export default function ({post, children}) {
     const { id, title, date, imgsrc, comment, ext } = post
 
     const SRC = imgsrc
-    const ID = 'thread-media-' + id
+    const ID = 'post-media-' + id
 
     return (
-        <div className='thread-post'>
+        <div id={"p"+id} className='thread-post'>
             <div className='thread-post-info'>
                 {() => {if (title) return <span className='thread-post-title'>{title}</span>}}
                 {children}

@@ -5,6 +5,7 @@ export default ({ post, fetchThread }) => {
     const {id, title, comment, date, imgsrc, replies} = post;
     return (
         <div 
+            id={"t"+id}
             className="board-post"
             onClick={() => fetchThread(id)}
         >
