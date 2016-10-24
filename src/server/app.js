@@ -30,18 +30,4 @@ app.use('/', require('./routes/dashboard'));
 app.use('/provider', require('./routes/provider'));
  
  
-// 404 handler
-app.use((req, res, next) => {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
- 
-// Print stacktrace
-app.use( err => {
-    console.error(err.message);
-    res.send(err)
-});
- 
- 
 export default app;
