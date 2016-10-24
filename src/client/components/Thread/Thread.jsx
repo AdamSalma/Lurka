@@ -11,9 +11,9 @@ import Spinner from '../Spinner';
 
 import '../../vendor';
 
-import {
-    fullscreenImageDelegation
-} from './helpers'
+// Helpers - delegate events from post to thread
+import activateMediaFullscreen from './makeFullscreen'
+import activatePostScroll from './scrollToPost'
 
 export default class Thread extends Component {
     constructor() {
@@ -23,7 +23,8 @@ export default class Thread extends Component {
 
     componentDidMount() {
         const {thread, threadWrap} = this.refs;
-        fullscreenImageDelegation(thread)
+        activateMediaFullscreen(thread)
+        activatePostScroll(thread)
         // $(threadWrap).nanoScroller({ sliderMinHeight: 40, alwaysVisible: true })
     }
 

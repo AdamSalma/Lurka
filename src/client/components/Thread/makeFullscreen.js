@@ -1,6 +1,8 @@
 import screenfull from 'screenfull';
 
-export function fullscreenImageDelegation(thread) {
+// TODO - needs refactoring; use materialIcons and change img src toggle -> 2 images
+
+export default function makeFullscreen(thread) {
 	$(thread).on('click', '.fa-stack', function(event){
         event.stopPropagation()
         if (screenfull.enabled) {
