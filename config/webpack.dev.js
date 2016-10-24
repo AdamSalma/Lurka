@@ -22,7 +22,7 @@ export default {
     devtool: process.env.WEBPACK_DEVTOOL || 'eval',
     output: {
         path: '/',
-        publicPath: "http://" +HOST+ ":" +PORT+ "/",
+        publicPath: `http://${HOST}:${PORT}/`,
         filename: 'app.bundle.js'
     },
     resolve: {
@@ -45,6 +45,11 @@ export default {
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             template: path.join(__dirname, '..', 'src', 'index.html')
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('development')
+            }
         }),
         new webpack.ProvidePlugin({
             $: "jquery",
