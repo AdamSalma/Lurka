@@ -9,7 +9,8 @@
     "build": "gulp build",
     "start": "electron ./app",
     "test": "cross-env NODE_ENV=test NODE_PATH=./app/node_modules mocha",
-    "test-watch": "cross-env NODE_ENV=test NODE_PATH=./app/node_modules mocha -R min -w"
+    "test-watch": "cross-env NODE_ENV=test NODE_PATH=./app/node_modules mocha -R min -w",
+    "install-all": "npm install && cd app && npm install && cd .."
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
     "copy-webpack-plugin": "^3.0.1",
     "cross-env": "^3.0.0",
     "css-loader": "^0.25.0",
+    "devtool": "^2.3.0",
     "electron": "^1.4.3",
     "eslint": "^3.5.0",
     "eslint-plugin-import": "^1.15.0",
@@ -48,6 +50,7 @@
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.9.0",
     "gulp": "^3.9.1",
+    "html-webpack-plugin": "^2.24.0",
     "json-loader": "^0.5.4",
     "jsx-loader": "^0.13.2",
     "mocha": "^3.1.0",

@@ -2,7 +2,8 @@ import webpack from 'webpack';
 import path from 'path';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import autoprefixer from 'autoprefixer';
- 
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+
 import loaders from './webpack.loaders';
 import config from '.';
  
@@ -20,7 +21,7 @@ export default {
     ],
     devtool: process.env.WEBPACK_DEVTOOL || 'eval',
     output: {
-        path: "/",
+        path: '/',
         publicPath: "http://" +HOST+ ":" +PORT+ "/",
         filename: 'app.bundle.js'
     },
@@ -32,16 +33,19 @@ export default {
         loaders
     },
     devServer: {
-        contentBase: "./dist",
-            noInfo: false, //  --no-info option
-            hot: true,
-            inline: true,
-            port: PORT,
-            host: HOST
-        },
+        contentBase: outpath,
+        noInfo: false, //  --no-info option
+        hot: true,
+        inline: true,
+        port: PORT,
+        host: HOST
+    },
     plugins: [
         new webpack.NoErrorsPlugin(),
         new webpack.HotModuleReplacementPlugin(),
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, '..', 'src', 'index.html')
+        }),
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
