@@ -7,17 +7,20 @@ const app = Express();
 const router = Express.Router();
 
  
-// Environment
+// Environment config
 console.info(`Environment: "${config.env}"`);
 if (config.env === 'production') {
-    global.app_root = __dirname
+    // Bundled production code is placed in the app directory
+    global.app_root = __dirname  
     app.use(Express.static(__dirname));
     app.use(Express.static(join(__dirname, '/assets')));
 } else {
-    // Development
+    // Used to send index.html
     global.app_root = join(__dirname, '../..', 'app');
+    // Static assets - mainly for favicon because its cool
     app.use(Express.static(join(__dirname, '../assets')));
     webpackHotMiddleware(app);
+    // Log requested url
     app.all('*', (req, res, next) => {
         console.info("User request:", req.url);
         next()
@@ -26,8 +29,12 @@ if (config.env === 'production') {
  
  
 // Routes
-app.use('/', require('./routes/dashboard'));
-app.use('/provider', require('./routes/provider'));
- 
- 
+app.use('/', require('./routes/dashboard'));  // index.html, (validation?)
+app.use('/provider', require('./routes/provider'));  // Request content from external API
+
+// Eventually...
+// app.use('/user', require('./routes/user'));  // Save/Load user archives
+// app.use('/settings', require('./routes/settings'));  // Save/Load setting related files (config, stylesheets?)
+
+
 export default app;
