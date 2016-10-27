@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
+import '../styles/index'
 import App from './containers/App';
 import configureStore from './store';
 import { loadState, saveState } from './store/localStorage';
