@@ -57,13 +57,15 @@ class ContentPanel extends Component {
 
 function mapStateToProps({status, thread, board}) {
     return {
-        board: board,
         provider: status.provider,
         boardID: status.boardID,
+        isFetching: status.isFetching,
+        didInvalidate: status.didInvalidate,
+        
+        board: board.posts,
         boardList: board.boardList,
 
         thread: thread.posts,
-        isFetching: thread.isFetching,
         postsLoaded: thread.postsLoaded,
     }
 }

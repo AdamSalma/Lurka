@@ -3,6 +3,8 @@ export default {
 		provider: "4chan",
 		providers: ["4chan"],
     	boardID: "g"
+		isFetching: false,
+	    didInvalidate: false,
 	},
 	header: {
 		isMainPage: true,
@@ -11,13 +13,34 @@ export default {
 	},
 	thread: {
 	    posts: [],
-	    postsLoaded: 0,
-	    isFetching: false
+	    postsLoaded: 0
 	},
 	board: {
-		isFetching: false,
-	    didInvalidate: false,
 	    boardList: [],
-	    items: []
+	    posts: []
+	}
+}
+
+
+{	
+	status: {
+		provider: "4chan",
+		providers: ["4chan"],
+    	boardID: "g"
+	},
+	content: {
+		isFetching: false,
+		didInvalidate: false,
+		boardList: [],
+		board: [],
+		thread: [],
+	}
+}
+
+
+
+{
+	board: {
+		thread: {}
 	}
 }
