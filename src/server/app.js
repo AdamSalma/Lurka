@@ -13,12 +13,12 @@ if (config.env === 'production') {
     // Bundled production code is placed in the app directory
     global.app_root = __dirname  
     app.use(Express.static(__dirname));
-    app.use(Express.static(join(__dirname, '/assets')));
+    app.use(Express.static(join(__dirname, 'assets')));
 } else {
     // Used to send index.html
     global.app_root = join(__dirname, '../..', 'app');
     // Static assets - mainly for favicon because its cool
-    app.use(Express.static(join(__dirname, '../assets')));
+    app.use(Express.static(join(__dirname, '..', 'assets')));
     webpackHotMiddleware(app);
     // Log requested url
     app.all('*', (req, res, next) => {
