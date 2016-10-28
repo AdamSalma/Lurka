@@ -3,6 +3,8 @@
 export const USER_SAVE = "USER_SAVE"
 export const USER_LOAD = "USER_LOAD"
 
+export const APP_INIT = "APP_INIT"
+
 
 /* Conetnt */
 export const BOARD_CHANGE = "BOARD_CHANGE"
