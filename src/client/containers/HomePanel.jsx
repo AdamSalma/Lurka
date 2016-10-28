@@ -28,12 +28,12 @@ class HomePanel extends Component {
 	}
 
     render() {
-		const {isMainPage, providers, loadingText, expandHeader, scrollPage} = this.props;
+		const {isMainPage, providers, loadingMessage, expandHeader, scrollPage} = this.props;
         return (
         	<div id="pages">
 	            <div className="page page-home">
 	        		{/* TODO: add text prop for logo loading animation e.g. "Fetching thread..."*/}
-	            	<Header loadingText={loadingText} isMainPage={isMainPage} expandHeader={expandHeader} scrollPage={scrollPage}/>  
+	            	<Header loadingMessage={loadingMessage} isMainPage={isMainPage} expandHeader={expandHeader} scrollPage={scrollPage}/>  
 	            	<div>
 	            		<h3>Providers:</h3>
 	            		<div className="providers">
@@ -67,7 +67,7 @@ function mapStateToProps({status, header}) {
         provider: status.provider,
         providers: status.providers,
         isMainPage: header.isMainPage,
-        loadingText: header.loadingText
+        loadingMessage: header.loadingMessage
     }
 }
 
