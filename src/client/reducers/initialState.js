@@ -1,46 +1,41 @@
-export default {
+export default {	
 	status: {
-		provider: "4chan",
-		providers: ["4chan"],
-    	boardID: "g"
-		isFetching: false,
-	    didInvalidate: false,
-	},
-	header: {
 		isMainPage: true,
 		isAnimating: false,
-		loadingText: "test"
-	},
-	thread: {
-	    posts: [],
-	    postsLoaded: 0
-	},
-	board: {
-	    boardList: [],
-	    posts: []
-	}
-}
 
+		loadingText: "test",
+		mode: "normal"  // archive
 
-{	
-	status: {
-		provider: "4chan",
-		providers: ["4chan"],
-    	boardID: "g"
 	},
 	content: {
+		providers: ["4chan", "reddit", "imgur"],
+		provider: "4chan",
+    	boardID: "g"
+    	threadID: null
+
 		isFetching: false,
 		didInvalidate: false,
-		boardList: [],
-		board: [],
-		thread: [],
-	}
-}
+		requestType: null,
 
-
-
-{
-	board: {
-		thread: {}
+		boardlist: {  // obj for each provider: 4chan: {}, reddit: {}
+			favourites: {}
+		},  
+		board: {
+			history: {},
+			posts: [],
+			watch: []
+		},
+		thread: {
+			history: {},
+			posts: [],
+			reply: false
+			// canReply
+		}
+	},
+	settings: {
+		isFetching: false,
+		didInvalidate: false
+		// TODO - all settings here in a flat structure
+		// customStyleSheet: null
 	}
 }
