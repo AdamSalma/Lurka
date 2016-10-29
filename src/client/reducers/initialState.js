@@ -13,12 +13,12 @@ export default {
 	},
 	content: {
 		provider: "4chan",
-    	boardID: "g"
-    	threadID: null
+    	boardID: "g",
+    	threadID: null,
 
 		isFetching: false,
 		didInvalidate: false,
-		requestType: null,
+		requestType: null,  // for logging to user if error
 
 		boardlist: {  // obj for each provider: {4chan: [], reddit: []}
 			favourites: []  // [{id:'4chan', board: 'g'}, ...]
