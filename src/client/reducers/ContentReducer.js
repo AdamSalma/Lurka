@@ -28,25 +28,27 @@ export default function (state = initialState.content, action) {
 
         case BOARD_LOADED:
             return Object.assign({}, state, {
-                board.posts: action.payload,
+                board: {posts: action.payload},
                 isFetching: false
             })
 
         case BOARD_LIST_LOADED:
+            const boardlist = {}[action.key] = action.payload
+
             return Object.assign({}, state, {
-                boardList[action.key]: action.payload
+                boardlist
             })
 
         case THREAD_LOADED:
             return Object.assign({}, state, {
-                thread.posts: action.payload,
+                thread: {posts: action.payload},
                 isFetching: false
             })
 
         case THREAD_DESTROY:
+            const history = {}[state.threadID] = state.thread.posts
             return Object.assign({}, state, {
-                thread.history[state.threadID]: state.thread.posts,
-                thread.posts = []
+                thread: { history, posts: [] }
             })
 
         case PROVIDER_CHANGE:
