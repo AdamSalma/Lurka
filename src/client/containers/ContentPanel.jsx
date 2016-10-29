@@ -18,7 +18,7 @@ import {
 
 import { 
     changeProvider 
-} from '../actions/HeaderActions';
+} from '../actions/StatusActions';
 
 
 class ContentPanel extends Component {
@@ -28,9 +28,10 @@ class ContentPanel extends Component {
             fetchThread, fetchBoard, fetchBoardList, closeThread, changeProvider,
 
             // State
-            board, provider, boardID, boardList,
-            thread, isFetching, postsLoaded
-
+            provider, boardID, threadID,
+            board, thread, boardList,
+            isFetching, didInvalidate
+            
         } = this.props;
 
                     // <ContentOptions 
@@ -47,7 +48,7 @@ class ContentPanel extends Component {
                 </div>
                 <Thread 
                     closeThread={closeThread}
-                    thread={thread} isFetching={isFetching} postsLoaded={postsLoaded}
+                    thread={thread} isFetching={isFetching}
                 />
             </div>
         )
@@ -55,18 +56,19 @@ class ContentPanel extends Component {
 }
 
 
-function mapStateToProps({status, thread, board}) {
+function mapStateToProps({status, content}) {
+    const {board, thread, boardlist} = content;
     return {
-        provider: status.provider,
-        boardID: status.boardID,
-        isFetching: status.isFetching,
-        didInvalidate: status.didInvalidate,
-        
-        board: board.posts,
-        boardList: board.boardList,
+        isFetching: content.isFetching,
+        didInvalidate: content.didInvalidate,
 
-        thread: thread.posts,
-        postsLoaded: thread.postsLoaded,
+        provider: content.provider,
+        boardID: content.boardID,
+        threadID: content.threadID,
+        
+        boardList: boardlist,
+        board: board,
+        thread: thread
     }
 }
 
