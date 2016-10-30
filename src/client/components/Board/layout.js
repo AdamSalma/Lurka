@@ -1,21 +1,22 @@
 var colCount = 0
 var colWidth = 0
-var margin = 20
+var minMargin = 20
+var margin = 0
 var windowWidth = 0
 var blocks = []
 
-var $win = $(window)
 var $items = null
 
-$win.resize(setupBlocks)
+$(window).resize(setupBlocks)
 
 export default function setupBlocks() {
 	$items = $('.board-post')
-	windowWidth = $win.width()
+	windowWidth = $(window).width()
 	colWidth = $items.outerWidth()
 	blocks = []
-	colCount = Math.floor(windowWidth/(colWidth+margin*2))
-	for(var i=0; i<colCount; i++){
+	colCount = Math.floor(windowWidth/(colWidth+minMargin*2))
+	margin = (windowWidth - colWidth*colCount) / colCount - minMargin + 5
+	for (let i=0; i<colCount; i++) {
 		blocks.push(margin)
 	}
 	positionBlocks()
@@ -27,8 +28,8 @@ function positionBlocks() {
 		var index = $.inArray(min, blocks)
 		var leftPos = margin+(index*(colWidth+margin))
 		$(this).css({
-			'left':leftPos+'px',
-			'top':min+'px'
+			'top': min+'px',
+			'left': leftPos+'px'
 		})
 		blocks[index] = min+$(this).outerHeight()+margin
 	})	
