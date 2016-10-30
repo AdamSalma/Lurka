@@ -4,6 +4,7 @@ import '../../vendor';
 
 import BoardPost from '../BoardPost';
 import { catchTooltip } from './events';
+import createLayout from './layout';
 
 export default class Board extends Component {
     constructor(props) {
@@ -12,22 +13,19 @@ export default class Board extends Component {
     }
     
     componentWillMount() {
-        if (!this.props.board.items.length) {
+        if (!this.props.board.posts.length) {
             const { boardID, provider } = this.props
-            this.props.fetchBoard({
-                provider: provider,
-                boardID: boardID
-            });
+            this.props.fetchBoard({ provider, boardID });
         }
     }
 
     componentDidMount() {
         const { board } = this.refs
-
         // Board scroller
         $(board).nanoScroller({ sliderMaxHeight: 120, sliderMinHeight: 60 })
 
         // Hover over board posts reveals more info
+        createLayout()
         catchTooltip(board);  // TODO - Implement this
     }
 
@@ -39,7 +37,7 @@ export default class Board extends Component {
     render() {
         return (
             <div id="board" className="board nano" ref='board'>
-                <div className="nano-content">
+                <div className="nano-content flex-grid">
                     {this.createThreads()}
                 </div>
             </div>
@@ -49,7 +47,7 @@ export default class Board extends Component {
     createThreads() {
         const { board, viewType } = this.props;
         var counter = 0;
-        return board.items.map( post => {
+        return board.posts.map( post => {
             if (counter>=50) return;
             counter++
             return (
