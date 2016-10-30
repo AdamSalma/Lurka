@@ -1,25 +1,27 @@
 .board-post
-    // +set-mins($thread-width, $thread-height)
-    min-width: $thread-width
-    max-width: $thread-width + 60
+    position: absolute  // positioned via JS
+    width: $thread-width
     max-height: $thread-height
     
-    font-family: $font-main
-    overflow: hidden
-    margin: 5px 15px 20px
-    padding: 5px
-    padding-bottom: 3px
-    text-align: center
-    border-radius: 4px
-    cursor: pointer
     background: $black
-    flex: 1
+    font-family: $font-main
+    text-align: center
+    cursor: pointer
+    overflow: hidden
+    border-radius: 4px
+
+    border: $black solid 2px
+    box-shadow: $primary 0 0 2px
+    padding-bottom: 10px
+
+    transition: all .5s ease-in-out
+    transition-property: top, left;
 
 
     img
-        display: inline
-        +limit-width(175px, 50px)
-        +limit-height(150px, 50px)
+        // display: inline
+        // +limit-width(175px, 50px)
+        +limit-height(200px, 50px)
 
     .count
         text-align: center
