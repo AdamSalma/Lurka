@@ -8,7 +8,8 @@ import ContentOptions from "../components/ContentOptions";
 
 import {
     fetchBoard, 
-    fetchBoardList 
+    fetchBoardList, 
+    incrementBoardLimit
 } from '../actions/BoardActions';
 
 import { 
@@ -25,7 +26,8 @@ class ContentPanel extends Component {
     render() {
         const {
             // Actions
-            fetchThread, fetchBoard, fetchBoardList, closeThread, changeProvider,
+            fetchThread, fetchBoard, fetchBoardList, closeThread, changeProvider, 
+            incrementBoardLimit,
 
             // State
             provider, boardID, threadID,
@@ -42,7 +44,7 @@ class ContentPanel extends Component {
             <div className="page page-content">
                 <div className="content-overview">
                     <Board 
-                        fetchBoard={fetchBoard} fetchThread={fetchThread}
+                        fetchBoard={fetchBoard} fetchThread={fetchThread} incrementLimit={incrementBoardLimit}
                         board={board} provider={provider} boardID={boardID}
                     />
                 </div>
@@ -77,7 +79,8 @@ function mapDispatchToProps(dispatch) {
         fetchBoardList,
         fetchThread,
         closeThread,
-        changeProvider 
+        changeProvider,
+        incrementBoardLimit
     }, dispatch)
 }
 
