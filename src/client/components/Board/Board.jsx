@@ -4,6 +4,7 @@ import '../../vendor';
 
 import BoardPost from '../BoardPost';
 import { catchTooltip } from './events';
+import createLayout from './layout';
 
 export default class Board extends Component {
     constructor(props) {
@@ -12,29 +13,38 @@ export default class Board extends Component {
     }
     
     componentWillMount() {
-        if (!this.props.board.items.length) {
+        if (!this.props.board.posts.length) {
             const { boardID, provider } = this.props
-            this.props.fetchBoard({
-                provider: provider,
-                boardID: boardID
-            });
+            this.props.fetchBoard({ provider, boardID });
         }
     }
 
     componentDidMount() {
         const { board } = this.refs
+        const { incrementLimit } = this.props
 
         // Board scroller
         $(board).nanoScroller({ sliderMaxHeight: 120, sliderMinHeight: 60 })
 
         // Hover over board posts reveals more info
+        createLayout()
         catchTooltip(board);  // TODO - Implement this
+
+        $(board).on('scrollend', () => {
+            incrementLimit.bind(null, 10)
+            setTimeout(this.forceUpdate, 500)
+        })
     }
 
     componentWillUnmount() {
-        $(this.refs.board).off('hover');
+        $(this.refs.board).off('hover scrollend');
     }
 
+    componentDidUpdate({ board }) {
+        if (board.posts.length !== this.props.board.posts.length) {
+            createLayout()
+        }
+    }
 
     render() {
         return (
@@ -47,11 +57,9 @@ export default class Board extends Component {
     }
 
     createThreads() {
-        const { board, viewType } = this.props;
-        var counter = 0;
-        return board.items.map( post => {
-            if (counter>=50) return;
-            counter++
+        const { posts, limit } = this.props.board;
+        console.warn(posts, limit)
+        return posts.slice(0, limit).map( post => {
             return (
                 <BoardPost
                     key={post.id}
@@ -64,6 +72,7 @@ export default class Board extends Component {
 
     onThreadFetch( threadID ){
         const { provider, boardID, fetchThread } = this.props;
+        $('.thread-wrap').nanoScroller({ stop: true })
         fetchThread(provider, boardID, threadID);
     }
 }

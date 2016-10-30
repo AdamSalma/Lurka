@@ -11,10 +11,10 @@ export default class Header extends Component {
         this.onHeaderExpand = this.onHeaderExpand.bind(this)
     }
     render() {
-        const {isMainPage, loadingText, expandHeader, scrollPage} = this.props;
+        const {isMainPage, loadingMessage, expandHeader, scrollPage} = this.props;
         return (
             <div id="header">
-                <Logo isFullsize={isMainPage} loadingText={loadingText} expandHeader={this.onHeaderExpand}/>
+                <Logo isFullsize={isMainPage} loadingMessage={loadingMessage} expandHeader={this.onHeaderExpand}/>
             </div>
         )
     }

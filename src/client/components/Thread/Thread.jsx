@@ -12,8 +12,8 @@ import Spinner from '../Spinner';
 import '../../vendor';
 
 // Helpers - delegate events from post to thread
-import activateMediaFullscreen from './makeFullscreen'
-import activatePostScroll from './scrollToPost'
+import delegateMediaFullscreen from './makeFullscreen'
+import delegatePostScroll from './scrollToPost'
 
 export default class Thread extends Component {
     constructor() {
@@ -23,8 +23,7 @@ export default class Thread extends Component {
 
     componentDidMount() {
         const {thread, threadWrap} = this.refs;
-        activateMediaFullscreen(thread)
-        activatePostScroll(thread)
+        delegateMediaFullscreen(thread)
         // $(threadWrap).nanoScroller({ sliderMinHeight: 40, alwaysVisible: true })
     }
 
@@ -34,31 +33,32 @@ export default class Thread extends Component {
 
     componentDidUpdate(prevProps) {
         const { thread } = this.props;
-        if (prevProps.thread.length !== thread.length){
+        if (prevProps.thread.posts.length !== thread.posts.length){
             // Thread created or destroyed
             this.threadToggle();
+            delegatePostScroll(thread)    // TODO FIX THIS
         } 
     }
 
     render() {
         const { thread, isFetching } = this.props
         const threadWrapClasses = classNames('thread-wrap', 'nano', {
-            "thread-wrap-active": thread.length || isFetching
+            "thread-wrap-active": thread.posts.length || isFetching
         });
 
-        if (thread.length) console.info(`Rendering Thread with ${thread.length} posts`);
+        if (thread.posts.length) console.info(`Rendering Thread with ${thread.posts.length} posts`);
         
 
         return (
             <div>
                 <Background 
-                    isVisible={thread.length || isFetching} 
+                    isVisible={thread.posts.length || isFetching} 
                     closeBackground={this.threadToggle}/>
                 <Spinner isSpinning={isFetching}/>
 
                 <div ref='threadWrap' className={threadWrapClasses}>
                     <div className="thread nano-content" ref="thread">
-                        {thread.map( 
+                        {thread.posts.map( 
                             post => <ThreadPost 
                                 key={uuid.v4()} 
                                 post={post}>
@@ -75,14 +75,12 @@ export default class Thread extends Component {
         const { thread, threadWrap } = this.refs;
         if (thread.offsetTop > 0) {
             // Slide up...
-
-            $(threadWrap).nanoScroller({ sliderMinHeight: 60, stop: true })
             
             return Velocity(thread, {top: "0"}, {
                 duration: 850,
                 easing: [0.25, 0.8, 0.25, 1],
                 complete: () => {
-                    $(threadWrap).nanoScroller({ stop: false })
+                    $(threadWrap).nanoScroller()
                 }
             })
         }

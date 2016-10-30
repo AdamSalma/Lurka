@@ -5,7 +5,8 @@ import {
     BOARD_DESTROY,
     BOARD_LIST_REQUEST,
     BOARD_LIST_LOADED,
-    BOARD_CHANGE
+    BOARD_CHANGE,
+    BOARD_SCROLL_BOTTOM
 } from '../constants';
 
 function requestBoard() {
@@ -43,6 +44,16 @@ function setBoard( boardID ) {
         payload: boardID
     }
 }
+
+export function incrementBoardLimit( limit ) {
+    return dispatch => {
+        dispatch({
+            type: BOARD_SCROLL_BOTTOM,
+            payload: limit
+        })
+    }
+}
+
 
 export function fetchBoard({ provider, boardID }) {
     console.log(`Action FetchBoard() to /provider/${provider}/${boardID}`);

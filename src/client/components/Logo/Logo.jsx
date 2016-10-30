@@ -15,10 +15,10 @@ class Logo extends Component {
     }
 
     render() {
-    	const { isFullsize, loadingText } = this.props;
+    	const { isFullsize, loadingMessage } = this.props;
 		const logoClasses = classNames("logo", {"logo-fullsize": isFullsize});
 
-		const text = !isFullsize ? <span>{loadingText}</span> : ""  // create action for logo toggle, changes isFullsize, changes text
+		const text = !isFullsize ? <span>{loadingMessage}</span> : ""  // create action for logo toggle, changes isFullsize, changes text
 
         return (
         	<div id="logo" ref="logo" className="logo-fullsize">

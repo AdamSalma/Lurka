@@ -8,7 +8,8 @@ import ContentOptions from "../components/ContentOptions";
 
 import {
     fetchBoard, 
-    fetchBoardList 
+    fetchBoardList, 
+    incrementBoardLimit
 } from '../actions/BoardActions';
 
 import { 
@@ -18,18 +19,20 @@ import {
 
 import { 
     changeProvider 
-} from '../actions/HeaderActions';
+} from '../actions/StatusActions';
 
 
 class ContentPanel extends Component {
     render() {
         const {
             // Actions
-            fetchThread, fetchBoard, fetchBoardList, closeThread, changeProvider,
+            fetchThread, fetchBoard, fetchBoardList, closeThread, changeProvider, 
+            incrementBoardLimit,
 
             // State
-            board, provider, boardID, boardList,
-            thread, isFetching, postsLoaded
+            provider, boardID, threadID,
+            board, thread, boardList,
+            isFetching, didInvalidate
 
         } = this.props;
 
@@ -41,13 +44,13 @@ class ContentPanel extends Component {
             <div className="page page-content">
                 <div className="content-overview">
                     <Board 
-                        fetchBoard={fetchBoard} fetchThread={fetchThread}
+                        fetchBoard={fetchBoard} fetchThread={fetchThread} incrementLimit={incrementBoardLimit}
                         board={board} provider={provider} boardID={boardID}
                     />
                 </div>
                 <Thread 
                     closeThread={closeThread}
-                    thread={thread} isFetching={isFetching} postsLoaded={postsLoaded}
+                    thread={thread} isFetching={isFetching}
                 />
             </div>
         )
@@ -55,16 +58,18 @@ class ContentPanel extends Component {
 }
 
 
-function mapStateToProps({status, thread, board}) {
+function mapStateToProps({ content }) {
     return {
-        board: board,
-        provider: status.provider,
-        boardID: status.boardID,
-        boardList: board.boardList,
+        isFetching: content.isFetching,
+        didInvalidate: content.didInvalidate,
 
-        thread: thread.posts,
-        isFetching: thread.isFetching,
-        postsLoaded: thread.postsLoaded,
+        provider: content.provider,
+        boardID: content.boardID,
+        threadID: content.threadID,
+        
+        boardList: content.boardlist,
+        board: content.board,
+        thread: content.thread
     }
 }
 
@@ -74,7 +79,8 @@ function mapDispatchToProps(dispatch) {
         fetchBoardList,
         fetchThread,
         closeThread,
-        changeProvider 
+        changeProvider,
+        incrementBoardLimit
     }, dispatch)
 }
 

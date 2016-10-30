@@ -10,7 +10,7 @@ import Header from "../components/Header";
 
 import {
 	changeProvider
-} from '../actions/HeaderActions';
+} from '../actions/StatusActions';
 
 import {
 	scrollPage,
@@ -28,12 +28,11 @@ class HomePanel extends Component {
 	}
 
     render() {
-		const {isMainPage, providers, loadingText, expandHeader, scrollPage} = this.props;
+		const {isMainPage, providers, loadingMessage, expandHeader, scrollPage} = this.props;
         return (
         	<div id="pages">
 	            <div className="page page-home">
-	        		{/* TODO: add text prop for logo loading animation e.g. "Fetching thread..."*/}
-	            	<Header loadingText={loadingText} isMainPage={isMainPage} expandHeader={expandHeader} scrollPage={scrollPage}/>  
+	            	<Header loadingMessage={loadingMessage} isMainPage={isMainPage} expandHeader={expandHeader} scrollPage={scrollPage}/>  
 	            	<div>
 	            		<h3>Providers:</h3>
 	            		<div className="providers">
@@ -62,12 +61,12 @@ class HomePanel extends Component {
     }
 }
 
-function mapStateToProps({status, header}) {
+function mapStateToProps({status, content}) {
     return {
-        provider: status.provider,
+        provider: content.provider,
         providers: status.providers,
-        isMainPage: header.isMainPage,
-        loadingText: header.loadingText
+        isMainPage: status.isMainPage,
+        loadingMessage: status.loadingMessage
     }
 }
 

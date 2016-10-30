@@ -17,7 +17,7 @@ export default ({ post, fetchThread }) => {
                             <i className="mdi mdi-comment-text"></i>
                             <b>{replies.textCount}</b>
                         </span>
-                        <span className="updater updater-imgcount">
+                        <span className="updater updater-replycount">
                             +1
                         </span>
                     </span>
