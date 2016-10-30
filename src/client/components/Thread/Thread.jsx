@@ -36,7 +36,7 @@ export default class Thread extends Component {
         if (prevProps.thread.posts.length !== thread.posts.length){
             // Thread created or destroyed
             this.threadToggle();
-            delegatePostScroll(thread)
+            delegatePostScroll(thread)    // TODO FIX THIS
         } 
     }
 

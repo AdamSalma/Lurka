@@ -21,23 +21,35 @@ export default class Board extends Component {
 
     componentDidMount() {
         const { board } = this.refs
+        const { incrementLimit } = this.props
+
         // Board scroller
         $(board).nanoScroller({ sliderMaxHeight: 120, sliderMinHeight: 60 })
 
         // Hover over board posts reveals more info
         createLayout()
         catchTooltip(board);  // TODO - Implement this
+
+        $(board).on('scrollend', () => {
+            incrementLimit.bind(null, 10)
+            setTimeout(this.forceUpdate, 500)
+        })
     }
 
     componentWillUnmount() {
-        $(this.refs.board).off('hover');
+        $(this.refs.board).off('hover scrollend');
     }
 
+    componentDidUpdate({ board }) {
+        if (board.posts.length !== this.props.board.posts.length) {
+            createLayout()
+        }
+    }
 
     render() {
         return (
             <div id="board" className="board nano" ref='board'>
-                <div className="nano-content flex-grid">
+                <div className="nano-content">
                     {this.createThreads()}
                 </div>
             </div>
@@ -45,11 +57,9 @@ export default class Board extends Component {
     }
 
     createThreads() {
-        const { board, viewType } = this.props;
-        var counter = 0;
-        return board.posts.map( post => {
-            if (counter>=50) return;
-            counter++
+        const { posts, limit } = this.props.board;
+        console.warn(posts, limit)
+        return posts.slice(0, limit).map( post => {
             return (
                 <BoardPost
                     key={post.id}
