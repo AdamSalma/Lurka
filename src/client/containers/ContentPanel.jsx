@@ -31,7 +31,7 @@ class ContentPanel extends Component {
             provider, boardID, threadID,
             board, thread, boardList,
             isFetching, didInvalidate
-            
+
         } = this.props;
 
                     // <ContentOptions 
@@ -56,8 +56,7 @@ class ContentPanel extends Component {
 }
 
 
-function mapStateToProps({status, content}) {
-    const {board, thread, boardlist} = content;
+function mapStateToProps({ content }) {
     return {
         isFetching: content.isFetching,
         didInvalidate: content.didInvalidate,
@@ -66,9 +65,9 @@ function mapStateToProps({status, content}) {
         boardID: content.boardID,
         threadID: content.threadID,
         
-        boardList: boardlist,
-        board: board,
-        thread: thread
+        boardList: content.boardlist,
+        board: content.board,
+        thread: content.thread
     }
 }
 
