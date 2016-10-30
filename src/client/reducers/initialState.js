@@ -26,7 +26,8 @@ export default {
 		board: {
 			history: {},
 			posts: [],
-			watch: []
+			watch: [],
+			limit: 30  // infinite scroll
 		},
 		thread: {
 			history: {},

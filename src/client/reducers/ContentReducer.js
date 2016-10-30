@@ -2,6 +2,7 @@ import initialState from './initialState';
 import { 
     BOARD_LOADED, 
     BOARD_REQUEST, 
+    BOARD_SCROLL_BOTTOM,
 
     BOARD_LIST_LOADED, 
     BOARD_LIST_REQUEST,
@@ -28,9 +29,18 @@ export default function (state = initialState.content, action) {
 
         case BOARD_LOADED:
             return Object.assign({}, state, {
-                board: {posts: action.payload},
+                board: {
+                    posts: action.payload,
+                    limit: initialState.content.board.limit
+                },
                 isFetching: false
             })
+
+        case BOARD_SCROLL_BOTTOM:
+            const { board } = state;
+            board.limit = board.limit + action.payload
+
+            return Object.assign({}, state, {board})
 
         case BOARD_LIST_LOADED:
             const boardlist = {}[action.key] = action.payload
