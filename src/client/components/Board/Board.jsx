@@ -62,6 +62,7 @@ export default class Board extends Component {
 
     onThreadFetch( threadID ){
         const { provider, boardID, fetchThread } = this.props;
+        $('.thread-wrap').nanoScroller({ stop: true })
         fetchThread(provider, boardID, threadID);
     }
 }
