@@ -24,15 +24,15 @@ export default class Board extends Component {
         const { incrementLimit } = this.props
 
         // Board scroller
-        $(board).nanoScroller({ sliderMaxHeight: 120, sliderMinHeight: 60 })
+        $(board).nanoScroller({ sliderMaxHeight: 400, sliderMinHeight: 60 })
 
         // Hover over board posts reveals more info
         createLayout()
         catchTooltip(board);  // TODO - Implement this
 
         $(board).on('scrollend', () => {
+            console.log('End of board')
             incrementLimit.bind(null, 10)
-            setTimeout(this.forceUpdate, 500)
         })
     }
 
@@ -58,13 +58,14 @@ export default class Board extends Component {
 
     createThreads() {
         const { posts, limit } = this.props.board;
-        console.warn(posts, limit)
+        console.warn(`board limit: ${limit}`)
         return posts.slice(0, limit).map( post => {
             return (
                 <BoardPost
                     key={post.id}
                     post={post} 
                     fetchThread={this.onThreadFetch}
+                    reshuffle={createLayout}
                 />
             );
         });
