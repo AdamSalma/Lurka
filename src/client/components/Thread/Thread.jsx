@@ -24,6 +24,7 @@ export default class Thread extends Component {
     componentDidMount() {
         const {thread, threadWrap} = this.refs;
         delegateMediaFullscreen(thread)
+        delegatePostScroll(this.refs.thread)
         // $(threadWrap).nanoScroller({ sliderMinHeight: 40, alwaysVisible: true })
     }
 
@@ -31,13 +32,16 @@ export default class Thread extends Component {
     //     $(this.refs.thread).off('click');
     // }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate( prevProps ) {
         const { thread } = this.props;
         if (prevProps.thread.posts.length !== thread.posts.length){
             // Thread created or destroyed
             this.threadToggle();
-            delegatePostScroll(thread)    // TODO FIX THIS
         } 
+    }
+
+    shouldComponentUpdate( nextProps ) {
+        return this.props.thread.posts.length != nextProps.thread.posts.length
     }
 
     render() {
@@ -45,17 +49,19 @@ export default class Thread extends Component {
         const threadWrapClasses = classNames('thread-wrap', 'nano', {
             "thread-wrap-active": thread.posts.length || isFetching
         });
+        const threadIsVisible = classNames({
+            "hidden": thread.posts.length || isFetching
+        })
 
-        if (thread.posts.length) console.info(`Rendering Thread with ${thread.posts.length} posts`);
-        
+        if (thread.posts.length) {
+            console.info(`Rendering Thread with ${thread.posts.length} posts`);
+        }
 
         return (
             <div>
                 <Background 
                     isVisible={thread.posts.length || isFetching} 
                     closeBackground={this.threadToggle}/>
-                <Spinner isSpinning={isFetching}/>
-
                 <div ref='threadWrap' className={threadWrapClasses}>
                     <div className="thread nano-content" ref="thread">
                         {thread.posts.map( 
