@@ -1,7 +1,7 @@
 import React from 'react';
 import Tooltip from '../Tooltip';
 
-export default ({ post, fetchThread }) => {
+export default ({ post, fetchThread, reshuffle }) => {
     const {id, title, comment, date, imgsrc, replies} = post;
     return (
         <div 
@@ -9,7 +9,7 @@ export default ({ post, fetchThread }) => {
             className="board-post"
             onClick={() => fetchThread(id)}
         >
-            <img src={imgsrc.sm} />
+            <img src={imgsrc.sm} onLoad={reshuffle}/>
             <Tooltip>
                 <div className="count">
                     <span>
