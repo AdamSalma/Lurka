@@ -19,20 +19,6 @@ export default class ContentOptions extends Component {
 
         return (
             <div id="content-options" className={classes}>
-            	<ul className="icons">
-                    <li>
-                        <i className="fa fa-cog"></i> 
-                        <span>Scraper Mode</span>
-                    </li>
-                    <li>
-                        <i className="mdi mdi-archive"></i>
-                        <span>Archive</span>
-                    </li>
-                    <li>
-                        <i className="mdi mdi-settings"></i>
-                        <span>Settings</span>
-                    </li>
-            	</ul>
                 <Dropdown styleName="boardlist" items={this.createDropdownElements(boardList)} handleClick={this.onDropdownClick}/>
             </div>
         )
