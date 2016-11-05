@@ -1,20 +1,22 @@
-import Velocity from 'velocity-animate'
-
 export default function scrollToPost(thread) {
 	const $thread = $(thread);
 
-	$thread.on('click', '.quotelink', event => {
+	$thread.on('click', '.quotelink', function( event ){
 		event.stopPropagation()
 		const href = event.target.getAttribute('href')
-		const offset = $thread.find(href)[0].scrollHeight
+		const $post = $thread.find(href)
+		const offset = $post[0].offsetTop
+
 		console.log($thread)
-		console.log($thread.find(href))
+		console.log()
 		console.log(`scroll offset is ${offset}`)
-		Velocity(thread, 'scroll', {
-			offset: 100, 
-			duration: 1000, 
-			easing: "ease-in-out"
-		})
+
+		$thread.animate({
+			scrollTop: offset
+		}, 600);
+
+		$post.addClass('highlight')
+		setTimeout(()=>$post.removeClass('highlight'), 2000)
 		return false
 	})
 }
