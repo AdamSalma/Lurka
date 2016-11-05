@@ -18,6 +18,10 @@ import {
 	expandHeader
 } from '../actions/AnimationActions';
 
+import {
+    fetchBoardList, fetchBoard
+} from '../actions/BoardActions';
+
 // import scroll action here
 
 class HomePanel extends Component {
@@ -28,11 +32,17 @@ class HomePanel extends Component {
 	}
 
     render() {
-		const {isMainPage, providers, loadingMessage, expandHeader, scrollPage} = this.props;
+		const {
+			expandHeader, scrollPage, fetchBoard,
+			isMainPage, providers, loadingMessage, provider, boardList, fetchBoardList
+		} = this.props;
         return (
         	<div id="pages">
 	            <div className="page page-home">
-	            	<Header loadingMessage={loadingMessage} isMainPage={isMainPage} expandHeader={expandHeader} scrollPage={scrollPage}/>  
+	            	<Header 
+	            		expandHeader={expandHeader} scrollPage={scrollPage} fetchBoardList={fetchBoardList} fetchBoard={fetchBoard}
+	            		loadingMessage={loadingMessage} isMainPage={isMainPage} boardList={boardList} provider={provider}
+	           		/>  
 	            	<div>
 	            		<h3>Providers:</h3>
 	            		<div className="providers">
@@ -66,7 +76,8 @@ function mapStateToProps({status, content}) {
         provider: content.provider,
         providers: status.providers,
         isMainPage: status.isMainPage,
-        loadingMessage: status.loadingMessage
+        loadingMessage: status.loadingMessage,
+        boardList: content.boardlist,
     }
 }
 
@@ -75,7 +86,9 @@ function mapDispatchToProps(dispatch) {
         changeProvider,
         scrollPage,
         shrinkHeader,
-        expandHeader
+        expandHeader, 
+        fetchBoardList,
+        fetchBoard
     }, dispatch)
 }
 
