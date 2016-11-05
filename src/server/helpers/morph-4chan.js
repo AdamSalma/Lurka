@@ -69,14 +69,16 @@ export function morphThread( posts, boardID ) {
             sm: img + post['tim'] + "s.jpg",
             lg: img + post['tim'] + post['ext']
         } : null,
-        ext: post['ext'],
-        replies: {
-            textCount: post['replies'],
-            imgCount: post['images']
-        }
+        ext: post['ext']
     }));
 
-    return connectPosts(thread)
+    try {
+        return connectPosts(thread)
+    } catch (e) {
+        console.log(thread)
+        console.log(e)
+        return thread
+    }
 }
 
 
@@ -95,7 +97,7 @@ function connectPosts(posts) {
         var refs = [];
         posts.map( ({ id:referer, comment }) => {
             // Check if ID is in all posts; add id of any who tagged it
-            if (comment.includes(id)) refs.push(referer)
+            if (comment && comment.includes(id)) refs.push(referer)
         })
         return refs
     });
@@ -104,7 +106,7 @@ function connectPosts(posts) {
         posts[i].references = references[i]
     }
 
-    console.log(posts);
+    console.log(`Connected ${posts.length} posts`);
     return posts
 }
 
