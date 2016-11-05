@@ -37,8 +37,9 @@ export default function (state = initialState.content, action) {
             })
 
         case BOARD_SCROLL_BOTTOM:
+        console.error("setting new board limit")
             const { board } = state;
-            board.limit = board.limit + action.payload
+            board.limit = action.payload
 
             return Object.assign({}, state, {board})
 
