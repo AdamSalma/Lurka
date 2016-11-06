@@ -31,19 +31,27 @@ export default class Board extends Component {
         catchTooltip(board);  // TODO - Implement this
 
         $(board).on('scrollend', () => {
-            console.log('End of board')
-            incrementLimit.bind(null, 10)
+            let newValue = this.props.board.limit + 10
+            console.log('End of board. newValue:' + newValue)
+            incrementLimit(newValue)
+            this.forceUpdate()
         })
     }
 
-    componentWillUnmount() {
-        $(this.refs.board).off('hover scrollend');
-    }
 
     componentDidUpdate({ board }) {
         if (board.posts.length !== this.props.board.posts.length) {
             createLayout()
+            $(this.refs.board).nanoScroller()
         }
+    }
+
+    // shouldComponentUpdate({ board: newboard }) {
+    //     return this.props.board.posts.length !== newboard.posts.length
+    // }
+
+    componentWillUnmount() {
+        $(this.refs.board).off('hover scrollend');
     }
 
     render() {
