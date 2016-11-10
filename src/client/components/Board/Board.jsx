@@ -9,7 +9,12 @@ import createLayout from './layout';
 export default class Board extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            incrementAmount: 10
+        }
+
         this.onThreadFetch = this.onThreadFetch.bind(this)
+        this.incrementBoardLimit = this.incrementBoardLimit.bind(this)
     }
     
     componentWillMount() {
@@ -22,27 +27,25 @@ export default class Board extends Component {
     componentDidMount() {
         const { board } = this.refs
         const { incrementLimit } = this.props
+        const $board = $(board)
 
         // Board scroller
-        $(board).nanoScroller({ sliderMaxHeight: 400, sliderMinHeight: 60 })
+        $board.nanoScroller({ sliderMaxHeight: 400, sliderMinHeight: 60 })
 
         // Hover over board posts reveals more info
         createLayout()
         catchTooltip(board);  // TODO - Implement this
 
-        $(board).on('scrollend', () => {
-            let newValue = this.props.board.limit + 10
-            console.log('End of board. newValue:' + newValue)
-            incrementLimit(newValue)
-            this.forceUpdate()
-        })
+        $board.on('scrollend', this.incrementBoardLimit)
     }
 
 
     componentDidUpdate({ board }) {
         if (board.posts.length !== this.props.board.posts.length) {
             createLayout()
-            $(this.refs.board).nanoScroller()
+            const $board = $(this.refs.board)
+            $board.nanoScroller()
+            $board.on('scrollend', this.incrementBoardLimit)
         }
     }
 
@@ -62,6 +65,15 @@ export default class Board extends Component {
                 </div>
             </div>
         );
+    }
+
+    incrementBoardLimit() {
+        const { incrementLimit, board } = this.props
+        const newValue = this.props.board.limit + this.state.incrementAmount
+        console.log('End of board. newValue:' + newValue)
+        incrementLimit(newValue)
+        this.forceUpdate()
+    
     }
 
     createThreads() {
