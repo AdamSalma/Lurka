@@ -1,11 +1,7 @@
-var colCount = 0
-var colWidth = 0
-var margin = 20
-var outerMargin = 0
-var windowWidth = 0
-var blocks = []
+var colCount, colWidth, outerMargin, $items, windowWidth
 
-var $items = null
+var margin = 15
+var blocks = []
 
 $(window).resize(setupBlocks)
 
@@ -20,7 +16,7 @@ export default function setupBlocks() {
 	outerMargin = windowWidth - colCount*(colWidth+margin)
 
 	for (let i=0; i<colCount; i++) {
-		blocks.push( margin)
+		blocks.push(margin)
 	}
 
 	positionBlocks()
@@ -30,7 +26,7 @@ function positionBlocks() {
 	$items.each(function(){
 		var min = Array.min(blocks)
 		var index = $.inArray(min, blocks)
-		var leftPos = outerMargin/2 + margin+(index*(colWidth+margin))
+		var leftPos = outerMargin/2 + margin/2 +(index*(colWidth+margin))
 		$(this).css({
 			'top': min+'px',
 			'left': leftPos+'px'
