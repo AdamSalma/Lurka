@@ -1,13 +1,10 @@
 // #!/usr/bin/env node
 'use strict';
-
 import app from './app';
 import http from 'http';
 import config from '../../config';
 
-const debug = require('debug')('server:server');
 const port = normalizePort(config.server.port);
-
 app.set('port', port);
 
 const server = http.createServer(app);
@@ -35,11 +32,11 @@ function onError(error) {
     // handle specific listen errors with friendly messages
     switch (error.code) {
         case 'EACCES':
-            console.error(bind + ' requires elevated privileges');
+            log.error(bind + ' requires elevated privileges');
             process.exit(1);
             break;
         case 'EADDRINUSE':
-            console.error(bind + ' is already in use');
+            log.error(bind + ' is already in use');
             process.exit(1);
             break;
         default:
@@ -53,5 +50,5 @@ function onListening() {
     const bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
-    console.info("Connected to localhost:%s.\n", port)
+    log.http(`Connected to localhost:${port}\n`)
 }

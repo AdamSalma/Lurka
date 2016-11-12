@@ -1,4 +1,4 @@
 export default function  ({ url }, res, next) {
-	console.info("User request:", url);
+	log.http(url);
     next()
 }

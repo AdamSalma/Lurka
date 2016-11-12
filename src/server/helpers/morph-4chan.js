@@ -9,8 +9,6 @@ export function morphBoard( board, boardID ) {
     const img = `https://i.4cdn.org/${boardID}/`;
     var newBoard = [];
 
-    console.log("Parsing 4chan board");
-
     for (let page in board) {
         if (!board.hasOwnProperty(page)) return false;
         let threads = board[page]['threads'];
@@ -20,7 +18,7 @@ export function morphBoard( board, boardID ) {
     }
 
     if (!newBoard.length) throw new Error("No threads extracted");
-    console.log(`Created ${newBoard.length} threads`);
+    log.info(`Created ${newBoard.length} board posts`);
     return newBoard;
 
     function formatThread(threadObj) {
@@ -56,9 +54,8 @@ export function morphThread( posts, boardID ) {
     const img = `https://i.4cdn.org/${boardID}/`;
 
     if (!posts.length) throw new Error("No thread posts supplied");
-    console.log(`Created ${posts.length} 4chan posts`);
+    log.info(`Created ${posts.length} 4chan posts`);
 
-    
     const thread = posts.map( post => ({
         id: post['no'],
         date: post['now'],
@@ -75,8 +72,8 @@ export function morphThread( posts, boardID ) {
     try {
         return connectPosts(thread)
     } catch (e) {
-        console.log(thread)
-        console.log(e)
+        console.error(thread)
+        log.error(e)
         return thread
     }
 }
@@ -96,8 +93,10 @@ function connectPosts(posts) {
     const references = ids.map( (id, index) => {
         var refs = [];
         posts.map( ({ id:referer, comment }) => {
-            // Check if ID is in all posts; add id of any who tagged it
-            if (comment && comment.includes(id)) refs.push(referer)
+            // Check all comments for ID, add any that refer to ID
+            if (comment && comment.includes(id)) {
+                refs.push(referer)
+            }
         })
         return refs
     });
@@ -105,8 +104,6 @@ function connectPosts(posts) {
     for (let i=0; i < ids.length; i++) {
         posts[i].references = references[i]
     }
-
-    console.log(`Connected ${posts.length} posts`);
     return posts
 }
 
