@@ -5,7 +5,8 @@ import Tooltip from '../Tooltip'
 export default class TimeAgo extends Component {
     constructor(props) {
         super(props)
-        this._interval = setInterval(this.forceUpdate, props.refreshRate)
+        this.update = this.update.bind(this)
+        this._interval = setInterval(this.update, props.refreshRate)
     }
 
     componentWillUnmount() {
@@ -18,11 +19,14 @@ export default class TimeAgo extends Component {
             <Tooltip 
                 content={time.format(this.props.format)}
                 className="timeago"
-                position="top"
             >
                 {time.fromNow()}
             </Tooltip>
         )
+    }
+
+    update() {
+        this.forceUpdate()
     }
 }
 
