@@ -1,3 +1,1000 @@
-/*! nanoScrollerJS - v0.8.7 - (c) 2015 James Florentino; Licensed MIT */
+/*! nanoScrollerJS - v0.8.7 - 2015
+* http://jamesflorentino.github.com/nanoScrollerJS/
+* Copyright (c) 2015 James Florentino; Licensed MIT */
+(function(factory) {
+  if (typeof define === 'function' && define.amd) {
+    return define(['jquery'], function($) {
+      return factory($, window, document);
+    });
+  } else if (typeof exports === 'object') {
+    return module.exports = factory(require('jquery'), window, document);
+  } else {
+    return factory(jQuery, window, document);
+  }
+})(function($, window, document) {
+  "use strict";
+  var BROWSER_IS_IE7, BROWSER_SCROLLBAR_WIDTH, DOMSCROLL, DOWN, DRAG, ENTER, KEYDOWN, KEYUP, MOUSEDOWN, MOUSEENTER, MOUSEMOVE, MOUSEUP, MOUSEWHEEL, NanoScroll, PANEDOWN, RESIZE, SCROLL, SCROLLBAR, TOUCHMOVE, UP, WHEEL, cAF, defaults, getBrowserScrollbarWidth, hasTransform, isFFWithBuggyScrollbar, rAF, transform, _elementStyle, _prefixStyle, _vendor;
+  defaults = {
 
-!function(a){return"function"==typeof define&&define.amd?define(["jquery"],function(b){return a(b,window,document)}):"object"==typeof exports?module.exports=a(require("jquery"),window,document):a(jQuery,window,document)}(function(a,b,c){"use strict";var d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H;z={paneClass:"nano-pane",sliderClass:"nano-slider",contentClass:"nano-content",enabledClass:"has-scrollbar",flashedClass:"flashed",activeClass:"active",iOSNativeScrolling:!1,preventPageScrolling:!1,disableResize:!1,alwaysVisible:!1,flashDelay:1500,sliderMinHeight:20,sliderMaxHeight:null,documentContext:null,windowContext:null},u="scrollbar",t="scroll",l="mousedown",m="mouseenter",n="mousemove",p="mousewheel",o="mouseup",s="resize",h="drag",i="enter",w="up",r="panedown",f="DOMMouseScroll",g="down",x="wheel",j="keydown",k="keyup",v="touchmove",d="Microsoft Internet Explorer"===b.navigator.appName&&/msie 7./i.test(b.navigator.appVersion)&&b.ActiveXObject,e=null,D=b.requestAnimationFrame,y=b.cancelAnimationFrame,F=c.createElement("div").style,H=function(){var a,b,c,d,e,f;for(d=["t","webkitT","MozT","msT","OT"],a=e=0,f=d.length;f>e;a=++e)if(c=d[a],b=d[a]+"ransform",b in F)return d[a].substr(0,d[a].length-1);return!1}(),G=function(a){return H===!1?!1:""===H?a:H+a.charAt(0).toUpperCase()+a.substr(1)},E=G("transform"),B=E!==!1,A=function(){var a,b,d;return a=c.createElement("div"),b=a.style,b.position="absolute",b.width="100px",b.height="100px",b.overflow=t,b.top="-9999px",c.body.appendChild(a),d=a.offsetWidth-a.clientWidth,c.body.removeChild(a),d},C=function(){var a,c,d;return c=b.navigator.userAgent,(a=/(?=.+Mac OS X)(?=.+Firefox)/.test(c))?(d=/Firefox\/\d{2}\./.exec(c),d&&(d=d[0].replace(/\D+/g,"")),a&&+d>23):!1},q=function(){function j(d,f){this.el=d,this.options=f,e||(e=A()),this.$el=a(this.el),this.doc=a(this.options.documentContext||c),this.win=a(this.options.windowContext||b),this.body=this.doc.find("body"),this.$content=this.$el.children("."+this.options.contentClass),this.$content.attr("tabindex",this.options.tabIndex||0),this.content=this.$content[0],this.previousPosition=0,this.options.iOSNativeScrolling&&null!=this.el.style.WebkitOverflowScrolling?this.nativeScrolling():this.generate(),this.createEvents(),this.addEvents(),this.reset()}return j.prototype.preventScrolling=function(a,b){if(this.isActive)if(a.type===f)(b===g&&a.originalEvent.detail>0||b===w&&a.originalEvent.detail<0)&&a.preventDefault();else if(a.type===p){if(!a.originalEvent||!a.originalEvent.wheelDelta)return;(b===g&&a.originalEvent.wheelDelta<0||b===w&&a.originalEvent.wheelDelta>0)&&a.preventDefault()}},j.prototype.nativeScrolling=function(){this.$content.css({WebkitOverflowScrolling:"touch"}),this.iOSNativeScrolling=!0,this.isActive=!0},j.prototype.updateScrollValues=function(){var a,b;a=this.content,this.maxScrollTop=a.scrollHeight-a.clientHeight,this.prevScrollTop=this.contentScrollTop||0,this.contentScrollTop=a.scrollTop,b=this.contentScrollTop>this.previousPosition?"down":this.contentScrollTop<this.previousPosition?"up":"same",this.previousPosition=this.contentScrollTop,"same"!==b&&this.$el.trigger("update",{position:this.contentScrollTop,maximum:this.maxScrollTop,direction:b}),this.iOSNativeScrolling||(this.maxSliderTop=this.paneHeight-this.sliderHeight,this.sliderTop=0===this.maxScrollTop?0:this.contentScrollTop*this.maxSliderTop/this.maxScrollTop)},j.prototype.setOnScrollStyles=function(){var a;B?(a={},a[E]="translate(0, "+this.sliderTop+"px)"):a={top:this.sliderTop},D?(y&&this.scrollRAF&&y(this.scrollRAF),this.scrollRAF=D(function(b){return function(){return b.scrollRAF=null,b.slider.css(a)}}(this))):this.slider.css(a)},j.prototype.createEvents=function(){this.events={down:function(a){return function(b){return a.isBeingDragged=!0,a.offsetY=b.pageY-a.slider.offset().top,a.slider.is(b.target)||(a.offsetY=0),a.pane.addClass(a.options.activeClass),a.doc.bind(n,a.events[h]).bind(o,a.events[w]),a.body.bind(m,a.events[i]),!1}}(this),drag:function(a){return function(b){return a.sliderY=b.pageY-a.$el.offset().top-a.paneTop-(a.offsetY||.5*a.sliderHeight),a.scroll(),a.contentScrollTop>=a.maxScrollTop&&a.prevScrollTop!==a.maxScrollTop?a.$el.trigger("scrollend"):0===a.contentScrollTop&&0!==a.prevScrollTop&&a.$el.trigger("scrolltop"),!1}}(this),up:function(a){return function(b){return a.isBeingDragged=!1,a.pane.removeClass(a.options.activeClass),a.doc.unbind(n,a.events[h]).unbind(o,a.events[w]),a.body.unbind(m,a.events[i]),!1}}(this),resize:function(a){return function(b){a.reset()}}(this),panedown:function(a){return function(b){return a.sliderY=(b.offsetY||b.originalEvent.layerY)-.5*a.sliderHeight,a.scroll(),a.events.down(b),!1}}(this),scroll:function(a){return function(b){a.updateScrollValues(),a.isBeingDragged||(a.iOSNativeScrolling||(a.sliderY=a.sliderTop,a.setOnScrollStyles()),null!=b&&(a.contentScrollTop>=a.maxScrollTop?(a.options.preventPageScrolling&&a.preventScrolling(b,g),a.prevScrollTop!==a.maxScrollTop&&a.$el.trigger("scrollend")):0===a.contentScrollTop&&(a.options.preventPageScrolling&&a.preventScrolling(b,w),0!==a.prevScrollTop&&a.$el.trigger("scrolltop"))))}}(this),wheel:function(a){return function(b){var c;if(null!=b)return c=b.delta||b.wheelDelta||b.originalEvent&&b.originalEvent.wheelDelta||-b.detail||b.originalEvent&&-b.originalEvent.detail,c&&(a.sliderY+=-c/3),a.scroll(),!1}}(this),enter:function(a){return function(b){var c;if(a.isBeingDragged)return 1!==(b.buttons||b.which)?(c=a.events)[w].apply(c,arguments):void 0}}(this)}},j.prototype.addEvents=function(){var a;this.removeEvents(),a=this.events,this.options.disableResize||this.win.bind(s,a[s]),this.iOSNativeScrolling||(this.slider.bind(l,a[g]),this.pane.bind(l,a[r]).bind(""+p+" "+f,a[x])),this.$content.bind(""+t+" "+p+" "+f+" "+v,a[t])},j.prototype.removeEvents=function(){var a;a=this.events,this.win.unbind(s,a[s]),this.iOSNativeScrolling||(this.slider.unbind(),this.pane.unbind()),this.$content.unbind(""+t+" "+p+" "+f+" "+v,a[t])},j.prototype.generate=function(){var a,c,d,f,g,h,i;return f=this.options,h=f.paneClass,i=f.sliderClass,a=f.contentClass,(g=this.$el.children("."+h)).length||g.children("."+i).length||this.$el.append('<div class="'+h+'"><div class="'+i+'" /></div>'),this.pane=this.$el.children("."+h),this.slider=this.pane.find("."+i),0===e&&C()?(d=b.getComputedStyle(this.content,null).getPropertyValue("padding-right").replace(/[^0-9.]+/g,""),c={right:-14,paddingRight:+d+14}):e&&(c={right:-e},this.$el.addClass(f.enabledClass)),null!=c&&this.$content.css(c),this},j.prototype.restore=function(){this.stopped=!1,this.iOSNativeScrolling||this.pane.show(),this.addEvents()},j.prototype.reset=function(){var a,b,c,f,g,h,i,j,k,l,m,n;return this.iOSNativeScrolling?void(this.contentHeight=this.content.scrollHeight):(this.$el.find("."+this.options.paneClass).length||this.generate().stop(),this.stopped&&this.restore(),a=this.content,f=a.style,g=f.overflowY,d&&this.$content.css({height:this.$content.height()}),b=a.scrollHeight+e,l=parseInt(this.$el.css("max-height"),10),l>0&&(this.$el.height(""),this.$el.height(a.scrollHeight>l?l:a.scrollHeight)),i=this.pane.outerHeight(!1),k=parseInt(this.pane.css("top"),10),h=parseInt(this.pane.css("bottom"),10),j=i+k+h,n=Math.round(j/b*i),n<this.options.sliderMinHeight?n=this.options.sliderMinHeight:null!=this.options.sliderMaxHeight&&n>this.options.sliderMaxHeight&&(n=this.options.sliderMaxHeight),g===t&&f.overflowX!==t&&(n+=e),this.maxSliderTop=j-n,this.contentHeight=b,this.paneHeight=i,this.paneOuterHeight=j,this.sliderHeight=n,this.paneTop=k,this.slider.height(n),this.events.scroll(),this.pane.show(),this.isActive=!0,a.scrollHeight===a.clientHeight||this.pane.outerHeight(!0)>=a.scrollHeight&&g!==t?(this.pane.hide(),this.isActive=!1):this.el.clientHeight===a.scrollHeight&&g===t?this.slider.hide():this.slider.show(),this.pane.css({opacity:this.options.alwaysVisible?1:"",visibility:this.options.alwaysVisible?"visible":""}),c=this.$content.css("position"),("static"===c||"relative"===c)&&(m=parseInt(this.$content.css("right"),10),m&&this.$content.css({right:"",marginRight:m})),this)},j.prototype.scroll=function(){return this.isActive?(this.sliderY=Math.max(0,this.sliderY),this.sliderY=Math.min(this.maxSliderTop,this.sliderY),this.$content.scrollTop(this.maxScrollTop*this.sliderY/this.maxSliderTop),this.iOSNativeScrolling||(this.updateScrollValues(),this.setOnScrollStyles()),this):void 0},j.prototype.scrollBottom=function(a){return this.isActive?(this.$content.scrollTop(this.contentHeight-this.$content.height()-a).trigger(p),this.stop().restore(),this):void 0},j.prototype.scrollTop=function(a){return this.isActive?(this.$content.scrollTop(+a).trigger(p),this.stop().restore(),this):void 0},j.prototype.scrollTo=function(a){return this.isActive?(this.scrollTop(this.$el.find(a).get(0).offsetTop),this):void 0},j.prototype.stop=function(){return y&&this.scrollRAF&&(y(this.scrollRAF),this.scrollRAF=null),this.stopped=!0,this.removeEvents(),this.iOSNativeScrolling||this.pane.hide(),this},j.prototype.destroy=function(){return this.stopped||this.stop(),!this.iOSNativeScrolling&&this.pane.length&&this.pane.remove(),d&&this.$content.height(""),this.$content.removeAttr("tabindex"),this.$el.hasClass(this.options.enabledClass)&&(this.$el.removeClass(this.options.enabledClass),this.$content.css({right:""})),this},j.prototype.flash=function(){return!this.iOSNativeScrolling&&this.isActive?(this.reset(),this.pane.addClass(this.options.flashedClass),setTimeout(function(a){return function(){a.pane.removeClass(a.options.flashedClass)}}(this),this.options.flashDelay),this):void 0},j}(),a.fn.nanoScroller=function(b){return this.each(function(){var c,d;if((d=this.nanoscroller)||(c=a.extend({},z,b),this.nanoscroller=d=new q(this,c)),b&&"object"==typeof b){if(a.extend(d.options,b),null!=b.scrollBottom)return d.scrollBottom(b.scrollBottom);if(null!=b.scrollTop)return d.scrollTop(b.scrollTop);if(b.scrollTo)return d.scrollTo(b.scrollTo);if("bottom"===b.scroll)return d.scrollBottom(0);if("top"===b.scroll)return d.scrollTop(0);if(b.scroll&&b.scroll instanceof a)return d.scrollTo(b.scroll);if(b.stop)return d.stop();if(b.destroy)return d.destroy();if(b.flash)return d.flash()}return d.reset()})},a.fn.nanoScroller.Constructor=q});
+    /**
+      a classname for the pane element.
+      @property paneClass
+      @type String
+      @default 'nano-pane'
+     */
+    paneClass: 'nano-pane',
+
+    /**
+      a classname for the slider element.
+      @property sliderClass
+      @type String
+      @default 'nano-slider'
+     */
+    sliderClass: 'nano-slider',
+
+    /**
+      a classname for the content element.
+      @property contentClass
+      @type String
+      @default 'nano-content'
+     */
+    contentClass: 'nano-content',
+
+    /**
+      a classname for enabled mode
+      @property enabledClass
+      @type String
+      @default 'has-scrollbar'
+     */
+    enabledClass: 'has-scrollbar',
+
+    /**
+      a classname for flashed mode
+      @property flashedClass
+      @type String
+      @default 'flashed'
+     */
+    flashedClass: 'flashed',
+
+    /**
+      a classname for active mode
+      @property activeClass
+      @type String
+      @default 'active'
+     */
+    activeClass: 'active',
+
+    /**
+      a setting to enable native scrolling in iOS devices.
+      @property iOSNativeScrolling
+      @type Boolean
+      @default false
+     */
+    iOSNativeScrolling: false,
+
+    /**
+      a setting to prevent the rest of the page being
+      scrolled when user scrolls the `.content` element.
+      @property preventPageScrolling
+      @type Boolean
+      @default false
+     */
+    preventPageScrolling: false,
+
+    /**
+      a setting to disable binding to the resize event.
+      @property disableResize
+      @type Boolean
+      @default false
+     */
+    disableResize: false,
+
+    /**
+      a setting to make the scrollbar always visible.
+      @property alwaysVisible
+      @type Boolean
+      @default false
+     */
+    alwaysVisible: false,
+
+    /**
+      a default timeout for the `flash()` method.
+      @property flashDelay
+      @type Number
+      @default 1500
+     */
+    flashDelay: 1500,
+
+    /**
+      a minimum height for the `.slider` element.
+      @property sliderMinHeight
+      @type Number
+      @default 20
+     */
+    sliderMinHeight: 20,
+
+    /**
+      a maximum height for the `.slider` element.
+      @property sliderMaxHeight
+      @type Number
+      @default null
+     */
+    sliderMaxHeight: null,
+
+    /**
+      an alternate document context.
+      @property documentContext
+      @type Document
+      @default null
+     */
+    documentContext: null,
+
+    /**
+      an alternate window context.
+      @property windowContext
+      @type Window
+      @default null
+     */
+    windowContext: null
+  };
+
+  /**
+    @property SCROLLBAR
+    @type String
+    @static
+    @final
+    @private
+   */
+  SCROLLBAR = 'scrollbar';
+
+  /**
+    @property SCROLL
+    @type String
+    @static
+    @final
+    @private
+   */
+  SCROLL = 'scroll';
+
+  /**
+    @property MOUSEDOWN
+    @type String
+    @final
+    @private
+   */
+  MOUSEDOWN = 'mousedown';
+
+  /**
+    @property MOUSEENTER
+    @type String
+    @final
+    @private
+   */
+  MOUSEENTER = 'mouseenter';
+
+  /**
+    @property MOUSEMOVE
+    @type String
+    @static
+    @final
+    @private
+   */
+  MOUSEMOVE = 'mousemove';
+
+  /**
+    @property MOUSEWHEEL
+    @type String
+    @final
+    @private
+   */
+  MOUSEWHEEL = 'mousewheel';
+
+  /**
+    @property MOUSEUP
+    @type String
+    @static
+    @final
+    @private
+   */
+  MOUSEUP = 'mouseup';
+
+  /**
+    @property RESIZE
+    @type String
+    @final
+    @private
+   */
+  RESIZE = 'resize';
+
+  /**
+    @property DRAG
+    @type String
+    @static
+    @final
+    @private
+   */
+  DRAG = 'drag';
+
+  /**
+    @property ENTER
+    @type String
+    @static
+    @final
+    @private
+   */
+  ENTER = 'enter';
+
+  /**
+    @property UP
+    @type String
+    @static
+    @final
+    @private
+   */
+  UP = 'up';
+
+  /**
+    @property PANEDOWN
+    @type String
+    @static
+    @final
+    @private
+   */
+  PANEDOWN = 'panedown';
+
+  /**
+    @property DOMSCROLL
+    @type String
+    @static
+    @final
+    @private
+   */
+  DOMSCROLL = 'DOMMouseScroll';
+
+  /**
+    @property DOWN
+    @type String
+    @static
+    @final
+    @private
+   */
+  DOWN = 'down';
+
+  /**
+    @property WHEEL
+    @type String
+    @static
+    @final
+    @private
+   */
+  WHEEL = 'wheel';
+
+  /**
+    @property KEYDOWN
+    @type String
+    @static
+    @final
+    @private
+   */
+  KEYDOWN = 'keydown';
+
+  /**
+    @property KEYUP
+    @type String
+    @static
+    @final
+    @private
+   */
+  KEYUP = 'keyup';
+
+  /**
+    @property TOUCHMOVE
+    @type String
+    @static
+    @final
+    @private
+   */
+  TOUCHMOVE = 'touchmove';
+
+  /**
+    @property BROWSER_IS_IE7
+    @type Boolean
+    @static
+    @final
+    @private
+   */
+  BROWSER_IS_IE7 = window.navigator.appName === 'Microsoft Internet Explorer' && /msie 7./i.test(window.navigator.appVersion) && window.ActiveXObject;
+
+  /**
+    @property BROWSER_SCROLLBAR_WIDTH
+    @type Number
+    @static
+    @default null
+    @private
+   */
+  BROWSER_SCROLLBAR_WIDTH = null;
+  rAF = window.requestAnimationFrame;
+  cAF = window.cancelAnimationFrame;
+  _elementStyle = document.createElement('div').style;
+  _vendor = (function() {
+    var i, transform, vendor, vendors, _i, _len;
+    vendors = ['t', 'webkitT', 'MozT', 'msT', 'OT'];
+    for (i = _i = 0, _len = vendors.length; _i < _len; i = ++_i) {
+      vendor = vendors[i];
+      transform = vendors[i] + 'ransform';
+      if (transform in _elementStyle) {
+        return vendors[i].substr(0, vendors[i].length - 1);
+      }
+    }
+    return false;
+  })();
+  _prefixStyle = function(style) {
+    if (_vendor === false) {
+      return false;
+    }
+    if (_vendor === '') {
+      return style;
+    }
+    return _vendor + style.charAt(0).toUpperCase() + style.substr(1);
+  };
+  transform = _prefixStyle('transform');
+  hasTransform = transform !== false;
+
+  /**
+    Returns browser's native scrollbar width
+    @method getBrowserScrollbarWidth
+    @return {Number} the scrollbar width in pixels
+    @static
+    @private
+   */
+  getBrowserScrollbarWidth = function() {
+    var outer, outerStyle, scrollbarWidth;
+    outer = document.createElement('div');
+    outerStyle = outer.style;
+    outerStyle.position = 'absolute';
+    outerStyle.width = '100px';
+    outerStyle.height = '100px';
+    outerStyle.overflow = SCROLL;
+    outerStyle.top = '-9999px';
+    document.body.appendChild(outer);
+    scrollbarWidth = outer.offsetWidth - outer.clientWidth;
+    document.body.removeChild(outer);
+    return scrollbarWidth;
+  };
+  isFFWithBuggyScrollbar = function() {
+    var isOSXFF, ua, version;
+    ua = window.navigator.userAgent;
+    isOSXFF = /(?=.+Mac OS X)(?=.+Firefox)/.test(ua);
+    if (!isOSXFF) {
+      return false;
+    }
+    version = /Firefox\/\d{2}\./.exec(ua);
+    if (version) {
+      version = version[0].replace(/\D+/g, '');
+    }
+    return isOSXFF && +version > 23;
+  };
+
+  /**
+    @class NanoScroll
+    @param element {HTMLElement|Node} the main element
+    @param options {Object} nanoScroller's options
+    @constructor
+   */
+  NanoScroll = (function() {
+    function NanoScroll(el, options) {
+      this.el = el;
+      this.options = options;
+      BROWSER_SCROLLBAR_WIDTH || (BROWSER_SCROLLBAR_WIDTH = getBrowserScrollbarWidth());
+      this.$el = $(this.el);
+      this.doc = $(this.options.documentContext || document);
+      this.win = $(this.options.windowContext || window);
+      this.body = this.doc.find('body');
+      this.$content = this.$el.children("." + this.options.contentClass);
+      this.$content.attr('tabindex', this.options.tabIndex || 0);
+      this.content = this.$content[0];
+      this.previousPosition = 0;
+      if (this.options.iOSNativeScrolling && (this.el.style.WebkitOverflowScrolling != null)) {
+        this.nativeScrolling();
+      } else {
+        this.generate();
+      }
+      this.createEvents();
+      this.addEvents();
+      this.reset();
+    }
+
+
+    /**
+      Prevents the rest of the page being scrolled
+      when user scrolls the `.nano-content` element.
+      @method preventScrolling
+      @param event {Event}
+      @param direction {String} Scroll direction (up or down)
+      @private
+     */
+
+    NanoScroll.prototype.preventScrolling = function(e, direction) {
+      if (!this.isActive) {
+        return;
+      }
+      if (e.type === DOMSCROLL) {
+        if (direction === DOWN && e.originalEvent.detail > 0 || direction === UP && e.originalEvent.detail < 0) {
+          e.preventDefault();
+        }
+      } else if (e.type === MOUSEWHEEL) {
+        if (!e.originalEvent || !e.originalEvent.wheelDelta) {
+          return;
+        }
+        if (direction === DOWN && e.originalEvent.wheelDelta < 0 || direction === UP && e.originalEvent.wheelDelta > 0) {
+          e.preventDefault();
+        }
+      }
+    };
+
+
+    /**
+      Enable iOS native scrolling
+      @method nativeScrolling
+      @private
+     */
+
+    NanoScroll.prototype.nativeScrolling = function() {
+      this.$content.css({
+        WebkitOverflowScrolling: 'touch'
+      });
+      this.iOSNativeScrolling = true;
+      this.isActive = true;
+    };
+
+
+    /**
+      Updates those nanoScroller properties that
+      are related to current scrollbar position.
+      @method updateScrollValues
+      @private
+     */
+
+    NanoScroll.prototype.updateScrollValues = function() {
+      var content, direction;
+      content = this.content;
+      this.maxScrollTop = content.scrollHeight - content.clientHeight;
+      this.prevScrollTop = this.contentScrollTop || 0;
+      this.contentScrollTop = content.scrollTop;
+      direction = this.contentScrollTop > this.previousPosition ? "down" : this.contentScrollTop < this.previousPosition ? "up" : "same";
+      this.previousPosition = this.contentScrollTop;
+      if (direction !== "same") {
+        this.$el.trigger('update', {
+          position: this.contentScrollTop,
+          maximum: this.maxScrollTop,
+          direction: direction
+        });
+      }
+      if (!this.iOSNativeScrolling) {
+        this.maxSliderTop = this.paneHeight - this.sliderHeight;
+        this.sliderTop = this.maxScrollTop === 0 ? 0 : this.contentScrollTop * this.maxSliderTop / this.maxScrollTop;
+      }
+    };
+
+
+    /**
+      Updates CSS styles for current scroll position.
+      Uses CSS 2d transfroms and `window.requestAnimationFrame` if available.
+      @method setOnScrollStyles
+      @private
+     */
+
+    NanoScroll.prototype.setOnScrollStyles = function() {
+      var cssValue;
+      if (hasTransform) {
+        cssValue = {};
+        cssValue[transform] = "translate(0, " + this.sliderTop + "px)";
+      } else {
+        cssValue = {
+          top: this.sliderTop
+        };
+      }
+      if (rAF) {
+        if (cAF && this.scrollRAF) {
+          cAF(this.scrollRAF);
+        }
+        this.scrollRAF = rAF((function(_this) {
+          return function() {
+            _this.scrollRAF = null;
+            return _this.slider.css(cssValue);
+          };
+        })(this));
+      } else {
+        this.slider.css(cssValue);
+      }
+    };
+
+
+    /**
+      Creates event related methods
+      @method createEvents
+      @private
+     */
+
+    NanoScroll.prototype.createEvents = function() {
+      this.events = {
+        down: (function(_this) {
+          return function(e) {
+            _this.isBeingDragged = true;
+            _this.offsetY = e.pageY - _this.slider.offset().top;
+            if (!_this.slider.is(e.target)) {
+              _this.offsetY = 0;
+            }
+            _this.pane.addClass(_this.options.activeClass);
+            _this.doc.bind(MOUSEMOVE, _this.events[DRAG]).bind(MOUSEUP, _this.events[UP]);
+            _this.body.bind(MOUSEENTER, _this.events[ENTER]);
+            return false;
+          };
+        })(this),
+        drag: (function(_this) {
+          return function(e) {
+            _this.sliderY = e.pageY - _this.$el.offset().top - _this.paneTop - (_this.offsetY || _this.sliderHeight * 0.5);
+            _this.scroll();
+            if (_this.contentScrollTop >= _this.maxScrollTop && _this.prevScrollTop !== _this.maxScrollTop) {
+              _this.$el.trigger('scrollend');
+            } else if (_this.contentScrollTop === 0 && _this.prevScrollTop !== 0) {
+              _this.$el.trigger('scrolltop');
+            }
+            return false;
+          };
+        })(this),
+        up: (function(_this) {
+          return function(e) {
+            _this.isBeingDragged = false;
+            _this.pane.removeClass(_this.options.activeClass);
+            _this.doc.unbind(MOUSEMOVE, _this.events[DRAG]).unbind(MOUSEUP, _this.events[UP]);
+            _this.body.unbind(MOUSEENTER, _this.events[ENTER]);
+            return false;
+          };
+        })(this),
+        resize: (function(_this) {
+          return function(e) {
+            _this.reset();
+          };
+        })(this),
+        panedown: (function(_this) {
+          return function(e) {
+            _this.sliderY = (e.offsetY || e.originalEvent.layerY) - (_this.sliderHeight * 0.5);
+            _this.scroll();
+            _this.events.down(e);
+            return false;
+          };
+        })(this),
+        scroll: (function(_this) {
+          return function(e) {
+            _this.updateScrollValues();
+            if (_this.isBeingDragged) {
+              return;
+            }
+            if (!_this.iOSNativeScrolling) {
+              _this.sliderY = _this.sliderTop;
+              _this.setOnScrollStyles();
+            }
+            if (e == null) {
+              return;
+            }
+            if (_this.contentScrollTop >= _this.maxScrollTop) {
+              if (_this.options.preventPageScrolling) {
+                _this.preventScrolling(e, DOWN);
+              }
+              if (_this.prevScrollTop !== _this.maxScrollTop) {
+                _this.$el.trigger('scrollend');
+              }
+            } else if (_this.contentScrollTop === 0) {
+              if (_this.options.preventPageScrolling) {
+                _this.preventScrolling(e, UP);
+              }
+              if (_this.prevScrollTop !== 0) {
+                _this.$el.trigger('scrolltop');
+              }
+            }
+          };
+        })(this),
+        wheel: (function(_this) {
+          return function(e) {
+            var delta;
+            if (e == null) {
+              return;
+            }
+            delta = e.delta || e.wheelDelta || (e.originalEvent && e.originalEvent.wheelDelta) || -e.detail || (e.originalEvent && -e.originalEvent.detail);
+            if (delta) {
+              _this.sliderY += -delta / 3;
+            }
+            _this.scroll();
+            return false;
+          };
+        })(this),
+        enter: (function(_this) {
+          return function(e) {
+            var _ref;
+            if (!_this.isBeingDragged) {
+              return;
+            }
+            if ((e.buttons || e.which) !== 1) {
+              return (_ref = _this.events)[UP].apply(_ref, arguments);
+            }
+          };
+        })(this)
+      };
+    };
+
+
+    /**
+      Adds event listeners with jQuery.
+      @method addEvents
+      @private
+     */
+
+    NanoScroll.prototype.addEvents = function() {
+      var events;
+      this.removeEvents();
+      events = this.events;
+      if (!this.options.disableResize) {
+        this.win.bind(RESIZE, events[RESIZE]);
+      }
+      if (!this.iOSNativeScrolling) {
+        this.slider.bind(MOUSEDOWN, events[DOWN]);
+        this.pane.bind(MOUSEDOWN, events[PANEDOWN]).bind("" + MOUSEWHEEL + " " + DOMSCROLL, events[WHEEL]);
+      }
+      this.$content.bind("" + SCROLL + " " + MOUSEWHEEL + " " + DOMSCROLL + " " + TOUCHMOVE, events[SCROLL]);
+    };
+
+
+    /**
+      Removes event listeners with jQuery.
+      @method removeEvents
+      @private
+     */
+
+    NanoScroll.prototype.removeEvents = function() {
+      var events;
+      events = this.events;
+      this.win.unbind(RESIZE, events[RESIZE]);
+      if (!this.iOSNativeScrolling) {
+        this.slider.unbind();
+        this.pane.unbind();
+      }
+      this.$content.unbind("" + SCROLL + " " + MOUSEWHEEL + " " + DOMSCROLL + " " + TOUCHMOVE, events[SCROLL]);
+    };
+
+
+    /**
+      Generates nanoScroller's scrollbar and elements for it.
+      @method generate
+      @chainable
+      @private
+     */
+
+    NanoScroll.prototype.generate = function() {
+      var contentClass, cssRule, currentPadding, options, pane, paneClass, sliderClass;
+      options = this.options;
+      paneClass = options.paneClass, sliderClass = options.sliderClass, contentClass = options.contentClass;
+      if (!(pane = this.$el.children("." + paneClass)).length && !pane.children("." + sliderClass).length) {
+        this.$el.append("<div class=\"" + paneClass + "\"><div class=\"" + sliderClass + "\" /></div>");
+      }
+      this.pane = this.$el.children("." + paneClass);
+      this.slider = this.pane.find("." + sliderClass);
+      if (BROWSER_SCROLLBAR_WIDTH === 0 && isFFWithBuggyScrollbar()) {
+        currentPadding = window.getComputedStyle(this.content, null).getPropertyValue('padding-right').replace(/[^0-9.]+/g, '');
+        cssRule = {
+          right: -14,
+          paddingRight: +currentPadding + 14
+        };
+      } else if (BROWSER_SCROLLBAR_WIDTH) {
+        cssRule = {
+          right: -BROWSER_SCROLLBAR_WIDTH
+        };
+        this.$el.addClass(options.enabledClass);
+      }
+      if (cssRule != null) {
+        this.$content.css(cssRule);
+      }
+      return this;
+    };
+
+
+    /**
+      @method restore
+      @private
+     */
+
+    NanoScroll.prototype.restore = function() {
+      this.stopped = false;
+      if (!this.iOSNativeScrolling) {
+        this.pane.show();
+      }
+      this.addEvents();
+    };
+
+
+    /**
+      Resets nanoScroller's scrollbar.
+      @method reset
+      @chainable
+      @example
+          $(".nano").nanoScroller();
+     */
+
+    NanoScroll.prototype.reset = function() {
+      var content, contentHeight, contentPosition, contentStyle, contentStyleOverflowY, paneBottom, paneHeight, paneOuterHeight, paneTop, parentMaxHeight, right, sliderHeight;
+      if (this.iOSNativeScrolling) {
+        this.contentHeight = this.content.scrollHeight;
+        return;
+      }
+      if (!this.$el.find("." + this.options.paneClass).length) {
+        this.generate().stop();
+      }
+      if (this.stopped) {
+        this.restore();
+      }
+      content = this.content;
+      contentStyle = content.style;
+      contentStyleOverflowY = contentStyle.overflowY;
+      if (BROWSER_IS_IE7) {
+        this.$content.css({
+          height: this.$content.height()
+        });
+      }
+      contentHeight = content.scrollHeight + BROWSER_SCROLLBAR_WIDTH;
+      parentMaxHeight = parseInt(this.$el.css("max-height"), 10);
+      if (parentMaxHeight > 0) {
+        this.$el.height("");
+        this.$el.height(content.scrollHeight > parentMaxHeight ? parentMaxHeight : content.scrollHeight);
+      }
+      paneHeight = this.pane.outerHeight(false);
+      paneTop = parseInt(this.pane.css('top'), 10);
+      paneBottom = parseInt(this.pane.css('bottom'), 10);
+      paneOuterHeight = paneHeight + paneTop + paneBottom;
+      sliderHeight = Math.round(paneOuterHeight / contentHeight * paneHeight);
+      if (sliderHeight < this.options.sliderMinHeight) {
+        sliderHeight = this.options.sliderMinHeight;
+      } else if ((this.options.sliderMaxHeight != null) && sliderHeight > this.options.sliderMaxHeight) {
+        sliderHeight = this.options.sliderMaxHeight;
+      }
+      if (contentStyleOverflowY === SCROLL && contentStyle.overflowX !== SCROLL) {
+        sliderHeight += BROWSER_SCROLLBAR_WIDTH;
+      }
+      this.maxSliderTop = paneOuterHeight - sliderHeight;
+      this.contentHeight = contentHeight;
+      this.paneHeight = paneHeight;
+      this.paneOuterHeight = paneOuterHeight;
+      this.sliderHeight = sliderHeight;
+      this.paneTop = paneTop;
+      this.slider.height(sliderHeight);
+      this.events.scroll();
+      this.pane.show();
+      this.isActive = true;
+      if ((content.scrollHeight === content.clientHeight) || (this.pane.outerHeight(true) >= content.scrollHeight && contentStyleOverflowY !== SCROLL)) {
+        this.pane.hide();
+        this.isActive = false;
+      } else if (this.el.clientHeight === content.scrollHeight && contentStyleOverflowY === SCROLL) {
+        this.slider.hide();
+      } else {
+        this.slider.show();
+      }
+      this.pane.css({
+        opacity: (this.options.alwaysVisible ? 1 : ''),
+        visibility: (this.options.alwaysVisible ? 'visible' : '')
+      });
+      contentPosition = this.$content.css('position');
+      if (contentPosition === 'static' || contentPosition === 'relative') {
+        right = parseInt(this.$content.css('right'), 10);
+        if (right) {
+          this.$content.css({
+            right: '',
+            marginRight: right
+          });
+        }
+      }
+      return this;
+    };
+
+
+    /**
+      @method scroll
+      @private
+      @example
+          $(".nano").nanoScroller({ scroll: 'top' });
+     */
+
+    NanoScroll.prototype.scroll = function() {
+      if (!this.isActive) {
+        return;
+      }
+      this.sliderY = Math.max(0, this.sliderY);
+      this.sliderY = Math.min(this.maxSliderTop, this.sliderY);
+      this.$content.scrollTop(this.maxScrollTop * this.sliderY / this.maxSliderTop);
+      if (!this.iOSNativeScrolling) {
+        this.updateScrollValues();
+        this.setOnScrollStyles();
+      }
+      return this;
+    };
+
+
+    /**
+      Scroll at the bottom with an offset value
+      @method scrollBottom
+      @param offsetY {Number}
+      @chainable
+      @example
+          $(".nano").nanoScroller({ scrollBottom: value });
+     */
+
+    NanoScroll.prototype.scrollBottom = function(offsetY) {
+      if (!this.isActive) {
+        return;
+      }
+      this.$content.scrollTop(this.contentHeight - this.$content.height() - offsetY).trigger(MOUSEWHEEL);
+      this.stop().restore();
+      return this;
+    };
+
+
+    /**
+      Scroll at the top with an offset value
+      @method scrollTop
+      @param offsetY {Number}
+      @chainable
+      @example
+          $(".nano").nanoScroller({ scrollTop: value });
+     */
+
+    NanoScroll.prototype.scrollTop = function(offsetY) {
+      if (!this.isActive) {
+        return;
+      }
+      this.$content.scrollTop(+offsetY).trigger(MOUSEWHEEL);
+      this.stop().restore();
+      return this;
+    };
+
+
+    /**
+      Scroll to an element
+      @method scrollTo
+      @param node {Node} A node to scroll to.
+      @chainable
+      @example
+          $(".nano").nanoScroller({ scrollTo: $('#a_node') });
+     */
+
+    NanoScroll.prototype.scrollTo = function(node) {
+      if (!this.isActive) {
+        return;
+      }
+      this.scrollTop(this.$el.find(node).get(0).offsetTop);
+      return this;
+    };
+
+
+    /**
+      To stop the operation.
+      This option will tell the plugin to disable all event bindings and hide the gadget scrollbar from the UI.
+      @method stop
+      @chainable
+      @example
+          $(".nano").nanoScroller({ stop: true });
+     */
+
+    NanoScroll.prototype.stop = function() {
+      if (cAF && this.scrollRAF) {
+        cAF(this.scrollRAF);
+        this.scrollRAF = null;
+      }
+      this.stopped = true;
+      this.removeEvents();
+      if (!this.iOSNativeScrolling) {
+        this.pane.hide();
+      }
+      return this;
+    };
+
+
+    /**
+      Destroys nanoScroller and restores browser's native scrollbar.
+      @method destroy
+      @chainable
+      @example
+          $(".nano").nanoScroller({ destroy: true });
+     */
+
+    NanoScroll.prototype.destroy = function() {
+      if (!this.stopped) {
+        this.stop();
+      }
+      if (!this.iOSNativeScrolling && this.pane.length) {
+        this.pane.remove();
+      }
+      if (BROWSER_IS_IE7) {
+        this.$content.height('');
+      }
+      this.$content.removeAttr('tabindex');
+      if (this.$el.hasClass(this.options.enabledClass)) {
+        this.$el.removeClass(this.options.enabledClass);
+        this.$content.css({
+          right: ''
+        });
+      }
+      return this;
+    };
+
+
+    /**
+      To flash the scrollbar gadget for an amount of time defined in plugin settings (defaults to 1,5s).
+      Useful if you want to show the user (e.g. on pageload) that there is more content waiting for him.
+      @method flash
+      @chainable
+      @example
+          $(".nano").nanoScroller({ flash: true });
+     */
+
+    NanoScroll.prototype.flash = function() {
+      if (this.iOSNativeScrolling) {
+        return;
+      }
+      if (!this.isActive) {
+        return;
+      }
+      this.reset();
+      this.pane.addClass(this.options.flashedClass);
+      setTimeout((function(_this) {
+        return function() {
+          _this.pane.removeClass(_this.options.flashedClass);
+        };
+      })(this), this.options.flashDelay);
+      return this;
+    };
+
+    return NanoScroll;
+
+  })();
+  $.fn.nanoScroller = function(settings) {
+    return this.each(function() {
+      var options, scrollbar;
+      if (!(scrollbar = this.nanoscroller)) {
+        options = $.extend({}, defaults, settings);
+        this.nanoscroller = scrollbar = new NanoScroll(this, options);
+      }
+      if (settings && typeof settings === "object") {
+        $.extend(scrollbar.options, settings);
+        if (settings.scrollBottom != null) {
+          return scrollbar.scrollBottom(settings.scrollBottom);
+        }
+        if (settings.scrollTop != null) {
+          return scrollbar.scrollTop(settings.scrollTop);
+        }
+        if (settings.scrollTo) {
+          return scrollbar.scrollTo(settings.scrollTo);
+        }
+        if (settings.scroll === 'bottom') {
+          return scrollbar.scrollBottom(0);
+        }
+        if (settings.scroll === 'top') {
+          return scrollbar.scrollTop(0);
+        }
+        if (settings.scroll && settings.scroll instanceof $) {
+          return scrollbar.scrollTo(settings.scroll);
+        }
+        if (settings.stop) {
+          return scrollbar.stop();
+        }
+        if (settings.destroy) {
+          return scrollbar.destroy();
+        }
+        if (settings.flash) {
+          return scrollbar.flash();
+        }
+      }
+      return scrollbar.reset();
+    });
+  };
+  $.fn.nanoScroller.Constructor = NanoScroll;
+});
+
+//# sourceMappingURL=jquery.nanoscroller.js.map
