@@ -39,7 +39,7 @@ export default {
 	settings: {
 		isFetching: false,
 		didInvalidate: false
-		// TODO - all settings here in a flat structure
+		// TODO: all settings here in a flat structure
 		// customStyleSheet: null
 	}
 }

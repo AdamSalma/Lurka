@@ -1,8 +1,9 @@
 /* User settings */
-// TODO - Add more
+// TODO: Add user actions
 export const USER_SAVE = "USER_SAVE"
 export const USER_LOAD = "USER_LOAD"
 
+// TODO: make APP_INIT work
 export const APP_INIT = "APP_INIT"
 
 
