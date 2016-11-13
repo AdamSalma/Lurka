@@ -1,5 +1,35 @@
 .tooltip
-	display: none
+    position: relative
+    display: inline-block
 
-	&.tooltip-active
-		display: initial !important
+    .tooltip-target  // triggers tooltip
+        padding: 4px
+
+    .tooltip-content  // is tooltip
+        position: absolute
+        background: $black
+        +set-dims(190px, 30px)
+        line-height: 30px
+        text-align: center
+        visibility: hidden
+        border-radius: 6px
+        top: 0
+        left: calc(100% + 10px)
+
+        &:before
+            content: ''
+            position: absolute
+            top: 50%
+            left: 0
+            margin-left: -8px
+            margin-top: -8px
+            width: 0 
+            height: 0
+            border-right: 8px solid $black
+            border-top: 8px solid transparent
+            border-bottom: 8px solid transparent
+            
+
+    .tooltip-active
+        visibility: visible
+        transition: visibility 0.2s
