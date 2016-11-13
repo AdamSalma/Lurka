@@ -6,15 +6,23 @@
         padding: 4px
 
     .tooltip-content  // is tooltip
+        visibility: hidden
         position: absolute
-        background: $black
-        +set-dims(190px, 30px)
+        background: $white
+        font-weight: bold
+        color: #333
+        height: 30px
+        top: 0
+        left: calc(100% + 8px)
+        opacity: 0
         line-height: 30px
         text-align: center
-        visibility: hidden
         border-radius: 6px
-        top: 0
-        left: calc(100% + 10px)
+        text-shadow: none
+        white-space: nowrap
+        padding: 0 8px
+
+
 
         &:before
             content: ''
@@ -25,11 +33,12 @@
             margin-top: -8px
             width: 0 
             height: 0
-            border-right: 8px solid $black
+            border-right: 8px solid $white
             border-top: 8px solid transparent
             border-bottom: 8px solid transparent
             
 
     .tooltip-active
-        visibility: visible
-        transition: visibility 0.2s
+        visibility: visible !important
+        transition: opacity .2s ease-out
+        opacity: 1
