@@ -15,7 +15,7 @@ export default class ContentOptions extends Component {
     render() {
         const { provider, fetchBoardList, boardList, isFetching } = this.props;
 
-        const classes = classNames("content-options")  // TODO - add to this
+        const classes = classNames("content-options")  // TODO: add to contentoptions
 
         return (
             <div id="content-options" className={classes}>

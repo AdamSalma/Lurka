@@ -38,7 +38,6 @@ export default class Header extends Component {
     }
 
     onHeaderExpand() {
-        // TODO - check if on contentpage else return
         const {scrollPage, expandHeader} = this.props;
         expandHeader()
         scrollPage({mainPage:true})

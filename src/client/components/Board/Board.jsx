@@ -34,7 +34,7 @@ export default class Board extends Component {
 
         // Hover over board posts reveals more info
         createLayout()
-        catchTooltip(board);  // TODO - Implement this
+        catchTooltip(board);  // TODO: Implement catchtooltip on board
 
         $board.on('scrollend', this.incrementBoardLimit)
     }
