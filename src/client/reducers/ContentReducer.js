@@ -37,7 +37,6 @@ export default function (state = initialState.content, action) {
             })
 
         case BOARD_SCROLL_BOTTOM:
-        console.error("setting new board limit")
             const { board } = state;
             board.limit = action.payload
 
@@ -47,7 +46,8 @@ export default function (state = initialState.content, action) {
             const boardlist = {}[action.key] = action.payload
 
             return Object.assign({}, state, {
-                boardlist
+                boardlist,
+                isFetching: false
             })
 
         case THREAD_LOADED:
