@@ -9,9 +9,10 @@ import {
     BOARD_SCROLL_BOTTOM
 } from '../constants';
 
-function requestBoard() {
+function requestBoard(boardID) {
     return {
-        type: BOARD_REQUEST
+        type: BOARD_REQUEST,
+        payload: boardID
     }
 }
 
@@ -23,8 +24,9 @@ function receiveBoard(board){
     }
 }
 
-function requestBoardList() {
+function requestBoardList(provider) {
     return {
+        payload: provider,
         type: BOARD_LIST_REQUEST
     }
 }
@@ -57,26 +59,37 @@ export function incrementBoardLimit( limit ) {
 
 export function fetchBoard({ provider, boardID }) {
     console.log(`Action FetchBoard() to /provider/${provider}/${boardID}`);
-    return dispatch => {
-        dispatch(requestBoard())
-        return Axios.get(`/provider/${provider}/${boardID}`)
-            .then(data => {
-                dispatch(receiveBoard(data))
-                dispatch(setBoard(boardID))
-            })
-            .catch( e => console.error(e));
+    return (dispatch, getState) => {
+        if (shouldFetchBoard(getState())){
+            dispatch(requestBoard(boardID))
+            return Axios.get(`/provider/${provider}/${boardID}`)
+                .then(data => {
+                    dispatch(receiveBoard(data))
+                    dispatch(setBoard(boardID))
+                })
+                .catch( e => console.error(e));
+        }
     }
+}
+
+function shouldFetchBoard({ content }) {
+    console.log("content isssss", content)
+    return !(content.isFetching || content.posts)
 }
 
 export function fetchBoardList({ provider }) {
     console.log(`Action FetchBoard() to /provider/${provider}/boards`);
-    return dispatch => {
-        dispatch(requestBoardList())
-        return Axios.get(`/provider/${provider}/boards`)
-            .then(data => dispatch(receiveBoardList(data)))
-            .catch( e => console.error(e));
+    return (dispatch, getState) => {
+        const { boardlist } = getState().content
+        if (!boardlist.hasOwnProperty(provider)) {
+            dispatch(requestBoardList(provider))
+            return Axios.get(`/provider/${provider}/boards`)
+                .then(data => dispatch(receiveBoardList(data)))
+                .catch( e => console.error(e));
+        }
     }
 }
+
 
 // function requestPosts(reddit) {
 //   return {
