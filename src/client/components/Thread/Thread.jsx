@@ -7,13 +7,12 @@ import uuid from "uuid";
 
 import ThreadPost from '../ThreadPost';
 import Background from '../Background';
-import Spinner from '../Spinner';
 
-import '../../vendor';
+import {
+    setupQuoteEvents, 
+    enableFullscreen
+} from './threadControls'
 
-// Helpers - delegate events from post to thread
-import delegateMediaFullscreen from './makeFullscreen'
-import delegatePostScroll from './scrollToPost'
 
 export default class Thread extends Component {
     constructor(props) {
@@ -24,9 +23,9 @@ export default class Thread extends Component {
 
     componentDidMount() {
         const {thread, threadWrap} = this.refs;
-        delegateMediaFullscreen(thread)
-        delegatePostScroll(thread)
-        // $(threadWrap).nanoScroller({ sliderMinHeight: 40, alwaysVisible: true })
+        enableFullscreen(thread)
+        setupQuoteEvents(thread)
+        $(threadWrap).nanoScroller({ sliderMinHeight: 40, alwaysVisible: true })
     }
 
     componentDidUpdate({ thread: oldthread } ) {
@@ -39,7 +38,7 @@ export default class Thread extends Component {
         if (!oldthread.posts.length && thread.posts.length) {
             // New thread
             this.openThread()
-            $(this.refs.thread).nanoScroller({ scroll: "top" })
+            $(this.refs.threadWrap).nanoScroller({ scroll: "top" })
         }
 
     }
@@ -68,7 +67,7 @@ export default class Thread extends Component {
                     isVisible={posts.length || isFetching} 
                     closeBackground={this.closeThread}/>
                 <div ref='threadWrap' className={threadWrapClasses}>
-                    <div className="thread nano-content" ref="thread">
+                    <div id="thread" className="thread nano-content" ref="thread">
                         {this.createPosts( posts )}
                     </div>
                 </div>
@@ -88,6 +87,9 @@ export default class Thread extends Component {
 
     openThread() {
         const { thread, threadWrap } = this.refs;
+
+        $(threadWrap).nanoScroller({ stop: true })
+        
         Velocity(thread, {top: "0"}, {
             duration: 850,
             easing: [0.25, 0.8, 0.25, 1],
@@ -98,8 +100,10 @@ export default class Thread extends Component {
     }
 
     closeThread() {
-        const { thread } = this.refs, { closeThread } = this.props;
-        
+        const { thread, threadWrap } = this.refs, { closeThread } = this.props;
+
+        $(threadWrap).nanoScroller({ stop: true })
+
         Velocity( thread, {top: window.innerHeight + "px"}, {
             duration: 100,
             complete: closeThread
