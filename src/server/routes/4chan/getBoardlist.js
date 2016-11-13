@@ -4,7 +4,7 @@ import {chan as options} from '../../helpers/request-config.js';
 
 export default function (req, res, next) {
     const url = `http://a.4cdn.org/boards.json`;
-	log.http(`Getting boardlist from ${url}`)
+	log.http(`Fetching boardlist from ${url}`)
     Axios(url, options)
         .then( boardlist => res.send(extractBoardList(boardlist.data.boards)) )
         .catch( err => console.log(`ERROR - Boardlist fetch ${err}`));

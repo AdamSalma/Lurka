@@ -3,7 +3,7 @@ var moment = require('moment');
 
 module.exports = {
     info: function(text) {
-        console.log(`${getTime()} ${clc.green("Info")} - ${text}`)
+        console.log(`${getTime()} ${clc.greenBright("Info")} - ${text}`)
     },
     warn: function(text) {
         console.log(`${getTime()} ${clc.yellow("Warning")} - ${text}`)
@@ -12,7 +12,7 @@ module.exports = {
         console.log(`${getTime()} ${clc.redBright("Error")} - ${text}`)
     },
     http: function(text) {
-        console.log(`${getTime()} ${clc.cyan("Http")} - ${text}`)
+        console.log(`${getTime()} ${clc.cyanBright("Http")} - ${text}`)
     },
     app: function(text) {
         console.log(`${getTime()} ${clc.magentaBright("App")}  - ${text}`)

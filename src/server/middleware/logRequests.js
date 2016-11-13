@@ -1,4 +1,4 @@
 export default function  ({ url }, res, next) {
-	log.http(url);
+	log.http(`Request: ${url}`);
     next()
 }

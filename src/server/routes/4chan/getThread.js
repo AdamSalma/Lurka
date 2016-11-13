@@ -9,7 +9,7 @@ export default function (req, res, next) {
 
     if (isNaN(threadID)) next();
     
-    log.http(`Getting Thread from ${url}`)
+    log.http(`Fetching Thread from ${url}`)
 
     options.headers['Origin'] = 'http://boards.4chan.org/' +boardID;
     Axios(url, options)

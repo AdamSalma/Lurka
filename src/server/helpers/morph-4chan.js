@@ -18,7 +18,7 @@ export function morphBoard( board, boardID ) {
     }
 
     if (!newBoard.length) throw new Error("No threads extracted");
-    log.info(`Created ${newBoard.length} board posts`);
+    log.app(`Created ${newBoard.length} board posts`);
     return newBoard;
 
     function formatThread(threadObj) {
@@ -54,7 +54,7 @@ export function morphThread( posts, boardID ) {
     const img = `https://i.4cdn.org/${boardID}/`;
 
     if (!posts.length) throw new Error("No thread posts supplied");
-    log.info(`Created ${posts.length} 4chan posts`);
+    log.app(`Created ${posts.length} 4chan posts`);
 
     const thread = posts.map( post => ({
         id: post['no'],
@@ -109,6 +109,7 @@ function connectPosts(posts) {
 
 
 export function extractBoardList( boardList ) {
+    log.app(`Discovered ${boardList.length} 4chan boards`);
     return boardList.map( ({ board, title }) => ({
         value: board, 
         text: `/${board}/ - ${title}`
