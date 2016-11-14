@@ -59,6 +59,8 @@ export function morphThread( posts, boardID ) {
     const thread = posts.map( post => ({
         id: post['no'],
         date: post['now'],
+        name: post['name'],
+        hash: post['md5'],
         title: post['sub'] || "",
         time: post['tim'] || post['time'] * 1000,
         comment: post['com'],
