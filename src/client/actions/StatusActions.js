@@ -8,12 +8,14 @@ import {
     SEARCH_THREAD
 } from '../constants';
 
-export function changeProvider({ provider }) {
+export function changeProvider( provider ) {
     console.info("Action changeProvider() to " + provider);
-    return dispatch => {
-        dispatch({
-            type: PROVIDER_CHANGE,
-            payload: provider
-        })
+    return (dispatch, getState) => {
+        if (getState().content.provider !== provider) {
+            dispatch({
+                type: PROVIDER_CHANGE,
+                payload: provider
+            })
+        }
     }   
 }
