@@ -13,9 +13,7 @@ import {
 } from '../actions/StatusActions';
 
 import {
-	scrollPage,
-	shrinkHeader,
-	expandHeader
+	scrollPage
 } from '../actions/AnimationActions';
 
 import {
@@ -28,19 +26,18 @@ class HomePanel extends Component {
 	constructor() {
 		super();
 		this.onProviderClick = this.onProviderClick.bind(this);
-		this.state = {scrollCount: 60};
 	}
 
     render() {
 		const {
-			expandHeader, scrollPage, fetchBoard,
+			scrollPage, fetchBoard,
 			isMainPage, providers, loadingMessage, provider, boardList, fetchBoardList
 		} = this.props;
         return (
         	<div id="pages">
 	            <div className="page page-home">
 	            	<Header 
-	            		expandHeader={expandHeader} scrollPage={scrollPage} fetchBoardList={fetchBoardList} fetchBoard={fetchBoard}
+                        scrollPage={scrollPage} fetchBoardList={fetchBoardList} fetchBoard={fetchBoard}
 	            		loadingMessage={loadingMessage} isMainPage={isMainPage} boardList={boardList} provider={provider}
 	           		/>  
 	            	<div>
@@ -51,7 +48,7 @@ class HomePanel extends Component {
 		            			<input 
 									type="button" 
 									value={provider} 
-									onClick={this.onProviderClick}/>
+									onClick={()=>this.onProviderClick(provider)}/>
 	            			</Link>
 						)}
 	            		</div>
@@ -62,11 +59,11 @@ class HomePanel extends Component {
         )
     }
 
-    onProviderClick() {
-    	const {scrollPage, shrinkHeader} = this.props;
-    	
-    	shrinkHeader();
-    	scrollPage({content: true})
+    onProviderClick(provider) {
+    	const {scrollPage, changeProvider} = this.props;
+        // TODO: be able to change provider and board
+        changeProvider(provider)
+        scrollPage({content: true})
     	
     }
 }
@@ -85,8 +82,6 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         changeProvider,
         scrollPage,
-        shrinkHeader,
-        expandHeader, 
         fetchBoardList,
         fetchBoard
     }, dispatch)
