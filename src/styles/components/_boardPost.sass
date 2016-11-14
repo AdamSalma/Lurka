@@ -8,7 +8,7 @@
     text-align: center
     cursor: pointer
     overflow: hidden
-    border-radius: 8px
+    border-radius: 8px 8px 4px 4px
 
     border: $grey-dark solid 2px
     // box-shadow: $primary 0 0 2px
@@ -19,9 +19,8 @@
 
 
     img
-        // display: inline
-        // +limit-width(175px, 50px)
         +limit-height(200px, 50px)
+        width: 100%
 
     .count
         text-align: center
@@ -35,15 +34,6 @@
 
         b
             margin-left: 4px
-
-        .mdi 
-            font-size: 18px
-
-        .mdi-comment-text
-            color: $primary-light
-
-        .mdi-message-image
-            color: $blue-light
 
     .op
         // display: block
@@ -61,3 +51,12 @@
         text-decoration: none
 
     
+    // Icons
+    .mdi 
+        font-size: 18px
+
+    .mdi-comment-text
+        color: $primary-light
+
+    .mdi-message-image
+        color: $blue-light

@@ -7,37 +7,48 @@ class Logo extends Component {
     constructor(props) {
         super(props);
         this.displayName = 'Logo';
-        this.onHeaderExpand = this.onHeaderExpand.bind(this)
-    }
-    
-    componentDidMount() {
-        this.triggerLogoDropdownAnimation(this.refs.logoImg)
+        this.scrollUp = this.scrollUp.bind(this)
     }
 
     render() {
-    	const { isFullsize, loadingMessage } = this.props;
-		const logoClasses = classNames("logo", {"logo-fullsize": isFullsize});
-
-		const text = !isFullsize ? <span>{loadingMessage}</span> : ""  // create action for logo toggle, changes isFullsize, changes text
+        const { isFullsize, loadingMessage } = this.props;
+        const logoClasses = classNames("logo", {"logo-fullsize": isFullsize});
+        const statusClasses = classNames("status", {
+            "status-active": !!loadingMessage
+        })
 
         return (
-        	<div id="logo" ref="logo" className="logo-fullsize">
-                <img ref="logoImg" src='./logo.png' className={logoClasses} onClick={this.onHeaderExpand}/>
-                {text}
+
+            <div>
+                <div id="logo" ref="logo" onClick={this.scrollUp}>
+                    <img src='./logo.png' className={logoClasses}/>
+                </div>
+                <div id="status" className={statusClasses}>
+                    {this.createStatusText(loadingMessage)}
+                </div>
+                
             </div>
-		)
+        )
     }
 
-    onHeaderExpand() {
-        const {isFullsize, expandHeader} = this.props
+    scrollUp() {
+        const {isFullsize, scrollPage} = this.props
         if (!isFullsize) {
-            expandHeader()
+            scrollPage({mainPage:true})
         }
     }
 
-    triggerLogoDropdownAnimation(logo) {
-        console.log("triggerLogoDropdownAnimation()", logo)
-        Velocity(logo, {opacity: 1, top: "+10px"}, {duration: 1000})
+    // triggerLogoDropdownAnimation(logo) {
+    //     // TODO: logo animation on APP_INIT?
+    //     console.log("triggerLogoDropdownAnimation()", logo)
+    //     Velocity(logo, {opacity: 1, top: "+10px"}, {duration: 1000})
+
+    // }
+
+    createStatusText(text) {
+        if (text) {
+            return <span className="status-content">{text}</span>            
+        }
 
     }
 }

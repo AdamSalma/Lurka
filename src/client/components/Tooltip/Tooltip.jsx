@@ -50,7 +50,7 @@ Tooltip.defaultProps = {
 }
 
 Tooltip.propTypes = {
-    className: PropTypes.string.isRequired,
+    className: PropTypes.string,
     content: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.element

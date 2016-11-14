@@ -1,29 +1,48 @@
 .page-home
-	text-align: center
-	background: $black
+    text-align: center
+    background: $black
 
-	#header
-		height: 270px
-		border-bottom: 1px $primary solid
-		position: fixed
-		top: 0
-		width: 100vw
-		z-index: 2
-		// background: $grey
-		background: $black
+    #header
+        position: fixed
+        +set-dims(100vw, 70px)
+        top: 0
+        left: 0
+        border-bottom: 1px $primary solid
+        z-index: 2
+        background: $black
 
-		@include breakpoint(to-tablet)
-			z-index: 100
+        @include breakpoint(to-tablet)
+            z-index: 100
 
-	.logo-wrap
-		position: fixed
-		height: 300px
-		left: 0
-		right: 0
-		margin: 0 auto
+        .header-content
+            +set-dims($header-width, 100%)
+            position: absolute
+            left: 0
+            right: 0
+            margin: 0 auto
 
-	.providers
-		margin-top: 300px
 
-	img
-		width: 100%
+    #logo
+        position: relative
+        width: 50px
+        height: 50px
+        float: left
+        margin: 10px
+
+
+    .providers
+        margin-top: 300px
+
+    img
+        width: 100%
+
+    .status
+        line-height: 70px
+        height: 70px
+        float: left
+
+    .content-options
+        position: relative
+        width: 700px
+        height: 100%
+        float: right

@@ -19,7 +19,10 @@ export default class ContentOptions extends Component {
 
         return (
             <div id="content-options" className={classes}>
-                <Dropdown styleName="boardlist" items={this.createDropdownElements(boardList)} handleClick={this.onDropdownClick}/>
+                <Dropdown 
+                    styleName="boardlist" 
+                    items={this.createDropdownElements(boardList)} 
+                    handleClick={this.onDropdownClick}/>
             </div>
         )
 

@@ -5,6 +5,7 @@
     margin-bottom: 4px
     text-align: left
     padding: 2px 8px
+    padding-right: 14px
 
     @include breakpoint(to-tablet)
         width: 100% !important
@@ -24,8 +25,18 @@
 
         * >
             display: inline-block
+            margin-left: 4px
 
-        .thread-post-backlink
+        .thread-post-title
+            margin-right: 10px
+            strong
+                border-bottom: $primary solid 2px
+
+        .thread-post-name
+            color: $primary-light
+            font-weight: bold
+
+        .thread-post-references
             margin-left: 8px
 
             .quotelink
