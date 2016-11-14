@@ -50,5 +50,5 @@ function onListening() {
     const bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
-    log.http(`Connected to localhost:${port}\n`)
+    log.http(`Connected to localhost:${port}`)
 }

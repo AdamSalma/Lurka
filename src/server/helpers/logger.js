@@ -6,23 +6,20 @@ var moment = require('moment');
 var loggerWidth = 109
 
 module.exports = {
-    info: function(text) {
-        format(`${clc.greenBright("Info")} - ${text}`)
+    info: function(msg) {
+        format(`${clc.greenBright("Info")} - ${msg}`)
     },
-    warning: function(text) {
-        format(`${clc.yellow("Warning")} - ${text}`)
+    warning: function(msg) {
+        format(`${clc.yellow("Warning")} - ${msg}`)
     },
-    error: function(text) {
-        format(`${clc.redBright("Error")} - ${text}`)
+    error: function(msg) {
+        format(`${clc.redBright("Error")} - ${msg}`)
     },
-    http: function(text) {
-        format(`${clc.cyanBright("Http")} - ${text}`)
+    http: function(msg) {
+        format(`${clc.cyanBright("Http")} - ${msg}`)
     },
-    app: function(text) {
-        format(`${clc.magentaBright("App ")} - ${text}`)
-    },
-    custom: function(type, color, text) {
-        format(`${clc[color](type)} - ${text}`)
+    app: function(msg) {
+        format(`${clc.magentaBright("App ")} - ${msg}`)
     }
 }
 

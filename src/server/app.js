@@ -37,7 +37,7 @@ app.use((req, res, next) => {
         log.error(err.message);
         res.send(err)
     } else {
-        log.error("Not found")
+        log.error(`404 Not found: ${req.url}`)
         res.status(404);
     }
 });
