@@ -1,15 +1,15 @@
 import {
 	USER_SAVE,
 	USER_LOAD,
-	BOARD_REQUEST,
+	BOARD_REQUESTED,
 	BOARD_LOADED,
-	BOARD_DESTROY,
+	BOARD_DESTROYED,
   BOARD_LIST_LOADED,
-  BOARD_LIST_REQUEST,
-	THREAD_REQUEST,
+  BOARD_LIST_REQUESTED,
+	THREAD_REQUESTED,
 	THREAD_LOADED,
-	THREAD_DESTROY,
-  THREAD_POST_LOAD
+	THREAD_DESTROYED,
+  THREAD_SCROLLED_BOTTOM
 } from '.';
 
 describe('Types', () => {
@@ -21,39 +21,39 @@ describe('Types', () => {
     expect(USER_LOAD).toEqual('USER_LOAD');
   });
 
-  it('contains BOARD_REQUEST', () => {
-    expect(BOARD_REQUEST).toEqual('BOARD_REQUEST');
+  it('contains BOARD_REQUESTED', () => {
+    expect(BOARD_REQUESTED).toEqual('BOARD_REQUESTED');
   });
 
   it('contains BOARD_LOADED', () => {
     expect(BOARD_LOADED).toEqual('BOARD_LOADED');
   });
 
-  it('contains BOARD_DESTROY', () => {
-    expect(BOARD_DESTROY).toEqual('BOARD_DESTROY');
+  it('contains BOARD_DESTROYED', () => {
+    expect(BOARD_DESTROYED).toEqual('BOARD_DESTROYED');
   });
 
   it('contains BOARD_LIST_LOADED', () => {
     expect(BOARD_LIST_LOADED).toEqual('BOARD_LIST_LOADED');
   });
 
-  it('contains BOARD_LIST_REQUEST', () => {
-    expect(BOARD_LIST_REQUEST).toEqual('BOARD_LIST_REQUEST');
+  it('contains BOARD_LIST_REQUESTED', () => {
+    expect(BOARD_LIST_REQUESTED).toEqual('BOARD_LIST_REQUESTED');
   });
 
-  it('contains THREAD_REQUEST', () => {
-    expect(THREAD_REQUEST).toEqual('THREAD_REQUEST');
+  it('contains THREAD_REQUESTED', () => {
+    expect(THREAD_REQUESTED).toEqual('THREAD_REQUESTED');
   });
 
   it('contains THREAD_LOADED', () => {
     expect(THREAD_LOADED).toEqual('THREAD_LOADED');
   });
 
-  it('contains THREAD_DESTROY', () => {
-    expect(THREAD_DESTROY).toEqual('THREAD_DESTROY');
+  it('contains THREAD_DESTROYED', () => {
+    expect(THREAD_DESTROYED).toEqual('THREAD_DESTROYED');
   });
 
-  it('contains THREAD_POST_LOAD', () => {
-    expect(THREAD_POST_LOAD).toEqual('THREAD_POST_LOAD');
+  it('contains THREAD_SCROLLED_BOTTOM', () => {
+    expect(THREAD_SCROLLED_BOTTOM).toEqual('THREAD_SCROLLED_BOTTOM');
   });
 });

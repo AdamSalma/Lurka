@@ -1,27 +1,27 @@
 import initialState from './initialState';
 import { 
     BOARD_LOADED, 
-    BOARD_REQUEST, 
-    BOARD_SCROLL_BOTTOM,
+    BOARD_REQUESTED, 
+    BOARD_SCROLLED_BOTTOM,
 
     BOARD_LIST_LOADED, 
-    BOARD_LIST_REQUEST,
+    BOARD_LIST_REQUESTED,
 
     THREAD_LOADED, 
-    THREAD_REQUEST, 
-    THREAD_DESTROY,
+    THREAD_REQUESTED, 
+    THREAD_DESTROYED,
 
-    PROVIDER_CHANGE,
-    BOARD_CHANGE,
+    PROVIDER_CHANGED,
+    BOARD_CHANGED,
     THREAD_CHANGE
 } from '../constants'
 
 export default function (state = initialState.content, action) {
     switch (action.type) {
 
-        case BOARD_REQUEST:
-        case THREAD_REQUEST:
-        case BOARD_LIST_REQUEST:
+        case BOARD_REQUESTED:
+        case THREAD_REQUESTED:
+        case BOARD_LIST_REQUESTED:
             return Object.assign({}, state, {
                 isFetching: true,
                 requestType: action.type  // for logging error to user...?
@@ -36,7 +36,7 @@ export default function (state = initialState.content, action) {
                 isFetching: false
             })
 
-        case BOARD_SCROLL_BOTTOM:
+        case BOARD_SCROLLED_BOTTOM:
             const { board } = state;
             board.limit = action.payload
 
@@ -56,18 +56,18 @@ export default function (state = initialState.content, action) {
                 isFetching: false
             })
 
-        case THREAD_DESTROY:
+        case THREAD_DESTROYED:
             const history = {}[state.threadID] = state.thread.posts
             return Object.assign({}, state, {
                 thread: { history, posts: [] }
             })
 
-        case PROVIDER_CHANGE:
+        case PROVIDER_CHANGED:
             return Object.assign({}, state, {
                 provider: action.payload
             })
 
-        case BOARD_CHANGE:
+        case BOARD_CHANGED:
             return Object.assign({}, state, {
                 boardID: action.payload
             })

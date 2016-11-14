@@ -1,17 +1,17 @@
 import Axios from 'axios';
 import {
-    BOARD_REQUEST, 
+    BOARD_REQUESTED, 
     BOARD_LOADED, 
-    BOARD_DESTROY,
-    BOARD_LIST_REQUEST,
+    BOARD_DESTROYED,
+    BOARD_LIST_REQUESTED,
     BOARD_LIST_LOADED,
-    BOARD_CHANGE,
-    BOARD_SCROLL_BOTTOM
+    BOARD_CHANGED,
+    BOARD_SCROLLED_BOTTOM
 } from '../constants';
 
 function requestBoard(boardID) {
     return {
-        type: BOARD_REQUEST,
+        type: BOARD_REQUESTED,
         payload: boardID
     }
 }
@@ -27,7 +27,7 @@ function receiveBoard(board){
 function requestBoardList(provider) {
     return {
         payload: provider,
-        type: BOARD_LIST_REQUEST
+        type: BOARD_LIST_REQUESTED
     }
 }
 
@@ -42,7 +42,7 @@ function receiveBoardList(boardList){
 function setBoard( boardID ) {
     console.log("Changing board to " + boardID)
     return {
-        type: BOARD_CHANGE,
+        type: BOARD_CHANGED,
         payload: boardID
     }
 }
@@ -50,7 +50,7 @@ function setBoard( boardID ) {
 export function incrementBoardLimit( limit ) {
     return dispatch => {
         dispatch({
-            type: BOARD_SCROLL_BOTTOM,
+            type: BOARD_SCROLLED_BOTTOM,
             payload: limit
         })
     }
@@ -73,8 +73,7 @@ export function fetchBoard({ provider, boardID }) {
 }
 
 function shouldFetchBoard({ content }) {
-    console.log("content isssss", content)
-    return !(content.isFetching || content.posts)
+    return !(content.isFetching && content.board.posts)
 }
 
 export function fetchBoardList({ provider }) {

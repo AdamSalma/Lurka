@@ -1,13 +1,12 @@
 import React from 'react'
 import uuid from 'uuid'
-import moment from 'moment'
 import {
     createMediaIfExists
 } from './Media'
-import Tooltip from '../Tooltip'
+import TimeAgo from '../TimeAgo'
 
 export default function ({post, children}) {
-    const { id, title, date, imgsrc, comment, ext, references, time } = post
+    const { id, name, title, date, imgsrc, comment, ext, references, time } = post
 
     const SRC = imgsrc
     const ID = 'post-media-' + id
@@ -15,9 +14,10 @@ export default function ({post, children}) {
     return (
         <div id={"p"+id} className='thread-post clearfix'>
             <div className='thread-post-info'>
-                {renderTitle()}
-                {renderTimeAgo(time)}
-                <span className='thread-post-number'>No.{id}</span>
+                {renderTitle(title)}
+                <span className='thread-post-name'>{name}</span>
+                <TimeAgo time={time}/>
+                <span className='thread-post-id'>No.{id}</span>
                 {renderRefs(references)}
                 <span className='mdi mdi-dots-vertical thread-post-options'></span>
             </div>
@@ -29,13 +29,13 @@ export default function ({post, children}) {
 
 
 function renderRefs(refs) {
-    return refs ? <span className='thread-post-backlink'>
+    return refs ? <span className='thread-post-references'>
         {refs.map( ref => 
-            <span>
+            <span key={uuid.v4()}>
                 <a 
                     className="quotelink refered" 
-                    href={`#p${ref}`} 
-                    key={uuid.v4()}>
+                    href={`#p${ref}`}
+                >
                     {`>>${ref}`}
                 </a>
             </span>
@@ -44,17 +44,19 @@ function renderRefs(refs) {
 }
 
 function renderTitle(title) {
-    if (title) return <span className='thread-post-title'>{title}</span>
+    if (title) return <span className='thread-post-title'> 
+        <strong dangerouslySetInnerHTML={{__html: title}}/>
+    </span>
 }
 
-function renderTimeAgo(time){
-    const post = moment(time);
-    return <Tooltip 
-                content={post.format('dddd [at] hh:mm:ss A')}
-                className="date"
-                position="top"
-                >
-        {post.fromNow()}
-    </Tooltip>
-}
+// function renderTimeAgo(time){
+//     const post = moment(time);
+//     return <Tooltip 
+//                 content={post.format('dddd [at] hh:mm:ss A')}
+//                 className="date"
+//                 position="top"
+//                 >
+//         {post.fromNow()}
+//     </Tooltip>
+// }
 

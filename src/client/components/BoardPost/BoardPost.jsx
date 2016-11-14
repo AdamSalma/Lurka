@@ -9,33 +9,37 @@ export default ({ post, fetchThread, reshuffle }) => {
             className="board-post"
             onClick={() => fetchThread(id)}
         >
+            
             <img src={imgsrc.sm} onLoad={reshuffle}/>
-            <Tooltip>
-                <div className="count">
-                    <span>
-                        <span>
-                            <i className="mdi mdi-comment-text"></i>
-                            <b>{replies.textCount}</b>
-                        </span>
-                        <span className="updater updater-replycount">
-                            +1
-                        </span>
-                    </span>
-                    <span>
-                        <span>
-                            <i className="mdi mdi-message-image"></i>
-                            <b>{replies.imgCount}</b>
-                        </span>
-                        <span className="updater updater-imgcount">
-                            +1
-                        </span>
-                    </span>
-                </div>
-            </Tooltip>
+            {renderStatusBar(replies)}
             <div className="op">
                 <b dangerouslySetInnerHTML={{__html: title}} className="title" />
                 <div dangerouslySetInnerHTML={{__html: comment}} />
             </div>
         </div>
     )
+}
+
+
+function renderStatusBar(replies) {
+    return <div className="count">
+        <span>
+            <span>
+                <i className="mdi mdi-comment-text"></i>
+                <b>{replies.textCount}</b>
+            </span>
+            <span className="updater updater-replycount">
+                +1
+            </span>
+        </span>
+        <span>
+            <span>
+                <i className="mdi mdi-message-image"></i>
+                <b>{replies.imgCount}</b>
+            </span>
+            <span className="updater updater-imgcount">
+                +1
+            </span>
+        </span>
+    </div>
 }

@@ -2,11 +2,11 @@ import initialState from './initialState';
 import { 
     HEADER_SHRINKING, 
     HEADER_EXPANDING, 
-    HEADER_ANIMATION_END, 
-    LOGO_SPIN_START, 
-    LOGO_SPIN_END, 
-    SCROLL_START, 
-    SCROLL_END,
+    HEADER_ANIMATION_ENDED, 
+    LOGO_SPIN_STARTED, 
+    LOGO_SPIN_ENDED, 
+    SCROLL_STARTED, 
+    SCROLL_ENDED,
     APP_INIT
 } from '../constants';
 
@@ -24,30 +24,31 @@ export default function (state = initialState.status, action) {
                 isAnimating: true
             })
 
-        case HEADER_ANIMATION_END:
+        case HEADER_ANIMATION_ENDED:
             return Object.assign({}, state, {
                 isAnimating: false,
                 isMainPage: !state.isMainPage
             })
 
-        case SCROLL_START:
+        case SCROLL_STARTED:
             return Object.assign({}, state, {
-                isScrolling: false
+                isScrolling: false,
+                loadingMessage: action.type
             })
             
-        case SCROLL_END:
+        case SCROLL_ENDED:
             return Object.assign({}, state, {
-                isScrolling: false
+                isScrolling: false,
             })
 
 
-        case LOGO_SPIN_START:
+        case LOGO_SPIN_STARTED:
             return Object.assign({}, state, {
                 isLogoSpinning: true,
                 loadingMessage: action.payload
             })
 
-        case LOGO_SPIN_END:
+        case LOGO_SPIN_ENDED:
             return Object.assign({}, state, {
                 isLogoSpinning: false,
                 loadingMessage: null

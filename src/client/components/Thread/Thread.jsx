@@ -30,15 +30,10 @@ export default class Thread extends Component {
 
     componentDidUpdate({ thread: oldthread } ) {
         const { thread } = this.props;
-        // if (oldthread.posts.length !== thread.posts.length) {
-        //     // Thread created or destroyed
-        //     this.threadToggle();
-        // }
 
         if (!oldthread.posts.length && thread.posts.length) {
             // New thread
             this.openThread()
-            $(this.refs.threadWrap).nanoScroller({ scroll: "top" })
         }
 
     }
@@ -64,7 +59,7 @@ export default class Thread extends Component {
         return (
             <div>
                 <Background 
-                    isVisible={posts.length || isFetching} 
+                    isVisible={isFetching || posts.length} 
                     closeBackground={this.closeThread}/>
                 <div ref='threadWrap' className={threadWrapClasses}>
                     <div id="thread" className="thread nano-content" ref="thread">
@@ -88,7 +83,8 @@ export default class Thread extends Component {
     openThread() {
         const { thread, threadWrap } = this.refs;
 
-        $(threadWrap).nanoScroller({ stop: true })
+        $(threadWrap).nanoScroller({ scroll: "top" })
+        $(threadWrap).nanoScroller({ stop: false })
         
         Velocity(thread, {top: "0"}, {
             duration: 850,

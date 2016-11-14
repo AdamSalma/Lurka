@@ -2,12 +2,12 @@ import Axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import {
-    BOARD_REQUEST, 
+    BOARD_REQUESTED, 
     BOARD_LOADED, 
-    BOARD_DESTROY,
-    BOARD_LIST_REQUEST,
+    BOARD_DESTROYED,
+    BOARD_LIST_REQUESTED,
     BOARD_LIST_LOADED,
-    BOARD_CHANGE
+    BOARD_CHANGED
 } from '../constants';
 
 import {
@@ -26,21 +26,21 @@ const board = "g";
 
 describe('Actions', () => {
 
-  it('creates BOARD_LIST_REQUEST action', () => {
+  it('creates BOARD_LIST_REQUESTED action', () => {
     const fn = fetchBoardList({ provider });
     expect(fn).toBeA('function');
     const getState = () => ({ provider: '4chanddd' });
     fn(dispatch, getState);
-    expect(dispatch).toHaveBeenCalledWith({ type: BOARD_LIST_REQUEST });
+    expect(dispatch).toHaveBeenCalledWith({ type: BOARD_LIST_REQUESTED });
   });
 
-  // it('creates BOARD_REQUEST action', () => {
+  // it('creates BOARD_REQUESTED action', () => {
   //   const fn = fetchBoard({ provider: '4chan' });
   //   expect(fn).toBeA('function');
   //   const dispatch = expect.createSpy();
   //   const getState = () => ({ provider: '4chan' });
   //   fn(dispatch, getState);
-  //   expect(dispatch).toHaveBeenCalledWith({ type: BOARD_LIST_REQUEST });
+  //   expect(dispatch).toHaveBeenCalledWith({ type: BOARD_LIST_REQUESTED });
   // });
 
   // it('creates STOP_LOADING action', () => {
