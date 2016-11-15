@@ -4,10 +4,11 @@ import app from './app';
 import http from 'http';
 import config from '../../config';
 
+const server = http.createServer(app);
 const port = normalizePort(config.server.port);
+
 app.set('port', port);
 
-const server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);

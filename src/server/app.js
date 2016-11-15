@@ -24,7 +24,7 @@ if (isProd) {
 // Routes
 app.all('*', logRequests);
 app.use('/', require('./routes/dashboard'));  // index.html, (validation?)
-app.use('/provider', require('./routes/provider'));  // Request content from external API
+app.use('/api', require('./routes/api'));  // Request content from external API
 
 // Eventually...
 // app.use('/user', require('./routes/user'));  // Save/Load user archives

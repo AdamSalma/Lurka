@@ -58,11 +58,11 @@ export function incrementBoardLimit( limit ) {
 
 
 export function fetchBoard({ provider, boardID }) {
-    console.log(`Action FetchBoard() to /provider/${provider}/${boardID}`);
+    console.log(`Action FetchBoard() to /api/${provider}/${boardID}`);
     return (dispatch, getState) => {
         if (shouldFetchBoard(getState())){
             dispatch(requestBoard(boardID))
-            return Axios.get(`/provider/${provider}/${boardID}`)
+            return Axios.get(`/api/${provider}/${boardID}`)
                 .then(data => {
                     dispatch(receiveBoard(data))
                     dispatch(setBoard(boardID))
@@ -77,12 +77,12 @@ function shouldFetchBoard({ content }) {
 }
 
 export function fetchBoardList({ provider }) {
-    console.log(`Action FetchBoard() to /provider/${provider}/boards`);
+    console.log(`Action FetchBoard() to /api/${provider}/boards`);
     return (dispatch, getState) => {
         const { boardlist } = getState().content
         if (!boardlist.hasOwnProperty(provider)) {
             dispatch(requestBoardList(provider))
-            return Axios.get(`/provider/${provider}/boards`)
+            return Axios.get(`/api/${provider}/boards`)
                 .then(data => dispatch(receiveBoardList(data)))
                 .catch( e => console.error(e));
         }
