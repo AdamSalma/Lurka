@@ -1,10 +1,8 @@
 import Express from "express";
-import {
-	getDashboard
-} from './dashboard/';
-
 const router = Express.Router();
 
-router.get('/', getDashboard)
+router.get('/', function(res, req, next){
+    log.warning("Media requested")
+})
 
 export default router

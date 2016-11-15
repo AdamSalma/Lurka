@@ -1,3 +1,5 @@
+import proxify from './proxyUrls';
+
 /**
  * Standardises a 4chan board.
  * 
@@ -5,7 +7,7 @@
  * @param  {String} boardID - ID used to request board with
  * @return {Array}          - Extracted posts
  */
-export function morphBoard( board, boardID ) {
+export function parseBoard( board, boardID ) {
     const img = `https://i.4cdn.org/${boardID}/`;
     var newBoard = [];
 
@@ -44,13 +46,13 @@ export function morphBoard( board, boardID ) {
 
 
 /**
- * Standardises a thread.
+ * Standardises a 4chan thread.
  * 
  * @param  {Object} posts   - From the API
  * @param  {[type]} boardID - Board ID, used for creating media URLs
  * @return {[type]}         [description]
  */
-export function morphThread( posts, boardID ) {
+export function parseThread( posts, boardID ) {
     const img = `https://i.4cdn.org/${boardID}/`;
 
     if (!posts.length) throw new Error("No thread posts supplied");
@@ -110,7 +112,7 @@ function connectPosts(posts) {
 }
 
 
-export function extractBoardList( boardList ) {
+export function parseBoardList( boardList ) {
     log.app(`Discovered ${boardList.length} 4chan boards`);
     return boardList.map( ({ board, title }) => ({
         value: board, 
