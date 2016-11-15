@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## v0.7.0 - 14/11/2016
 ### Added
 - Board now has infinite scrolling.
 - Add pintrest-like grid structure to Board.
