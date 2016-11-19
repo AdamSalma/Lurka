@@ -3,43 +3,51 @@ export default {
 		providers: ["4chan", "reddit", "imgur"],
 
 		isMainPage: true,
-		isAnimating: false,  // for header toggle
 		isScrolling: false,  // not user scroll
 		isLogoSpinning: false,  // log to user animation
 
-		loadingMessage: "test",  // log to user text
-		mode: "normal"  // "archive"
+		statusMessage: "test",  // log to user text
 
-	},
-	content: {
 		provider: "4chan",
-    	boardID: "g",
-    	threadID: null,
+		boardID: "g",
+		threadID: null,
+	},
 
+	boardlist: {  // obj for each provider: {4chan: [], reddit: []}
+		favourites: []  // [{id:'4chan', board: 'g'}, ...]
+	},  
+
+	board: {
 		isFetching: false,
 		didInvalidate: false,
-		requestType: null,  // for logging to user if error
-
-		boardlist: {  // obj for each provider: {4chan: [], reddit: []}
-			favourites: []  // [{id:'4chan', board: 'g'}, ...]
-		},  
-		board: {
-			history: {},
-			posts: [],
-			watch: [],
-			limit: 30  // infinite scroll
-		},
-		thread: {
-			history: {},
-			posts: [],
-			reply: false
-			// canReply
-		}
+		history: {},
+		posts: [],
+		watch: [],
+		limit: 30  // infinite scroll
 	},
-	settings: {
+
+	thread: {
+		isActive: false
 		isFetching: false,
-		didInvalidate: false
+		didInvalidate: false,
+		history: {},
+		posts: [],
+
+	},
+
+	post: {
+		isAuthenticated: false,
+		references: [],
+		reply: false,
+		message: null,
+		media: null
+		// canReply
+	}
+
+	settings: {
 		// TODO: all settings here in a flat structure
-		// customStyleSheet: null
+		userStoragePath: "./",
+		customStyleSheet: null
+		// boardPostMax: 30 // TODO: Add boardpost limit to state
 	}
 }
