@@ -1,6 +1,7 @@
 /* User settings */
-// TODO: Add user actions
+// TODO: make user actions do stuff
 export const USER_SAVED_POST = "USER_SAVED_POST"
+export const USER_SAVED_MEDIA = "USER_SAVED_MEDIA"
 export const USER_SAVED_BOARD = "USER_SAVED_BOARD"
 export const USER_SAVED_THREAD = "USER_SAVED_THREAD"
 export const USER_LOADED_ARCHIVE = "USER_LOADED_ARCHIVE"
@@ -34,10 +35,11 @@ export const FILTER_BOARD = "FILTER_BOARD"
 export const FILTER_THREAD = "FILTER_THREAD"
 export const SEARCH_THREAD = "SEARCH_THREAD"
 export const SERACH_BOARD = "SERACH_BOARD"
+export const STATUS_MESSAGE_UPDATED = "STATUS_MESSAGE_UPDATED"
 
 
 /* Animations */
 export const LOGO_SPIN_STARTED = "LOGO_SPIN_STARTED"
 export const LOGO_SPIN_ENDED = "LOGO_SPIN_ENDED"
-export const SCROLL_STARTED = "SCROLL_STARTED"
-export const SCROLL_ENDED = "SCROLL_ENDED"
+export const PAGE_SCROLL_STARTED = "PAGE_SCROLL_STARTED"
+export const PAGE_SCROLL_ENDED = "PAGE_SCROLL_ENDED"
