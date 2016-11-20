@@ -14,7 +14,7 @@ export const SETTINGS_SAVED = "SETTINGS_SAVED"
 export const APP_INIT = "APP_INIT"
 
 
-/* Conetnt */
+/* Content */
 export const BOARD_REQUESTED = "BOARD_REQUESTED"
 export const BOARD_LOADED = "BOARD_LOADED"
 export const BOARD_DESTROYED = "BOARD_DESTROYED"
@@ -44,7 +44,5 @@ export const STATUS_UPDATE = "STATUS_UPDATE"
 
 
 /* Animations */
-export const LOGO_SPIN_STARTED = "LOGO_SPIN_STARTED"
-export const LOGO_SPIN_ENDED = "LOGO_SPIN_ENDED"
 export const PAGE_SCROLL_STARTED = "PAGE_SCROLL_STARTED"
 export const PAGE_SCROLL_ENDED = "PAGE_SCROLL_ENDED"
