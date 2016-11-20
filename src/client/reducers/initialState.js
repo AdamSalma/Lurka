@@ -2,11 +2,10 @@ export default {
 	status: {
 		providers: ["4chan", "reddit", "imgur"],
 
-		isMainPage: true,
 		isScrolling: false,  // not user scroll
 		isLogoSpinning: false,  // log to user animation
 
-		statusMessage: "test",  // log to user text
+		statusMessage: "test",  // reveal status to user
 
 		provider: "4chan",
 		boardID: "g",
@@ -14,6 +13,8 @@ export default {
 	},
 
 	boardlist: {  // obj for each provider: {4chan: [], reddit: []}
+		isFetching: false,
+		didInvalidate: false,
 		favourites: []  // [{id:'4chan', board: 'g'}, ...]
 	},  
 
@@ -27,7 +28,7 @@ export default {
 	},
 
 	thread: {
-		isActive: false
+		isActive: false,
 		isFetching: false,
 		didInvalidate: false,
 		history: {},
@@ -37,17 +38,18 @@ export default {
 
 	post: {
 		isAuthenticated: false,
+		type: null,  // thread/comment
 		references: [],
-		reply: false,
-		message: null,
-		media: null
+		content: null,  // user input
+		upload: null
 		// canReply
-	}
+	},
 
 	settings: {
 		// TODO: all settings here in a flat structure
 		userStoragePath: "./",
-		customStyleSheet: null
+		customStyleSheet: null,
+		filterKeywords: []  // filter board 
 		// boardPostMax: 30 // TODO: Add boardpost limit to state
 	}
 }
