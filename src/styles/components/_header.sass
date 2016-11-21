@@ -1,0 +1,18 @@
+#header
+    position: fixed
+    +set-dims(100vw, $header-height)
+    top: 0
+    left: 0
+    border-bottom: 1px $primary solid
+    z-index: 20
+    background: $black
+
+    @include breakpoint(to-tablet)
+        z-index: 100
+
+    .header-content
+        +set-dims($header-width, 100%)
+        position: absolute
+        left: 0
+        right: 0
+        margin: 0 auto

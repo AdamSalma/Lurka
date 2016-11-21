@@ -9,7 +9,7 @@ export default class ContentOptions extends Component {
     constructor({provider, fetchBoardList}) {
         super()
         fetchBoardList({provider});
-        this.onDropdownClick = this.onDropdownClick.bind(this)
+        this.onClick = this.onClick.bind(this)
     }
 
     render() {
@@ -20,15 +20,15 @@ export default class ContentOptions extends Component {
         return (
             <div id="content-options" className={classes}>
                 <Dropdown 
-                    styleName="boardlist" 
+                    className="boardlist" 
                     items={this.createDropdownElements(boardList)} 
-                    handleClick={this.onDropdownClick}/>
+                    handleClick={this.onClick}/>
             </div>
         )
 
     }
 
-    onDropdownClick({ target }) {
+    onClick({ target }) {
         const boardID = target.getAttribute('data-value')
         const { provider, fetchBoard } = this.props;
         fetchBoard({boardID, provider})

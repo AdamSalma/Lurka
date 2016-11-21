@@ -1,23 +1,26 @@
 .boardlist
-	margin-left: 100px
-	width: 300px
-	height: 30px
-	overflow: hidden
-	transition: all .3s ease-out
+    width: $boardlist-width
+    height: 40px
+    overflow: hidden
+    transition: all .3s ease-out
+    margin-top: 10px
+    scroll-snap-type: mandatory
+    scroll-snap-destination: 0% 100%;
+    scroll-snap-points-y: repeat(100%);
 
-	.item
-		background-color: $grey-dark
-		color: $white
+    .item
+        background-color: $grey-dark
+        color: $white
 
-		> *
-			border-bottom: $grey solid 2px
-			padding: 8px 15px
+        > *
+            border-bottom: $grey solid 2px
+            padding: 8px 15px
 
-		&:hover
-			background-color: lighten($grey-dark, 10%)
-			cursor: pointer
+        &:hover
+            background-color: lighten($grey-dark, 10%)
+            cursor: pointer
 
-	&:hover
-		overflow-y: scroll
-		height: 200px
-		width: 350px
+    &:hover
+        overflow-y: scroll
+        height: 250px
+        width: $boardlist-width
