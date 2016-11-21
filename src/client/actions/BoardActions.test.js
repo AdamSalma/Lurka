@@ -7,7 +7,7 @@ import {
     BOARD_DESTROYED,
     BOARD_LIST_REQUESTED,
     BOARD_LIST_LOADED,
-    BOARD_CHANGED
+    BOARD_CHANGE
 } from '../constants';
 
 import {

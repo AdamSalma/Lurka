@@ -38,28 +38,20 @@ export default class Thread extends Component {
 
     }
 
-    shouldComponentUpdate({ thread: newthread }) {
-        return this.props.thread.posts.length != newthread.posts.length
-    }
-
     render() {
-        const { thread, isFetching } = this.props, { posts } = thread;
+        const { thread, isFetching, isActive } = this.props
+        const { posts } = thread;
 
         const threadWrapClasses = classNames('thread-wrap', 'nano', {
-            "thread-wrap-active": posts.length || isFetching
+            "thread-wrap-active": isActive
         });
-        // const threadIsVisible = classNames({
-        //     "hidden": posts.length || isFetching
-        // })
 
-        if (posts.length) {
-            console.info(`Rendering Thread with ${posts.length} posts`);
-        }
+        console.log(`THREAD: posts: ${posts.length}, isFetching: ${isFetching}`)
 
         return (
             <div>
                 <Background 
-                    isVisible={isFetching || posts.length} 
+                    isVisible={isActive} 
                     closeBackground={this.closeThread}/>
                 <div ref='threadWrap' className={threadWrapClasses}>
                     <div id="thread" className="thread nano-content" ref="thread">
@@ -84,7 +76,7 @@ export default class Thread extends Component {
         const { thread, threadWrap } = this.refs;
 
         $(threadWrap).nanoScroller({ scroll: "top" })
-        $(threadWrap).nanoScroller({ stop: false })
+        $(threadWrap).nanoScroller({ stop: true })
         
         Velocity(thread, {top: "0"}, {
             duration: 850,
@@ -96,13 +88,14 @@ export default class Thread extends Component {
     }
 
     closeThread() {
-        const { thread, threadWrap } = this.refs, { closeThread } = this.props;
+        const { thread, threadWrap } = this.refs;
+        const { closeThread, threadID } = this.props;
 
         $(threadWrap).nanoScroller({ stop: true })
 
         Velocity( thread, {top: window.innerHeight + "px"}, {
             duration: 100,
-            complete: closeThread
+            complete: () => closeThread(threadID)
         })
     }
 }
