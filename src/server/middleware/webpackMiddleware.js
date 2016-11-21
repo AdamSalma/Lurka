@@ -8,7 +8,7 @@ const webpackCompiler = webpack(webpackConfig);
 // enable webpack middleware for hot-reloads in development
 export default function useWebpackMiddleware(app) {
 
-    log.info("Bundling client code...")
+    log.app("Bundling client code...")
     app.use(webpackDevMiddleware(webpackCompiler, {
         publicPath: webpackConfig.output.publicPath,
         stats: {
