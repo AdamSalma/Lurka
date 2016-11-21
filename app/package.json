@@ -13,6 +13,7 @@
     "jquery": "^3.1.1",
     "moment": "^2.16.0",
     "mousetrap": "^1.6.0",
+    "query-string": "^4.2.3",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "react-redux": "4.4.5",
@@ -21,6 +22,7 @@
     "redux": "^3.6.0",
     "redux-logger": "^2.7.4",
     "redux-thunk": "^2.1.0",
+    "requests": "^0.1.7",
     "screenfull": "^3.0.2",
     "uuid": "^2.0.3",
     "velocity-animate": "^1.2.3"
