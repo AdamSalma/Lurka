@@ -20,3 +20,10 @@ pre
     display: inline-block
     background: #2f2b2b
     padding: 6px 16px
+
+textarea:focus, input:focus
+    outline: none
+
+[placeholder]:focus::-webkit-input-placeholder
+    transition: opacity 0.5s ease
+    opacity: 0
