@@ -30,33 +30,40 @@ class HomePanel extends Component {
 
     render() {
 		const {
-			scrollPage, fetchBoard,
-			isMainPage, providers, loadingMessage, provider, boardList, fetchBoardList
+			scrollPage, fetchBoard, fetchBoardList,
+			status, boardlist, threadIsActive
 		} = this.props;
         return (
         	<div id="pages">
 	            <div className="page page-home">
 	            	<Header 
                         scrollPage={scrollPage} fetchBoardList={fetchBoardList} fetchBoard={fetchBoard}
-	            		loadingMessage={loadingMessage} isMainPage={isMainPage} boardList={boardList} provider={provider}
+	                    statusMessage={status.statusMessage} boardList={boardlist} provider={status.provider}
+                        boardID={status.boardID} threadID={status.threadID} threadIsActive={threadIsActive}
 	           		/>  
 	            	<div>
 	            		<h3>Providers:</h3>
 	            		<div className="providers">
-	            		{providers.map( 
-            				provider => <Link key={provider} to="/content">
-		            			<input 
-									type="button" 
-									value={provider} 
-									onClick={()=>this.onProviderClick(provider)}/>
-	            			</Link>
-						)}
+	            		{this.renderProviders(status.providers)}
 	            		</div>
 	            	</div>
 	            </div>
 	            {this.props.children}
 	        </div>
         )
+    }
+
+    renderProviders( providers ) {
+        console.warn("Rendering providers out... " + providers)
+        return providers.map( 
+            provider => <Link key={provider} to="/content">
+                <input 
+                    type="button" 
+                    value={provider} 
+                    onClick={()=>this.onProviderClick(provider)}/>
+            </Link>
+        )
+
     }
 
     onProviderClick(provider) {
@@ -68,13 +75,11 @@ class HomePanel extends Component {
     }
 }
 
-function mapStateToProps({status, content}) {
+function mapStateToProps({status, boardlist, thread}) {
     return {
-        provider: content.provider,
-        providers: status.providers,
-        isMainPage: status.isMainPage,
-        loadingMessage: status.loadingMessage,
-        boardList: content.boardlist,
+        status,
+        boardlist,
+        threadIsActive: thread.isActive
     }
 }
 

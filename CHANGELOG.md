@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Added
+- Header displays the apps status.
+- Header now has a seachbox.
+- New board design; tiles have shadow and on hover border turns white.
+
+### Fixed
+- Fixed 4chan blocking media requests (403) by proxying content through server (imgs/vids)
+
+
 ## v0.7.0 - 14/11/2016
 ### Added
 - Board now has infinite scrolling.

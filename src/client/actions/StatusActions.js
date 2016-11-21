@@ -1,21 +1,32 @@
 import Axios from 'axios';
 import {
     PROVIDER_CHANGE, 
-    LOGO_SPIN,
+
     FILTER_BOARD,
     FILTER_THREAD,
+    
     SERACH_BOARD,
-    SEARCH_THREAD
+    SEARCH_THREAD,
+    
+    STATUS_UPDATE
 } from '../constants';
 
 export function changeProvider( provider ) {
-    console.info("Action changeProvider() to " + provider);
     return (dispatch, getState) => {
-        if (getState().content.provider !== provider) {
+        if (getState().status.provider !== provider) {
+            console.info("Action changeProvider() to " + provider);
             dispatch({
                 type: PROVIDER_CHANGE,
                 payload: provider
             })
         }
+    }   
+}
+
+export function statusMessage( message='' ) {
+    console.info(`Action updateStatusMessage(): ${message}`);
+    return {
+        type: STATUS_UPDATE,
+        payload: message
     }   
 }

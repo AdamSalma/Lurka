@@ -3,15 +3,16 @@ import {
     THREAD_REQUESTED, 
     THREAD_LOADED, 
     THREAD_DESTROYED,
-    THREAD_SCROLLED_BOTTOM
+    THREAD_SCROLLED_BOTTOM,
+    THREAD_CHANGE
 } from '../constants';
-
+import {statusMessage} from './StatusActions'
 
 function requestThread(threadID) {
 	console.log("Action RequestThread wth ID:", threadID);
     return {
         type: THREAD_REQUESTED,
-        threadID
+        payload: threadID
     }
 }
 
@@ -27,21 +28,26 @@ export function fetchThread(provider, boardID, threadID) {
     console.log(`Action FetchThread() to /api/${provider}/${boardID}/${threadID}`);
     return (dispatch, getState) => {
         if (!shouldFetchThread(getState())) return 
+        dispatch(statusMessage(`Requesting thread ${threadID}`));
         dispatch(requestThread(threadID));
         return Axios.get(`/api/${provider}/${boardID}/${threadID}`)
-            .then(data => dispatch(receiveThread(data)))
+            .then(data => {
+                dispatch(statusMessage())
+                dispatch(receiveThread(data))
+            })
             .catch( e => console.error(e));
     }
 }
 
-export function closeThread() {
+export function closeThread(threadID) {
     return dispatch => {
         dispatch({
-            type: THREAD_DESTROYED
+            type: THREAD_DESTROYED,
+            payload: threadID
         })
     }
 }
 
-function shouldFetchThread({ content }) {
-    return !(content.isFetching && content.thread.posts)
+function shouldFetchThread({ thread }) {
+    return !(thread.isFetching && thread.posts)
 }

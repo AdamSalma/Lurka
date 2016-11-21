@@ -7,4 +7,4 @@ const router = Express.Router();
 
 router.get('/', getDashboard)
 
-module.exports = router
+export default router

@@ -11,23 +11,17 @@ class Logo extends Component {
     }
 
     render() {
-        const { isFullsize, loadingMessage } = this.props;
+        const { isFullsize, statusMessage } = this.props;
         const logoClasses = classNames("logo", {"logo-fullsize": isFullsize});
-        const statusClasses = classNames("status", {
-            "status-active": !!loadingMessage
-        })
 
-        return (
-
-            <div>
-                <div id="logo" ref="logo" onClick={this.scrollUp}>
-                    <img src='./logo.png' className={logoClasses}/>
-                </div>
-                <div id="status" className={statusClasses}>
-                    {this.createStatusText(loadingMessage)}
-                </div>
-                
-            </div>
+        return ( 
+            <div 
+                id="logo" ref="logo" 
+                className={statusMessage ? "logo-rotating" : ""} 
+                onClick={this.scrollUp}
+            >
+                <img src='./logo.png' className={logoClasses}/>
+            </div>      
         )
     }
 
@@ -36,20 +30,6 @@ class Logo extends Component {
         if (!isFullsize) {
             scrollPage({mainPage:true})
         }
-    }
-
-    // triggerLogoDropdownAnimation(logo) {
-    //     // TODO: logo animation on APP_INIT?
-    //     console.log("triggerLogoDropdownAnimation()", logo)
-    //     Velocity(logo, {opacity: 1, top: "+10px"}, {duration: 1000})
-
-    // }
-
-    createStatusText(text) {
-        if (text) {
-            return <span className="status-content">{text}</span>            
-        }
-
     }
 }
 

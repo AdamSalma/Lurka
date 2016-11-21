@@ -1,18 +1,21 @@
 import Axios from 'axios';
-import { morphThread } from '../../helpers/morph-4chan';
-import { chan as options } from '../../helpers/request-config.js';
+import { parseThread } from '../../services/4chanParser';
+import { chan as options } from '../../config/requestHeaders.js';
+import fs from 'fs';
 
 export default function (req, res, next) {
-    const boardID = req.params.boardID;
-    const threadID = req.params.threadID;
-    const url = `http://a.4cdn.org/${ boardID }/thread/${ threadID }.json`;
+    const { boardID, threadID } = req.params;
+    const url = `http://a.4cdn.org/${boardID}/thread/${threadID}.json`;
 
-    if (isNaN(threadID)) next();
+    if (isNaN(threadID)) return next();
     
     log.http(`Fetching Thread from ${url}`)
 
-    options.headers['Origin'] = 'http://boards.4chan.org/' +boardID;
     Axios(url, options)
-        .then( threads => res.send(morphThread(threads.data.posts, boardID)) )
-        .catch( err => console.log(`ERROR - Thread fetch: ${err}`));
+        .then( ({data}) => {
+            res.send(parseThread(data.posts, boardID))
+        })
+        .catch( err => {
+            log.error(err.stack);
+        });
 };

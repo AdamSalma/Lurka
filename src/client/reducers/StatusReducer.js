@@ -1,13 +1,16 @@
 import initialState from './initialState';
 import { 
-    HEADER_SHRINKING, 
-    HEADER_EXPANDING, 
-    HEADER_ANIMATION_ENDED, 
     LOGO_SPIN_STARTED, 
     LOGO_SPIN_ENDED, 
-    SCROLL_STARTED, 
-    SCROLL_ENDED,
-    APP_INIT
+    PAGE_SCROLL_STARTED, 
+    PAGE_SCROLL_ENDED,
+    APP_INIT,
+    STATUS_UPDATE,
+    PROVIDER_CHANGE,
+    BOARD_CHANGE,
+
+    THREAD_REQUESTED,
+    BOARD_REQUESTED,
 } from '../constants';
 
 export default function (state = initialState.status, action) {
@@ -18,40 +21,34 @@ export default function (state = initialState.status, action) {
                 isMainPage: true
             })
 
-        case HEADER_EXPANDING:
-        case HEADER_SHRINKING:
+        case PAGE_SCROLL_STARTED:
             return Object.assign({}, state, {
-                isAnimating: true
-            })
-
-        case HEADER_ANIMATION_ENDED:
-            return Object.assign({}, state, {
-                isAnimating: false,
-                isMainPage: !state.isMainPage
-            })
-
-        case SCROLL_STARTED:
-            return Object.assign({}, state, {
-                isScrolling: false,
-                loadingMessage: action.type
+                isScrolling: true
             })
             
-        case SCROLL_ENDED:
+        case PAGE_SCROLL_ENDED:
             return Object.assign({}, state, {
                 isScrolling: false,
             })
 
-
-        case LOGO_SPIN_STARTED:
+        case PROVIDER_CHANGE:
             return Object.assign({}, state, {
-                isLogoSpinning: true,
-                loadingMessage: action.payload
+                provider: action.payload
             })
 
-        case LOGO_SPIN_ENDED:
+        case BOARD_REQUESTED:
             return Object.assign({}, state, {
-                isLogoSpinning: false,
-                loadingMessage: null
+                boardID: action.payload
+            })
+
+        case THREAD_REQUESTED:
+            return Object.assign({}, state, {
+                threadID: action.payload
+            })
+
+        case STATUS_UPDATE:
+            return Object.assign({}, state, {
+                statusMessage: action.payload
             })
 
         default:

@@ -30,9 +30,7 @@ class ContentPanel extends Component {
             incrementBoardLimit,
 
             // State
-            provider, boardID, threadID,
-            board, thread, boardList,
-            isFetching, didInvalidate
+            status, board, thread
 
         } = this.props;
 
@@ -45,12 +43,12 @@ class ContentPanel extends Component {
                 <div className="content-overview">
                     <Board 
                         fetchBoard={fetchBoard} fetchThread={fetchThread} incrementLimit={incrementBoardLimit}
-                        board={board} provider={provider} boardID={boardID}
+                        board={board} provider={status.provider} boardID={status.boardID} isFetching={board.isFetching}
                     />
                 </div>
                 <Thread 
                     closeThread={closeThread}
-                    thread={thread} isFetching={isFetching}
+                    thread={thread} isActive={thread.isActive} isFetching={thread.isFetching} threadID={status.threadID}
                 />
             </div>
         )
@@ -58,18 +56,12 @@ class ContentPanel extends Component {
 }
 
 
-function mapStateToProps({ content }) {
+function mapStateToProps({ status, thread, board, boardlist }) {
     return {
-        isFetching: content.isFetching,
-        didInvalidate: content.didInvalidate,
-
-        provider: content.provider,
-        boardID: content.boardID,
-        threadID: content.threadID,
-        
-        boardList: content.boardlist,
-        board: content.board,
-        thread: content.thread
+        status: status,        
+        boardList: boardlist,
+        board: board,
+        thread:thread
     }
 }
 

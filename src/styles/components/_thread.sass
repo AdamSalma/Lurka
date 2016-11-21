@@ -2,8 +2,8 @@
     position: fixed
     display: none
     width: 1004px
-    height: 100vh
-    top: 0
+    height: calc(100vh - #{$header-height})
+    top: $header-height
     left: 0
     right: 0
     margin: 0 auto
@@ -52,7 +52,7 @@
     .quotelink
         color: $primary-light
         text-decoration: none
-        text-shadow: lighten($primary, 30%) 1px 1px 1px
+        text-shadow: $primary 1px 1px 1px
         transition: 0.1s ease-out
 
         &:hover

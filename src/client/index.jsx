@@ -12,13 +12,13 @@ const isProd = process.env.NODE_ENV === "production"
 const preloadedState = isProd ? loadState() : undefined;
 const store = configureStore(preloadedState);
 
-// Saves changes to localstorage
+// Save changes to localstorage
 store.subscribe( () => {
 	saveState(store.getState());
 })
 
-// Enable checking the store start at any point 
-window.storeState = store.getState();
+// Enable checking the store at any point 
+if (!isProd) window.storeState = store.getState;
 console.info('Initial store:', store.getState());
 
 ReactDOM.render(

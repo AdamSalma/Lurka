@@ -7,20 +7,17 @@ import { catchTooltip } from './events';
 import createLayout from './layout';
 
 export default class Board extends Component {
-    constructor(props) {
-        super(props);
+    constructor({ board, boardID, provider, fetchBoard }) {
+        super();
         this.state = {
             incrementAmount: 10
         }
 
         this.onThreadFetch = this.onThreadFetch.bind(this)
         this.incrementBoardLimit = this.incrementBoardLimit.bind(this)
-    }
-    
-    componentWillMount() {
-        if (!this.props.board.posts.length) {
-            const { boardID, provider } = this.props
-            this.props.fetchBoard({ provider, boardID });
+
+        if (!board.posts.length) {
+            fetchBoard({ provider, boardID });
         }
     }
 
@@ -49,10 +46,6 @@ export default class Board extends Component {
         }
     }
 
-    // shouldComponentUpdate({ board: newboard }) {
-    //     return this.props.board.posts.length !== newboard.posts.length
-    // }
-
     componentWillUnmount() {
         $(this.refs.board).off('hover scrollend');
     }
@@ -71,9 +64,7 @@ export default class Board extends Component {
         const { incrementLimit, board } = this.props
         const newValue = this.props.board.limit + this.state.incrementAmount
         console.log('End of board. newValue:' + newValue)
-        incrementLimit(newValue)
-        this.forceUpdate()
-    
+        incrementLimit(newValue)    
     }
 
     createThreads() {

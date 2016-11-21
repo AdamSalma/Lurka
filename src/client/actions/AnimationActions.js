@@ -1,8 +1,7 @@
 import Velocity from 'velocity-animate'
-
 import {
-	SCROLL_STARTED,
-	SCROLL_ENDED
+	PAGE_SCROLL_STARTED,
+	PAGE_SCROLL_ENDED
 } from '../constants'
 
 export function scrollPage({ content=false, mainPage=false })  {
@@ -13,13 +12,13 @@ export function scrollPage({ content=false, mainPage=false })  {
 	const offset = content ? window.innerHeight : 0;
 
 	return dispatch => {
-        dispatch({type: SCROLL_STARTED});
+        dispatch({type: PAGE_SCROLL_STARTED});
         return Velocity(document.body, 'scroll', {
         	offset: offset, 
         	duration: 1000, 
         	easing: "ease-in-out", 
         	complete: () => {
-        		dispatch({type: SCROLL_ENDED})
+        		dispatch({type: PAGE_SCROLL_ENDED})
         	}
        	});
     }

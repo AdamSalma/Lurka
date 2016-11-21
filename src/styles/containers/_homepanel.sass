@@ -2,47 +2,15 @@
     text-align: center
     background: $black
 
-    #header
-        position: fixed
-        +set-dims(100vw, 70px)
-        top: 0
-        left: 0
-        border-bottom: 1px $primary solid
-        z-index: 2
-        background: $black
-
-        @include breakpoint(to-tablet)
-            z-index: 100
-
-        .header-content
-            +set-dims($header-width, 100%)
-            position: absolute
-            left: 0
-            right: 0
-            margin: 0 auto
-
-
-    #logo
-        position: relative
-        width: 50px
-        height: 50px
-        float: left
-        margin: 10px
-
-
     .providers
         margin-top: 300px
 
-    img
-        width: 100%
-
     .status
-        line-height: 70px
-        height: 70px
+        line-height: $header-height
+        height: $header-height
         float: left
+        font-weight: bold
+        padding-left: 5px
 
-    .content-options
-        position: relative
-        width: 700px
-        height: 100%
-        float: right
+
+    
