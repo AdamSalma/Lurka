@@ -8,5 +8,7 @@ export default function (req, res, next) {
 	log.http(`Fetching boardlist from ${url}`)
     Axios(url, options)
         .then( boardlist => res.send(parseBoardList(boardlist.data.boards)) )
-        .catch( err => console.log(`ERROR - Boardlist fetch ${err}`));
+        .catch( err => {
+            log.error(err.stack);
+        });
 };
