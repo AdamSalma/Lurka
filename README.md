@@ -52,7 +52,8 @@ npm run build && npm start
 - [ ] Content options - Search, filter, watch (in board or thread)
 - [ ] Continuous content updating (every 10 secs? use if-modified-since)
 - [ ] Easy saving of Thread/Post/Image locally. Archives?
-- [ ] Access archives from content providers
+- [x] Display app status via header
+- [x] Access archives from content providers
 - [ ] Settings
 - [ ] User stylesheets - (figure out how to do this...)
 - [ ] Keyboard shortcuts - next post, save image of current post, 
