@@ -3,7 +3,7 @@ import {
     LOGO_SPIN_STARTED, 
     LOGO_SPIN_ENDED, 
     PAGE_SCROLL_STARTED, 
-    SCROLL_ENDED,
+    PAGE_SCROLL_ENDED,
     APP_INIT,
     STATUS_UPDATE,
     PROVIDER_CHANGE,
@@ -26,19 +26,9 @@ export default function (state = initialState.status, action) {
                 isScrolling: true
             })
             
-        case SCROLL_ENDED:
+        case PAGE_SCROLL_ENDED:
             return Object.assign({}, state, {
                 isScrolling: false,
-            })
-
-        case LOGO_SPIN_STARTED:
-            return Object.assign({}, state, {
-                isLogoSpinning: true
-            })
-
-        case LOGO_SPIN_ENDED:
-            return Object.assign({}, state, {
-                isLogoSpinning: false
             })
 
         case PROVIDER_CHANGE:
