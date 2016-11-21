@@ -10,6 +10,7 @@ import proxify from './proxyUrls';
 export function parseBoard( board, boardID ) {
     const img = `https://i.4cdn.org/${boardID}/`;
     var newBoard = [];
+    log.app('Parsing board...')
 
     for (let page in board) {
         if (!board.hasOwnProperty(page)) return false;
@@ -24,6 +25,10 @@ export function parseBoard( board, boardID ) {
     return newBoard;
 
     function formatThread(threadObj) {
+        let ext = threadObj['ext']
+        let smImg = img + threadObj['tim'] + "s.jpg"
+        let lgImg = img + threadObj['tim'] + ext
+
         let thread = {
         	id: threadObj['no'],
         	date: threadObj['now'],
@@ -31,8 +36,8 @@ export function parseBoard( board, boardID ) {
             comment: threadObj['com'],
             time: threadObj['tim'] || threadObj['time'] * 1000,
             imgsrc: {
-                sm: img + threadObj['tim'] + "s.jpg",
-                lg: img + threadObj['tim'] + ".jpg",
+                sm: proxify("/media", {url: smImg, provider: "4chan"}),
+                lg: proxify("/media", {url: lgImg, provider: "4chan"})
             },
             replies: {
                 textCount: threadObj['replies'],
@@ -55,23 +60,29 @@ export function parseBoard( board, boardID ) {
 export function parseThread( posts, boardID ) {
     const img = `https://i.4cdn.org/${boardID}/`;
 
-    if (!posts.length) throw new Error("No thread posts supplied");
+    if (!posts || !posts.length) throw new Error("No thread posts supplied");
     log.app(`Created ${posts.length} 4chan posts`);
 
-    const thread = posts.map( post => ({
-        id: post['no'],
-        date: post['now'],
-        name: post['name'],
-        hash: post['md5'],
-        title: post['sub'] || "",
-        time: post['tim'] || post['time'] * 1000,
-        comment: post['com'],
-        imgsrc: !!post['ext'] ? {
-            sm: img + post['tim'] + "s.jpg",
-            lg: img + post['tim'] + post['ext']
-        } : null,
-        ext: post['ext']
-    }));
+    const thread = posts.map( post => {
+        let ext = post['ext']
+        let smImg = img + post['tim'] + "s.jpg"
+        let lgImg = img + post['tim'] + ext
+
+        return {
+            id: post['no'],
+            date: post['now'],
+            name: post['name'],
+            hash: post['md5'],
+            title: post['sub'] || "",
+            time: post['tim'] || post['time'] * 1000,
+            comment: post['com'],
+            imgsrc: !!post['ext'] ? {
+                sm: proxify("/media", {url: smImg, provider: "4chan"}),
+                lg: proxify("/media", {url: lgImg, provider: "4chan"})
+            } : null,
+            ext
+        }
+    });
 
     try {
         return connectPosts(thread)
