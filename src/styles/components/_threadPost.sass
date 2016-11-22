@@ -21,16 +21,16 @@
     .thread-post-info
         +font-size(14px)
         text-shadow: 0px 0px 4px black;
-        margin-bottom: 10px
+        padding: 5px 0
 
-        * >
+        > *
             display: inline-block
-            margin-left: 4px
+            padding: 0 2px
 
         .thread-post-title
-            margin-right: 10px
             strong
                 border-bottom: $primary solid 2px
+                margin-right: 5px
 
         .thread-post-name
             color: #ffb26e
@@ -44,20 +44,26 @@
                 display: inline-block
 
 
-        .mdi-dots-vertical
-            /* submenu */
-            float: right
-            margin-right: 8px
-            font-size: 28px
-            font-weight: bold
+    ul.thread-post-controls
+        font-size: 24px
+        float: right
+        padding: 4px
+            
+        li
+            display: inline-block
+            margin-left: 4px
             cursor: pointer
-            border-radius: 0 0 4px 4px
-            height: 42px
+            opacity: 0.4
+            transition: all .2s ease-out
+
             &:hover
-                border: $grey-dark solid 1px
-                border-top: none
-                background: $white
-                color: $grey-dark
+                // background: $white
+                color: $primary
+                opacity: 1
+
+            span
+                padding: 4px
+
 
 
 

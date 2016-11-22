@@ -5,7 +5,7 @@ import {
 } from './Media'
 import TimeAgo from '../TimeAgo'
 
-export default function ({post, children}) {
+export default function ({post, children, controls}) {
     const { id, name, title, date, imgsrc, comment, ext, references, time } = post
 
     const SRC = imgsrc
@@ -16,24 +16,42 @@ export default function ({post, children}) {
             <div className='thread-post-info'>
                 {renderTitle(title)}
                 <span className='thread-post-name'>{name}</span>
-                <TimeAgo time={time}/>
                 <span className='thread-post-id'>No.{id}</span>
+                <span className='pipe'/>
+                <TimeAgo time={time}/>
                 {renderRefs(references)}
-                <span className='mdi mdi-dots-vertical thread-post-options'></span>
             </div>
             {createMediaIfExists(ID, SRC, ext)}
             <blockquote dangerouslySetInnerHTML={{__html: comment}}/>
+            {renderControls(controls)}
         </div>
     )
 }
 
+function renderControls(controls) {
+    // TODO: Add functionality to thread icons
+    // const { download, openReferences, ...} = controls 
+    return (
+        <ul className="thread-post-controls">
+            <li onClick={()=> console.log('Clicked on download icon')}>
+                <span className='mdi mdi-download'></span>
+            </li>
+            <li>
+                <span className='mdi mdi-reply'></span>
+            </li>
+            <li>
+                <span className='mdi mdi-comment-text'></span>
+            </li>
+        </ul>
+    )
+}
 
 function renderRefs(refs) {
     return refs ? <span className='thread-post-references'>
         {refs.map( ref => 
             <span key={uuid.v4()}>
                 <a 
-                    className="quotelink refered" 
+                    className="quotelink" 
                     href={`#p${ref}`}
                 >
                     {`>>${ref}`}
@@ -46,6 +64,7 @@ function renderRefs(refs) {
 function renderTitle(title) {
     if (title) return <span className='thread-post-title'> 
         <strong dangerouslySetInnerHTML={{__html: title}}/>
+        <span className='pipe'/>
     </span>
 }
 
