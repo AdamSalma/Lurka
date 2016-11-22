@@ -18,5 +18,7 @@ export default function useWebpackMiddleware(app) {
         }
     }));
 
+    app.use(webpackHotMiddleware(webpackCompiler));
+
     return app;
 }
