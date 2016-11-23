@@ -1,8 +1,8 @@
 {
   "author": "Adam Salma <adam3salma@gmail.com>",
   "name": "Lurka",
-  "version": "0.7.0",
-  "description": "Messaging board viewer and scraper",
+  "version": "0.8.0",
+  "description": "A desktop app for viewing online messaging boards such as 4chan and reddit",
   "scripts": {
     "dev": "cross-env NODE_PATH=./app/node_modules nodemon ./src/server",
     "bundle": "gulp bundle",

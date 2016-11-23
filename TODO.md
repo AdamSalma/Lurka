@@ -1,20 +1,16 @@
 APP_INIT action HomePanel componentWillMount
 
-fix board layout margin not aligning properly
-
 add this.displayName to components...? research
-
-fix BOARD_SCROLL_BOTTOM
-
-sort out header. 60px. no anim. options.
-
-logo spin + text
 
 fix media
 
 remove bad posts on 404 using index splice like first example [here](https://facebook.github.io/react/docs/animation.html)
 
 store archives frontend using couchdb
+
+- row of thread options: quote, save, info, replies
+
+- reference section: extra box on the side that has posters id. underneath it contains all ids that referred to it. hovering/clicking on any ID scrolls thread to that ID
 
 ## Libraries to look at/implement
 - nock - testing http in isolation
