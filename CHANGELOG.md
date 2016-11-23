@@ -4,12 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Fixed
+- Fix thread controls positioned incorrectly
+
 ## v0.8.0
 ### Added
 - Header displays the apps status.
 - Header now has a seachbox.
 - New board design + on hover over posts, OP comment animates
 - New Thread design: Added icons to bottom of posts (download, quote, replies)
+
+### Changed
+- Flattened Redux state.
 
 ### Fixed
 - Fixed 4chan blocking media requests by proxying imgs/vids through server.
