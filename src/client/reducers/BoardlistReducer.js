@@ -10,12 +10,12 @@ export default function (state=initialState.boardlist, action) {
         case BOARD_LIST_REQUESTED:
             return Object.assign({}, state, {
                 isFetching: true,
-                requestType: action.type  // for logging error to user...?
+                requestType: action.type
             })
 
         case BOARD_LIST_LOADED:
-            return state[action.key] = action.payload
-
+            const newBoardlist = {}[action.key] = action.payload
+            return Object.assign({}, state, newBoardlist)
 
         default:
             return state
