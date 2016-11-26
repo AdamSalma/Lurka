@@ -7,7 +7,7 @@ import SettingsReducer from "./SettingsReducer";
 
 // TODO: Add PostReducer
 const rootReducer = combineReducers({
-    boardlist: BoardlistReducer,
+    boardList: BoardlistReducer,
     board: BoardReducer,
     thread: ThreadReducer,
     status: StatusReducer,

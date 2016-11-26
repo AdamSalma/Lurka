@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import Board from "../components/Board";
 import Thread from "../components/Thread";
-import ContentOptions from "../components/ContentOptions";
 
 import {
     fetchBoard, 
@@ -34,10 +33,6 @@ class ContentPanel extends Component {
 
         } = this.props;
 
-                    // <ContentOptions 
-                    //     changeProvider={changeProvider} fetchBoardList={fetchBoardList} fetchBoard={fetchBoard}
-                    //     boardList={boardList} provider={provider}
-                    // />
         return (
             <div className="page page-content">
                 <div className="content-overview">
@@ -56,10 +51,10 @@ class ContentPanel extends Component {
 }
 
 
-function mapStateToProps({ status, thread, board, boardlist }) {
+function mapStateToProps({ status, thread, board, boardList }) {
     return {
         status: status,        
-        boardList: boardlist,
+        boardList: boardList,
         board: board,
         thread:thread
     }

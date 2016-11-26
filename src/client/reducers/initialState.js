@@ -12,9 +12,7 @@ export default {
 		threadID: null,
 	},
 
-	boardlist: {  // obj for each provider: {4chan: [], reddit: []}
-		isFetching: false,
-		didInvalidate: false,
+	boardList: {  // obj for each provider: {4chan: [], reddit: []}
 		favourites: []  // [{id:'4chan', board: 'g'}, ...]
 	},  
 
