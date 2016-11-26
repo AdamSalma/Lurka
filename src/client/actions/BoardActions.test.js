@@ -27,7 +27,7 @@ const board = "g";
 describe('Actions', () => {
 
   it('creates BOARD_LIST_REQUESTED action', () => {
-    const fn = fetchBoardList({ provider });
+    const fn = fetchBoardList( provider );
     expect(fn).toBeA('function');
     const getState = () => ({ provider: '4chanddd' });
     fn(dispatch, getState);

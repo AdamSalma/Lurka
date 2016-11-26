@@ -3,10 +3,15 @@ import {
     BOARD_REQUESTED, 
     BOARD_LOADED, 
     BOARD_DESTROYED,
-    BOARD_LIST_REQUESTED,
-    BOARD_LIST_LOADED,
+
+    BOARD_INVALIDATED,
+    BOARD_LIST_INVALIDATED,
+
     BOARD_CHANGE,
-    BOARD_SCROLLED_BOTTOM
+    BOARD_SCROLLED_BOTTOM,
+
+    BOARD_LIST_REQUESTED,
+    BOARD_LIST_LOADED
 } from '../constants';
 import {statusMessage} from './StatusActions'
 
@@ -31,11 +36,24 @@ function requestBoardList(provider) {
     }
 }
 
-function receiveBoardList(boardList){
+function receiveBoardList(boardList, provider){
     console.log(boardList);
     return {
         type: BOARD_LIST_LOADED,
-        payload: boardList.data || []
+        payload: boardList.data || [],
+        provider
+    }
+}
+
+function invalidateBoard(error) {
+    return {
+        type: BOARD_INVALIDATED
+    }
+}
+
+function invalidateBoardlist(error) {
+    return {
+        type: BOARD_LIST_INVALIDATED
     }
 }
 
@@ -62,7 +80,7 @@ export function incrementBoardLimit( limit ) {
 export function fetchBoard({ provider, boardID }) {
     console.log(`Action FetchBoard() to /api/${provider}/${boardID}`);
     return (dispatch, getState) => {
-        if (shouldFetchBoard(getState())){
+        if ( shouldFetchBoard(getState()) ){
             dispatch(statusMessage(`Requesting /${boardID}/`))
             dispatch(requestBoard(boardID))
             return Axios.get(`/api/${provider}/${boardID}`)
@@ -71,7 +89,11 @@ export function fetchBoard({ provider, boardID }) {
                     dispatch(setBoard(boardID))
                     dispatch(statusMessage())
                 })
-                .catch( e => console.error(e));
+                .catch( err => {
+                    console.error(err)
+                    dispatch(statusMessage(`Error: ${err}`))
+                    dispatch(invalidateBoard())
+                });
         }
     }
 }
@@ -80,19 +102,28 @@ function shouldFetchBoard({ board }) {
     return !(board.isFetching && board.posts)
 }
 
-export function fetchBoardList({ provider }) {
+
+export function fetchBoardList( provider ) {
     console.log(`Action FetchBoard() to /api/${provider}/boards`);
     return (dispatch, getState) => {
-        const { boardlist } = getState()
-        if (!boardlist.hasOwnProperty(provider)) {
+        if (shouldFetchBoardList(getState(), provider)) {
             dispatch(requestBoardList(provider))
-            return Axios.get(`/api/${provider}/boards`)
-                .then(data => dispatch(receiveBoardList(data)))
-                .catch( e => console.error(e));
+
+            return Axios
+                .get(`/api/${provider}/boards`)
+                .then(data => dispatch(receiveBoardList(data, provider)))
+                .catch( err => {
+                    console.error(err)
+                    dispatch(statusMessage(`Error: Couldn't request ${provider}s boards`))
+                    dispatch(invalidateBoard())
+                });
         }
     }
 }
 
+function shouldFetchBoardList({boardList}, provider) {
+    return !boardList.hasOwnProperty(provider)
+}
 
 // function requestPosts(reddit) {
 //   return {
