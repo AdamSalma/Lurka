@@ -126,7 +126,7 @@ function connectPosts(posts) {
 export function parseBoardList( boardList ) {
     log.app(`Discovered ${boardList.length} 4chan boards`);
     return boardList.map( ({ board, title }) => ({
-        value: board, 
-        text: `/${board}/ - ${title}`
+        boardID: board, 
+        description: `/${board}/ - ${title}`
     }));
 }
