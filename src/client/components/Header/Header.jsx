@@ -4,7 +4,7 @@ import Velocity from 'velocity-animate';  // TODO: Is this needed? Logo?
 import classNames from "classnames";
 
 import Logo from "../Logo";
-import ContentOptions from "../ContentOptions";
+import BoardList from "../BoardList";
 import SearchBox from "../SearchBox";
 
 export default class Header extends Component {
@@ -41,9 +41,9 @@ export default class Header extends Component {
 
     createOptions() {
         const {boardList, fetchBoardList, provider, fetchBoard} = this.props
-        return <ContentOptions 
+        return <BoardList 
             provider={provider} 
-            boardList={boardList} 
+            boardList={boardList[provider]} 
             fetchBoard={fetchBoard}
             fetchBoardList={fetchBoardList}
         />
