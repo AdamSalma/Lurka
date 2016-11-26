@@ -4,18 +4,17 @@ import {
     BOARD_LIST_REQUESTED,
 } from '../constants'
 
-export default function (state=initialState.boardlist, action) {
+// ADD_FAVOURITE_BOARD
+// TODO: Add boardList invalidation + favourites
+
+export default function (state=initialState.boardList, action) {
     switch (action.type) {
 
-        case BOARD_LIST_REQUESTED:
-            return Object.assign({}, state, {
-                isFetching: true,
-                requestType: action.type
-            })
-
+        
         case BOARD_LIST_LOADED:
-            const newBoardlist = {}[action.key] = action.payload
-            return Object.assign({}, state, newBoardlist)
+            return Object.assign({}, state, {
+                [action.provider]: action.payload
+            })
 
         default:
             return state
