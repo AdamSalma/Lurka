@@ -1,10 +1,11 @@
 import React from 'react';
 import uuid from "uuid";
+import classNames from "classnames";
 
 export default function ({items, className, handleClick}) { 
-    console.info(`Rendering ${items.length} dropdown items`);
+    const classes = classNames(className, "dropdown")
     return (
-        <ul className={className} onClick={ (event) => handleClick(event) }>
+        <ul className={classes} onClick={handleClick}>
             {items.map(el => <li key={uuid.v4()} className="item">{el}</li>)}
         </ul>
     )
