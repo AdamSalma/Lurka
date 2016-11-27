@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router";
 
 import classNames from 'classnames';
 import uuid from 'uuid';
@@ -20,7 +19,8 @@ export default class BoardLists extends Component {
     render() {
         return (
             <section className="board-lists">
-                <h3>Providers:</h3>
+                <h3>Choose your provider:</h3>
+                <button onClick={this.props.scrollPage.bind(null, "content", true)}>SCROLL</button>
                 <div className="board-lists-wrap">
                     {this.renderProviders()}
                 </div>
@@ -33,15 +33,14 @@ export default class BoardLists extends Component {
         const { providers } = status;
 
         return providers.map( provider => {
-            console.log(provider);
             return (
-                <Link key={provider} to="/content">
-                    <BoardList 
-                        provider={provider} 
-                        boardList={boardList[provider]} 
-                        fetchBoardList={fetchBoardList}
-                        handleClick={(event) => this.onBoardListClick(event, provider)}/>
-                </Link>
+                <BoardList 
+                    provider={provider} 
+                    boardList={boardList[provider]}
+                    fetchBoardList={fetchBoardList}
+                    handleClick={ event => this.onBoardListClick(event, provider)}
+                    key={provider}
+                />
             )
         })
     }
@@ -51,7 +50,7 @@ export default class BoardLists extends Component {
         const boardID = event.target.getAttribute('data-value');
 
         changeProvider(provider)
-        scrollPage({content: true})
+        scrollPage("content", true)
         fetchBoard({boardID, provider})  // auto sets board
     }
 }

@@ -1,9 +1,10 @@
 import 'babel-polyfill';
+import '../styles/index'
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import '../styles/index'
 import App from './containers/App';
 import configureStore from './store';
 import { loadState, saveState } from './store/localStorage';
@@ -18,7 +19,7 @@ store.subscribe( () => {
 })
 
 // Enable checking the store at any point 
-if (!isProd) window.storeState = store.getState;
+if (!isProd) window.getState = store.getState;
 console.info('Initial store:', store.getState());
 
 ReactDOM.render(
