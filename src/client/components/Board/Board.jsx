@@ -16,9 +16,6 @@ export default class Board extends Component {
         this.onThreadFetch = this.onThreadFetch.bind(this)
         this.incrementBoardLimit = this.incrementBoardLimit.bind(this)
 
-        if (!board.posts.length) {
-            fetchBoard({ provider, boardID });
-        }
     }
 
     componentDidMount() {
@@ -69,7 +66,6 @@ export default class Board extends Component {
 
     createThreads() {
         const { posts, limit } = this.props.board;
-        console.warn(`board limit: ${limit}`)
         return posts.slice(0, limit).map( post => {
             return (
                 <BoardPost
