@@ -7,7 +7,7 @@ class Logo extends Component {
     constructor(props) {
         super(props);
         this.displayName = 'Logo';
-        this.scrollUp = this.scrollUp.bind(this)
+        this.scrollToHome = this.scrollToHome.bind(this)
     }
 
     render() {
@@ -18,17 +18,17 @@ class Logo extends Component {
             <div 
                 id="logo" ref="logo" 
                 className={statusMessage ? "logo-rotating" : ""} 
-                onClick={this.scrollUp}
+                onClick={this.scrollToHome}
             >
                 <img src='./logo.png' className={logoClasses}/>
             </div>      
         )
     }
 
-    scrollUp() {
+    scrollToHome() {
         const {isFullsize, scrollPage} = this.props
         if (!isFullsize) {
-            scrollPage({mainPage:true})
+            scrollPage("content", false)  // scrolls content page away to reveal home
         }
     }
 }
