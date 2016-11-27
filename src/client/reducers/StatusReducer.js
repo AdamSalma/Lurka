@@ -16,19 +16,21 @@ import {
 export default function (state = initialState.status, action) {
     switch (action.type) {
 
-        case APP_INIT:
-            return Object.assign({}, state, {
-                isMainPage: true
-            })
+        // case APP_INIT:
+        //     return Object.assign({}, state, {
+        //         isMainPage: true
+        //     })
 
         case PAGE_SCROLL_STARTED:
             return Object.assign({}, state, {
-                isScrolling: true
+                isScrolling: true,
+                currentPage: action.payload
             })
             
         case PAGE_SCROLL_ENDED:
             return Object.assign({}, state, {
                 isScrolling: false,
+                currentPage: action.payload
             })
 
         case PROVIDER_CHANGE:

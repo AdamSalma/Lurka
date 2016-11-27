@@ -1,12 +1,12 @@
 export default {	
 	status: {
+		isScrolling: false,  // app scroll
+		currentPage: "home", // currentPage
+		headerIsVisible: false,  // if currentPage == "content"
+
+		statusMessage: "",  // reveal status to user
+
 		providers: ["4chan", "reddit", "imgur"],
-
-		isScrolling: false,  // not user scroll
-		isLogoSpinning: false,  // log to user animation
-
-		statusMessage: "test",  // reveal status to user
-
 		provider: "4chan",
 		boardID: "g",
 		threadID: null,
