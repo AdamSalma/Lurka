@@ -4,22 +4,63 @@ import {
 	PAGE_SCROLL_ENDED
 } from '../constants'
 
-export function scrollPage({ content=false, mainPage=false })  {
-	if (!content && !mainPage) {
-		throw new Error("No scroll destination supplied")
-	}
-	
-	const offset = content ? window.innerHeight : 0;
+const scrollEndpoints = ["content", "settings"]  // "home" is immovable
+const scrollDuration = 1000
+const scrollEasing = "ease-in-out"
 
-	return dispatch => {
-        dispatch({type: PAGE_SCROLL_STARTED});
-        return Velocity(document.body, 'scroll', {
-        	offset: offset, 
-        	duration: 1000, 
-        	easing: "ease-in-out", 
-        	complete: () => {
-        		dispatch({type: PAGE_SCROLL_ENDED})
-        	}
-       	});
+export function scrollPage(endpoint, up) {
+
+    if ( !scrollEndpoints.includes(endpoint) ) 
+        throw new Error("Invalid scroll endpoint supplied to action");
+
+    const offset = up ? 0 : window.innerHeight   
+
+    return (dispatch, getState) => {
+        if (!shouldScroll(getState(), endpoint)) return;
+        dispatch(startScroll(endpoint));
+        return getTarget(endpoint).velocity({
+            top: offset
+        }, {
+            duration: scrollDuration, 
+            easing: scrollEasing, 
+            complete: () => dispatch(endScroll(endpoint))
+        });
     }
+}
+
+function shouldScroll({status}, target) {
+    return status.currentPage !== target
+}
+
+function getTarget(endpoint) {
+    const target = $('.page-'+endpoint) // will always be 1
+    console.log($('.page-home'))
+    console.log($('.page-content'))
+    if (!target) {
+        throw new Error(`No .page-${endpoint} found`);
+    } else return target
+}
+
+function startScroll(currentPage) {
+    return {
+        type: PAGE_SCROLL_STARTED,
+        payload: currentPage
+    }
+}
+
+function endScroll(currentPage) {
+    return {
+        type: PAGE_SCROLL_ENDED,
+        payload: currentPage
+    }
+}
+
+export function scrollHeader(makeVisible) {
+    const $header = $('#header');
+    const offset = makeVisible 
+        ? 0
+        : `-${$header.height()}px`;
+    console.warn("scrolling header to", offset)
+    $header.velocity({top: offset}, {duration: 300, easing: 'ease-in', delay: 700})
+    // Velocity($header, {top: offset}, 200, 'ease-in')
 }
