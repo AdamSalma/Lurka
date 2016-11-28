@@ -1,6 +1,6 @@
-APP_INIT action HomePanel componentWillMount
+`APP_INIT` action HomePanel componentWillMount, `APP_READY` on all boardlists loaded + misc
 
-add this.displayName to components...? research
+Homepanel boardlists, providers like this: http://tympanus.net/Development/SelectInspiration/index4.html
 
 fix media
 
