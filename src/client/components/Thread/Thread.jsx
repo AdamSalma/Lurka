@@ -74,16 +74,14 @@ export default class Thread extends Component {
 
     openThread() {
         const { thread, threadWrap } = this.refs;
-
-        $(threadWrap).nanoScroller({ scroll: "top" })
-        $(threadWrap).nanoScroller({ stop: true })
+        const $threadWrap = $(threadWrap), $thread = $(thread)
+        $threadWrap.nanoScroller({ scroll: "top" })
+        $threadWrap.nanoScroller({ stop: true })
         
-        Velocity(thread, {top: "0"}, {
+        $thread.velocity({top: 0}, {
             duration: 850,
             easing: [0.25, 0.8, 0.25, 1],
-            complete: () => {
-                $(threadWrap).nanoScroller()
-            }
+            complete: () => $threadWrap.nanoScroller()
         });
     }
 
@@ -93,7 +91,7 @@ export default class Thread extends Component {
 
         $(threadWrap).nanoScroller({ stop: true })
 
-        Velocity( thread, {top: window.innerHeight + "px"}, {
+        $(thread).velocity({top: window.innerHeight+"px"}, {
             duration: 100,
             complete: () => closeThread(threadID)
         })
