@@ -12,7 +12,7 @@ import {
 } from '../actions/StatusActions';
 
 import {
-    scrollPage
+    scrollPage, scrollHeader
 } from '../actions/AnimationActions';
 
 import {
@@ -28,23 +28,20 @@ class HomePanel extends Component {
 
     render() {
         const {
-            scrollPage, fetchBoard, fetchBoardList, changeProvider,
+            scrollPage, scrollHeader, fetchBoard, fetchBoardList, changeProvider,
             status, boardList, threadIsActive
         } = this.props;
         return (
-            <div id="pages">
-                <div className="page page-home">
-                    <Header 
-                        scrollPage={scrollPage} fetchBoardList={fetchBoardList} fetchBoard={fetchBoard}
-                        statusMessage={status.statusMessage} boardList={boardList} provider={status.provider}
-                        boardID={status.boardID} threadID={status.threadID} threadIsActive={threadIsActive}
-                    />  
-                    <BoardLists 
-                        scrollPage={scrollPage} fetchBoardList={fetchBoardList} fetchBoard={fetchBoard} changeProvider={changeProvider}
-                        boardList={boardList} provider={status.provider} status={status}
-                    />
-                </div>
-                {this.props.children}
+            <div className="page page-home">
+                <Header 
+                    scrollPage={scrollPage} scrollHeader={scrollHeader} fetchBoardList={fetchBoardList} fetchBoard={fetchBoard}
+                    statusMessage={status.statusMessage} boardList={boardList} provider={status.provider} currentPage={status.currentPage}
+                    boardID={status.boardID} threadID={status.threadID} threadIsActive={threadIsActive}
+                />  
+                <BoardLists 
+                    scrollPage={scrollPage} fetchBoardList={fetchBoardList} fetchBoard={fetchBoard} changeProvider={changeProvider}
+                    boardList={boardList} provider={status.provider} status={status}
+                />
             </div>
         )
     }
@@ -62,6 +59,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         changeProvider,
         scrollPage,
+        scrollHeader,
         fetchBoardList,
         fetchBoard
     }, dispatch)
