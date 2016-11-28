@@ -2,8 +2,9 @@
 @import ./contentpanel
 
 
+// set pages offscreen
 .page 
-	width: 100vw
-	height: calc(100vh - #{$header-height})
-	position: relative
-    top: $header-height
+    +set-dims(100vw, 100vh)
+    position: fixed
+    top: 100%
+    background: $black
