@@ -1,7 +1,7 @@
 #header
     position: fixed
     +set-dims(100vw, $header-height)
-    top: 0
+    top: -$header-height  // hide on start
     left: 0
     border-bottom: 1px $primary solid
     z-index: 20
@@ -16,3 +16,6 @@
         left: 0
         right: 0
         margin: 0 auto
+
+    .searchbox
+        height: $header-height

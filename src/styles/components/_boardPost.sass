@@ -21,6 +21,10 @@
         box-shadow: white 0 0 6px
 
     
+    .image-wrap
+        user-select: none
+
+
     img
         +limit-height(225px, 50px)
         max-width: 100%
@@ -42,6 +46,8 @@
         width: 100%
         display: flex
         position: relative
+        user-select: none
+        
         ::after 
             content: ""
             border-bottom: lighten($black, 15%) solid 1px

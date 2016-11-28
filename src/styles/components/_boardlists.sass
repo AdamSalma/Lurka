@@ -1,11 +1,53 @@
 .board-lists
     width: 100vw
-    margin-top: 100px
+    margin-top: $header-height
 
     .board-lists-wrap
-        width: 600px
+        width: $header-width
+        height: 100vh
         margin: 0 auto
-        
+        display: flex
+        align-items: center
+        justify-content: center
+
+    .dropdown
+        margin-top: 0
+
     .board-list
         display: inline-block
-        margin: 20px
+        margin: 0 20px
+        width: 150px
+        transition: all .3s ease-out
+        flex: 1
+
+        .bl-placeholder
+            transition: all .2s ease-out
+            display: inline-block
+            padding: 10px 20px
+            font-size: 26px
+            color: $primary
+            font-family: $font-alt
+            font-weight: bold
+
+            &:hover
+                background: $white
+
+        .bl-content
+            display: none
+            .bl-search
+                width: 100%
+        .dropdown
+            height: 100% !important
+            width: 100% !important
+            
+
+        &.bl-active
+            width: 400px
+            height: 400px
+            position: relative
+
+            .bl-placeholder
+                display: none
+
+            .bl-content
+                display: initial !important
