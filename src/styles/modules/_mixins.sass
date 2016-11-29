@@ -10,31 +10,31 @@
 
 // Centering
 %cenH
-	left: 0
-	right: 0
+    left: 0
+    right: 0
 
 %cenV
-	top: 0
-	bottom: 0
+    top: 0
+    bottom: 0
 
 =center($width, $height)
-	width: $width
-	height: $height
-	position: absolute
-	margin: auto
-	@extend %cenH
-	@extend %cenV
+    width: $width
+    height: $height
+    position: absolute
+    margin: auto
+    @extend %cenH
+    @extend %cenV
 
 =center-horizontal($width)
-	width: $width
-	position: absolute
-	margin: 0 auto
-	@extend %cenH
+    width: $width
+    position: absolute
+    margin: 0 auto
+    @extend %cenH
 
 =center-vertical($height)
-	height: $height
-	position: relative
-	transform: translateY(-50%)
+    height: $height
+    position: relative
+    transform: translateY(-50%)
 // Centering end
 
 
