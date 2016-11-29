@@ -1,11 +1,10 @@
 .board-lists
     width: 100vw
-    margin-top: $header-height
 
     .board-lists-wrap
-        width: $header-width
         height: 100vh
-        margin: 0 auto
+        +center-horizontal($header-width)
+        top: 0
         display: flex
         align-items: center
         justify-content: center
@@ -16,11 +15,12 @@
     .board-list
         display: inline-block
         margin: 0 20px
-        width: 150px
+        position: relative
         transition: all .3s ease-out
         flex: 1
+        max-height: 50%
 
-        .bl-placeholder
+        .placeholder
             transition: all .2s ease-out
             display: inline-block
             padding: 10px 20px
@@ -32,22 +32,25 @@
             &:hover
                 background: $white
 
-        .bl-content
+        .content
             display: none
-            .bl-search
+            .searchbox
                 width: 100%
+            .search
+                width: 100%
+
         .dropdown
             height: 100% !important
             width: 100% !important
             
 
-        &.bl-active
+        &.active
             width: 400px
             height: 400px
             position: relative
 
-            .bl-placeholder
+            .placeholder
                 display: none
 
-            .bl-content
+            .content
                 display: initial !important

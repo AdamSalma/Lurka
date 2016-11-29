@@ -8,8 +8,8 @@
     cursor: pointer
     overflow: hidden
     border-radius: 4px 4px 8px 8px
-
-    box-shadow: black 2px 2px 10px
+    background: $board-post-color
+    box-shadow: $black 0 2px 10px
     padding-bottom: 10px
 
     transition: all .4s ease-in-out
@@ -35,9 +35,10 @@
     .comment-wrap
         padding-top: 6px
         position: relative
-        background: $board-color
+        background: $board-post-color
         top: 0
         transition: top .2s ease-out
+        box-shadow: $black -4px 0 4px
 
 
     /* Comments  */
