@@ -1,19 +1,39 @@
+@import ./colorfn
+
 // $primary: #9d0000
 $primary: #C62828
-$primary-dark: #3F0E0E
-$primary-light: #DB4A3B
+// $primary-dark: #3F0E0E
+// $primary-light: #DB4A3B
+$primary-dark: shade($primary, 10%)
+$primary-light: tint($primary, 10%)
+
 $white: #E9EBED
 $blue-light: #6EC4E7
 $blue: #4EADF3
 
 $green: #85d82c
 
+// $accent: complement(shade($primary, 10%))
+
 // $grey: #303030
 // $grey-light: #727272
 // $grey-dark: #1C1A1A
 // $black: #161412
-$black: #212121
-$grey-dark: #303030
-$grey: #383838
-$grey-light: #454545
-// $black: #282828
+// 
+
+@function tint-prim($color)
+    @return mix($primary, $color, 3%)
+
+$black: tint-prim(#212121)
+$grey-dark: tint-prim(#303030)
+$grey: tint-prim(#383838)
+$grey-light: tint-prim(#454545)
+
+// $black: #212121
+// $grey-dark: #302b2b
+// $grey: #403a3a
+// $grey-light: #8e8888
+
+
+// .page 
+    // background: $accent !important
