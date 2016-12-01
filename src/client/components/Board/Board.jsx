@@ -13,7 +13,7 @@ export default class Board extends Component {
             incrementAmount: 10
         }
 
-        this.onThreadFetch = this.onThreadFetch.bind(this)
+        this.onBoardPostClick = this.onBoardPostClick.bind(this)
         this.incrementBoardLimit = this.incrementBoardLimit.bind(this)
 
     }
@@ -71,16 +71,19 @@ export default class Board extends Component {
                 <BoardPost
                     key={post.id}
                     post={post} 
-                    fetchThread={this.onThreadFetch}
+                    fetchThread={this.onBoardPostClick}
                     reshuffle={createLayout}
                 />
             );
         });
     }
 
-    onThreadFetch( threadID ){
-        const { provider, boardID, fetchThread } = this.props;
-        $('.thread-wrap').nanoScroller({ stop: true })
-        fetchThread(provider, boardID, threadID);
+    onBoardPostClick( threadID ){
+        // Fetch if user not highlighting any text
+        if (!window.getSelection().toString()) {
+            const { provider, boardID, fetchThread } = this.props;
+            $('.thread-wrap').nanoScroller({ stop: true })  // hide scrollbar on thread
+            fetchThread(provider, boardID, threadID);
+        }
     }
 }
