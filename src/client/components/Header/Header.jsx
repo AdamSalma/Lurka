@@ -25,20 +25,12 @@ export default class Header extends Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        console.info("header updated")
-        const {currentPage, scrollHeader} = this.props;
-        if (prevProps.currentPage !== currentPage) {
-            scrollHeader((currentPage === "content"))
-        }
-    }
-
     render() {
-        const { scrollPage, statusMessage, currentPage } = this.props;
+        const { scrollPage, scrollHeader, statusMessage } = this.props;
         return (
             <div id="header" className="header">
                 <div className="header-content">
-                    <Logo scrollPage={scrollPage} statusMessage={statusMessage}/>
+                    <Logo scrollPage={scrollPage} statusMessage={statusMessage} scrollHeader={scrollHeader}/>
                     {this.renderStatusText()}
                     {this.renderSearchbox()}
                     {/*this.createBoardList()*/}
@@ -60,14 +52,14 @@ export default class Header extends Component {
     renderSearchbox() {
         const {threadIsActive} = this.props
         const placeholder = `Search ${threadIsActive ? "thread" : "board"} ...`
-        return <SearchBox placeholder={placeholder}/>
+        return <SearchBox placeholder={placeholder} />
     }
 
     renderStatusText() {
         const { statusMessage } = this.props;
         const statusClasses = classNames("status", {
             "status-active": !!statusMessage,
-            "fade-out": this.state.fadeOut
+            "fade-out": this.state.fadeOut  // TODO: make status message fadeout
         })
 
         return <div id="status" className={statusClasses}>
