@@ -1,7 +1,5 @@
-import React, { Component } from "react";
-
-import classNames from 'classnames';
-import Velocity from 'velocity-animate';
+import React, { Component } from "react"
+import classNames from 'classnames'
 
 class Logo extends Component {
     constructor(props) {
@@ -16,7 +14,7 @@ class Logo extends Component {
 
         return ( 
             <div 
-                id="logo" ref="logo" 
+                id="logo"
                 className={statusMessage ? "logo-rotating" : ""} 
                 onClick={this.scrollToHome}
             >
@@ -26,10 +24,12 @@ class Logo extends Component {
     }
 
     scrollToHome() {
-        const {isFullsize, scrollPage} = this.props
-        if (!isFullsize) {
-            scrollPage("content", false)  // scrolls content page away to reveal home
-        }
+        // scrolls content page away to reveal home
+        console.log("logo click");
+        const {scrollPage, scrollHeader} = this.props;
+        scrollPage("content", false)
+        scrollHeader(false)
+
     }
 }
 
