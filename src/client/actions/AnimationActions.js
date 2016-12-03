@@ -12,11 +12,13 @@ export function scrollPage(endpoint, up) {
 
     if ( !scrollEndpoints.includes(endpoint) ) 
         throw new Error("Invalid scroll endpoint supplied to action");
-
+    console.log("scrollPage");
     const offset = up ? 0 : window.innerHeight   
 
     return (dispatch, getState) => {
-        if (!shouldScroll(getState(), endpoint)) return;
+        console.log("shouldscroll?");
+        if (up && !shouldScroll(getState(), endpoint)) return;
+        console.log("yes");
         dispatch(startScroll(endpoint));
         return getTarget(endpoint).velocity({
             top: offset
@@ -34,8 +36,6 @@ function shouldScroll({status}, target) {
 
 function getTarget(endpoint) {
     const target = $('.page-'+endpoint) // will always be 1
-    console.log($('.page-home'))
-    console.log($('.page-content'))
     if (!target) {
         throw new Error(`No .page-${endpoint} found`);
     } else return target
@@ -56,11 +56,16 @@ function endScroll(currentPage) {
 }
 
 export function scrollHeader(makeVisible) {
-    const $header = $('#header');
-    const offset = makeVisible 
-        ? 0
-        : `-${$header.height()}px`;
-    console.warn("scrolling header to", offset)
-    $header.velocity({top: offset}, {duration: 300, easing: 'ease-in', delay: 700})
-    // Velocity($header, {top: offset}, 200, 'ease-in')
+    const $header = $('#header'), duration=300;
+    var delay=0, easing='ease-in', top=`-${$header.height()}px`;
+
+    if (makeVisible) {
+        delay = 700
+        top = 0
+        easing = 'ease-out'
+    }
+
+    return dispatch => {
+        return $header.velocity({top}, {duration, easing, delay})   
+    }
 }
