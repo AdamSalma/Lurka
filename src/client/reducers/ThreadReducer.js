@@ -21,12 +21,12 @@ export default function (state = initialState.thread, action) {
             })
 
         case THREAD_DESTROYED:
-            console.log(state)
-            console.log(state.history)
-            state.history[action.payload] = state.posts;
-            console.log(state.history)
+            const history = Object.assign({}, state.history, {
+                [action.payload]: state.posts
+            })
+
             return Object.assign({}, state, {
-                history: state.history,
+                history: history,
                 posts: [],
                 isActive: false
             })
