@@ -10,7 +10,8 @@ export const USER_LOADED_ARCHIVE = "USER_LOADED_ARCHIVE"
 export const SETTINGS_LOADED = "SETTINGS_LOADED"
 export const SETTINGS_SAVED = "SETTINGS_SAVED"
 
-// TODO: make APP_INIT work
+
+// TODO: APP_INIT 
 export const APP_INIT = "APP_INIT"
 
 
