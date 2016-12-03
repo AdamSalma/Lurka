@@ -6,14 +6,10 @@ import uuid from 'uuid';
 import BoardList from '../BoardList';
 
 export default class BoardLists extends Component {
-    constructor({boardList, provider, fetchBoardList}) {
+    constructor() {
         super()
         this.onBoardListClick = this.onBoardListClick.bind(this);
         this.renderProviders = this.renderProviders.bind(this);
-
-        if (!boardList) {
-            fetchBoardList(provider);
-        }
     }
 
     render() {
@@ -23,6 +19,9 @@ export default class BoardLists extends Component {
                 <button onClick={this.props.scrollPage.bind(null, "content", true)}>SCROLL</button>
                 <div className="board-lists-wrap">
                     {this.renderProviders()}
+                </div>
+                <div className="favourites">
+                    {this.renderFavourites()}
                 </div>
             </section>
         )
@@ -37,6 +36,7 @@ export default class BoardLists extends Component {
                 <BoardList 
                     provider={provider} 
                     boardList={boardList[provider]}
+                    shouldPreload={true}
                     fetchBoardList={fetchBoardList}
                     handleClick={ event => this.onBoardListClick(event, provider)}
                     key={provider}
@@ -45,12 +45,25 @@ export default class BoardLists extends Component {
         })
     }
 
+    renderFavourites(){
+        const { boardList } = this.props, provider = "favourites";
+
+        return (
+            <BoardList 
+                provider={provider} 
+                boardList={boardList[provider]}
+                shouldPreload={false}
+                handleClick={ event => this.onBoardListClick(event, provider)}
+            />
+        )
+    }
     onBoardListClick(event, provider) {
-        const {scrollPage, changeProvider, fetchBoard} = this.props;
+        const {scrollPage, scrollHeader, changeProvider, fetchBoard} = this.props;
         const boardID = event.target.getAttribute('data-value');
 
         changeProvider(provider)
         scrollPage("content", true)
+        scrollHeader(true)
         fetchBoard({boardID, provider})  // auto sets board
     }
 }
