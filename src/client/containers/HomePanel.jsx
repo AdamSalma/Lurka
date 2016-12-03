@@ -22,24 +22,21 @@ import {
 // import scroll action here
 
 class HomePanel extends Component {
-    constructor() {
-        super();
-    }
-
     render() {
         const {
             scrollPage, scrollHeader, fetchBoard, fetchBoardList, changeProvider,
             status, boardList, threadIsActive
         } = this.props;
+
         return (
             <div className="page page-home">
-                <Header 
-                    scrollPage={scrollPage} scrollHeader={scrollHeader} fetchBoardList={fetchBoardList} fetchBoard={fetchBoard}
-                    statusMessage={status.statusMessage} boardList={boardList} provider={status.provider} currentPage={status.currentPage}
-                    boardID={status.boardID} threadID={status.threadID} threadIsActive={threadIsActive}
-                />  
                 <BoardLists 
-                    scrollPage={scrollPage} fetchBoardList={fetchBoardList} fetchBoard={fetchBoard} changeProvider={changeProvider}
+                    // Actions
+                    scrollPage={scrollPage} scrollHeader={scrollHeader} 
+                    fetchBoardList={fetchBoardList} fetchBoard={fetchBoard} 
+                    changeProvider={changeProvider}
+
+                    // Status
                     boardList={boardList} provider={status.provider} status={status}
                 />
             </div>

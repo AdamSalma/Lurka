@@ -2,39 +2,35 @@ import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import Header from "../components/Header";
 import Board from "../components/Board";
 import Thread from "../components/Thread";
 
-import {
-    fetchBoard, 
-    fetchBoardList, 
-    incrementBoardLimit
-} from '../actions/BoardActions';
-
-import { 
-    fetchThread, 
-    closeThread 
-} from '../actions/ThreadActions';
-
-import { 
-    changeProvider 
-} from '../actions/StatusActions';
-
+// Actions
+import { fetchBoard, fetchBoardList, incrementBoardLimit } from '../actions/BoardActions';
+import { fetchThread, closeThread } from '../actions/ThreadActions';
+import { changeProvider } from '../actions/StatusActions';
+import { scrollPage, scrollHeader } from '../actions/AnimationActions';
 
 class ContentPanel extends Component {
     render() {
         const {
             // Actions
             fetchThread, fetchBoard, fetchBoardList, closeThread, changeProvider, 
-            incrementBoardLimit,
+            incrementBoardLimit, scrollPage, scrollHeader,
 
             // State
-            status, board, thread
+            status, board, thread, boardList
 
         } = this.props;
 
         return (
             <div className="page page-content">
+                <Header 
+                    scrollPage={scrollPage} scrollHeader={scrollHeader} fetchBoardList={fetchBoardList} fetchBoard={fetchBoard}
+                    statusMessage={status.statusMessage} boardList={boardList} provider={status.provider} currentPage={status.currentPage}
+                    boardID={status.boardID} threadID={status.threadID} threadIsActive={thread.isActive}
+                />  
                 <div className="content-overview">
                     <Board 
                         fetchBoard={fetchBoard} fetchThread={fetchThread} incrementLimit={incrementBoardLimit}
@@ -64,10 +60,12 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchBoard, 
         fetchBoardList,
-        fetchThread,
+        fetchThread, 
         closeThread,
         changeProvider,
-        incrementBoardLimit
+        incrementBoardLimit,
+        scrollPage, 
+        scrollHeader
     }, dispatch)
 }
 
