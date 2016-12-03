@@ -9,9 +9,10 @@ See the TODO's below for upcoming plans.
 ## Installation
 If you dont have [Node](https://nodejs.org/en/) or [Git](https://git-scm.com/), now would be a good time to get them. 
 ```bash
+# Clone the repository
 git clone https://github.com/AdamSalma/Lurka.git
 
-# Install dependencies
+# Enter repo and install dependencies
 cd Lurka && npm run install-all
 ```
 ## Development mode 
@@ -19,14 +20,12 @@ This will run through `localhost:3000` in your browser:
 ```bash
 npm run dev
 ```
-***Note:*** Webpack will bundle the src into memory (HMR) so make sure your computer can handle it
 
 ## Production mode
 This runs as a desktop application using Electron:
 ```bash
 npm run build && npm start
 ```
-***Note:*** Building can take a while. For consecutive runs just use `npm start`
 
 ## TODOs
 ### Content:
@@ -46,6 +45,7 @@ npm run build && npm start
 - [x] Posts display "time ago" since creation
 - [x] Relatively awesome logo
 - [ ] Images can be fullscreened
+- [x] Homepage
 
 ### Functionality:
 - [ ] Be able to submit the creation of a thread or post
@@ -87,7 +87,8 @@ Less of a priority until things actually work!
 - [ ] Reducers
   - [ ] Content
   - [ ] Settings
-  - [ ] Status  
+  - [ ] Status
+- [x] Constants
   
 #### Backend
 - [ ] Routes
