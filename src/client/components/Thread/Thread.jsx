@@ -75,6 +75,8 @@ export default class Thread extends Component {
     openThread() {
         const { thread, threadWrap } = this.refs;
         const $threadWrap = $(threadWrap), $thread = $(thread)
+
+        // Must have separate invocations
         $threadWrap.nanoScroller({ scroll: "top" })
         $threadWrap.nanoScroller({ stop: true })
         
