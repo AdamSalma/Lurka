@@ -1,19 +1,15 @@
 import Axios from 'axios';
 import {
-    PROVIDER_CHANGE, 
-
-    FILTER_BOARD,
-    FILTER_THREAD,
-    
-    SERACH_BOARD,
-    SEARCH_THREAD,
-    
+    PROVIDER_CHANGE,
+    FILTER_BOARD, FILTER_THREAD,
+    SERACH_BOARD, SEARCH_THREAD,
     STATUS_UPDATE
 } from '../constants';
+// TODO: Filter + Search actions
 
 export function changeProvider( provider ) {
     return (dispatch, getState) => {
-        if (getState().status.provider !== provider) {
+        if (shouldChangeProvider(getState(), provider)) {
             console.info("Action changeProvider() to " + provider);
             dispatch({
                 type: PROVIDER_CHANGE,
@@ -23,10 +19,22 @@ export function changeProvider( provider ) {
     }   
 }
 
+function shouldChangeProvider( {status}, provider) {
+    return status.provider !== provider
+}
+
 export function statusMessage( message='' ) {
-    console.info(`Action updateStatusMessage(): ${message}`);
+    console.info(`Action statusMessage(): ${message}`);
     return {
         type: STATUS_UPDATE,
         payload: message
     }   
+}
+
+export function clearStatus() {
+    console.info(`Action clearStatus()`);
+    return {
+        type: STATUS_UPDATE,
+        payload: ""
+    }
 }

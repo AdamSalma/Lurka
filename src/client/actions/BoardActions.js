@@ -13,7 +13,7 @@ import {
     BOARD_LIST_REQUESTED,
     BOARD_LIST_LOADED
 } from '../constants';
-import {statusMessage} from './StatusActions'
+import {statusMessage, clearStatus} from './StatusActions'
 
 function requestBoard(boardID) {
     return {
@@ -87,7 +87,7 @@ export function fetchBoard({ provider, boardID }) {
                 .then(data => {
                     dispatch(receiveBoard(data))
                     dispatch(setBoard(boardID))
-                    dispatch(statusMessage())
+                    dispatch(clearStatus())
                 })
                 .catch( err => {
                     console.error(err)

@@ -6,7 +6,7 @@ import {
     THREAD_SCROLLED_BOTTOM,
     THREAD_CHANGE
 } from '../constants';
-import {statusMessage} from './StatusActions'
+import {statusMessage, clearStatus} from './StatusActions'
 
 function requestThread(threadID) {
 	console.log("Action RequestThread wth ID:", threadID);
@@ -32,7 +32,7 @@ export function fetchThread(provider, boardID, threadID) {
         dispatch(requestThread(threadID));
         return Axios.get(`/api/${provider}/${boardID}/${threadID}`)
             .then(data => {
-                dispatch(statusMessage())
+                dispatch(clearStatus())
                 dispatch(receiveThread(data))
             })
             .catch( e => console.error(e));
