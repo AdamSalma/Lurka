@@ -7,16 +7,17 @@ import Dropdown from '../Dropdown';
 import SearchBox from '../SearchBox';
 
 export default class BoardList extends Component {
-    constructor({boardList, provider, fetchBoardList}) {
+    constructor({shouldPreload, boardList, provider, fetchBoardList}) {
         super()
         this.handleKeyUp = this.handleKeyUp.bind(this)
         this.renderBoardList = this.renderBoardList.bind(this)
+        this.toggleBoardList = this.toggleBoardList.bind(this)
 
         this.state = {
             keyword: ''
         }
 
-        if (!boardList) {
+        if (shouldPreload && !boardList) {
             fetchBoardList(provider);
         }
     }
@@ -41,6 +42,7 @@ export default class BoardList extends Component {
                         className="search"
                         onKeyUp={this.handleKeyUp}
                         placeholder={`Search ${provider}`}
+                        onClick={ e => e.stopPropagation()}
                     />
                     <Dropdown 
                         className={provider}
@@ -61,7 +63,8 @@ export default class BoardList extends Component {
 
     toggleBoardList(event) {
         console.log("clicked on boardlist");
-        $(event.target).closest('.board-list').toggleClass('bl-active')
+        $(event.target).closest('.board-list').toggleClass('active')
+        this.forceUpdate()
     }
 
     renderDropdownChildren(boardList) {
@@ -70,8 +73,8 @@ export default class BoardList extends Component {
             ({description}) => 
                 description.toLowerCase().includes(this.state.keyword)
         )
-        return boards.map( ({boardID, description}) => (
-            <div key={uuid.v4()} data-value={boardID}>
+        return boards.map( ({boardID, description}, index) => (
+            <div key={uuid.v4()} data-value={boardID} data-index={index}>
                 {description}
             </div>
         ));
