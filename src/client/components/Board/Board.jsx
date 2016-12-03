@@ -57,13 +57,6 @@ export default class Board extends Component {
         );
     }
 
-    incrementBoardLimit() {
-        const { incrementLimit, board } = this.props
-        const newValue = this.props.board.limit + this.state.incrementAmount
-        console.log('End of board. newValue:' + newValue)
-        incrementLimit(newValue)    
-    }
-
     createThreads() {
         const { posts, limit } = this.props.board;
         return posts.slice(0, limit).map( post => {
@@ -77,6 +70,14 @@ export default class Board extends Component {
             );
         });
     }
+    
+    incrementBoardLimit() {
+        const { incrementLimit, board } = this.props
+        const newValue = this.props.board.limit + this.state.incrementAmount
+        console.log('End of board. newValue:' + newValue)
+        incrementLimit(newValue)    
+    }
+
 
     onBoardPostClick( threadID ){
         // Fetch if user not highlighting any text
