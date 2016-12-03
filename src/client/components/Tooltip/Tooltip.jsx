@@ -44,7 +44,6 @@ export default class Tooltip extends Component {
     }
 }
 
-
 Tooltip.defaultProps = {
     className: ''
 }
