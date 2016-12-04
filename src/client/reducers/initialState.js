@@ -6,7 +6,7 @@ export default {
 
 		statusMessage: "",  // reveal status to user
 
-		providers: ["4chan", "reddit", "imgur"],
+		providers: ["4chan", "reddit"],
 		provider: "4chan",
 		boardID: "g",
 		threadID: null,
