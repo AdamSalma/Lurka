@@ -1,5 +1,3 @@
-@import ./colorfn
-
 // $primary: #9d0000
 $primary: #C62828
 // $primary-dark: #3F0E0E
@@ -21,13 +19,14 @@ $green: #85d82c
 // $black: #161412
 // 
 
-@function tint-prim($color)
-    @return mix($primary, $color, 3%)
 
-$black: tint-prim(#212121)
-$grey-dark: tint-prim(#303030)
-$grey: tint-prim(#383838)
-$grey-light: tint-prim(#454545)
+@function mix-prim($color)
+    @return mix($primary, $color, 2%)
+
+$black: mix-prim(#212121)
+$grey-dark: mix-prim(#303030)
+$grey: mix-prim(#383838)
+$grey-light: mix-prim(#454545)
 
 // $black: #212121
 // $grey-dark: #302b2b
