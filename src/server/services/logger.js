@@ -1,9 +1,9 @@
 'use strict'
-
 var clc = require('cli-color');
 var moment = require('moment');
 
-var loggerWidth = 109
+var config = 'H:mm'
+var loggerWidth = 108
 
 module.exports = {
     info: function(msg) {
@@ -24,7 +24,7 @@ module.exports = {
 }
 
 function getTime(){
-    return moment().format('H:mm:ss')
+    return moment().format(config)
 }
 
 function getPath(){
