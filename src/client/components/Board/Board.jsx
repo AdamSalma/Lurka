@@ -48,10 +48,16 @@ export default class Board extends Component {
     }
 
     render() {
+        const {provider, boardID} = this.props
         return (
             <div id="board" className="board nano" ref='board'>
                 <div className="nano-content">
-                    {this.createThreads()}
+                    <div className="board-header">
+                        <h1>{`${provider} -> /${boardID}/`}</h1>
+                    </div>
+                    <div className="posts">
+                        {this.createThreads()}
+                    </div>
                 </div>
             </div>
         );

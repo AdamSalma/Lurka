@@ -1,6 +1,6 @@
 var colCount, colWidth, outerMargin, $items, windowWidth
 
-var margin = 20
+var margin = 30
 var blocks = []
 
 $(window).resize(setupBlocks)
