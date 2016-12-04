@@ -56,3 +56,8 @@
     min-height: $h
     width: $w
     height: $h
+
+=gradient($color)
+    $tint: tint($color)
+    background: $color
+    background: linear-gradient(to bottom, $tint, $color, $tint)
