@@ -7,9 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - Added support for reddit board lists
+- New homepage layout
+- Added Header scrolling in/out of view when board/thread scrolled
+
+### Changed
+- Changed text highlighting color to primary
+- Changed UI of replies on board posts
 
 ### Fixed
-- Fix thread controls positioned incorrectly
+- Fixed thread post controls incorrectly positioned
+- Fixed board post text highlighting triggering a fetch
+
 
 ## v0.8.0
 ### Added
