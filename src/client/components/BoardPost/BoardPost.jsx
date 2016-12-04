@@ -15,6 +15,7 @@ export default class BoardPost extends Component {
 
         this.scrollPostUp = this.scrollPostUp.bind(this)
         this.scrollPostDown = this.scrollPostDown.bind(this)
+        this.hideImage = this.hideImage.bind(this)
     }
 
     render() {
@@ -30,8 +31,8 @@ export default class BoardPost extends Component {
                 onMouseEnter={this.scrollPostUp}
                 onMouseLeave={this.scrollPostDown}
             >
-                <div className="image-wrap" ref="image">   
-                    <img src={imgsrc.sm} onLoad={reshuffle}/>
+                <div className="image-wrap">   
+                    <img ref="image" src={imgsrc.sm} onLoad={reshuffle} onError={this.hideImage}/>
                 </div>   
                 <div className="comment-wrap clearfix" ref="comment">
                     <div className="counters">
@@ -78,5 +79,9 @@ export default class BoardPost extends Component {
     scrollPostDown(){
         if (this.state.isMovable) 
             Velocity(this.refs.comment, {top: 0}, 200)
+    }
+
+    hideImage() {
+        this.refs.image.classList.add('hidden')
     }
 }
