@@ -5,35 +5,42 @@ var $thread;
 export function setupQuoteEvents(thread) {
     if (!$thread) $thread = $(thread);
 
-    $thread.on('click mouseenter mouseleave', '.quotelink', function(event) {
+    $thread.on('click mouseenter mousemove mouseleave', '.quotelink', function(event) {
         event.stopPropagation();
 
         switch (event.type) {
             case 'click':
-                handleClick(event);
-                break
+                return handleClick(event);
             case 'mouseenter':
+                return createTooltip(event);
             case 'mouseleave':
-                handleHover(event);
-                break
+                return destroyTooltip(event);
             default:
-                throw new Error(`Quote Event not caught: ${event.type}`)
+                // throw new Error(`Uncaught event: ${event.type}`)
+                console.error("mousemove")
         }
 
         return false
     })
 }
 
-
-function handleHover(event) {
-    console.warn("Hey there mr thread quote! type="+event.type)
+function createTooltip(event) {
+    console.log(event);
+    const href = event.target.getAttribute('href');
+    const $post = $thread.find(href);
 }
+
+function destroyTooltip(event) {
+
+}
+
 
 function handleClick({ target }){
     let href = target.getAttribute('href')
     if (/\/[a-z]/i.test(href)) {
         // newThreadRequest()
         // href has letters; should have numbers only
+        console.warn("href has letters handle this")
     } else {
         console.log("scrolling to post");
         scrollToPost(href)
