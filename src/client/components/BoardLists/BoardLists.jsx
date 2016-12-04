@@ -15,8 +15,6 @@ export default class BoardLists extends Component {
     render() {
         return (
             <section className="board-lists">
-                <h3>Choose your provider:</h3>
-                <button onClick={this.props.scrollPage.bind(null, "content", true)}>SCROLL</button>
                 <div className="board-lists-wrap">
                     {this.renderProviders()}
                 </div>
