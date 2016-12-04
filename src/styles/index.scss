@@ -1,15 +1,21 @@
 /* Vendor */
-@import "vendor/all.sass";
+@import "vendor/all";
 
-/* Core */
-@import "themes/dark2.sass";
-@import "modules/all.sass";
+/* Modules */
+@import "functions";
+@import "themes/dark2";
+@import "animations";
+@import "mixins";
+@import "variables";
+@import "classes";
+
+@import "typography";
 
 /* Foundation */
-@import "base.sass";
+@import "base";
 
 /* Components */
-@import "components/all.sass";
+@import "components/all";
 
 /* Containers */
-@import "containers/all.sass";
+@import "containers/all";

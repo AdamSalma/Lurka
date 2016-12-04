@@ -19,10 +19,16 @@
     &:hover
         transition: box-shadow .2s ease-out
         box-shadow: white 0 0 6px
+        .counters
+            opacity: 1
+
+            > div
+                border-color: $grey
 
     
     .image-wrap
         user-select: none
+        position: relative
 
 
     img
@@ -41,27 +47,6 @@
         box-shadow: $black -4px 0 4px
 
 
-    /* Comments  */
-    .count
-        text-align: center
-        width: 100%
-        display: flex
-        position: relative
-        user-select: none
-        
-        ::after 
-            content: ""
-            border-bottom: lighten($black, 15%) solid 1px
-            +center-horizontal(80%)
-            bottom: -2px
-
-
-        > span
-            flex: 1
-
-        .mdi
-            margin-right: 4px
-
     .op
         padding: 0 15px
         width: 100%
@@ -75,13 +60,47 @@
         color: $white !important
         text-decoration: none
 
-    
-    // Icons
+
+    /* Counters + Icons */
+    .counters
+        position: absolute
+        text-align: right
+        top: -27px
+        right: 0
+        user-select: none
+        opacity: 0.4
+        transition: opacity .3s
+        
+        ::after 
+            content: ""
+            +center-horizontal(80%)
+            border-bottom: lighten($black, 15%) solid 1px
+            bottom: -2px
+
+        > div
+            line-height: 25px
+            padding: 0 6px
+            margin-left: 2px
+            color: $black
+            background: $white
+
+            transition: border-color .3s
+            border: $white solid 1px
+            border-bottom: none
+            border-radius: 2px 2px 0 0
+
+
+        .counter
+            display: inline
+            font-weight: bold
+            
     .mdi 
+        margin-right: 4px
         font-size: 18px
 
     .mdi-comment-text
         color: $primary-light
 
-    .mdi-message-image
+    .mdi-image-filter-hdr
         color: $blue-light
+

@@ -2,9 +2,8 @@
     width: 100vw
 
     .board-lists-wrap
-        height: 100vh
-        +center-horizontal($header-width)
-        top: 0
+        +center-horizontal(684px)
+        top: 311px  // like google!
         display: flex
         align-items: center
         justify-content: center
@@ -14,11 +13,9 @@
 
     .board-list
         display: inline-block
-        margin: 0 20px
         position: relative
         transition: all .3s ease-out
         flex: 1
-        max-height: 50%
 
         .placeholder
             transition: all .2s ease-out

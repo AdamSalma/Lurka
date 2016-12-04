@@ -1,25 +1,20 @@
 .dropdown
-    // height: 40px
-    height: 150px
-    overflow: hidden
-    transition: all .3s ease-out
-    margin-top: 10px
-    scroll-snap-type: mandatory
-    scroll-snap-destination: 0% 100%;
-    scroll-snap-points-y: repeat(100%);
-
-    .item
-        background-color: $grey-dark
+    width: 100%
+    
+    span.item
         color: $white
+        width: 100%
 
         > *
+            width: 100%
+            background-color: $grey-dark
             border-bottom: $grey solid 2px
             padding: 8px 15px
-
-        &:hover
-            background-color: lighten($grey-dark, 10%)
             cursor: pointer
 
+        &:hover
+            > *
+                background-color: $grey
+
     &:hover
-        overflow-y: scroll
         height: 250px
