@@ -11,10 +11,9 @@ export function parseBoardList(boardList) {
 
     return boards.map(({url, title}) => {
         let boardID = url.split('/').slice(-2)[0]
-        console.log(boardID)
         return {
             boardID,
-            description: `${url} - ${title}`
+            description: `/${boardID}/ - ${title}`
         }
     });
 }
