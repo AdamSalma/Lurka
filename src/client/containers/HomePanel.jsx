@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 
 import Velocity from 'velocity-animate';
 
-import Header from "../components/Header";
+import Logo from "../components/Logo";
 import BoardLists from "../components/BoardLists";
+import Elipses from "../components/Elipses";
 
 import {
     changeProvider
@@ -22,6 +23,11 @@ import {
 // import scroll action here
 
 class HomePanel extends Component {
+    constructor(props) {
+        super(props);
+        this.countLoading = this.countLoading.bind(this)
+    }
+
     render() {
         const {
             scrollPage, scrollHeader, fetchBoard, fetchBoardList, changeProvider,
@@ -30,6 +36,8 @@ class HomePanel extends Component {
 
         return (
             <div className="page page-home">
+                <Logo />
+                {this.countLoading()}
                 <BoardLists 
                     // Actions
                     scrollPage={scrollPage} scrollHeader={scrollHeader} 
@@ -41,6 +49,19 @@ class HomePanel extends Component {
                 />
             </div>
         )
+    }
+
+    countLoading(){
+        const {boardList, status: {providers}} = this.props
+        const todo = providers.filter( provider => {
+            return !(boardList[provider] && boardList[provider].length)
+        })
+
+        if (todo.length) {
+            const text = `Loading ${todo.join(', ')}`
+            return <Elipses text={text} interval={200} maxDots={3} />
+        } else return <h3>Select a provider:</h3>
+
     }
 }
 
