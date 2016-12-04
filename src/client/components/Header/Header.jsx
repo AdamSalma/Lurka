@@ -30,7 +30,7 @@ export default class Header extends Component {
         return (
             <div id="header" className="header">
                 <div className="header-content">
-                    <Logo scrollPage={scrollPage} statusMessage={statusMessage} scrollHeader={scrollHeader}/>
+                    <Logo />
                     {this.renderStatusText()}
                     {this.renderSearchbox()}
                     {/*this.createBoardList()*/}
