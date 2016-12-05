@@ -61,7 +61,6 @@ export default class BoardLists extends Component {
 
         changeProvider(provider)
         scrollPage("content", true)
-        scrollHeader(true)
         fetchBoard({boardID, provider})  // auto sets board
     }
 }

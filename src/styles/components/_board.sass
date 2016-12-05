@@ -1,8 +1,6 @@
 #board
     position: relative
-    height: calc(100vh - #{$header-height})
-    width: 100vw
-    // margin-top: $header-height
+    +set-dims(100vw, 100vh)
     background: $board-color
 
     .nano-pane
