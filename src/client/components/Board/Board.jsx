@@ -26,6 +26,7 @@ export default class Board extends Component {
         // Board scroller
         $board.nanoScroller({ sliderMaxHeight: 400, sliderMinHeight: 60 })
 
+        $board.onscroll
         // Hover over board posts reveals more info
         createLayout()
         catchTooltip(board);  // TODO: Implement catchtooltip on board
@@ -50,7 +51,7 @@ export default class Board extends Component {
     render() {
         const {provider, boardID} = this.props
         return (
-            <div id="board" className="board nano" ref='board'>
+            <div id="board" className="board nano" ref='board' onScroll={this.handleScroll}>
                 <div className="nano-content">
                     <div className="board-header">
                         <h1>{`${provider} -> /${boardID}/`}</h1>
@@ -92,5 +93,9 @@ export default class Board extends Component {
             $('.thread-wrap').nanoScroller({ stop: true })  // hide scrollbar on thread
             fetchThread(provider, boardID, threadID);
         }
+    }
+
+    handleScroll(event) {
+        console.log(event)
     }
 }
