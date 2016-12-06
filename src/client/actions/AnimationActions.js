@@ -1,7 +1,8 @@
 import Velocity from 'velocity-animate'
 import {
 	PAGE_SCROLL_STARTED,
-	PAGE_SCROLL_ENDED
+	PAGE_SCROLL_ENDED,
+    SCROLL_HEADER
 } from '../constants'
 
 const scrollEndpoints = ["content", "settings"]  // "home" is immovable
@@ -12,17 +13,17 @@ export function scrollPage(endpoint, up) {
 
     if ( !scrollEndpoints.includes(endpoint) ) 
         throw new Error("Invalid scroll endpoint supplied to action");
-    console.log("scrollPage");
-    const offset = up ? 0 : window.innerHeight   
+
+    const top = up ? 0 : window.innerHeight   
+    const $target = getTarget(endpoint)
 
     return (dispatch, getState) => {
-        console.log("shouldscroll?");
         if (up && !shouldScroll(getState(), endpoint)) return;
-        console.log("yes");
+
+        $target.velocity("stop");
         dispatch(startScroll(endpoint));
-        return getTarget(endpoint).velocity({
-            top: offset
-        }, {
+
+        return $target.velocity({top}, {
             duration: scrollDuration, 
             easing: scrollEasing, 
             complete: () => dispatch(endScroll(endpoint))
@@ -55,17 +56,39 @@ function endScroll(currentPage) {
     }
 }
 
-export function scrollHeader(makeVisible) {
+export function scrollHeader(toVisible, delay) {
     const $header = $('#header'), duration=300;
-    var delay=0, easing='ease-in', top=`-${$header.height()}px`;
+    var 
+        delay = delay||0, 
+        easing='ease-in', 
+        top=`-${$header.height()}px`;
 
-    if (makeVisible) {
-        delay = 700
+    if (toVisible) {
         top = 0
         easing = 'ease-out'
     }
 
-    return dispatch => {
-        return $header.velocity({top}, {duration, easing, delay})   
+
+    return (dispatch, getState) => {
+        if (shouldScrollHeader(getState(), toVisible)){
+            $header.velocity("stop");
+            dispatch(headerScroll(toVisible))
+            return $header.velocity(
+                {top}, 
+                {duration, easing, delay}
+            )
+        }
     }
 }
+
+function headerScroll(toVisible) {
+    return {
+        type: SCROLL_HEADER,
+        payload: toVisible
+    }
+}
+
+function shouldScrollHeader({status:{ isHeaderVisible }}, toVisible) {    
+    return isHeaderVisible !== toVisible 
+}
+
