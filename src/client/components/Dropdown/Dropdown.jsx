@@ -25,12 +25,12 @@ export default class Dropdown extends Component {
     }
 
     render () {
-        const {items, className, handleClick} = this.props;
+        const {items, className, onClick} = this.props;
         const classes = classNames(className, "nano");
 
         return (
             <div ref="dropdown" className={classes}>
-                <div className="dropdown nano-content" onClick={handleClick}>
+                <div className="dropdown nano-content" onClick={onClick}>
                     {items.map( item => 
                         <span key={uuid.v4()} className="item">
                             {item}
@@ -43,6 +43,6 @@ export default class Dropdown extends Component {
 } 
 
 Dropdown.defaultProps = {
-    scrollOpts: {},
+    scrollOpts: {sliderMinHeight: 50},
     items: []
 }
