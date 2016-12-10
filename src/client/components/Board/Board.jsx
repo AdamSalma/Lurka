@@ -10,13 +10,25 @@ export default class Board extends Component {
     constructor({ board, boardID, provider, fetchBoard }) {
         super();
         this.state = {
-            incrementAmount: 10
+            incrementPostsBy: 10,
+            scrollThrottle: 250,  // ms
+            headerHeight: 60,  // Beware if header height changes
+            canLoadMorePosts: true
         }
 
         this.onBoardPostClick = this.onBoardPostClick.bind(this)
-        this.incrementBoardLimit = this.incrementBoardLimit.bind(this)
+        this.loadMorePosts = this.loadMorePosts.bind(this)
+
+        this.handleScroll = this.handleScroll.bind(this)
+        this.checkIfScrolled = this.checkIfScrolled.bind(this)
+
+        this.previousScrollTop = 0
+        this.didScroll = false
+        this.limiter = 12
+        this._interval = setInterval(this.checkIfScrolled, this.state.scrollThrottle)
 
     }
+
 
     componentDidMount() {
         const { board } = this.refs
@@ -26,37 +38,33 @@ export default class Board extends Component {
         // Board scroller
         $board.nanoScroller({ sliderMaxHeight: 400, sliderMinHeight: 60 })
 
-        $board.onscroll
         // Hover over board posts reveals more info
         createLayout()
         catchTooltip(board);  // TODO: Implement catchtooltip on board
-
-        $board.on('scrollend', this.incrementBoardLimit)
     }
-
 
     componentDidUpdate({ board }) {
         if (board.posts.length !== this.props.board.posts.length) {
             createLayout()
             const $board = $(this.refs.board)
             $board.nanoScroller()
-            $board.on('scrollend', this.incrementBoardLimit)
         }
     }
 
     componentWillUnmount() {
-        $(this.refs.board).off('hover scrollend');
+        clearInterval(this._interval)
+        $(this.refs.board).off('hover');
     }
 
     render() {
         const {provider, boardID} = this.props
         return (
-            <div id="board" className="board nano" ref='board' onScroll={this.handleScroll}>
-                <div className="nano-content">
+            <div id="board" className="board nano" ref='board' onScroll={()=>{this.didScroll = true}}>
+                <div className="nano-content" ref="content">
                     <div className="board-header">
-                        <h1>{`${provider} -> /${boardID}/`}</h1>
+                        <h1>{`${provider}: /${boardID}/`}</h1>
                     </div>
-                    <div className="posts">
+                    <div className="posts" ref="posts">
                         {this.createThreads()}
                     </div>
                 </div>
@@ -78,10 +86,9 @@ export default class Board extends Component {
         });
     }
     
-    incrementBoardLimit() {
+    loadMorePosts() {
         const { incrementLimit, board } = this.props
-        const newValue = this.props.board.limit + this.state.incrementAmount
-        console.log('End of board. newValue:' + newValue)
+        const newValue = this.props.board.limit + this.state.incrementPostsBy
         incrementLimit(newValue)    
     }
 
@@ -90,12 +97,40 @@ export default class Board extends Component {
         // Fetch if user not highlighting any text
         if (!window.getSelection().toString()) {
             const { provider, boardID, fetchThread } = this.props;
-            $('.thread-wrap').nanoScroller({ stop: true })  // hide scrollbar on thread
+            $('.thread-wrap').nanoScroller({ stop: true })  // hide scrollbar on thread 
             fetchThread(provider, boardID, threadID);
         }
     }
 
-    handleScroll(event) {
-        console.log(event)
+    checkIfScrolled(event) {
+        if (this.didScroll) {
+            this.handleScroll(event)
+            this.didScroll = false
+        }
+    }
+
+    handleScroll() {
+        // Check scroll position and toggle header accordingly
+
+        const 
+            {scrollTop} = this.refs.content,
+            {scrollHeight} = this.refs.posts,
+            {headerHeight, canLoadMorePosts} = this.state, 
+            canShowHeader = !(scrollTop > this.previousScrollTop && scrollTop > headerHeight),
+            closeToBottom = scrollTop > (scrollHeight - 500);
+
+        console.log(`st: ${scrollTop}, scrolled down: ${scrollTop > this.previousScrollTop}`)
+        this.props.scrollHeader(canShowHeader, 0);
+        this.previousScrollTop = scrollTop
+
+        console.info(`scrollHeight: ${scrollHeight}, closeToBottom: ${closeToBottom}`)
+
+        if (closeToBottom && canLoadMorePosts) {
+            this.setState({canLoadMorePosts: false})
+            this.loadMorePosts()
+            setTimeout(() => this.setState({canLoadMorePosts: false}), 2000)
+            
+        }
+
     }
 }
