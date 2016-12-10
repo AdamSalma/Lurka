@@ -55,6 +55,7 @@ export default class Thread extends Component {
                     closeBackground={this.closeThread}/>
                 <div ref='threadWrap' className={threadWrapClasses}>
                     <div id="thread" className="thread nano-content" ref="thread">
+                        <div className="header-gap"></div>
                         {this.createPosts( posts )}
                     </div>
                 </div>
