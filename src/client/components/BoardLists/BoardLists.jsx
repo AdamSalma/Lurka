@@ -3,64 +3,82 @@ import React, { Component } from "react";
 import classNames from 'classnames';
 import uuid from 'uuid';
 
+import Icon from '../Icon';
 import BoardList from '../BoardList';
+import SearchBox from '../SearchBox';
 
 export default class BoardLists extends Component {
-    constructor() {
-        super()
-        this.onBoardListClick = this.onBoardListClick.bind(this);
-        this.renderProviders = this.renderProviders.bind(this);
+    constructor(props) {
+        super(props);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
+
+        this.state = {
+            searchPhrase: ''
+        }
     }
 
     render() {
         return (
-            <section className="board-lists">
-                <div className="board-lists-wrap">
-                    {this.renderProviders()}
+            <div className="boardlists">
+                <div className="boards">
+                    <div className="searchbar">
+                        <Icon className="mdi mdi-arrow-left"/>
+                        <SearchBox 
+                            onKeyUp={this.handleKeyUp} 
+                            placeholder={`Search...`}
+                        />
+                        <Icon className="mdi mdi-magnify"/>
+                    </div>
+                    {this.renderBoardLists()}
                 </div>
-                <div className="favourites">
-                    {this.renderFavourites()}
+                <div className="description">
+                    {this.renderDescription()}
                 </div>
-            </section>
+            </div>
         )
     }
 
-    renderProviders() {
-        const { fetchBoardList, status, boardList } = this.props;
-        const { providers } = status;
-
-        return providers.map( provider => {
-            return (
-                <BoardList 
-                    provider={provider} 
-                    boardList={boardList[provider]}
-                    shouldPreload={true}
-                    fetchBoardList={fetchBoardList}
-                    handleClick={ event => this.onBoardListClick(event, provider)}
-                    key={provider}
-                />
-            )
+    renderDescription() {
+        const {boardList, status: {providers}} = this.props
+        const remaining = providers.filter( provider => {
+            return !(boardList[provider] && boardList[provider].length)
         })
+
+        if (!remaining.length) {
+            return (
+                <h3>Select a lurk zone</h3>
+            )
+        }
     }
 
-    renderFavourites(){
-        const { boardList } = this.props, provider = "favourites";
+    renderBoardLists() {
+        const { fetchBoardList, boardList, status:{ providers } } = this.props;
+        const { searchPhrase } = this.state
 
-        return (
+        return providers.map( provider => 
             <BoardList 
+                shouldPreload={true}
+                searchPhrase={searchPhrase}
                 provider={provider} 
                 boardList={boardList[provider]}
-                shouldPreload={false}
-                handleClick={ event => this.onBoardListClick(event, provider)}
+                fetchBoardList={fetchBoardList}
+                onClick={ event => this.handleClick(event, provider)}
+                key={provider}
             />
         )
     }
-    onBoardListClick(event, provider) {
+
+    handleKeyUp(event) {
+        const searchPhrase = event.target.value.toLowerCase()
+        this.setState({searchPhrase})
+    }
+
+    handleClick(event, provider) {
         const {scrollPage, scrollHeader, changeProvider, fetchBoard} = this.props;
         const boardID = event.target.getAttribute('data-value');
 
         changeProvider(provider)
-        scrollPage("content", true)
-        fetchBoard({boardID, provider})  // auto sets board
+        scrollPage("content", true)  // true = "show" content page
+        fetchBoard({boardID, provider})
     }
 }
