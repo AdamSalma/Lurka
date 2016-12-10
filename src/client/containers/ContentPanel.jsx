@@ -33,7 +33,7 @@ class ContentPanel extends Component {
                 />  
                 <div className="content-overview">
                     <Board 
-                        fetchBoard={fetchBoard} fetchThread={fetchThread} incrementLimit={incrementBoardLimit}
+                        fetchBoard={fetchBoard} fetchThread={fetchThread} incrementLimit={incrementBoardLimit} scrollHeader={scrollHeader}
                         board={board} provider={status.provider} boardID={status.boardID} isFetching={board.isFetching}
                     />
                 </div>

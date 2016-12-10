@@ -60,7 +60,7 @@ class HomePanel extends Component {
         if (todo.length) {
             const text = `Loading ${todo.join(', ')}`
             return <Elipses text={text} interval={200} maxDots={3} />
-        } else return <h3>Select a provider:</h3>
+        } else return <h3>Select a provider</h3>
 
     }
 }
