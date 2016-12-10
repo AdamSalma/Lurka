@@ -44,6 +44,8 @@ export const REMOVE_FILTER = "REMOVE_FILTER"
 export const SEARCH_THREAD = "SEARCH_THREAD"
 export const SERACH_BOARD = "SERACH_BOARD"
 export const STATUS_UPDATE = "STATUS_UPDATE"
+export const SCROLL_HEADER = "SCROLL_HEADER"
+
 
 
 /* Animations */

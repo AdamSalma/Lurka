@@ -121,4 +121,8 @@ describe('Constants', () => {
     expect(consts.PAGE_SCROLL_ENDED).toEqual('PAGE_SCROLL_ENDED');
   });
 
+  it('contains SCROLL_HEADER', () => {
+    expect(consts.SCROLL_HEADER).toEqual('SCROLL_HEADER');
+  });
+
 });
