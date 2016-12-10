@@ -69,16 +69,11 @@ export default class BoardPost extends Component {
             const height = imgHeight/1.5 // 3/4 of image height
             const distance = offScreenAmount < height ? offScreenAmount : height
             Velocity(comment, {top: `-${distance}px`}, 200, "ease-out")
-            this.setState({
-                isMovable: true
-            })
-
         }
     }
  
     scrollPostDown(){
-        if (this.state.isMovable) 
-            Velocity(this.refs.comment, {top: 0}, 200)
+        Velocity(this.refs.comment, {top: 0}, 200)
     }
 
     hideImage() {
