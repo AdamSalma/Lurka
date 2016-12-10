@@ -2,7 +2,8 @@ export default {
 	status: {
 		isScrolling: false,  // app scroll
 		currentPage: "home", // currentPage
-		headerIsVisible: false,  // if currentPage == "content"
+		isHeaderVisible: false,  // if currentPage == "content"
+
 
 		statusMessage: "",  // reveal status to user
 

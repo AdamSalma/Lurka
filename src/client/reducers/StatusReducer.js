@@ -9,6 +9,8 @@ import {
     PROVIDER_CHANGE,
     BOARD_CHANGE,
 
+    SCROLL_HEADER,
+
     THREAD_REQUESTED,
     BOARD_REQUESTED,
 } from '../constants';
@@ -31,6 +33,11 @@ export default function (state = initialState.status, action) {
             return Object.assign({}, state, {
                 isScrolling: false,
                 currentPage: action.payload
+            })
+
+        case SCROLL_HEADER:
+            return Object.assign({}, state, {
+                isHeaderVisible: action.payload
             })
 
         case PROVIDER_CHANGE:
