@@ -17,7 +17,7 @@ import {
 
 
 const mock = new MockAdapter(Axios)
-mock.onAny('/provider').reply(200);
+mock.onAny('/api').reply(200);
 
 // Test vars
 const dispatch = expect.createSpy();
@@ -29,7 +29,7 @@ describe('Actions', () => {
   it('creates BOARD_LIST_REQUESTED action', () => {
     const fn = fetchBoardList( provider );
     expect(fn).toBeA('function');
-    const getState = () => ({ provider: '4chanddd' });
+    const getState = () => ({ provider: '4chan' });
     fn(dispatch, getState);
     expect(dispatch).toHaveBeenCalledWith({ type: BOARD_LIST_REQUESTED });
   });
