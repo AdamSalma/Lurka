@@ -13,7 +13,8 @@ export default class Board extends Component {
             incrementPostsBy: 10,
             scrollThrottle: 250,  // ms
             headerHeight: 60,  // Beware if header height changes
-            canLoadMorePosts: true
+            canLoadMorePosts: true,
+            preLoadMoreAt: 300 // px from bottom
         }
 
         this.onBoardPostClick = this.onBoardPostClick.bind(this)
@@ -113,22 +114,22 @@ export default class Board extends Component {
         // Check scroll position and toggle header accordingly
 
         const 
-            {scrollTop} = this.refs.content,
-            {scrollHeight} = this.refs.posts,
-            {headerHeight, canLoadMorePosts} = this.state, 
+            {scrollTop, scrollHeight} = this.refs.content,
+            {headerHeight, canLoadMorePosts, preLoadMoreAt} = this.state, 
             canShowHeader = !(scrollTop > this.previousScrollTop && scrollTop > headerHeight),
-            closeToBottom = scrollTop > (scrollHeight - 500);
+            closeToBottom = scrollTop+window.innerHeight > (scrollHeight - preLoadMoreAt);
 
-        console.log(`st: ${scrollTop}, scrolled down: ${scrollTop > this.previousScrollTop}`)
+        console.log(`scrollTop: ${scrollTop}, scrolled down: ${scrollTop > this.previousScrollTop}`)
         this.props.scrollHeader(canShowHeader, 0);
         this.previousScrollTop = scrollTop
 
-        console.info(`scrollHeight: ${scrollHeight}, closeToBottom: ${closeToBottom}`)
+        console.info(`scrollHeight: ${scrollHeight} contentHeight: ${scrollTop+window.innerHeight}, closeToBottom: ${closeToBottom}`)
 
         if (closeToBottom && canLoadMorePosts) {
+            // throttle posts
             this.setState({canLoadMorePosts: false})
             this.loadMorePosts()
-            setTimeout(() => this.setState({canLoadMorePosts: false}), 2000)
+            setTimeout(() => this.setState({canLoadMorePosts: true}), 2000)
             
         }
 

@@ -5,7 +5,6 @@ import {
     BOARD_DESTROYED,
 
     BOARD_INVALIDATED,
-    BOARD_LIST_INVALIDATED,
 
     BOARD_CHANGE,
     BOARD_SCROLLED_BOTTOM,
@@ -29,31 +28,9 @@ function receiveBoard(board){
     }
 }
 
-function requestBoardList(provider) {
-    return {
-        payload: provider,
-        type: BOARD_LIST_REQUESTED
-    }
-}
-
-function receiveBoardList(boardList, provider){
-    console.log(boardList);
-    return {
-        type: BOARD_LIST_LOADED,
-        payload: boardList.data || [],
-        provider
-    }
-}
-
 function invalidateBoard(error) {
     return {
         type: BOARD_INVALIDATED
-    }
-}
-
-function invalidateBoardlist(error) {
-    return {
-        type: BOARD_LIST_INVALIDATED
     }
 }
 
@@ -102,28 +79,6 @@ function shouldFetchBoard({ board }) {
     return !(board.isFetching && board.posts)
 }
 
-
-export function fetchBoardList( provider ) {
-    console.log(`Action FetchBoard() to /api/${provider}/boards`);
-    return (dispatch, getState) => {
-        if (shouldFetchBoardList(getState(), provider)) {
-            dispatch(requestBoardList(provider))
-
-            return Axios
-                .get(`/api/${provider}/boards`)
-                .then(data => dispatch(receiveBoardList(data, provider)))
-                .catch( err => {
-                    console.error(err)
-                    dispatch(statusMessage(`Error: Couldn't request ${provider}s boards`))
-                    dispatch(invalidateBoard())
-                });
-        }
-    }
-}
-
-function shouldFetchBoardList({boardList}, provider) {
-    return !boardList.hasOwnProperty(provider)
-}
 
 // function requestPosts(reddit) {
 //   return {
