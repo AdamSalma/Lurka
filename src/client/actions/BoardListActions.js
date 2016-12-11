@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import {
     BOARD_LIST_REQUESTED,
     BOARD_LIST_LOADED,
@@ -6,7 +7,6 @@ import {
     BOARD_LIST_ADD_FAVOURITE,
     BOARD_LIST_REMOVE_FAVOURITE,
 } from '../constants';
-
 
 function requestBoardList(provider) {
     return {
