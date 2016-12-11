@@ -50,3 +50,31 @@ export function fetchBoardList( provider ) {
 function shouldFetchBoardList({boardList}, provider) {
     return !boardList.hasOwnProperty(provider)
 }
+
+export function addToFavourites(provider, boardID) {
+    return (dispatch, getState) => {
+        if (boardInFavourites(getState(), provider, boardID)) return
+
+        dispatch({
+            type: BOARD_LIST_ADD_FAVOURITE,
+            provider,
+            boardID
+        })
+    }
+}
+
+export function removeFromFavourites(provider, boardID) {
+    return (dispatch, getState) => {
+        if (boardInFavourites(getState(), provider, boardID)) {
+            dispatch({
+                type: BOARD_LIST_ADD_FAVOURITE,
+                provider,
+                boardID
+            })
+        }
+    }
+}
+
+function boardInFavourites({boardList}, provider, boardID) {
+    return !!boardList[provider].find(el => el.boardID === boardID)
+}
