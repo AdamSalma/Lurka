@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import uuid from 'uuid';
 
 import Dropdown from '../Dropdown';
+import Icon from '../Icon';
 
 export default class BoardList extends Component {
     constructor({shouldPreload, boardList, provider, fetchBoardList}) {
@@ -15,7 +16,7 @@ export default class BoardList extends Component {
     }
 
     render() {
-        const {boardList, provider, onClick} = this.props
+        const {boardList, provider, onClick, boardListElements} = this.props
         const classes = classNames('boardlist', `p-${provider}`)
         const hasBoards = boardList && boardList.length;
 
@@ -23,29 +24,12 @@ export default class BoardList extends Component {
             <div className={classes}>
                 {hasBoards && <Dropdown 
                     onClick={onClick} 
-                    items={this.dropdownItems(boardList)} 
+                    items={boardListElements} 
+                    scrollOpts={{sliderMinHeight: 50, alwaysVisible: true}}
                 />}
             </div>
         )
     }
-
-    dropdownItems(boardList) {
-        // Filter boardlist then render each board
-
-        return boardList.filter( ({description}) => 
-            description.toLowerCase()
-                .includes(this.props.searchPhrase)
-        ).map( 
-            ({boardID, description}, index) => (
-                <div 
-                    key={uuid.v4()} 
-                    data-value={boardID} 
-                    data-index={index}
-                >{description}</div>
-            )
-        )
-    }
-
 }
 
 BoardList.defaultProps = {
