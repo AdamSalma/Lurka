@@ -11,9 +11,14 @@ export default class BoardLists extends Component {
     constructor(props) {
         super(props);
         this.handleKeyUp = this.handleKeyUp.bind(this);
+        this.handleBoardListItemClick = this.handleBoardListItemClick.bind(this);
+        this.handleButtonClick = this.handleButtonClick.bind(this);
+        this.toggleFavourite = this.toggleFavourite.bind(this);
 
         this.state = {
-            searchPhrase: ''
+            searchPhrase: '',
+            didSelectOption: false,
+            dropdownOption: {}
         }
     }
 
@@ -31,24 +36,54 @@ export default class BoardLists extends Component {
                     </div>
                     {this.renderBoardLists()}
                 </div>
-                <div className="description">
-                    {this.renderDescription()}
-                </div>
+                {this.renderDescription()}
             </div>
         )
     }
 
     renderDescription() {
-        const {boardList, status: {providers}} = this.props
+        const { boardList, status:{ providers }} = this.props
+        const { didSelectOption, dropdownOption:{ boardID, provider }} = this.state
         const remaining = providers.filter( provider => {
             return !(boardList[provider] && boardList[provider].length)
         })
 
-        if (!remaining.length) {
+        if (remaining.length) 
+            return false
+
+        if (didSelectOption) {
+            console.info(boardList)
+            const board = boardList[provider].find( el => el.boardID === boardID)
+            console.info(`Dropdown board selected: ${board}`)
+            console.info(board)
+
+            if (!board) {
+                console.error(boardList)
+                console.error(boardList[provider])
+                throw new Error(`Board was undefined: ${provider}/${boardID}`)
+            }
+
             return (
-                <h3>Select a lurk zone</h3>
+                <div className="description">
+                    <h2 className="title">/{board.title}/</h2>
+                    <p dangerouslySetInnerHTML={{ __html: board.description }} />
+                    <input 
+                        type="button" 
+                        value={`Lurk ${board.url}`} 
+                        onClick={this.handleButtonClick.bind(null, provider, boardID)}
+                    />
+                </div>
+            )
+        } else {
+            // Boardlists finished loading. Waiting for user input
+            return (
+                <div className="description">
+                    <h3 className="title select">Select a board</h3>
+                </div>
             )
         }
+
+
     }
 
     renderBoardLists() {
@@ -60,9 +95,10 @@ export default class BoardLists extends Component {
                 shouldPreload={true}
                 searchPhrase={searchPhrase}
                 provider={provider} 
+                boardListElements={this.getBoardListElements(provider)}
                 boardList={boardList[provider]}
+                onClick={ event => this.handleBoardListItemClick(event, provider)}
                 fetchBoardList={fetchBoardList}
-                onClick={ event => this.handleClick(event, provider)}
                 key={provider}
             />
         )
@@ -73,12 +109,78 @@ export default class BoardLists extends Component {
         this.setState({searchPhrase})
     }
 
-    handleClick(event, provider) {
-        const {scrollPage, scrollHeader, changeProvider, fetchBoard} = this.props;
+    handleBoardListItemClick(event, provider) {
         const boardID = event.target.getAttribute('data-value');
+        this.setState({
+            didSelectOption: true,
+            dropdownOption: {
+                boardID,
+                provider
+            }
+        })
+    }
+
+    handleButtonClick(provider, boardID) {
+        const {scrollPage, scrollHeader, changeProvider, fetchBoard} = this.props;
 
         changeProvider(provider)
         scrollPage("content", true)  // true = "show" content page
         fetchBoard({boardID, provider})
+    }
+
+    getBoardListElements( provider ) {
+        // Filter boardlist then render each board
+        const { boardList } = this.props
+        const { searchPhrase } = this.state
+
+        if (!boardList[provider]) return [];
+
+        return boardList[provider].filter( 
+            // filter by searchword
+            board => board.description.toLowerCase().includes(searchPhrase)
+        ).map( ({boardID, short_desc}, index) => {
+            // Create each element
+
+            const isFavourite = this.isFavourite(provider, boardID)
+
+            const star = classNames('mdi', 'clearfix', {
+                'mdi-star': isFavourite,
+                'mdi-star-outline': !isFavourite
+            })
+
+            return (
+                <div 
+                    key={uuid.v4()} 
+                    data-value={boardID} 
+                    data-index={index}
+                >
+                    <Icon 
+                        className={star} 
+                        onClick={
+                            event => this.toggleFavourite(event, provider, boardID)
+                        }
+                    />
+                    {short_desc}
+                </div>
+            )
+        })
+    }
+
+    toggleFavourite(event, provider, boardID) {
+        // check if board is in favourites
+        event.stopPropagation()
+        console.log(`toggleFavourite() ${provider} ${boardID}`)
+        if (this.isFavourite(provider, boardID)) {
+            this.props.removeFromFavourites(provider, boardID)
+        } else {
+            this.props.addToFavourites(provider, boardID)
+        }
+
+    }
+
+    isFavourite(provider, boardID) {
+        // check if board is in favourites. Return bool
+        return !!this.props.boardList['favourites'].find(board => board.boardID === boardID)
+
     }
 }
