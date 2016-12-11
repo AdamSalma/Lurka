@@ -10,7 +10,7 @@ export default class Board extends Component {
     constructor({ board, boardID, provider, fetchBoard }) {
         super();
         this.state = {
-            incrementPostsBy: 10,
+            incrementPostsBy: 15,
             scrollThrottle: 250,  // ms
             headerHeight: 60,  // Beware if header height changes
             canLoadMorePosts: true,
