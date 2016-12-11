@@ -7,7 +7,8 @@ import Board from "../components/Board";
 import Thread from "../components/Thread";
 
 // Actions
-import { fetchBoard, fetchBoardList, incrementBoardLimit } from '../actions/BoardActions';
+import { fetchBoardList } from '../actions/BoardListActions';
+import { fetchBoard, incrementBoardLimit } from '../actions/BoardActions';
 import { fetchThread, closeThread } from '../actions/ThreadActions';
 import { changeProvider } from '../actions/StatusActions';
 import { scrollPage, scrollHeader } from '../actions/AnimationActions';
