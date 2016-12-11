@@ -2,9 +2,9 @@ import React, { Component } from "react";
 
 import classNames from 'classnames';
 import Velocity from 'velocity-animate';
-import TimeAgo from 'react-timeago';
 import uuid from "uuid";
 
+import TimeAgo from '../TimeAgo';
 import ThreadPost from '../ThreadPost';
 import Background from '../Background';
 
