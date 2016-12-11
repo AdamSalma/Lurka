@@ -1,53 +1,63 @@
-.board-lists
-    width: 100vw
 
-    .board-lists-wrap
-        +center-horizontal(684px)
-        top: 361px
+$searchbar-height: 30px
+$boardlist-height: 40px
+$boards-width: 45%
+
+.boardlists
+    +set-dims(684px, 50vh)
+    max-height: 500px
+    margin: 0 auto
+    text-align: left
+    border: $grey-light solid 1px
+    position: relative
+    // display: none
+
+    .searchbar
+        display: inline-flex
+        justify-content: space-around
+        height: $searchbar-height
+        position: relative
+        width: 100%
+
+        .icon
+            font-size: 18px
+            padding: 0 8px
+            border: $grey solid 1px
+            background: $grey-light
+            line-height: $searchbar-height
+            cursor: pointer
+
+        .searchbox-content
+            height: 100%
+
+        .searchbox
+            flex: 1
+
+    .boardlist
+        width: 100%
+        height: 100%
+        display: none
+        position: relative
+
+        &.p-4chan  // change this to '&.active'
+            display: block !important
+
+    .boards
+        width: $boards-width
+        height: calc(100% - #{$searchbar-height})
+        display: inline-block
+
+    .description
+        border-left: $grey-light solid 1px
+        height: 100%
+        width: 100% - $boards-width
+        position: absolute
+        top: 0
+        right: 0
         display: flex
-        align-items: center
         justify-content: center
 
+    
     .dropdown
-        margin-top: 0
-
-    .board-list
-        display: inline-block
-        position: relative
-        transition: all .3s ease-out
-        flex: 1
-
-        .placeholder
-            transition: all .2s ease-out
-            display: inline-block
-            padding: 10px 20px
-            font-size: 26px
-            color: $primary
-            font-family: $font-alt
-            font-weight: bold
-
-            &:hover
-                background: $white
-
-        .content
-            display: none
-            .searchbox
-                width: 100%
-            .search
-                width: 100%
-
-        .dropdown
-            height: 100% !important
-            width: 100% !important
-            text-align: left
-
-        &.active
-            width: 400px
-            height: 400px
-            position: relative
-
-            .placeholder
-                display: none
-
-            .content
-                display: initial !important
+        // Fix for scroller outside of items
+        width: auto !important
