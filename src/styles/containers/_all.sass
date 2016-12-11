@@ -1,6 +1,8 @@
 @import ./homepanel
 @import ./contentpanel
 
+$background-color1: $grey-dark
+$background-color2: $black
 
 // set pages offscreen
 .page 
@@ -8,3 +10,4 @@
     position: fixed
     top: 100%
     background: $black
+    background: linear-gradient(135deg, $background-color2, $background-color1, $background-color2)

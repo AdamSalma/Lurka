@@ -1,7 +1,6 @@
 #board
     position: relative
     +set-dims(100vw, 100vh)
-    background: $board-color
 
     .nano-pane
         display: block !important
@@ -19,3 +18,11 @@
         text-overflow: ellipsis
         text-align: left !important
         overflow: hidden
+
+
+.react-alerts
+    position: fixed !important
+    z-index: 9999 !important
+
+    .alert 
+        z-index: 9999 !important

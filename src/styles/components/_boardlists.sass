@@ -10,6 +10,7 @@ $boards-width: 45%
     text-align: left
     border: $grey-light solid 1px
     position: relative
+    background-color: $grey-dark
     // display: none
 
     .searchbar
@@ -48,16 +49,64 @@ $boards-width: 45%
         display: inline-block
 
     .description
-        border-left: $grey-light solid 1px
         height: 100%
         width: 100% - $boards-width
         position: absolute
         top: 0
         right: 0
         display: flex
-        justify-content: center
+        justify-content: space-around
+        flex-direction: column
+        align-items: center
 
-    
+        p 
+            padding: 10px 30px
+
+        input
+            color: $white
+            font-family: $font-alt
+            font-weight: bold
+            font-size: 18px
+            padding: 5px 10px
+            background-image: linear-gradient(0deg, $primary, tint($primary, 5%))
+            border: 1px solid shade($primary, 10%)
+            border-radius: 2px
+            transition: box-shadow .2s
+            box-shadow: 0 0 0 $primary
+            text-shadow: 2px 2px 1px $grey
+            cursor: pointer
+
+            &:hover
+                box-shadow: 0 0 5px $primary 
+                background-image: linear-gradient(0deg, tint($primary, 5%), $primary)
+                
+
+    .item
+        position: relative
+
+        .icon
+            float: right
+            position: relative
+            color: $grey-light
+            font-size: 20px
+            line-height: 24px
+            transition: color .3s
+
+            &.mdi-star-outline:hover
+                color: $white
+
+            &.mdi-star
+                color: #ffe700
+
+
+
+    // Misc stuff
     .dropdown
         // Fix for scroller outside of items
         width: auto !important
+
+    .nano-pane
+        background-color: $grey
+
+    .nano-slider
+        background-color: $black !important
