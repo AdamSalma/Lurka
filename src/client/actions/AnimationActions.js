@@ -8,6 +8,7 @@ import {
 const scrollEndpoints = ["content", "settings"]  // "home" is immovable
 const scrollDuration = 1000
 const scrollEasing = "ease-in-out"
+const scrollTargetPrev = "home"
 
 export function scrollPage(endpoint, up) {
 
@@ -17,10 +18,17 @@ export function scrollPage(endpoint, up) {
     const top = up ? 0 : window.innerHeight   
     const $target = getTarget(endpoint)
 
+
     return (dispatch, getState) => {
         if (up && !shouldScroll(getState(), endpoint)) return;
 
         $target.velocity("stop");
+        
+        if (!up) {
+            // Fix scroll toggle. Change state when reverting
+            endpoint = scrollTargetPrev
+        }
+
         dispatch(startScroll(endpoint));
 
         return $target.velocity({top}, {
@@ -39,7 +47,9 @@ function getTarget(endpoint) {
     const target = $('.page-'+endpoint) // will always be 1
     if (!target) {
         throw new Error(`No .page-${endpoint} found`);
-    } else return target
+    } else {
+        return target
+    }
 }
 
 function startScroll(currentPage) {
