@@ -57,24 +57,31 @@ export function addToFavourites(provider, boardID) {
 
         dispatch({
             type: BOARD_LIST_ADD_FAVOURITE,
-            provider,
-            boardID
+            payload: {
+                provider,
+                boardID
+            }
         })
     }
 }
 
 export function removeFromFavourites(provider, boardID) {
     return (dispatch, getState) => {
+        
         if (boardInFavourites(getState(), provider, boardID)) {
             dispatch({
-                type: BOARD_LIST_ADD_FAVOURITE,
-                provider,
-                boardID
+                type: BOARD_LIST_REMOVE_FAVOURITE,
+                payload: {
+                    provider,
+                    boardID
+                }
             })
         }
     }
 }
 
 function boardInFavourites({boardList}, provider, boardID) {
-    return !!boardList[provider].find(el => el.boardID === boardID)
+    return !!boardList['favourites'].find(el => 
+        el.boardID === boardID && el.provider === provider
+    )
 }
