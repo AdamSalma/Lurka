@@ -125,4 +125,16 @@ describe('Constants', () => {
     expect(consts.SCROLL_HEADER).toEqual('SCROLL_HEADER');
   });
 
+  it('contains BOARD_LIST_ADD_FAVOURITE', () => {
+    expect(consts.BOARD_LIST_ADD_FAVOURITE).toEqual('BOARD_LIST_ADD_FAVOURITE');
+  });
+
+  it('contains BOARD_LIST_REMOVE_FAVOURITE', () => {
+    expect(consts.BOARD_LIST_REMOVE_FAVOURITE).toEqual('BOARD_LIST_REMOVE_FAVOURITE');
+  });
+  
+  it('contains BOARD_FILTER', () => {
+    expect(consts.BOARD_FILTER).toEqual('BOARD_FILTER');
+  });
+
 });
