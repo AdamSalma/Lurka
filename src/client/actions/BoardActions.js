@@ -10,7 +10,9 @@ import {
     BOARD_SCROLLED_BOTTOM,
 
     BOARD_LIST_REQUESTED,
-    BOARD_LIST_LOADED
+    BOARD_LIST_LOADED,
+
+    BOARD_FILTER
 } from '../constants';
 import {statusMessage, clearStatus} from './StatusActions'
 
@@ -57,7 +59,7 @@ export function incrementBoardLimit( limit ) {
 export function fetchBoard({ provider, boardID }) {
     console.log(`Action FetchBoard() to /api/${provider}/${boardID}`);
     return (dispatch, getState) => {
-        if ( shouldFetchBoard(getState()) ){
+        if ( shouldFetchBoard(getState(), boardID) ){
             dispatch(statusMessage(`Requesting /${boardID}/`))
             dispatch(requestBoard(boardID))
             return Axios.get(`/api/${provider}/${boardID}`)
@@ -75,10 +77,23 @@ export function fetchBoard({ provider, boardID }) {
     }
 }
 
-function shouldFetchBoard({ board }) {
+function shouldFetchBoard({ board }, boardID) {
     return !(board.isFetching && board.posts)
 }
 
+function boardInHistory({board:{ history }}, boardID) {
+    return history[boardID]
+}
+
+export function filterBoard( filterWord ) {
+    return dispatch => {
+        dispatch({
+            type: BOARD_FILTER,
+            payload: filterWord
+        })
+    }
+
+}
 
 // function requestPosts(reddit) {
 //   return {
