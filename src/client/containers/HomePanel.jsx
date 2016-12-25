@@ -38,7 +38,9 @@ class HomePanel extends Component {
 
     render() {
         const {
-            scrollPage, scrollHeader, fetchBoard, fetchBoardList, changeProvider,
+            scrollPage, scrollHeader, fetchBoard, fetchBoardList, changeProvider, 
+            addToFavourites, removeFromFavourites,
+            
             status, boardList, threadIsActive
         } = this.props;
 

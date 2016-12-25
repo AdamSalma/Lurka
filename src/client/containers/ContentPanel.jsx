@@ -8,7 +8,7 @@ import Thread from "../components/Thread";
 
 // Actions
 import { fetchBoardList } from '../actions/BoardListActions';
-import { fetchBoard, incrementBoardLimit } from '../actions/BoardActions';
+import { fetchBoard, incrementBoardLimit, filterBoard } from '../actions/BoardActions';
 import { fetchThread, closeThread } from '../actions/ThreadActions';
 import { changeProvider } from '../actions/StatusActions';
 import { scrollPage, scrollHeader } from '../actions/AnimationActions';
@@ -18,7 +18,7 @@ class ContentPanel extends Component {
         const {
             // Actions
             fetchThread, fetchBoard, fetchBoardList, closeThread, changeProvider, 
-            incrementBoardLimit, scrollPage, scrollHeader,
+            incrementBoardLimit, scrollPage, scrollHeader, filterBoard,
 
             // State
             status, board, thread, boardList
@@ -28,19 +28,29 @@ class ContentPanel extends Component {
         return (
             <div className="page page-content">
                 <Header 
-                    scrollPage={scrollPage} scrollHeader={scrollHeader} fetchBoardList={fetchBoardList} fetchBoard={fetchBoard}
-                    statusMessage={status.statusMessage} boardList={boardList} provider={status.provider} currentPage={status.currentPage}
-                    boardID={status.boardID} threadID={status.threadID} threadIsActive={thread.isActive}
+                    scrollPage={scrollPage} scrollHeader={scrollHeader} 
+                    fetchBoardList={fetchBoardList} fetchBoard={fetchBoard} 
+                    filterBoard={filterBoard}
+
+                    statusMessage={status.statusMessage} boardList={boardList} 
+                    provider={status.provider} currentPage={status.currentPage}
+                    boardID={status.boardID} threadID={status.threadID} 
+                    threadIsActive={thread.isActive}
                 />  
                 <div className="content-overview">
                     <Board 
-                        fetchBoard={fetchBoard} fetchThread={fetchThread} incrementLimit={incrementBoardLimit} scrollHeader={scrollHeader}
-                        board={board} provider={status.provider} boardID={status.boardID} isFetching={board.isFetching}
+                        fetchBoard={fetchBoard} fetchThread={fetchThread} 
+                        incrementLimit={incrementBoardLimit} scrollHeader={scrollHeader}
+
+                        board={board} provider={status.provider} 
+                        boardID={status.boardID} isFetching={board.isFetching}
                     />
                 </div>
                 <Thread 
                     closeThread={closeThread}
-                    thread={thread} isActive={thread.isActive} isFetching={thread.isFetching} threadID={status.threadID}
+
+                    thread={thread} isActive={thread.isActive} 
+                    isFetching={thread.isFetching} threadID={status.threadID}
                 />
             </div>
         )
@@ -50,10 +60,10 @@ class ContentPanel extends Component {
 
 function mapStateToProps({ status, thread, board, boardList }) {
     return {
-        status: status,        
-        boardList: boardList,
-        board: board,
-        thread:thread
+        status,        
+        boardList,
+        board,
+        thread
     }
 }
 
@@ -66,7 +76,8 @@ function mapDispatchToProps(dispatch) {
         changeProvider,
         incrementBoardLimit,
         scrollPage, 
-        scrollHeader
+        scrollHeader,
+        filterBoard
     }, dispatch)
 }
 
