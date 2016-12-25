@@ -3,7 +3,8 @@ import {
     BOARD_REQUESTED, 
     BOARD_LOADED, 
     BOARD_DESTROYED, 
-    BOARD_SCROLLED_BOTTOM
+    BOARD_SCROLLED_BOTTOM,
+    BOARD_FILTER
 } from '../constants'
 
 export default function (state = initialState.board, action) {
@@ -29,6 +30,11 @@ export default function (state = initialState.board, action) {
         case BOARD_SCROLLED_BOTTOM:
             return Object.assign({}, state, {
                 limit: action.payload
+            })
+
+        case BOARD_FILTER:
+            return Object.assign({}, state, {
+                filterWord: action.payload || null
             })
 
         default:
