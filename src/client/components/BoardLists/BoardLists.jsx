@@ -169,12 +169,14 @@ export default class BoardLists extends Component {
     toggleFavourite(event, provider, boardID) {
         // check if board is in favourites
         event.stopPropagation()
-        console.log(`toggleFavourite() ${provider} ${boardID}`)
         if (this.isFavourite(provider, boardID)) {
+            console.log(`removeFromFavourites() ${provider} ${boardID}`)
             this.props.removeFromFavourites(provider, boardID)
         } else {
+            console.log(`addToFavourites() ${provider} ${boardID}`)
             this.props.addToFavourites(provider, boardID)
         }
+        // this.forceUpdate()
 
     }
 
