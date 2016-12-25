@@ -19,7 +19,7 @@ class SearchBox extends Component {
 }
 
 SearchBox.defaultProps = {
-    hasIcon: true
+    hasIcon: false
 }
 
 export default SearchBox
