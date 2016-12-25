@@ -14,12 +14,14 @@ export default {
 	},
 
 	boardList: {  // obj for each provider: {4chan: [], reddit: []}
+		didInvalidate: false,
 		favourites: []  // [{id:'4chan', board: 'g'}, ...]
 	},  
 
 	board: {
 		isFetching: false,
 		didInvalidate: false,
+		filterWord: null,
 		history: {},
 		posts: [],
 		watch: [],
