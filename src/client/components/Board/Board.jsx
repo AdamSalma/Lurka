@@ -6,12 +6,14 @@ import BoardPost from '../BoardPost';
 import { catchTooltip } from './events';
 import createLayout from './layout';
 
+var didScroll = false
+
 export default class Board extends Component {
     constructor({ board, boardID, provider, fetchBoard }) {
         super();
         this.state = {
-            incrementPostsBy: 15,
-            scrollThrottle: 250,  // ms
+            incrementPostsBy: 20,
+            scrollThrottle: 333,  // ms
             headerHeight: 60,  // Beware if header height changes
             canLoadMorePosts: true,
             preLoadMoreAt: 300 // px from bottom
@@ -24,7 +26,6 @@ export default class Board extends Component {
         this.checkIfScrolled = this.checkIfScrolled.bind(this)
 
         this.previousScrollTop = 0
-        this.didScroll = false
         this.limiter = 12
         this._interval = setInterval(this.checkIfScrolled, this.state.scrollThrottle)
 
@@ -58,24 +59,40 @@ export default class Board extends Component {
     }
 
     render() {
-        const {provider, boardID} = this.props
+        const {provider, boardID, board} = this.props
         return (
-            <div id="board" className="board nano" ref='board' onScroll={()=>{this.didScroll = true}}>
+            <div id="board" className="board nano" ref='board' onScroll={() => didScroll = true}>
                 <div className="nano-content" ref="content">
                     <div className="board-header">
                         <h1>{`${provider}: /${boardID}/`}</h1>
                     </div>
                     <div className="posts" ref="posts">
-                        {this.createThreads()}
+                        {this.createPosts()}
                     </div>
                 </div>
             </div>
         );
     }
 
-    createThreads() {
-        const { posts, limit } = this.props.board;
-        return posts.slice(0, limit).map( post => {
+    createPosts() {
+        const { posts, limit, filterWord } = this.props.board;
+        let _posts 
+
+        if (filterWord) {
+            _posts = posts.filter(({title="", comment=""}) => {
+                return title.toLowerCase().includes(filterWord) || 
+                       comment.toLowerCase().includes(filterWord)
+            })
+            setTimeout(()=>{
+                // Reshuffle posts and scroll to top of container
+                createLayout()
+                $board.nanoScroller({ scroll:"top" })
+            }, 333)
+        } else {
+            _posts = posts.slice(0, limit)
+        }
+
+        return _posts.map( post => {
             return (
                 <BoardPost
                     key={post.id}
@@ -86,7 +103,7 @@ export default class Board extends Component {
             );
         });
     }
-    
+
     loadMorePosts() {
         const { incrementLimit, board } = this.props
         const newValue = this.props.board.limit + this.state.incrementPostsBy
@@ -98,15 +115,16 @@ export default class Board extends Component {
         // Fetch if user not highlighting any text
         if (!window.getSelection().toString()) {
             const { provider, boardID, fetchThread } = this.props;
-            $('.thread-wrap').nanoScroller({ stop: true })  // hide scrollbar on thread 
+            // Hide Thread scrollbar
+            $('.thread-wrap').nanoScroller({ stop: true })  
             fetchThread(provider, boardID, threadID);
         }
     }
 
     checkIfScrolled(event) {
-        if (this.didScroll) {
+        if (didScroll) {
             this.handleScroll(event)
-            this.didScroll = false
+            didScroll = false
         }
     }
 
