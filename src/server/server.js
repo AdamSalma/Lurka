@@ -24,7 +24,7 @@ function normalizePort(val) {
 
 // Event listener for HTTP server "error" event.
 function onError(error) {
-    if (error.syscall !== 'listen') throw error;
+    if (error.syscall !== 'listen') log.error(error);
 
     const bind = typeof port === 'string'
         ? 'Pipe ' + port
@@ -41,6 +41,7 @@ function onError(error) {
             process.exit(1);
             break;
         default:
+            log.error(error)
             throw error;
     }
 }
