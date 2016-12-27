@@ -16,7 +16,7 @@ export default class Board extends Component {
             scrollThrottle: 333,  // ms
             headerHeight: 60,  // Beware if header height changes
             canLoadMorePosts: true,
-            preLoadMoreAt: 300 // px from bottom
+            preLoadMoreAt: 500 // px from bottom
         }
 
         this.onBoardPostClick = this.onBoardPostClick.bind(this)
@@ -33,12 +33,10 @@ export default class Board extends Component {
 
 
     componentDidMount() {
-        const { board } = this.refs
         const { incrementLimit } = this.props
-        const $board = $(board)
 
         // Board scroller
-        $board.nanoScroller({ sliderMaxHeight: 400, sliderMinHeight: 60 })
+        this._board.nanoScroller({ sliderMaxHeight: 400, sliderMinHeight: 60 })
 
         // Hover over board posts reveals more info
         createLayout()
@@ -48,20 +46,22 @@ export default class Board extends Component {
     componentDidUpdate({ board }) {
         if (board.posts.length !== this.props.board.posts.length) {
             createLayout()
-            const $board = $(this.refs.board)
-            $board.nanoScroller()
+            this._board.nanoScroller()
         }
     }
 
     componentWillUnmount() {
         clearInterval(this._interval)
-        $(this.refs.board).off('hover');
+        this._board.off();
     }
 
     render() {
         const {provider, boardID, board} = this.props
         return (
-            <div id="board" className="board nano" ref='board' onScroll={() => didScroll = true}>
+            <div id="board" className="board nano" 
+                 ref={ board => this._board = $(board)} 
+                 onScroll={() => didScroll = true}
+            >
                 <div className="nano-content" ref="content">
                     <div className="board-header">
                         <h1>{`${provider}: /${boardID}/`}</h1>
@@ -86,7 +86,7 @@ export default class Board extends Component {
             setTimeout(()=>{
                 // Reshuffle posts and scroll to top of container
                 createLayout()
-                $board.nanoScroller({ scroll:"top" })
+                this._board.nanoScroller({ scroll:"top" })
             }, 333)
         } else {
             _posts = posts.slice(0, limit)
@@ -106,7 +106,7 @@ export default class Board extends Component {
 
     loadMorePosts() {
         const { incrementLimit, board } = this.props
-        const newValue = this.props.board.limit + this.state.incrementPostsBy
+        const newValue = board.limit + this.state.incrementPostsBy
         incrementLimit(newValue)    
     }
 
