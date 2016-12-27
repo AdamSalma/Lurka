@@ -76,11 +76,15 @@ export function parseThread( posts, boardID ) {
             title: post['sub'] || "",
             time: post['tim'] || post['time'] * 1000,
             comment: post['com'],
-            imgsrc: !!post['ext'] ? {
-                sm: proxify("/media", {url: smImg, provider: "4chan"}),
-                lg: proxify("/media", {url: lgImg, provider: "4chan"})
-            } : null,
-            ext
+            media: !!ext ? {
+                srcSmall: proxify("/media", {url: smImg, provider: "4chan"}),
+                srcLarge: proxify("/media", {url: lgImg, provider: "4chan"}),
+                width: post['w'],
+                height: post['h'],
+                filesize: post['fsize'],
+                filename: post['filename'],
+                filetype: ext
+            } : null
         }
     });
 
