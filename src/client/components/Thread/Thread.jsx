@@ -94,9 +94,6 @@ export default class Thread extends Component {
 
         $(threadWrap).nanoScroller({ stop: true })
 
-        $(thread).velocity({top: window.innerHeight+"px"}, {
-            duration: 100,
-            complete: () => closeThread(threadID)
-        })
+        closeThread(threadID)
     }
 }

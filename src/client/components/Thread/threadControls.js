@@ -106,7 +106,7 @@ function scrollToPost( href ) {
     setTimeout(()=>$post.removeClass('highlight'), 2000)
 }
 
-// http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
+// http://stackoverflow.com/a/7557433
 function isElementInViewport(el) {
     if (typeof jQuery === "function" && el instanceof jQuery) {
         el = el[0];

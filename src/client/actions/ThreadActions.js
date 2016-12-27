@@ -4,7 +4,8 @@ import {
     THREAD_LOADED, 
     THREAD_DESTROYED,
     THREAD_SCROLLED_BOTTOM,
-    THREAD_CHANGE
+    THREAD_CHANGE, 
+    THREAD_INVALIDATED
 } from '../constants';
 import {statusMessage, clearStatus} from './StatusActions'
 
@@ -20,7 +21,15 @@ function receiveThread(thread) {
     console.log("Action RecieveThread:", thread);
     return {
         type: THREAD_LOADED,
-        payload: thread.data || []
+        posts: thread.data || [],
+        receivedAt: Date.now()
+    }
+}
+
+function invalidateThread(error) {
+    console.error(error);
+    return {
+        type: THREAD_INVALIDATED
     }
 }
 
@@ -32,22 +41,41 @@ export function fetchThread(provider, boardID, threadID) {
         dispatch(requestThread(threadID));
         return Axios.get(`/api/${provider}/${boardID}/${threadID}`)
             .then(data => {
-                dispatch(clearStatus())
                 dispatch(receiveThread(data))
             })
-            .catch( e => console.error(e));
-    }
-}
-
-export function closeThread(threadID) {
-    return dispatch => {
-        dispatch({
-            type: THREAD_DESTROYED,
-            payload: threadID
-        })
+            .catch( e => invalidateThread(e));
     }
 }
 
 function shouldFetchThread({ thread }) {
-    return !(thread.isFetching && thread.posts)
+    const {isFetching, receivedAt, requestWhenOlderThan: ageLimit} = thread
+    let age = Date.now() - receivedAt / 1000  // seconds since last time receipt 
+
+    return !isFetching && age > ageLimit
+}
+
+export function closeThread(threadID, cb) {
+    return (dispatch, getState) => {
+        if ( shouldCloseThread(getState()) ) {
+
+            $("#thread").velocity({top: window.innerHeight+"px"}, {
+                duration: 100,
+                complete: () => {
+                    dispatch({
+                        type: THREAD_DESTROYED,
+                        payload: threadID
+                    })
+
+                    cb && cb()
+                }
+            })
+
+        } else {
+            cb && cb()
+        }
+    }
+}
+
+function shouldCloseThread({ thread }) {
+    return thread.isActive && thread.posts.length
 }
