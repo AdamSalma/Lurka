@@ -136,5 +136,13 @@ describe('Constants', () => {
   it('contains BOARD_FILTER', () => {
     expect(consts.BOARD_FILTER).toEqual('BOARD_FILTER');
   });
+  
+  it('contains BOARD_EXISTS', () => {
+    expect(consts.BOARD_EXISTS).toEqual('BOARD_EXISTS');
+  });
+  
+  it('contains THREAD_INVALIDATED', () => {
+    expect(consts.THREAD_INVALIDATED).toEqual('THREAD_INVALIDATED');
+  });
 
 });
