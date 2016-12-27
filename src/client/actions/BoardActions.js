@@ -12,7 +12,8 @@ import {
     BOARD_LIST_REQUESTED,
     BOARD_LIST_LOADED,
 
-    BOARD_FILTER
+    BOARD_FILTER, 
+    BOARD_EXISTS
 } from '../constants';
 import {statusMessage, clearStatus} from './StatusActions'
 
@@ -26,7 +27,8 @@ function requestBoard(boardID) {
 function receiveBoard(board){
     return {
         type: BOARD_LOADED,
-        payload: board.data || []
+        posts: board.data || [],
+        receivedAt: Date.now()
     }
 }
 
@@ -59,14 +61,18 @@ export function incrementBoardLimit( limit ) {
 export function fetchBoard({ provider, boardID }) {
     console.log(`Action FetchBoard() to /api/${provider}/${boardID}`);
     return (dispatch, getState) => {
-        if ( shouldFetchBoard(getState(), boardID) ){
+        if ( boardAlreadyRequested(getState(), boardID)) {
+            dispatch({
+                type: BOARD_EXISTS
+            })
+        } else if ( shouldFetchBoard(getState()) ){
+
             dispatch(statusMessage(`Requesting /${boardID}/`))
             dispatch(requestBoard(boardID))
             return Axios.get(`/api/${provider}/${boardID}`)
                 .then(data => {
                     dispatch(receiveBoard(data))
                     dispatch(setBoard(boardID))
-                    dispatch(clearStatus())
                 })
                 .catch( err => {
                     console.error(err)
@@ -78,11 +84,13 @@ export function fetchBoard({ provider, boardID }) {
 }
 
 function shouldFetchBoard({ board }, boardID) {
-    return !(board.isFetching && board.posts)
+    const {isFetching, receivedAt, requestWhenOlderThan: ageLimit} = board
+    let age = Date.now() - receivedAt / 1000  // seconds since last time receipt 
+    return !isFetching && age > ageLimit
 }
 
-function boardInHistory({board:{ history }}, boardID) {
-    return history[boardID]
+function boardAlreadyRequested({board:{ history }, status}, boardID) {
+    return history[boardID] || status === boardID
 }
 
 export function filterBoard( filterWord ) {
