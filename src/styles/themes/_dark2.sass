@@ -1,9 +1,11 @@
-// $primary: #9d0000
-$primary: #C62828
-// $primary-dark: #3F0E0E
-// $primary-light: #DB4A3B
-$primary-dark: shade($primary, 10%)
-$primary-light: tint($primary, 10%)
+// $primary: #C62828
+$primary: #EA4335
+$primary-dark: shade($primary, 12%)
+$primary-light: tint($primary, 12%)
+
+$secondary: complement($primary)
+$secondary-dark: complement($primary-dark)
+$secondary-light: complement($primary-light)
 
 $white: #E9EBED
 $blue-light: #6EC4E7
@@ -27,6 +29,7 @@ $black: mix-prim(#212121)
 $grey-dark: mix-prim(#303030)
 $grey: mix-prim(#383838)
 $grey-light: mix-prim(#454545)
+$grey-hightlight: mix-prim(#888)
 
 // $black: #212121
 // $grey-dark: #302b2b
