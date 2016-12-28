@@ -2,7 +2,8 @@ import initialState from './initialState';
 import { 
     THREAD_LOADED, 
     THREAD_REQUESTED, 
-    THREAD_DESTROYED
+    THREAD_DESTROYED,
+    THREAD_INVALIDATED
 } from '../constants'
 
 export default function (state = initialState.thread, action) {
@@ -11,13 +12,21 @@ export default function (state = initialState.thread, action) {
         case THREAD_REQUESTED:
             return Object.assign({}, state, {
                 isFetching: true,
-                isActive: true
+                isActive: true,
+                didInvalidate: false
+
+            })
+
+        case THREAD_INVALIDATED:
+            return Object.assign({}, state, {
+                didInvalidate: true
             })
 
         case THREAD_LOADED:
             return Object.assign({}, state, {
-                posts: action.payload,
-                isFetching: false
+                posts: action.posts,
+                isFetching: false,
+                receivedAt: action.receivedAt
             })
 
         case THREAD_DESTROYED:
