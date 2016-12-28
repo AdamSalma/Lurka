@@ -19,56 +19,86 @@
         margin: 15px 25px
         margin-top: 0
 
-    .thread-post-info
+    .media-info
+        font-size: 12px
+        position: relative
+        bottom: 6px
+
+        > span
+            margin-right: 4px
+
+        .fileinfo
+            color: tint($grey-hightlight, 15%)
+
+        .icon
+            color: $secondary-light
+            font-size: 13px
+            position: relative
+            top: 1px
+
+    .post-info
         +font-size(14px)
-        text-shadow: 0px 0px 4px black;
         padding: 5px 0
 
         > *
             display: inline-block
             padding: 0 2px
 
-        .thread-post-title
+        .title
             strong
                 border-bottom: $primary solid 2px
                 margin-right: 5px
 
-        .thread-post-name
-            color: #ff9538
+        .name
+            color: $primary-dark
             font-weight: bold
 
-        .thread-post-references
-            margin-left: 8px
 
-            .quotelink
-                margin-right: 5px
+
+        .controls
+            font-size: 18px
+            float: right
+
+            li
+                color: $grey-hightlight
                 display: inline-block
+                margin-left: 2px
+                cursor: pointer
+                transition: all .2s ease-out
 
+                &:hover
+                    color: $secondary
+                    opacity: 1
+                    border-bottom: $secondary 1px bold
 
-    ul.thread-post-controls
-        font-size: 24px
-        padding: 4px
-        position: absolute
-        bottom: 0
-        right: 20px
+                span
+                    padding: 6px
+
+    // Reference block
+    .references
+        display: block
+        clear: both
+        color: $grey-hightlight
+        padding-bottom: 2px
+
+        .reference-header
+            margin-right: 6px
+            font-size: 18px
             
-        li
+            .icon
+            .reply-count
+                position: relative
+                bottom: 2px
+                font-size: 13px
+
+        .quotelink
+            margin-right: 5px
             display: inline-block
-            margin-left: 2px
-            cursor: pointer
-            opacity: 0.4
-            transition: all .2s ease-out
-
-            &:hover
-                // background: $white
-                color: $blue-light
-                opacity: 1
-
-            span
-                padding: 6px
+            font-size: 13px
+            color: $primary-dark !important
 
 
-
+    // TODO: This needs to be redone
     .img-container
         float: left
         margin-bottom: 10px
@@ -124,3 +154,44 @@
             width: 2px
             height: 100%
             background: $primary
+
+
+    /* Tooltip */
+    &.tip
+        z-index: 101
+        border: 1px dashed $primary
+        position: absolute
+        max-width: 800px
+        width: 100%
+        padding-right: 10px
+        word-wrap: break-word
+        white-space: pre-line
+
+        a
+            color: $primary
+
+    // gap for header at top of thread
+    .header-gap
+        height: $header-height
+
+    /* 4chan links */
+    .quote
+        color: $green
+
+    .deadlink
+        color: lighten($grey-light, 20%)
+        text-decoration: line-through
+        font-weight: bold
+    
+    .quotelink
+        color: $primary
+        text-decoration: none
+        font-weight: bold
+        transition: 0.1s ease-out
+
+        &:hover
+            color: $primary-light
+            transition: 0.3s ease-out
+
+        &:visited
+            color: white

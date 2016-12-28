@@ -2,23 +2,22 @@
     position: absolute  // positioned via JS
     width: $thread-width
     max-height: $thread-height
-    
+
     font-family: $font-main
     text-align: center
     cursor: pointer
     overflow: hidden
     border-radius: 4px 4px 8px 8px
     background: $board-post-color
-    box-shadow: $black 0 2px 10px
-    padding-bottom: 10px
+    box-shadow: $black 2px 7px 10px
 
     transition: all .4s ease-in-out
     transition-property: top, left, box-shadow;
 
 
     &:hover
-        transition: box-shadow .2s ease-out
-        box-shadow: white 0 0 6px
+        transition: none
+        box-shadow: $white 0 0 6px
         .counters
             opacity: 1
 
@@ -32,7 +31,6 @@
 
 
     img
-        +limit-height(225px, 50px)
         max-width: 100%
         display: inherit
         margin: 0 auto;
@@ -49,6 +47,7 @@
 
     .op
         padding: 0 15px
+        padding-bottom: 10px
         width: 100%
         word-wrap: break-word !important
 
@@ -70,7 +69,7 @@
         user-select: none
         opacity: 0.4
         transition: opacity .3s
-        
+
         ::after 
             content: ""
             +center-horizontal(80%)
@@ -88,7 +87,6 @@
             border: $white solid 1px
             border-bottom: none
             border-radius: 2px 2px 0 0
-
 
         .counter
             display: inline

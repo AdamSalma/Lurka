@@ -1,24 +1,52 @@
 #header
-    +center-horizontal($header-width)
+    +set-dims(100%, $header-height)
     position: fixed
-    height: $header-height
     top: -$header-height  // hide on start
+    top: 0  // TODO: Delete this
     border-bottom: 3px $primary solid
     z-index: 20
-    background: $black
+    overflow-y: hidden
 
-    @include breakpoint(to-tablet)
-        z-index: 100
+    .header-background
+        opacity: 0.8
+        background: $black
+        +set-dims(100%, $header-height)
+        width: 100%
+        position: absolute
+        z-index: -1
 
     .header-content
-        +set-dims($header-width, 100%)
+        opacity: 0.9
+        +set-dims($header-width - 24, 50%)
+        position: relative
+        top: 25%
+        background: $black
         margin: 0 auto
+        box-shadow: 20px 0 20px $black, -20px 0 20px $black
 
     .searchbox
-        height: $header-height
+        height: $header-height/2
+        width: 300px
+        display: auto 0
+        display: inline-block
 
     .logo-wrap
         width: 47px
         height: 47px
         float: left
         margin: 6px
+        position: relative
+        top: -50%
+
+    .mdi-arrow-up
+        float: right
+        font-size: 24px
+        line-height: 30px
+        padding: 0 6px
+        margin-right: 7px
+
+        &:hover
+            transition: all .3s
+            color: $primary
+            background: $grey
+
