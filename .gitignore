@@ -6,6 +6,5 @@ node_modules
 # Ignore everything in app
 app/*
 
-# Except index.js, package.json
-!app/index.js
+# Except package.json
 !app/package.json
