@@ -61,6 +61,7 @@ class HomePanel extends Component {
                 <AlertContainer ref={a => this.msg = a}/>
             </div>
         )
+        // TODO: fix alert container. move to own 'page'
     }
 
     countLoading(){

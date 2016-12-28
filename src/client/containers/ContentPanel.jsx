@@ -30,7 +30,7 @@ class ContentPanel extends Component {
                 <Header 
                     scrollPage={scrollPage} scrollHeader={scrollHeader} 
                     fetchBoardList={fetchBoardList} fetchBoard={fetchBoard} 
-                    filterBoard={filterBoard}
+                    filterBoard={filterBoard} closeThread={closeThread}
 
                     statusMessage={status.statusMessage} boardList={boardList} 
                     provider={status.provider} currentPage={status.currentPage}
