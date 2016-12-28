@@ -1,12 +1,14 @@
 import React from "react";
 
-export function createMediaIfExists(ID, SRC, ext) {
-    if (!ext) return;
+export function createMediaIfExists(id, media) {
+    if (!media) return;
+
+    const {srcSmall, srcLarge, filetype} = media
 
     return (
-        <div id={ID} className='img-container' onClick={ () => toggleMedia(ID, SRC.lg, ext)}>
+        <div id={id} className='img-container' onClick={ () => toggleMedia(id, srcLarge, filetype)}>
             <div className="thumbnail">
-                <img src={SRC.sm} />
+                <img src={srcSmall} />
             </div>
             <div className="img-large-container hidden">
                 <span className="fullscreen fa-stack fa-sm">
@@ -18,7 +20,7 @@ export function createMediaIfExists(ID, SRC, ext) {
     )
 }
 
-function toggleMedia(id, src, ext) {
+function toggleMedia(id, src, filetype) {
     const imgWrap = $('#'+id);
     const thumbnail = imgWrap.find('.thumbnail');
     const expanded = imgWrap.find('.img-large-container');
@@ -26,7 +28,7 @@ function toggleMedia(id, src, ext) {
     if (expanded.hasClass('hidden')) {
         // Current 
 
-        if (ext === ".webm") {
+        if (filetype === ".webm") {
             // Create video
             var file = $('<video />', {
                 src: src,
