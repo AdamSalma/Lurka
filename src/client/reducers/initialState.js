@@ -3,8 +3,6 @@ export default {
 		isScrolling: false,  // app scroll
 		currentPage: "home", // currentPage
 		isHeaderVisible: false,  // if currentPage == "content"
-
-
 		statusMessage: null,  // reveal status to user
 
 		providers: ["4chan", "reddit"],
@@ -19,6 +17,8 @@ export default {
 	},  
 
 	board: {
+		requestWhenOlderThan: 1200,  // in seconds
+		receivedAt: 0,  // unix timestamp
 		isFetching: false,
 		didInvalidate: false,
 		filterWord: null,
@@ -29,6 +29,8 @@ export default {
 	},
 
 	thread: {
+		requestWhenOlderThan: 15,  // in seconds
+		receivedAt: 0,  // unix timestamp
 		isActive: false,
 		isFetching: false,
 		didInvalidate: false,
