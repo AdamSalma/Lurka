@@ -4,7 +4,8 @@ import {
     BOARD_LOADED, 
     BOARD_DESTROYED, 
     BOARD_SCROLLED_BOTTOM,
-    BOARD_FILTER
+    BOARD_FILTER,
+    BOARD_INVALIDATED
 } from '../constants'
 
 export default function (state = initialState.board, action) {
@@ -13,12 +14,18 @@ export default function (state = initialState.board, action) {
         case BOARD_REQUESTED:
             return Object.assign({}, state, {
                 isFetching: true,
-                requestType: action.type  // for logging error to user...?
+                didInvalidate: false
+            })
+
+        case BOARD_INVALIDATED:
+            return Object.assign({}, state, {
+                didInvalidate: true
             })
 
         case BOARD_LOADED:
             return Object.assign({}, state, {
-                posts: action.payload,
+                posts: action.posts,
+                receivedAt: action.receivedAt,
                 isFetching: false
             })
 
