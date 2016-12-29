@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Velocity from 'velocity-animate';
-import AlertContainer from 'react-alert'
+import Velocity from 'velocity-animate';  // TODO: Is this needed?
 
 import Logo from "../components/Logo";
 import BoardLists from "../components/BoardLists";
@@ -27,13 +26,6 @@ class HomePanel extends Component {
     constructor(props) {
         super(props);
         this.countLoading = this.countLoading.bind(this)
-        this.showAlert = this.showAlert.bind(this)
-    }
-
-    componentDidUpdate({ status:{ statusMessage } }) {
-        if (this.props.status.statusMessage !== statusMessage ) {
-            this.showAlert(this.props.status.statusMessage)
-        }
     }
 
     render() {
@@ -58,10 +50,8 @@ class HomePanel extends Component {
                     // Status
                     boardList={boardList} provider={status.provider} status={status}
                 />
-                <AlertContainer ref={a => this.msg = a}/>
             </div>
         )
-        // TODO: fix alert container. move to own 'page'
     }
 
     countLoading(){
@@ -75,10 +65,6 @@ class HomePanel extends Component {
             return <Elipses text={text} interval={200} maxDots={3} />
         } else return <h3>Select a provider</h3>
 
-    }
-
-    showAlert(message) {
-        this.msg.show(message)
     }
 }
 
