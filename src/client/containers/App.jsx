@@ -1,16 +1,20 @@
 import React, { Component } from "react";
 
 import HomePanel from './HomePanel';
-import ContentPanel from './ContentPanel';
+import BoardPanel from './BoardPanel';
+import ThreadPanel from './ThreadPanel';
 import SettingsPanel from './SettingsPanel';
+import GlobalPanel from './GlobalPanel';
 
 export default class App extends Component {
     render() {
         return (
             <div id="pages">
                 <HomePanel/>
-                <ContentPanel/>
+                <BoardPanel/>
+                <ThreadPanel/>
                 <SettingsPanel/>
+                <GlobalPanel/>
         	</div>
         )
     }
