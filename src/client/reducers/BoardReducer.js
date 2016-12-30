@@ -4,8 +4,10 @@ import {
     BOARD_LOADED, 
     BOARD_DESTROYED, 
     BOARD_SCROLLED_BOTTOM,
-    BOARD_FILTER,
-    BOARD_INVALIDATED
+    BOARD_INVALIDATED,
+    SEARCH_BOARD,
+    ADD_FILTER,
+    REMOVE_FILTER,
 } from '../constants'
 
 export default function (state = initialState.board, action) {
@@ -39,9 +41,21 @@ export default function (state = initialState.board, action) {
                 limit: action.payload
             })
 
-        case BOARD_FILTER:
+        case SEARCH_BOARD:
             return Object.assign({}, state, {
-                filterWord: action.payload || null
+                searchWord: action.payload || null
+            })
+
+        case ADD_FILTER:
+            return Object.assign({}, state, {
+                filterWords: [...state.filterWords, action.payload]
+            })
+
+        case REMOVE_FILTER:
+            return Object.assign({}, state, {
+                filterWords: state.filterWords.filter(word => {
+                    action.payload !== word
+                })
             })
 
         default:
