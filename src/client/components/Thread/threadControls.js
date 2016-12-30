@@ -57,9 +57,7 @@ function createTooltip(event) {
     if (left < 0) {
         left = linkPos.left + 2
         el.classList.add('tip-right')
-    }
-
-    else if (left + el.offsetWidth > document.documentElement.clientWidth) {
+    } else if (left + el.offsetWidth > document.documentElement.clientWidth) {
         left = linkPos.left - el.offsetWidth + target.offsetWidth + 2
         el.classList.add('tip-left')
     }
@@ -68,7 +66,7 @@ function createTooltip(event) {
     top = linkPos.top - el.offsetHeight - 5
 
     if (top < 0) {
-        top = top + target.offsetHeight + el.offsetHeight + 5
+        top += target.offsetHeight + el.offsetHeight + 5
     }
 
     console.log(`top: ${top}, left: ${left}, el.offsetHeight: ${el.offsetHeight} linkPos.top: ${linkPos.top}`);
@@ -99,7 +97,7 @@ function scrollToPost( href ) {
     console.log(`scroll offset is ${offset}`)
 
     $thread.animate({
-        scrollTop: offset
+        scrollTop: offset - 60
     }, 600);
 
     $post.addClass('highlight')
