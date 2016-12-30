@@ -3,11 +3,10 @@ export default {
 		isScrolling: false,  // app scroll
 		currentPage: "home", // currentPage
 		isHeaderVisible: false,  // if currentPage == "content"
-		statusMessage: null,  // reveal status to user
-
+		alertMessage: null,  // reveal status to user
 		providers: ["4chan", "reddit"],
 		provider: "4chan",
-		boardID: "g",
+		boardID: null,
 		threadID: null,
 	},
 
@@ -17,11 +16,11 @@ export default {
 	},  
 
 	board: {
-		requestWhenOlderThan: 1200,  // in seconds
 		receivedAt: 0,  // unix timestamp
 		isFetching: false,
 		didInvalidate: false,
-		filterWord: null,
+		searchWord: null,
+		filterWords: [],
 		history: {},
 		posts: [],
 		watch: [],
@@ -29,21 +28,19 @@ export default {
 	},
 
 	thread: {
-		requestWhenOlderThan: 15,  // in seconds
 		receivedAt: 0,  // unix timestamp
 		isActive: false,
 		isFetching: false,
 		didInvalidate: false,
 		history: {},
 		posts: [],
-
 	},
 
 	post: {
 		isAuthenticated: false,
 		type: null,  // thread/comment
 		references: [],
-		content: null,  // user input
+		message: null,  // user input
 		upload: null
 		// canReply
 	},
@@ -52,7 +49,9 @@ export default {
 		// TODO: all settings here in a flat structure
 		userStoragePath: "./",
 		customStyleSheet: null,
-		filterKeywords: []  // filter board 
+		boardFilterWords: [],
+		boardUpdateInterval: 30,
+		threadUpdateInterval: 15,
 		// boardPostMax: 30 // TODO: Add boardpost limit to state
 	}
 }
