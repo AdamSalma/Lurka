@@ -7,6 +7,7 @@ import {
     BOARD_LIST_ADD_FAVOURITE,
     BOARD_LIST_REMOVE_FAVOURITE,
 } from '../constants';
+import { alertMessage } from './StatusActions'
 
 function requestBoardList(provider) {
     return {
@@ -40,7 +41,10 @@ export function fetchBoardList( provider ) {
                 .then(data => dispatch(receiveBoardList(data, provider)))
                 .catch( err => {
                     console.error(err)
-                    dispatch(statusMessage(`Error: Couldn't request ${provider}s boards`))
+                    dispatch(alertMessage({
+                        message: `Couldn't request ${provider}s boardlist`,
+                        type: "error"
+                    }))
                     dispatch(invalidateBoard())
                 });
         }
