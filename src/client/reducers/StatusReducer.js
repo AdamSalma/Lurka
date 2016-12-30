@@ -12,7 +12,10 @@ import {
     SCROLL_HEADER,
 
     THREAD_REQUESTED,
+    THREAD_DESTROYED,
+
     BOARD_REQUESTED,
+    BOARD_DESTROYED,
 } from '../constants';
 
 export default function (state = initialState.status, action) {
@@ -57,7 +60,17 @@ export default function (state = initialState.status, action) {
 
         case STATUS_UPDATE:
             return Object.assign({}, state, {
-                statusMessage: action.payload
+                alertMessage: action.payload
+            })
+
+        case THREAD_DESTROYED:
+            return Object.assign({}, state, {
+                threadID: null
+            })
+
+        case BOARD_DESTROYED:
+            return Object.assign({}, state, {
+                boardID: null
             })
 
         default:
