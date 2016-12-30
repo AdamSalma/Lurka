@@ -105,10 +105,6 @@ describe('Constants', () => {
     expect(consts.SEARCH_THREAD).toEqual('SEARCH_THREAD');
   });
 
-  it('contains SERACH_BOARD', () => {
-    expect(consts.SERACH_BOARD).toEqual('SERACH_BOARD');
-  });
-
   it('contains STATUS_UPDATE', () => {
     expect(consts.STATUS_UPDATE).toEqual('STATUS_UPDATE');
   });
@@ -133,8 +129,8 @@ describe('Constants', () => {
     expect(consts.BOARD_LIST_REMOVE_FAVOURITE).toEqual('BOARD_LIST_REMOVE_FAVOURITE');
   });
   
-  it('contains BOARD_FILTER', () => {
-    expect(consts.BOARD_FILTER).toEqual('BOARD_FILTER');
+  it('contains SEARCH_BOARD', () => {
+    expect(consts.SEARCH_BOARD).toEqual('SEARCH_BOARD');
   });
   
   it('contains BOARD_EXISTS', () => {
