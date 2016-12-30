@@ -5,42 +5,40 @@ import {
     SCROLL_HEADER
 } from '../constants'
 
-const scrollEndpoints = ["content", "settings"]  // "home" is immovable
-const scrollDuration = 1000
-const scrollEasing = "ease-in-out"
-const scrollTargetPrev = "home"
+const scrollTargets = ["board", "thread", "settings"]  // "home" is immovable
 
-export function scrollPage(endpoint, up) {
+export function scrollPage({ page, direction, callback, to="home", duration=1000, easing='ease-in-out' }) {
 
-    if ( !scrollEndpoints.includes(endpoint) ) 
-        throw new Error("Invalid scroll endpoint supplied to action");
+    if ( !scrollTargets.includes(page) ) 
+        throw new Error(`Invalid page supplied to scrollPage: ${page}; ${scrollTargets}`);
 
-    const top = up ? 0 : window.innerHeight   
-    const $target = getTarget(endpoint)
-
+    const top = direction === "up" ? 0 : window.innerHeight   
+    const $target = getTarget(page)
 
     return (dispatch, getState) => {
-        if (up && !shouldScroll(getState(), endpoint)) return;
+        if (shouldntScroll(getState(), page, direction)) 
+            return
 
-        $target.velocity("stop");
-        
-        if (!up) {
+        if (direction !== "up") {
             // Fix scroll toggle. Change state when reverting
-            endpoint = scrollTargetPrev
+            page = to
         }
 
-        dispatch(startScroll(endpoint));
+        $target.velocity("stop");
+        dispatch(startScroll());
 
         return $target.velocity({top}, {
-            duration: scrollDuration, 
-            easing: scrollEasing, 
-            complete: () => dispatch(endScroll(endpoint))
+            duration, easing,
+            complete: () => {
+                dispatch(endScroll(page))
+                if (callback) callback();
+            }
         });
     }
 }
 
-function shouldScroll({status}, target) {
-    return status.currentPage !== target
+function shouldntScroll({status}, target, direction) {
+    return status.currentPage === target && direction === "up"
 }
 
 function getTarget(endpoint) {
@@ -52,10 +50,9 @@ function getTarget(endpoint) {
     }
 }
 
-function startScroll(currentPage) {
+function startScroll() {
     return {
         type: PAGE_SCROLL_STARTED,
-        payload: currentPage
     }
 }
 
@@ -92,9 +89,10 @@ export function scrollHeader(toVisible, delay) {
 }
 
 function headerScroll(toVisible) {
+    console.log("Action headerScroll: " + toVisible)
     return {
         type: SCROLL_HEADER,
-        payload: toVisible
+        toVisible
     }
 }
 
