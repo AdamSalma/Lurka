@@ -49,31 +49,23 @@ export function renderTitle(title) {
 export function renderMediaInfo(media) {
     if (!media) return
 
-    const { filename, filesize, filetype, width, height } = media
-    
-    let size = Math.round(filesize/1000) // kilobytes
-        size = size < 1000 ? 
-            `${size} KB` :
-            `${Math.round((size/1000) * 10) / 10} MB` // megabytes
+    const { filename, filetype } = media
 
     let iconName;
-
-    if (filetype.includes("webm")) {
+    if (filetype.includes("webm"))
         iconName = 'video'
-    } else {
+    else
         iconName = 'image-area'
-    }
 
     let fName = filename
-    if (fName.length > 25) {
+    if (fName.length > 25)
         fName = fName.slice(0, 25) + '(...)'
-    }
+    fName += filetype
 
     return (
         <div className="media-info">
             <Icon name={iconName}/>
-            <span className="filename" dangerouslySetInnerHTML={{__html: fName + filetype}}/>
-            <span className="fileinfo">({size} {width}x{height})</span>
+            <span className="filename" dangerouslySetInnerHTML={{__html: fName}}/>
         </div>
     )
 
