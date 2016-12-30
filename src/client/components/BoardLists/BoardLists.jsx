@@ -52,10 +52,7 @@ export default class BoardLists extends Component {
             return false
 
         if (didSelectOption) {
-            console.info(boardList)
             const board = boardList[provider].find( el => el.boardID === boardID)
-            console.info(`Dropdown board selected: ${board}`)
-            console.info(board)
 
             if (!board) {
                 console.error(boardList)
@@ -124,8 +121,11 @@ export default class BoardLists extends Component {
         const {scrollPage, scrollHeader, changeProvider, fetchBoard} = this.props;
 
         changeProvider(provider)
-        scrollPage("content", true)  // true = "show" content page
         fetchBoard({boardID, provider})
+        scrollPage({
+            page: "board", 
+            direction: "up"
+        })
     }
 
     getBoardListElements( provider ) {
