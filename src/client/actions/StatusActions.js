@@ -23,8 +23,10 @@ function shouldChangeProvider( {status}, provider) {
     return status.provider !== provider
 }
 
-export function statusMessage( message='' ) {
-    console.info(`Action statusMessage(): ${message}`);
+export function alertMessage( message ) {
+    console.info(`Action alertMessage(): ${message}`);
+    console.warn(message);
+
     return {
         type: STATUS_UPDATE,
         payload: message

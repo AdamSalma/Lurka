@@ -7,7 +7,7 @@ import {
     THREAD_CHANGE, 
     THREAD_INVALIDATED
 } from '../constants';
-import {statusMessage, clearStatus} from './StatusActions'
+import { alertMessage } from './StatusActions'
 
 function requestThread(threadID) {
 	console.log("Action RequestThread wth ID:", threadID);
@@ -37,7 +37,10 @@ export function fetchThread(provider, boardID, threadID) {
     console.log(`Action FetchThread() to /api/${provider}/${boardID}/${threadID}`);
     return (dispatch, getState) => {
         if (!shouldFetchThread(getState())) return 
-        dispatch(statusMessage(`Requesting thread ${threadID}`));
+        dispatch(alertMessage({
+            message: `Requesting thread ${threadID}`,
+            type: 'info'
+        }));
         dispatch(requestThread(threadID));
         return Axios.get(`/api/${provider}/${boardID}/${threadID}`)
             .then(data => {
