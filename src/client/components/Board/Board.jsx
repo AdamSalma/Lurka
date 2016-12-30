@@ -33,8 +33,6 @@ export default class Board extends Component {
 
 
     componentDidMount() {
-        const { incrementLimit } = this.props
-
         // Board scroller
         this._board.nanoScroller({ sliderMaxHeight: 400, sliderMinHeight: 60 })
 
@@ -63,9 +61,7 @@ export default class Board extends Component {
                  onScroll={() => didScroll = true}
             >
                 <div className="nano-content" ref="content">
-                    <div className="board-header">
-                        <h1>{`${provider}: /${boardID}/`}</h1>
-                    </div>
+                    <div className="board-gap"/>
                     <div className="posts" ref="posts">
                         {this.createPosts()}
                     </div>
@@ -75,24 +71,7 @@ export default class Board extends Component {
     }
 
     createPosts() {
-        const { posts, limit, filterWord } = this.props.board;
-        let _posts 
-
-        if (filterWord) {
-            _posts = posts.filter(({title="", comment=""}) => {
-                return title.toLowerCase().includes(filterWord) || 
-                       comment.toLowerCase().includes(filterWord)
-            })
-            setTimeout(()=>{
-                // Reshuffle posts and scroll to top of container
-                createLayout()
-                this._board.nanoScroller({ scroll:"top" })
-            }, 333)
-        } else {
-            _posts = posts.slice(0, limit)
-        }
-
-        return _posts.map( post => {
+        return this.getPosts().map( post => {
             return (
                 <BoardPost
                     key={post.id}
@@ -102,6 +81,42 @@ export default class Board extends Component {
                 />
             );
         });
+    }
+
+    getPosts() {
+        const { posts, limit, searchWord, filterWords } = this.props.board;
+        let _posts 
+
+        if (searchWord) {
+            // search posts for word
+            _posts = posts.filter( ({ title="", comment="" }) => {
+                return (
+                    title.toLowerCase().includes(searchWord) || 
+                    comment.toLowerCase().includes(searchWord)
+                )
+            })
+            setTimeout(()=>{
+                // Reshuffle posts and scroll to top of container
+                createLayout()
+                this._board.nanoScroller({ scroll:"top" })
+            }, 333)
+
+        } else if (filterWords.length) {
+            // filter posts that include any unwanted words
+            _posts = filterWords.map( unwanted => {
+                return posts.filter( ({ title="", comment="" }) => {
+                    return !(
+                        title.toLowerCase().includes(unwanted) ||
+                        comment.toLowerCase().includes(unwanted)
+                    )
+                })
+            })
+
+        } else {
+            _posts = posts
+        }
+
+        return _posts.slice(0, limit)
     }
 
     loadMorePosts() {
@@ -114,10 +129,11 @@ export default class Board extends Component {
     onBoardPostClick( threadID ){
         // Fetch if user not highlighting any text
         if (!window.getSelection().toString()) {
-            const { provider, boardID, fetchThread } = this.props;
+            const { provider, boardID, fetchThread, scrollHeader } = this.props;
             // Hide Thread scrollbar
             $('.thread-wrap').nanoScroller({ stop: true })  
             fetchThread(provider, boardID, threadID);
+            scrollHeader(true)  // make header visible
         }
     }
 
