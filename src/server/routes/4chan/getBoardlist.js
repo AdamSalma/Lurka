@@ -1,13 +1,13 @@
 import Axios from 'axios';
-import { parseBoardList } from '../../services/4chanParser';
-import { chan as options } from '../../config/requestHeaders.js';
-
+import { parseBoardList } from '../../parsers/4chanParser';
+import { chan as options } from '../../config/requestHeaders';
+import { chan as getUrls } from '../../config/apiEndpoints';
 
 export default function (req, res, next) {
-    const url = `http://a.4cdn.org/boards.json`;
+    const url = getUrls(null, null).boardlist
 	log.http(`Fetching boardList from ${url}`)
     Axios(url, options)
-        .then( boardList => res.send(parseBoardList(boardList.data.boards)) )
+        .then( res2 => res.send(parseBoardList(res2.data.boards)) )
         .catch( err => {
             log.error(err.stack);
         });
