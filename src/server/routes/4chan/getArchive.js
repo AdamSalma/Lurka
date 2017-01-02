@@ -1,9 +1,12 @@
-import Express from 'express';
-import { chan as options } from '../../config/requestHeaders.js';
+import Axios from 'axios';
+
+import { parseArchive } from '../../parsers/4chanParser'
+import { chan as options } from '../../config/requestHeaders';
+import { chan as getUrls } from '../../config/apiEndpoints';
 
 export default function (req, res, next) {
     const { boardID } = req.params;
-    const url = `https://a.4cdn.org/${boardID}/archive.json`
+    const url = getUrls(boardID).archive
     log.http(`Fetching archive from ${url}`)
     Axios(url, options)
         .then( board => res.send(board.data) )  // TODO: Parse 4chan archive

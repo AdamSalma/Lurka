@@ -1,27 +1,14 @@
 import Axios from 'axios';
-import { parseBoardList } from '../../services/redditParser';
-import { reddit as options } from '../../config/requestHeaders.js';
-
+import { parseBoardList } from '../../parsers/redditParser';
+import { reddit as options } from '../../config/requestHeaders';
+import { reddit as getUrls } from '../../config/apiEndpoints';
 
 export default function (req, res, next) {
-    var {type, limit} = req.params
+    const url = getUrls(req.params).subreddits
+    log.http(`GET Reddit boardlist: ${url}`)
 
-    log.info(req)
-    // default, popular, new, gold
-    // @param limit  - the maximum number of items desired (default: 25, maximum: 100)
-
-    if (!type) {
-        type = "default"
-    }
-
-    if (!limit) {
-        limit = 50
-    }
-
-    const url = `http://reddit.com/subreddits/${type}/.json?limit=${limit}`;
-    log.http(`GET Reddit boardList from ${url}`)
     Axios(url, options)
-        .then( ({data}) => res.send(parseBoardList(data)) )
+        .then(  res2 => res.send(parseBoardList(res2.data)) )
         .catch( err => {
             log.error(err.stack);
         });

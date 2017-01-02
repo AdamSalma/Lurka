@@ -7,7 +7,7 @@ import getThread from './getThread'
 
 const router = Express.Router();
 
-router.get('/', () => console.log('Hi mum'));
+router.get('/', () => {throw new Error("No subroute: '/api/4chan'")});
 router.get('/boards', getBoardlist);
 router.get('/:boardID', getBoard);
 router.get('/:boardID/archive', getArchive);
