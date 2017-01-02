@@ -15,14 +15,23 @@
         position: absolute
         z-index: -1
 
-    .header-content
+    .header-content-wrap
+        +set-dims($header-width - 24, 100%)
         opacity: 0.9
-        +set-dims($header-width - 24, 50%)
+        background: $black
+        box-shadow: 20px 0 20px $black, -20px 0 20px $black
+        margin: 0 auto
+
+    .header-content
+        +set-dims(100%, 50%)
         position: relative
         top: 25%
-        background: $black
-        margin: 0 auto
-        box-shadow: 20px 0 20px $black, -20px 0 20px $black
+
+    .breadcrumb
+        display: inline-block
+        font-size: 20px
+        color: $primary
+        padding: 0 10px
 
     .searchbox
         height: $header-height/2
@@ -44,6 +53,7 @@
         line-height: 30px
         padding: 0 6px
         margin-right: 7px
+        cursor: pointer
 
         &:hover
             transition: all .3s

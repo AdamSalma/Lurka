@@ -22,7 +22,10 @@
         width: 7px
         cursor: hand
         background: $black
-        // display: block !important
+        
+        // move out from underneath header
+        height: calc(100vh - #{$header-height})
+        top: auto
 
         &:hover 
             width: 12px
@@ -35,3 +38,6 @@
     overflow: hidden
     line-height: $thread-line-height
 
+    // gap for header at top of thread
+    .header-gap
+        height: $header-height

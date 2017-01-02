@@ -7,6 +7,7 @@
     padding: 2px 8px
     padding-right: 27px
     position: relative
+    transition: background .2s ease-out
 
     @include breakpoint(to-tablet)
         width: 100% !important
@@ -145,6 +146,9 @@
 
     &.highlight
         position: relative
+        background: mix($primary, $grey, 10%)
+        transition: none !important
+
         &:before 
             content: ""
             transition: all 1s ease-out
@@ -170,10 +174,6 @@
         a
             color: $primary
 
-    // gap for header at top of thread
-    .header-gap
-        height: $header-height
-
     /* 4chan links */
     .quote
         color: $green
@@ -183,6 +183,12 @@
         text-decoration: line-through
         font-weight: bold
     
+        &::after
+            content: "(404'd)"
+            text-decoration: none
+            display: inline-block
+            margin: 0 4px
+
     .quotelink
         color: $primary
         text-decoration: none
@@ -192,6 +198,3 @@
         &:hover
             color: $primary-light
             transition: 0.3s ease-out
-
-        &:visited
-            color: white

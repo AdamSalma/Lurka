@@ -10,14 +10,18 @@
     border-radius: 4px 4px 8px 8px
     background: $board-post-color
     box-shadow: $black 2px 7px 10px
+    border: 2px solid $board-post-color
 
-    transition: all .4s ease-in-out
+    transition: all .4s ease-out
     transition-property: top, left, box-shadow;
 
 
     &:hover
-        transition: none
-        box-shadow: $white 0 0 6px
+        transition: all .2s
+        background: $board-post-hover-color
+        border: 2px solid $board-post-hover-color
+        // box-shadow: $white 0 0 6px
+
         .counters
             opacity: 1
 
@@ -39,7 +43,7 @@
     .comment-wrap
         padding-top: 6px
         position: relative
-        background: $board-post-color
+        background: inherit
         top: 0
         transition: top .2s ease-out
         box-shadow: $black -4px 0 4px
