@@ -1,4 +1,6 @@
-import proxify from './proxyUrls';
+import proxify from '../services/proxyUrls';
+import {chan as getUrls} from '../config/apiEndpoints';
+
 
 /**
  * Standardises a 4chan board.
@@ -8,44 +10,41 @@ import proxify from './proxyUrls';
  * @return {Array}          - Extracted posts
  */
 export function parseBoard( board, boardID ) {
-    const img = `https://i.4cdn.org/${boardID}/`;
-    var newBoard = [];
-    log.app('Parsing board...')
+    log.app(`Parsing 4chan board ${boardID} ...`)
+    const _board = []
+    const {image: imgUrl, thumbnail: thumbUrl} = getUrls(boardID)
 
     for (let page in board) {
         if (!board.hasOwnProperty(page)) return false;
-        let threads = board[page]['threads'];
-		for (let i = 0; i < threads.length; i++) {
-		    formatThread(threads[i]);
-		}
+        board[page]['threads'].map( thread => formatThread(thread))
     }
 
-    if (!newBoard.length) throw new Error("No threads extracted");
-    log.app(`Created ${newBoard.length} board posts`);
-    return newBoard;
+    if (!_board.length) 
+        throw new Error("No threads extracted")
 
-    function formatThread(threadObj) {
-        let ext = threadObj['ext']
-        let smImg = img + threadObj['tim'] + "s.jpg"
-        let lgImg = img + threadObj['tim'] + ext
+    log.app(`Created ${_board.length} board posts`)
+    return _board;
 
-        let thread = {
-        	id: threadObj['no'],
-        	date: threadObj['now'],
-            title: threadObj['sub'] || "",
-            comment: threadObj['com'],
-            time: threadObj['tim'] || threadObj['time'] * 1000,
+    function formatThread(thread) {
+        let smImg = thumbUrl + thread['tim'] + "s.jpg"
+        let lgImg = imgUrl + thread['tim'] + thread['ext']
+
+        _board.push({
+            id: thread['no'],
+            date: thread['now'],
+            title: thread['sub'] || "",
+            comment: thread['com'],
+            time: thread['tim'] || thread['time'] * 1000,
             imgsrc: {
                 sm: proxify("/media", {url: smImg, provider: "4chan"}),
                 lg: proxify("/media", {url: lgImg, provider: "4chan"})
             },
             replies: {
-                textCount: threadObj['replies'],
-                imgCount: threadObj['images'],
-                ipCount: threadObj['unique_ips']
-            }
-        }
-        newBoard.push(thread);
+                textCount: thread['replies'],
+                imgCount: thread['images'],
+            },
+            last_modified: thread['last_modified']
+        });
     }
 }
 
@@ -58,15 +57,16 @@ export function parseBoard( board, boardID ) {
  * @return {[type]}         [description]
  */
 export function parseThread( posts, boardID ) {
-    const img = `https://i.4cdn.org/${boardID}/`;
+    if (!posts || !posts.length)
+        throw new Error("No thread posts supplied");
 
-    if (!posts || !posts.length) throw new Error("No thread posts supplied");
-    log.app(`Created ${posts.length} 4chan posts`);
+    const {image: imgUrl, thumbnail: thumbUrl} = getUrls(boardID)
+    
 
     const thread = posts.map( post => {
         let ext = post['ext']
-        let smImg = img + post['tim'] + "s.jpg"
-        let lgImg = img + post['tim'] + ext
+        let smImg = thumbUrl + post['tim'] + "s.jpg"
+        let lgImg = imgUrl + post['tim'] + ext
 
         return {
             id: post['no'],
@@ -87,6 +87,8 @@ export function parseThread( posts, boardID ) {
             } : null
         }
     });
+
+    log.app(`Created ${posts.length} 4chan posts`);
 
     try {
         return connectPosts(thread)
