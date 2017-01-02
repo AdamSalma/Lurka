@@ -1,5 +1,9 @@
-@import ./homepanel
-@import ./contentpanel
+@import ./homePanel
+@import ./boardPanel
+@import ./threadPanel
+@import ./globalPanel
+@import ./settingsPanel
+
 
 $background-color1: $grey-dark
 $background-color2: $black
@@ -11,3 +15,18 @@ $background-color2: $black
     top: 100%
     background: $black
     background: linear-gradient(135deg, $background-color2, $background-color1, $background-color2)
+
+.page-home
+    z-index: 1
+
+.page-board
+    z-index: 10
+
+.page-thread
+    z-index: 100
+
+.page-settings
+    z-index: 1000
+
+.page-global
+    z-index: 10000
