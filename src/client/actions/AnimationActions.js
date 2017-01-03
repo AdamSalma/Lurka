@@ -63,6 +63,7 @@ function endScroll(currentPage) {
     }
 }
 
+// TODO: Destructure scrollHeader args
 export function scrollHeader(toVisible, delay) {
     const $header = $('#header'), duration=300;
     var 

@@ -47,29 +47,36 @@ function setBoard( boardID ) {
     }
 }
 
-export function incrementBoardLimit( limit ) {
-    return dispatch => {
-        dispatch(alertMessage({
-            message: `Loading posts...`,
-            type: 'info'
-        }))
-        dispatch({
-            type: BOARD_SCROLLED_BOTTOM,
-            payload: limit
-        })
+export function loadMorePosts( limit ) {
+    return (dispatch, getState) => {
+        if ( shouldLoadMorePosts(getState(), limit) ) {
+            dispatch({
+                type: BOARD_SCROLLED_BOTTOM,
+                payload: limit
+            })
+        } else {
+            dispatch(alertMessage({
+                message: `End of board`,
+                type: 'info',
+                time: 2000
+            }))
+        }
     }
 }
 
+function shouldLoadMorePosts({ board }, limitToSet) {
+    return limitToSet < board.posts.length
+}
 
 export function fetchBoard({ provider, boardID }) {
     console.log(`Action FetchBoard() to /api/${provider}/${boardID}`);
     return (dispatch, getState) => {
-        if ( boardAlreadyRequested(getState(), boardID)) {
+        if ( boardInHistory(getState(), boardID)) {
             dispatch({
                 type: BOARD_EXISTS
             })
 
-        } else if ( shouldFetchBoard(getState()) ){
+        } else if ( canRequestBoard(getState()) ){
 
             dispatch(requestBoard(boardID))
             dispatch(alertMessage({
@@ -86,21 +93,23 @@ export function fetchBoard({ provider, boardID }) {
                     dispatch(invalidateBoard(err))
                     dispatch(alertMessage({
                         message: err,
-                        type: "error"
+                        type: "error",
+                        time: 20000
                     }))
                 });
         }
     }
 }
 
-function shouldFetchBoard({ board }, boardID) {
-    const {isFetching, receivedAt, requestWhenOlderThan: ageLimit} = board
-    let age = (Date.now() - receivedAt) / 1000  // seconds since last time receipt 
-    console.log(`shouldFetchBoard(): ${age} > ${ageLimit} = ${age > ageLimit}`)
-    return !isFetching && age > ageLimit
+function canRequestBoard({ thread, settings: { requestThrottle } }) {
+    const {isFetching, receivedAt} = thread
+    let lastRequested = Date.now() - receivedAt
+    console.log(`canRequestBoard(): ${lastRequested} > ${requestThrottle} = ${lastRequested > requestThrottle}`)
+
+    return !isFetching && lastRequested > requestThrottle
 }
 
-function boardAlreadyRequested({board:{ history }, status}, boardID) {
+function boardInHistory({board:{ history }, status}, boardID) {
     return history[boardID] || status === boardID
 }
 
