@@ -50,11 +50,11 @@ export function fetchThread(provider, boardID, threadID) {
     }
 }
 
-function shouldFetchThread({ thread }) {
-    const {isFetching, receivedAt, requestWhenOlderThan: ageLimit} = thread
-    let age = Date.now() - receivedAt / 1000  // seconds since last time receipt 
+function shouldFetchThread({ thread, settings: { requestThrottle } }) {
+    const {isFetching, receivedAt} = thread
+    let lastRequested = Date.now() - receivedAt
 
-    return !isFetching && age > ageLimit
+    return !isFetching && lastRequested > requestThrottle
 }
 
 export function closeThread(threadID, cb) {
