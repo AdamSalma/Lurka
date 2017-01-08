@@ -61,11 +61,8 @@ class GlobalPanel extends Component {
         )
     }
 
-    showAlert({message, type='info'}) {
-        this.msg.show(message, {
-            time: 4000,
-            type
-        })
+    showAlert({message, type='info', time=4000}) {
+        this.msg.show(message, {time, type})
     }
 }
 
