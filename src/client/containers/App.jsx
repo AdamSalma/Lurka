@@ -6,16 +6,26 @@ import ThreadPanel from './ThreadPanel';
 import SettingsPanel from './SettingsPanel';
 import GlobalPanel from './GlobalPanel';
 
-export default class App extends Component {
+export const App = () => {
+    return (
+        <div id="pages">
+            <HomePanel/>
+            <BoardPanel/>
+            <ThreadPanel/>
+            <SettingsPanel/>
+            <GlobalPanel/>
+    	</div>
+    )
+}
+
+export class AppContainer extends Component {
+    constructor({instances}) {
+        super();
+
+        
+    }
+
     render() {
-        return (
-            <div id="pages">
-                <HomePanel/>
-                <BoardPanel/>
-                <ThreadPanel/>
-                <SettingsPanel/>
-                <GlobalPanel/>
-        	</div>
-        )
+        this.props.instances
     }
 }
