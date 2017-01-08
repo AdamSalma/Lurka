@@ -1,4 +1,4 @@
-export default {	
+export default {
 	status: {
 		isScrolling: false,  // app scroll
 		currentPage: "home", // currentPage
@@ -45,13 +45,6 @@ export default {
 		// canReply
 	},
 
-	settings: {
-		// TODO: all settings here in a flat structure
-		userStoragePath: "./",
-		customStyleSheet: null,
-		boardFilterWords: [],
-		boardUpdateInterval: 30,
-		threadUpdateInterval: 15,
-		// boardPostMax: 30 // TODO: Add boardpost limit to state
-	}
+	settings: require('./settings')
+
 }
