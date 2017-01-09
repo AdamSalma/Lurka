@@ -1,4 +1,4 @@
-import initialState from './initialState';
+import initialState from '../constants/initialState';
 import { 
     BOARD_LIST_LOADED, 
     BOARD_LIST_REQUESTED,

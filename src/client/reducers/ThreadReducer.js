@@ -1,4 +1,4 @@
-import initialState from './initialState';
+import initialState from '../constants/initialState';
 import { 
     THREAD_LOADED, 
     THREAD_REQUESTED, 

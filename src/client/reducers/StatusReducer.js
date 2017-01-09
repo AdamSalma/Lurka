@@ -1,4 +1,4 @@
-import initialState from './initialState';
+import initialState from '../constants/initialState';
 import { 
     LOGO_SPIN_STARTED, 
     LOGO_SPIN_ENDED, 
