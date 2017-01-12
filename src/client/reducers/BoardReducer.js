@@ -3,11 +3,12 @@ import {
     BOARD_REQUESTED, 
     BOARD_LOADED, 
     BOARD_DESTROYED, 
-    BOARD_SCROLLED_BOTTOM,
+    BOARD_SCROLLED_TO_BOTTOM,
     BOARD_INVALIDATED,
-    SEARCH_BOARD,
+    BOARD_SEARCHED,
     ADD_FILTER,
     REMOVE_FILTER,
+    BOARD_LOADED_FROM_HISTORY
 } from '../constants'
 
 export default function (state = initialState.board, action) {
@@ -36,15 +37,18 @@ export default function (state = initialState.board, action) {
                 posts: []
             })
 
-        case BOARD_SCROLLED_BOTTOM:
+        case BOARD_SCROLLED_TO_BOTTOM:
             return Object.assign({}, state, {
                 limit: action.payload
             })
 
-        case SEARCH_BOARD:
+        case BOARD_SEARCHED:
             return Object.assign({}, state, {
                 searchWord: action.payload || null
             })
+
+        case BOARD_LOADED_FROM_HISTORY:
+            return Object.assign({}, state, action.payload)
 
         case ADD_FILTER:
             return Object.assign({}, state, {

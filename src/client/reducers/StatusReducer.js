@@ -5,11 +5,11 @@ import {
     PAGE_SCROLL_STARTED, 
     PAGE_SCROLL_ENDED,
     APP_INIT,
-    STATUS_UPDATE,
+    ALERT_MESSAGE,
     PROVIDER_CHANGE,
     BOARD_CHANGE,
 
-    SCROLL_HEADER,
+    HEADER_TOGGLED,
 
     THREAD_REQUESTED,
     THREAD_DESTROYED,
@@ -38,7 +38,7 @@ export default function (state = initialState.status, action) {
                 currentPage: action.payload
             })
 
-        case SCROLL_HEADER:
+        case HEADER_TOGGLED:
             return Object.assign({}, state, {
                 isHeaderVisible: action.payload
             })
@@ -58,7 +58,7 @@ export default function (state = initialState.status, action) {
                 threadID: action.payload
             })
 
-        case STATUS_UPDATE:
+        case ALERT_MESSAGE:
             return Object.assign({}, state, {
                 alertMessage: action.payload
             })
