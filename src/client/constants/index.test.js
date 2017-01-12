@@ -29,6 +29,10 @@ describe('Constants', () => {
     expect(consts.SETTINGS_SAVED).toEqual('SETTINGS_SAVED');
   });
 
+  it('contains SETTING_CHANGED', () => {
+    expect(consts.SETTING_CHANGED).toEqual('SETTING_CHANGED');
+  });
+
   it('contains APP_INIT', () => {
     expect(consts.APP_INIT).toEqual('APP_INIT');
   });
@@ -49,8 +53,8 @@ describe('Constants', () => {
     expect(consts.BOARD_INVALIDATED).toEqual('BOARD_INVALIDATED');
   });
 
-  it('contains BOARD_SCROLLED_BOTTOM', () => {
-    expect(consts.BOARD_SCROLLED_BOTTOM).toEqual('BOARD_SCROLLED_BOTTOM');
+  it('contains BOARD_SCROLLED_TO_BOTTOM', () => {
+    expect(consts.BOARD_SCROLLED_TO_BOTTOM).toEqual('BOARD_SCROLLED_TO_BOTTOM');
   });
 
   it('contains BOARD_LIST_REQUESTED', () => {
@@ -105,8 +109,8 @@ describe('Constants', () => {
     expect(consts.SEARCH_THREAD).toEqual('SEARCH_THREAD');
   });
 
-  it('contains STATUS_UPDATE', () => {
-    expect(consts.STATUS_UPDATE).toEqual('STATUS_UPDATE');
+  it('contains ALERT_MESSAGE', () => {
+    expect(consts.ALERT_MESSAGE).toEqual('ALERT_MESSAGE');
   });
 
   it('contains PAGE_SCROLL_STARTED', () => {
@@ -117,8 +121,8 @@ describe('Constants', () => {
     expect(consts.PAGE_SCROLL_ENDED).toEqual('PAGE_SCROLL_ENDED');
   });
 
-  it('contains SCROLL_HEADER', () => {
-    expect(consts.SCROLL_HEADER).toEqual('SCROLL_HEADER');
+  it('contains HEADER_TOGGLED', () => {
+    expect(consts.HEADER_TOGGLED).toEqual('HEADER_TOGGLED');
   });
 
   it('contains BOARD_LIST_ADD_FAVOURITE', () => {
@@ -129,16 +133,28 @@ describe('Constants', () => {
     expect(consts.BOARD_LIST_REMOVE_FAVOURITE).toEqual('BOARD_LIST_REMOVE_FAVOURITE');
   });
   
-  it('contains SEARCH_BOARD', () => {
-    expect(consts.SEARCH_BOARD).toEqual('SEARCH_BOARD');
-  });
-  
-  it('contains BOARD_EXISTS', () => {
-    expect(consts.BOARD_EXISTS).toEqual('BOARD_EXISTS');
+  it('contains BOARD_SEARCHED', () => {
+    expect(consts.BOARD_SEARCHED).toEqual('BOARD_SEARCHED');
   });
   
   it('contains THREAD_INVALIDATED', () => {
     expect(consts.THREAD_INVALIDATED).toEqual('THREAD_INVALIDATED');
+  });
+  
+  it('contains BOARD_SAVED_TO_HISTORY', () => {
+    expect(consts.BOARD_SAVED_TO_HISTORY).toEqual('BOARD_SAVED_TO_HISTORY');
+  });
+  
+  it('contains BOARD_LOADED_FROM_HISTORY', () => {
+    expect(consts.BOARD_LOADED_FROM_HISTORY).toEqual('BOARD_LOADED_FROM_HISTORY');
+  });
+  
+  it('contains THREAD_SAVED_TO_HISTORY', () => {
+    expect(consts.THREAD_SAVED_TO_HISTORY).toEqual('THREAD_SAVED_TO_HISTORY');
+  });
+  
+  it('contains THREAD_LOADED_FROM_HISTORY', () => {
+    expect(consts.THREAD_LOADED_FROM_HISTORY).toEqual('THREAD_LOADED_FROM_HISTORY');
   });
 
 });
