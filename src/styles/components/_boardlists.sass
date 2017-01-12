@@ -8,9 +8,9 @@ $boards-width: 45%
     max-height: 500px
     margin: 0 auto
     text-align: left
-    border: $grey-light solid 1px
+    border: $grey solid 1px
     position: relative
-    background-color: $grey-dark
+    background-color: $black
     // display: none
 
     .searchbar
@@ -68,21 +68,26 @@ $boards-width: 45%
             font-weight: bold
             font-size: 18px
             padding: 5px 10px
-            background-image: linear-gradient(0deg, $primary, tint($primary, 5%))
+            background-image: linear-gradient(0deg, tint($primary, 5%), $primary)
             border: 1px solid shade($primary, 10%)
             border-radius: 2px
-            transition: box-shadow .2s
-            box-shadow: 0 0 0 $primary
-            text-shadow: 2px 2px 1px $grey
+            transition: box-shadow .2s ease-out
+            box-shadow: 0 2px 4px $black
+            text-shadow: 0 0 1px $grey
             cursor: pointer
+            position: relative
 
-            &:hover
-                box-shadow: 0 0 5px $primary 
-                background-image: linear-gradient(0deg, tint($primary, 5%), $primary)
-                
+            &:active
+                box-shadow: 0 -2px 5px $black
+                top: 1px
+
 
     .item
         position: relative
+
+        > *
+            background: $black !important
+            border-color: $grey-dark !important
 
         .icon
             float: right
@@ -92,12 +97,14 @@ $boards-width: 45%
             line-height: 24px
             transition: color .3s
 
-            &.mdi-star-outline:hover
-                color: $white
-
             &.mdi-star
                 color: #ffe700
 
+        &:hover
+            > *
+                background: $grey !important
+            .mdi-star-outline
+                color: $white
 
 
     // Misc stuff
