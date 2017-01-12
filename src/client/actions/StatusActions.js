@@ -3,7 +3,7 @@ import {
     PROVIDER_CHANGE,
     FILTER_BOARD, FILTER_THREAD,
     SERACH_BOARD, SEARCH_THREAD,
-    STATUS_UPDATE
+    ALERT_MESSAGE
 } from '../constants';
 // TODO: Filter + Search actions
 
@@ -24,19 +24,10 @@ function shouldChangeProvider( {status}, provider) {
 }
 
 export function alertMessage( message ) {
-    console.info(`Action alertMessage(): ${message}`);
-    console.warn(message);
+    console.info(`Action alertMessage(): ${message.message}`);
 
     return {
-        type: STATUS_UPDATE,
+        type: ALERT_MESSAGE,
         payload: message
     }   
-}
-
-export function clearStatus() {
-    console.info(`Action clearStatus()`);
-    return {
-        type: STATUS_UPDATE,
-        payload: ""
-    }
 }
