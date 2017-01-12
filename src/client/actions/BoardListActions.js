@@ -25,8 +25,10 @@ function receiveBoardList(boardList, provider){
 }
 
 function invalidateBoardlist(error) {
+    console.error(error)
     return {
-        type: BOARD_LIST_INVALIDATED
+        type: BOARD_LIST_INVALIDATED,
+        error
     }
 }
 
@@ -38,14 +40,14 @@ export function fetchBoardList( provider ) {
 
             return Axios
                 .get(`/api/${provider}/boards`)
-                .then(data => dispatch(receiveBoardList(data, provider)))
+                .then( data => dispatch(receiveBoardList(data, provider)))
                 .catch( err => {
-                    console.error(err)
                     dispatch(alertMessage({
-                        message: `Couldn't request ${provider}s boardlist`,
-                        type: "error"
+                        message: `Error fetching boardlist from ${provider}: ${err}`,
+                        type: "error",
+                        time: 20000
                     }))
-                    dispatch(invalidateBoard())
+                    dispatch(invalidateBoard(err))
                 });
         }
     }
