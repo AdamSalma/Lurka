@@ -1,8 +1,11 @@
 import Express from 'express'
+import errorHandler from 'errorhandler'
+import notifier from 'node-notifier'
+import { join } from 'path';
+
 import routes from './routes'
 import config from '../../config'
 import webpackHotMiddleware from './middleware/webpackMiddleware'
-import { join } from 'path';
 
 const app = Express();
 const isProd = config.env === 'production'
@@ -34,18 +37,35 @@ app.use('/api', routes.api);  // Request content from external API
 
 // 404 handler
 app.use(({ url }, res, next) => {
-    if (url.includes("__webpack")) {
+    // Ignore HMR
+    if (url.includes("webpack")) 
         return next()
-    }
+
     if (isProd) {
         log.error(`404 Not found: ${url}`)
         res.status(404);
     } else {
-        var err = new Error('Not Found');
-        log.error(err.message);
-        res.send(err)
+        log.error(`Not found: ${url}`);
+        res.send(new Error(`Not found: ${url}`))
     }
 });
-
+ 
+// Error handler
+if (isProd) {
+    app.use((err, str, req) => {
+        log.error(`Error in ${req.method} ${req.url}`)
+    })
+} else {
+    app.use(errorHandler({log: errorNotification}))
+}
+ 
+function errorNotification(err, str, req) {
+    const title = `Error in ${req.method} ${req.url}`
+ 
+    notifier.notify({
+        title: title,
+        message: str
+    })
+}
 
 export default app;
