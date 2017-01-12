@@ -2,7 +2,7 @@ import Velocity from 'velocity-animate'
 import {
 	PAGE_SCROLL_STARTED,
 	PAGE_SCROLL_ENDED,
-    SCROLL_HEADER
+    HEADER_TOGGLED
 } from '../constants'
 
 const scrollTargets = ["board", "thread", "settings"]  // "home" is immovable
@@ -79,25 +79,26 @@ export function scrollHeader(toVisible, delay) {
 
     return (dispatch, getState) => {
         if (shouldScrollHeader(getState(), toVisible)){
+
             $header.velocity("stop");
-            dispatch(headerScroll(toVisible))
+            dispatch(headerToggle(toVisible))
+
             return $header.velocity(
-                {top}, 
-                {duration, easing, delay}
+                {top}, {duration, easing, delay}
             )
         }
     }
 }
 
-function headerScroll(toVisible) {
-    console.log("Action headerScroll: " + toVisible)
+function headerToggle(toVisible) {
+    console.log("Action headerToggle: " + toVisible)
     return {
-        type: SCROLL_HEADER,
+        type: HEADER_TOGGLED,
         toVisible
     }
 }
 
-function shouldScrollHeader({status:{ isHeaderVisible }}, toVisible) {    
-    return isHeaderVisible !== toVisible 
+function shouldScrollHeader({status:{ isHeaderVisible, currentPage }}, toVisible) {    
+    return isHeaderVisible !== toVisible && currentPage !== "home"
 }
 
