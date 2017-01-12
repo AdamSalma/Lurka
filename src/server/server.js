@@ -36,13 +36,21 @@ function onError(error) {
             log.error(bind + ' requires elevated privileges');
             process.exit(1);
             break;
+
         case 'EADDRINUSE':
             log.error(bind + ' is already in use');
             process.exit(1);
             break;
+
+        case 'ETIMEDOUT':
+            log.error('Timeout error');
+            process.exit(1);
+            break;
+
         default:
+            log.error(error.code)
             log.error(error)
-            throw error;
+            throw error
     }
 }
 
