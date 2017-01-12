@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import {alertMessage} from './StatusActions'
 import {
     BOARD_REQUESTED, 
     BOARD_LOADED, 
@@ -7,15 +8,13 @@ import {
     BOARD_INVALIDATED,
 
     BOARD_CHANGE,
-    BOARD_SCROLLED_BOTTOM,
 
-    BOARD_LIST_REQUESTED,
-    BOARD_LIST_LOADED,
+    BOARD_SEARCHED, 
+    BOARD_SCROLLED_TO_BOTTOM,
 
-    SEARCH_BOARD, 
-    BOARD_EXISTS
+    BOARD_SAVED_TO_HISTORY,
+    BOARD_LOADED_FROM_HISTORY,
 } from '../constants';
-import {alertMessage} from './StatusActions'
 
 function requestBoard(boardID) {
     return {
@@ -40,18 +39,21 @@ function invalidateBoard(error) {
 }
 
 function setBoard( boardID ) {
-    console.log("Changing board to " + boardID)
+    console.log("Setting board to " + boardID)
     return {
         type: BOARD_CHANGE,
         payload: boardID
     }
 }
 
+
+
+
 export function loadMorePosts( limit ) {
     return (dispatch, getState) => {
         if ( shouldLoadMorePosts(getState(), limit) ) {
             dispatch({
-                type: BOARD_SCROLLED_BOTTOM,
+                type: BOARD_SCROLLED_TO_BOTTOM,
                 payload: limit
             })
         } else {
@@ -68,70 +70,118 @@ function shouldLoadMorePosts({ board }, limitToSet) {
     return limitToSet < board.posts.length
 }
 
+
+
+
 export function fetchBoard({ provider, boardID }) {
     console.log(`Action FetchBoard() to /api/${provider}/${boardID}`);
     return (dispatch, getState) => {
-        if ( boardInHistory(getState(), boardID)) {
-            dispatch({
-                type: BOARD_EXISTS
-            })
-
-        } else if ( canRequestBoard(getState()) ){
-
-            dispatch(requestBoard(boardID))
-            dispatch(alertMessage({
-                message: `Requesting /${boardID}/`,
-                type: "info"
-            }))
-
-            return Axios.get(`/api/${provider}/${boardID}`)
-                .then( data => {
-                    dispatch(receiveBoard(data))
-                    dispatch(setBoard(boardID))
-                })
-                .catch( err => {
-                    dispatch(invalidateBoard(err))
-                    dispatch(alertMessage({
-                        message: err,
-                        type: "error",
-                        time: 20000
-                    }))
-                });
+        const state = getState()
+        if (!canRequestBoard(state)) {
+            console.warn(`Board request rejected: ${provider}/${boardID}`)
+            return
         }
+
+        if ( boardInHistoryAndRecent(state, provider, boardID)) {
+            dispatch(loadBoardFromHistory(state, provider, boardID))
+            dispatch(setBoard(boardID))
+            dispatch(alertMessage({
+                message: `LOADING BOARD FROM HISTORY: /${boardID}/`,
+                type: "success"
+            }))
+            return
+        }
+
+        dispatch(requestBoard(boardID))
+        dispatch(alertMessage({
+            message: `Requesting /${boardID}/`,
+            type: "info"
+        }))
+
+        return Axios.get(`/api/${provider}/${boardID}`)
+            .then( data => {
+                dispatch(receiveBoard(data))
+                dispatch(setBoard(boardID))
+            })
+            .catch( err => {
+                dispatch(invalidateBoard(err))
+                dispatch(alertMessage({
+                    message: err,
+                    type: "error",
+                    time: 20000
+                }))
+            });
     }
 }
 
-function canRequestBoard({ thread, settings: { requestThrottle } }) {
-    const {isFetching, receivedAt} = thread
-    let lastRequested = Date.now() - receivedAt
+function canRequestBoard({ board, settings }) {
+    const requestThrottle = settings.find(opt => opt.key === "requestThrottle").value
+    const lastRequested = Date.now() - board.receivedAt
+
     console.log(`canRequestBoard(): ${lastRequested} > ${requestThrottle} = ${lastRequested > requestThrottle}`)
-
-    return !isFetching && lastRequested > requestThrottle
+    return !board.isFetching && lastRequested > requestThrottle
 }
 
-function boardInHistory({board:{ history }, status}, boardID) {
-    return history[boardID] || status === boardID
+function boardInHistoryAndRecent({boardHistory, settings}, provider, boardID) {
+    const maxBoardAge = settings.find(opt => opt.key === "maxBoardAge").value * 1000  // to miliseconds
+    const board = boardHistory[provider][boardID]
+
+    if (!board){
+        console.warn('Board was not in history')
+    } else {
+        console.warn(`DID EXIST. ${Date.now() - board.receivedAt} < ${maxBoardAge} = ${Date.now() - board.receivedAt < maxBoardAge}`)
+        console.warn(board)
+    }
+    return board && Date.now() - board.receivedAt < maxBoardAge
 }
+
+function loadBoardFromHistory({ boardHistory }, provider, boardID) {
+    const board = boardHistory[provider][boardID]
+    return {
+        type: BOARD_LOADED_FROM_HISTORY,
+        payload: board,
+        boardID,
+    }
+}
+
+
 
 export function destroyBoard() {
+    console.log("Action destroyBoard()")
     return (dispatch, getState) => {
-        if ( shouldDestroyBoard(getState()) ) {
-            console.log("Action destroyBoard")
-            dispatch({
-                type: BOARD_DESTROYED
-            })
+        const state = getState()
+        if ( shouldDestroyBoard(state) ) {
+            console.warn("Board Destroyed! yay")
+            dispatch(saveBoardToHistory(state))
+            dispatch({type: BOARD_DESTROYED})
+
         }
     }
 }
 
-function shouldDestroyBoard({ board:{ boardID }}){
-    return boardID
+function shouldDestroyBoard({ board }) {
+    return board.posts.length
 }
+
+function saveBoardToHistory({ board, status }) {
+    return {
+        type: BOARD_SAVED_TO_HISTORY,
+        provider: status.provider,
+        boardID: status.boardID,
+        payload: {
+            receivedAt: board.receivedAt,
+            posts: board.posts,
+            watch: board.watch,
+        }
+    }    
+}
+
+
 
 export function searchBoard( searchWord ) {
     return dispatch => {
         dispatch({
-            type: SEARCH_BOARD,
+            type: BOARD_SEARCHED,
             payload: searchWord
         })
     }
