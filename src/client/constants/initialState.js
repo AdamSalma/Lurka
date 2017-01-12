@@ -21,10 +21,14 @@ export default {
 		didInvalidate: false,
 		searchWord: null,
 		filterWords: [],
-		history: {},
 		posts: [],
 		watch: [],
 		limit: 30  // infinite scroll
+	},
+
+	boardHistory: {
+		"4chan": {}, 
+		"reddit": {}
 	},
 
 	thread: {
@@ -32,8 +36,12 @@ export default {
 		isActive: false,
 		isFetching: false,
 		didInvalidate: false,
-		history: {},
 		posts: [],
+	},
+
+	threadHistory: {
+		"4chan": {}, 
+		"reddit": {}
 	},
 
 	post: {
