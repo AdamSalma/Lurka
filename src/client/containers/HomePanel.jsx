@@ -7,6 +7,7 @@ import Velocity from 'velocity-animate';  // TODO: Is this needed?
 import Logo from "../components/Logo";
 import BoardLists from "../components/BoardLists";
 import Elipses from "../components/Elipses";
+import Settings from "../components/Settings";
 
 import {
     changeProvider
@@ -33,12 +34,13 @@ class HomePanel extends Component {
             scrollPage, scrollHeader, fetchBoard, fetchBoardList, changeProvider, 
             addToFavourites, removeFromFavourites,
             
-            status, boardList, threadIsActive
+            status, boardList, threadIsActive, settings
         } = this.props;
 
         return (
             <div className="page page-home">
                 <Logo />
+                <Settings settings={settings}/>
                 {this.countLoading()}
                 <BoardLists 
                     // Actions
@@ -68,9 +70,10 @@ class HomePanel extends Component {
     }
 }
 
-function mapStateToProps({status, boardList, thread}) {
+function mapStateToProps({status, boardList, thread, settings}) {
     return {
         status,
+        settings,
         boardList,
         threadIsActive: thread.isActive
     }

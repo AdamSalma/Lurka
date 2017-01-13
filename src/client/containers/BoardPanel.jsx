@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Board from "../components/Board";
 
 // Actions
-import { fetchBoard, incrementBoardLimit } from '../actions/BoardActions';
+import { fetchBoard, loadMorePosts } from '../actions/BoardActions';
 import { fetchThread } from '../actions/ThreadActions';
 import { scrollHeader } from '../actions/AnimationActions';
 
@@ -13,7 +13,7 @@ class ContentPanel extends Component {
     render() {
         const {
             /* Actions */
-            fetchThread, fetchBoard, incrementBoardLimit, scrollHeader,
+            fetchThread, fetchBoard, loadMorePosts, scrollHeader,
 
             /* State */
             status, board
@@ -23,7 +23,7 @@ class ContentPanel extends Component {
             <div className="page page-board">
                 <Board 
                     fetchBoard={fetchBoard} fetchThread={fetchThread} 
-                    incrementLimit={incrementBoardLimit} scrollHeader={scrollHeader}
+                    loadMorePosts={loadMorePosts} scrollHeader={scrollHeader}
 
                     board={board} provider={status.provider} 
                     boardID={status.boardID} isFetching={board.isFetching}
@@ -45,7 +45,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchBoard, 
         fetchThread, 
-        incrementBoardLimit,
+        loadMorePosts,
         scrollHeader
     }, dispatch)
 }
