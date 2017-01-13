@@ -37,16 +37,16 @@ export default class Header extends Component {
     }
 
     returnHome(){
-        const {closeThread, scrollPage, destroyBoard, scrollHeader} = this.props
+        const { closeThread, scrollPage, destroyBoard, scrollHeader } = this.props
 
         closeThread(null,  // threadID
             () => {
+                scrollHeader(false)  // hide header
                 scrollPage({
                     page: "board", 
                     direction: "down",
                     callback: destroyBoard
                 })   
-                scrollHeader(false)  // hide header
             }
         )
     }
