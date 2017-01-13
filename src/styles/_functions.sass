@@ -5,3 +5,6 @@
 // Add percentage of black to a color
 @function shade($color, $percent)
     @return mix(black, $color, $percent)
+
+@function primary-opacity($opacity)
+    @return rgba(red($primary), green($primary), blue($primary), $opacity)
