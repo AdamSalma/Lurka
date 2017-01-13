@@ -122,6 +122,7 @@ export default class BoardLists extends Component {
 
         changeProvider(provider)
         fetchBoard({boardID, provider})
+        scrollHeader(true, 600)
         scrollPage({
             page: "board", 
             direction: "up"
