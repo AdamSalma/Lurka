@@ -13,13 +13,9 @@ import {
 } from './Render'
 
 
-const mediaPrefix = 'post-media-'
-
-
 export default class ThreadPost extends Component {
     constructor(props) {
         super(props);
-        this.mediaID = mediaPrefix + props.id
     }
 
     render() {
@@ -38,7 +34,7 @@ export default class ThreadPost extends Component {
                     {renderControls(controls)}
                 </div>
                 {renderMediaInfo(media)}
-                {createMediaIfExists(this.mediaID, media)}
+                {createMediaIfExists(id, media)}
                 <blockquote dangerouslySetInnerHTML={{__html: comment}}/>
                 {renderRefs(references)}
             </div>
