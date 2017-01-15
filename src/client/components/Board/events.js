@@ -1,3 +1,4 @@
+// TODO: Sort this out
 export function catchTooltip(board) {
 	$(board).on("hover", ".board-post", function( event ) {
 		console.info('BoardPost mouseover')
