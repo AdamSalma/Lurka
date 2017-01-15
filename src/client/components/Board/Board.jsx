@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, PropTypes } from "react";
 
 import '../../vendor';
 
@@ -12,18 +12,16 @@ export default class Board extends Component {
     constructor({ board, boardID, provider, fetchBoard }) {
         super();
         this.state = {
-            incrementPostsBy: 20,
+            load: 20,
             scrollThrottle: 333,  // ms
             headerHeight: 60,  // Beware if header height changes
             canLoadMorePosts: true,
-            preLoadMoreAt: 500 // px from bottom
+            preLoadMoreAt: 1500 // px from bottom
         }
 
         this.onBoardPostClick = this.onBoardPostClick.bind(this)
-        this.loadMorePosts = this.loadMorePosts.bind(this)
-
-        this.handleScroll = this.handleScroll.bind(this)
-        this.checkIfScrolled = this.checkIfScrolled.bind(this)
+        this.loadMorePosts    = this.loadMorePosts.bind(this)
+        this.checkIfScrolled  = this.checkIfScrolled.bind(this)
 
         this.previousScrollTop = 0
         this.limiter = 12
@@ -37,7 +35,7 @@ export default class Board extends Component {
         this._board.nanoScroller({ sliderMaxHeight: 400, sliderMinHeight: 60 })
 
         // Hover over board posts reveals more info
-        createLayout()
+        $(window).resize(createLayout)
         catchTooltip(board);  // TODO: Implement catchtooltip on board
     }
 
@@ -54,14 +52,10 @@ export default class Board extends Component {
     }
 
     render() {
-        const {provider, boardID, board} = this.props
         return (
-            <div id="board" className="board nano" 
-                 ref={ board => this._board = $(board)} 
-                 onScroll={() => didScroll = true}
-            >
+            <div id="board" className="board nano" ref={ b => this._board = $(b)} >
                 <div className="nano-content" ref="content">
-                    <div className="board-gap"/>
+                    <div className="header-gap"/>
                     <div className="posts" ref="posts">
                         {this.createPosts()}
                     </div>
@@ -71,7 +65,23 @@ export default class Board extends Component {
     }
 
     createPosts() {
-        return this.getPosts().map( post => {
+        const posts = this.getPosts()
+        return posts.map( (post, index) => {
+            if (index+1 === posts.length) {
+                // last post
+                return (
+                    <BoardPost
+                        key={post.id}
+                        post={post} 
+                        fetchThread={this.onBoardPostClick}
+                        reshuffle={() => {
+                            // loads more posts after rendering
+                            createLayout()
+                            this.loadMorePosts()
+                        }}
+                    />
+                )
+            }
             return (
                 <BoardPost
                     key={post.id}
@@ -85,6 +95,7 @@ export default class Board extends Component {
 
     getPosts() {
         const { posts, limit, searchWord, filterWords } = this.props.board;
+        console.warn(posts)
         let _posts 
 
         if (searchWord) {
@@ -120,9 +131,9 @@ export default class Board extends Component {
     }
 
     loadMorePosts() {
-        const { incrementLimit, board } = this.props
-        const newValue = board.limit + this.state.incrementPostsBy
-        incrementLimit(newValue)    
+        const { loadMorePosts, board } = this.props
+        const newValue = board.limit + this.state.load
+        loadMorePosts(newValue)    
     }
 
 
@@ -136,36 +147,12 @@ export default class Board extends Component {
             scrollHeader(true)  // make header visible
         }
     }
+}
 
-    checkIfScrolled(event) {
-        if (didScroll) {
-            this.handleScroll(event)
-            didScroll = false
-        }
-    }
 
-    handleScroll() {
-        // Check scroll position and toggle header accordingly
 
-        const 
-            {scrollTop, scrollHeight} = this.refs.content,
-            {headerHeight, canLoadMorePosts, preLoadMoreAt} = this.state, 
-            canShowHeader = !(scrollTop > this.previousScrollTop && scrollTop > headerHeight),
-            closeToBottom = scrollTop+window.innerHeight > (scrollHeight - preLoadMoreAt);
-
-        console.log(`scrollTop: ${scrollTop}, scrolled down: ${scrollTop > this.previousScrollTop}`)
-        this.props.scrollHeader(canShowHeader, 0);
-        this.previousScrollTop = scrollTop
-
-        console.info(`scrollHeight: ${scrollHeight} contentHeight: ${scrollTop+window.innerHeight}, closeToBottom: ${closeToBottom}`)
-
-        if (closeToBottom && canLoadMorePosts) {
-            // throttle posts
-            this.setState({canLoadMorePosts: false})
-            this.loadMorePosts()
-            setTimeout(() => this.setState({canLoadMorePosts: true}), 2000)
-            
-        }
-
-    }
+Board.propTypes = {
+    board: PropTypes.shape({
+        posts: PropTypes.array
+    })
 }
