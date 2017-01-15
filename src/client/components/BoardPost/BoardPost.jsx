@@ -68,7 +68,7 @@ export default class BoardPost extends Component {
             const offScreenAmount = commentHeight - (maxHeight - imgHeight) + 5 // 5px for padding at bottom of comment
             const height = imgHeight/1.5 // 3/4 of image height
             const distance = offScreenAmount < height ? offScreenAmount : height
-            Velocity(comment, {top: `-${distance}px`}, 200, "ease-out")
+            Velocity(comment, {top: `-${distance}px`}, 200, 'linear')
         }
     }
  
