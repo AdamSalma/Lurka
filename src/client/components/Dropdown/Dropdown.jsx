@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import uuid from "uuid";
 import classNames from "classnames";
 
@@ -31,7 +31,7 @@ export default class Dropdown extends Component {
         return (
             <div ref="dropdown" className={classes}>
                 <div className="dropdown nano-content" onClick={onClick}>
-                    {items.map( item => 
+                    {items.length && items.map( item => 
                         <span key={uuid.v4()} className="item">
                             {item}
                         </span>
@@ -45,4 +45,8 @@ export default class Dropdown extends Component {
 Dropdown.defaultProps = {
     scrollOpts: {sliderMinHeight: 50},
     items: []
+}
+
+Dropdown.propTypes = {
+    items: PropTypes.array
 }
