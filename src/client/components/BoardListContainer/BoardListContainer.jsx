@@ -23,8 +23,9 @@ export default class BoardLists extends Component {
     }
 
     render() {
+        const BLclasses = classNames('boardlists', this.props.className)
         return (
-            <div className="boardlists">
+            <div className={BLclasses}>
                 <div className="boards">
                     <div className="searchbar">
                         <Icon className="mdi mdi-arrow-left"/>
