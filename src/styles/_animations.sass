@@ -8,7 +8,15 @@
         transform: rotate(359.9deg)
 
 
+@keyframes spin
+    0%
+        transform: rotate(0deg)  
+    
+    100%
+        transform: rotate(360deg)
+
 @keyframes scale
+// 0.25s cubic-bezier(0.31, 1, 0.34, 1) forwards
     0%
         opacity: 1
         transform: scale(0.96)
@@ -17,4 +25,8 @@
         opacity: 1
         transform: scale(1)    
 
-// 0.25s cubic-bezier(0.31, 1, 0.34, 1) forwards
+
+@keyframes ellipsis
+    to
+        width: 1.25em
+
