@@ -3,8 +3,23 @@
 <head>
 	<meta charset="utf-8">
 	<title>Lurka</title>
+    <style type="text/css">
+        body {background: url('/backgrounds/dark_wall.png');}
+    </style>
 </head>
 <body>
-	<div id="App">Loading...</div>
+
+    <!-- Preloader while react renders -->
+    <div id="preload-screen">
+        <div class="preload-section split-left"></div>   
+        <div class="preload-section split-right"></div>
+        <div id="loader-wrapper">
+            <div id="loader"></div>
+            <div id="preload-status-text" class="elipses"></div>
+        </div>
+    </div>
+
+    <!-- React App -->
+    <div id="App"></div>
 </body>
 </html>
