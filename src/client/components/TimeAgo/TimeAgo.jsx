@@ -32,7 +32,7 @@ export default class TimeAgo extends Component {
 
 TimeAgo.defaultProps = {
     refreshRate: 60000,
-    format: 'dddd [at] hh:mm:ss A'
+    format: 'dddd [at] hh:mma'
 }
 
 TimeAgo.propTypes = {
