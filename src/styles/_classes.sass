@@ -46,3 +46,18 @@
     
 .float-right
     float: right
+
+.elipses::after 
+    content: " ..."
+    overflow: hidden
+    display: inline-block
+    vertical-align: bottom
+    animation: ellipsis steps(4,end) .9s infinite
+    width: 0px
+    position: absolute
+    font-size: inherit
+
+.header-gap
+    height: $header-height
+    display: block
+    clear: both
