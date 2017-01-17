@@ -8,6 +8,7 @@ export default {
 		provider: "4chan",
 		boardID: null,
 		threadID: null,
+		isNavbarOpen: false
 	},
 
 	boardList: {  // obj for each provider: {4chan: [], reddit: []}
