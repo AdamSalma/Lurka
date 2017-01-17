@@ -10,12 +10,14 @@ import {
     BOARD_CHANGE,
 
     HEADER_TOGGLED,
+    NAVBAR_TOGGLED,
 
     THREAD_REQUESTED,
     THREAD_DESTROYED,
 
     BOARD_REQUESTED,
     BOARD_DESTROYED,
+
 } from '../constants';
 
 export default function (state = initialState.status, action) {
@@ -41,6 +43,11 @@ export default function (state = initialState.status, action) {
         case HEADER_TOGGLED:
             return Object.assign({}, state, {
                 isHeaderVisible: action.payload
+            })
+
+        case NAVBAR_TOGGLED:
+            return Object.assign({}, state, {
+                isNavbarOpen: action.payload
             })
 
         case PROVIDER_CHANGE:
