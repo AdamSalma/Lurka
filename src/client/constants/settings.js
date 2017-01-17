@@ -21,14 +21,14 @@ module.exports = [
         key: "NSFW",
     },
     {
-        type: 'Content',
+        type: 'Resource Fetching',
         title: "Board Update",
         value: 15,
         desc: "Seconds to wait before updating the current board",
         key: "boardUpdateInterval",
     },
     {
-        type: 'Content',
+        type: 'Resource Fetching',
         title: "Thread Update",
         value: 5,
         desc: "Seconds to wait before updating the current thread",
@@ -36,7 +36,7 @@ module.exports = [
     },
     {
         disabled: true,
-        type: 'Content',
+        type: 'Resource Fetching',
         title: "Limit Requests",
         value: 3,
         desc: "Limit seconds to wait between requests",
@@ -44,7 +44,7 @@ module.exports = [
     },
     {
         disabled: true,
-        type: 'Content',
+        type: 'Resource Fetching',
         title: "Board Age",
         value: 900,  // 15 mins
         desc: "Maximum age (seconds) to load a board from history rather than a new request",
@@ -52,10 +52,17 @@ module.exports = [
     },
     {
         disabled: true,
-        type: 'Content',
+        type: 'Resource Fetching',
         title: "Thread Age",
         value: 900,  // 15 mins
         desc: "Maximum age (seconds) to load a thread from history rather than a new request",
         key: "maxThreadAge",
-    }
+    },
+    {
+        type: 'Content',
+        title: "Auto-mute Videos",
+        value: false,
+        desc: "Mute WebM videos automatically when opened",
+        key: "maxBoardAge",
+    },
 ]
