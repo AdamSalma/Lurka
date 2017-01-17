@@ -2,7 +2,8 @@ import Velocity from 'velocity-animate'
 import {
 	PAGE_SCROLL_STARTED,
 	PAGE_SCROLL_ENDED,
-    HEADER_TOGGLED
+    HEADER_TOGGLED,
+    NAVBAR_TOGGLED
 } from '../constants'
 
 const scrollTargets = ["board", "thread", "settings"]  // "home" is immovable
@@ -79,12 +80,9 @@ export function scrollHeader(toVisible, delay) {
 
     return (dispatch, getState) => {
         if (shouldScrollHeader(getState(), toVisible)){
-
             $header.velocity("stop");
-            dispatch(headerToggle(toVisible))
-
             return $header.velocity(
-                {top}, {duration, easing, delay}
+                {top}, {duration, easing, delay, complete: () => dispatch(headerToggle())}
             )
         }
     }
@@ -102,3 +100,46 @@ function shouldScrollHeader({status:{ isHeaderVisible, currentPage }}, toVisible
     return isHeaderVisible !== toVisible && currentPage !== "home"
 }
 
+
+
+export function toggleNavbar({open, duration=400, delay=0, easing='ease-in'}) {
+    console.log('toggleNavbar()')
+    const $navbar = $('#navbar');
+    const closeNavbar = parseInt($navbar[0].style.left) < 0
+
+    let set = open !== undefined
+    var left
+
+    console.warn($navbar[0].style.left);
+
+    if ((set && open) || closeNavbar) {
+        console.warn('Making navbar visible')
+        left = 0;
+        easing = [0.215, 0.61, 0.355, 1]
+    } else {
+        console.warn('Making navbar invisible')
+        left = `-${$navbar.width()}px`;
+        duration = 300
+    }
+
+    return (dispatch, getState) => {
+        if (!shouldToggleNavbar(getState(), closeNavbar))
+            return
+
+        $navbar.velocity("stop");
+        return $navbar.velocity(
+            {left}, {duration, easing, delay, complete: () => dispatch(navbarToggle(!closeNavbar))}
+        ) 
+    }
+}
+
+function navbarToggle(navbarIsOpen) {
+    return {
+        type: NAVBAR_TOGGLED,
+        payload: navbarIsOpen
+    }
+}
+
+function shouldToggleNavbar({ status: isNavbarOpen}, closeNavbar) {
+    return isNavbarOpen !== closeNavbar
+}
