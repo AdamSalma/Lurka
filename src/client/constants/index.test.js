@@ -156,5 +156,9 @@ describe('Constants', () => {
   it('contains THREAD_LOADED_FROM_HISTORY', () => {
     expect(consts.THREAD_LOADED_FROM_HISTORY).toEqual('THREAD_LOADED_FROM_HISTORY');
   });
+  
+  it('contains NAVBAR_TOGGLED', () => {
+    expect(consts.NAVBAR_TOGGLED).toEqual('NAVBAR_TOGGLED');
+  });
 
 });
