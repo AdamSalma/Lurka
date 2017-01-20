@@ -105,12 +105,12 @@ function shouldScrollHeader({status:{ isHeaderVisible, currentPage }}, toVisible
 export function toggleNavbar({open, duration=400, delay=0, easing='ease-in'}) {
     console.log('toggleNavbar()')
     const $navbar = $('#navbar');
-    const closeNavbar = parseInt($navbar[0].style.left) < 0
+    const closeNavbar = parseInt($navbar.position().left) < 0
 
     let set = open !== undefined
     var left
 
-    console.warn($navbar[0].style.left);
+    console.warn($navbar.position().left);
 
     if ((set && open) || closeNavbar) {
         console.warn('Making navbar visible')
