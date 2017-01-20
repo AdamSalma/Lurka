@@ -5,7 +5,7 @@ export default {
 		isHeaderVisible: false,  // if currentPage == "content"
 		alertMessage: null,  // reveal status to user
 		providers: ["4chan", "reddit"],
-		provider: "4chan",
+		provider: null,
 		boardID: null,
 		threadID: null,
 		isNavbarOpen: false
