@@ -56,12 +56,6 @@ export function loadMorePosts( limit ) {
                 type: BOARD_SCROLLED_TO_BOTTOM,
                 payload: limit
             })
-        } else {
-            dispatch(alertMessage({
-                message: `End of board`,
-                type: 'info',
-                time: 2000
-            }))
         }
     }
 }
