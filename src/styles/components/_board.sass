@@ -5,9 +5,6 @@
     .nano-pane
         display: block !important
 
-    .board-gap
-        height: $header-height
-
     .board-end
         position: absolute
         text-align: center
@@ -25,6 +22,10 @@
         text-align: left !important
         overflow: hidden
 
+    .animate 
+        transform: translateY(200px)
+        animation: moveUp 0.65s ease forwards
+
 
 .react-alerts
     position: fixed !important
@@ -32,3 +33,4 @@
 
     .alert 
         z-index: 9999 !important
+

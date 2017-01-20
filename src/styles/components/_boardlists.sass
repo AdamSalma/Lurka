@@ -8,9 +8,9 @@ $boards-width: 45%
     max-height: 500px
     margin: 0 auto
     text-align: left
-    border: $grey solid 1px
+    border: grey(7) solid 1px
     position: relative
-    background-color: $black
+    background-color: grey(8)
     // display: none
 
     .searchbar
@@ -23,8 +23,8 @@ $boards-width: 45%
         .icon
             font-size: 18px
             padding: 0 8px
-            border: $grey solid 1px
-            background: $grey-light
+            border: grey(7) solid 1px
+            background: grey(5)
             line-height: $searchbar-height
             cursor: pointer
 
@@ -63,22 +63,22 @@ $boards-width: 45%
             padding: 10px 30px
 
         input
-            color: $white
+            color: grey(1)
             font-family: $font-alt
             font-weight: bold
             font-size: 18px
             padding: 5px 10px
-            background-image: linear-gradient(0deg, tint($primary, 5%), $primary)
-            border: 1px solid shade($primary, 10%)
+            background-image: linear-gradient(0deg, tint(color(primary), 5%), color(primary))
+            border: 1px solid shade(color(primary), 10%)
             border-radius: 2px
             transition: box-shadow .2s ease-out
-            box-shadow: 0 2px 4px $black
-            text-shadow: 0 0 1px $grey
+            box-shadow: 0 2px 4px grey(8)
+            text-shadow: 0 0 1px grey(7)
             cursor: pointer
             position: relative
 
             &:active
-                box-shadow: 0 -2px 5px $black
+                box-shadow: 0 -2px 5px grey(8)
                 top: 1px
 
 
@@ -86,13 +86,13 @@ $boards-width: 45%
         position: relative
 
         > *
-            background: $black !important
-            border-color: $grey-dark !important
+            background: grey(8) !important
+            border-color: grey(7) !important
 
         .icon
             float: right
             position: relative
-            color: $grey-light
+            color: grey(5)
             font-size: 20px
             line-height: 24px
             transition: color .3s
@@ -102,9 +102,9 @@ $boards-width: 45%
 
         &:hover
             > *
-                background: $grey !important
+                background: grey(7) !important
             .mdi-star-outline
-                color: $white
+                color: grey(1)
 
 
     // Misc stuff
@@ -113,7 +113,7 @@ $boards-width: 45%
         width: auto !important
 
     .nano-pane
-        background-color: $grey
+        background-color: grey(7)
 
     .nano-slider
-        background-color: $black !important
+        background-color: grey(8) !important

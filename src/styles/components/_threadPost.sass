@@ -1,5 +1,5 @@
 .thread-post
-    background-color: $grey
+    background-color: $thread-post-color
     display: block
     width: 1004px
     margin-bottom: 4px
@@ -11,7 +11,7 @@
 
     @include breakpoint(to-tablet)
         width: 100% !important
-    // border-bottom: $grey-light solid 1px
+    // border-bottom: grey(5) solid 1px
 
     &:last-child
         margin-bottom: 0
@@ -29,16 +29,16 @@
             margin-right: 4px
 
         .fileinfo
-            color: tint($grey-hightlight, 15%)
+            color: grey(3)
 
         .icon
-            color: $secondary-light
+            color: color(secondary, light)
             font-size: 13px
             position: relative
             top: 1px
 
     .post-info
-        +font-size(14px)
+        +font-size($thread-post-info-size)
         padding: 5px 0
 
         > *
@@ -47,21 +47,19 @@
 
         .title
             strong
-                border-bottom: $primary solid 2px
+                border-bottom: color(primary) solid 2px
                 margin-right: 5px
 
         .name
-            color: $primary-dark
+            color: color(primary, darkest)
             font-weight: bold
-
-
 
         .controls
             font-size: 18px
             float: right
 
             li
-                color: $grey-hightlight
+                color: grey(4)
                 display: inline-block
                 margin-left: 2px
                 cursor: pointer
@@ -79,14 +77,13 @@
     .references
         display: block
         clear: both
-        color: $grey-hightlight
+        color: grey(4)
         padding-bottom: 2px
 
         .reference-header
             margin-right: 6px
             font-size: 18px
-            
-            .icon
+
             .reply-count
                 position: relative
                 bottom: 2px
@@ -96,7 +93,7 @@
             margin-right: 5px
             display: inline-block
             font-size: 13px
-            color: $primary-dark !important
+            color: color(primary) !important
 
 
     // TODO: This needs to be redone
@@ -130,10 +127,10 @@
 
 
             .fa-circle 
-                color: $grey-dark
+                color: grey(7)
 
             .fa-expand
-                color: $white
+                color: grey(1)
 
 
 
@@ -146,7 +143,7 @@
 
     &.highlight
         position: relative
-        background: mix($primary, $grey, 10%)
+        background: color(highlight)
         transition: none !important
 
         &:before 
@@ -157,13 +154,13 @@
             top: 0
             width: 2px
             height: 100%
-            background: $primary
+            background: color(primary)
 
 
     /* Tooltip */
     &.tip
-        z-index: 101
-        border: 1px dashed $primary
+        z-index: 10000
+        border: 1px dashed color(primary)
         position: absolute
         max-width: 800px
         width: 100%
@@ -172,14 +169,14 @@
         white-space: pre-line
 
         a
-            color: $primary
+            color: color(primary)
 
     /* 4chan links */
     .quote
-        color: $green
+        color: color(greentext)
 
     .deadlink
-        color: lighten($grey-light, 20%)
+        color: lighten(grey(5), 20%)
         text-decoration: line-through
         font-weight: bold
     
@@ -190,11 +187,11 @@
             margin: 0 4px
 
     .quotelink
-        color: $primary
+        color: color(primary)
         text-decoration: none
         font-weight: bold
         transition: 0.1s ease-out
 
         &:hover
-            color: $primary-light
+            color: color(primary, light)
             transition: 0.3s ease-out

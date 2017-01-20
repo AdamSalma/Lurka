@@ -1,14 +1,15 @@
 #header
     +set-dims(100%, $header-height)
     position: fixed
-    top: -$header-height  // hide on start
-    border-bottom: 3px $primary solid
+    // top: -$header-height  // hide on start
+    top: 0
+    border-bottom: 2px color(primary, darkest) solid
     z-index: 20
     overflow-y: hidden
 
     .header-background
-        opacity: 0.8
-        background: $black
+        opacity: 0.95
+        background: grey(8)
         +set-dims(100%, $header-height)
         width: 100%
         position: absolute
@@ -17,26 +18,29 @@
     .header-content-wrap
         +set-dims($header-width - 24, 100%)
         opacity: 0.9
-        background: $black
-        box-shadow: 20px 0 20px $black, -20px 0 20px $black
+        background: grey(8)
+        box-shadow: 20px 0 20px grey(8), -20px 0 20px grey(8)
         margin: 0 auto
 
     .header-content
-        +set-dims(100%, 50%)
-        position: relative
-        top: 25%
-
-    .breadcrumb
-        display: inline-block
-        font-size: 20px
-        color: $primary
-        padding: 0 10px
+        display: flex
+        align-items: center
+        justify-content: flex-start;
+        flex-direction: row;
+        height: 100%
 
     .searchbox
-        height: $header-height/2
-        width: 300px
+        flex: 1
         display: auto 0
         display: inline-block
+        width: 100%
+
+        .searchbox-content
+            height: $header-height * 0.5
+            border-radius: 4px
+            background: grey(7)
+            color: grey(1)
+
 
     .logo-wrap
         width: 47px
@@ -46,16 +50,26 @@
         position: relative
         top: -50%
 
-    .mdi-arrow-up
-        float: right
-        font-size: 24px
-        line-height: 30px
-        padding: 0 6px
-        margin-right: 7px
+    .header-item
+                
+        &.shift-right
+            margin-left: auto
+
+        &.icon:last-child
+            margin-right: 20px
+
+    .icon
+        font-size: $header-icon-size
+        padding: 0 4px
+        margin-right: 2px
         cursor: pointer
+        transition: all .3s
 
         &:hover
-            transition: all .3s
-            color: $primary
-            background: $grey
+            color: color(primary)
+            background: grey(7)
+
+        &.active
+            color: color(primary)
+            background: grey(7)
 

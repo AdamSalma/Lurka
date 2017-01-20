@@ -2,19 +2,11 @@
 /* Vendor */
 @import "vendor/all";
 
-/* Modules */
-@import "functions";
-@import "themes/dark2";
-@import "animations";
-@import "mixins";
-@import "variables";
-@import "classes";
-
-@import "typography";
+/* Theme */
+@import "themes/dark3";
 
 /* Foundation */
-@import "preloader";
-@import "base";
+@import "base/all";
 
 /* Components */
 @import "components/all";
