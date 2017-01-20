@@ -1,0 +1,89 @@
+.navbar
+    +set-dims($navbar-width, $navbar-height)
+    position: fixed
+    bottom: 0
+    // left: 0
+    left: -$navbar-width
+    background: grey(8)
+    display: flex
+    flex-direction: column
+
+    .navbar-content
+        flex-grow: 1
+        position: relative
+
+    .boardlist 
+        position: absolute
+        +set-dims(100%, 100%)
+
+    .dropdown
+        // Fix for scroller outside of items
+        width: auto !important
+
+        .item:hover
+            .icon
+                color: grey(2)
+
+    .icon
+        float: right
+        position: relative
+        color: grey(5)
+        font-size: $navbar-icon-size
+        transition: color .2s ease-in-out
+        padding-right: 2px
+        padding-left: 6px
+        margin-top: -2px
+
+        &.mdi-star
+            color: #ffe700 !important
+
+    .searchbox
+        margin-top: 2px
+        padding: 0 3px
+        border-radius: 4px
+
+        .searchbox-content
+            height: 40px
+
+    /* Buttons */
+    .navbar-filter-buttons
+        padding: 6px 0
+        display: flex
+
+        .list-toggle
+            padding: 2px 4px
+            padding-left: 12px
+            margin: 0 3px
+            border-radius: 4px
+            flex: 1
+            cursor: pointer
+            // text-align: center
+
+            &::first-letter
+                text-transform: capitalize
+
+        .p-reddit
+            background: desaturate(color(reddit), $navbar-button-effect-amount)
+            color: grey(1)
+            text-shadow: 0 0 1px grey(8)
+
+        .p-4chan
+            background: desaturate(color(fourchan), $navbar-button-effect-amount)
+            text-shadow: 0 0 2px grey(8)
+            color: white
+
+        .favourite
+            background: desaturate(gold, $navbar-button-effect-amount)
+            color: grey(10)
+            flex: 2
+
+        .disabled
+            background: grey(7) !important
+            color: color(text-disabled)
+            text-shadow: 0 0 1px grey(8)
+
+
+    /* Shrink size of scrollbar */
+    .nano-pane
+        width: 7px
+        background: grey(8)
