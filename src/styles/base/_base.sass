@@ -1,7 +1,6 @@
 body
-    background: $grey-dark !important
-    color: $white
-    color: $white
+    background: grey(8) !important
+    color: color(text-primary)
     font-family: $font-main
     overflow: hidden
     line-height: $line-height
@@ -10,7 +9,7 @@ h1, h2, h3, h4, h5, h6
 	font-family: $font-alt
 
 a
-	color: $blue-light
+	color: color(links)
 
 #App 
     width: 100vw
@@ -31,12 +30,12 @@ textarea:focus, input:focus
     opacity: 0
 
 ::selection 
-    background-color: $primary-dark
+    background-color: color(primary, dark)
     color: #ffffff
 
 // Nano stuff
 .nano-slider
-    background: $primary-dark !important
+    background: color(primary, darkest) !important
 
 img
     user-select: none
