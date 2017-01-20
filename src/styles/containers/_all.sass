@@ -5,42 +5,30 @@
 @import ./settingsPanel
 
 
-$background-color1: $grey-dark
-$background-color2: $black
+$background-color1: grey(7)
+$background-color2: grey(8)
 
 // set pages offscreen
 .page 
     +set-dims(100vw, 100vh)
     position: fixed
     top: 100%
-    background: $black
-    // background: linear-gradient(135deg, $background-color2, $background-color1, $background-color2)
+    background: grey(8)
+    background: linear-gradient(135deg, $background-color2, $background-color1, $background-color2)
     background: url('/backgrounds/dark_wall.png')
-
-    &:after
-        content: ""
-        position: absolute
-        pointer-events: none
-        background: primary-opacity(0.01)
-        +set-dims(inherit, inherit)
-        top: 0
-        left: 0
-        z-index: 1
-
-    > *
-        z-index: 2
 
 .page-home
     z-index: 1
 
 .page-board
     z-index: 10
+    box-shadow: 
 
 .page-thread
-    z-index: 100
+    z-index: 50
 
 .page-settings
     z-index: 1000
 
 .page-global
-    z-index: 10000
+    z-index: 1000

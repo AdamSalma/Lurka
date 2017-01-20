@@ -1,7 +1,7 @@
 .board-post
     position: absolute  // positioned via JS
-    width: $thread-width
-    max-height: $thread-height
+    width: $board-post-width
+    max-height: $board-post-height
 
     font-family: $font-main
     text-align: center
@@ -9,7 +9,7 @@
     overflow: hidden
     border-radius: 4px 4px 8px 8px
     background: $board-post-color
-    box-shadow: $black 2px 4px 10px
+    box-shadow: $board-post-shadow-color 0 0 0
     border: 2px solid $board-post-color
 
     transition: all .4s ease-out
@@ -18,17 +18,17 @@
 
     &:hover
         transition: all .2s
-        // border-top: 2px solid $primary
-        box-shadow: $white 0 0 6px
+        // border-top: 2px solid color(primary)
+        box-shadow: $board-post-shadow-hover-color 0 0 10px
 
         .counters
             opacity: 1
 
             > div
-                border-color: $grey
+                border-color: grey(7)
 
         .comment-wrap
-            border-top: $primary
+            border-top: color(primary)
 
     
     .image-wrap
@@ -48,7 +48,7 @@
         background: inherit
         top: 0
         transition: top .2s ease-out
-        box-shadow: $black -4px 0 4px
+        box-shadow: grey(8) -4px 0 4px
 
 
     .op
@@ -62,7 +62,7 @@
         padding: 4px 0 6px
 
     a
-        color: $white !important
+        color: grey(1) !important
         text-decoration: none
 
 
@@ -79,18 +79,18 @@
         ::after 
             content: ""
             +center-horizontal(80%)
-            border-bottom: lighten($black, 15%) solid 1px
+            border-bottom: lighten(grey(8), 15%) solid 1px
             bottom: -2px
 
         > div
             line-height: 25px
             padding: 0 6px
             margin-left: 2px
-            color: $white
-            background: $black
+            color: grey(1)
+            background: grey(8)
 
             transition: border-color .3s
-            border: $black solid 1px
+            border: grey(8) solid 1px
             border-bottom: none
             border-radius: 2px 2px 0 0
 
@@ -103,8 +103,8 @@
         font-size: 18px
 
     .mdi-comment-text
-        color: $primary-light
+        color: color(primary, light)
 
     .mdi-image-filter-hdr
-        color: $blue-light
+        color: color(links)
 

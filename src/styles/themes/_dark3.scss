@@ -11,7 +11,7 @@ $base-colors: (
 $color-shades: (
     darkest: (#000, 20%),
     dark: (#9E9E9E, 20%),
-    light: (#fff, 20%),  
+    light: (#fff, 20%),
     lightest: (#fff, 80%),
 );
 
@@ -50,7 +50,7 @@ $background-tint: c(denim);
 }
 
 @function grey($index) {
-    $grey: nth($greys, $index);    
+    $grey: nth($greys, $index);
     @return color-tint($grey);
 };
 
@@ -68,7 +68,6 @@ $color-palette: (
     highlight:      mix($primary, grey(7), 10%),
     boardpost:      grey(8),
     threadpost:     grey(7),
-    
 );
 
 @function color($color, $variant:null) {
