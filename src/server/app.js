@@ -1,11 +1,10 @@
 import Express from 'express'
-import errorHandler from 'errorhandler'
-import notifier from 'node-notifier'
 import { join } from 'path';
 
 import routes from './routes'
 import config from '../../config'
 import webpackHotMiddleware from './middleware/webpackMiddleware'
+import routeLogger from './middleware/routeLogger'
 
 const app = Express();
 const isProd = config.env === 'production'
@@ -27,13 +26,19 @@ if (isProd) {
 app.use('/media', routes.media);  // Proxy media queries through server to set headers
 
 // Routes
-app.all('*', ({ url }, res, next)=>{ log.http(url); next() });  // log route
+app.all('*', routeLogger);  // log route
 app.use('/', routes.index);  // index.html, (validation?)
 app.use('/api', routes.api);  // Request content from external API
 
 // Eventually...
 // app.use('/user', require('./routes/user'));  // Save/Load user archives
 // app.use('/settings', require('./routes/settings'));  // Save/Load setting related files (config, stylesheets?)
+
+
+
+
+
+
 
 // 404 handler
 app.use(({ url }, res, next) => {
@@ -46,26 +51,21 @@ app.use(({ url }, res, next) => {
         res.status(404);
     } else {
         log.error(`Not found: ${url}`);
+        res.status(404);
         res.send(new Error(`Not found: ${url}`))
     }
 });
+
+// Handler for other errors
+app.use((err, req, res, next) => {
+    if (res.headersSent)
+        return next(err)
+
+    log.error(err.stack);
+    res.status(err.status || 500)
+    res.send(err.message)
+
+})
  
-// Error handler
-if (isProd) {
-    app.use((err, str, req) => {
-        log.error(`Error in ${req.method} ${req.url}`)
-    })
-} else {
-    app.use(errorHandler({log: errorNotification}))
-}
- 
-function errorNotification(err, str, req) {
-    const title = `Error in ${req.method} ${req.url}`
- 
-    notifier.notify({
-        title: title,
-        message: str
-    })
-}
 
 export default app;
