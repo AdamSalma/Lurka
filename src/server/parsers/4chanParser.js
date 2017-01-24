@@ -1,5 +1,5 @@
 import proxify from '../services/proxyUrls';
-import {chan as getUrls} from '../config/apiEndpoints';
+import {fourchanAPI} from '../config/apiEndpoints';
 
 
 /**
@@ -12,38 +12,38 @@ import {chan as getUrls} from '../config/apiEndpoints';
 export function parseBoard( board, boardID ) {
     log.app(`Parsing 4chan board ${boardID} ...`)
     const _board = []
-    const {image: imgUrl, thumbnail: thumbUrl} = getUrls(boardID)
+    const {image: imgUrl, thumbnail: thumbUrl} = fourchanAPI(boardID)
 
     for (let page in board) {
         if (!board.hasOwnProperty(page)) return false;
-        board[page]['threads'].map( thread => formatThread(thread))
+        board[page].threads.map( post => formatPost(post))
     }
 
     if (!_board.length) 
-        throw new Error("No threads extracted")
+        throw new Error("No posts extracted")
 
     log.app(`Created ${_board.length} board posts`)
     return _board;
 
-    function formatThread(thread) {
-        let smImg = thumbUrl + thread['tim'] + "s.jpg"
-        let lgImg = imgUrl + thread['tim'] + thread['ext']
+    function formatPost(post) {
+        let smImg = thumbUrl + post.tim + "s.jpg"
+        let lgImg = imgUrl + post.tim + post.ext
 
         _board.push({
-            id: thread['no'],
-            date: thread['now'],
-            title: thread['sub'] || "",
-            comment: thread['com'],
-            time: thread['tim'] || thread['time'] * 1000,
-            imgsrc: {
-                sm: proxify("/media", {url: smImg, provider: "4chan"}),
+            id: post.no,
+            date: post.now,
+            title: post.sub || "",
+            comment: post.com,
+            time: post.tim || post.time * 1000,
+            media: {
+                thumbnail: proxify("/media", {url: smImg, provider: "4chan"}),
                 lg: proxify("/media", {url: lgImg, provider: "4chan"})
             },
             replies: {
-                textCount: thread['replies'],
-                imgCount: thread['images'],
+                textCount: post.replies,
+                imgCount: post.images,
             },
-            last_modified: thread['last_modified']
+            last_modified: post.last_modified
         });
     }
 }
@@ -60,29 +60,29 @@ export function parseThread( posts, boardID ) {
     if (!posts || !posts.length)
         throw new Error("No thread posts supplied");
 
-    const {image: imgUrl, thumbnail: thumbUrl} = getUrls(boardID)
+    const {image: imgUrl, thumbnail: thumbUrl} = fourchanAPI(boardID)
     
 
     const thread = posts.map( post => {
-        let ext = post['ext']
-        let smImg = thumbUrl + post['tim'] + "s.jpg"
-        let lgImg = imgUrl + post['tim'] + ext
+        let ext = post.ext
+        let smImg = thumbUrl + post.tim + "s.jpg"
+        let lgImg = imgUrl + post.tim + ext
 
         return {
-            id: post['no'],
-            date: post['now'],
-            name: post['name'],
-            hash: post['md5'],
-            title: post['sub'] || "",
-            time: post['tim'] || post['time'] * 1000,
-            comment: post['com'],
+            id: post.no,
+            date: post.now,
+            name: post.name,
+            hash: post.md5,
+            title: post.sub || "",
+            time: post.tim || post.time * 1000,
+            comment: post.com,
             media: !!ext ? {
-                srcSmall: proxify("/media", {url: smImg, provider: "4chan"}),
+                thumbnail: proxify("/media", {url: smImg, provider: "4chan"}),
                 srcLarge: proxify("/media", {url: lgImg, provider: "4chan"}),
-                width: post['w'],
-                height: post['h'],
-                filesize: post['fsize'],
-                filename: post['filename'],
+                width: post.w,
+                height: post.h,
+                filesize: post.fsize,
+                filename: post.filename,
                 filetype: ext
             } : null
         }
