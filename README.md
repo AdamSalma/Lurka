@@ -5,7 +5,7 @@ This repository contains the source code for a desktop application used for view
 Take a look at the [TODO's](TODO.md) for upcoming additions.
 
 ## Installation
-You will first need to have [Node](https://nodejs.org/en/) and [Git](https://git-scm.com/) installed already.
+You will first need to have [Node](https://nodejs.org/en/) and [Git](https://git-scm.com/) installed.
 ```bash
 # Clone the repository
 git clone https://github.com/AdamSalma/Lurka.git
