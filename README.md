@@ -2,12 +2,12 @@
 
 > *A desktop app for viewing messaging boards such as 4chan and reddit in a unified format.*
 
-**This is an ongoing project**. If you know a thing or two about designing get in touch!
+**This project is under development on a daily basis - Get in touch!**.
 
 See the TODO's below for upcoming plans.
 
 ## Installation
-If you dont have [Node](https://nodejs.org/en/) or [Git](https://git-scm.com/), now would be a good time to get them. 
+To use Lurka, you will need to install [Node](https://nodejs.org/en/) and [Git](https://git-scm.com/) if you haven't got them.
 ```bash
 # Clone the repository
 git clone https://github.com/AdamSalma/Lurka.git
@@ -30,39 +30,50 @@ npm run build && npm start
 ## TODOs
 ### Content:
 - [x] 4chan
-- [ ] Reddit
-- [ ] Imgur
-- [ ] Youtube (Embedded only)
+    - [x] boards
+    - [x] threads
+    - [ ] archives
+- [x] Reddit
+  - [x] board searching
+  - [x] subreddits (boards)
+  - [ ] posts (threads)
+  - [ ] archives
+- [ ] Embedded content (Youtube/Imgur etc...)
   
 ### UI:
 - [x] Dark interface
-- [x] Masonry type grid layout (think pintrest)
-- [ ] Grid items animate on entering viewport
-- [ ] Display status via header
+- [x] Masonry type grid layout (like pintrest / windows 10 start menu)
+- [x] Grid items animate on entering viewport
+- [x] User notifications
 - [x] Thread loads on top of faded board with a scrollup animation
 - [x] Use Material design icons
 - [ ] Area for replying + creating thread
 - [x] Posts display "time ago" since creation
-- [x] Relatively awesome logo
+- [ ] Awesome logo
 - [ ] Images can be fullscreened
-- [x] Homepage
+- [ ] Homepage
 
 ### Functionality:
-- [ ] Be able to submit the creation of a thread or post
-- [ ] Content options - Search, filter, watch (in board or thread)
+- [ ] Be able to create a thread or post
+- [x] Content options - Search, filter, watch (in board or thread)
 - [ ] Continuous content updating (every 10 secs? use if-modified-since)
-- [ ] Easy saving of Thread/Post/Image locally. Archives?
-- [x] Display app status via header
-- [x] Access archives from content providers
-- [ ] Settings
+- [x] Internal Archives.
+- [ ] Save a Thread/Post/Image to a desired folder.
+- [x] Access archives from content providers.
+- [x] Settings.
 - [ ] User stylesheets - (figure out how to do this...)
 - [ ] Keyboard shortcuts - next post, save image of current post, 
-- [x] Scroll between posts in thread using clicks
-- [ ] Tabs? Or would that defeat using a desktop app?
-- [ ] Thread controls
+- [ ] Scroll between posts in thread using clicks
+- [ ] Watch multiple threads for new posts
+- [x] Thread controls
 
 ### Backend
 - [x] Proxy all requests to 3rd party content through server.
+- [x] Routes
+- [x] Services
+- [x] Parsers
+  - [x] Reddit parser
+  - [x] 4chan parser
 
 ### Dev:
 - [x] Hot module replacement
@@ -70,12 +81,12 @@ npm run build && npm start
 - [ ] Dev envioronment with electron?
 - [x] Separate dev/app dependencies
 - [x] Webpack dev bundle through express
-- [x] Bundle production code front/backend through webpack via gulp 
-- [ ] Build bundle into an Electron exe. Maybe even an installer
-- [x] Create logging library for backend
+- [x] Build app directory with Gulp and then bundle project with webpack.
+- [ ] Electron exe. Maybe even an installer...
+- [x] Custom logging library for backend
 
 ### Tests 
-Less of a priority until things actually work!
+Less of a priority until things are where they should be!
 #### Fronend
 - [ ] Components
   - [ ] Major - Board/Thread
@@ -90,6 +101,3 @@ Less of a priority until things actually work!
   - [ ] Status
 - [x] Constants
   
-#### Backend
-- [ ] Routes
-- [ ] Services
