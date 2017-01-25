@@ -35,12 +35,6 @@
     display: table
     clear: both
 
-.pipe::after
-    content: ""
-    margin: 0 2px
-    border-left: grey(5) solid 1px
-    border-right: grey(5) solid 1px
-
 .float-left
     float: left
     
@@ -64,3 +58,13 @@
 
 .disabled
     color: color(text-disabled)
+
+
+.hover-progress
+    transition: all 350ms cubic-bezier(.165,.84,.44,1)
+    position: absolute
+    z-index: -1
+    top: 0
+    left: 0
+    height: 100%
+    width: 0
