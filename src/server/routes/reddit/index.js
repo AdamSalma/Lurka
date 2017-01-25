@@ -1,13 +1,16 @@
 import Express from 'express'
 
-import getBoardlist from './getBoardlist'
+import getSubreddits from './getSubreddits'
+import getSubredditsSearch from './getSubredditsSearch'
+import getBoard from './getBoard'
 
 const router = Express.Router();
 
-router.get('/', () => {throw new Error("No subroute: '/api/reddit'")});
-router.get('/boards', getBoardlist);
-// router.get('/:boardID', getBoard);
-// router.get('/:boardID/archive', getArchive);
-// router.get('/:boardID/:threadID', getThread);
+router.get('/', (req,res,next) => next(new Error("No subroute: '/api/reddit'")));
+router.get('/boards', getSubreddits);
+router.get('/boards/search', getSubredditsSearch);
+router.get('/board/:boardID', getBoard);
+// router.get('/board/:boardID/archive', getArchive);
+// router.get('/board/:boardID/thread/:threadID', getThread);
 
 module.exports = router
