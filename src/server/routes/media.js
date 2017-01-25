@@ -13,6 +13,11 @@ router.get('/', function(req, res, next){
         options.headers["host"] = "i.4cdn.org"
     }
 
+    if (provider === "reddit") {
+        options = headers.reddit
+        // options.headers["host"] = "i.4cdn.org"
+    }
+
     options.url = unescape(url)
     request.get(options).pipe(res);
 })
