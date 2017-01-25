@@ -14,7 +14,11 @@
 
     transition: all .4s ease-out
     transition-property: top, left, box-shadow;
+    visibility: hidden
+    opacity: 0
 
+    &.animate
+        visibility: visible
 
     &:hover
         transition: all .2s
@@ -40,6 +44,7 @@
         max-width: 100%
         display: inherit
         margin: 0 auto
+        height: auto
 
 
     .comment-wrap

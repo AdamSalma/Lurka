@@ -40,15 +40,19 @@
     .post-info
         +font-size($thread-post-info-size)
         padding: 5px 0
+        color: color(text-secondary)
 
         > *
             display: inline-block
-            padding: 0 2px
+            padding: 0 4px
 
         .title
+            color: color(text-primary) !important
             strong
-                border-bottom: color(primary) solid 2px
                 margin-right: 5px
+
+        .id
+            font-family: $font-alt
 
         .name
             color: color(primary, darkest)
@@ -80,9 +84,12 @@
         color: grey(4)
         padding-bottom: 2px
 
+        .line
+            width: 850px
+            margin: 0 auto
+
         .reference-header
             margin-right: 6px
-            font-size: 18px
 
             .reply-count
                 position: relative
@@ -93,13 +100,13 @@
             margin-right: 5px
             display: inline-block
             font-size: 13px
-            color: color(primary) !important
+            color: color(primary, darkest) !important
 
 
     // TODO: This needs to be redone
     .img-container
         float: left
-        margin-bottom: 10px
+        margin-bottom: 5px
         position: relative
 
         &.img-container-opened
@@ -191,7 +198,6 @@
         text-decoration: none
         font-weight: bold
         transition: 0.1s ease-out
-
-        &:hover
-            color: color(primary, light)
-            transition: 0.3s ease-out
+        font-family: $font-alt
+        font-size: 15px
+        cursor: pointer
