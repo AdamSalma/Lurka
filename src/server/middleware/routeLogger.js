@@ -1,1 +1,4 @@
-export default ({ url }) => log.http(url);
+export default ({ url }, res, next) => {
+    log.http(url); 
+    next()
+}
