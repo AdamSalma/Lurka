@@ -61,6 +61,14 @@ describe('Constants', () => {
     expect(consts.BOARD_LIST_REQUESTED).toEqual('BOARD_LIST_REQUESTED');
   });
 
+  it('contains BOARD_LIST_SEARCH_REQUESTED', () => {
+    expect(consts.BOARD_LIST_SEARCH_REQUESTED).toEqual('BOARD_LIST_SEARCH_REQUESTED');
+  });
+
+  it('contains BOARD_LIST_SEARCH_LOADED', () => {
+    expect(consts.BOARD_LIST_SEARCH_LOADED).toEqual('BOARD_LIST_SEARCH_LOADED');
+  });
+
   it('contains BOARD_LIST_LOADED', () => {
     expect(consts.BOARD_LIST_LOADED).toEqual('BOARD_LIST_LOADED');
   });
