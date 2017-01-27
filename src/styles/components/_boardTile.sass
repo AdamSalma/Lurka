@@ -1,5 +1,33 @@
+$board-tile-edge-length: 200px
+
+.board-tiles
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
+
 .board-tile
-    +square(200px)
+    +square($board-tile-edge-length)
     background: grey(1)
-    display: inline-block
     color: black
+    overflow: hidden
+    margin: 10px
+    display: flex
+    align-items: center
+    justify-content: center
+    position: relative
+
+    .title
+        opacity: 1
+
+    .content
+        opacity: 0
+        position: absolute
+        z-index: 1
+        transition: opacity .8s
+        background: grey(2)
+        height: 100%
+
+    &:hover
+        .content
+            opacity: 1
+
