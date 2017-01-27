@@ -2,6 +2,10 @@ import Axios from 'axios';
 import {
     BOARD_LIST_REQUESTED,
     BOARD_LIST_LOADED,
+
+    BOARD_LIST_SEARCH_REQUESTED,
+    BOARD_LIST_SEARCH_LOADED,
+
     BOARD_LIST_INVALIDATED,
 
     BOARD_LIST_ADD_FAVOURITE,
@@ -33,7 +37,7 @@ function invalidateBoardlist(error) {
 }
 
 export function fetchBoardList( provider ) {
-    console.log(`Action FetchBoard() to /api/${provider}/boards`);
+    console.log(`Action fetchBoardList() to /api/${provider}/boards`);
     return (dispatch, getState) => {
         if (shouldFetchBoardList(getState(), provider)) {
             dispatch(requestBoardList(provider))
@@ -43,11 +47,11 @@ export function fetchBoardList( provider ) {
                 .then( data => dispatch(receiveBoardList(data, provider)))
                 .catch( err => {
                     dispatch(alertMessage({
-                        message: `Error fetching boardlist from ${provider}: ${err}`,
+                        message: `${err.message} (from ${provider})`,
                         type: "error",
                         time: 20000
                     }))
-                    dispatch(invalidateBoard(err))
+                    dispatch(invalidateBoardlist(err))
                 });
         }
     }
@@ -56,6 +60,50 @@ export function fetchBoardList( provider ) {
 function shouldFetchBoardList({boardList}, provider) {
     return !boardList.hasOwnProperty(provider)
 }
+
+
+
+
+
+
+export function searchBoardlist(provider, query) {
+    const url = `/api/${provider}/boards/search`
+    console.log(`Action searchBoardlist() to ${url}`);
+    return (dispatch, getState) => {
+        dispatch(boardListSearch(provider, query))
+
+        return Axios
+            .get(url)
+            .then( data => dispatch(receiveBoardListSearch(data, provider)))
+            .catch( err => {
+                dispatch(alertMessage({
+                    message: `${err.message} (from ${provider})`,
+                    type: "error",
+                    time: 20000
+                }))
+                dispatch(invalidateBoardlist(err))
+            });
+    }
+}
+
+function boardListSearch(provider, query) {
+    return {
+        type: BOARD_LIST_SEARCH_REQUESTED,
+        provider,
+        query
+    }
+}
+
+function receiveBoardListSearch({data=[]}, provider) {
+    return {
+        type: BOARD_LIST_SEARCH_LOADED,
+        payload: data,
+        provider
+    }  
+}
+
+
+
 
 export function addToFavourites(provider, boardID) {
     return (dispatch, getState) => {
