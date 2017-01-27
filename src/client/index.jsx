@@ -1,5 +1,6 @@
 import 'babel-polyfill';
 import '../styles/index'
+import './vendor/nanoscroller'
 
 import React from 'react';
 import ReactDOM from 'react-dom';
