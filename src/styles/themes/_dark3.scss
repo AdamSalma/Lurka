@@ -1,8 +1,8 @@
 $base-colors: (
-    cinnabar:  #dd4b39,  // $primary
+    punch:     #DC4328,  // $primary
     seagull:   #6EC4E7,  // $blue-light
     picton:    #4EADF3,  // $blue
-    denim:     #1485CC,  // triad of cinnabar, use for tint?
+    denim:     #0E43A9,  // triad of punch, use for tint?
     atlantis:  #85d82c,  // $green
     fern:      #55b359,  // 4chan
     vermilion: #FF4500,  // reddit
@@ -41,7 +41,7 @@ $greys: (
 };
 
 
-$primary: c(cinnabar);
+$primary: c(punch);
 $secondary: c(denim);
 $background-tint: c(denim);
 
