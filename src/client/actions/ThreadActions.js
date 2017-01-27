@@ -44,11 +44,12 @@ function destroyThread(threadID) {
 }
 
 export function fetchThread(provider, boardID, threadID) {
+    const url = `/api/${provider}/board/${boardID}/thread/${threadID}`
     return (dispatch, getState) => {
         const state = getState()
 
         if (!shouldFetchThread(state)) {
-            console.warn(`Thread request rejected: ${provider}/${boardID}/${threadID}`)
+            console.warn('Thread request rejected:', url)
             return 
         }
 
@@ -67,16 +68,23 @@ export function fetchThread(provider, boardID, threadID) {
             type: 'info'
         }));
 
-        return Axios.get(`/api/${provider}/${boardID}/${threadID}`)
-            .then(data => {
+        return Axios.get(url)
+            .then( data => {
                 dispatch(receiveThread(data))
             })
-            .catch( e => invalidateThread(e));
+            .catch( err => {
+                dispatch(alertMessage({
+                    message: err.message,
+                    type: "error",
+                    time: 20000
+                }))
+                invalidateThread(err)
+            });
     }
 }
 
 function shouldFetchThread({ thread, settings }) {
-    const requestThrottle = settings.find(opt => opt.key === "requestThrottle").value
+    const requestThrottle = settings["requestThrottle"].value
     const lastRequested = Date.now() - thread.receivedAt
 
     console.log(`shouldFetchThread(): ${lastRequested} > ${requestThrottle} = ${lastRequested > requestThrottle}`)
@@ -84,16 +92,14 @@ function shouldFetchThread({ thread, settings }) {
 }
 
 function threadInHistoryAndRecent({threadHistory, settings }, provider, threadID) {
-    const maxThreadAge = settings.find(opt => opt.key === "maxThreadAge").value * 1000  // to miliseconds
+    const maxThreadAge = settings["maxThreadAge"].value * 1000  // to miliseconds
     const thread = threadHistory[provider][threadID]
 
     // TODO: Remove this test code from thread/boardInHistory
     if (!thread){
-        console.warn('Thread was not in history')
-    } else {
-        console.warn(`THREAD DID EXIST. ${Date.now() - thread.receivedAt} < ${maxThreadAge} = ${Date.now() - thread.receivedAt < maxThreadAge}`)
-        console.warn(thread)
+        console.warn('Thread was not in history; Requesting...')
     }
+
     return thread && Date.now() - thread.receivedAt < maxThreadAge
 }
 
@@ -114,9 +120,13 @@ export function closeThread(threadID, cb=() => {}) {
         const state = getState()
 
         if (threadIsFetching(state)) {
-            dispatch(invalidateThread(
-                new Error(`Thread ${threadID} closed while fetching`)
-            ))
+            const err = `Thread '${threadID}' closed while fetching`
+            dispatch(alertMessage({
+                message: err,
+                type: "error",
+                time: 20000
+            }))
+            dispatch(invalidateThread( new Error(err) ))
             return 
         }
 

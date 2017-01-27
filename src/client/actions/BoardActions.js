@@ -68,7 +68,9 @@ function shouldLoadMorePosts({ board }, limitToSet) {
 
 
 export function fetchBoard({ provider, boardID }) {
-    console.log(`Action FetchBoard() to /api/${provider}/${boardID}`);
+    const url = `/api/${provider}/board/${boardID}`
+    console.log('Action FetchBoard()', url);
+
     return (dispatch, getState) => {
         const state = getState()
         if (!canRequestBoard(state)) {
@@ -80,7 +82,7 @@ export function fetchBoard({ provider, boardID }) {
             dispatch(loadBoardFromHistory(state, provider, boardID))
             dispatch(setBoard(boardID))
             dispatch(alertMessage({
-                message: `LOADING BOARD FROM HISTORY: /${boardID}/`,
+                message: `Loading board from history: /${boardID}/`,
                 type: "success"
             }))
             return
@@ -92,24 +94,24 @@ export function fetchBoard({ provider, boardID }) {
             type: "info"
         }))
 
-        return Axios.get(`/api/${provider}/${boardID}`)
+        return Axios.get(url)
             .then( data => {
                 dispatch(receiveBoard(data))
                 dispatch(setBoard(boardID))
             })
             .catch( err => {
-                dispatch(invalidateBoard(err))
                 dispatch(alertMessage({
-                    message: err,
+                    message: err.message,
                     type: "error",
                     time: 20000
                 }))
+                dispatch(invalidateBoard(err))
             });
     }
 }
 
 function canRequestBoard({ board, settings }) {
-    const requestThrottle = settings.find(opt => opt.key === "requestThrottle").value
+    const requestThrottle = settings["requestThrottle"].value
     const lastRequested = Date.now() - board.receivedAt
 
     console.log(`canRequestBoard(): ${lastRequested} > ${requestThrottle} = ${lastRequested > requestThrottle}`)
@@ -117,7 +119,7 @@ function canRequestBoard({ board, settings }) {
 }
 
 function boardInHistoryAndRecent({boardHistory, settings}, provider, boardID) {
-    const maxBoardAge = settings.find(opt => opt.key === "maxBoardAge").value * 1000  // to miliseconds
+    const maxBoardAge = settings["maxBoardAge"].value * 1000  // to miliseconds
     const board = boardHistory[provider][boardID]
 
     if (!board){
