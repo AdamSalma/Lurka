@@ -19,9 +19,9 @@ export function parseBoardList(boards) {
             info: {
                 subscribers, 
                 NSFW: over18, 
-                icon_img                
-            }
-
+                icon_img
+            },
+            provider: "reddit"
         }
     });
 }
@@ -46,8 +46,6 @@ export function parseBoard(board) {
                 is_external: !post.domain.includes('self'),
                 thumbnail: proxify("/media", {url: post.media ? post.media.thumbnail_url : post.thumbnail, provider: "reddit"}), 
             }
-
-
         }
     })
 }

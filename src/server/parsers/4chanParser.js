@@ -133,7 +133,8 @@ export function parseBoardList( boardList ) {
     log.app(`Discovered ${boardList.length} 4chan boards`);
     return boardList.map( board => {
         // Essential stuff
-        const { board: boardID, title, meta_description } = board, url = `/${boardID}/`;
+        const { board: boardID, title, meta_description } = board
+        const url = `/${boardID}/`;
 
         // Board info
         const { 
@@ -159,7 +160,8 @@ export function parseBoardList( boardList ) {
                 max_webm_duration, 
                 max_webm_filesize, 
                 NSFW: 1 - ws_board
-            }
+            },
+            provider: "4chan"
         }
 
     });
