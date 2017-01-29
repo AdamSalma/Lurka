@@ -1,7 +1,8 @@
 import initialState from '../constants/initialState';
 import { 
     BOARD_LOADED_FROM_HISTORY,
-    BOARD_SAVED_TO_HISTORY
+    BOARD_SAVED_TO_HISTORY,
+    BOARD_HISTROY_CLEARED
 } from '../constants'
 
 export default function (state = initialState.boardHistory, action) {
@@ -9,7 +10,7 @@ export default function (state = initialState.boardHistory, action) {
     switch (action.type) {
 
         case BOARD_SAVED_TO_HISTORY:
-            history = Object.assign({}, state[action.provider], {
+            history = Object.assign({}, state, {
                 [action.boardID]: action.payload
             })
 
@@ -17,14 +18,8 @@ export default function (state = initialState.boardHistory, action) {
                 [action.provider]: history
             })
 
-        case BOARD_LOADED_FROM_HISTORY:
-            history = Object.assign({}, state[action.provider], {
-                [action.boardID]: {}
-            })
-
-            return Object.assign({}, state, {
-                [action.provider]: history
-            })
+        case BOARD_HISTROY_CLEARED:
+            return {}
 
         default:
             return state

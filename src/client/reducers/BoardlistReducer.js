@@ -5,6 +5,7 @@ import {
     BOARD_LIST_INVALIDATED,
     BOARD_LIST_ADD_FAVOURITE,
     BOARD_LIST_REMOVE_FAVOURITE,
+    BOARD_LIST_SEARCH_LOADED
 } from '../constants'
 
 export default function (state=initialState.boardList, action) {
@@ -23,6 +24,12 @@ export default function (state=initialState.boardList, action) {
         case BOARD_LIST_LOADED:
             return Object.assign({}, state, {
                 [action.provider]: action.payload
+            })
+
+        case BOARD_LIST_SEARCH_LOADED:
+            // append new search results to the providers boardlist
+            return Object.assign({}, state, {
+                [action.provider]: [...state[action.provider]].push(action.payload)
             })
 
         case BOARD_LIST_ADD_FAVOURITE:
