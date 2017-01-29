@@ -1,7 +1,8 @@
 import initialState from '../constants/initialState';
 import { 
     THREAD_LOADED_FROM_HISTORY,
-    THREAD_SAVED_TO_HISTORY
+    THREAD_SAVED_TO_HISTORY,
+    THREAD_HISTROY_CLEARED
 } from '../constants'
 
 export default function (state = initialState.threadHistory, action) {
@@ -9,22 +10,12 @@ export default function (state = initialState.threadHistory, action) {
     switch (action.type) {
 
         case THREAD_SAVED_TO_HISTORY:
-            history = Object.assign({}, state[action.provider], {
-                [action.threadID]: action.payload
-            })
-
             return Object.assign({}, state, {
-                [action.provider]: history
+                [action.provider]: action.payload
             })
 
-        case THREAD_LOADED_FROM_HISTORY:
-            history = Object.assign({}, state[action.provider], {
-                [action.threadID]: {}
-            })
-
-            return Object.assign({}, state, {
-                [action.provider]: history
-            })
+        case THREAD_HISTROY_CLEARED:
+            return {}
 
         default:
             return state
