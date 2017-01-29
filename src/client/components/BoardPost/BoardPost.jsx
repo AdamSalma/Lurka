@@ -20,7 +20,7 @@ export default class BoardPost extends Component {
 
     render() {
         const { fetchThread, reshuffle, post: {
-            id, title, comment, date, imgsrc, replies
+            id, title, comment, date, media, replies
         }} = this.props;
 
         return (
@@ -32,7 +32,7 @@ export default class BoardPost extends Component {
                 onMouseLeave={this.scrollPostDown}
             >
                 <div className="image-wrap">   
-                    <img ref="image" src={imgsrc.sm} onLoad={reshuffle} onError={this.hideImage}/>
+                    <img ref="image" src={media.thumbnail} onLoad={reshuffle} onError={this.hideImage}/>
                 </div>   
                 <div className="comment-wrap clearfix" ref="comment">
                     <div className="counters">
