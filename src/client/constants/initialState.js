@@ -1,17 +1,16 @@
 export default {
 	status: {
-		isScrolling: false,  // app scroll
 		currentPage: "home", // currentPage
+		isScrolling: false,  // app scroll
 		isHeaderVisible: false,  // if currentPage == "content"
+		isNavbarOpen: false,
 		alertMessage: null,  // reveal status to user
-		providers: ["4chan", "reddit"],
-		provider: null,
+		provider: "4chan",
 		boardID: null,
 		threadID: null,
-		isNavbarOpen: false
 	},
 
-	boardList: {  // obj for each provider: {4chan: [], reddit: []}
+	boardList: {
 		didInvalidate: false,
 		favourites: []  // [{id:'4chan', board: 'g'}, ...]
 	},  
@@ -27,10 +26,7 @@ export default {
 		limit: 30  // infinite scroll
 	},
 
-	boardHistory: {
-		"4chan": {}, 
-		"reddit": {}
-	},
+	boardHistory: { },
 
 	thread: {
 		receivedAt: 0,  // unix timestamp
@@ -40,10 +36,7 @@ export default {
 		posts: [],
 	},
 
-	threadHistory: {
-		"4chan": {}, 
-		"reddit": {}
-	},
+	threadHistory: { },
 
 	post: {
 		isAuthenticated: false,
