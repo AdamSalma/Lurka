@@ -43,8 +43,8 @@ function destroyThread(threadID) {
     }
 }
 
-export function fetchThread(provider, boardID, threadID) {
-    const url = `/api/${provider}/board/${boardID}/thread/${threadID}`
+export function fetchThread(boardID, threadID) {
+    const url = `/api/4chan/board/${boardID}/thread/${threadID}`
     return (dispatch, getState) => {
         const state = getState()
 
@@ -53,8 +53,8 @@ export function fetchThread(provider, boardID, threadID) {
             return 
         }
 
-        if (threadInHistoryAndRecent(state, provider, threadID)) {
-            dispatch(loadThreadFromHistory(state, provider, threadID))
+        if (threadInHistoryAndRecent(state, threadID)) {
+            dispatch(loadThreadFromHistory(state, threadID))
             dispatch(alertMessage({
                 message: `Loading thread ${threadID} from history`,
                 type: "success"
@@ -91,9 +91,9 @@ function shouldFetchThread({ thread, settings }) {
     return !thread.isFetching && lastRequested > requestThrottle
 }
 
-function threadInHistoryAndRecent({threadHistory, settings }, provider, threadID) {
+function threadInHistoryAndRecent({threadHistory, settings }, threadID) {
     const maxThreadAge = settings["maxThreadAge"].value * 1000  // to miliseconds
-    const thread = threadHistory[provider][threadID]
+    const thread = threadHistory[threadID]
 
     // TODO: Remove this test code from thread/boardInHistory
     if (!thread){
@@ -103,19 +103,18 @@ function threadInHistoryAndRecent({threadHistory, settings }, provider, threadID
     return thread && Date.now() - thread.receivedAt < maxThreadAge
 }
 
-function loadThreadFromHistory({ threadHistory }, provider, threadID) {
-    const thread = threadHistory[provider][threadID]
+function loadThreadFromHistory({ threadHistory }, threadID) {
+    const thread = threadHistory[threadID]
     return {
         type: THREAD_LOADED_FROM_HISTORY,
         payload: thread,
-        provider,
         threadID,
     }
 }
 
 
 
-export function closeThread(threadID, cb=() => {}) {
+export function closeThread(threadID, callback=() => {}) {
     return (dispatch, getState) => {
         const state = getState()
 
@@ -132,7 +131,7 @@ export function closeThread(threadID, cb=() => {}) {
 
         if (!shouldCloseThread(state)) {
             console.warn('Thread close rejected')
-            cb()
+            callback()
             return 
         }
 
@@ -142,7 +141,7 @@ export function closeThread(threadID, cb=() => {}) {
             complete: () => {
                 dispatch(saveThreadToHistory(state))
                 dispatch(destroyThread(threadID))
-                cb()
+                callback()
             }
         })
     } 
@@ -159,7 +158,6 @@ function shouldCloseThread({ thread }) {
 function saveThreadToHistory({ status, thread }){
     return {
         type: THREAD_SAVED_TO_HISTORY,
-        provider: status.provider,
         threadID: status.threadID,
         payload: {
             posts: thread.posts,
