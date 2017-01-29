@@ -67,7 +67,7 @@ function shouldLoadMorePosts({ board }, limitToSet) {
 
 
 
-export function fetchBoard({ provider, boardID }) {
+export function fetchBoard({ provider="4chan", boardID }) {
     const url = `/api/${provider}/board/${boardID}`
     console.log('Action FetchBoard()', url);
 
@@ -78,8 +78,8 @@ export function fetchBoard({ provider, boardID }) {
             return
         }
 
-        if ( boardInHistoryAndRecent(state, provider, boardID)) {
-            dispatch(loadBoardFromHistory(state, provider, boardID))
+        if ( boardInHistoryAndRecent(state, boardID)) {
+            dispatch(loadBoardFromHistory(state, boardID))
             dispatch(setBoard(boardID))
             dispatch(alertMessage({
                 message: `Loading board from history: /${boardID}/`,
@@ -118,9 +118,9 @@ function canRequestBoard({ board, settings }) {
     return !board.isFetching && lastRequested > requestThrottle
 }
 
-function boardInHistoryAndRecent({boardHistory, settings}, provider, boardID) {
+function boardInHistoryAndRecent({boardHistory, settings}, boardID) {
     const maxBoardAge = settings["maxBoardAge"].value * 1000  // to miliseconds
-    const board = boardHistory[provider][boardID]
+    const board = boardHistory[boardID]
 
     if (!board){
         console.warn('Board was not in history')
@@ -131,8 +131,8 @@ function boardInHistoryAndRecent({boardHistory, settings}, provider, boardID) {
     return board && Date.now() - board.receivedAt < maxBoardAge
 }
 
-function loadBoardFromHistory({ boardHistory }, provider, boardID) {
-    const board = boardHistory[provider][boardID]
+function loadBoardFromHistory({ boardHistory }, boardID) {
+    const board = boardHistory[boardID]
     return {
         type: BOARD_LOADED_FROM_HISTORY,
         payload: board,
