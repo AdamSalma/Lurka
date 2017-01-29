@@ -58,4 +58,11 @@ module.exports = {
         desc: "Mute WebM videos automatically when opened",
         checkbox: true
     },
+    "homeBoard": {
+        type: 'Content',
+        title: 'Home Board',
+        value: 'g',
+        desc: 'Your home board that Lurka starts on'
+
+    }
 }
