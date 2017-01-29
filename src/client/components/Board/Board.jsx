@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from "react";
 
-import '../../vendor';
-
 import BoardPost from '../BoardPost';
 import { catchTooltip } from './events';
 import createLayout from './layout';
@@ -19,44 +17,60 @@ export default class Board extends Component {
             preLoadMoreAt: 1500 // px from bottom
         }
 
+        this.nanoOpts = { 
+            sliderMaxHeight: 400,
+            sliderMinHeight: 50
+        }
+
         this.onBoardPostClick = this.onBoardPostClick.bind(this)
         this.loadMorePosts    = this.loadMorePosts.bind(this)
-        this.checkIfScrolled  = this.checkIfScrolled.bind(this)
+        this.throttleScroll   = this.throttleScroll.bind(this)
 
         this.previousScrollTop = 0
-        this.limiter = 12
-        this._interval = setInterval(this.checkIfScrolled, this.state.scrollThrottle)
 
+        this._throttled = 12
+        this._itemsRemainInView = true
     }
 
 
     componentDidMount() {
         // Board scroller
-        this._board.nanoScroller({ sliderMaxHeight: 400, sliderMinHeight: 60 })
+        this._board.nanoScroller(this.nanoOpts)
 
         // Hover over board posts reveals more info
         $(window).resize(createLayout)
         catchTooltip(board);  // TODO: Implement catchtooltip on board
     }
 
-    componentDidUpdate({ board }) {
+    componentDidUpdate({ board, boardID }) {
         if (board.posts.length !== this.props.board.posts.length) {
             createLayout()
             this._board.nanoScroller()
+            this._board.trigger('scroll')
+            this._board.bind('scrollend', () => {
+                this._itemsRemainInView = false
+            })
+        }
+
+        if (this.props.boardID != boardID) {
+            this._itemsRemainInView = true
+        }
+
+        if (this._itemsRemainInView) {
+            this.checkItemsInView()
         }
     }
 
     componentWillUnmount() {
-        clearInterval(this._interval)
         this._board.off();
     }
 
     render() {
         return (
-            <div id="board" className="board nano" ref={ b => this._board = $(b)} >
-                <div className="nano-content" ref="content">
+            <div id="board" className="board nano" ref={ b => this._board = $(b)} onScroll={this.throttleScroll}>
+                <div className="nano-content">
                     <div className="header-gap"/>
-                    <div className="posts" ref="posts">
+                    <div className="posts" ref={p => this._posts = p}>
                         {this.createPosts()}
                     </div>
                 </div>
@@ -64,24 +78,35 @@ export default class Board extends Component {
         );
     }
 
+    throttleScroll(e) {
+        if (this._throttled >= 12 && this._itemsRemainInView) {
+            this._throttled = 0
+            console.warn("checking!");
+            this.trackScroll(e.target)
+        }
+        this._throttled += 1
+    }
+
+    trackScroll({ scrollTop, scrollHeight }) {
+        this.checkItemsInView()
+
+        if (scrollTop + window.innerHeight + 600 > scrollHeight ) {
+            this.loadMorePosts()
+        }
+    }
+
+    checkItemsInView(){
+        const winHeight = window.innerHeight + 200
+        $.each(this._posts.children, function(index, element) {
+            if (element.getBoundingClientRect().bottom <= winHeight) {
+                element.classList.add('animate')
+            }
+        })
+    }
+
     createPosts() {
         const posts = this.getPosts()
         return posts.map( (post, index) => {
-            if (index+1 === posts.length) {
-                // last post
-                return (
-                    <BoardPost
-                        key={post.id}
-                        post={post} 
-                        fetchThread={this.onBoardPostClick}
-                        reshuffle={() => {
-                            // loads more posts after rendering
-                            createLayout()
-                            this.loadMorePosts()
-                        }}
-                    />
-                )
-            }
             return (
                 <BoardPost
                     key={post.id}
@@ -133,6 +158,7 @@ export default class Board extends Component {
     loadMorePosts() {
         const { loadMorePosts, board } = this.props
         const newValue = board.limit + this.state.load
+        
         loadMorePosts(newValue)    
     }
 
@@ -140,11 +166,15 @@ export default class Board extends Component {
     onBoardPostClick( threadID ){
         // Fetch if user not highlighting any text
         if (!window.getSelection().toString()) {
-            const { provider, boardID, fetchThread, scrollHeader } = this.props;
+            const { boardID, fetchThread, scrollHeader } = this.props;
+
+            fetchThread(boardID, threadID);
+            
             // Hide Thread scrollbar
             $('.thread-wrap').nanoScroller({ stop: true })  
-            fetchThread(provider, boardID, threadID);
-            scrollHeader(true)  // make header visible
+
+            console.warn("ScrollHeader: ", scrollHeader)
+            scrollHeader(false)  // Hide the header
         }
     }
 }
