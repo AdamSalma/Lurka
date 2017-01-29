@@ -5,13 +5,13 @@ import uuid from 'uuid'
 import Icon from '../Icon'
 import BoardList from '../BoardList'
 import SearchBox from '../SearchBox'
+import Checkbox from '../Checkbox'
 
 export default class Navbar extends Component {
-    constructor({ status, fetchBoardList, boardList }) {
+    constructor({ status:{provider}, fetchBoardList, boardList }) {
         super()
 
         this.state = {
-            providersToDisplay: status.providers,
             favouritesOnly: false,
             searchPhrase: ''
         }
@@ -19,61 +19,51 @@ export default class Navbar extends Component {
         this.prepareForFetch = this.prepareForFetch.bind(this);
         this.toggleFavourite = this.toggleFavourite.bind(this);
         this.renderBoardlist = this.renderBoardlist.bind(this);
-        this.toggleProvider  = this.toggleProvider.bind(this);
         this.handleSearch    = this.handleSearch.bind(this);
         this.toggleFavouriteButton = this.toggleFavouriteButton.bind(this);
-
-        status.providers.map(provider => {
-            if (!boardList[provider] || !boardList[provider].length)
-                fetchBoardList(provider)
-        })
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        /* See updatePreloadText at end*/
-        if (preloading)
-            updatePreloadText(this.props)
+        this.handleBoardlistSearch  = this.handleBoardlistSearch.bind(this);        
     }
 
     render() {
-        const {providersToDisplay, favouritesOnly} = this.state
-        const {status: {providers}} = this.props
-
-        console.warn(providersToDisplay);
+        const {favouritesOnly} = this.state
+        const {
+            status:{ providers }, 
+            settings:{ NSFW }, 
+            toggleSetting
+        } = this.props
 
         return (
             <div id="navbar" className="navbar">
+                {/*Section 3*/}
+                <div className="navbar-content">
+                    {this.renderBoardlist()}
+                </div>
                 <div className="navbar-controls">
-                    <SearchBox 
-                        onKeyUp={this.handleSearch} 
-                        placeholder={`Search...`}
-                    />
+                    {/*Section 1*/}
+                    <div className="navbar-search">
+                        <SearchBox 
+                            onKeyUp={this.handleSearch} 
+                            placeholder="Search..."
+                        />
+                    </div>
+                    {/*Section 2*/}
                     <div className="navbar-filter-buttons">
-                        {providers.map( provider => {
-                            // Create buttons to filter provider boards
-                            const classes = classNames('list-toggle', `p-${provider}`, {
-                                "disabled":  favouritesOnly || !providersToDisplay.includes(provider)
-                            })
-
-                            return <span className={classes} key={provider} onClick={this.toggleProvider.bind(null, provider)}>
-                                {provider}
-                            </span>
-                        })}
-                        {/*Additional button to filter favourites*/}
+                        {/*Filter favourites*/}
                         <span onClick={this.toggleFavouriteButton} className={classNames('list-toggle favourite', {'disabled': !favouritesOnly})}>
                             Favourites
                         </span>
+                        <span className='list-toggle NSFW'>
+                            <span className="text">18+</span>
+                            <Checkbox isChecked={NSFW.value} onChange={() => toggleSetting({name:"NSFW"})}/>
+                        </span>
                     </div>
-                </div>
-                <div className="navbar-content">
-                    {providersToDisplay && this.renderBoardlist()}
                 </div>
             </div>
         )
     }
 
     renderBoardlist() {
-        const boardlist = this.getBoardlists()
+        const boardlist = this.filterBoardlist()
         const elements = boardlist.map( ({provider, boardID, short_desc}) => {
             // Create each element
             const isFavourite = this.isFavourite(boardID)
@@ -83,7 +73,7 @@ export default class Navbar extends Component {
             })
 
             return (
-                <div key={uuid.v4()} onClick={
+                <div key={boardID} className={"p-"+provider} onClick={
                     this.prepareForFetch.bind(null, provider, boardID)
                 }>
                     <Icon className={star} 
@@ -115,34 +105,22 @@ export default class Navbar extends Component {
         })
     }
 
-    getBoardlists() {
-        const { fetchBoardList, boardList, status:{ providers }} = this.props;
+    filterBoardlist() {
+        const { boardList, status:{ provider }, settings:{ NSFW }} = this.props;
         const { searchPhrase, favouritesOnly, providersToDisplay } = this.state
-        const loadingBoardlists = providers.filter( provider => {
-            return !(boardList[provider] && boardList[provider].length)
-        })
+        let boardlist = boardList[provider]
 
-        if (loadingBoardlists.length) 
+        if (!boardlist || !boardlist.length)
             return []
 
-        // combine boardlists + add provider to each item
-        let boardlist = providersToDisplay.map(provider => {
-                return boardList[provider].map( item => {
-                    item.provider = provider
-                    return item
-                }
-            )
-        })
-
-        if (boardlist.length) {
-            // flatten boardlists unless falsey
-            boardlist = boardlist.reduce((a,b) => b ? a.concat(b) : a) 
-        }
-
         if (favouritesOnly) {
-            // filter 
-            // TODO: make add fave -> change bordlist items, not add to fave list. remote favelist.
+            // filter 'em
+            boardlist = boardlist.filter( ({boardID}) => this.isFavourite(boardID))
         } 
+
+        if (NSFW.value) {
+            boardlist = boardlist.filter( ({info}) => info.NSFW)
+        }
 
         if (searchPhrase) {
             boardlist = boardlist.filter( board => 
@@ -152,7 +130,15 @@ export default class Navbar extends Component {
             )
         }
 
-        return boardlist.sort()
+        return boardlist.sort((a, b) => {
+            a = a.boardID.toLowerCase()
+            b = b.boardID.toLowerCase()
+            if (a < b)
+                return -1
+            if (a > b)
+                return 1    
+            return 0
+        })
     }
 
     toggleFavourite(event, provider, boardID) {
@@ -178,20 +164,9 @@ export default class Navbar extends Component {
         this.setState({searchPhrase})
     }
 
-    toggleProvider(provider) {
-        console.log("toggleProvider(): " + provider);
-        this.setState( (state) => {
-            let ps = state.providersToDisplay
-            if (ps.includes(provider)) {
-                // Remove from list
-                ps = ps.filter(p => p !== provider)
-            } else {
-                // Add to list
-                ps.push(provider)
-            }
-
-            return Object.assign({}, state, {providersToDisplay: ps})
-        })
+    handleBoardlistSearch(provider) {
+        console.log("handleBoardlistSearch() clicked!");
+        this.props.searchBoardlist(provider, this.state.searchWord)
     }
 
     toggleFavouriteButton() {
@@ -199,31 +174,4 @@ export default class Navbar extends Component {
             return Object.assign({}, state, {favouritesOnly: !state.favouritesOnly})
         })
     }
-}
-
-/* Preload stuff */
-var preloading = true
-const preloadScreenEl = $('#preload-screen')
-const preloadTextEl = preloadScreenEl.find('#preload-status-text')
-
-function updatePreloadText({ boardList, status:{providers} }) {
-    const remainingBLs = providers.filter( provider => {
-        return !(boardList[provider] && boardList[provider].length)
-    })
-
-    let text
-    if (remainingBLs.length > 0) {
-        text = "Fetching boards"
-    } else {
-        preloading = false
-        text = "Ready"
-        preloadScreenEl.addClass('loaded')   
-    }
-
-    preloadTextEl.text(text)
-}
-
-function revealApp(){
-
-
 }
