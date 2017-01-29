@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 
 import AlertContainer from 'react-alert'
 import Header from "../components/Header";
-
-import {
-    scrollPage, scrollHeader
-} from '../actions/AnimationActions';
+import Navbar from "../components/Navbar";
 
 import { closeThread } from '../actions/ThreadActions';
+import { changeProvider } from '../actions/StatusActions';
+import { toggleSetting } from '../actions/SettingsActions';
 import { fetchBoard, destroyBoard, searchBoard } from '../actions/BoardActions';
-import { fetchBoardList, addToFavourites, removeFromFavourites } from '../actions/BoardListActions';
+import { scrollPage, scrollHeader, toggleNavbar } from '../actions/AnimationActions';
+import { fetchBoardList, searchBoardlist, addToFavourites, removeFromFavourites } from '../actions/BoardListActions';
 
 
 // import scroll action here
@@ -38,9 +38,10 @@ class GlobalPanel extends Component {
         const {
             scrollPage, scrollHeader, fetchBoard, fetchBoardList, 
             addToFavourites, removeFromFavourites, destroyBoard,
-            searchBoard, closeThread,            
+            searchBoard, closeThread, changeProvider, toggleNavbar, 
+            toggleSetting, searchBoardlist,
 
-            status, boardList, threadIsActive
+            status, boardList, threadIsActive, settings
         } = this.props;
 
         return (
@@ -54,9 +55,20 @@ class GlobalPanel extends Component {
                     alertMessage={status.alertMessage} currentPage={status.currentPage}
                     provider={status.provider} boardID={status.boardID}
                     threadID={status.threadID} threadIsActive={threadIsActive}
-                    boardList={boardList} 
+                    boardList={boardList} toggleNavbar={toggleNavbar}
                 />  
-                <AlertContainer ref={a => this.msg = a}/>
+                <Navbar 
+                    fetchBoardList={fetchBoardList}
+                    addToFavourites={addToFavourites}
+                    removeFromFavourites={removeFromFavourites}
+                    scrollPage={scrollPage} scrollHeader={scrollHeader} 
+                    changeProvider={changeProvider} fetchBoard={fetchBoard}
+                    toggleNavbar={toggleNavbar} toggleSetting={toggleSetting}
+                    searchBoardlist={searchBoardlist}
+
+                    status={status} boardList={boardList} settings={settings}
+                />
+                <AlertContainer ref={a => this.msg = a} position='bottom right'/>
             </div>
         )
     }
@@ -66,11 +78,13 @@ class GlobalPanel extends Component {
     }
 }
 
-function mapStateToProps({status, boardList, thread}) {
+function mapStateToProps({status, boardList, thread, settings, board}) {
     return {
         status,
         boardList,
-        threadIsActive: thread.isActive
+        threadIsActive: thread.isActive,
+        settings,
+        board
     }
 }
 
@@ -79,12 +93,16 @@ function mapDispatchToProps(dispatch) {
         scrollPage,
         searchBoard,
         scrollHeader,
+        changeProvider,
         fetchBoardList,
         fetchBoard,
         addToFavourites, 
         removeFromFavourites,
         destroyBoard,
-        closeThread
+        closeThread,
+        toggleNavbar,
+        toggleSetting,
+        searchBoardlist
     }, dispatch)
 }
 
