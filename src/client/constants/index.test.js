@@ -157,6 +157,10 @@ describe('Constants', () => {
     expect(consts.BOARD_LOADED_FROM_HISTORY).toEqual('BOARD_LOADED_FROM_HISTORY');
   });
   
+  it('contains BOARD_HISTROY_CLEARED', () => {
+    expect(consts.BOARD_HISTROY_CLEARED).toEqual('BOARD_HISTROY_CLEARED');
+  });
+
   it('contains THREAD_SAVED_TO_HISTORY', () => {
     expect(consts.THREAD_SAVED_TO_HISTORY).toEqual('THREAD_SAVED_TO_HISTORY');
   });
@@ -165,6 +169,10 @@ describe('Constants', () => {
     expect(consts.THREAD_LOADED_FROM_HISTORY).toEqual('THREAD_LOADED_FROM_HISTORY');
   });
   
+  it('contains THREAD_HISTROY_CLEARED', () => {
+    expect(consts.THREAD_HISTROY_CLEARED).toEqual('THREAD_HISTROY_CLEARED');
+  });
+
   it('contains NAVBAR_TOGGLED', () => {
     expect(consts.NAVBAR_TOGGLED).toEqual('NAVBAR_TOGGLED');
   });
