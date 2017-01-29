@@ -18,15 +18,15 @@ export default class BoardList extends Component {
     render() {
         const {boardList, provider, onClick, boardListElements} = this.props
         const classes = classNames('boardlist', `p-${provider}`)
-        const hasBoards = boardList && boardList.length;
+        const hasBoards = boardListElements && boardListElements.length;
 
         return (
             <div className={classes}>
-                {hasBoards && <Dropdown 
+                {hasBoards ? <Dropdown 
                     onClick={onClick} 
                     items={boardListElements} 
                     scrollOpts={{sliderMinHeight: 50, alwaysVisible: true}}
-                />}
+                /> : false}
             </div>
         )
     }
