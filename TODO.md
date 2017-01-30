@@ -4,15 +4,11 @@ Also contains a few ideas that may or may not happen.
 
 ### Content:
 - [x] 4chan
+    - [x] board list
     - [x] boards
     - [x] threads
     - [ ] archives
-- [x] Reddit
-  - [x] board searching
-  - [x] subreddits (boards)
-  - [ ] posts (threads)
-  - [ ] archives
-- [ ] Embedded content (Youtube/Imgur etc...)
+- [ ] Embedded content (Youtube etc...)
   
 ### UI:
 - [x] Dark interface
@@ -26,10 +22,13 @@ Also contains a few ideas that may or may not happen.
 - [ ] Awesome logo
 - [ ] Images can be fullscreened
 - [ ] Homepage
+- [ ] Different board layouts
 
 ### Functionality:
-- [ ] Be able to create a thread or post
-- [x] Content options - Search, filter, watch (in board or thread)
+- [ ] Log in to your account
+- [ ] Be able to create a thread or post (w/captcha)
+- [x] Board Search + Filter
+- [ ] Thread watching
 - [ ] Continuous content updating (every 10 secs? use if-modified-since)
 - [x] Internal Archives.
 - [ ] Save a Thread/Post/Image to a desired folder.
