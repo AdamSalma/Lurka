@@ -4,10 +4,9 @@
   "version": "0.9.0",
   "description": "A desktop app for viewing online messaging boards such as 4chan and reddit",
   "scripts": {
-    "dev": "cross-env NODE_PATH=./app/node_modules nodemon ./src/server",
-    "bundle": "gulp bundle",
     "build": "gulp build",
     "start": "electron ./app",
+    "dev": "cross-env NODE_PATH=./app/node_modules nodemon ./src/server",
     "test": "cross-env NODE_ENV=test NODE_PATH=./app/node_modules mocha",
     "test-watch": "cross-env NODE_ENV=test NODE_PATH=./app/node_modules mocha -R min -w",
     "install-all": "npm install && cd app && npm install && cd .."
