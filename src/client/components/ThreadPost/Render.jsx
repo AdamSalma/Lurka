@@ -26,7 +26,7 @@ export function renderRefs(refs) {
     return refs && refs.length ? <div className='references'>
         <Line/>
         <span className="reference-header">
-            <span className="reply-count">[{refs.length}] </span>
+            <span className="reply-count">({refs.length}) </span>
             <Icon name="account-multiple"/> 
         </span>
         {refs.map( ref => 
