@@ -28,7 +28,7 @@ export default class ThreadPost extends Component {
                 <div className='post-info'>
                     {renderTitle(title)}
                     <span className='name'>{name}</span>
-                    <span className='id'>No.{id}</span>
+                    <span className='id'>#{id}</span>
                     <Line isVertical />
                     <TimeAgo time={time}/>
                     {renderControls(controls)}

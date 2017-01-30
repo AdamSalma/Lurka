@@ -6,12 +6,12 @@ export function createMediaIfExists(id, media) {
     if (!media) return;
 
     id = mediaPrefix + id
-    const {srcSmall, srcLarge, filetype} = media
+    const {thumbnail, srcLarge, filetype} = media
 
     return (
         <div id={id} className='img-container' onClick={ toggleMedia }>
             <div className="thumbnail">
-                <img src={srcSmall} />
+                <img src={thumbnail} />
             </div>
             <div className="img-large-container hidden">
                 <span className="fullscreen fa-stack fa-sm">
