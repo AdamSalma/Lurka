@@ -5,13 +5,39 @@ import Setting from '../Setting'
 
 
 export default class Settings extends Component {
-    constructor(props) {
-        super(props);
+    constructor({settings}) {
+        super();
         this.state = {
             revealMaxSettings: 3
         }
-        this.settings = props.settings.filter( s=> !s.disabled )
-        this.settingsTypes = this.uniqueTypes(this.settings)
+
+        // TODO: two settings for internal/client?
+        // Filter disabled settings
+        this._settings = {}
+        for (let setting in settings) {
+            if (!setting.disabled) {
+                this._settings[setting] = settings[setting]
+            }
+        }
+
+        console.warn(this._settings);
+
+        this._uniqueTypes = this.getUniqueTypes(this._settings)
+
+
+    }
+
+
+    getUniqueTypes(settings) {
+        const types = []
+        for (let setting in settings) {
+            if (!settings.hasOwnProperty(setting))
+                return
+            if (!types.includes(settings[setting].type)) {
+                types.push(settings[setting].type)
+            }
+        }
+        return types
     }
 
     render() {
@@ -24,8 +50,9 @@ export default class Settings extends Component {
     }
 
     createSettings() {
-        return this.settingsTypes.map( groupType => {
-            // Create a group for every 'type'. End structure: settings > groupType > setting
+        return this._uniqueTypes.map( groupType => {
+            // Create a group for every 'type'. 
+            // End structure: settings > groupType > setting
             let classes = classNames('group', groupType.toLowerCase())
 
             return (
@@ -38,20 +65,17 @@ export default class Settings extends Component {
     }
 
     splitByGroupType(groupType) {
-        return this.settings.map( setting => {
-            if (setting.type === groupType) {
-                return <Setting key={setting.key} setting={setting} />
-            }
-        })
-    }
+        const ret = [];
+        for (let setting in this._settings) {
+            if (!this._settings.hasOwnProperty(setting))
+                return
 
-    uniqueTypes(settings) {
-        const types = []
-        settings.map( setting => {
-            if (!types.includes(setting.type)) {
-                types.push(setting.type)
+            let s = this._settings[setting]
+            if (s.type === groupType) {
+                ret.push(<Setting key={setting} setting={s} />)
             }
-        })
-        return types
+        }
+        return ret
     }
 }
+

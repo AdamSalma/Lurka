@@ -8,11 +8,11 @@ export default class Setting extends Component {
   }
 
   render(){
-    const { type, title, value, desc, key } = this.props.setting;
+    const { type, title, value, desc } = this.props.setting;
 
     return (
       <div className="setting">
-        <span className="key">{title}</span>
+        <span className="name">{title}</span>
         <span className="value">{String(value)}</span>
         <div className="description">{desc}</div>
       </div>
