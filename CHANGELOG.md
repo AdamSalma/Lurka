@@ -4,7 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## v0.10 - 30/01/2017
+### Added
+- Board posts slide into view when scrolled
+- New header layout and content options
+- Added a navbar for board toggling
+- Added a preload screen while the app fetches initial data
+- Added initial settings
+
+### Changed
+- Dropped support for reddit
+- Color scheme refactor
+- No more homescreen. Work input != output
+
+### Fixed
+- Lots of things
+
+
+## v0.9 - 24/12/2016
 ### Added
 - Added support for reddit board lists
 - New homepage layout
@@ -19,7 +36,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fixed board post text highlighting triggering a fetch
 
 
-## v0.8.0
+## v0.8
 ### Added
 - Header displays the apps status.
 - Header now has a seachbox.
@@ -33,7 +50,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fixed 4chan blocking media requests by proxying imgs/vids through server.
 
 
-## v0.7.0 - 14/11/2016
+## v0.7 - 14/11/2016
 ### Added
 - Board now has infinite scrolling.
 - Add pintrest-like grid structure to Board.
