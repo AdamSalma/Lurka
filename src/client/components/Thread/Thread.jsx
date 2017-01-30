@@ -22,10 +22,9 @@ export default class Thread extends Component {
     }
 
     componentDidMount() {
-        const {thread, threadWrap} = this.refs;
-        enableFullscreen(thread)
-        setupQuoteEvents(thread)
-        $(threadWrap).nanoScroller({ sliderMinHeight: 40, alwaysVisible: true })
+        enableFullscreen(this._thread)
+        setupQuoteEvents(this._thread)
+        this._threadWrap.nanoScroller({ sliderMinHeight: 40, alwaysVisible: true })
     }
 
     componentDidUpdate({ thread: oldthread } ) {
@@ -40,11 +39,14 @@ export default class Thread extends Component {
 
     render() {
         const { thread, isFetching, isActive } = this.props
-        const { posts } = thread;
+        const { posts, didInvalidate } = thread;
 
         const threadWrapClasses = classNames('thread-wrap', 'nano', {
             "thread-wrap-active": isActive
         });
+
+        if (didInvalidate) 
+            return false
 
         console.log(`THREAD: posts: ${posts.length}, isFetching: ${isFetching}`)
 
@@ -53,15 +55,15 @@ export default class Thread extends Component {
                 <Background 
                     isVisible={isActive} 
                     closeBackground={this.closeThread}/>
-                <div ref='threadWrap' className={threadWrapClasses}>
-                    <div id="thread" className="thread nano-content" ref="thread">
-                        <div className="header-gap"></div>
+                <div ref={t => this._threadWrap = $(t)} className={threadWrapClasses}>
+                    <div id="thread" className="thread nano-content" ref={t => this._thread = $(t)}>
                         {this.createPosts( posts )}
                     </div>
                 </div>
             </div>
         )
     }
+    // <div className="header-gap"></div>
 
     createPosts( posts ) {
         return posts.map( 
@@ -74,26 +76,22 @@ export default class Thread extends Component {
     }
 
     openThread() {
-        const { thread, threadWrap } = this.refs;
-        const $threadWrap = $(threadWrap), $thread = $(thread)
-
         // Must have separate invocations
-        $threadWrap.nanoScroller({ scroll: "top" })
-        $threadWrap.nanoScroller({ stop: true })
+        this._threadWrap.nanoScroller({ scroll: "top" })
+        this._threadWrap.nanoScroller({ stop: true })
         
-        $thread.velocity({top: 0}, {
+        this._thread.velocity({top: 0}, {
             duration: 850,
             easing: [0.25, 0.8, 0.25, 1],
-            complete: () => $threadWrap.nanoScroller()
+            complete: () => this._threadWrap.nanoScroller()
         });
     }
 
     closeThread() {
-        const { thread, threadWrap } = this.refs;
-        const { closeThread, threadID } = this.props;
+        const { closeThread, threadID, scrollHeader } = this.props;
 
-        $(threadWrap).nanoScroller({ stop: true })
-
+        this._threadWrap.nanoScroller({ stop: true })
         closeThread(threadID)
+        scrollHeader(true)
     }
 }
