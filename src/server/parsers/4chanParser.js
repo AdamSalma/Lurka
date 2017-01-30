@@ -160,8 +160,7 @@ export function parseBoardList( boardList ) {
                 max_webm_duration, 
                 max_webm_filesize, 
                 NSFW: 1 - ws_board
-            },
-            provider: "4chan"
+            }
         }
 
     });
