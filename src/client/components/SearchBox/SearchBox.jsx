@@ -11,7 +11,6 @@ class SearchBox extends Component {
 
         return (
             <div className="searchbox">
-                <span className=""></span>
                 <input type="text" className={classes} {...props}/>
             </div>
         )
