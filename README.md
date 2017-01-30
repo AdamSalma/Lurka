@@ -1,8 +1,12 @@
 # Lurka
 
-This repository contains the source code for a desktop application used for viewing 4chan and reddit. It uses Electron, React, ES6, SASS, Express, Node, Gulp and Webpack.
+This repository contains the source code for Lurka, a 4chan desktop application.
+
+Lurka is still under development. The plan is to eventually have a separate repo/CDN to download the compiled app from.
 
 Take a look at the [TODO's](TODO.md) for upcoming additions.
+
+> Lurka is built with Electron, React, Node, Express, ES6, SASS, Gulp, Webpack and love.
 
 ## Installation
 You will first need to have [Node](https://nodejs.org/en/) and [Git](https://git-scm.com/) installed.
@@ -14,11 +18,12 @@ git clone https://github.com/AdamSalma/Lurka.git
 cd Lurka && npm run install-all
 ```
 ## Development mode 
-This will run through `localhost:3000` in your browser:
+This will run Lurka through `localhost:3000` in your browser:
 ```bash
 npm run dev
 ```
-You can change the default port from config/index.js
+- You can change the default port from `config/index.js`
+- Works with [Redux devtools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)
 
 ## Production mode
 This runs as a desktop application using Electron:
@@ -26,4 +31,6 @@ This runs as a desktop application using Electron:
 npm run build && npm start
 ```
 
-**Note to self:** Post some screenshots
+---
+
+#### *Lurk moar*
