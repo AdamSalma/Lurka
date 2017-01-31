@@ -1,0 +1,12 @@
+.spinner
+    @include center(80px, 80px)
+    background-color: color(primary)
+    position: fixed
+    animation: rotatespinner 1.2s infinite ease-in-out
+    z-index: 10
+    display: none
+    animation-play-state: paused
+
+    &.spinner-active
+        display: initial !important
+        animation-play-state: running !important
