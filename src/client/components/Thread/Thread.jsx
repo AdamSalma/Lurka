@@ -7,6 +7,7 @@ import uuid from "uuid";
 import TimeAgo from '../TimeAgo';
 import ThreadPost from '../ThreadPost';
 import Background from '../Background';
+import Spinner from '../Spinner';
 
 import {
     setupQuoteEvents, 
@@ -55,6 +56,7 @@ export default class Thread extends Component {
                 <Background 
                     isVisible={isActive} 
                     closeBackground={this.closeThread}/>
+                <Spinner isSpinning={isActive && !posts.length}/>
                 <div ref={t => this._threadWrap = $(t)} className={threadWrapClasses}>
                     <div id="thread" className="thread nano-content" ref={t => this._thread = $(t)}>
                         {this.createPosts( posts )}
