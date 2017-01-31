@@ -4,38 +4,28 @@ import classNames from 'classnames';
 import uuid from "uuid";
 
 import Icon from "../Icon";
+import Wrapper from './ControlWrapper'
 
 
 export default class Thread extends Component {
     constructor(props) {
-        super(props)
-    }
+        super(props);
+        this.subprops = {
 
-    componentWillUpdate({thread:{ isActive }}, nextState) {
-        const {thread:{isActive: wasActive }} = this.props
-
-        // Thread status changed?
-        if (wasActive !== isActive) {
-            isActive ? this.showControls() : this.hideControls()
         }
     }
 
     render() {
+        const {thread:{isActive, posts}} = this.props;
+        const controlClasses = classNames('thread-controls', {
+            "animate-in": isActive && posts.length,
+            "animate-out": !isActive
+        })
+
         return (
-            <div className="thread-controls">
-                <div className="left-controls">
-
-                    {/* Toggle icon
-                        <Icon name="eye" /> 
-                        eye off
-                    */}
-                    <Icon name="eye" /> 
-
-                    <Icon name="update" />
-                </div>
-                <div className="right-controls">
-
-                    <Icon name="download" /> 
+            <div className={controlClasses}>
+                <div className="controls left-controls">
+                    
                     {/*Save to archive
                         <Icon name="delete" /> 
                         bin icon -> to remove from archive
@@ -46,8 +36,26 @@ export default class Thread extends Component {
                        OR this. looks the best imo:
                         <Icon name="package-down" />   
                     */}
-                   
-                    <Icon name="comment-text" />
+                    <Wrapper toggleProps={{name:"package-down"}}>
+                        <Icon name="package-down" /> 
+                    </Wrapper>
+
+
+                    {/* Toggle icon
+                        <Icon name="eye" /> 
+                        eye off
+                    */}
+                    <Wrapper toggleProps={{name:"eye-off"}}>
+                        <Icon name="eye" /> 
+                    </Wrapper>
+                </div>
+                <div className="controls right-controls">
+
+                    {/*<Wrapper toggleProps={{name:"download"}}>
+                        <Icon name="download" /> 
+                    </Wrapper>*/}
+
+                    
                     {/* OR
                         right facing:
                         <Icon name="message" />
@@ -59,11 +67,28 @@ export default class Thread extends Component {
                         <Icon name="reply" />  addow facing left
 
                     */}
+                    <Wrapper toggleProps={{name:"comment-text"}}>
+                        <Icon name="comment-text"/>
+                    </Wrapper>
 
-                    <Icon name="close" />
+                    <Wrapper toggleProps={{name:"update"}}>
+                        <Icon name="update" />
+                    </Wrapper>
+
+                    {/*<Wrapper toggleProps={{name:"close"}}>
+                        <Icon name="close" />
+                    </Wrapper>*/}
                 </div>
             </div>
         )
+    }
+
+    showControls() {
+
+    }
+
+    hideControls() {
+
     }
 }
 
