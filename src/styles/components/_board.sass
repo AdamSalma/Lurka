@@ -1,17 +1,10 @@
-#board
+.board
     position: relative
     +set-dims(100vw, 100vh)
 
     .nano-pane
         display: block !important
         margin-top: $header-height
-
-    .board-end
-        position: absolute
-        text-align: center
-        bottom: 100px
-        margin: 0 auto
-        width: 300px
 
     .posts
         position: relative
@@ -26,6 +19,10 @@
     .animate 
         transform: translateY(200px)
         animation: moveUp 0.65s ease forwards
+
+    &.show-all
+        .board-post
+            opacity: 1 !important
 
 
 .react-alerts
