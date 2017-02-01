@@ -1,18 +1,18 @@
 $base-colors: (
-    punch:     #DC4328,  // $primary
+    punch:     #EA4335,  // $primary
     seagull:   #6EC4E7,  // $blue-light
     picton:    #4EADF3,  // $blue
     denim:     #0E43A9,  // triad of punch, use for tint?
-    atlantis:  #85d82c,  // $green
+    mantis:    #8FCC6D,  // $green
     fern:      #55b359,  // 4chan
     vermilion: #FF4500,  // reddit
 );
 
 $color-shades: (
-    darkest: (#000, 20%),
-    dark: (#5c5c5c, 20%),
-    light: (#fff, 20%),
-    lightest: (#fff, 40%),
+    darkest:  (#000000, 20%),
+    dark:     (#5c5c5c, 20%),
+    light:    (#ffffff, 20%),
+    lightest: (#ffffff, 40%),
 );
 
 $greys: (
@@ -43,10 +43,11 @@ $greys: (
 
 $primary: c(punch);
 $secondary: c(denim);
-$background-tint: c(denim);
+$background-tint: $primary;
+
 
 @function color-tint($color) {
-    @return mix($background-tint, $color, 2%)
+    @return mix($background-tint, $color, 0.5%)
 }
 
 @function grey($index) {
@@ -58,7 +59,7 @@ $color-palette: (
     primary:        $primary,
     secondary:      $secondary,
     links:          c(picton),
-    greentext:      c(atlantis),
+    greentext:      c(mantis),
     fourchan:       c(fern),
     reddit:         c(vermilion),
     text-primary:   rgba(255,255,255, 1),
