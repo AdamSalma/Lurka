@@ -177,9 +177,6 @@ export default class Board extends Component {
             
             // Hide Thread scrollbar
             $('.thread-wrap').nanoScroller({ stop: true })  
-
-            console.warn("ScrollHeader: ", scrollHeader)
-            scrollHeader(false)  // Hide the header
         }
     }
 }
