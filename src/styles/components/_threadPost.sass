@@ -183,15 +183,20 @@
         color: color(greentext)
 
     .deadlink
-        color: lighten(grey(5), 20%)
+        color: color(text-disabled)
         text-decoration: line-through
         font-weight: bold
+        font-family: $font-alt
     
         &::after
             content: "(404'd)"
             text-decoration: none
             display: inline-block
-            margin: 0 4px
+            vertical-align: bottom
+            margin: auto 4px
+            font-size: 11px
+            color: color(text-secondary)
+            font-family: $font-main
 
     .quotelink
         color: color(primary)
@@ -201,3 +206,4 @@
         font-family: $font-alt
         font-size: 15px
         cursor: pointer
+        
