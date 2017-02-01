@@ -2,7 +2,7 @@
     position: fixed
     display: none
     // width: 1004px
-    +set-dims($header-width, 100vh)
+    +set-dims($thread-width, 100vh)
     top: 0
     left: 0
     right: 0
@@ -20,18 +20,17 @@
 
     .nano-pane
         width: 7px
-        cursor: hand
+        cursor: grab
         background: grey(9)
-        
-        // move out from underneath header
-        height: calc(100vh - #{$header-height})
-        top: auto
+
 
         &:hover 
             width: 12px
             transition: width .2 ease-in
+
         &:active
             width: 12px
+
 .thread
     position: absolute
     top: 100%
