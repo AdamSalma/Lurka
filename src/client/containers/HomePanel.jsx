@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Velocity from 'velocity-animate';  // TODO: Is this needed?
+import classNames from 'classnames'
+import uuid from 'uuid'
 
 import Logo from "../components/Logo";
-import BoardLists from "../components/BoardLists";
+import BoardListContainer from "../components/BoardListContainer";
 import Elipses from "../components/Elipses";
 import Settings from "../components/Settings";
+import BoardTile from "../components/BoardTile";
+import Searchbox from "../components/Searchbox";
 
 import {
     changeProvider
@@ -26,7 +29,28 @@ import { fetchBoardList, addToFavourites, removeFromFavourites } from '../action
 class HomePanel extends Component {
     constructor(props) {
         super(props);
-        this.countLoading = this.countLoading.bind(this)
+        this.state = {
+            tilesPerPage: 20,
+            animate: false
+        }
+
+        this.slickOpts = {
+            infinite: true,
+            adaptiveHeight: true,
+            slidesToShow: 1,
+            dots: true
+        }
+
+        this.setupTilesIfLoaded = this.setupTilesIfLoaded.bind(this)
+        this.handleClick = this.handleClick.bind(this)
+    }
+
+    componentDidMount() {
+        this.setupTilesIfLoaded()
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        this.setupTilesIfLoaded()
     }
 
     render() {
@@ -34,39 +58,68 @@ class HomePanel extends Component {
             scrollPage, scrollHeader, fetchBoard, fetchBoardList, changeProvider, 
             addToFavourites, removeFromFavourites,
             
-            status, boardList, threadIsActive, settings
+            status:{provider}, boardList, threadIsActive, settings
         } = this.props;
 
-        return (
-            <div className="page page-home">
-                <Logo />
-                <Settings settings={settings}/>
-                {this.countLoading()}
-                <BoardLists 
-                    // Actions
-                    scrollPage={scrollPage} scrollHeader={scrollHeader} 
-                    fetchBoardList={fetchBoardList} fetchBoard={fetchBoard} 
-                    changeProvider={changeProvider} addToFavourites={addToFavourites}
-                    removeFromFavourites={removeFromFavourites}
+        const homeClasses = classNames('page page-home', {'animate': this.state.animate})
 
-                    // Status
-                    boardList={boardList} provider={status.provider} status={status}
-                />
+        return (
+            <div className={homeClasses}>
+                <div className="tile-controls">
+                    <input type="button" value="Click" onClick={this.handleClick}/>
+                    <Searchbox />
+                </div>
+                <div className="board-tiles" ref={t => this._tiles = $(t)}>
+                    {this.createBoardTiles()}
+                </div>
             </div>
         )
     }
 
-    countLoading(){
-        const {boardList, status: {providers}} = this.props
-        const todo = providers.filter( provider => {
-            return !(boardList[provider] && boardList[provider].length)
+    setupTilesIfLoaded() {
+        const { boardList, status:{ provider }} = this.props
+        const boards = boardList[provider]
+
+        if (boardList[provider] && boardList[provider].length) {
+            this._tiles.slick(this.slickOpts);
+        }
+    }
+
+    createBoardTiles(){
+        const {tilesPerPage} = this.state
+        const {boardList, status:{provider}} = this.props
+        const boards = boardList[provider]
+        let pages = []
+
+        if (!boards) 
+            return false
+
+        // Split board into segments
+        const pageCount = Math.ceil(boards.length / tilesPerPage)
+        for (var i = 0; i < pageCount; i++) {
+            pages.push(
+                boards.slice(i*tilesPerPage, (i+1)*tilesPerPage)
+            )
+        }
+
+        return pages.map(boards => 
+            <div className="board-tile-page" key={uuid.v4()}>
+                {boards.map(board =>
+                    <BoardTile 
+                        {...board} 
+                        key={board.boardID}
+                        onClick={fetchBoard.bind(null, {boardID: board.boardID})}
+                    />
+                )}
+            </div>
+        )
+    }
+
+
+    handleClick(){
+        this.setState({
+            animate: true
         })
-
-        if (todo.length) {
-            const text = `Loading ${todo.join(', ')}`
-            return <Elipses text={text} interval={200} maxDots={3} />
-        } else return <h3>Select a provider</h3>
-
     }
 }
 
