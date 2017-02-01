@@ -77,7 +77,6 @@ export function scrollHeader(toVisible, delay) {
         easing = 'ease-out'
     }
 
-
     return (dispatch, getState) => {
         if (shouldScrollHeader(getState(), toVisible)){
             $header.velocity("stop");
@@ -97,7 +96,7 @@ function headerToggle(toVisible) {
 }
 
 function shouldScrollHeader({status:{ isHeaderVisible, currentPage }}, toVisible) {    
-    return isHeaderVisible !== toVisible && currentPage !== "home"
+    return isHeaderVisible !== toVisible
 }
 
 
