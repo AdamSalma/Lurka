@@ -16,6 +16,15 @@ export default class Header extends Component {
         this.returnHome = this.returnHome.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.threadIsActive !== this.props.threadIsActive) {
+            // thread changed, toggle header
+            // close on thread open, reveal on thread close
+            this.props.scrollHeader(!nextProps.threadIsActive)
+            
+        }
+    }
+
     render() {
         // Actions
         const { scrollPage, scrollHeader, closeThread, toggleNavbar } = this.props;
@@ -24,15 +33,10 @@ export default class Header extends Component {
 
         const placeholder = `Search ${threadIsActive ? "thread" : "board"} ...`
 
-        const headerContent = classNames('header-content', {
-            'thread': threadIsActive, 
-            'board': !threadIsActive
-        })
-
         return (
             <div id="header" className="header">
                 <div className="header-background"/>
-                <div className={headerContent}>
+                <div className='header-content'>
                     <HeaderItem className="icon" onClick={this.toggleActive}>
                         <Icon name="menu" onClick={toggleNavbar}/>
                     </HeaderItem>
