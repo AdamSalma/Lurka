@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from "react";
+import classNames from 'classnames'
 
 import BoardPost from '../BoardPost';
 import { catchTooltip } from './events';
@@ -66,8 +67,12 @@ export default class Board extends Component {
     }
 
     render() {
+        const boardClasses = classNames('board nano', {
+            'show-all': this.props.board.searchWord
+        })
+
         return (
-            <div id="board" className="board nano" ref={ b => this._board = $(b)} onScroll={this.throttleScroll}>
+            <div id="board" className={boardClasses} ref={ b => this._board = $(b)} onScroll={this.throttleScroll}>
                 <div className="nano-content">
                     <div className="header-gap"/>
                     <div className="posts" ref={p => this._posts = p}>
