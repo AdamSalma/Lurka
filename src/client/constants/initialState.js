@@ -2,7 +2,7 @@ export default {
 	status: {
 		currentPage: "home", // currentPage
 		isScrolling: false,  // app scroll
-		isHeaderVisible: false,  // if currentPage == "content"
+		isHeaderVisible: true,  // if currentPage == "content"
 		isNavbarOpen: false,
 		alertMessage: null,  // reveal status to user
 		provider: "4chan",
