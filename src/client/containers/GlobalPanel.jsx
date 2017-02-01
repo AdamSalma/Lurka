@@ -73,8 +73,12 @@ class GlobalPanel extends Component {
         )
     }
 
-    showAlert({message, type='info', time=4000}) {
-        this.msg.show(message, {time, type})
+    showAlert({message, type='info', time=4000, icon=false}) {
+        if (type === 'info') {
+            icon = <img src="alert-info.png"/>
+        }
+
+        this.msg.show(message, {time, type, icon})
     }
 }
 
