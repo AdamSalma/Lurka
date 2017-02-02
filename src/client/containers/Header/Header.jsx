@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 
-import Logo from "../Logo";
-import Icon from "../Icon";
-import SearchBox from "../SearchBox";
-import Hierarchy from "../Hierarchy";
-import HeaderItem from "../HeaderItem";
+import Logo from "../../components/Logo";
+import Icon from "../../components/Icon";
+import SearchBox from "../../components/SearchBox";
+import Hierarchy from "../../components/Hierarchy";
+import HeaderItem from "../../components/HeaderItem";
 
 import {version} from "../../../../package.json"
 
@@ -40,7 +40,7 @@ export default class Header extends Component {
                     <HeaderItem className="icon" onClick={this.toggleActive}>
                         <Icon name="menu" onClick={toggleNavbar}/>
                     </HeaderItem>
-                    <HeaderItem className="lurka">
+                    <HeaderItem className="version">
                         Lurka v{version}
                     </HeaderItem>
                     <HeaderItem className="breadcrumb">

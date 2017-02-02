@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import classNames from 'classnames'
 import uuid from 'uuid'
 
-import Icon from '../Icon'
-import BoardList from '../BoardList'
-import SearchBox from '../SearchBox'
-import Checkbox from '../Checkbox'
+import Icon from '../../components/Icon'
+import BoardList from '../../components/BoardList'
+import SearchBox from '../../components/SearchBox'
+import Checkbox from '../../components/Checkbox'
 
 export default class Navbar extends Component {
     constructor({ status:{provider}, fetchBoardList, boardList }) {
@@ -95,7 +95,6 @@ export default class Navbar extends Component {
     prepareForFetch(provider, boardID) {
         const {scrollPage, scrollHeader, changeProvider, fetchBoard, toggleNavbar} = this.props;
 
-        changeProvider(provider)
         fetchBoard({boardID, provider})
         toggleNavbar({open: false})
         scrollHeader(true, 600)

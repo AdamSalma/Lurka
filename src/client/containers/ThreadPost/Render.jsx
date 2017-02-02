@@ -1,8 +1,8 @@
 import React from 'react'
 import uuid from 'uuid'
 
-import Icon from '../Icon'
-import Line from '../Line'
+import Icon from '../../components/Icon'
+import Line from '../../components/Line'
 
 export function renderControls(controls) {
     // TODO: Add functionality to thread icons

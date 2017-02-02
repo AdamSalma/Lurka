@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import Tooltip from '../Tooltip';
-import Counter from "../Counter"
+
+import Tooltip from '../../components/Tooltip';
+import Counter from "../../components/Counter"
 
 import Velocity from "velocity-animate"
 
