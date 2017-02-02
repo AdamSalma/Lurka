@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import classNames from 'classnames';
 import uuid from "uuid";
 
-import Icon from "../Icon";
+import Icon from "../../components/Icon";
 import Wrapper from './ControlWrapper'
 
 

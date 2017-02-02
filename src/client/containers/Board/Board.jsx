@@ -11,7 +11,7 @@ export default class Board extends Component {
     constructor({ board, boardID, provider, fetchBoard }) {
         super();
         this.state = {
-            load: 20,
+            load: 25,
             scrollThrottle: 333,  // ms
             headerHeight: 60,  // Beware if header height changes
             canLoadMorePosts: true,
@@ -157,7 +157,7 @@ export default class Board extends Component {
             _posts = posts
         }
 
-        return _posts.slice(0, limit)
+        return _posts
     }
 
     loadMorePosts() {

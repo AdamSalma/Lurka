@@ -4,10 +4,11 @@ import classNames from 'classnames';
 import Velocity from 'velocity-animate';
 import uuid from "uuid";
 
-import TimeAgo from '../TimeAgo';
 import ThreadPost from '../ThreadPost';
-import Background from '../Background';
-import Spinner from '../Spinner';
+
+import TimeAgo from '../../components/TimeAgo';
+import Background from '../../components/Background';
+import Spinner from '../../components/Spinner';
 
 import {
     setupQuoteEvents, 
@@ -58,7 +59,7 @@ export default class Thread extends Component {
                     closeBackground={this.closeThread}/>
                 <Spinner isSpinning={isActive && !posts.length}/>
                 <div ref={t => this._threadWrap = $(t)} className={threadWrapClasses}>
-                    <div id="thread" className="thread nano-content" ref={t => this._thread = $(t)}>
+                    <div id="thread" className="thread nano-content" ref={t => this._thread = $(t)} onClick={this.closeThread}>
                         {this.createPosts( posts )}
                     </div>
                 </div>
