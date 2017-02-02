@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Thread from "../components/Thread";
-import ThreadControls from "../components/ThreadControls";
+import Thread from "../containers/Thread";
+import ThreadControls from "../containers/ThreadControls";
 
 // Actions
 import { closeThread } from '../actions/ThreadActions';

@@ -6,7 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import AppContainer from './containers/App';
+import AppContainer from './pages/App';
 import configureStore from './store';
 import { loadState, saveState } from './store/localStorage';
 
