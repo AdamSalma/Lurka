@@ -3,8 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import AlertContainer from 'react-alert'
-import Header from "../components/Header";
-import Navbar from "../components/Navbar";
+import Header from "../containers/Header";
+import Navbar from "../containers/Navbar";
 
 import { closeThread } from '../actions/ThreadActions';
 import { changeProvider } from '../actions/StatusActions';

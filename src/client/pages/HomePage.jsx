@@ -1,3 +1,7 @@
+/**
+ * This file is deprecated as of v0.10.0
+ */
+
 import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -5,12 +9,13 @@ import { connect } from 'react-redux';
 import classNames from 'classnames'
 import uuid from 'uuid'
 
-import Logo from "../components/Logo";
-import BoardListContainer from "../components/BoardListContainer";
-import Elipses from "../components/Elipses";
-import Settings from "../components/Settings";
-import BoardTile from "../components/BoardTile";
-import Searchbox from "../components/Searchbox";
+import BoardListContainer from "../containers/BoardListContainer";
+import Settings from "../containers/Settings";
+
+import Logo from "../../components/Logo";
+import Elipses from "../../components/Elipses";
+import BoardTile from "../../components/BoardTile";
+import Searchbox from "../../components/Searchbox";
 
 import {
     changeProvider

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Board from "../components/Board";
+import Board from "../containers/Board";
 
 // Actions
 import { fetchBoard, loadMorePosts } from '../actions/BoardActions';
