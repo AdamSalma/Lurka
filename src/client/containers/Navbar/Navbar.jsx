@@ -2,10 +2,12 @@ import React, {Component} from 'react'
 import classNames from 'classnames'
 import uuid from 'uuid'
 
-import Icon from '../../components/Icon'
-import BoardList from '../../components/BoardList'
-import SearchBox from '../../components/SearchBox'
-import Checkbox from '../../components/Checkbox'
+import {
+    Icon, 
+    BoardList, 
+    SearchBox, 
+    Checkbox
+} from '../../components'
 
 export default class Navbar extends Component {
     constructor({ status:{provider}, fetchBoardList, boardList }) {

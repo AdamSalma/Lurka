@@ -3,8 +3,7 @@ import React, { Component } from "react";
 import classNames from 'classnames';
 import uuid from "uuid";
 
-import Icon from "../../components/Icon";
-import Wrapper from './ControlWrapper'
+import { Icon, ButtonCircle } from '../../components'
 
 
 export default class Thread extends Component {
@@ -36,24 +35,24 @@ export default class Thread extends Component {
                        OR this. looks the best imo:
                         <Icon name="package-down" />   
                     */}
-                    <Wrapper toggleProps={{name:"package-down"}}>
+                    <ButtonCircle toggleProps={{name:"package-down"}}>
                         <Icon name="package-down" /> 
-                    </Wrapper>
+                    </ButtonCircle>
 
 
                     {/* Toggle icon
                         <Icon name="eye" /> 
                         eye off
                     */}
-                    <Wrapper toggleProps={{name:"eye-off"}}>
+                    <ButtonCircle toggleProps={{name:"eye-off"}}>
                         <Icon name="eye" /> 
-                    </Wrapper>
+                    </ButtonCircle>
                 </div>
                 <div className="controls right-controls">
 
-                    {/*<Wrapper toggleProps={{name:"download"}}>
+                    {/*<ButtonCircle toggleProps={{name:"download"}}>
                         <Icon name="download" /> 
-                    </Wrapper>*/}
+                    </ButtonCircle>*/}
 
                     
                     {/* OR
@@ -67,17 +66,17 @@ export default class Thread extends Component {
                         <Icon name="reply" />  addow facing left
 
                     */}
-                    <Wrapper toggleProps={{name:"comment-text"}}>
+                    <ButtonCircle toggleProps={{name:"comment-text"}}>
                         <Icon name="comment-text"/>
-                    </Wrapper>
+                    </ButtonCircle>
 
-                    <Wrapper toggleProps={{name:"update"}}>
+                    <ButtonCircle toggleProps={{name:"update"}}>
                         <Icon name="update" />
-                    </Wrapper>
+                    </ButtonCircle>
 
-                    {/*<Wrapper toggleProps={{name:"close"}}>
+                    {/*<ButtonCircle toggleProps={{name:"close"}}>
                         <Icon name="close" />
-                    </Wrapper>*/}
+                    </ButtonCircle>*/}
                 </div>
             </div>
         )

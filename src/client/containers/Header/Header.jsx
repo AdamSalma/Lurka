@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 
-import Logo from "../../components/Logo";
-import Icon from "../../components/Icon";
-import SearchBox from "../../components/SearchBox";
-import Hierarchy from "../../components/Hierarchy";
-import HeaderItem from "../../components/HeaderItem";
-
 import {version} from "../../../../package.json"
+import {
+    Logo,
+    Icon,
+    SearchBox,
+    Hierarchy,
+    HeaderItem
+} from "../../components"
+
 
 export default class Header extends Component {
     constructor(props) {

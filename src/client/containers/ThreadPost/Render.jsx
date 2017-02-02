@@ -1,8 +1,7 @@
 import React from 'react'
 import uuid from 'uuid'
 
-import Icon from '../../components/Icon'
-import Line from '../../components/Line'
+import { TimeAgo, Line, Icon } from '../../components'
 
 export function renderControls(controls) {
     // TODO: Add functionality to thread icons
