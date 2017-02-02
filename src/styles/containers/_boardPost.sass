@@ -1,5 +1,7 @@
 .board-post
-    position: absolute  // positioned via JS
+    /* initial position offscreen, positioned via JS */
+    position: absolute
+
     width: $board-post-width
     max-height: $board-post-height
 
@@ -13,7 +15,7 @@
     border: 2px solid $board-post-color
 
     transition: all .4s ease-out
-    transition-property: top, left, box-shadow;
+    transition-property: top, left, box-shadow
     visibility: hidden
     opacity: 0
 
