@@ -1,31 +1,13 @@
-@import ./homePanel
-@import ./boardPanel
-@import ./threadPanel
-@import ./globalPanel
-@import ./settingsPanel
+@import ./board
+@import ./boardPost
+@import ./boardLists
 
+@import ./thread
+@import ./threadPost
 
-$background-color1: grey(7)
-$background-color2: grey(8)
+@import ./header
 
-// set pages offscreen
-.page 
-    +set-dims(100vw, 100vh)
-    position: fixed
-    top: 100%
-    background: grey(8)
-    background: linear-gradient(135deg, $background-color2, $background-color1, $background-color2)
-    background: url('/backgrounds/dark_wall.png')
+@import ./settings
+@import ./navbar
+@import ./threadcontrols
 
-.page-board
-    z-index: 1
-    top: 0 !important
-
-.page-thread
-    z-index: 10
-
-.page-settings
-    z-index: 100
-
-.page-global
-    z-index: 1000
