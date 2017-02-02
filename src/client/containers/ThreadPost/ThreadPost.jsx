@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
-import TimeAgo from '../../components/TimeAgo'
-import Line from '../../components/Line'
+import { TimeAgo, Line } from '../../components'
 
 // TODO: Move media rendering to ./Render.jsx
 import {createMediaIfExists} from './Media' 

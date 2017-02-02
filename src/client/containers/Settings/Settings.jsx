@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 
-import Setting from '../../components/Setting'
+import { Setting } from '../../components'
 
 
 export default class Settings extends Component {

@@ -6,9 +6,11 @@ import uuid from "uuid";
 
 import ThreadPost from '../ThreadPost';
 
-import TimeAgo from '../../components/TimeAgo';
-import Background from '../../components/Background';
-import Spinner from '../../components/Spinner';
+import {
+    Background,
+    Spinner,
+    TimeAgo
+} from '../../components';
 
 import {
     setupQuoteEvents, 
