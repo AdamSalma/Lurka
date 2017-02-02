@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
-import Tooltip from '../Tooltip'
 import classNames from 'classnames'
 
-import Velocity from "velocity-animate"
+import Tooltip from './Tooltip'
 
 export default ({children, className}) => {
     const classes = classNames('header-item', className)

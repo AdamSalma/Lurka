@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import moment from 'moment'
-import Tooltip from '../Tooltip'
+import Tooltip from './Tooltip'
 
 export default class TimeAgo extends Component {
     constructor(props) {
