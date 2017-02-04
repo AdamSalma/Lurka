@@ -10,14 +10,15 @@ import config from '.';
 const HOST = config.server.host
 const PORT = config.server.port
 
-const outpath = path.join(__dirname, "..", "app")
-const node_modules = path.join(outpath, "node_modules")
+const src = path.join(__dirname, "..", "src")
+const app = path.join(__dirname, "..", "app")
+const node_modules = path.join(app, "node_modules")
 
 export default {
     entry: [
         'webpack-hot-middleware/client',
         'webpack/hot/dev-server',
-        `./src/client/index.jsx`
+        path.join(src, 'client', 'index.jsx')
     ],
     devtool: process.env.WEBPACK_DEVTOOL || 'inline-source-map',
     output: {
@@ -27,13 +28,15 @@ export default {
     },
     resolve: {
         extensions: ['', '.js', '.jsx', '.css', '.scss', '.sass'],
-        root: node_modules
+        root: node_modules,
+        alias: { 
+            '~': path.join(src, 'client'),
+            ':root:': path.join(__dirname, '..')
+        }
     },
-    module: {
-        loaders
-    },
+    module: { loaders },
     devServer: {
-        contentBase: outpath,
+        contentBase: app,
         noInfo: false, //  --no-info option
         hot: true,
         inline: true,
@@ -44,7 +47,7 @@ export default {
         new webpack.NoErrorsPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-            template: path.join(__dirname, '..', 'src', 'index.html')
+            template: path.join(src, 'index.html')
         }),
         new webpack.DefinePlugin({
             'process.env': {
@@ -58,6 +61,6 @@ export default {
         })
     ],
     postcss: function () {
-        return [autoprefixer];
+        return [autoprefixer, require('postcss-nested')];
     }
 };
