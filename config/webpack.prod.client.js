@@ -4,22 +4,27 @@ var autoprefixer = require('autoprefixer');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-var outpath = path.join(__dirname, "..", "app")
-var node_modules = path.join(outpath, "node_modules")
+var src = path.join(__dirname, "..", "src")
+var app = path.join(__dirname, "..", "app")
+var node_modules = path.join(app, "node_modules")
 
 module.exports = {
 	target: "electron",
 	entry: {
-        app: `./src/client/index.jsx`
+        app: path.join(src, 'client', 'index.jsx')
 	},
 	output: {
-		path: outpath,
+		path: app,
 		filename: '[name].bundle.js',
 		sourceMapFilename: '[name].bundle.map'
 	},
 	resolve: {
 		extensions: ['', '.js', '.jsx', '.css', '.scss', '.sass', '.json'],
-		root: node_modules
+		root: node_modules,
+		alias: { 
+            '~': path.join(src, 'client'),
+            ':root:': path.join(__dirname, '..')
+        }
 	},
 	module: {
 		loaders: loaders
@@ -36,10 +41,10 @@ module.exports = {
 			}
 		}),
 		new HtmlWebpackPlugin({
-            template: path.join(__dirname, '..', 'src', 'index.html')
+            template: path.join(src, 'index.html')
         })
 	],
 	postcss: function () {
-        return [autoprefixer];
+        return [autoprefixer, require('postcss-nested')];
     }
 };
