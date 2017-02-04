@@ -1,0 +1,34 @@
+.header-panel
+    position: fixed
+    top: $header-height
+    right: 0
+    +square(300px)
+    background: grey(7)
+    padding: 12px 20px
+    border: green solid 1px
+    z-index: 10
+    opacity: 0
+    text-align: center
+
+    box-shadow: -4px 4px 40px grey(8)
+
+    transition: all .15s ease-in
+    transform-origin: top
+    transform: rotateY(-170deg) translateX(-200px) scale(.66) perspective(800px)
+
+
+
+    &.animate-in
+        transition: all .8s cubic-bezier(0.165, 0.84, 0.44, 1)
+        // transition: all .8s cubic-bezier(0.23, 1, 0.32, 1)
+        transform: rotateY(0) rotateX(0) translate(0) scale(1)
+        opacity: 1
+
+
+
+@keyframes flipIn
+    0%
+        transform: perspective(800px)
+    100%
+        transform: perspective(120px) translate(0, 0)
+        opacity: 1
