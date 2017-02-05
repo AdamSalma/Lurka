@@ -18,6 +18,9 @@ import {
     BOARD_REQUESTED,
     BOARD_DESTROYED,
 
+    HEADER_PANEL_OPENED,
+    HEADER_PANEL_CLOSED
+
 } from '../constants';
 
 export default function (state = initialState.status, action) {
@@ -78,6 +81,16 @@ export default function (state = initialState.status, action) {
         case BOARD_DESTROYED:
             return Object.assign({}, state, {
                 boardID: null
+            })
+
+        case HEADER_PANEL_OPENED:
+            return Object.assign({}, state, {
+                activeHeaderPanel: action.payload
+            })
+
+        case HEADER_PANEL_OPENED:
+            return Object.assign({}, state, {
+                activeHeaderPanel: null
             })
 
         default:
