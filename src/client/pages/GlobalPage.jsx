@@ -3,24 +3,37 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import AlertContainer from 'react-alert'
-import Header from "../containers/Header";
-import Navbar from "../containers/Navbar";
 
-import { closeThread } from '../actions/ThreadActions';
-import { changeProvider } from '../actions/StatusActions';
-import { toggleSetting } from '../actions/SettingsActions';
-import { fetchBoard, destroyBoard, searchBoard } from '../actions/BoardActions';
-import { scrollPage, scrollHeader, toggleNavbar } from '../actions/AnimationActions';
-import { fetchBoardList, searchBoardlist, addToFavourites, removeFromFavourites } from '../actions/BoardListActions';
+import {
+    Header,
+    HeaderPanels,
+    Navbar,
+} from "~/containers";
 
+import { 
+    closeThread,
+    changeProvider,
+    toggleSetting,
+    fetchBoard, 
+    destroyBoard, 
+    searchBoard,
+    scrollPage, 
+    scrollHeader, 
+    toggleNavbar,
+    fetchBoardList, 
+    searchBoardlist, 
+    addToFavourites, 
+    removeFromFavourites,
+    fetchThread,
+    toggleHeaderPanel
+} from '~/actions';
 
-// import scroll action here
-
-class GlobalPanel extends Component {
+class GlobalPage extends Component {
     /*
         Container for elements that need to be at the forefront of the page
         and independant of the z-index's of other pages:
             - Header
+            - Navbar
             - Alert container
      */
     constructor(props) {
@@ -39,9 +52,9 @@ class GlobalPanel extends Component {
             scrollPage, scrollHeader, fetchBoard, fetchBoardList, 
             addToFavourites, removeFromFavourites, destroyBoard,
             searchBoard, closeThread, changeProvider, toggleNavbar, 
-            toggleSetting, searchBoardlist,
+            toggleSetting, searchBoardlist, fetchThread, toggleHeaderPanel,
 
-            status, boardList, threadIsActive, settings
+            status, boardList, threadIsActive, settings, threadMonitor
         } = this.props;
 
         return (
@@ -50,13 +63,19 @@ class GlobalPanel extends Component {
                     scrollPage={scrollPage} scrollHeader={scrollHeader} 
                     fetchBoardList={fetchBoardList} fetchBoard={fetchBoard} 
                     searchBoard={searchBoard} closeThread={closeThread}
-                    destroyBoard={destroyBoard}
+                    destroyBoard={destroyBoard} toggleHeaderPanel={toggleHeaderPanel}
 
                     alertMessage={status.alertMessage} currentPage={status.currentPage}
                     provider={status.provider} boardID={status.boardID}
                     threadID={status.threadID} threadIsActive={threadIsActive}
                     boardList={boardList} toggleNavbar={toggleNavbar}
                 />  
+                <HeaderPanels
+                    fetchThread={fetchThread}
+
+                    activePanel={status.activeHeaderPanel} status={status} 
+                    threadMonitor={threadMonitor}
+                />
                 <Navbar 
                     fetchBoardList={fetchBoardList}
                     addToFavourites={addToFavourites}
@@ -82,13 +101,14 @@ class GlobalPanel extends Component {
     }
 }
 
-function mapStateToProps({status, boardList, thread, settings, board}) {
+function mapStateToProps({status, boardList, thread, settings, board, threadMonitor}) {
     return {
         status,
         boardList,
         threadIsActive: thread.isActive,
         settings,
-        board
+        board,
+        threadMonitor
     }
 }
 
@@ -106,8 +126,10 @@ function mapDispatchToProps(dispatch) {
         closeThread,
         toggleNavbar,
         toggleSetting,
-        searchBoardlist
+        searchBoardlist,
+        fetchThread,
+        toggleHeaderPanel
     }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GlobalPanel)
+export default connect(mapStateToProps, mapDispatchToProps)(GlobalPage)

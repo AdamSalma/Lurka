@@ -9,29 +9,30 @@ import { connect } from 'react-redux';
 import classNames from 'classnames'
 import uuid from 'uuid'
 
-import BoardListContainer from "../containers/BoardListContainer";
-import Settings from "../containers/Settings";
-
-import Logo from "../../components/Logo";
-import Elipses from "../../components/Elipses";
-import BoardTile from "../../components/BoardTile";
-import Searchbox from "../../components/Searchbox";
+import {
+    BoardListContainer, 
+    Settings
+} from "~/containers";
 
 import {
-    changeProvider
-} from '../actions/StatusActions';
+    Logo, 
+    Elipses, 
+    BoardTile, 
+    Searchbox
+} from "~/components";
 
 import {
-    scrollPage, scrollHeader
-} from '../actions/AnimationActions';
+    changeProvider,
+    scrollPage, 
+    scrollHeader,
+    fetchBoard, 
+    fetchBoardList, 
+    addToFavourites, 
+    removeFromFavourites
+} from '~/actions';
 
-import { fetchBoard } from '../actions/BoardActions';
-import { fetchBoardList, addToFavourites, removeFromFavourites } from '../actions/BoardListActions';
 
-
-// import scroll action here
-
-class HomePanel extends Component {
+class HomePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -149,4 +150,4 @@ function mapDispatchToProps(dispatch) {
     }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePanel)
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
