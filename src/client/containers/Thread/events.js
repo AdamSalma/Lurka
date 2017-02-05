@@ -31,6 +31,7 @@ export function setupQuoteEvents(thread) {
     })
 }
 
+const threadWidth = $('#thread').width()
 function createTooltip(event) {
     const target = event.target,
           href = target.getAttribute('href'),
@@ -51,29 +52,83 @@ function createTooltip(event) {
 
     document.body.appendChild(el)
 
-    // Check if would render out of page horizontally
-    left = linkPos.left - (el.offsetWidth - target.offsetWidth) / 2
+    left = linkPos.left
 
-    if (left < 0) {
-        left = linkPos.left + 2
-        el.classList.add('tip-right')
-    } else if (left + el.offsetWidth > document.documentElement.clientWidth) {
-        left = linkPos.left - el.offsetWidth + target.offsetWidth + 2
-        el.classList.add('tip-left')
-    }
+    /* Check if would render out of page vertically */
 
-    // Check if would render out of page vertically
+    // render above - default
     top = linkPos.top - el.offsetHeight - 5
 
-    if (top < 0) {
-        top += target.offsetHeight + el.offsetHeight + 5
+    if (top < 0 ) {
+        // top of element overflowed
+        console.log("top overflowed")        
+
+        // render below
+        top = linkPos.bottom + 5
+
+        // check if bottom will overflow
+        if (top + el.offsetHeight > window.innerHeight) {
+            // center element around link
+            console.warn("bottom overflowed")
+
+            top = linkPos.top - (el.offsetHeight / 2) - target.offsetHeight / 2
+            left = linkPos.right + 5
+            
+            if (top < 0 || top + el.offsetHeight > window.innerHeight) {
+                console.warn("Can't center. top = 0")
+                // element overflows; render at top of window
+                top = 2 // + header margin
+            }
+        }
     }
+
+    // Check if right side overflows
+    if (left + el.offsetWidth > window.innerWidth) {
+        left = linkPos.left - el.offsetWidth - 5
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // top = linkPos.top - el.offsetHeight - 5
+
+    // if (top < 0) {
+    //     // top of element overflowed
+    //     console.log("top of element overflowed")        
+    //     // render below
+    //     top = target.offsetHeight + el.offsetHeight + 5
+
+    //     // check if bottom will overflow
+    //     if (top + el.offsetHeight > window.innerHeight) {
+    //         // center elementm around link
+    //         console.warn("bottom overflowed")
+
+    //         top = window.innerHeight - (linkPos.top + el.offsetHeight) / 2
+    //         left = linkPos.right + 4
+            
+    //         if (top < 0 || top + el.offsetHeight > window.innerHeight) {
+    //             console.warn("top = 0")
+    //             // element overflows; render at top of window
+    //             top = 2
+    //         }
+    //     }
+    // }
 
     console.log(`top: ${top}, left: ${left}, el.offsetHeight: ${el.offsetHeight} linkPos.top: ${linkPos.top}`);
 
     let style = el.style
-    style.top = (top + window.pageYOffset) + 'px'
-    style.left = left + window.pageXOffset + 'px'
+    style.top = top + 'px'
+    style.left = left + 'px'
 
     tooltipNode = el
 }

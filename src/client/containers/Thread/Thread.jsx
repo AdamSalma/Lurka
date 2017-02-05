@@ -15,7 +15,7 @@ import {
 import {
     setupQuoteEvents, 
     enableFullscreen
-} from './threadControls'
+} from './events'
 
 
 export default class Thread extends Component {
