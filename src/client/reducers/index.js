@@ -1,10 +1,15 @@
 import { combineReducers } from 'redux';
-import ThreadReducer from "./ThreadReducer";
+
 import BoardReducer from "./BoardReducer";
-import BoardHistoryReducer from "./BoardHistoryReducer";
-import ThreadHistoryReducer from "./ThreadHistoryReducer";
 import BoardlistReducer from "./BoardlistReducer";
+import BoardHistoryReducer from "./BoardHistoryReducer";
+
+import ThreadReducer from "./ThreadReducer";
+import ThreadHistoryReducer from "./ThreadHistoryReducer";
+import ThreadMonitor from "./ThreadMonitor";
+
 import StatusReducer from "./StatusReducer";
+
 import SettingsReducer from "./SettingsReducer";
 
 // TODO: Add PostReducer
@@ -15,7 +20,8 @@ const rootReducer = combineReducers({
     thread: ThreadReducer,
     threadHistory: ThreadHistoryReducer,
     status: StatusReducer,
-    settings: SettingsReducer
+    settings: SettingsReducer,
+    threadMonitor: ThreadMonitor
 });
 
 export default rootReducer
