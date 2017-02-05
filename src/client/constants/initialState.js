@@ -4,6 +4,7 @@ export default {
 		isScrolling: false,  // app scroll
 		isHeaderVisible: true,  // if currentPage == "content"
 		isNavbarOpen: false,
+		activeHeaderPanel: null,  // responses to header buttons
 		alertMessage: null,  // reveal status to user
 		provider: "4chan",
 		boardID: null,
@@ -15,6 +16,7 @@ export default {
 		favourites: []  // [{id:'4chan', board: 'g'}, ...]
 	},  
 
+	
 	board: {
 		receivedAt: 0,  // unix timestamp
 		isFetching: false,
@@ -22,7 +24,6 @@ export default {
 		searchWord: null,
 		filterWords: [],
 		posts: [],
-		watch: [],
 		limit: 30  // infinite scroll
 	},
 
@@ -37,6 +38,8 @@ export default {
 	},
 
 	threadHistory: { },
+	threadMonitor: [ ],
+
 
 	post: {
 		isAuthenticated: false,
@@ -50,3 +53,4 @@ export default {
 	settings: require('./settings')
 
 }
+
