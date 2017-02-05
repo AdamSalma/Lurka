@@ -2,13 +2,16 @@ import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Thread from "../containers/Thread";
-import ThreadControls from "../containers/ThreadControls";
+import {
+    Thread, 
+    ThreadControls
+} from "~/containers";
 
-// Actions
-import { closeThread } from '../actions/ThreadActions';
+import { 
+    closeThread
+} from '~/actions';
 
-class ThreadPanel extends Component {
+class ThreadPage extends Component {
     render() {
         const { closeThread, status, thread } = this.props;
 
@@ -44,4 +47,4 @@ function mapDispatchToProps(dispatch) {
     }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ThreadPanel)
+export default connect(mapStateToProps, mapDispatchToProps)(ThreadPage)

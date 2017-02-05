@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Board from "../containers/Board";
+import { Board } from "~/containers";
 
 // Actions
-import { fetchBoard, loadMorePosts } from '../actions/BoardActions';
-import { fetchThread } from '../actions/ThreadActions';
-import { scrollHeader } from '../actions/AnimationActions';
+import { 
+    fetchBoard, 
+    loadMorePosts, 
+    scrollHeader, 
+    fetchThread
+} from '~/actions';
 
 class ContentPanel extends Component {
     render() {

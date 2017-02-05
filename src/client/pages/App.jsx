@@ -2,17 +2,16 @@ import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-/* Conainers */
+/* Pages */
 import BoardPage from './BoardPage';
 import ThreadPage from './ThreadPage';
 import SettingsPage from './SettingsPage';
 import GlobalPage from './GlobalPage';
 
 /* Actions */
-import { fetchBoard } from '../actions/BoardActions';
-import { fetchBoardList } from '../actions/BoardListActions';
+import { fetchBoard, fetchBoardList } from '~/actions';
 
-import updatePreloader from '../preload'
+import updatePreloader from '~/preload'
 
 
 const App = () => {
