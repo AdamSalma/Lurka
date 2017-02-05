@@ -24,7 +24,8 @@ export {
 
 export {
     changeProvider,
-    alertMessage
+    alertMessage,
+    toggleHeaderPanel
 } from './StatusActions'
 
 export {

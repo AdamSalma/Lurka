@@ -3,7 +3,9 @@ import {
     PROVIDER_CHANGE,
     FILTER_BOARD, FILTER_THREAD,
     SERACH_BOARD, SEARCH_THREAD,
-    ALERT_MESSAGE
+    ALERT_MESSAGE,
+
+    HEADER_PANEL_OPENED, HEADER_PANEL_CLOSED,
 } from '../constants';
 // TODO: Filter + Search actions
 
@@ -30,4 +32,30 @@ export function alertMessage( message ) {
         type: ALERT_MESSAGE,
         payload: message
     }   
+}
+
+
+const panels = ['watch', 'archive', 'sort', 'filter']
+export function toggleHeaderPanel(panel) {
+    if (!panels.includes(panel)) {
+        throw new Error(`Panel '${panel}' doesn't exist!`);
+    }
+
+    return (dispatch, getState) => {
+        if (shouldOpenPanel(getState(), panel)) {
+            return dispatch({
+                type: HEADER_PANEL_OPENED,
+                payload: panel
+            })
+        } else {
+            return dispatch({
+                type: HEADER_PANEL_OPENED,
+                payload: null
+            })
+        }
+    }
+}
+
+function shouldOpenPanel({status}, panel){
+    return status.activeHeaderPanel !== panel
 }
