@@ -29,7 +29,7 @@ export default class Header extends Component {
 
     render() {
         // Actions
-        const { scrollPage, scrollHeader, closeThread, toggleNavbar } = this.props;
+        const { scrollPage, scrollHeader, closeThread, toggleNavbar, toggleHeaderPanel } = this.props;
         // State
         const { threadIsActive, provider, boardID, threadID } = this.props;
 
@@ -39,7 +39,7 @@ export default class Header extends Component {
             <div id="header" className="header">
                 <div className="header-background"/>
                 <div className='header-content'>
-                    <HeaderItem className="icon" onClick={this.toggleActive}>
+                    <HeaderItem className="has-icon" onClick={this.toggleActive}>
                         <Icon name="menu" onClick={toggleNavbar}/>
                     </HeaderItem>
                     <HeaderItem className="version">
@@ -51,17 +51,17 @@ export default class Header extends Component {
                     <HeaderItem className="searchbox">
                         <SearchBox placeholder={placeholder} onKeyUp={this.handleKeyUp}/>
                     </HeaderItem>
-                    <HeaderItem className="icon shift-right" onClick={this.toggleActive}>
-                        <Icon name="eye" onClick={this.returnHome} />
+                    <HeaderItem className="has-icon shift-right" onClick={this.toggleActive}>
+                        <Icon name="eye" onClick={toggleHeaderPanel.bind(null, 'watch')} />
                     </HeaderItem>
-                    <HeaderItem className="icon" onClick={this.toggleActive}>
-                        <Icon name="archive" />
+                    <HeaderItem className="has-icon" onClick={this.toggleActive}>
+                        <Icon name="archive" onClick={toggleHeaderPanel.bind(null, 'archive')} />
                     </HeaderItem>
-                    <HeaderItem className="icon" onClick={this.toggleActive}>
-                        <Icon name="filter" />
+                    <HeaderItem className="has-icon" onClick={this.toggleActive}>
+                        <Icon name="filter" onClick={toggleHeaderPanel.bind(null, 'filter')}/>
                     </HeaderItem>
-                    <HeaderItem className="icon" onClick={this.toggleActive}>
-                        <Icon name="sort" />
+                    <HeaderItem className="has-icon" onClick={this.toggleActive}>
+                        <Icon name="sort" onClick={toggleHeaderPanel.bind(null, 'sort')}/>
                     </HeaderItem>
                 </div>
             </div>
