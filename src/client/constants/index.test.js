@@ -133,6 +133,14 @@ describe('Constants', () => {
     expect(consts.HEADER_TOGGLED).toEqual('HEADER_TOGGLED');
   });
 
+  it('contains HEADER_PANEL_CLOSED', () => {
+    expect(consts.HEADER_PANEL_CLOSED).toEqual('HEADER_PANEL_CLOSED');
+  });
+
+  it('contains HEADER_PANEL_OPENED', () => {
+    expect(consts.HEADER_PANEL_OPENED).toEqual('HEADER_PANEL_OPENED');
+  });
+
   it('contains BOARD_LIST_ADD_FAVOURITE', () => {
     expect(consts.BOARD_LIST_ADD_FAVOURITE).toEqual('BOARD_LIST_ADD_FAVOURITE');
   });
@@ -171,6 +179,18 @@ describe('Constants', () => {
   
   it('contains THREAD_HISTROY_CLEARED', () => {
     expect(consts.THREAD_HISTROY_CLEARED).toEqual('THREAD_HISTROY_CLEARED');
+  });
+  
+  it('contains THREAD_MONITOR_CREATED', () => {
+    expect(consts.THREAD_MONITOR_CREATED).toEqual('THREAD_MONITOR_CREATED');
+  });
+  
+  it('contains THREAD_MONITOR_DELETED', () => {
+    expect(consts.THREAD_MONITOR_DELETED).toEqual('THREAD_MONITOR_DELETED');
+  });
+  
+  it('contains THREAD_MONITOR_UPDATED', () => {
+    expect(consts.THREAD_MONITOR_UPDATED).toEqual('THREAD_MONITOR_UPDATED');
   });
 
   it('contains NAVBAR_TOGGLED', () => {
