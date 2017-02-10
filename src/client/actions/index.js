@@ -30,5 +30,11 @@ export {
 
 export {
     fetchThread,
-    closeThread
+    closeThread,
 } from './ThreadActions'
+
+export {
+    updateMonitoredThread,
+    monitorThread,
+    unmonitorThread
+} from './ThreadMonitorActions'
