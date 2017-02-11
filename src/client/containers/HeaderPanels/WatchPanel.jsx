@@ -1,14 +1,111 @@
 import React, {Component} from 'react'
 import classNames from 'classnames'
 
-import {HeaderPanel} from '~/components'
+import {
+    HeaderPanel, 
+    Timer, 
+    TimeAgo,
+    Icon,
+} from '~/components'
 
 
-export default function WatchPanel({isActive}) {
-    return <HeaderPanel isActive={isActive} className="watch-panel">
-        <h1>Watch Panel</h1>
-        <ul>
-            <li>Watch</li>
-        </ul>
-    </HeaderPanel>
+export default class WatchPanel extends Component {
+    constructor(props) {
+        super(props);
+        this.handleTimerEnd = this.handleTimerEnd.bind(this)
+        this.renderWatchItem = this.renderWatchItem.bind(this)
+    }
+
+    render() {
+        const {isActive, threadMonitor: {newPosts, threads}} = this.props
+
+        return <HeaderPanel isActive={isActive} className="watch-panel">
+            <h1>Watch List</h1>
+            {this.renderDescription(threads)}
+            {this.renderMonitoredThreads(threads)}
+        </HeaderPanel>
+    }
+
+    renderDescription(tm) {
+        return !tm.length ? (<span>
+            Threads that are being watched will appear here. 
+            To add a thread, click on the watch button in an open thread. 
+        </span>) : false
+    }
+
+    renderMonitoredThreads(threads) {
+
+        const uniqueBoards = threads
+            .map( thread => thread.boardID )
+            .filter((value, index, self) => self.indexOf(value) === index)
+
+        console.warn("uniqueBoards", uniqueBoards);
+
+        return uniqueBoards.map( uniqueBoard => {
+            return (
+                <div className="watch-group" key={uniqueBoards}>
+                    <div className="board-header">
+                        <span>{`/${uniqueBoard}/`}</span>
+                    </div>
+                    {threads
+                        .filter(thread => thread.boardID === uniqueBoard)
+                        .map(this.renderWatchItem)
+                    }
+                </div>
+            )
+        })
+    }
+
+    renderWatchItem(thread) {
+        const updateInterval = this.props.settings.threadUpdateInterval.value
+        const { newPosts=0, threadID, boardID, didInvalidate, op: { title, media, comment, time } } = thread;
+
+        console.warn("renderWatchItem()")
+        return (
+            <div key={threadID} className="watch-item">
+                <div className="watch-content">
+
+                {/* Comment */}
+                    <div className="meta">
+                        <div className="thumbnail">
+                            <img src={media.thumbnail} />
+                        </div>
+                        {/* Renders either the title or OP's comment */}
+                        {title ? (<span 
+                            className="title" 
+                            dangerouslySetInnerHTML={{__html: title}}
+                        />) : (<span className="comment">
+                            {$.parseHTML(comment)[0].textContent}
+                        </span>)}
+                    </div>
+
+                {/* Watch Stats */}
+                    <div className="watch-stats">
+                        <div className="timeago">
+                            <TimeAgo time={time}/>
+                        </div>
+                        <div className={"new-posts "+(newPosts>0) ? "active":""}>
+                            <span>{newPosts}</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div className="watch-close" 
+                     onClick={this.props.unmonitorThread.bind(null, threadID)}>
+                    <Icon name="close"/>
+                </div>
+                <Timer 
+                    displayCounter={false}
+                    seconds={updateInterval}
+                    autorestart={true} 
+                    active={!didInvalidate}
+                    onTimerEnd={this.handleTimerEnd.bind(null, thread)}
+                />
+            </div>
+        )
+    }
+
+    handleTimerEnd(thread) {
+        this.props.updateMonitoredThread(thread)
+    }
 }
