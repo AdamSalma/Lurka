@@ -181,8 +181,8 @@ describe('Constants', () => {
     expect(consts.THREAD_HISTROY_CLEARED).toEqual('THREAD_HISTROY_CLEARED');
   });
   
-  it('contains THREAD_MONITOR_CREATED', () => {
-    expect(consts.THREAD_MONITOR_CREATED).toEqual('THREAD_MONITOR_CREATED');
+  it('contains THREAD_MONITOR_ADDED', () => {
+    expect(consts.THREAD_MONITOR_ADDED).toEqual('THREAD_MONITOR_ADDED');
   });
   
   it('contains THREAD_MONITOR_DELETED', () => {
