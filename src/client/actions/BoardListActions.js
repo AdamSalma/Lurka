@@ -29,7 +29,8 @@ function receiveBoardList(boardList, provider){
 }
 
 function invalidateBoardlist(error) {
-    console.error(error)
+    console.error("ERROR:")
+    console.warn(error)
     return {
         type: BOARD_LIST_INVALIDATED,
         error
@@ -47,11 +48,11 @@ export function fetchBoardList( provider ) {
                 .then( data => dispatch(receiveBoardList(data, provider)))
                 .catch( err => {
                     dispatch(alertMessage({
-                        message: `${err.message} (from ${provider})`,
+                        message: err.response.data,
                         type: "error",
                         time: 20000
                     }))
-                    dispatch(invalidateBoardlist(err))
+                    dispatch(invalidateBoardlist(err.response.data))
                 });
         }
     }
