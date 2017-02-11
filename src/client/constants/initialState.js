@@ -38,7 +38,13 @@ export default {
 	},
 
 	threadHistory: { },
-	threadMonitor: [ ],
+
+	threadMonitor: {
+		newPosts: 0,
+		threads: [
+			// e.g. {threadID, boardID, posts}
+		]
+	},
 
 
 	post: {
