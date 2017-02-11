@@ -6,7 +6,7 @@ import uuid from "uuid";
 import { Icon, ButtonCircle } from '../../components'
 
 
-export default class Thread extends Component {
+export default class ThreadControls extends Component {
     constructor(props) {
         super(props);
         this.subprops = {
@@ -15,11 +15,25 @@ export default class Thread extends Component {
     }
 
     render() {
-        const {thread:{isActive, posts}} = this.props;
+        const {
+            thread:{isActive, posts, requestedAt, didInvalidate}, 
+            status: {threadID, boardID},
+            unmonitorThread,
+            monitorThread 
+        } = this.props;
+
         const controlClasses = classNames('thread-controls', {
             "animate-in": isActive && posts.length,
             "animate-out": !isActive
         })
+
+        const monitorArgs = {
+            boardID, 
+            threadID,
+            requestedAt,
+            didInvalidate,
+            op: posts && posts[0]
+        }
 
         return (
             <div className={controlClasses}>
@@ -44,8 +58,8 @@ export default class Thread extends Component {
                         <Icon name="eye" /> 
                         eye off
                     */}
-                    <ButtonCircle toggleProps={{name:"eye-off"}}>
-                        <Icon name="eye" /> 
+                    <ButtonCircle toggleProps={{name:"eye", onClick: unmonitorThread.bind(null, threadID)}}>
+                        <Icon name="eye" onClick={monitorThread.bind(null, monitorArgs)}/> 
                     </ButtonCircle>
                 </div>
                 <div className="controls right-controls">
