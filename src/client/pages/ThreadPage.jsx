@@ -8,23 +8,32 @@ import {
 } from "~/containers";
 
 import { 
-    closeThread
+    closeThread,
+    monitorThread,
+    unmonitorThread,
+    scrollHeader
 } from '~/actions';
 
 class ThreadPage extends Component {
     render() {
-        const { closeThread, status, thread } = this.props;
+        const { 
+            // Actopms
+            closeThread, monitorThread, unmonitorThread,
+
+            // Props
+            status, thread 
+        } = this.props;
 
         return (
             <div className="page page-thread">
                 <Thread 
-                    closeThread={closeThread}
+                    closeThread={closeThread} scrollHeader={scrollHeader}
 
                     thread={thread} isActive={thread.isActive} 
                     isFetching={thread.isFetching} threadID={status.threadID}
                 />
                 <ThreadControls
-                    closeThread={closeThread}
+                    monitorThread={monitorThread} unmonitorThread={unmonitorThread}
 
                     thread={thread} status={status}
                 />
@@ -43,7 +52,10 @@ function mapStateToProps({ status, thread }) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        closeThread
+        closeThread,
+        monitorThread,
+        unmonitorThread,
+        scrollHeader
     }, dispatch)
 }
 
