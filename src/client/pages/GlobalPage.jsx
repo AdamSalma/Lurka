@@ -25,7 +25,10 @@ import {
     addToFavourites, 
     removeFromFavourites,
     fetchThread,
-    toggleHeaderPanel
+    toggleHeaderPanel,
+    updateMonitoredThread,
+    monitorThread,
+    unmonitorThread
 } from '~/actions';
 
 class GlobalPage extends Component {
@@ -53,6 +56,7 @@ class GlobalPage extends Component {
             addToFavourites, removeFromFavourites, destroyBoard,
             searchBoard, closeThread, changeProvider, toggleNavbar, 
             toggleSetting, searchBoardlist, fetchThread, toggleHeaderPanel,
+            updateMonitoredThread, monitorThread, unmonitorThread,
 
             status, boardList, threadIsActive, settings, threadMonitor
         } = this.props;
@@ -71,10 +75,11 @@ class GlobalPage extends Component {
                     boardList={boardList} toggleNavbar={toggleNavbar}
                 />  
                 <HeaderPanels
-                    fetchThread={fetchThread}
+                    fetchThread={fetchThread} updateMonitoredThread={updateMonitoredThread}
+                    monitorThread={monitorThread} unmonitorThread={unmonitorThread}
 
                     activePanel={status.activeHeaderPanel} status={status} 
-                    threadMonitor={threadMonitor}
+                    threadMonitor={threadMonitor} settings={settings}
                 />
                 <Navbar 
                     fetchBoardList={fetchBoardList}
@@ -128,7 +133,10 @@ function mapDispatchToProps(dispatch) {
         toggleSetting,
         searchBoardlist,
         fetchThread,
-        toggleHeaderPanel
+        toggleHeaderPanel,
+        updateMonitoredThread,
+        monitorThread,
+        unmonitorThread
     }, dispatch)
 }
 
