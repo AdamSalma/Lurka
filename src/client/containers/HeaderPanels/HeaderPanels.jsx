@@ -6,28 +6,15 @@ import ArchivePanel from './ArchivePanel'
 import WatchPanel from './WatchPanel'
 
 
-class HeaderPanels extends Component {
-    constructor(props) {
-        super(props);
-        
-    }
+export default function HeaderPanels(props) {
+    const {activePanel: panel} = props
 
-    componentDidUpdate(prevProps, prevState) {
-        console.error("Component did update! ", this.props.activePanel)
-    }
-
-    render() {
-        const {activePanel} = this.props
-
-        return (
-            <div className="header-panels">
-                <WatchPanel isActive={activePanel === "watch"} {...this.props} />
-                <ArchivePanel isActive={activePanel === "archive"} {...this.props} />
-                <FilterPanel isActive={activePanel === "filter"} {...this.props} />
-                <SortPanel isActive={activePanel === "sort"} {...this.props} />
-            </div>
-        )
-    }
+    return (
+        <div className="header-panels">
+            <WatchPanel isActive={panel === "watch"} {...props} />
+            <ArchivePanel isActive={panel === "archive"} {...props} />
+            <FilterPanel isActive={panel === "filter"} {...props} />
+            <SortPanel isActive={panel === "sort"} {...props} />
+        </div>
+    )
 }
-
-export default HeaderPanels
