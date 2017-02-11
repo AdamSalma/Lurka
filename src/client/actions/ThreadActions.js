@@ -74,11 +74,11 @@ export function fetchThread(boardID, threadID) {
             })
             .catch( err => {
                 dispatch(alertMessage({
-                    message: err.message,
+                    message: err.response.data,
                     type: "error",
                     time: 20000
                 }))
-                invalidateThread(err)
+                dispatch(invalidateThread(err.response.data))
             });
     }
 }

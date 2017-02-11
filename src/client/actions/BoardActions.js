@@ -101,11 +101,11 @@ export function fetchBoard({ provider="4chan", boardID }) {
             })
             .catch( err => {
                 dispatch(alertMessage({
-                    message: err.message,
+                    message: err.response.data,
                     type: "error",
                     time: 20000
                 }))
-                dispatch(invalidateBoard(err))
+                dispatch(invalidateBoard(err.response.data))
             });
     }
 }
