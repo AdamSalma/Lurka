@@ -9,6 +9,7 @@ export function setupQuoteEvents(thread) {
 
     $thread.on('click mouseenter mouseleave', '.quotelink', function(event) {
         event.stopPropagation();
+        event.preventDefault();
 
         const href = event.target.getAttribute('href')
         if (/\/[a-z]/i.test(href)) {
