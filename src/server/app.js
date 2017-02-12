@@ -5,6 +5,7 @@ import routes from './routes'
 import config from '../../config'
 import webpackHotMiddleware from './middleware/webpackMiddleware'
 import routeLogger from './middleware/routeLogger'
+import checkInternet from './middleware/checkInternet'
 
 const app = Express();
 const isProd = config.env === 'production'
@@ -21,6 +22,7 @@ if (isProd) {
     webpackHotMiddleware(app);
 }
  
+app.use(checkInternet);
 
 // Proxy
 app.use('/media', routes.media);  // Proxy media queries through server to set headers
