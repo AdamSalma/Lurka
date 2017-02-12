@@ -1,20 +1,20 @@
 .thread-post
     background-color: $thread-post-color
     display: block
-    width: 1004px
-    margin-bottom: 4px
+    width: $thread-width - 4px
     text-align: left
     padding: 2px 8px
-    padding-right: 27px
     position: relative
     transition: background .2s ease-out
+    border-bottom: grey(9) solid 4px
 
     @include breakpoint(to-tablet)
         width: 100% !important
-    // border-bottom: grey(5) solid 1px
 
+    &:hover
+        background-color: lighten($thread-post-color, 1%)
     &:last-child
-        margin-bottom: 0
+        border: none
 
     blockquote
         margin: 15px 25px
@@ -85,7 +85,7 @@
         padding-bottom: 2px
 
         .line
-            width: 850px
+            width: $thread-width - 142px
             margin: 0 auto
 
         .reference-header
@@ -174,6 +174,7 @@
         padding-right: 10px
         word-wrap: break-word
         white-space: pre-line
+        box-shadow: 0 3px 8px grey(9)
 
         a
             color: color(primary)

@@ -1,0 +1,191 @@
+$watch-item-height: 60px
+$watch-panel-width: 432px
+$watch-panel-height: 429px
+
+
+$_img_container_width: $watch-panel-width / 5
+
+.watch-panel
+    +set-dims($watch-panel-width, $watch-panel-height)
+    overflow-y: scroll
+    background: grey(8)
+
+    .watch-group
+        .board-header
+            +square(32px)
+            line-height: 32px
+            background: color(primary)
+            font-size: 16px
+            text-align: center
+            position: relative
+
+    .watch-item
+        min-height: $watch-item-height
+        padding: 2px
+        background: grey(9)
+        display: flex
+        align-items: center
+        overflow: hidden
+        margin-bottom: 10px
+        position: relative
+
+
+    .watch-content
+        display: flex
+        align-items: center
+        flex: 1
+        text-align: left
+        height: inherit
+        padding: 6px 40px 5px 12px
+        font-size: 14px
+
+
+    .thumbnail
+        max-height: 48px
+        max-width: 48px
+        min-height: 48px
+        min-width: 48px
+        text-align: left
+        margin-right: 12px
+
+        position: relative
+        overflow: hidden
+        display: inline-block
+
+        img
+            max-height: $_img_container_width
+            max-width: $watch-item-height
+            position: absolute
+            +position(50%, 50%)
+            transform: translate(-50%, -50%)
+
+    .watch-post
+        // display: flex
+        // flex-direction: column
+        // justify-content: center
+
+        .text
+            text-overflow: ellipsis
+            white-space: nowrap
+            height: 40px
+            overflow: hidden
+            line-height: 40px
+            width: $watch-panel-width - 130px
+            text-overflow: ellipsis
+            white-space: nowrap
+
+            br 
+                display: none
+
+
+        .watch-stats
+            height: 20px
+            line-height: 20px
+            padding: 5px 0
+
+            > *
+                display: inline-block
+                margin-right: 4px
+        
+
+/* 
+    .watch-group
+        .watch-item
+            .watch-content
+
+                .watch-post
+                    .thumbnail
+                    .text
+                .watch-stats
+
+            .watch-close
+ */
+
+    /* TODO: Refactor this */
+
+/*
+        .watch-content
+            display: flex
+            align-items: center
+            flex: 1
+            text-align: left
+            height: inherit
+            padding: 6px 40px 5px 12px
+            font-size: 14px
+
+            .thumbnail
+                max-height: 48px
+                max-width: 48px
+                min-height: 48px
+                min-width: 48px
+                text-align: left
+                margin-right: 12px
+                line-height: $watch-item-height
+                position: relative
+                overflow: hidden
+
+                img
+                    max-height: $_img_container_width
+                    max-width: $watch-item-height
+                    position: absolute
+                    top: 50%
+                    left: 50%
+                    transform: translate(-50%, -50%)
+
+            .watch-post
+                flex: 1
+                text-overflow: ellipsis
+                white-space: nowrap
+                height: inherit
+
+                > *
+                    height: inherit
+                    line-height: $watch-item-height
+
+
+
+
+
+
+
+
+
+
+
+
+
+                .boardID
+                    margin-right: 6px
+
+                .title
+                    padding: 0 4px
+
+                .comment
+                    white-space: nowrap
+                    overflow: hidden
+                    text-overflow: elipses
+
+
+        .watch-close
+            +square($watch-item-height)
+            z-index: 1
+            background: grey(7)
+            text-align: center
+            position: absolute
+            right: 0
+            top: 0
+            cursor: pointer
+            font-size: 20px
+            box-shadow: -2px 0 5px grey(7)
+            line-height: $watch-item-height
+            
+            > * 
+                width: $watch-item-height
+                display: inline-block
+
+            &:hover
+                background: color(primary)
+
+            .timer
+            
+
