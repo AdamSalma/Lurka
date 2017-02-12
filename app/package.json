@@ -13,6 +13,8 @@
     "jquery": "^3.1.1",
     "moment": "^2.17.1",
     "mousetrap": "^1.6.0",
+    "preact": "^7.1.0",
+    "preact-compat": "^3.13.1",
     "query-string": "^4.2.3",
     "react": "^15.4.1",
     "react-addons-css-transition-group": "^15.4.1",
