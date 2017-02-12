@@ -19,7 +19,11 @@ router.get('/', function(req, res, next){
     }
 
     options.url = unescape(url)
-    request.get(options).pipe(res);
+    request.get(options).pipe(res).on('error', function(err){
+        console.error("Caught media error!")
+        console.log(err.message)
+        throw err
+    });
 })
 
 export default router
