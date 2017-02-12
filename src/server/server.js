@@ -48,8 +48,9 @@ function onError(error) {
             break;
 
         default:
+            log.error('LOG TEST:')
+            log.error(error.message)
             log.error(error.code)
-            log.error(error)
             throw error
     }
 }
