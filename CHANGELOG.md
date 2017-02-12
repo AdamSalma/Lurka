@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Added
+- Added header panels that popup when a header icon is clicked. Panels added:
+    - Thread monitoring
+    - Local archives
+    - Board filter
+    - Board sort
+
+### Changed
+- Scrollbar width decrease
+
+### Fixed
+- Fixed thread not closing when clicked on the mask underneath
+- Fixed thread quotelinks onclick changing url
+
+
 ## v0.10 - 30/01/2017
 ### Added
 - Board posts slide into view when scrolled
