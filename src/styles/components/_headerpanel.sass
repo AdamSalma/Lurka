@@ -2,7 +2,7 @@
     position: fixed
     top: $header-height
     right: 0
-    +square(300px)
+    +set-mins(200px, 200px)
     background: grey(7)
     padding: 12px 20px
     border: green solid 1px
@@ -14,15 +14,17 @@
 
     transition: all .15s ease-in
     transform-origin: top
-    transform: rotateY(-170deg) translateX(-200px) scale(.66) perspective(800px)
+    transform: translateY(-200px) scale(.66)
 
 
 
     &.animate-in
-        transition: all .8s cubic-bezier(0.165, 0.84, 0.44, 1)
+        // transition: all .8s cubic-bezier(0.165, 0.84, 0.44, 1)
+        transition: all .6s cubic-bezier(0.19, 1, 0.22, 1)
         // transition: all .8s cubic-bezier(0.23, 1, 0.32, 1)
-        transform: rotateY(0) rotateX(0) translate(0) scale(1)
+        transform: translate(0) scale(1)
         opacity: 1
+        z-index: 11
 
 
 
