@@ -65,29 +65,29 @@ export default class WatchPanel extends Component {
             <div key={threadID} className="watch-item">
                 <div className="watch-content">
 
-                {/* Comment */}
-                    <div className="meta">
-                        <div className="thumbnail">
-                            <img src={media.thumbnail} />
+                {/* Content */}
+                    <div className="thumbnail">
+                        <img src={media.thumbnail} />
+                    </div>
+                    <div className="watch-post">
+                        <span 
+                            className="text" 
+                            dangerouslySetInnerHTML={{
+                                __html: title ? title : comment
+                            }}
+                        />
+
+                        {/* Watch Stats */}
+                        <div className="watch-stats">
+                            <div className="timeago">
+                                <TimeAgo time={time}/>
+                            </div>
+                            <div className={"new-posts "+(newPosts>0) ? "active":""}>
+                                <span>{newPosts}</span>
+                            </div>
                         </div>
-                        {/* Renders either the title or OP's comment */}
-                        {title ? (<span 
-                            className="title" 
-                            dangerouslySetInnerHTML={{__html: title}}
-                        />) : (<span className="comment">
-                            {$.parseHTML(comment)[0].textContent}
-                        </span>)}
                     </div>
 
-                {/* Watch Stats */}
-                    <div className="watch-stats">
-                        <div className="timeago">
-                            <TimeAgo time={time}/>
-                        </div>
-                        <div className={"new-posts "+(newPosts>0) ? "active":""}>
-                            <span>{newPosts}</span>
-                        </div>
-                    </div>
 
                 </div>
                 <div className="watch-close" 
@@ -101,6 +101,7 @@ export default class WatchPanel extends Component {
                     active={!didInvalidate}
                     onTimerEnd={this.handleTimerEnd.bind(null, thread)}
                 />
+                <Line/>
             </div>
         )
     }
