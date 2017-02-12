@@ -48,7 +48,6 @@
     max-width: $max
     min-width: $min
 
-
 =limit-height($max, $min)
     max-height: $max
     min-height: $min
@@ -60,8 +59,10 @@
 =set-mins($w, $h)
     min-width: $w
     min-height: $h
-    width: $w
-    height: $h
+
+=set-max($w, $h)
+    max-width: $w
+    max-height: $h
 
 =gradient($color)
     $tint: tint($color)
