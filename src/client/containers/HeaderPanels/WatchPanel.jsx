@@ -6,6 +6,8 @@ import {
     Timer, 
     TimeAgo,
     Icon,
+    Line,
+    Scrollable
 } from '~/components'
 
 
@@ -20,9 +22,13 @@ export default class WatchPanel extends Component {
         const {isActive, threadMonitor: {newPosts, threads}} = this.props
 
         return <HeaderPanel isActive={isActive} className="watch-panel">
-            <h1>Watch List</h1>
+            <div className="watch-header">
+                <h4>Watch List</h4>
+            </div>
             {this.renderDescription(threads)}
-            {this.renderMonitoredThreads(threads)}
+            <Scrollable>
+                {this.renderMonitoredThreads(threads)}
+            </Scrollable>
         </HeaderPanel>
     }
 
