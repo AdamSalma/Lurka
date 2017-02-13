@@ -2,22 +2,49 @@ $watch-item-height: 60px
 $watch-panel-width: 432px
 $watch-panel-height: 429px
 
+$watch-panel-header-height: 40px
+
+$watch-text-height-1: 25px
+$watch-text-height-2: 35px
+
+
+$watch-right-gutter-width: 6px
+
+
+$watch-accent-color: color(primary, darkest)
 
 $_img_container_width: $watch-panel-width / 5
 
 .watch-panel
     +set-dims($watch-panel-width, $watch-panel-height)
-    overflow-y: scroll
     background: grey(8)
+    padding: 0 $watch-right-gutter-width 0 6px !important
+    border: none !important
+
+    .watch-header
+        text-align: center
+        height: $watch-panel-header-height
+        line-height: $watch-panel-header-height
+        background: grey(6)
+
+    .nano-pane
+        width: 5px
+        right: -$watch-right-gutter-width
+
+    .scrollable
+        height: $watch-panel-height - $watch-panel-header-height
 
     .watch-group
+        border-left: $watch-accent-color solid 1px
+
         .board-header
             +square(32px)
             line-height: 32px
-            background: color(primary)
+            background: $watch-accent-color
             font-size: 16px
             text-align: center
             position: relative
+            padding-right: 1px
 
     .watch-item
         min-height: $watch-item-height
@@ -26,26 +53,30 @@ $_img_container_width: $watch-panel-width / 5
         display: flex
         align-items: center
         overflow: hidden
-        margin-bottom: 10px
+        margin-bottom: 2px
         position: relative
 
 
     .watch-content
         display: flex
         align-items: center
-        flex: 1
         text-align: left
         height: inherit
         padding: 6px 40px 5px 12px
         font-size: 14px
+        width: inherit
 
 
     .thumbnail
+        align-self: flex-start
+
         max-height: 48px
         max-width: 48px
         min-height: 48px
         min-width: 48px
         text-align: left
+
+        margin-top: 7px
         margin-right: 12px
 
         position: relative
@@ -67,21 +98,24 @@ $_img_container_width: $watch-panel-width / 5
         .text
             text-overflow: ellipsis
             white-space: nowrap
-            height: 40px
+            height: $watch-text-height-1
             overflow: hidden
-            line-height: 40px
+            line-height: $watch-text-height-1
             width: $watch-panel-width - 130px
             text-overflow: ellipsis
             white-space: nowrap
+            font-size: 14px
 
             br 
                 display: none
 
 
         .watch-stats
-            height: 20px
-            line-height: 20px
+            height: $watch-text-height-2
+            line-height: $watch-text-height-2
             padding: 5px 0
+            font-size: 12px
+            color: color(text-secondary)
 
             > *
                 display: inline-block
@@ -184,7 +218,7 @@ $_img_container_width: $watch-panel-width / 5
                 display: inline-block
 
             &:hover
-                background: color(primary)
+                background: $watch-accent-color
 
             .timer
             
