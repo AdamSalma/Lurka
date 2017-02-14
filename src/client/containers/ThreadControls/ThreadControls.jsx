@@ -32,7 +32,8 @@ export default class ThreadControls extends Component {
             threadID,
             requestedAt,
             didInvalidate,
-            op: posts && posts[0]
+            op: posts && posts[0],
+            totalPosts: posts.length
         }
 
         return (
