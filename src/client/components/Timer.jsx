@@ -12,11 +12,12 @@ export default class Timer extends Component {
 
         this.interval = interval || 1000  // default props here too
 
+        this.tick = this.tick.bind(this)
         this.setInterval = this.setInterval.bind(this)
         this.clearInterval = this.clearInterval.bind(this)
 
         if (active) {
-            this._interval = setInterval(this.interval, this.tick)
+            this._interval = setInterval(this.tick, this.interval)
         }
 
     }
@@ -49,15 +50,17 @@ export default class Timer extends Component {
 
                 if (autoreset) {
                     state.seconds = this.props.seconds
-                } else {
+                } 
+                else {
                     this.clearInterval()
                 }
-            } else {
+            } 
+            else {
                 state.seconds = --seconds
             }
 
             return state
-        })
+        }, this.props.onTick)  // callback
     }
 
     setInterval() {
@@ -80,7 +83,8 @@ Timer.defaultProps = {
     interval: 1000,
     active: true,
     autoreset: false,
-    displayCounter: true
+    displayCounter: true,
+    onTick: ()=>{}
 }
 
 Timer.propTypes = {
