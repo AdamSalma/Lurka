@@ -14,17 +14,15 @@ import {
 export default class WatchPanel extends Component {
     constructor(props) {
         super(props);
-        this.handleTimerEnd = this.handleTimerEnd.bind(this)
         this.renderWatchItem = this.renderWatchItem.bind(this)
+        this.handleUpdate  = this.handleUpdate.bind(this)
+        this.handleUnwatch = this.handleUnwatch.bind(this)
     }
 
     render() {
         const {isActive, threadMonitor: {newPosts, threads}} = this.props
 
         return <HeaderPanel isActive={isActive} className="watch-panel">
-            <div className="watch-header">
-                <h4>Watch List</h4>
-            </div>
             {this.renderDescription(threads)}
             <Scrollable>
                 {this.renderMonitoredThreads(threads)}
@@ -33,11 +31,15 @@ export default class WatchPanel extends Component {
     }
 
     renderDescription(tm) {
-        return !tm.length ? (<span>
-            Threads that are being watched will appear here. 
-            To add a thread, click on the watch button in an open thread. 
-        </span>) : false
+        return !tm.length ? (
+            <div className="description">
+                Threads that are being watched will appear here. 
+                To add a thread, click on the watch button in an open thread. 
+            </div>
+        ) : false
     }
+    // <div className="watch-title"><h4>Watch List</h4></div>
+
 
     renderMonitoredThreads(threads) {
 
@@ -63,56 +65,100 @@ export default class WatchPanel extends Component {
     }
 
     renderWatchItem(thread) {
-        const updateInterval = this.props.settings.threadUpdateInterval.value
-        const { newPosts=0, threadID, boardID, didInvalidate, op: { title, media, comment, time } } = thread;
+        return <WatchItem 
+            key={thread.threadID}
+            updateInterval={this.props.settings.threadUpdateInterval.value} 
+            thread={thread}
+            onUpdate={this.handleUpdate.bind(null, thread)}
+            onUnwatch={this.handleUnwatch.bind(null, thread.threadID)}
+        />
+    }
 
-        console.warn("renderWatchItem()")
-        return (
-            <div key={threadID} className="watch-item">
-                <div className="watch-content">
+    handleUpdate(thread) {
+        console.log("handleUpdate");
+        // this.props.updateMonitoredThread(thread)
+    }
 
-                {/* Content */}
-                    <div className="thumbnail">
-                        <img src={media.thumbnail} />
-                    </div>
-                    <div className="watch-post">
-                        <span 
-                            className="text" 
-                            dangerouslySetInnerHTML={{
-                                __html: title ? title : comment
-                            }}
-                        />
+    handleUnwatch(thread) {
+        console.log("handleUnwatch");
+        // this.props.unmonitorThread(thread)
+    }
+}
 
-                        {/* Watch Stats */}
-                        <div className="watch-stats">
+
+
+function WatchItem(props){
+    const {
+        updateInterval, onUpdate, onUnwatch,
+        thread: {
+            newPosts=0, 
+            threadID, 
+            boardID, 
+            totalPosts, 
+            didInvalidate, 
+            isFetching,
+            op: { title, media, comment, time }
+        }
+    } = props;
+
+    const postClasses = classNames("new-posts", {
+        "has-new": newPosts > 0  // TODO: && state.watchedOpenedFor5Secs || hovered
+    })
+
+    const postText = newPosts>0 ? newPosts : "No new posts"
+
+    return (
+        <div className="watch-item">
+            <div className="watch-content">
+
+            {/* Content */}
+                <div className="thumbnail">
+                    <img src={media.thumbnail} />
+                </div>
+                <div className="watch-post">
+                    <span 
+                        className="text" 
+                        dangerouslySetInnerHTML={{
+                            __html: title ? title : comment
+                        }}
+                    />
+
+                    {/* Watch Stats */}
+                    { isFetching ? 
+                        <div className="watch-stats"><div className="updating">Updating</div></div> 
+                        : (<div className="watch-stats">
                             <div className="timeago">
                                 <TimeAgo time={time}/>
                             </div>
-                            <div className={"new-posts "+(newPosts>0) ? "active":""}>
-                                <span>{newPosts}</span>
+                            <div className={postClasses}>
+                                {postText}
                             </div>
-                        </div>
-                    </div>
-
-
+                            <div className="total-posts">
+                                Total: {totalPosts}
+                            </div>
+                        </div>)
+                    }
                 </div>
-                <div className="watch-close" 
-                     onClick={this.props.unmonitorThread.bind(null, threadID)}>
+
+
+            </div>
+            <div className="watch-controls">
+                <div className="watch-close" onClick={onUnwatch}>
                     <Icon name="close"/>
                 </div>
-                <Timer 
-                    displayCounter={false}
-                    seconds={updateInterval}
-                    autorestart={true} 
-                    active={!didInvalidate}
-                    onTimerEnd={this.handleTimerEnd.bind(null, thread)}
-                />
-                <Line/>
+                <div className="watch-update" onClick={onUpdate}>
+                    <Icon name="update"/>
+                </div>
             </div>
-        )
-    }
-
-    handleTimerEnd(thread) {
-        this.props.updateMonitoredThread(thread)
-    }
+            
+            <Timer 
+                displayCounter={false}
+                seconds={updateInterval}
+                autoreset={true} 
+                active={!didInvalidate}
+                onTimerEnd={onUpdate}
+            />
+            <Line />
+        </div>
+    )
 }
