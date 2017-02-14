@@ -1,8 +1,8 @@
 $watch-item-height: 60px
 $watch-panel-width: 432px
-$watch-panel-height: 429px
+$watch-panel-height: 210px
 
-$watch-panel-header-height: 40px
+$watch-panel-title-height: 40px
 
 $watch-text-height-1: 25px
 $watch-text-height-2: 35px
@@ -21,21 +21,22 @@ $_img_container_width: $watch-panel-width / 5
     padding: 0 $watch-right-gutter-width 0 6px !important
     border: none !important
 
-    .watch-header
-        text-align: center
-        height: $watch-panel-header-height
-        line-height: $watch-panel-header-height
-        background: grey(6)
+    .description
+        font-size: 18px
+        padding: 20px
+        padding-top: 60px
+
 
     .nano-pane
         width: 5px
         right: -$watch-right-gutter-width
 
     .scrollable
-        height: $watch-panel-height - $watch-panel-header-height
+        height: $watch-panel-height - $watch-panel-title-height
 
     .watch-group
         border-left: $watch-accent-color solid 1px
+        margin-bottom: 12px
 
         .board-header
             +square(32px)
@@ -119,8 +120,13 @@ $_img_container_width: $watch-panel-width / 5
 
             > *
                 display: inline-block
-                margin-right: 4px
-        
+                margin-right: 8px
+    
+    .watch-controls
+        +square($watch-item-height)
+        position: absolute
+        right: 0
+        top: 0
 
 /* 
     .watch-group
