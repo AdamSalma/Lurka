@@ -6,7 +6,12 @@ export default class TimeAgo extends Component {
     constructor(props) {
         super(props)
         this.update = this.update.bind(this)
+        this.toggleFormat = this.toggleFormat.bind(this)
         this._interval = setInterval(this.update, props.refreshRate)
+
+        this.state = {
+            clicked: false
+        }
     }
 
     componentWillUnmount() {
@@ -14,25 +19,33 @@ export default class TimeAgo extends Component {
     }
 
     render() {
-        const time = moment(this.props.time);
-        return (
-            <Tooltip 
-                content={time.format(this.props.format)}
-                className="timeago"
-            >
-                {time.fromNow()}
-            </Tooltip>
-        )
+        const {canToggle, toggledFormat, agoSuffix} = this.props
+        const time = moment(this.props.time)
+
+        return <span className="timeago" onClick={this.toggleFormat}>
+            {this.state.clicked && canToggle ? 
+                time.format(toggledFormat) : time.fromNow(agoSuffix)
+            }
+        </span>
     }
 
     update() {
         this.forceUpdate()
     }
+
+    toggleFormat() {
+        this.setState(state => ({
+            clicked: !state.clicked
+        }))
+    }
 }
 
 TimeAgo.defaultProps = {
     refreshRate: 60000,
-    format: 'dddd [at] hh:mma'
+    // toggledFormat: 'dddd [at] hh:mma',
+    toggledFormat: 'HH:mm:ss[,] dddd Do MMM YYYY',
+    canToggle: true,
+    agoSuffix: false
 }
 
 TimeAgo.propTypes = {
@@ -42,5 +55,7 @@ TimeAgo.propTypes = {
         PropTypes.number
     ]),
     refreshRate: PropTypes.number,
-    format: PropTypes.string
+    toggledFormat: PropTypes.string,
+    canToggle: PropTypes.bool,
+    agoSuffix: PropTypes.bool,
 }
