@@ -1,12 +1,11 @@
 $watch-item-height: 60px
 $watch-panel-width: 432px
-$watch-panel-height: 210px
-
-$watch-panel-title-height: 40px
+$watch-panel-height: 300px
 
 $watch-text-height-1: 25px
 $watch-text-height-2: 35px
 
+$watch-group-size: 32px
 
 $watch-right-gutter-width: 6px
 
@@ -17,6 +16,7 @@ $_img_container_width: $watch-panel-width / 5
 
 .watch-panel
     +set-dims($watch-panel-width, $watch-panel-height)
+
     background: grey(8)
     padding: 0 $watch-right-gutter-width 0 6px !important
     border: none !important
@@ -29,34 +29,42 @@ $_img_container_width: $watch-panel-width / 5
 
     .nano-pane
         width: 5px
-        right: -$watch-right-gutter-width
+        // right: -$watch-right-gutter-width
+        margin-top: $watch-group-size
+        margin-bottom: 6px
+        
+        .nano-slider
+            background: grey(6) !important
 
-    .scrollable
-        height: $watch-panel-height - $watch-panel-title-height
 
     .watch-group
         border-left: $watch-accent-color solid 1px
-        margin-bottom: 12px
+        margin-bottom: 6px
+        user-select: none
 
         .board-header
-            +square(32px)
-            line-height: 32px
+            height: $watch-group-size
+            line-height: $watch-group-size
             background: $watch-accent-color
+            display: inline-block
             font-size: 16px
             text-align: center
             position: relative
-            padding-right: 1px
+            padding: 0 4px
+            padding-right: 0 5px
+            float: left
 
     .watch-item
-        min-height: $watch-item-height
-        padding: 2px
-        background: grey(9)
+        +clickable
         display: flex
         align-items: center
-        overflow: hidden
-        margin-bottom: 2px
         position: relative
-
+        overflow: hidden
+        min-height: $watch-item-height
+        clear: both
+        background: grey(9)
+        padding: 2px
+        margin-bottom: 2px
 
     .watch-content
         display: flex
@@ -77,7 +85,7 @@ $_img_container_width: $watch-panel-width / 5
         min-width: 48px
         text-align: left
 
-        margin-top: 7px
+        margin-top: 4px
         margin-right: 12px
 
         position: relative
@@ -107,14 +115,14 @@ $_img_container_width: $watch-panel-width / 5
             white-space: nowrap
             font-size: 14px
 
-            br 
+            br, wbr
                 display: none
 
 
         .watch-stats
             height: $watch-text-height-2
             line-height: $watch-text-height-2
-            padding: 5px 0
+            // padding: 5px 0
             font-size: 12px
             color: color(text-secondary)
 
@@ -127,6 +135,24 @@ $_img_container_width: $watch-panel-width / 5
         position: absolute
         right: 0
         top: 0
+        background: inherit
+        display: flex
+        flex-direction: column
+        justify-content: center
+        margin-top: 4px
+
+        > *
+            margin: 6px 6px 0
+
+            &:hover
+                background: color(primary, dark)
+                &.watch-update
+                    background: color(secondary, light)
+
+
+
+
+
 
 /* 
     .watch-group
