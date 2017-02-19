@@ -8,6 +8,8 @@ $base-colors: (
     vermilion: #FF4500,  // reddit
 );
 
+// Are mixed with the base colors using the fn `color(name, shade)`
+// values are: (shade, shadePercent)
 $color-shades: (
     darkest:  (#000000, 20%),
     dark:     (#5c5c5c, 20%),
@@ -15,6 +17,10 @@ $color-shades: (
     lightest: (#ffffff, 40%),
 );
 
+// Greys used for text and backgrounds alike. reversing the order will invert 
+// the Lurka's scheme
+// 
+// Is used by the function `grey(index)`
 $greys: (
     #F5F5F5, // 1
     #E0E0E0,
@@ -28,6 +34,7 @@ $greys: (
     #000000, // 10
 );
 
+/** Helper functions **/
 @function color-shade($key) {
     @return map-get($color-shades, $key);
 };
@@ -54,7 +61,12 @@ $background-tint: $primary;
     $grey: nth($greys, $index);
     @return color-tint($grey);
 };
+/** Helper functions end **/
 
+
+/**
+ * Main color palette
+ */
 $color-palette: (
     primary:        $primary,
     secondary:      $secondary,
@@ -71,13 +83,20 @@ $color-palette: (
     threadpost:     grey(7),
 );
 
-@function color($color, $variant:null) {
+/**
+ * Function to access to the color palette.
+ * Takes a color name and shade. E.g:
+  color(text-primary)
+  color(primary, light)
+  color(secondary, dark)
+ */
+@function color($color, $shade:null) {
     $x: map-get($color-palette, $color);
 
-    @if ($variant) {
-        $shade: nth(color-shade($variant), 1);
-        $percent: nth(color-shade($variant), 2);
-        @return mix($shade, $x, $percent);
+    @if ($shade) {
+        $s: nth(color-shade($shade), 1);
+        $percent: nth(color-shade($shade), 2);
+        @return mix($s, $x, $percent);
     }
     @return $x;
 };
