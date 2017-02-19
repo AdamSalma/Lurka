@@ -66,7 +66,7 @@
                 color: grey(4)
                 display: inline-block
                 margin-left: 2px
-                cursor: pointer
+                +clickable
                 transition: all .2s ease-out
 
                 &:hover
@@ -125,7 +125,7 @@
             right: 3px
             opacity: 0.5
             transition: opacity 0.2s ease-in
-            cursor: pointer
+            +clickable
             z-index: 2
 
             &:hover
@@ -206,5 +206,5 @@
         transition: 0.1s ease-out
         font-family: $font-alt
         font-size: 15px
-        cursor: pointer
+        +clickable
         
