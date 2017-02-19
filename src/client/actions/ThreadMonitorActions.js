@@ -48,7 +48,7 @@ export function monitorThread(thread, boardID) {
 
         dispatch(alertMessage({
             'type': 'success',
-            'message': 'Monitoring thread #' + threadID,
+            'message': `Monitoring current thread (#${threadID})`,
             'duration': 8000
         }))
 
