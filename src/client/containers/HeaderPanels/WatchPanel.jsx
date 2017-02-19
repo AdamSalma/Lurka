@@ -24,7 +24,7 @@ export default class WatchPanel extends Component {
 
         return <HeaderPanel isActive={isActive} className="watch-panel">
             {this.renderDescription(threads)}
-            <Scrollable>
+            <Scrollable className="tilt-container">
                 {this.renderMonitoredThreads(threads)}
             </Scrollable>
         </HeaderPanel>
@@ -51,7 +51,7 @@ export default class WatchPanel extends Component {
 
         return uniqueBoards.map( uniqueBoard => {
             return (
-                <div className="watch-group" key={uniqueBoards}>
+                <div className="watch-group" key={uniqueBoard}>
                     <div className="board-header">
                         <span>{`/${uniqueBoard}/`}</span>
                     </div>
@@ -97,6 +97,7 @@ function WatchItem(props){
             totalPosts, 
             didInvalidate, 
             isFetching,
+            lastReplyAt,
             op: { title, media, comment, time }
         }
     } = props;
@@ -108,7 +109,7 @@ function WatchItem(props){
     const postText = newPosts>0 ? newPosts : "No new posts"
 
     return (
-        <div className="watch-item">
+        <div className="watch-item tilter">
             <div className="watch-content">
 
             {/* Content */}
@@ -128,7 +129,7 @@ function WatchItem(props){
                         <div className="watch-stats"><div className="updating">Updating</div></div> 
                         : (<div className="watch-stats">
                             <div className="timeago">
-                                <TimeAgo time={time}/>
+                                <TimeAgo time={lastReplyAt} canToggle={false}/>
                             </div>
                             <div className={postClasses}>
                                 {postText}
@@ -158,7 +159,6 @@ function WatchItem(props){
                 active={!didInvalidate}
                 onTimerEnd={onUpdate}
             />
-            <Line />
         </div>
     )
 }
