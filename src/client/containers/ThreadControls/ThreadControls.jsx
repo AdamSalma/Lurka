@@ -3,7 +3,9 @@ import React, { Component } from "react";
 import classNames from 'classnames';
 import uuid from "uuid";
 
-import { Icon, ButtonCircle } from '../../components'
+import { Icon, ButtonCircle } from '~/components'
+
+import {WatchController} from './controllers'
 
 
 export default class ThreadControls extends Component {
@@ -27,14 +29,7 @@ export default class ThreadControls extends Component {
             "animate-out": !isActive
         })
 
-        const monitorArgs = {
-            boardID, 
-            threadID,
-            requestedAt,
-            didInvalidate,
-            op: posts && posts[0],
-            totalPosts: posts.length
-        }
+        
 
         return (
             <div className={controlClasses}>
@@ -54,14 +49,8 @@ export default class ThreadControls extends Component {
                         <Icon name="package-down" /> 
                     </ButtonCircle>
 
-
-                    {/* Toggle icon
-                        <Icon name="eye" /> 
-                        eye off
-                    */}
-                    <ButtonCircle toggleProps={{name:"eye", onClick: unmonitorThread.bind(null, threadID)}}>
-                        <Icon name="eye" onClick={monitorThread.bind(null, monitorArgs)}/> 
-                    </ButtonCircle>
+                    <WatchController {...this.props}/>
+                    
                 </div>
                 <div className="controls right-controls">
 
