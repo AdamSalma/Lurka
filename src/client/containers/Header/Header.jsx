@@ -71,8 +71,9 @@ export default class Header extends Component {
     returnHome(){
         const { closeThread, scrollPage, destroyBoard, scrollHeader } = this.props
 
-        closeThread(null,  // threadID
-            () => {
+        closeThread({
+            theradID: null,  // threadID
+            callback: () => {
                 scrollHeader(false)  // hide header
                 scrollPage({
                     page: "board", 
@@ -80,7 +81,7 @@ export default class Header extends Component {
                     callback: destroyBoard
                 })   
             }
-        )
+        })
     }
 
     handleKeyUp(event) {

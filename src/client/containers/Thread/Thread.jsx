@@ -96,7 +96,7 @@ export default class Thread extends Component {
         const { closeThread, threadID, scrollHeader } = this.props;
 
         this._threadWrap.nanoScroller({ stop: true })
-        closeThread(threadID)
+        closeThread({threadID})
         scrollHeader(true)
     }
 }
