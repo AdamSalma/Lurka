@@ -17,6 +17,7 @@ export default class WatchPanel extends Component {
         this.renderWatchItem = this.renderWatchItem.bind(this)
         this.handleUpdate  = this.handleUpdate.bind(this)
         this.handleUnwatch = this.handleUnwatch.bind(this)
+        this.handleClick   = this.handleClick.bind(this)
     }
 
     render() {
@@ -71,17 +72,36 @@ export default class WatchPanel extends Component {
             thread={thread}
             onUpdate={this.handleUpdate.bind(null, thread)}
             onUnwatch={this.handleUnwatch.bind(null, thread.threadID)}
+            onClick={this.handleClick.bind(null, thread)}
         />
     }
 
-    handleUpdate(thread) {
+    handleUpdate(thread, event) {
         console.log("handleUpdate");
+        if (event) {
+            event.stopPropagation()
+        }
         // this.props.updateMonitoredThread(thread)
     }
 
-    handleUnwatch(thread) {
+    handleUnwatch(threadID, event) {
         console.log("handleUnwatch");
-        // this.props.unmonitorThread(thread)
+        if (event) {
+            event.stopPropagation()
+        }
+        // this.props.unmonitorThread(threadID)
+    }
+
+    handleClick({boardID, threadID}) {
+        console.log('Fetching thread');
+        const {fetchThread, closeThread, status} = this.props
+        closeThread({
+            threadID: status.threadID,
+            callback: () => {
+                console.log("handleClick callback!")
+                fetchThread(boardID, threadID)
+            }
+        })
     }
 }
 
@@ -89,7 +109,7 @@ export default class WatchPanel extends Component {
 
 function WatchItem(props){
     const {
-        updateInterval, onUpdate, onUnwatch,
+        updateInterval, onUpdate, onUnwatch, onClick,
         thread: {
             newPosts=0, 
             threadID, 
@@ -109,7 +129,7 @@ function WatchItem(props){
     const postText = newPosts>0 ? newPosts : "No new posts"
 
     return (
-        <div className="watch-item tilter">
+        <div className="watch-item tilter" onClick={onClick}>
             <div className="watch-content">
 
             {/* Content */}
@@ -128,14 +148,14 @@ function WatchItem(props){
                     { isFetching ? 
                         <div className="watch-stats"><div className="updating">Updating</div></div> 
                         : (<div className="watch-stats">
-                            <div className="timeago">
-                                <TimeAgo time={lastReplyAt} canToggle={false}/>
-                            </div>
                             <div className={postClasses}>
                                 {postText}
                             </div>
                             <div className="total-posts">
                                 Total: {totalPosts}
+                            </div>
+                            <div className="timeago">
+                                <TimeAgo time={lastReplyAt} canToggle={false}/>
                             </div>
                         </div>)
                     }
