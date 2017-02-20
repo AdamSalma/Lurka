@@ -75,7 +75,9 @@ class GlobalPage extends Component {
                     boardList={boardList} toggleNavbar={toggleNavbar}
                 />  
                 <HeaderPanels
-                    fetchThread={fetchThread} updateMonitoredThread={updateMonitoredThread}
+                    fetchThread={fetchThread} closeThread={closeThread} 
+                    fetchBoard={fetchBoard}
+                    updateMonitoredThread={updateMonitoredThread}
                     monitorThread={monitorThread} unmonitorThread={unmonitorThread}
 
                     activePanel={status.activeHeaderPanel} status={status} 
