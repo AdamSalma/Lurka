@@ -112,12 +112,13 @@ export default class Board extends Component {
     createPosts() {
         const posts = this.getPosts()
         return posts.map( (post, index) => {
+            let id = post.id
             return (
                 <BoardPost
-                    key={post.id}
+                    key={id}
                     post={post} 
-                    fetchThread={this.onBoardPostClick}
-                    reshuffle={createLayout}
+                    onClick={this.onBoardPostClick.bind(null, id)}
+                    onLoad={createLayout}
                 />
             );
         });
@@ -125,8 +126,7 @@ export default class Board extends Component {
 
     getPosts() {
         const { posts, limit, searchWord, filterWords } = this.props.board;
-        console.warn(posts)
-        let _posts 
+        let _posts
 
         if (searchWord) {
             // search posts for word
@@ -140,7 +140,7 @@ export default class Board extends Component {
                 // Reshuffle posts and scroll to top of container
                 createLayout()
                 this._board.nanoScroller({ scroll:"top" })
-            }, 333)
+            }, 300)
 
         } else if (filterWords.length) {
             // filter posts that include any unwanted words
