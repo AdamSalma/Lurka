@@ -36,8 +36,11 @@ export function parseBoard( board, boardID ) {
             comment: post.com,
             time: post.tim || post.time * 1000,
             media: {
-                thumbnail: proxify("/media", {url: smImg, provider: "4chan"}),
-                lg: proxify("/media", {url: lgImg, provider: "4chan"})
+                thumbnail: smImg,
+                lg: lgImg,
+                width: post.w,
+                height: post.h,
+                filesize: post.fsize,
             },
             replies: {
                 textCount: post.replies,
@@ -77,8 +80,10 @@ export function parseThread( posts, boardID ) {
             time: post.tim || post.time * 1000,
             comment: post.com,
             media: !!ext ? {
-                thumbnail: proxify("/media", {url: smImg, provider: "4chan"}),
-                srcLarge: proxify("/media", {url: lgImg, provider: "4chan"}),
+                // thumbnail: proxify("/media", {url: smImg, provider: "4chan"}),
+                // srcLarge: proxify("/media", {url: lgImg, provider: "4chan"}),
+                thumbnail: smImg,
+                srcLarge: lgImg,
                 width: post.w,
                 height: post.h,
                 filesize: post.fsize,
