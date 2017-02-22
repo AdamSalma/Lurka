@@ -1,5 +1,6 @@
 import Express from 'express'
 import { join } from 'path';
+import cors from 'cors'
 
 import routes from './routes'
 import config from '../../config'
@@ -23,6 +24,7 @@ if (isProd) {
 }
  
 app.use(checkInternet);
+app.use(cors());
 
 // Proxy
 app.use('/media', routes.media);  // Proxy media queries through server to set headers
