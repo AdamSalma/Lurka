@@ -34,6 +34,7 @@ export default {
 		isActive: false,
 		isFetching: false,
 		didInvalidate: false,
+		isBeingWatched: false,
 		posts: [],
 	},
 
