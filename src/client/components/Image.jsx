@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import classNames from 'classnames'
 
-export default class Image extends Component {
+
+class Image extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,14 +14,13 @@ export default class Image extends Component {
         this.imageProps = Object.assign({}, props)
         delete this.imageProps['hideUntilLoaded']
         delete this.imageProps['loader']
-        
 
         this.onLoad = this.onLoad.bind(this)
     }
 
     render() {
         if (!this.state.isVisible)
-            return this.renderPlaceHolder(this.props)
+            return this.renderPlaceholder(this.props)
         return <img {...this.imageProps}/>
     }
 
@@ -47,6 +47,7 @@ export default class Image extends Component {
 
 Image.defaultProps = {
     hideUntilLoaded: false,
-    loader: false,
-    crossOrigin: "anonymous"
+    loader: false
 }
+
+export default Image
