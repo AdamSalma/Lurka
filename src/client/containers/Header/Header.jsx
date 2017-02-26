@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 
-import {version} from "../../../../package.json"
 import {
-    Logo,
+    LogoText,
     Icon,
     SearchBox,
     Hierarchy,
     HeaderItem
-} from "../../components"
+} from "~/components"
 
 
 export default class Header extends Component {
@@ -43,7 +42,7 @@ export default class Header extends Component {
                         <Icon name="menu" onClick={toggleNavbar}/>
                     </HeaderItem>
                     <HeaderItem className="version">
-                        Lurka v{version}
+                        <LogoText />
                     </HeaderItem>
                     <HeaderItem className="breadcrumb">
                         <Hierarchy provider={provider} boardID={boardID} threadID={threadID}/>
