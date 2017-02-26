@@ -1,6 +1,7 @@
 {
   "plugins": [
-    "react-hot-loader/babel"
+    "react-hot-loader/babel",
+    "transform-decorators-legacy"
   ],
   "presets": [
     "es2015",
