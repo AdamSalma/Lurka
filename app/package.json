@@ -21,6 +21,8 @@
     "react-addons-css-transition-group": "^15.4.1",
     "react-alert": "^1.0.14",
     "react-dom": "^15.4.1",
+    "react-image-load": "^1.1.2",
+    "react-lazyload": "^2.2.4",
     "react-redux": "^4.4.6",
     "redux": "^3.6.0",
     "redux-logger": "^2.7.4",
