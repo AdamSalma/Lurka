@@ -3,7 +3,6 @@
     position: absolute
 
     width: $board-post-width
-    max-height: $board-post-height
 
     font-family: $font-main
     text-align: center
@@ -24,8 +23,7 @@
 
     &:hover
         transition: all .2s
-        // border-top: 2px solid color(primary)
-        box-shadow: $board-post-shadow-hover-color 0 0 10px
+        border-color: grey(7)
 
         .counters
             opacity: 1
@@ -36,6 +34,9 @@
         .comment-wrap
             border-top: color(primary)
 
+        img
+            transform: scale(1.05)
+
     
     .image-wrap
         user-select: none
@@ -44,9 +45,11 @@
 
     img
         max-width: 100%
+        max-height: 400px
         display: inherit
         margin: 0 auto
         height: auto
+        transition: transform .2s ease-out
 
 
     .comment-wrap
@@ -56,7 +59,7 @@
         top: 0
         transition: top .2s ease-out
         box-shadow: grey(8) -4px 0 4px
-
+        max-height: $board-post-comment-max-height
 
     .op
         padding: 0 15px
@@ -64,9 +67,13 @@
         width: 100%
         word-wrap: break-word !important
 
-    b.title
-        display: block
-        padding: 4px 0 6px
+        .title
+            display: block
+            padding-top: 4px
+            padding-bottom: 2px
+
+        .comment
+            padding-top: 4px
 
     a
         color: grey(1) !important
@@ -75,43 +82,25 @@
 
     /* Counters + Icons */
     .counters
-        position: absolute
-        text-align: right
-        top: -27px
-        right: 0
         user-select: none
-        opacity: 0.4
-        transition: opacity .3s
+        display: flex
 
-        ::after 
-            content: ""
-            +center-horizontal(80%)
-            border-bottom: lighten(grey(8), 15%) solid 1px
-            bottom: -2px
-
-        > div
-            line-height: 25px
-            padding: 0 6px
-            margin-left: 2px
-            color: grey(1)
-            background: grey(8)
-
-            transition: border-color .3s
-            border: grey(8) solid 1px
-            border-bottom: none
-            border-radius: 2px 2px 0 0
+        padding: 0 12px
+        color: color(text-secondary)
+        font-size: 14px
+        font-family: $font-main-light
 
         .counter
-            display: inline
-            font-weight: bold
-            
-    .mdi 
-        margin-right: 4px
-        font-size: 18px
+            display: inline-block
+            padding: 0 3px
 
-    .mdi-comment-text
-        color: color(primary, light)
+            &.timeago
+                margin-left: auto
 
-    .mdi-image-filter-hdr
-        color: color(links)
+    .mdi
+        margin-right: 2px
+
+    .line
+        width: $board-post-width / 2
+        margin: 4px auto 0
 
