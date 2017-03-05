@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
+import classes from 'classnames';
 
 
 export default class ToggleOnClick extends Component {
@@ -15,22 +15,22 @@ export default class ToggleOnClick extends Component {
     render() {
         const {isExpanded} = this.state;
         const {from: _from, to, className, ...rest} = this.props
-        const classes = classNames(className, 'toggle', {
-            '--expanded': isExpanded,
+        const toggleClasses = classes(className, {
+            'toggled': isExpanded,
         })
 
-        return <div className={classes} onClick={this.toggle} {...rest}>
+        return <div className={toggleClasses} onClick={this.toggle} {...rest}>
             {isExpanded ? to : _from }
         </div>
     }
 
     toggle() {
         this.setState(state => {
+            console.log('ToggleOnClick() clicked. expanding ?', state.isExpanded)
             return {
                 isExpanded: !state.isExpanded                
             }
         })
-        this.forceUpdate()
     }
 }
 
