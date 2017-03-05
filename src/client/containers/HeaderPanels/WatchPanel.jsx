@@ -81,7 +81,7 @@ export default class WatchPanel extends Component {
         if (event) {
             event.stopPropagation()
         }
-        // this.props.updateMonitoredThread(thread)
+        this.props.updateMonitoredThread(thread)
     }
 
     handleUnwatch(threadID, event) {
