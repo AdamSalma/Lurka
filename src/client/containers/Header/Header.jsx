@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import classNames from "classnames";
+import classes from "classnames";
 
 import {
     LogoText,
@@ -14,7 +14,6 @@ export default class Header extends Component {
     constructor(props) {
         super(props);
         this.handleKeyUp = this.handleKeyUp.bind(this);
-        this.returnHome = this.returnHome.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -28,7 +27,7 @@ export default class Header extends Component {
 
     render() {
         // Actions
-        const { scrollPage, scrollHeader, closeThread, toggleNavbar, toggleHeaderPanel } = this.props;
+        const { scrollHeader, closeThread, toggleNavbar, toggleHeaderPanel } = this.props;
         // State
         const { threadIsActive, provider, boardID, threadID } = this.props;
 
@@ -65,22 +64,6 @@ export default class Header extends Component {
                 </div>
             </div>
         )  // TODO: Add filter functionality + buttons
-    }
-
-    returnHome(){
-        const { closeThread, scrollPage, destroyBoard, scrollHeader } = this.props
-
-        closeThread({
-            theradID: null,  // threadID
-            callback: () => {
-                scrollHeader(false)  // hide header
-                scrollPage({
-                    page: "board", 
-                    direction: "down",
-                    callback: destroyBoard
-                })   
-            }
-        })
     }
 
     handleKeyUp(event) {
