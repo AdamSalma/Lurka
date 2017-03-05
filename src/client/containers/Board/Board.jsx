@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from "react";
-import classNames from 'classnames'
+import classes from 'classnames'
 
 import BoardPost from '../BoardPost';
 import { catchTooltip } from './events';
@@ -43,7 +43,7 @@ export default class Board extends Component {
         catchTooltip(board);  // TODO: Implement catchtooltip on board
     }
 
-    componentDidUpdate({ board, boardID }) {
+    componentDidUpdate({ board, boardID, appReady }) {
         if (board.posts.length !== this.props.board.posts.length) {
             createLayout()
             this._board.nanoScroller()
@@ -51,6 +51,13 @@ export default class Board extends Component {
             this._board.bind('scrollend', () => {
                 this._itemsRemainInView = false
             })
+            console.warn('Board post length changed; checking items in view')
+            this.checkItemsInView()
+            setTimeout(this.checkItemsInView, 500)
+        }
+
+        if (appReady !== this.props.appReady) {
+            this.checkItemsInView()
         }
 
         if (this.props.boardID != boardID) {
@@ -60,6 +67,7 @@ export default class Board extends Component {
         if (this._itemsRemainInView) {
             this.checkItemsInView()
         }
+
     }
 
     componentWillUnmount() {
@@ -67,7 +75,7 @@ export default class Board extends Component {
     }
 
     render() {
-        const boardClasses = classNames('board nano', {
+        const boardClasses = classes('board nano', {
             'show-all': this.props.board.searchWord
         })
 
@@ -101,6 +109,7 @@ export default class Board extends Component {
     }
 
     checkItemsInView(){
+        if (!this._posts) return
         const winHeight = window.innerHeight + 200
         $.each(this._posts.children, function(index, element) {
             if (element.getBoundingClientRect().bottom <= winHeight) {
