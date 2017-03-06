@@ -1,9 +1,9 @@
+import proxy from './proxy'
 import index from './dashboard'
-import api from './api'
-import media from './media'
+import api   from './api'
 
-module.exports = {
+export default {
+    proxy,
     index,
-    api,   
-    media
+    api
 }
