@@ -1,5 +1,4 @@
 export {
-    scrollPage,
     scrollHeader,
     toggleNavbar,
 } from './AnimationActions'
@@ -25,7 +24,8 @@ export {
 export {
     changeProvider,
     alertMessage,
-    toggleHeaderPanel
+    toggleHeaderPanel,
+    appReady
 } from './StatusActions'
 
 export {
