@@ -5,7 +5,7 @@ import {
     Counter
 } from '~/components'
 
-export default ({date, replies}) => {
+export default ({time, replies}) => {
     return <div className="counters">
         <div className="counter comments">
             <Icon name="comment-text"/>
@@ -16,7 +16,7 @@ export default ({date, replies}) => {
             <Counter value={replies.imgCount} />
         </div>
         <div className="counter timeago">
-            <TimeAgo time={date} canToggle={false}/>
+            <TimeAgo time={time} canToggle={false}/>
         </div>
     </div>
 }
