@@ -1,12 +1,12 @@
 import React from "react"
-import classNames from 'classnames'
+import classes from 'classnames'
 
 export default function ({ className }) {
-    const classes = classNames("logo", className);
+    const logoClasses = classes("logo", className);
 
     return (
         <div className="logo-wrap">
-            <img src='./logo.png' className={classes}/>
+            <img src='./logo.png' className={logoClasses}/>
         </div>      
     )
 }

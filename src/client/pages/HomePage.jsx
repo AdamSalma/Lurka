@@ -6,7 +6,7 @@ import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import classNames from 'classnames'
+import classes from 'classnames'
 import uuid from 'uuid'
 
 import {
@@ -67,7 +67,7 @@ class HomePage extends Component {
             status:{provider}, boardList, threadIsActive, settings
         } = this.props;
 
-        const homeClasses = classNames('page page-home', {'animate': this.state.animate})
+        const homeClasses = classes('page page-home', {'animate': this.state.animate})
 
         return (
             <div className={homeClasses}>

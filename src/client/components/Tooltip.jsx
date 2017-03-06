@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames';
+import classes from 'classnames';
 
 export default class Tooltip extends Component {
     constructor(props) {
@@ -25,7 +25,7 @@ export default class Tooltip extends Component {
 
     render() {
         const { className, content } = this.props
-        const contentClasses = classNames("tooltip-content", {
+        const contentClasses = classes("tooltip-content", {
             'tooltip-active': this.state.isVisible
         })
 

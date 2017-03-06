@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import uuid from "uuid";
-import classNames from "classnames";
+import classes from "classnames";
 
 export default class Dropdown extends Component {
     constructor(props) {
@@ -26,10 +26,10 @@ export default class Dropdown extends Component {
 
     render () {
         const {items, className, onClick} = this.props;
-        const classes = classNames(className, "nano");
+        const dropdownClasses = classes(className, "nano");
 
         return (
-            <div ref="dropdown" className={classes}>
+            <div ref="dropdown" className={dropdownClasses}>
                 <div className="dropdown nano-content" onClick={onClick}>
                     {items.length && items.map( item => 
                         <span key={uuid.v4()} className="item">

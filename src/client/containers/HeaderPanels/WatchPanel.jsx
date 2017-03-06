@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import classNames from 'classnames'
+import classes from 'classnames'
 
 import {
     HeaderPanel, 
@@ -89,7 +89,7 @@ export default class WatchPanel extends Component {
         if (event) {
             event.stopPropagation()
         }
-        // this.props.unmonitorThread(threadID)
+        this.props.unmonitorThread(threadID)
     }
 
     handleClick({boardID, threadID}) {
@@ -122,7 +122,7 @@ function WatchItem(props){
         }
     } = props;
 
-    const postClasses = classNames("new-posts", {
+    const postClasses = classes("new-posts", {
         "has-new": newPosts > 0  // TODO: && state.watchedOpenedFor5Secs || hovered
     })
 

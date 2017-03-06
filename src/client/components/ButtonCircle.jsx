@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import classNames from 'classnames'
+import classes from 'classnames'
 
 export default class ControlWrapper extends Component {
     constructor(props) {
@@ -12,7 +12,7 @@ export default class ControlWrapper extends Component {
     }
 
     render() {
-        const controlClasses = classNames('control-wrapper', {
+        const controlClasses = classes('control-wrapper', {
             "selected": this.props.isActive
         })
 

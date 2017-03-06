@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
-import classNames from 'classnames'
+import classes from 'classnames'
 
 
 export default function ({children, isActive, className}) {
-    const classes = classNames('header-panel', className, {
+    const panelClasses = classes('header-panel', className, {
         'animate-in': isActive,
         'animate-out': !isActive
     })
 
     return (
-        <div className={classes}>
+        <div className={panelClasses}>
             {children}
         </div>
     )

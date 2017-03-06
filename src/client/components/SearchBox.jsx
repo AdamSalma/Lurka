@@ -1,17 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames';
+import classes from 'classnames';
 
 class SearchBox extends Component {
     render() {
         const {hasIcon, ...props} = this.props
-        const classes = classNames('searchbox-content', this.props.className, {
+        const searchboxClasses = classes('searchbox-content', this.props.className, {
             "mdi mdi-magnify": hasIcon
         });
 
 
         return (
             <div className="searchbox">
-                <input type="text" className={classes} {...props}/>
+                <input type="text" className={searchboxClasses} {...props}/>
             </div>
         )
     }

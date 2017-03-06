@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import classNames from 'classnames'
+import classes from 'classnames'
 
 
 export default class Setting extends Component {

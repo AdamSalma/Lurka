@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import classNames from 'classnames';
+import classes from 'classnames';
 import Velocity from 'velocity-animate';
 import uuid from "uuid";
 
@@ -45,7 +45,7 @@ export default class Thread extends Component {
         const { thread, isFetching, isActive } = this.props
         const { posts, didInvalidate } = thread;
 
-        const threadWrapClasses = classNames('thread-wrap', 'nano', {
+        const threadWrapClasses = classes('thread-wrap', 'nano', {
             "thread-wrap-active": isActive
         });
 

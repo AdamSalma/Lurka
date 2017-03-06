@@ -1,8 +1,8 @@
 import React from 'react';
-import classNames from 'classnames';
+import classes from 'classnames';
 
 export default ({ isVisible, closeBackground }) => {
-    const backgroundClasses = classNames("background", {
+    const backgroundClasses = classes("background", {
         "background-active": isVisible
     })
     

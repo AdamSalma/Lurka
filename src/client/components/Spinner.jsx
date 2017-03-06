@@ -1,8 +1,8 @@
 import React from 'react';
-import classNames from 'classnames';
+import classes from 'classnames';
 
 export default ({ isSpinning=true }) => {
-    const spinnerClasses = classNames("spinner", {
+    const spinnerClasses = classes("spinner", {
         "spinner-active": isSpinning
     })
 

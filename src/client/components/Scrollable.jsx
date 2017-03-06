@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import classNames from "classnames";
+import classes from "classnames";
 
 export default class Scrollable extends Component {
     constructor(props) {
@@ -21,10 +21,10 @@ export default class Scrollable extends Component {
 
     render () {
         const {children, className, onScroll} = this.props;
-        const classes = classNames(className, "nano");
+        const scrollClasses = classes(className, "nano");
 
         return (
-            <div ref={s => this._scroller = $(s)} className={classes}>
+            <div ref={s => this._scroller = $(s)} className={scrollClasses}>
                 <div className="scrollable nano-content" onScroll={onScroll}>
                     {children}
                 </div>
