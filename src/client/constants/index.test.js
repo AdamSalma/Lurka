@@ -33,8 +33,8 @@ describe('Constants', () => {
     expect(consts.SETTING_CHANGED).toEqual('SETTING_CHANGED');
   });
 
-  it('contains APP_INIT', () => {
-    expect(consts.APP_INIT).toEqual('APP_INIT');
+  it('contains APP_READY', () => {
+    expect(consts.APP_READY).toEqual('APP_READY');
   });
 
   it('contains BOARD_REQUESTED', () => {
