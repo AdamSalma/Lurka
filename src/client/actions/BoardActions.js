@@ -100,8 +100,9 @@ export function fetchBoard({ provider="4chan", boardID }) {
                 dispatch(setBoard(boardID))
             })
             .catch( err => {
+                console.error(err)
                 dispatch(alertMessage({
-                    message: err.response.data,
+                    message: `From board ${boardID}: ${err.response.data}`,
                     type: "error",
                     time: 20000
                 }))
