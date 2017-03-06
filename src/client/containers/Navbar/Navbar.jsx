@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import classNames from 'classnames'
+import classes from 'classnames'
 import uuid from 'uuid'
 
 import {
@@ -51,7 +51,7 @@ export default class Navbar extends Component {
                     {/*Section 2*/}
                     <div className="navbar-filter-buttons">
                         {/*Filter favourites*/}
-                        <span onClick={this.toggleFavouriteButton} className={classNames('list-toggle favourite', {'disabled': !favouritesOnly})}>
+                        <span onClick={this.toggleFavouriteButton} className={classes('list-toggle favourite', {'disabled': !favouritesOnly})}>
                             Favourites
                         </span>
                         <span className='list-toggle NSFW'>
@@ -69,7 +69,7 @@ export default class Navbar extends Component {
         const elements = boardlist.map( ({provider, boardID, short_desc}) => {
             // Create each element
             const isFavourite = this.isFavourite(boardID)
-            const star = classNames('mdi', 'clearfix', {
+            const star = classes('mdi', 'clearfix', {
                 'mdi-star': isFavourite,
                 'mdi-star-outline': !isFavourite
             })
@@ -95,15 +95,11 @@ export default class Navbar extends Component {
     }
 
     prepareForFetch(provider, boardID) {
-        const {scrollPage, scrollHeader, changeProvider, fetchBoard, toggleNavbar} = this.props;
+        const {scrollHeader, changeProvider, fetchBoard, toggleNavbar} = this.props;
 
         fetchBoard({boardID, provider})
         toggleNavbar({open: false})
         scrollHeader(true, 600)
-        scrollPage({
-            page: "board", 
-            direction: "up"
-        })
     }
 
     filterBoardlist() {
