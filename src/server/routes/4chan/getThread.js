@@ -1,25 +1,31 @@
 import Axios from 'axios';
-
-import { parseThread } from '../../parsers/4chanParser';
-import { chan as options } from '../../config/requestHeaders';
-import { fourchanAPI } from '../../config/apiEndpoints';
-
 import moment from 'moment'
+
+import options from '../../config/requestHeaders';
+import { parseThread } from '../../parsers/4chanParser';
+import { fourchanAPI } from '../../config/apiEndpoints';
+import { writeObjToRoot } from '../../services/inspector'
+
 
 const timeFormat = 'ddd[,] M MMM YYYY hh:mm:ss [GMT]'
 
 export default function (req, res, next) {
-    const { boardID, threadID, requestedAt } = req.params;
+    const { boardID, threadID } = req.params;
+    const { receivedAt } = req.query;
     const url = fourchanAPI(boardID, threadID).thread
 
-    log.info("requestedAt:",requestedAt)
-    if (requestedAt) {
-        options['If-Modified-Since'] = moment(requestedAt).format(timeFormat)
+    if (receivedAt) {
+        log.warn(`receivedAt: ${receivedAt}`)
+        options.headers["If-Modified-Since"] = moment(parseInt(receivedAt)).format(timeFormat)
     }
 
     log.http(`Fetching Thread from ${url}`)
 
     Axios(url, options)
         .then( ({data: {posts}}) => res.send(parseThread(posts, boardID)))
-        .catch( err => next(err));
+        .catch( err => {
+            log.error('Thread fetch error:', err)
+            writeObjToRoot('4chan_thread_error.json', err)
+            next(err)
+        });
 };
