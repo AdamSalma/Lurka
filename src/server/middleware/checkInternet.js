@@ -5,6 +5,7 @@ export default function (req, res, next) {
         if (err && err.code == "ENOTFOUND") {
             err.message = "No internet connection"
             err.status = 503
+            log.error(err.message)
             next(err)
         } else {
             next()
