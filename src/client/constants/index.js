@@ -12,8 +12,8 @@ export const SETTINGS_SAVED = "SETTINGS_SAVED"
 export const SETTING_CHANGED = "SETTING_CHANGED"
 
 
-// TODO: APP_INIT 
-export const APP_INIT = "APP_INIT"
+// TODO: APP_READY 
+export const APP_READY = "APP_READY"
 
 
 /**
