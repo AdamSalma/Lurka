@@ -1,5 +1,7 @@
 import query from 'querystring';
 
-export default function proxify(baseUrl, params) {
-    return baseUrl + "?" + query.stringify(params)
+const proxyPath = '/proxy'
+
+export default function proxify(resource) {
+    return proxyPath + "?" + query.stringify({resource})
 }
