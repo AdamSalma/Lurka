@@ -1,7 +1,16 @@
 import React from 'react'
 import uuid from 'uuid'
 
-import { TimeAgo, Line, Icon } from '../../components'
+import { 
+    Line, 
+    Icon,
+    ToggleOnClick, 
+    Image,
+    Video
+} from '~/components'
+
+import { setHTML } from '~/utils'
+
 
 export function renderControls(controls) {
     // TODO: Add functionality to thread icons
@@ -40,7 +49,7 @@ export function renderRefs(refs) {
 
 export function renderTitle(title) {
     if (title) return <span className='title'> 
-        <strong dangerouslySetInnerHTML={{__html: title}}/>
+        <strong {...setHTML(title)}/>
         <span className='pipe'/>
     </span>
 }
@@ -64,8 +73,35 @@ export function renderMediaInfo(media) {
     return (
         <div className="media-info">
             <Icon name={iconName}/>
-            <span className="filename" dangerouslySetInnerHTML={{__html: fName}}/>
+            <span className="filename" {...setHTML(fName)}/>
         </div>
     )
 
+}
+
+export function renderMedia(media) {
+    if (!media) 
+        return
+
+    const { thumbnail, srcLarge, filetype, height, width } = media
+
+    // TODO: Lazy load thread thumbnails
+    return (
+        <ToggleOnClick 
+            className="thread-media"
+            from={<Image src={thumbnail}/>}
+            to={createExpandedMedia(filetype, srcLarge)}
+        />
+    )
+}
+
+function createExpandedMedia(ext, src) {
+    return ext === ".webm" ? (
+        <Video controls autoplay loop 
+            src={src} 
+            type="video/mp4"
+            className="expanded"
+            key="expanded"
+        />
+    ) : <Image className="expanded" key="expanded" src={src}/>
 }
