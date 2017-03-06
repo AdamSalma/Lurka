@@ -1,20 +1,30 @@
 import React, { Component } from 'react'
+import classes from 'classnames'
+import LazyLoad from 'react-lazyload'
 
-import { TimeAgo, Line } from '../../components'
+import { 
+    TimeAgo, 
+    Line,
+    ToggleOnClick, 
+    Image
+} from '~/components'
 
-// TODO: Move media rendering to ./Render.jsx
-import {createMediaIfExists} from './Media' 
 import {
     renderControls,
     renderRefs,
     renderTitle,
+    renderMedia,
     renderMediaInfo
 } from './Render'
 
+import { setHTML } from '~/utils'
 
 export default class ThreadPost extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            mediaExpanded: false
+        }
     }
 
     render() {
@@ -33,10 +43,13 @@ export default class ThreadPost extends Component {
                     {renderControls(controls)}
                 </div>
                 {renderMediaInfo(media)}
-                {createMediaIfExists(id, media)}
-                <blockquote dangerouslySetInnerHTML={{__html: comment}}/>
+                {renderMedia(media)}
+                <blockquote {...setHTML(comment)}/>
                 {renderRefs(references)}
             </div>
         )
     }
 }
+
+
+
