@@ -69,7 +69,7 @@ class GlobalPage extends Component {
                     searchBoard={searchBoard} closeThread={closeThread}
                     destroyBoard={destroyBoard} toggleHeaderPanel={toggleHeaderPanel}
 
-                    alertMessage={status.alertMessage} currentPage={status.currentPage}
+                    alertMessage={status.alertMessage}
                     provider={status.provider} boardID={status.boardID}
                     threadID={status.threadID} threadIsActive={threadIsActive}
                     boardList={boardList} toggleNavbar={toggleNavbar}
