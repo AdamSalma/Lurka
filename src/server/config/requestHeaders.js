@@ -1,30 +1,14 @@
 export default {
-    chan: {
-        headers: {
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-            "Accept-Encoding": "gzip, deflate, sdch",
-            "Accept-Language": "en-US,en;q=0.8",
-            "Host": "a.4cdn.org",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36",
-            "Origin": "a.4cdn.org",
-            "Referer": "http://boards.4chan.org/",
-            "If-Modified-Since": "0",
-            "DNT": 1,
-            "Upgrade-Insecure-Requests": 1
-        }
-    },
-    reddit: {
-        headers: {
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-            "Accept-Encoding": "gzip, deflate, sdch, br",
-            "Accept-Language": "en-US,en;q=0.8",
-            "Cache-Control": "max-age=0",
-            "Connection": "keep-alive",
-            "Host": "www.reddit.com",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36",
-            "Upgrade-Insecure-Requests": 1,
-            "DNT": 1
-        }
-    }
+    headers: {
+        "Host": "a.4cdn.org",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-GB,en;q=0.5",
+        "Accept-Encoding": "gzip, deflate",
+        "DNT": "1",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache"
+    }   
 }
-
