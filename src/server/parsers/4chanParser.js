@@ -14,13 +14,21 @@ export function parseBoard( board, boardID ) {
     const _board = []
     const {image: imgUrl, thumbnail: thumbUrl} = fourchanAPI(boardID)
 
-    for (let page in board) {
-        if (!board.hasOwnProperty(page)) return false;
-        board[page].threads.map( post => formatPost(post))
+    try {   
+        for (let page in board) {
+            if (!board.hasOwnProperty(page)) return false;
+            board[page].threads.map( post => formatPost(post))
+        }
+    } catch (e) {
+        log.error(e)
+        log.error(board)
+        throw new Error(board)
     }
 
-    if (!_board.length) 
-        throw new Error("No posts extracted")
+
+    if (!_board.length) {
+        throw new Error("4chan board was not parsed: No posts extracted")
+    }
 
     log.app(`Created ${_board.length} board posts`)
     return _board;
@@ -37,7 +45,7 @@ export function parseBoard( board, boardID ) {
             time: post.tim || post.time * 1000,
             media: {
                 thumbnail: smImg,
-                lg: lgImg,
+                srcLarge: proxify(lgImg),
                 width: post.w,
                 height: post.h,
                 filesize: post.fsize,
@@ -60,8 +68,10 @@ export function parseBoard( board, boardID ) {
  * @return {[type]}         [description]
  */
 export function parseThread( posts, boardID ) {
-    if (!posts || !posts.length)
-        throw new Error("No thread posts supplied");
+    if (!posts || !posts.length) {
+        log.error("parseThread(): No posts supplied")
+        throw new Error(posts);
+    }
 
     const {image: imgUrl, thumbnail: thumbUrl} = fourchanAPI(boardID)
     
@@ -80,10 +90,8 @@ export function parseThread( posts, boardID ) {
             time: post.tim || post.time * 1000,
             comment: post.com,
             media: !!ext ? {
-                // thumbnail: proxify("/media", {url: smImg, provider: "4chan"}),
-                // srcLarge: proxify("/media", {url: lgImg, provider: "4chan"}),
                 thumbnail: smImg,
-                srcLarge: lgImg,
+                srcLarge: proxify(lgImg),
                 width: post.w,
                 height: post.h,
                 filesize: post.fsize,
