@@ -4,7 +4,7 @@ import {
     LOGO_SPIN_ENDED, 
     PAGE_SCROLL_STARTED, 
     PAGE_SCROLL_ENDED,
-    APP_INIT,
+    APP_READY,
     ALERT_MESSAGE,
     PROVIDER_CHANGE,
     BOARD_CHANGE,
@@ -26,21 +26,9 @@ import {
 export default function (state = initialState.status, action) {
     switch (action.type) {
 
-        // case APP_INIT:
-        //     return Object.assign({}, state, {
-        //         isMainPage: true
-        //     })
-
-        case PAGE_SCROLL_STARTED:
+        case APP_READY:
             return Object.assign({}, state, {
-                isScrolling: true,
-                currentPage: action.payload
-            })
-            
-        case PAGE_SCROLL_ENDED:
-            return Object.assign({}, state, {
-                isScrolling: false,
-                currentPage: action.payload
+                appReady: true
             })
 
         case HEADER_TOGGLED:
