@@ -92,7 +92,7 @@ function threadBeingMonitored(_threadID, {threadMonitor}) {
 export function updateMonitoredThread(thread) {
     console.log("Action updateMonitoredThread");
 
-    const url = API.thread(thread) + "?requestedAt=" + thread.requestedAt
+    const url = API.thread(thread) + "?receivedAt=" + thread.receivedAt
 
     return (dispatch, getState) => {
         return Axios.get(url)

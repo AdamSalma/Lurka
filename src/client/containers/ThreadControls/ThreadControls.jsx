@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import classNames from 'classnames';
+import classes from 'classnames';
 import uuid from "uuid";
 
 import { Icon, ButtonCircle } from '~/components'
@@ -17,7 +17,7 @@ export default class ThreadControls extends Component {
     render() {
         const {thread:{ isActive, posts }} = this.props;
 
-        const controlClasses = classNames('thread-controls', {
+        const controlClasses = classes('thread-controls', {
             "animate-in": isActive && posts.length,
             "animate-out": !isActive
         })
