@@ -28,7 +28,7 @@ class ContentPanel extends Component {
                     fetchBoard={fetchBoard} fetchThread={fetchThread} 
                     loadMorePosts={loadMorePosts} scrollHeader={scrollHeader}
 
-                    board={board} provider={status.provider} 
+                    board={board} provider={status.provider} appReady={status.appReady}
                     boardID={status.boardID} isFetching={board.isFetching}
                 /> 
             </div>
