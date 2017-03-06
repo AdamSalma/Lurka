@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import classNames from 'classnames'
+import classes from 'classnames'
 
 
 class Image extends Component {

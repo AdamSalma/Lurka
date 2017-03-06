@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import classNames from 'classnames';
+import classes from 'classnames';
 import uuid from 'uuid';
 
 import Dropdown from './Dropdown';
@@ -17,11 +17,11 @@ export default class BoardList extends Component {
 
     render() {
         const {boardList, provider, onClick, boardListElements} = this.props
-        const classes = classNames('boardlist', `p-${provider}`)
+        const boardlistClasses = classes('boardlist', `p-${provider}`)
         const hasBoards = boardListElements && boardListElements.length;
 
         return (
-            <div className={classes}>
+            <div className={boardlistClasses}>
                 {hasBoards ? <Dropdown 
                     onClick={onClick} 
                     items={boardListElements} 

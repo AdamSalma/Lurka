@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import classNames from 'classnames'
+import classes from 'classnames'
 
 import { Setting } from '../../components'
 
@@ -53,10 +53,10 @@ export default class Settings extends Component {
         return this._uniqueTypes.map( groupType => {
             // Create a group for every 'type'. 
             // End structure: settings > groupType > setting
-            let classes = classNames('group', groupType.toLowerCase())
+            let groupClasses = classes('group', groupType.toLowerCase())
 
             return (
-                <div className={classes} key={groupType}>
+                <div className={groupClasses} key={groupType}>
                     <span className="group-name">{groupType}</span>
                     {this.splitByGroupType(groupType)}
                 </div>

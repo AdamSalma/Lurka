@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from "react";
-import classNames from "classnames"
+import classes from "classnames"
 
 export default class Elipses extends Component {
     constructor({maxDots, interval}) {

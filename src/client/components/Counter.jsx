@@ -1,10 +1,10 @@
 import React from 'react';
-import classNames from "classnames";
+import classes from "classnames";
 
 export default ({value, className}) => {
-    const classes = classNames(className, "counter")
+    const counterClasses = classes(className, "counter")
     return (
-        <div className={classes}>
+        <div className={counterClasses}>
             <span>{value}</span>
         </div>
     )
