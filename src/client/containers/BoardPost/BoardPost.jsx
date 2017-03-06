@@ -52,17 +52,16 @@ export default class BoardPost extends Component {
                     src={media.thumbnail} 
                     width={media.width} height={media.height}
                     onLoad={onLoad} onError={this.hideImage}
-                    hideUntilLoaded loader={<Spinner/>}
                 />
             </LazyLoad>
         </div>
     }
 
-    renderComment({ title, comment, date, replies }) {
+    renderComment({ title, comment, time, replies }) {
         return (
             <div className="comment-wrap">
                 <div className="comment-slider" ref={el => this._comment = $(el)}>
-                    <PostHeader replies={replies} date={date}/>
+                    <PostHeader replies={replies} time={time}/>
                     <Line />
                     <div className="op">
                         { title && <b {...setHTML(title)} className="title" /> }
