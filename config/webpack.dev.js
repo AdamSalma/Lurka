@@ -6,13 +6,15 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import loaders from './webpack.loaders';
 import config from '.';
- 
+import alias from './webpack.alias'
+
 const HOST = config.server.host
 const PORT = config.server.port
 
 const src = path.join(__dirname, "..", "src")
 const app = path.join(__dirname, "..", "app")
 const node_modules = path.join(app, "node_modules")
+
 
 export default {
     entry: [
@@ -29,10 +31,7 @@ export default {
     resolve: {
         extensions: ['', '.js', '.jsx', '.css', '.scss', '.sass'],
         root: node_modules,
-        alias: { 
-            '~': path.join(src, 'client'),
-            ':root:': path.join(__dirname, '..')
-        }
+        alias: alias
     },
     module: { loaders },
     devServer: {

@@ -21,10 +21,7 @@ module.exports = {
 	resolve: {
 		extensions: ['', '.js', '.jsx', '.css', '.scss', '.sass', '.json'],
 		root: node_modules,
-		alias: { 
-            '~': path.join(src, 'client'),
-            ':root:': path.join(__dirname, '..')
-        }
+		alias: require("./webpack.alias")
 	},
 	module: {
 		loaders: loaders
