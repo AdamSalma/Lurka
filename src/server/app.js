@@ -1,6 +1,5 @@
 import Express from 'express'
 import { join } from 'path';
-import cors from 'cors'
 
 import routes from './routes'
 import config from '../../config'
@@ -13,6 +12,7 @@ const isProd = config.env === 'production'
 
 // Used to send index.html
 global.app_root = isProd ? __dirname : join(__dirname, '../..', 'app')
+global.rootRequire = (_path) => require(join(__dirname, _path))
 
 log.app(`Environment: "${config.env}"`);
 if (isProd) {
@@ -24,10 +24,9 @@ if (isProd) {
 }
  
 app.use(checkInternet);
-app.use(cors());
 
 // Proxy
-app.use('/media', routes.media);  // Proxy media queries through server to set headers
+app.use('/proxy', routes.proxy);  // Proxy media queries through server to set headers
 
 // Routes
 app.all('*', routeLogger);  // log route
