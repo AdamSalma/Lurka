@@ -32,7 +32,7 @@
             color: grey(3)
 
         .icon
-            color: color(secondary, light)
+            color: color(secondary, lightest)
             font-size: 13px
             position: relative
             top: 1px
@@ -102,45 +102,6 @@
             font-size: 13px
             color: color(primary, darkest) !important
 
-
-    // TODO: This needs to be redone
-    .img-container
-        float: left
-        margin-bottom: 5px
-        position: relative
-
-        &.img-container-opened
-            float: none
-            
-        .thumbnail
-            margin-right: 10px
-
-        .expanded
-            max-width: 100%
-
-        .fullscreen
-            +set-dims(30px, 30px)
-            position: absolute
-            top: 3px
-            right: 3px
-            opacity: 0.5
-            transition: opacity 0.2s ease-in
-            +clickable
-            z-index: 2
-
-            &:hover
-                opacity: 1
-                transition: opacity 0.15s ease-in
-
-
-            .fa-circle 
-                color: grey(7)
-
-            .fa-expand
-                color: grey(1)
-
-
-
     br
         line-height: 0.8
 
@@ -207,4 +168,18 @@
         font-family: $font-alt
         font-size: 15px
         +clickable
-        
+    
+/* Media */
+
+
+
+.thread-media
+    display: inline-block
+    float: left
+    position: relative
+
+    &:not(.toggled)
+        margin-right: 10px
+
+    video, img
+        max-width: 100%
