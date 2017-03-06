@@ -6,6 +6,8 @@ import {
     ALERT_MESSAGE,
 
     HEADER_PANEL_OPENED, HEADER_PANEL_CLOSED,
+
+    APP_READY
 } from '../constants';
 // TODO: Filter + Search actions
 
@@ -58,4 +60,11 @@ export function toggleHeaderPanel(panel) {
 
 function shouldOpenPanel({status}, panel){
     return status.activeHeaderPanel !== panel
+}
+
+
+export function appReady() {
+    return {
+        type: APP_READY
+    }
 }
