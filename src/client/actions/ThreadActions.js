@@ -31,7 +31,8 @@ function receiveThread(thread) {
 function invalidateThread(error) {
     console.error(error);
     return {
-        type: THREAD_INVALIDATED
+        type: THREAD_INVALIDATED,
+        error
     }
 }
 
@@ -73,12 +74,20 @@ export function fetchThread(boardID, threadID) {
                 dispatch(receiveThread(data))
             })
             .catch( err => {
-                dispatch(alertMessage({
-                    message: err.response.data,
-                    type: "error",
-                    time: 20000
-                }))
-                dispatch(invalidateThread(err.response.data))
+                if (err.status === 404) {
+                    dispatch(alertMessage({
+                        messagge: "Thread 404'd",
+                        type: "error",
+                    }))
+                } else {
+                    dispatch(alertMessage({
+                        message: err.response.data,
+                        type: "error",
+                        time: 20000
+                    }))
+
+                    dispatch(invalidateThread(err.response.data))
+                }
             });
     }
 }
@@ -121,7 +130,7 @@ export function closeThread({ threadID, callback = ()=>{} }) {
         if (threadIsFetching(state)) {
             const err = `Thread '${threadID}' closed while fetching`
             dispatch(alertMessage({
-                message: err,
+                message: `From thread: ${err}`,
                 type: "error",
                 time: 20000
             }))

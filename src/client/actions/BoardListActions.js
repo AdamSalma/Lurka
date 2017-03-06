@@ -48,7 +48,7 @@ export function fetchBoardList( provider ) {
                 .then( data => dispatch(receiveBoardList(data, provider)))
                 .catch( err => {
                     dispatch(alertMessage({
-                        message: err.response.data,
+                        message: `From boardlist: ${err.response.data}`,
                         type: "error",
                         time: 20000
                     }))
@@ -66,7 +66,7 @@ function shouldFetchBoardList({boardList}, provider) {
 
 
 
-
+// TODO: remove searchBoardlist
 export function searchBoardlist(provider, query) {
     const url = `/api/${provider}/boards/search`
     console.log(`Action searchBoardlist() to ${url}`);
