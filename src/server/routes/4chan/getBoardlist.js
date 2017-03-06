@@ -1,13 +1,26 @@
 import Axios from 'axios';
+
+import options from '../../config/requestHeaders';
 import { parseBoardList } from '../../parsers/4chanParser';
-import { chan as options } from '../../config/requestHeaders';
 import { fourchanAPI } from '../../config/apiEndpoints';
+import { writeObjToRoot } from '../../services/inspector'
+
 
 export default function (req, res, next) {
     const url = fourchanAPI(null, null).boardlist
-	log.http(`Fetching boardList from ${url}`)
+    log.http(`Fetching boardList from ${url}`)
+
     Axios(url, options)
-        .then( res2 => res.send(parseBoardList(res2.data.boards)) )
-        .catch( err => next(err))
+        .then( r => r.data.boards )
+        .then( data => parseBoardList(data) )
+        .then( boards => res.send(boards) )
+        .catch( err => {
+            log.error('Boardlist fetch error:', err)
+            writeObjToRoot('4chan_boardlist_error.json', err)
+            next(err)
+        })
 
 };
+
+
+
