@@ -1,6 +1,6 @@
 export default {
 	status: {
-		currentPage: "home", // currentPage
+		appReady: false,
 		isScrolling: false,  // app scroll
 		isHeaderVisible: true,  // if currentPage == "content"
 		isNavbarOpen: false,
