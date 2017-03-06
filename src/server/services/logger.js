@@ -9,7 +9,7 @@ module.exports = {
     info: function(msg) {
         format(`${clc.greenBright("Info")} - ${msg}`)
     },
-    warning: function(msg) {
+    warn: function(msg) {
         format(`${clc.yellow("Warning")} - ${msg}`)
     },
     error: function(msg) {
