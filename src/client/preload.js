@@ -9,7 +9,7 @@
 var   preloading = true
 const preloadScreenEl = $('#preload-screen')
 const preloadTextEl = preloadScreenEl.find('#preload-status-text')
-
+const loadTimeout = 200
 
 /**
  * Updates the preload screen with the state of the application.
@@ -20,25 +20,31 @@ export default function updatePreloader() {
     }
 
     let text
-    const { boardList, status:{provider, alertMessage} } = window.getState()
-    const preloadComplete = boardList[provider] && boardList[provider].length
+    const { board, boardList, status:{ provider, alertMessage }} = window.getState()
+    const boardListFetched = boardList[provider] && boardList[provider].length
+    const boardFetched = board.posts && board.posts.length
 
     if (boardList.didInvalidate) {
         // Handle the error
         // TODO: Make the error screen more graphical; add 'X' image
         text = alertMessage.message
         preloadTextEl.removeClass('elipses')
-    } 
+    }
 
-    else if (preloadComplete) {
-        text = "Fetching boards"
-    } 
+    else if (!boardListFetched || !boardFetched) {
+        text = "Fetching content"
+    }
 
     else {
         preloading = false
-        text = "Ready"
-        preloadScreenEl.addClass('loaded')   
-        preloadTextEl.removeClass('elipses')
+        text = "Initialising"
+        setTimeout(()=>{
+            preloadTextEl.text("Ready")
+            preloadScreenEl.addClass('loaded')
+            preloadTextEl.removeClass('elipses')
+            window.AppReady && window.AppReady()        
+        }, loadTimeout)
+
     }
 
     preloadTextEl.text(text)
