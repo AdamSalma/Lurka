@@ -15,6 +15,8 @@ import {
     BOARD_SAVED_TO_HISTORY,
     BOARD_LOADED_FROM_HISTORY,
 } from '../constants';
+import {secondsAgo} from '~/utils'
+
 
 function requestBoard(boardID) {
     return {
@@ -113,23 +115,23 @@ export function fetchBoard({ provider="4chan", boardID }) {
 
 function canRequestBoard({ board, settings }) {
     const requestThrottle = settings["requestThrottle"].value
-    const lastRequested = Date.now() - board.receivedAt
+    const lastRequested = secondsAgo(board.receivedAt)
 
     console.log(`canRequestBoard(): ${lastRequested} > ${requestThrottle} = ${lastRequested > requestThrottle}`)
     return !board.isFetching && lastRequested > requestThrottle
 }
 
 function boardInHistoryAndRecent({boardHistory, settings}, boardID) {
-    const maxBoardAge = settings["maxBoardAge"].value * 1000  // to miliseconds
+    const maxBoardAge = settings["maxBoardAge"].value
     const board = boardHistory[boardID]
 
     if (!board){
         console.warn('Board was not in history')
     } else {
-        console.warn(`DID EXIST. ${Date.now() - board.receivedAt} < ${maxBoardAge} = ${Date.now() - board.receivedAt < maxBoardAge}`)
+        console.warn(`DID EXIST. ${secondsAgo(board.receivedAt)} < ${maxBoardAge} = ${secondsAgo(board.receivedAt) < maxBoardAge}`)
         console.warn(board)
     }
-    return board && Date.now() - board.receivedAt < maxBoardAge
+    return board && secondsAgo(board.receivedAt) < maxBoardAge
 }
 
 function loadBoardFromHistory({ boardHistory }, boardID) {
