@@ -90,7 +90,7 @@ class GlobalPage extends Component {
                     scrollPage={scrollPage} scrollHeader={scrollHeader} 
                     changeProvider={changeProvider} fetchBoard={fetchBoard}
                     toggleNavbar={toggleNavbar} toggleSetting={toggleSetting}
-                    searchBoardlist={searchBoardlist}
+                    searchBoardlist={searchBoardlist} closeThread={closeThread}
 
                     status={status} boardList={boardList} settings={settings}
                 />
