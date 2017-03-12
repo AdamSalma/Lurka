@@ -28,7 +28,10 @@ export default class Thread extends Component {
     componentDidMount() {
         enableFullscreen(this._thread)
         setupQuoteEvents(this._thread)
-        this._threadWrap.nanoScroller({ sliderMinHeight: 40, alwaysVisible: true })
+        this._threadWrap && this._threadWrap.nanoScroller({ 
+            sliderMinHeight: 40, 
+            alwaysVisible: true 
+        })
     }
 
     componentDidUpdate({ thread: oldthread } ) {
@@ -49,6 +52,10 @@ export default class Thread extends Component {
             "thread-wrap-active": isActive
         });
 
+        const threadClasses = classes('thread', 'nano-content', {
+            "thread-active": isActive
+        })
+
         if (didInvalidate) 
             return false
 
@@ -57,12 +64,13 @@ export default class Thread extends Component {
         return (
             <div>
                 <Background 
-                    isVisible={isActive} 
-                    closeBackground={this.closeThread}/>
+                    isActive={isActive} 
+                    onClick={this.closeThread}/>
                 <Spinner isSpinning={isActive && !posts.length}/>
                 <div ref={t => this._threadWrap = $(t)} className={threadWrapClasses}>
-                    <div id="thread" className="thread nano-content" ref={t => this._thread = $(t)} onClick={this.closeThread}>
-                        {this.createPosts( posts )}
+                    <div id="thread" className={threadClasses} ref={t => this._thread = $(t)} onClick={this.closeThread}>
+                        <div className="header-gap" />
+                        {posts.length && this.createPosts( posts )}
                     </div>
                 </div>
             </div>
@@ -96,7 +104,7 @@ export default class Thread extends Component {
         const { closeThread, threadID, scrollHeader } = this.props;
 
         this._threadWrap.nanoScroller({ stop: true })
-        closeThread({threadID})
+        closeThread()
         scrollHeader(true)
     }
 }
