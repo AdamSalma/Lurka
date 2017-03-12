@@ -95,11 +95,10 @@ export default class Navbar extends Component {
     }
 
     prepareForFetch(provider, boardID) {
-        const {scrollHeader, changeProvider, fetchBoard, toggleNavbar} = this.props;
+        const {closeThread, scrollHeader, changeProvider, fetchBoard, toggleNavbar} = this.props;
 
         fetchBoard({boardID, provider})
-        toggleNavbar({open: false})
-        scrollHeader(true, 600)
+        closeThread(() => toggleNavbar({open: false}))
     }
 
     filterBoardlist() {
