@@ -10,6 +10,7 @@ import {
     THREAD_SAVED_TO_HISTORY
 } from '../constants';
 import { alertMessage } from './StatusActions'
+import {secondsAgo} from '~/utils'
 
 function requestThread(threadID) {
     console.log("Action RequestThread wth ID:", threadID);
@@ -43,6 +44,8 @@ function destroyThread(threadID) {
         payload: threadID
     }
 }
+
+
 
 export function fetchThread(boardID, threadID) {
     const url = `/api/4chan/board/${boardID}/thread/${threadID}`
@@ -94,22 +97,24 @@ export function fetchThread(boardID, threadID) {
 
 function shouldFetchThread({ thread, settings }) {
     const requestThrottle = settings["requestThrottle"].value
-    const lastRequested = Date.now() - thread.receivedAt
+
+    console.log(`Date.now(): ${Date.now()}, receivedAt: ${thread.receivedAt}`);
+    const lastRequested = secondsAgo(thread.receivedAt)
 
     console.log(`shouldFetchThread(): ${lastRequested} > ${requestThrottle} = ${lastRequested > requestThrottle}`)
     return !thread.isFetching && lastRequested > requestThrottle
 }
 
 function threadInHistoryAndRecent({threadHistory, settings }, threadID) {
-    const maxThreadAge = settings["maxThreadAge"].value * 1000  // to miliseconds
-    const thread = threadHistory[threadID]
+    const maxThreadAge = settings["maxThreadAge"].value
+    const threadInHistory = threadHistory[threadID]
 
     // TODO: Remove this test code from thread/boardInHistory
-    if (!thread){
+    if (!threadInHistory){
         console.warn('Thread was not in history; Requesting...')
     }
 
-    return thread && Date.now() - thread.receivedAt < maxThreadAge
+    return threadInHistory && secondsAgo(thread.receivedAt) < maxThreadAge
 }
 
 function loadThreadFromHistory({ threadHistory }, threadID) {
@@ -123,16 +128,17 @@ function loadThreadFromHistory({ threadHistory }, threadID) {
 
 
 
-export function closeThread({ threadID, callback = ()=>{} }) {
+export function closeThread(callback = ()=>{}) {
     return (dispatch, getState) => {
-        const state = getState()
+        const state = getState(),
+              threadID = state.status.threadID
 
         if (threadIsFetching(state)) {
-            const err = `Thread '${threadID}' closed while fetching`
+            const err = `Closed thread '${threadID}' before it could be loaded`
             dispatch(alertMessage({
-                message: `From thread: ${err}`,
+                message: err,
                 type: "error",
-                time: 20000
+                time: 3000
             }))
             dispatch(invalidateThread( new Error(err) ))
             return 
@@ -144,7 +150,6 @@ export function closeThread({ threadID, callback = ()=>{} }) {
             return 
         }
 
-        
         return $("#thread").velocity({top: window.innerHeight+"px"}, {
             duration: 150,
             complete: () => {
@@ -161,10 +166,11 @@ function threadIsFetching({ thread }) {
 }
 
 function shouldCloseThread({ thread }) {
-    return thread.isActive && thread.posts.length
+    console.log(`shouldCloseThread(): isActive: ${thread.isActive}`);
+    return thread.isActive
 }
 
-function saveThreadToHistory({ status, thread }){
+function saveThreadToHistory({ status, thread }) {
     return {
         type: THREAD_SAVED_TO_HISTORY,
         threadID: status.threadID,
