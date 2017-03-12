@@ -4,8 +4,12 @@ $base-colors: (
     picton:    #4EADF3,  // $blue
     denim:     #0E43A9,  // triad of punch, use for tint?
     mantis:    #8FCC6D,  // $green
+    swamp:     #a3d08c,  // $green
     fern:      #55b359,  // 4chan
     vermilion: #FF4500,  // reddit
+    contessa:  #a9525a,  // Nord
+    horizon:   #5e81ac,  // Nord
+    bouquet:   #b48ead,  // Nord
 );
 
 // Are mixed with the base colors using the fn `color(name, shade)`
@@ -48,9 +52,10 @@ $greys: (
 };
 
 
-$primary: c(punch);
-$secondary: c(denim);
-$background-tint: $primary;
+// $primary: c(punch);
+$primary: mix(c(contessa),c(punch));
+$secondary: c(bouquet);
+$background-tint: c(horizon);
 
 
 @function color-tint($color) {
@@ -71,7 +76,7 @@ $color-palette: (
     primary:        $primary,
     secondary:      $secondary,
     links:          c(picton),
-    greentext:      c(mantis),
+    greentext:      c(swamp),
     fourchan:       c(fern),
     reddit:         c(vermilion),
     text-primary:   rgba(255,255,255, 1),
