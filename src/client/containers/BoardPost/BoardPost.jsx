@@ -46,15 +46,15 @@ export default class BoardPost extends Component {
     }
 
     renderImage(onLoad, {media}) {
-        return <div className="image-wrap">
-            <LazyLoad height={media.height} once>
+        return !this.state.imageInvalidated ? <div className="image-wrap">
+            <LazyLoad height={media.height} offsetTop={200} once>
                 <Image 
                     src={media.thumbnail} 
                     width={media.width} height={media.height}
                     onLoad={onLoad} onError={this.hideImage}
                 />
             </LazyLoad>
-        </div>
+        </div> : false
     }
 
     renderComment({ title, comment, time, replies }) {
