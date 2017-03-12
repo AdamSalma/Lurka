@@ -95,13 +95,7 @@ export default class WatchPanel extends Component {
     handleClick({boardID, threadID}) {
         console.log('Fetching thread');
         const {fetchThread, closeThread, status} = this.props
-        closeThread({
-            threadID: status.threadID,
-            callback: () => {
-                console.log("handleClick callback!")
-                fetchThread(boardID, threadID)
-            }
-        })
+        closeThread(() => fetchThread(boardID, threadID))
     }
 }
 
