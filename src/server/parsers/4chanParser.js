@@ -44,7 +44,7 @@ export function parseBoard( board, boardID ) {
             comment: post.com,
             time: post.tim || post.time * 1000,
             media: {
-                thumbnail: smImg,
+                thumbnail: proxify(smImg),
                 srcLarge: proxify(lgImg),
                 width: post.w,
                 height: post.h,
@@ -70,7 +70,9 @@ export function parseBoard( board, boardID ) {
 export function parseThread( posts, boardID ) {
     if (!posts || !posts.length) {
         log.error("parseThread(): No posts supplied")
-        throw new Error(posts);
+        log.error(posts)
+        log.error(`typeof posts: ${typeof posts}`)
+        throw new Error("parseThread(): No posts supplied");
     }
 
     const {image: imgUrl, thumbnail: thumbUrl} = fourchanAPI(boardID)
@@ -90,7 +92,7 @@ export function parseThread( posts, boardID ) {
             time: post.tim || post.time * 1000,
             comment: post.com,
             media: !!ext ? {
-                thumbnail: smImg,
+                thumbnail: proxify(smImg),
                 srcLarge: proxify(lgImg),
                 width: post.w,
                 height: post.h,
