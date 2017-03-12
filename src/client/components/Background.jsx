@@ -1,15 +1,15 @@
 import React from 'react';
 import classes from 'classnames';
 
-export default ({ isVisible, closeBackground }) => {
+export default ({ isActive, onClick }) => {
     const backgroundClasses = classes("background", {
-        "background-active": isVisible
+        "background-active": isActive
     })
     
     return (
         <div
             className={backgroundClasses}
-            onClick={closeBackground}
+            onClick={onClick}
         ></div>
     )
 }
