@@ -97,11 +97,11 @@ export function renderMedia(media) {
 
 function createExpandedMedia(ext, src) {
     return ext === ".webm" ? (
-        <Video controls autoplay loop 
-            src={src} 
+        <div><Video loop autoPlay  
+            src={src}
             type="video/mp4"
             className="expanded"
-            key="expanded"
-        />
+            controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}
+        /></div>
     ) : <Image className="expanded" key="expanded" src={src}/>
 }
