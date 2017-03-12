@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import classes from "classnames";
 
+import {clearState} from '~/store/localStorage'
 import {
     LogoText,
     Icon,
@@ -14,15 +15,6 @@ export default class Header extends Component {
     constructor(props) {
         super(props);
         this.handleKeyUp = this.handleKeyUp.bind(this);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.threadIsActive !== this.props.threadIsActive) {
-            // thread changed, toggle header
-            // close on thread open, reveal on thread close
-            this.props.scrollHeader(!nextProps.threadIsActive)
-            
-        }
     }
 
     render() {
@@ -40,7 +32,7 @@ export default class Header extends Component {
                     <HeaderItem className="has-icon" onClick={this.toggleActive}>
                         <Icon name="menu" onClick={toggleNavbar}/>
                     </HeaderItem>
-                    <HeaderItem className="version">
+                    <HeaderItem className="version" onClick={clearState}>
                         <LogoText />
                     </HeaderItem>
                     <HeaderItem className="breadcrumb">
