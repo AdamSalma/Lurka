@@ -28,6 +28,7 @@ const App = () => {
 class AppContainer extends Component {
     constructor(props) {
         super();
+        updatePreloader()  // if loaded from localStorage
         this.fetchInitialContent(props)
     }
 
