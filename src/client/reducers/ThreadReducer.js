@@ -20,7 +20,8 @@ export default function (state = initialState.thread, action) {
 
         case THREAD_INVALIDATED:
             return Object.assign({}, state, {
-                didInvalidate: true
+                didInvalidate: true,
+                isFetching: false
             })
 
         case THREAD_LOADED:

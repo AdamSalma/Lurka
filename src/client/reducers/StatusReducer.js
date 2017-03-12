@@ -13,6 +13,7 @@ import {
     NAVBAR_TOGGLED,
 
     THREAD_REQUESTED,
+    THREAD_INVALIDATED,
     THREAD_DESTROYED,
 
     BOARD_REQUESTED,
@@ -61,6 +62,7 @@ export default function (state = initialState.status, action) {
                 alertMessage: action.payload
             })
 
+        case THREAD_INVALIDATED:
         case THREAD_DESTROYED:
             return Object.assign({}, state, {
                 threadID: null
