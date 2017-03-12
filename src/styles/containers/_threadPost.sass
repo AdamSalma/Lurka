@@ -174,12 +174,19 @@
 
 
 .thread-media
-    display: inline-block
-    float: left
-    position: relative
+    display: flex
+    margin-bottom: 4px
 
     &:not(.toggled)
         margin-right: 10px
+        float: left
+
+    &.toggled
+        justify-content: center
+        margin-bottom: 8px
+
 
     video, img
         max-width: 100%
+        align-self: center
+
