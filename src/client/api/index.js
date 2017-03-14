@@ -1,10 +1,10 @@
 export default {
-    boardlist: ({boardID}) => 
+    boardlist: () => 
         `/api/4chan/boards`,
-    board: ({boardID}) => 
+    board: boardID => 
         `/api/4chan/board/${boardID}`,
-    archive: ({boardID}) => 
+    archive: boardID => 
         `/api/4chan/${boardID}/archive`,
-    thread: ({boardID, threadID}) => 
+    thread: (boardID, threadID) => 
         `/api/4chan/board/${boardID}/thread/${threadID}`,
 }
