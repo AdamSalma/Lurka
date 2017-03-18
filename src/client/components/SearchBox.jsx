@@ -1,24 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import classes from 'classnames';
 
-class SearchBox extends Component {
-    render() {
-        const {hasIcon, ...props} = this.props
-        const searchboxClasses = classes('searchbox-content', this.props.className, {
-            "mdi mdi-magnify": hasIcon
-        });
+export default function SearchBox ({hasIcon=false, className, ...restProps}) {
+    const searchboxClasses = classes('searchbox-content', className, {
+        "mdi mdi-magnify": hasIcon
+    });
 
-
-        return (
-            <div className="searchbox">
-                <input type="text" className={searchboxClasses} {...props}/>
-            </div>
-        )
-    }
+    return (
+        <div className="searchbox">
+            <input type="text" className={searchboxClasses} {...restProps}/>
+        </div>
+    )
 }
-
-SearchBox.defaultProps = {
-    hasIcon: false
-}
-
-export default SearchBox
