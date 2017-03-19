@@ -42,22 +42,18 @@ function shouldScrollHeader({status:{ isHeaderVisible }}, toVisible) {
 
 
 
-export function toggleNavbar({open, duration=400, delay=0, easing='ease-in'}) {
+export function toggleNavbar({open=null, duration=400, delay=0, easing='ease-in'}={}) {
     console.log('toggleNavbar()')
     const $navbar = $('#navbar');
     const closeNavbar = parseInt($navbar.position().left) < 0
 
-    let set = open !== undefined
+    let set = open !== null
     var left
 
-    console.warn($navbar.position().left);
-
     if ((set && open) || closeNavbar) {
-        console.warn('Making navbar visible')
         left = 0;
         easing = [0.215, 0.61, 0.355, 1]
     } else {
-        console.warn('Making navbar invisible')
         left = `-${$navbar.width()}px`;
         duration = 300
     }
@@ -66,9 +62,10 @@ export function toggleNavbar({open, duration=400, delay=0, easing='ease-in'}) {
         if (!shouldToggleNavbar(getState(), closeNavbar))
             return
 
+        dispatch(navbarToggle(closeNavbar))
         $navbar.velocity("stop");
         return $navbar.velocity(
-            {left}, {duration, easing, delay, complete: () => dispatch(navbarToggle(!closeNavbar))}
+            {left}, {duration, easing, delay}
         ) 
     }
 }
