@@ -1,4 +1,7 @@
 import Axios from 'axios';
+
+import API from '~/api'
+import { alertMessage } from './StatusActions'
 import {
     BOARD_LIST_REQUESTED,
     BOARD_LIST_LOADED,
@@ -11,7 +14,7 @@ import {
     BOARD_LIST_ADD_FAVOURITE,
     BOARD_LIST_REMOVE_FAVOURITE,
 } from '../constants';
-import { alertMessage } from './StatusActions'
+
 
 function requestBoardList(provider) {
     return {
@@ -38,13 +41,13 @@ function invalidateBoardlist(error) {
 }
 
 export function fetchBoardList( provider ) {
-    console.log(`Action fetchBoardList() to /api/${provider}/boards`);
+    const url = API.boardlist()
+    console.log(`Action fetchBoardList() to ${url}`);
     return (dispatch, getState) => {
         if (shouldFetchBoardList(getState(), provider)) {
             dispatch(requestBoardList(provider))
 
-            return Axios
-                .get(`/api/${provider}/boards`)
+            return Axios.get(url)
                 .then( data => dispatch(receiveBoardList(data, provider)))
                 .catch( err => {
                     dispatch(alertMessage({
@@ -108,7 +111,8 @@ function receiveBoardListSearch({data=[]}, provider) {
 
 export function addToFavourites(provider, boardID) {
     return (dispatch, getState) => {
-        if (boardInFavourites(getState(), provider, boardID)) return
+        if (boardInFavourites(getState(), provider, boardID)) 
+            return
 
         dispatch({
             type: BOARD_LIST_ADD_FAVOURITE,
