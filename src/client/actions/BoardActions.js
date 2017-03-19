@@ -1,5 +1,8 @@
 import Axios from 'axios';
+
+import API from '~/api'
 import {alertMessage} from './StatusActions'
+import {secondsAgo} from '~/utils'
 import {
     BOARD_REQUESTED, 
     BOARD_LOADED, 
@@ -15,7 +18,6 @@ import {
     BOARD_SAVED_TO_HISTORY,
     BOARD_LOADED_FROM_HISTORY,
 } from '../constants';
-import {secondsAgo} from '~/utils'
 
 
 function requestBoard(boardID) {
@@ -70,7 +72,7 @@ function shouldLoadMorePosts({ board }, limitToSet) {
 
 
 export function fetchBoard({ provider="4chan", boardID }) {
-    const url = `/api/${provider}/board/${boardID}`
+    const url = API.board(boardID)
     console.log('Action FetchBoard()', url);
 
     return (dispatch, getState) => {
