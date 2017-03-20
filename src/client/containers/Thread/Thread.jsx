@@ -7,7 +7,7 @@ import uuid from "uuid";
 import ThreadPost from '../ThreadPost';
 
 import {
-    Background,
+    Overlay,
     Spinner,
     TimeAgo
 } from '../../components';
@@ -63,9 +63,10 @@ export default class Thread extends Component {
 
         return (
             <div>
-                <Background 
-                    isActive={isActive} 
-                    onClick={this.closeThread}/>
+                <Overlay 
+                    isVisible={isActive} 
+                    onClick={this.closeThread}
+                />
                 <Spinner isSpinning={isActive && !posts.length}/>
                 <div ref={t => this._threadWrap = $(t)} className={threadWrapClasses}>
                     <div id="thread" className={threadClasses} ref={t => this._thread = $(t)} onClick={this.closeThread}>
