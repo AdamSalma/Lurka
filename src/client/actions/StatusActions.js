@@ -38,28 +38,36 @@ export function alertMessage( message ) {
 
 
 const panels = ['watch', 'archive', 'sort', 'filter']
-export function toggleHeaderPanel(panel) {
-    if (!panels.includes(panel)) {
-        throw new Error(`Panel '${panel}' doesn't exist!`);
+export function toggleHeaderPanel({ panel, panelState=null }) {
+    console.warn("toggleHeaderPanel: panel", panel, "panelState:", panelState)
+    console.warn(arguments)
+    if (!panel || !panels.includes(panel)) {
+        throw new Error(`Unrecognised panel name: '${panel}' isn't in '${panels}'`);
     }
 
     return (dispatch, getState) => {
-        if (shouldOpenPanel(getState(), panel)) {
-            return dispatch({
-                type: HEADER_PANEL_OPENED,
-                payload: panel
-            })
-        } else {
-            return dispatch({
-                type: HEADER_PANEL_OPENED,
-                payload: null
-            })
+        // The desired panel is panelState; what do?
+        if (panelState !== null && shouldntTogglePanelState(getState(), panel, panelState)) {
+            console.warn('Panel toggle rejected; was already in requested state.')
+            return 
         }
+
+        return dispatch({
+            type: HEADER_PANEL_OPENED,
+            payload: shouldOpenPanel(getState(), panel) ? panel : null
+        })
     }
 }
 
 function shouldOpenPanel({status}, panel){
     return status.activeHeaderPanel !== panel
+}
+
+function shouldntTogglePanelState({status}, panel, panelState){
+    return panelState ? // true: keep panel open
+        status.activeHeaderPanel !== panel :
+        status.activeHeaderPanel === panel
+        
 }
 
 
