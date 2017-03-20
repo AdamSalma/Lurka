@@ -9,3 +9,7 @@ export {
     bindMembersToClass, 
     bindFunctionsAsInstanceMethods
 } from './react-helpers'
+
+export {
+    findParentWithClass
+} from './dom-helpers'
