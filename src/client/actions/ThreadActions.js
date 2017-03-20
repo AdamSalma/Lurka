@@ -1,4 +1,8 @@
 import Axios from 'axios';
+
+import API from '~/api'
+import { secondsAgo } from '~/utils'
+import { alertMessage } from './StatusActions'
 import {
     THREAD_REQUESTED, 
     THREAD_LOADED, 
@@ -9,8 +13,6 @@ import {
     THREAD_LOADED_FROM_HISTORY,
     THREAD_SAVED_TO_HISTORY
 } from '../constants';
-import { alertMessage } from './StatusActions'
-import {secondsAgo} from '~/utils'
 
 function requestThread(threadID) {
     console.log("Action RequestThread wth ID:", threadID);
@@ -48,7 +50,8 @@ function destroyThread(threadID) {
 
 
 export function fetchThread(boardID, threadID) {
-    const url = `/api/4chan/board/${boardID}/thread/${threadID}`
+    const url = API.thread(boardID, threadID)
+
     return (dispatch, getState) => {
         const state = getState()
 
@@ -73,9 +76,7 @@ export function fetchThread(boardID, threadID) {
         }));
 
         return Axios.get(url)
-            .then( data => {
-                dispatch(receiveThread(data))
-            })
+            .then( data => dispatch(receiveThread(data)))
             .catch( err => {
                 if (err.status === 404) {
                     dispatch(alertMessage({
