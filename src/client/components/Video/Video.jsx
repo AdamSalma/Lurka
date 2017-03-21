@@ -35,7 +35,10 @@ export const Video = ({
     ...restProps
 }) => {
     return (
-        <div className={className}>
+        <div className={[
+            "video-wrapper", 
+            className
+        ].join(' ')}>
             <video
                 className="video"
                 {...restProps}>
@@ -46,27 +49,27 @@ export const Video = ({
                 {...video} />
             { !video.error ? 
                 <div className="video-controls">
-                    <Seek
-                        ariaLabel={aria.seek}
-                        onChange={onSeekChange}
-                        {...video} />
                     <PlayPause
                         ariaLabelPlay={aria.play}
                         ariaLabelPause={aria.pause}
                         onClick={onPlayPauseClick}
-                        {...video} />;
-                    <Fullscreen
-                        ariaLabel={aria.fullscreen}
-                        onClick={onFullscreenClick}
-                        {...video} />;
+                        {...video} />
+                    <Time
+                        {...video} />
+                    <Seek
+                        ariaLabel={aria.seek}
+                        onChange={onSeekChange}
+                        {...video} />
                     <Volume
                         onClick={onVolumeClick}
                         onChange={onVolumeChange}
                         ariaLabelMute={aria.mute}
                         ariaLabelUnmute={aria.unmute}
-                        {...video} />;
-                    <Time
-                        {...video} />;
+                        {...video} />
+                    <Fullscreen
+                        ariaLabel={aria.fullscreen}
+                        onClick={onFullscreenClick}
+                        {...video} />
                 </div>
             : null }
         </div>

@@ -1,18 +1,19 @@
 import React from 'react';
 
+// http://stackoverflow.com/a/37770048
 const formatTime = (seconds) => {
-    if (isNaN(seconds)) {
-        return "00:00"
-    }
-    const minutes = Math.floor(seconds / 60)
-    seconds = Math.floor(seconds % minutes)
+    if (isNaN(seconds))
+        return "0:00"
 
-    return [minutes, seconds].join(':')
+    let s = Math.floor(seconds)
+    return (s-(s%=60)) / 60 + (
+        9 < s ? ':': ':0'
+    ) + s
 };
 
 export default ({ currentTime, duration, className }) => {
     return (
-        <div className={className}>
+        <div className="time">
             <span className="time-current">
                 { formatTime(currentTime) }
             </span>

@@ -3,9 +3,9 @@ import Icon from '../Icon'
 
 export default ({ onClick, paused, className, ariaLabelPlay, ariaLabelPause }) => {
     return (
-        <div className={className}>
+        <div className="playpause">
             <button
-                className="playpause-wrap"
+                className="playpause-button"
                 onClick={onClick}
                 aria-label={ paused
                     ? ariaLabelPlay
