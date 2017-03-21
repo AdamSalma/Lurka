@@ -3,12 +3,12 @@ import Icon from '../Icon'
 
 export default ({ onClick, className, ariaLabel }) => {
     return (
-        <div className={className}>
+        <div className="fullscreen">
             <button
                 type="button"
                 onClick={onClick}
                 aria-label={ariaLabel}
-                className="fullscreen-wrap">
+                className="fullscreen-button">
                     <Icon name="fullscreen" />
             </button>
         </div>

@@ -19,12 +19,12 @@ export default ({ onChange, onClick, volume, muted, className, ariaLabelMute, ar
         : +volume;
     const isSilent = muted || volume <= 0;
     return (
-        <div className={className}>
+        <div className="volume">
             <button
                 aria-label={isSilent
                     ? ariaLabelUnmute
                     : ariaLabelMute}
-                className="volume-icon-wrap"
+                className="volume-button"
                 onClick={onClick}
                 type="button">
                 { formatVolumeIcon(muted, volume) }

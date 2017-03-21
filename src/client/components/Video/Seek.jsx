@@ -2,7 +2,7 @@ import React from 'react';
 
 export default ({ onChange, percentagePlayed, percentageBuffered, className, ariaLabel }) => {
     return (
-        <div className={className}>
+        <div className="seek">
             <div className="seek-track">
                 <div
                     className="seek-buffer"
