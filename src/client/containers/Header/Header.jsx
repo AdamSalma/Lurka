@@ -10,18 +10,40 @@ import {
     HeaderItem
 } from "~/components"
 
+import {bindMembersToClass, findParentWithClass} from '~/utils'
+
+const HeaderIcon = ({name, onClick, active, ...restProps}) => {
+    return (
+        <HeaderItem 
+        className={classes("header-icon", {"active": active})} 
+        onClick={onClick} {...restProps}>
+            <Icon name={name}/>
+        </HeaderItem>
+    )
+}
 
 export default class Header extends Component {
     constructor(props) {
         super(props);
-        this.handleKeyUp = this.handleKeyUp.bind(this);
+        bindMembersToClass(this, 
+            'handleKeyUp',
+            'toggleActive',
+            'handleIconClick'
+        )
     }
 
     render() {
-        // Actions
-        const { scrollHeader, closeThread, toggleNavbar, toggleHeaderPanel } = this.props;
-        // State
-        const { threadIsActive, provider, boardID, threadID } = this.props;
+        const { 
+            // Actions
+            scrollHeader, closeThread, toggleNavbar, toggleHeaderPanel,
+            //State
+            threadIsActive, 
+            provider, 
+            boardID, 
+            threadID, 
+            activePanel, 
+            isNavbarOpen 
+        } = this.props;
 
         const placeholder = `Search ${threadIsActive ? "thread" : "board"} ...`
 
@@ -29,9 +51,11 @@ export default class Header extends Component {
             <div id="header" className="header">
                 <div className="header-background"/>
                 <div className='header-content'>
-                    <HeaderItem className="has-icon" onClick={this.toggleActive}>
-                        <Icon name="menu" onClick={toggleNavbar}/>
-                    </HeaderItem>
+                    <HeaderIcon name="menu" 
+                        active={isNavbarOpen}
+                        onClick={toggleNavbar}
+                    />
+
                     <HeaderItem className="version" onClick={clearState}>
                         <LogoText />
                     </HeaderItem>
@@ -41,18 +65,23 @@ export default class Header extends Component {
                     <HeaderItem className="searchbox">
                         <SearchBox placeholder={placeholder} onKeyUp={this.handleKeyUp}/>
                     </HeaderItem>
-                    <HeaderItem className="has-icon shift-right" onClick={this.toggleActive}>
-                        <Icon name="eye" onClick={toggleHeaderPanel.bind(null, 'watch')} />
-                    </HeaderItem>
-                    <HeaderItem className="has-icon" onClick={this.toggleActive}>
-                        <Icon name="archive" onClick={toggleHeaderPanel.bind(null, 'archive')} />
-                    </HeaderItem>
-                    <HeaderItem className="has-icon" onClick={this.toggleActive}>
-                        <Icon name="filter" onClick={toggleHeaderPanel.bind(null, 'filter')}/>
-                    </HeaderItem>
-                    <HeaderItem className="has-icon" onClick={this.toggleActive}>
-                        <Icon name="sort" onClick={toggleHeaderPanel.bind(null, 'sort')}/>
-                    </HeaderItem>
+
+                    <HeaderIcon name="eye" 
+                        onClick={this.handleIconClick.bind(null, 'watch')}
+                        active={activePanel === 'watch'}
+                    />
+                    <HeaderIcon name="archive" 
+                        onClick={this.handleIconClick.bind(null, 'archive')}
+                        active={activePanel === 'archive'}
+                    />
+                    <HeaderIcon name="filter" 
+                        onClick={this.handleIconClick.bind(null, 'filter')}
+                        active={activePanel === 'filter'}
+                    />
+                    <HeaderIcon name="sort" 
+                        onClick={this.handleIconClick.bind(null, 'sort')}
+                        active={activePanel === 'sort'}
+                    />
                 </div>
             </div>
         )  // TODO: Add filter functionality + buttons
@@ -62,8 +91,16 @@ export default class Header extends Component {
         this.props.searchBoard(event.target.value)
     }
 
+    handleIconClick(panel) {
+        console.log('handleIconClick()')
+        this.props.toggleHeaderPanel({panel})
+    }
+
     toggleActive(e) {
         console.log('toggling active')
-        e.target.classList.toggle('active')
+        findParentWithClass(e.target, 'header-item').classList.toggle('active')
     }
 }
+
+
+
