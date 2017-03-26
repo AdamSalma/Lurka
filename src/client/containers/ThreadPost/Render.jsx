@@ -6,29 +6,43 @@ import {
     Icon,
     ToggleOnClick, 
     Image,
-    Video
+    Video,
+    DualMedia
 } from '~/components'
 
-import { setHTML } from '~/utils'
+import { setHTML, findParentWithClass } from '~/utils'
 
 
 export function renderControls(controls) {
     // TODO: Add functionality to thread icons
     // const { download, openReferences, ...} = controls 
     return (
-        <ul className="controls">
-            <li onClick={()=> console.log('Clicked on download icon')}>
-                <span className='mdi mdi-download'></span>
-            </li>
-            <li>
-                <span className='mdi mdi-reply'></span>
-            </li>
-            <li>
-                <span className='mdi mdi-comment-text'></span>
-            </li>
-        </ul>
+        <div className="thread-post-controls">
+            <div className="controls-menu-toggle">
+                <Icon name="dots-horizontal" />
+            </div>
+            <ul className="controls-menu">
+                <li onClick={()=> console.log('Clicked on download icon')}>
+                    <span><Icon name="download"/>
+                        Download
+                    </span>
+                </li>
+                <li>
+                    <span><Icon name="reply"/>
+                        Reply
+                    </span>
+                </li>
+                <li>
+                    <span><Icon name="comment-text"/>
+                        Something else
+                    </span>
+                </li>
+            </ul>
+        </div>
     )
 }
+
+
 
 export function renderRefs(refs) {
     return refs && refs.length ? <div className='references'>
@@ -61,9 +75,10 @@ export function renderMediaInfo(media) {
 
     let iconName;
     if (filetype.includes("webm"))
-        iconName = 'video'
+        iconName = 'filmstrip'
     else
-        iconName = 'image-area'
+        // iconName = 'image-area'
+        iconName = 'file-image'
 
     let fName = filename
     if (fName.length > 25)
@@ -87,21 +102,19 @@ export function renderMedia(media) {
 
     // TODO: Lazy load thread thumbnails
     return (
-        <ToggleOnClick 
-            className="thread-media"
-            from={<Image src={thumbnail}/>}
-            to={createExpandedMedia(filetype, srcLarge)}
-        />
+        <DualMedia className="thread-media" 
+            thumbnail={<Image src={thumbnail}/>}>
+            {createExpandedMedia(filetype, srcLarge)}
+        </DualMedia>
     )
 }
 
 function createExpandedMedia(ext, src) {
     return ext === ".webm" ? (
-        <div><Video loop autoPlay  
+        <Video loop autoPlay muted 
             src={src}
             type="video/mp4"
             className="expanded"
-            controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}
-        /></div>
+        />
     ) : <Image className="expanded" key="expanded" src={src}/>
 }
