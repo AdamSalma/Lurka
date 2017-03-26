@@ -12,7 +12,8 @@ export default ({time, replies}) => {
             <Counter value={replies.textCount}/>
         </div>
         <div className="counter images">
-            <Icon name="image-filter-hdr"/>
+            {/*<Icon name="image-filter-hdr"/>*/}
+            <Icon name="camera"/>
             <Counter value={replies.imgCount} />
         </div>
         <div className="counter timeago">
