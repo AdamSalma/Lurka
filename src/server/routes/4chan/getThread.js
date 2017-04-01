@@ -1,9 +1,9 @@
 import Axios from 'axios';
 import moment from 'moment'
 
-import options from '../../config/requestHeaders';
-import { parseThread } from '../../parsers/4chanParser';
-import { fourchanAPI } from '../../config/apiEndpoints';
+import API from '../../../config/4chanAPI';
+import options from '../../../config/proxy';
+import { parseThread } from '../../parsers';
 import { writeObjToRoot, printObj } from '../../services/inspector'
 
 
@@ -12,7 +12,7 @@ const timeFormat = 'ddd[,] M MMM YYYY hh:mm:ss [GMT]'
 export default function (req, res, next) {
     const { boardID, threadID } = req.params;
     const { receivedAt } = req.query;
-    const url = fourchanAPI(boardID, threadID).thread
+    const url = API.thread(boardID, threadID)
 
     if (receivedAt) {
         log.warn(`receivedAt: ${receivedAt}`)
@@ -22,12 +22,32 @@ export default function (req, res, next) {
     log.http(`Fetching Thread from ${url}`)
 
     Axios(url, options)
+        .then( checkResponse )
         .then( response => response.data.posts )
         .then( posts => parseThread(posts, boardID))
         .then( thread => res.send(thread))
         .catch( err => {
             printObj(err)
-            writeObjToRoot('4chan_thread_error.json', err.response)
             next(err)
         });
 };
+
+
+/**
+ * Sometimes 4chan sends jpeg images instead of json. 
+ * This function validates a thread's response.
+ */
+function checkResponse(res) {
+    if (!res || !res.data) {
+        throw new Error('No response or response.data received')
+    }
+
+    if (!res.data.posts) {
+        log.warn("No posts")
+        printObj(err)
+        writeObjToRoot('4chan_thread_error.json', res)
+        throw new Error('No thread posts received. Written response to app/4chan_thread_error.json')
+    }
+
+    return res
+}
