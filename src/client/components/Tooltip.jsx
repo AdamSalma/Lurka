@@ -30,7 +30,7 @@ export default class Tooltip extends Component {
         })
 
         return <div className={[
-            'tooltip', 
+            'tooltip',  
             className
         ].join(' ')}>
             <div className={contentClasses}>
