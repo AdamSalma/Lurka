@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from '../Icon'
 
 function hasAudio (video) {
-    return video.mozHasAudio ||
+    return video && video.mozHasAudio ||
     Boolean(video.webkitAudioDecodedByteCount) ||
     Boolean(video.audioTracks && video.audioTracks.length);
 }

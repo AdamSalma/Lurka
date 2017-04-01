@@ -1,3 +1,4 @@
+import './Board.styles'
 import React, { Component, PropTypes } from "react";
 import classes from 'classnames'
 

@@ -1,3 +1,4 @@
+import './Navbar.styles'
 import React, {Component} from 'react'
 import classes from 'classnames'
 import uuid from 'uuid'

@@ -1,3 +1,4 @@
+import './Thread.styles'
 import React, { Component } from "react";
 
 import classes from 'classnames';
@@ -26,6 +27,7 @@ export default class Thread extends Component {
     }
 
     componentDidMount() {
+        console.log("Thread mounted");
         enableFullscreen(this._thread)
         setupQuoteEvents(this._thread)
         this._threadWrap && this._threadWrap.nanoScroller({ 
@@ -49,6 +51,9 @@ export default class Thread extends Component {
                this.props.thread.posts.length !== thread.posts.length
     }
 
+    componentWillUnmount() {
+        console.log("Thread will unmount");
+    }
     render() {
         const { thread, isFetching, isActive } = this.props
         const { posts, didInvalidate } = thread;

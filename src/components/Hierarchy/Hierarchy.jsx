@@ -1,3 +1,4 @@
+import './Hierarchy.styles'
 import React from "react";
 
 export default ({provider, boardID, threadID}) => {

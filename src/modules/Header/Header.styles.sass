@@ -1,0 +1,50 @@
+@import '~styles/base'
+
+#header
+    +set-dims(100%, $header-height)
+    position: fixed
+    // top: -$header-height  // hide on start
+    top: 0
+    border-bottom: 2px color(primary, darkest) solid
+    z-index: 20
+    overflow-y: hidden
+
+    .header-background
+        opacity: 0.95
+        background: grey(8)
+        +set-dims(100%, $header-height)
+        width: 100%
+        position: absolute
+        z-index: -1
+
+    .header-content-wrap
+        +set-dims($header-width - 24, 100%)
+        opacity: 0.9
+        background: grey(8)
+        box-shadow: 20px 0 20px grey(8), -20px 0 20px grey(8)
+        margin: 0 auto
+
+    .header-content
+        display: flex
+        align-items: center
+        justify-content: flex-start;
+        flex-direction: row;
+        height: 100%
+
+    .searchbox
+        flex: 1
+        display: auto 0
+        display: inline-block
+        width: 100%
+
+        .searchbox-content
+            height: $header-height * 0.5
+
+
+    .logo-wrap
+        width: 47px
+        height: 47px
+        float: left
+        margin: 6px
+        position: relative
+        top: -50%

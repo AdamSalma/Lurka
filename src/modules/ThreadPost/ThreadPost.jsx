@@ -1,3 +1,4 @@
+import './ThreadPost.styles'
 import React, { Component } from 'react'
 import classes from 'classnames'
 import LazyLoad from 'react-lazyload'

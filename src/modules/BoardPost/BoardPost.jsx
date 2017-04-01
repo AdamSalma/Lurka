@@ -1,3 +1,4 @@
+import './BoardPost.styles'
 import React, {Component} from 'react';
 import LazyLoad from 'react-lazyload';
 
