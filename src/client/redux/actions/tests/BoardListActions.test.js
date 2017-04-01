@@ -8,7 +8,7 @@ import {
     BOARD_LIST_REQUESTED,
     BOARD_LIST_LOADED,
     BOARD_CHANGE
-} from '../constants';
+} from '../../types';
 
 import {
   fetchBoard,

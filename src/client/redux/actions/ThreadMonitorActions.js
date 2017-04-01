@@ -7,7 +7,7 @@ import {
     THREAD_MONITOR_ADDED,
     THREAD_MONITOR_DELETED,
     THREAD_MONITOR_UPDATED
-} from '~/constants';
+} from '../types';
 
 
 function recieveThread(payload) {

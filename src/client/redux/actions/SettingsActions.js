@@ -1,6 +1,6 @@
 import {
     SETTING_CHANGED
-} from '../constants'
+} from '../types'
 
 export function toggleSetting({name, setTo}) {
 

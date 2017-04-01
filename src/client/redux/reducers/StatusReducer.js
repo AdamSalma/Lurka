@@ -1,4 +1,4 @@
-import initialState from '../constants/initialState';
+import initialState from '../initialState';
 import { 
     LOGO_SPIN_STARTED, 
     LOGO_SPIN_ENDED, 
@@ -22,7 +22,7 @@ import {
     HEADER_PANEL_OPENED,
     HEADER_PANEL_CLOSED
 
-} from '../constants';
+} from '../types';
 
 export default function (state = initialState.status, action) {
     switch (action.type) {
