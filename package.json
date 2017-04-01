@@ -1,10 +1,10 @@
-{
+npm {
   "author": "Adam Salma <adam3salma@gmail.com>",
   "name": "Lurka",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "A desktop app for viewing online messaging boards such as 4chan and reddit",
   "scripts": {
-    "build": "gulp build",
+    "build": "./node_modules/gulp/bin/gulp build",
     "start": "electron ./app",
     "dev": "cross-env NODE_PATH=./app/node_modules nodemon ./src/server",
     "test": "cross-env NODE_ENV=test NODE_PATH=./app/node_modules mocha",

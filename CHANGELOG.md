@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+### Changed
+### Fixed
+
+
+## v0.11 01/04/2017
+### Added
 - Added header panels that popup when a header icon is clicked. Panels added:
     - Thread monitoring
     - Local archives
