@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './_boardPost.sass'
 import LazyLoad from 'react-lazyload';
 
 import {
