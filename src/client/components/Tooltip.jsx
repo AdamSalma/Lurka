@@ -24,21 +24,22 @@ export default class Tooltip extends Component {
     }
 
     render() {
-        const { className, content } = this.props
+        const { className, content, children } = this.props
         const contentClasses = classes("tooltip-content", {
             'tooltip-active': this.state.isVisible
         })
 
-        return <div className={`tooltip ${className}`}>
-            <div
-                className="tooltip-target"
-                onMouseEnter={this.showTooltip}
-                onMouseLeave={this.hideTooltip}
-            >
-                {this.props.children}
-            </div>
+        return <div className={[
+            'tooltip', 
+            className
+        ].join(' ')}>
             <div className={contentClasses}>
-                {this.props.content}
+                {content}
+            </div>
+            <div className="tooltip-target"
+            onMouseEnter={this.showTooltip}
+            onMouseLeave={this.hideTooltip}>
+                {children}
             </div>
         </div>
     }
