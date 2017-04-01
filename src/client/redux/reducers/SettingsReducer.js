@@ -1,7 +1,7 @@
-import initialState from '../constants/initialState';
+import initialState from '../initialState';
 import {
     SETTING_CHANGED
-} from '../constants';
+} from '../types';
 
 export default function (state = initialState.settings, action) {
     switch (action.type) {

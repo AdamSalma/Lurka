@@ -1,4 +1,4 @@
-import initialState from '../constants/initialState';
+import initialState from '../initialState';
 import { 
     BOARD_REQUESTED, 
     BOARD_LOADED, 
@@ -9,7 +9,7 @@ import {
     ADD_FILTER,
     REMOVE_FILTER,
     BOARD_LOADED_FROM_HISTORY
-} from '../constants'
+} from '../types'
 
 export default function (state = initialState.board, action) {
     switch (action.type) {

@@ -8,7 +8,7 @@ import {
     HEADER_PANEL_OPENED, HEADER_PANEL_CLOSED,
 
     APP_READY
-} from '../constants';
+} from '../types';
 // TODO: Filter + Search actions
 
 export function changeProvider( provider ) {

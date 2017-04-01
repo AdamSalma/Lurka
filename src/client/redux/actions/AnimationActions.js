@@ -2,7 +2,7 @@ import Velocity from 'velocity-animate'
 import {
     HEADER_TOGGLED,
     NAVBAR_TOGGLED
-} from '../constants'
+} from '../types'
 
 
 // TODO: Destructure scrollHeader args

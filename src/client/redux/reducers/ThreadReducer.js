@@ -1,11 +1,11 @@
-import initialState from '../constants/initialState';
+import initialState from '../initialState';
 import { 
     THREAD_LOADED, 
     THREAD_REQUESTED, 
     THREAD_DESTROYED,
     THREAD_INVALIDATED,
     THREAD_LOADED_FROM_HISTORY
-} from '../constants'
+} from '../types'
 
 export default function (state = initialState.thread, action) {
     switch (action.type) {

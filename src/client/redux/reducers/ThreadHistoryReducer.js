@@ -1,9 +1,9 @@
-import initialState from '../constants/initialState';
+import initialState from '../initialState';
 import { 
     THREAD_LOADED_FROM_HISTORY,
     THREAD_SAVED_TO_HISTORY,
     THREAD_HISTROY_CLEARED
-} from '../constants'
+} from '../types'
 
 export default function (state = initialState.threadHistory, action) {
     let history

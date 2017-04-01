@@ -1,4 +1,4 @@
-import initialState from '../constants/initialState';
+import initialState from '../initialState';
 import { 
     BOARD_LIST_LOADED, 
     BOARD_LIST_REQUESTED,
@@ -6,7 +6,7 @@ import {
     BOARD_LIST_ADD_FAVOURITE,
     BOARD_LIST_REMOVE_FAVOURITE,
     BOARD_LIST_SEARCH_LOADED
-} from '../constants'
+} from '../types'
 
 export default function (state=initialState.boardList, action) {
     switch (action.type) {

@@ -12,7 +12,7 @@ import {
     THREAD_INVALIDATED,
     THREAD_LOADED_FROM_HISTORY,
     THREAD_SAVED_TO_HISTORY
-} from '../constants';
+} from '../types';
 
 function requestThread(threadID) {
     console.log("Action RequestThread wth ID:", threadID);

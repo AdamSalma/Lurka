@@ -13,7 +13,7 @@ import {
 
     BOARD_LIST_ADD_FAVOURITE,
     BOARD_LIST_REMOVE_FAVOURITE,
-} from '../constants';
+} from '../types';
 
 
 function requestBoardList(provider) {

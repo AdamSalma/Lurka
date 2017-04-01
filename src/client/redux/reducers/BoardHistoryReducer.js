@@ -1,9 +1,9 @@
-import initialState from '../constants/initialState';
+import initialState from '../initialState';
 import { 
     BOARD_LOADED_FROM_HISTORY,
     BOARD_SAVED_TO_HISTORY,
     BOARD_HISTROY_CLEARED
-} from '../constants'
+} from '../types'
 
 export default function (state = initialState.boardHistory, action) {
     let history

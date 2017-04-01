@@ -17,7 +17,7 @@ import {
 
     BOARD_SAVED_TO_HISTORY,
     BOARD_LOADED_FROM_HISTORY,
-} from '../constants';
+} from '../types';
 
 
 function requestBoard(boardID) {
