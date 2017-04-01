@@ -1,25 +1,19 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import thunkMiddleware from 'redux-thunk'
-import createLogger from 'redux-logger'
-import rootReducer from '../reducers'
+import configureStore from './configure';
+import { loadState, saveState } from './localStorage';
 
-export default function configureStore(preloadedState) {
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-  const store = createStore(
-    rootReducer,
-    preloadedState,
-    composeEnhancers(
-      applyMiddleware(thunkMiddleware, createLogger())
-    )
-  )
+const prodEnv = process.env.NODE_ENV === "production"
+const state = config.prodEnv ? loadState() : undefined;
+const store = configureStore(state);
 
-  if (module.hot) {
-    // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
-      const nextRootReducer = require('../reducers').default
-      store.replaceReducer(nextRootReducer)
-    })
-  }
-
-  return store
+if (!config.prodEnv) {
+    // For debugging
+    window.getState = store.getState;
+    console.info('Initial Store:', store.getState());
 }
+
+// Save changes to localstorage each time an action is dispatched
+store.subscribe( () => {
+    saveState(store.getState());
+});
+
+export default store;
