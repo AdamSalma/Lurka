@@ -7,6 +7,7 @@
     right: 0
     margin: 0 auto
     z-index: 10
+    overflow: hidden
 
     @include breakpoint(to-tablet)
         width: 100% !important
@@ -14,13 +15,11 @@
     &.thread-wrap-active
         display: initial !important
 
-    .nano-content
-        top: 100%
-
     .nano-pane
         width: 5px
         cursor: grab
         background: grey(9)
+        z-index: 2
 
 
         &:hover 
@@ -31,8 +30,11 @@
             width: 12px
 
 .thread
+    +will-change(top)
     position: absolute
-    top: 100%
+    top: 100%  // for thread slide in
+    max-width: 100%  // disable horizontal scroll
     overflow: hidden
+    overflow-y: scroll
     line-height: $thread-line-height
     background: $thread-color

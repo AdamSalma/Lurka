@@ -8,22 +8,25 @@
     text-align: center
     +clickable
     overflow: hidden
-    border-radius: 4px 4px 8px 8px
+    border-radius: 4px 4px 0 0
     background: $board-post-color
     box-shadow: $board-post-shadow-color 0 0 0
     border: 2px solid $board-post-color
+    border-bottom-color: grey(5)
 
     transition: all .4s ease-out
     transition-property: top, left, box-shadow
     visibility: hidden
     opacity: 0
+    transform: translateY(0)
+
 
     &.animate
         visibility: visible
 
     &:hover
         transition: all .2s
-        border-color: grey(7)
+        transform: translateY(300px) !important
 
         .counters
             opacity: 1
@@ -74,6 +77,7 @@
 
         .comment
             padding-top: 4px
+            width: 100%
 
     a
         color: grey(1) !important

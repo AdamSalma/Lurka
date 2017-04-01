@@ -7,6 +7,17 @@
     background: grey(8)
     display: flex
     flex-direction: column
+    +no-select
+
+    .overlay
+        z-index: -1
+
+        &.overlay-active
+            opacity: 0.8 !important
+
+
+    .navbar-controls
+        padding: 3px 4px 0 2px
 
 
     .navbar-search
@@ -16,7 +27,7 @@
 
         .searchbox
             display: inline-block
-            width: $navbar-width - 44px
+            width: 100%
 
             .searchbox-content
                 height: 28px
@@ -53,11 +64,6 @@
         .item:hover
             .icon
                 color: grey(2)
-        .p-4chan
-            border-left: 1px solid color(fourchan, light)
-
-        .p-reddit
-            border-left: 1px solid color(reddit, light)
 
         .icon
             float: right
@@ -70,7 +76,7 @@
             margin-top: -2px
 
             &.mdi-star
-                color: #ffe700 !important
+                color: color(favourite) !important
 
 
 
@@ -92,18 +98,8 @@
             &::first-letter
                 text-transform: capitalize
 
-        .p-reddit
-            background: desaturate(color(reddit), $navbar-button-effect-amount)
-            color: grey(1)
-            text-shadow: 0 0 1px grey(8)
-
-        .p-4chan
-            background: desaturate(color(fourchan), $navbar-button-effect-amount)
-            text-shadow: 0 0 2px grey(8)
-            color: white
-
         .favourite
-            background: desaturate(gold, $navbar-button-effect-amount)
+            background: color(favourite)
             color: grey(10)
             flex: 2
 
@@ -120,5 +116,5 @@
 
     /* Shrink size of scrollbar */
     .nano-pane
-        width: 7px
+        width: 4px
         background: grey(8)
