@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import './BoardList.styles'
 
+import React, { Component } from "react";
 import classes from 'classnames';
 import uuid from 'uuid';
 
-import Dropdown from './Dropdown';
-import Icon from './Icon';
+import Dropdown from '../Dropdown';
+import Icon from '../Icon';
 
 export default class BoardList extends Component {
     constructor({shouldPreload, boardList, provider, fetchBoardList}) {

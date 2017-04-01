@@ -1,5 +1,6 @@
+import './LogoText.styles'
 import React from 'react'
-import {name, version} from "~/../../package.json"
+import {name, version} from "Lurka/package.json"
 
 
 export default () => {

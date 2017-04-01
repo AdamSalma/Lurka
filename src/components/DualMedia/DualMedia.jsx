@@ -1,3 +1,4 @@
+import './DualMedia.styles'
 import React, { Component, PropTypes } from 'react';
 import classes from 'classnames'
 import { bindMembersToClass } from '~/utils'

@@ -1,3 +1,4 @@
+import './Checkbox.styles'
 import React from 'react';
 
 export default ({onChange, isChecked}) => {

@@ -1,3 +1,4 @@
+import './Video.styles'
 import React, { PropTypes } from 'react';
 import videoConnect from 'react-html5video';
 

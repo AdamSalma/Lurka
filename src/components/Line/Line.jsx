@@ -1,3 +1,4 @@
+import './Line.styles'
 import React from "react"
 
 export default ({ isVertical }) => {

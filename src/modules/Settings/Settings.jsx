@@ -1,3 +1,4 @@
+import './Settings.styles'
 import React, { Component } from 'react'
 import classes from 'classnames'
 
