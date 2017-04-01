@@ -2,6 +2,7 @@ build
 node_modules
 *.log
 *.bundle.js
+*.sublime*
 
 # Ignore everything in app
 app/*
