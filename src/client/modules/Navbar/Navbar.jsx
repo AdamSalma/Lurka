@@ -5,9 +5,13 @@ import uuid from 'uuid'
 import {
     Icon, 
     BoardList, 
+    BoardInfo,
     SearchBox, 
-    Checkbox
+    Checkbox,
+    Overlay,
 } from '../../components'
+
+import {bindMembersToClass} from '~/utils'
 
 export default class Navbar extends Component {
     constructor({ status:{provider}, fetchBoardList, boardList }) {
@@ -15,27 +19,57 @@ export default class Navbar extends Component {
 
         this.state = {
             favouritesOnly: false,
-            searchPhrase: ''
+            searchPhrase: '',
+            showBoardInfo: false,
+
         }
 
-        this.prepareForFetch = this.prepareForFetch.bind(this);
-        this.toggleFavourite = this.toggleFavourite.bind(this);
-        this.renderBoardlist = this.renderBoardlist.bind(this);
-        this.handleSearch    = this.handleSearch.bind(this);
-        this.toggleFavouriteButton = this.toggleFavouriteButton.bind(this);
-        this.handleBoardlistSearch  = this.handleBoardlistSearch.bind(this);        
+        bindMembersToClass(this, 
+            'prepareForFetch',
+            'toggleFavourite',
+            'renderBoardlist',
+            'handleSearch',
+            'toggleFavourites',
+            'searchBoardlist',
+            'handleBoardMouseEnter',
+            'handleBoardMouseLeave'
+        )
+
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        const {isNavbarOpen} = this.props.status
+        if (isNavbarOpen && !prevProps.status.isNavbarOpen) {
+            console.warn(this)
+            console.warn(this._searchBox)
+            this._searchBox && this._searchBox.focus()
+        }
+    }
+
+    setSearchBoxRef(c) {
+        if (c) {
+            console.info("Setting navbar>searchbox ref:", c)
+            this._searchBox = c
+            console.info(this._searchBox)
+        } else {
+            console.info("navbar>searchbox was null")
+        }
     }
 
     render() {
         const {favouritesOnly} = this.state
         const {
-            status:{ providers }, 
+            toggleSetting, toggleNavbar,
+            status:{ isNavbarOpen }, 
             settings:{ NSFW }, 
-            toggleSetting
         } = this.props
+
+        const favClasses = classes('list-toggle favourite', {'disabled': !favouritesOnly})
 
         return (
             <div id="navbar" className="navbar">
+                <Overlay isVisible={isNavbarOpen} onClick={toggleNavbar}/>
+                {this.renderBoardInfo()}
                 {/*Section 3*/}
                 <div className="navbar-content">
                     {this.renderBoardlist()}
@@ -46,13 +80,14 @@ export default class Navbar extends Component {
                         <SearchBox 
                             onKeyUp={this.handleSearch} 
                             placeholder="Search..."
+                            ref={this.setSearchBoxRef}
                         />
                     </div>
                     {/*Section 2*/}
                     <div className="navbar-filter-buttons">
                         {/*Filter favourites*/}
-                        <span onClick={this.toggleFavouriteButton} className={classes('list-toggle favourite', {'disabled': !favouritesOnly})}>
-                            Favourites
+                        <span onClick={this.toggleFavourites} className={favClasses}>
+                            Favourites only
                         </span>
                         <span className='list-toggle NSFW'>
                             <span className="text">18+</span>
@@ -75,9 +110,11 @@ export default class Navbar extends Component {
             })
 
             return (
-                <div key={boardID} className={"p-"+provider} onClick={
-                    this.prepareForFetch.bind(null, provider, boardID)
-                }>
+                <div key={boardID} className={"p-"+provider} 
+                    onClick={this.prepareForFetch.bind(null, provider, boardID)}
+                    onMouseEnter={this.handleBoardMouseEnter.bind(null, boardID)}
+                    onMouseLeave={this.handleBoardMouseLeave}
+                >
                     <Icon className={star} 
                         onClick={ e => this.toggleFavourite(e, provider, boardID)}
                     />
@@ -92,6 +129,39 @@ export default class Navbar extends Component {
             boardList={boardlist}
             provider="all"
         />
+    }
+
+    _getBoardlist(props){
+        return props.boardList[props.status.provider]
+    }
+
+    handleBoardMouseEnter(boardID) {
+        this.setState({
+            showBoardInfo: true,
+            selectedBoardID: boardID
+        })
+    }
+
+    handleBoardMouseLeave(e) {
+        this.setState({
+            showBoardInfo: false,
+            selectedBoardID: null
+        })
+    }
+
+    renderBoardInfo() {
+        const {showBoardInfo, selectedBoardID} = this.state
+
+        if (showBoardInfo && this.props.status.isNavbarOpen) {
+            const board = this._getBoardlist(this.props).find(
+                el => el.boardID === selectedBoardID
+            )
+
+            return board && board.info && <BoardInfo
+                {...board.info}
+            />
+        }
+        return null
     }
 
     prepareForFetch(provider, boardID) {
@@ -137,13 +207,16 @@ export default class Navbar extends Component {
         })
     }
 
-    toggleFavourite(event, provider, boardID) {
+    toggleFavourite(event, provider="4chan", boardID) {
         // check if board is in favourites
         event.stopPropagation()
+
         if (this.isFavourite(provider, boardID)) {
             console.log(`removeFromFavourites() ${provider} ${boardID}`)
             this.props.removeFromFavourites(provider, boardID)
-        } else {
+        } 
+
+        else {
             console.log(`addToFavourites() ${provider} ${boardID}`)
             this.props.addToFavourites(provider, boardID)
         }
@@ -152,7 +225,7 @@ export default class Navbar extends Component {
     isFavourite(boardID) {
         // Checks if board is in favourites. Return bool
         return !!this.props.boardList['favourites']
-                     .find( ({ boardID: id }) => id === boardID )
+                     .find( board => board.boardID === boardID )
     }
 
     handleSearch(event) {
@@ -160,12 +233,12 @@ export default class Navbar extends Component {
         this.setState({searchPhrase})
     }
 
-    handleBoardlistSearch(provider) {
-        console.log("handleBoardlistSearch() clicked!");
+    searchBoardlist(provider) {
+        console.log("searchBoardlist() clicked!");
         this.props.searchBoardlist(provider, this.state.searchWord)
     }
 
-    toggleFavouriteButton() {
+    toggleFavourites() {
         this.setState(state => {
             return Object.assign({}, state, {favouritesOnly: !state.favouritesOnly})
         })

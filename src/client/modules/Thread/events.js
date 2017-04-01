@@ -87,19 +87,6 @@ function createTooltip(event) {
     if (left + el.offsetWidth > window.innerWidth) {
         left = linkPos.left - el.offsetWidth - 5
     }
-    
-
-
-
-
-
-
-
-
-
-
-
-
 
     // top = linkPos.top - el.offsetHeight - 5
 
