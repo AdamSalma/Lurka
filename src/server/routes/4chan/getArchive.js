@@ -1,12 +1,14 @@
 import Axios from 'axios';
 
-import options from '../../config/requestHeaders';
-import { parseArchive } from '../../parsers/4chanParser'
-import { fourchanAPI } from '../../config/apiEndpoints';
-import { writeObjToRoot } from '../../services/inspector'
+import API from '../../../config/4chanAPI';
+import options from '../../../config/proxy';
+import { writeObjToRoot } from '../../services/inspector';
+// TODO AS: Make a 4chan archive parser in server
+// import { parseArchive } from '../../parsers';
+
 export default function (req, res, next) {
     const { boardID } = req.params;
-    const url = fourchanAPI(boardID).archive
+    const url = API.archive(boardID)
     log.http(`Fetching archive from ${url}`)
     Axios(url, options)
         .then( board => res.send(board.data) )  // TODO: Parse 4chan archive
