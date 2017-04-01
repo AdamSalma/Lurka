@@ -7,9 +7,10 @@ $base-colors: (
     swamp:     #a3d08c,  // $green
     fern:      #55b359,  // 4chan
     vermilion: #FF4500,  // reddit
-    contessa:  #a9525a,  // Nord
+    contessa:  #BF616A,  // Nord
     horizon:   #5e81ac,  // Nord
     bouquet:   #b48ead,  // Nord
+    putty:     #EBCB8B,  // Nord
 );
 
 // Are mixed with the base colors using the fn `color(name, shade)`
@@ -54,7 +55,7 @@ $greys: (
 
 // $primary: c(punch);
 $primary: mix(c(contessa),c(punch));
-$secondary: c(bouquet);
+$secondary: c(horizon);
 $background-tint: c(horizon);
 
 
@@ -79,6 +80,8 @@ $color-palette: (
     greentext:      c(swamp),
     fourchan:       c(fern),
     reddit:         c(vermilion),
+    favourite:      c(putty),
+    anon-name:           c(putty),
     text-primary:   rgba(255,255,255, 1),
     text-secondary: rgba(255,255,255, 0.7),
     text-disabled:  rgba(255,255,255, 0.5),
