@@ -44,6 +44,11 @@ export default class Thread extends Component {
 
     }
 
+    shouldComponentUpdate({thread}, nextState) {
+        return thread.isActive !== this.props.thread.isActive || 
+               this.props.thread.posts.length !== thread.posts.length
+    }
+
     render() {
         const { thread, isFetching, isActive } = this.props
         const { posts, didInvalidate } = thread;

@@ -3,7 +3,7 @@ import { Icon, ButtonCircle } from '~/components'
 
 export default function(props) {
     const {
-        monitorThread, unmonitorThread,
+        monitorThread, unmonitorThread, toggleHeaderPanel,
         thread:{
             isActive, 
             posts, 
@@ -13,7 +13,7 @@ export default function(props) {
         status: {
             threadID, 
             boardID
-        },
+        }
     } = props;
 
     const threadHasPosts = posts && posts.length > 0
@@ -25,7 +25,10 @@ export default function(props) {
 
     const defaultProps = {
         name:"eye",
-        onClick: () => monitorThread(monitorArgs)
+        onClick: () => {
+            toggleHeaderPanel({panel:'watch', panelState:true})  // true means always keep open
+            // monitorThread(monitorArgs)
+        }
     }
 
     const monitorArgs = {

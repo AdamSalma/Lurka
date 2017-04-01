@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import classes from "classnames";
 
-import {clearState} from '~/store/localStorage'
+import {clearState} from '~/redux/store/localStorage'
 import {
     LogoText,
     Icon,
