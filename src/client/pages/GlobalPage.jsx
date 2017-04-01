@@ -8,7 +8,7 @@ import {
     Header,
     HeaderPanels,
     Navbar,
-} from "~/containers";
+} from "~/modules";
 
 import { 
     closeThread,
@@ -29,7 +29,7 @@ import {
     updateMonitoredThread,
     monitorThread,
     unmonitorThread
-} from '~/actions';
+} from '~/redux/actions';
 
 class GlobalPage extends Component {
     /*
@@ -68,11 +68,10 @@ class GlobalPage extends Component {
                     fetchBoardList={fetchBoardList} fetchBoard={fetchBoard} 
                     searchBoard={searchBoard} closeThread={closeThread}
                     destroyBoard={destroyBoard} toggleHeaderPanel={toggleHeaderPanel}
+                    toggleNavbar={toggleNavbar}
 
-                    alertMessage={status.alertMessage}
-                    provider={status.provider} boardID={status.boardID}
-                    threadID={status.threadID} threadIsActive={threadIsActive}
-                    boardList={boardList} toggleNavbar={toggleNavbar}
+                    {...status} activePanel={status.activeHeaderPanel}
+                    threadIsActive={threadIsActive} boardList={boardList} 
                 />  
                 <HeaderPanels
                     fetchThread={fetchThread} closeThread={closeThread} 

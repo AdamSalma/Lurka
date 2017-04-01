@@ -12,7 +12,7 @@ import uuid from 'uuid'
 import {
     BoardListContainer, 
     Settings
-} from "~/containers";
+} from "~/modules";
 
 import {
     Logo, 
@@ -29,7 +29,7 @@ import {
     fetchBoardList, 
     addToFavourites, 
     removeFromFavourites
-} from '~/actions';
+} from '~/redux/actions';
 
 
 class HomePage extends Component {

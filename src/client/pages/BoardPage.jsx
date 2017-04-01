@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { Board } from "~/containers";
+import { Board } from "~/modules";
 
 // Actions
 import { 
@@ -10,7 +10,7 @@ import {
     loadMorePosts, 
     scrollHeader, 
     fetchThread
-} from '~/actions';
+} from '~/redux/actions';
 
 class ContentPanel extends Component {
     render() {
