@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
     - Board sort
 
 ### Changed
-- Scrollbar width decrease
+- Restructured project. See [HERE](https://github.com/AdamSalma/Lurka/pull/7)
 
 ### Fixed
 - Fixed thread not closing when clicked on the mask underneath
