@@ -1,24 +1,32 @@
 import React from 'react';
 import Icon from '../Icon'
 
+function hasAudio (video) {
+    return video.mozHasAudio ||
+    Boolean(video.webkitAudioDecodedByteCount) ||
+    Boolean(video.audioTracks && video.audioTracks.length);
+}
+
 function formatVolumeIcon(muted, volume) {
+    console.info(muted, volume)
     if (muted)
         return <Icon name="volume-off"/>
     if (volume <= 0)
         return <Icon name="volume-mute"/>
-    if (volume < 3.3)
+    if (volume < 0.3)
         return <Icon name="volume-low"/>
-    if (volume < 6.6)
+    if (volume < 0.6)
         return <Icon name="volume-medium"/>
     return <Icon name="volume-high"/>
 }
 
-export default ({ onChange, onClick, volume, muted, className, ariaLabelMute, ariaLabelUnmute }) => {
+export default ({ onChange, onClick, getVideoEl, volume, muted, className, ariaLabelMute, ariaLabelUnmute }) => {
     const volumeValue = muted
         ? 0
         : +volume;
     const isSilent = muted || volume <= 0;
-    return (
+
+    return hasAudio(getVideoEl()) ? (
         <div className="volume">
             <button
                 aria-label={isSilent
@@ -48,5 +56,5 @@ export default ({ onChange, onClick, volume, muted, className, ariaLabelMute, ar
                 </div>
             </div>
         </div>
-    );
+    ) : null;
 };

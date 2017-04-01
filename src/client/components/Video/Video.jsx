@@ -28,10 +28,9 @@ export const Video = ({
     onSeekChange,
     onVolumeChange,
     onVolumeClick,
-    onCaptionsClick,
     onPlayPauseClick,
     onFullscreenClick,
-    onCaptionsItemClick,
+    getVideoEl,
     ...restProps
 }) => {
     return (
@@ -45,7 +44,7 @@ export const Video = ({
                 { children }
             </video>
             <Overlay
-                onClick={e => {e.stopPropagation(); onPlayPauseClick()}}
+                onClick={onPlayPauseClick}
                 {...video} />
             { !video.error ? 
                 <div className="video-controls">
@@ -63,6 +62,7 @@ export const Video = ({
                     <Volume
                         onClick={onVolumeClick}
                         onChange={onVolumeChange}
+                        getVideoEl={getVideoEl}
                         ariaLabelMute={aria.mute}
                         ariaLabelUnmute={aria.unmute}
                         {...video} />
@@ -105,6 +105,7 @@ export default videoConnect(
         onVolumeClick: (e) => {e.stopPropagation(); toggleMute(videoEl, state)},
         onPlayPauseClick: (e) => {e.stopPropagation(); togglePause(videoEl, state)},
         onVolumeChange: (e) => {e.stopPropagation(); setVolume(videoEl, state, e.target.value)},
-        onSeekChange: (e) => {e.stopPropagation(); setCurrentTime(videoEl, state, e.target.value * state.duration / 100)}
+        onSeekChange: (e) => {e.stopPropagation(); setCurrentTime(videoEl, state, e.target.value * state.duration / 100)},
+        getVideoEl: () => videoEl
     })
 );
