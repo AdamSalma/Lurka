@@ -1,0 +1,68 @@
+body
+    background: grey(8) !important
+    color: color(text-primary)
+    font-family: $font-main
+    overflow: hidden
+    line-height: $line-height
+    max-width: 960px
+    margin-left: auto
+    margin-right: auto
+
+// from NeutronCss
+html 
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+
+    * 
+        -moz-box-sizing: inherit
+        box-sizing: inherit
+
+
+h1, h2, h3, h4, h5, h6
+	font-family: $font-alt
+
+a
+	color: color(links)
+
+#App 
+    width: 100vw
+    position: absolute
+    left: 0
+    top: 0
+
+pre
+    background-color: #eff0f1
+    color: #000
+    padding: 6px 16px
+    word-wrap: normal
+    margin: 12px 0 16px
+    font-family: Consolas, sans-serif
+    overflow-x: scroll
+
+textarea:focus, input:focus
+    outline: none
+
+[placeholder]:focus::-webkit-input-placeholder
+    transition: opacity 0.5s ease
+    opacity: 0
+
+::selection 
+    background-color: color(primary, dark)
+    color: #ffffff
+
+// Nano stuff
+.nano-slider
+    background: color(primary, darkest) !important
+
+img
+    user-select: none
+
+.react-alerts 
+    .close:hover
+        opacity: 1 !important
+
+    .close-dark:hover
+        background-color: color(primary)
+
+.nano-pane
+    width: 5px

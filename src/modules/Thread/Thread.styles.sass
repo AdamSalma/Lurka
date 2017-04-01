@@ -1,0 +1,42 @@
+@import '~styles/base'
+
+.thread-wrap
+    position: fixed
+    display: none
+    +set-dims($thread-width, 100vh)
+    top: 0
+    left: 0
+    right: 0
+    margin: 0 auto
+    z-index: 10
+    overflow: hidden
+
+    @include breakpoint(to-tablet)
+        width: 100% !important
+
+    &.thread-wrap-active
+        display: initial !important
+
+    .nano-pane
+        width: 5px
+        cursor: grab
+        background: grey(9)
+        z-index: 2
+
+
+        &:hover 
+            width: 12px
+            transition: width .2 ease-in
+
+        &:active
+            width: 12px
+
+.thread
+    +will-change(top)
+    position: absolute
+    top: 100%  // for thread slide in
+    max-width: 100%  // disable horizontal scroll
+    overflow: hidden
+    overflow-y: scroll
+    line-height: $thread-line-height
+    background: $thread-color

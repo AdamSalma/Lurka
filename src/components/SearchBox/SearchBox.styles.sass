@@ -1,0 +1,20 @@
+@import '~styles/base'
+
+.searchbox
+    font-family: $font-alt
+
+    .searchbox-content
+        border: grey(7) solid 1px
+        width: 100%
+        padding-left: 10px
+        background: lighten(grey(7), 4%)
+        color: color(text-secondary)
+        border-radius: 4px
+        transition: all .3s ease
+
+        &:focus
+            background: mix(color(primary), grey(7), 20%)
+
+            &::-webkit-input-placeholder
+                transition: opacity 0.5s ease
+                opacity: 0

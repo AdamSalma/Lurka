@@ -1,15 +1,19 @@
 const {app, BrowserWindow} = require('electron')
+
+const {server} = require('../config')
+const serverURL = server.schema +'://'+ server.host +':'+ server.port
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 
 function createWindow () {
-  require('./server.bundle.js')  // start up server
+  // Start up server
+  require('./server.bundle.js')  
   // Create the browser window.
   win = new BrowserWindow({width: 800, height: 600})
-
-  // and load the index.html of the app.
-  win.loadURL(`http://localhost:3000`)
+  // Load the index.html
+  win.loadURL(serverURL)
 
   win.setFullScreen(true);
   // Emitted when the window is closed.

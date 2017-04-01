@@ -1,14 +1,13 @@
 import Axios from 'axios';
 
-import options from '../../config/requestHeaders';
-import { parseBoard } from '../../parsers/4chanParser';
-import { fourchanAPI } from '../../config/apiEndpoints';
+import API from '../../../config/4chanAPI';
+import options from '../../../config/proxy';
+import { parseBoard } from '../../parsers';
 import { writeObjToRoot } from '../../services/inspector'
-
 
 export default function (req, res, next) {
     const { boardID } = req.params;
-    const url = fourchanAPI(boardID).board
+    const url = API.board(boardID)
     log.http(`Fetching board from ${url}`)
     Axios(url, options)
         .then( r => r.data )

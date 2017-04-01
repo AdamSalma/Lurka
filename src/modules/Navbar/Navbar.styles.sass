@@ -1,0 +1,122 @@
+@import '~styles/base'
+
+.navbar
+    +set-dims($navbar-width, $navbar-height)
+    position: fixed
+    bottom: 0
+    // left: 0
+    left: -$navbar-width
+    background: grey(8)
+    display: flex
+    flex-direction: column
+    +no-select
+
+    .overlay
+        z-index: -1
+
+        &.overlay-active
+            opacity: 0.8 !important
+
+
+    .navbar-controls
+        padding: 3px 4px 0 2px
+
+
+    .navbar-search
+        position: relative
+        padding: 0 3px
+        margin-top: 2px
+
+        .searchbox
+            display: inline-block
+            width: 100%
+
+            .searchbox-content
+                height: 28px
+                margin-bottom: 0
+
+        .magnify-button
+            width: 38px
+            height: 100%
+            padding: 6px 12px
+            font-size: 14px
+            font-weight: 400
+            line-height: 1
+            display: inline-block
+            background: grey(1)
+            color: grey(6)
+            text-align: center
+            border-radius: 0 4px 4px 0
+            border: grey(6)
+
+
+
+    .navbar-content
+        flex-grow: 1
+        position: relative
+
+    .boardlist 
+        position: absolute
+        +set-dims(100%, 100%)
+
+    .dropdown
+        // Fix for scroller outside of items
+        width: auto !important
+
+        .item:hover
+            .icon
+                color: grey(2)
+
+        .icon
+            float: right
+            position: relative
+            color: grey(5)
+            font-size: $navbar-icon-size
+            transition: color .2s ease-in-out
+            padding-right: 2px
+            padding-left: 6px
+            margin-top: -2px
+
+            &.mdi-star
+                color: color(favourite) !important
+
+
+
+
+    /* Buttons */
+    .navbar-filter-buttons
+        padding: 6px 0
+        display: flex
+
+        .list-toggle
+            padding: 2px 4px
+            padding-left: 12px
+            margin: 0 3px
+            border-radius: 4px
+            flex: 1
+            +clickable
+            // text-align: center
+
+            &::first-letter
+                text-transform: capitalize
+
+        .favourite
+            background: color(favourite)
+            color: grey(10)
+            flex: 2
+
+        .disabled
+            background: grey(7) !important
+            color: color(text-disabled)
+            text-shadow: 0 0 1px grey(8)
+
+        .NSFW
+            color: color(secondary-text)
+            ::after
+                content: " "
+
+
+    /* Shrink size of scrollbar */
+    .nano-pane
+        width: 4px
+        background: grey(8)
