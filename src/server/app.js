@@ -2,24 +2,26 @@ import Express from 'express'
 import { join } from 'path';
 
 import routes from './routes'
-import config from '../../config'
+import config from '../config'
+
 import webpackHotMiddleware from './middleware/webpackMiddleware'
 import routeLogger from './middleware/routeLogger'
 import checkInternet from './middleware/checkInternet'
+import rootRequire from './services/rootRequire'
+
+
+// app_root is used to locate ../index.html in production/development env's
+global.app_root = config.prodEnv ? __dirname : join(__dirname, '..')
+global.rootRequire = rootRequire
 
 const app = Express();
-const isProd = config.env === 'production'
-
-// Used to send index.html
-global.app_root = isProd ? __dirname : join(__dirname, '../..', 'app')
-global.rootRequire = (_path) => require(join(__dirname, _path))
 
 log.app(`Environment: "${config.env}"`);
-if (isProd) {
+if (config.prodEnv) {
     app.use(Express.static(__dirname));
-    app.use(Express.static(join(__dirname, 'assets')));
+    app.use(Express.static(join(__dirname, 'public')));
 } else {
-    app.use(Express.static(join(__dirname, '..', 'assets')));
+    app.use(Express.static(join(__dirname, '../..', 'public')));
     webpackHotMiddleware(app);
 }
  
@@ -38,18 +40,13 @@ app.use('/api', routes.api);  // Request content from external API
 // app.use('/settings', require('./routes/settings'));  // Save/Load setting related files (config, stylesheets?)
 
 
-
-
-
-
-
 // 404 handler
 app.use(({ url }, res, next) => {
     // Ignore HMR
     if (url.includes("webpack")) 
         return next()
 
-    if (isProd) {
+    if (config.prodEnv) {
         log.error(`404 Not found: ${url}`)
         res.status(404);
     } else {
