@@ -9,7 +9,7 @@ import SettingsPage from './SettingsPage';
 import GlobalPage from './GlobalPage';
 
 /* Actions */
-import { fetchBoard, fetchBoardList } from '~/actions';
+import { fetchBoard, fetchBoardList } from '~/redux/actions';
 
 import updatePreloader from '~/preload'
 

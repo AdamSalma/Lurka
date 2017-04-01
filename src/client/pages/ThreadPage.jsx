@@ -5,14 +5,15 @@ import { connect } from 'react-redux';
 import {
     Thread, 
     ThreadControls
-} from "~/containers";
+} from "~/modules";
 
 import { 
     closeThread,
     monitorThread,
     unmonitorThread,
-    scrollHeader
-} from '~/actions';
+    scrollHeader,
+    toggleHeaderPanel
+} from '~/redux/actions';
 
 class ThreadPage extends Component {
     render() {
@@ -34,6 +35,7 @@ class ThreadPage extends Component {
                 />
                 <ThreadControls
                     monitorThread={monitorThread} unmonitorThread={unmonitorThread}
+                    toggleHeaderPanel={toggleHeaderPanel}
 
                     thread={thread} status={status}
                 />
@@ -55,7 +57,8 @@ function mapDispatchToProps(dispatch) {
         closeThread,
         monitorThread,
         unmonitorThread,
-        scrollHeader
+        scrollHeader,
+        toggleHeaderPanel
     }, dispatch)
 }
 
