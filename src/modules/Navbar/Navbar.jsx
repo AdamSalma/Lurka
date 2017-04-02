@@ -68,7 +68,7 @@ export default class Navbar extends Component {
         const favClasses = classes('list-toggle favourite', {'disabled': !favouritesOnly})
 
         return (
-            <div id="navbar" className="navbar">
+            <div id="navbar" className="Navbar">
                 <Overlay isVisible={isNavbarOpen} onClick={toggleNavbar}/>
                 {this.renderBoardInfo()}
                 {/*Section 3*/}

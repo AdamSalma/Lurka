@@ -43,7 +43,7 @@ export default class Settings extends Component {
 
     render() {
         return (
-            <div className="settings">
+            <div className="Settings">
                 <div className="header">Settings</div>
                 {this.createSettings()}
             </div>
