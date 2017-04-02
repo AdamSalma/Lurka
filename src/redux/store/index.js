@@ -1,7 +1,7 @@
+import config from '~/config'
 import configureStore from './configure';
 import { loadState, saveState } from './localStorage';
 
-const prodEnv = process.env.NODE_ENV === "production"
 const state = config.prodEnv ? loadState() : undefined;
 const store = configureStore(state);
 
