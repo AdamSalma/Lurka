@@ -1,0 +1,40 @@
+@import '~styles/base'
+
+.ContentButtonGroup
+    font-size: $font-size-large
+    color: color(text-secondary)
+    +no-select
+
+    .arrow
+        display: inline-block
+        +clickable
+        
+        .icon
+            border: grey(9) solid 1px
+            background: grey(8)
+            padding: 4px 6px
+            +square(30px)
+            text-shadow: 2px 2px 1px grey(10)
+            box-shadow: 0 0 0 grey(10)
+
+        &:hover .icon
+            border: grey(10) solid 1px
+            color: color(text-primary)
+            transition: box-shadow .1s ease-out
+            box-shadow: 0 1px 1px grey(9)
+
+
+    .button
+        +clickable
+        background: none
+        border: none
+        outline: none
+        color: inherit
+        margin: 0 12px
+        padding: 0 2px
+        font-family: $font-main
+        font-size: 17px
+        transition: color .2s ease-out
+
+        &:hover
+            color: color(text-primary)
