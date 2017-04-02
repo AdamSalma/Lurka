@@ -129,7 +129,7 @@ function loadThreadFromHistory({ threadHistory }, threadID) {
 
 
 
-export function closeThread(callback = ()=>{}) {
+export function closeThread(callback) {
     return (dispatch, getState) => {
         const state = getState(),
               threadID = state.status.threadID
@@ -147,7 +147,7 @@ export function closeThread(callback = ()=>{}) {
 
         if (!shouldCloseThread(state)) {
             console.warn('Thread close rejected')
-            callback()
+            callback && callback()
             return 
         }
 
@@ -156,7 +156,7 @@ export function closeThread(callback = ()=>{}) {
             complete: () => {
                 dispatch(saveThreadToHistory(state))
                 dispatch(destroyThread(threadID))
-                callback()
+                callback && callback()
             }
         })
     } 
