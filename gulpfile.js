@@ -3,8 +3,8 @@ var webpack = require('webpack');
 var runSequence = require('run-sequence');
 var del = require('del');
 
-var clientConfig = require('./config/webpack.prod.client.js')
-var serverConfig = require('./config/webpack.prod.server.js')
+var clientConfig = require('./webpack/webpack.prod.client.js')
+var serverConfig = require('./webpack/webpack.prod.server.js')
 
 
 /* App Bundle */
@@ -18,7 +18,7 @@ gulp.task('bundle:server', function(done) {
 
 /* Copy */
 gulp.task('copy:assets', function() {
-	gulp.src('src/assets/**/*', {base: 'src'}).pipe(gulp.dest('app/'))
+	gulp.src('public/**/*', {base: 'src'}).pipe(gulp.dest('app/'))
 });
 
 gulp.task('copy:electron', function() {
@@ -26,7 +26,7 @@ gulp.task('copy:electron', function() {
 });
 
 gulp.task('copy:fonts-to-assets', function() {
-    gulp.src('src/app/**/*.{ttf,svg,woff,eot}').pipe(gulp.dest('app/assets/'))
+    gulp.src('src/app/**/*.{ttf,svg,woff,eot}').pipe(gulp.dest('app/public/'))
 });
 
 /* Clean */
