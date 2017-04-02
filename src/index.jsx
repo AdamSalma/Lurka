@@ -1,5 +1,5 @@
 import 'babel-polyfill';
-import '../styles/index';
+import './styles/global';
 import './vendor/polyfills';
 import './vendor/nanoscroller';
 
@@ -7,7 +7,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import AppContainer from './pages/App';
+import App from './pages/App';
 
 import store from './redux/store'
 import { appReady } from './redux/actions'
@@ -17,7 +17,7 @@ window.AppReady = () => store.dispatch(appReady())
 
 ReactDOM.render(
     <Provider store={store}>
-        <AppContainer/>
+        <App />
     </Provider>,
     document.querySelector('#App')
 );
