@@ -1,6 +1,5 @@
 import './BoardPost.styles'
 import React, {Component} from 'react';
-import LazyLoad from 'react-lazyload';
 
 import {
     Counter,
@@ -39,7 +38,7 @@ export default class BoardPost extends Component {
         const { onClick, onLoad, post } = this.props;
 
         return (
-            <div id={"t" + post.id} className="board-post" onClick={ onClick }>
+            <div id={"t" + post.id} className="BoardPost" onClick={ onClick }>
                 {this.renderImage(onLoad, post)}
                 {this.renderComment(post)}
             </div>
@@ -47,15 +46,14 @@ export default class BoardPost extends Component {
     }
 
     renderImage(onLoad, {media}) {
-        return !this.state.imageInvalidated ? <div className="image-wrap">
-            <LazyLoad height={media.height} offsetTop={200} once>
+        return !this.state.imageInvalidated ? (
+            <div className="image-wrap">
                 <Image 
-                    src={media.thumbnail} 
-                    width={media.width} height={media.height}
+                    src={media.thumbnail}
                     onLoad={onLoad} onError={this.hideImage}
                 />
-            </LazyLoad>
-        </div> : false
+            </div> 
+        ): false
     }
 
     renderComment({ title, comment, time, replies }) {
