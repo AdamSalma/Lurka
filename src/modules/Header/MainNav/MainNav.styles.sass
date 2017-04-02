@@ -1,0 +1,32 @@
+@import '~styles/base'
+
+.MainNav
+    width: 100vw
+    height: $header-height
+    line-height: $header-height
+    border-bottom: grey(4) solid 1px
+    background: grey(7)
+    display: flex
+    justify-content: center
+
+    .HeaderItem
+        align-self: center
+        padding: 0 4px
+        margin-left: 0
+
+        &.version
+            margin-right: auto
+            align-self: flex-start
+
+        &.icons
+            margin-left: auto
+            display: flex
+            flex-direction: column
+            align-items: center
+
+            .feature-icons
+                font-size: $font-size-large
+
+            .content-icons
+                font-size: $font-size-medium
+
