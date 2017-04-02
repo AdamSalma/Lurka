@@ -5,7 +5,7 @@ var blocks = []
 var gutter = 60
 
 export default function setupBlocks() {
-	$items = $('.board-post')
+	$items = $('.BoardPost')
 	if (!$items.length) return // sometimes called before posts are rendered
 
 	blocks = []

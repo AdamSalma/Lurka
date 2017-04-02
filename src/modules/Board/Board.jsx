@@ -76,7 +76,7 @@ export default class Board extends Component {
     }
 
     render() {
-        const boardClasses = classes('board nano', {
+        const boardClasses = classes('Board nano', {
             'show-all': this.props.board.searchWord
         })
 
