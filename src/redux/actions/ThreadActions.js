@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-import API from '~/api'
+import API from '~/config/api'
 import { secondsAgo } from '~/utils'
 import { alertMessage } from './StatusActions'
 import {
