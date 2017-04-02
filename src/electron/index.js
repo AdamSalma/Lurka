@@ -1,7 +1,6 @@
 const {app, BrowserWindow} = require('electron')
 
-const {server} = require('../config')
-const serverURL = server.schema +'://'+ server.host +':'+ server.port
+const serverURL = 'http://127.0.0.1:3000'
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
