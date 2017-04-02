@@ -54,35 +54,27 @@ export default class Thread extends Component {
     componentWillUnmount() {
         console.log("Thread will unmount");
     }
+
     render() {
-        const { thread, isFetching, isActive } = this.props
-        const { posts, didInvalidate } = thread;
+        const { isActive, thread:{ posts, didInvalidate }} = this.props
+        const threadWrapClasses = 
+            classes('thread-wrap', 'nano', {
+                "thread-wrap-active": isActive
+            });
 
-        const threadWrapClasses = classes('thread-wrap', 'nano', {
-            "thread-wrap-active": isActive
-        });
-
-        const threadClasses = classes('thread', 'nano-content', {
-            "thread-active": isActive
-        })
+        const threadClasses = 
+            classes('thread', 'nano-content', {
+                "thread-active": isActive
+            });
 
         if (didInvalidate) 
-            return false
-
-        console.log(`THREAD: posts: ${posts.length}, isFetching: ${isFetching}`)
+            return null
 
         return (
-            <div>
-                <Overlay 
-                    isVisible={isActive} 
-                    onClick={this.closeThread}
-                />
-                <Spinner isSpinning={isActive && !posts.length}/>
-                <div ref={t => this._threadWrap = $(t)} className={threadWrapClasses}>
-                    <div id="thread" className={threadClasses} ref={t => this._thread = $(t)} onClick={this.closeThread}>
-                        <div className="header-gap" />
-                        {posts.length && this.createPosts( posts )}
-                    </div>
+            <div ref={t => this._threadWrap = $(t)} className={threadWrapClasses}>
+                <div id="thread" className={threadClasses} ref={t => this._thread = $(t)} onClick={this.closeThread}>
+                    <div className="header-gap" />
+                    {posts.length && this.createPosts( posts )}
                 </div>
             </div>
         )
@@ -92,7 +84,7 @@ export default class Thread extends Component {
     createPosts( posts ) {
         return posts.map( 
             post => <ThreadPost 
-                key={uuid.v4()} 
+                key={post.id} 
                 post={post}>
                 <TimeAgo date={post.time}/>
             </ThreadPost>
