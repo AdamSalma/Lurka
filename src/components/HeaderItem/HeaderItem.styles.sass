@@ -1,8 +1,7 @@
 @import '~styles/base'
 
-.header-item
+.HeaderItem
     display: inline-block
-    margin: 0 10px
 
     &.breadcrumb
         margin: 0
@@ -13,19 +12,9 @@
     &.header-icon:last-child
         margin-right: 20px !important
 
-    &.header-icon
-        padding: 0 8px
-        margin-right: 4px
-        cursor: pointer
-        transition: all .3s ease
-        border-radius: 4px
-        border: 1px solid transparent
-
         &:hover
             background: grey(6)
             border-color: color(primary)
 
         &.active
             background: color(primary)
-    .icon
-        font-size: $header-icon-size
