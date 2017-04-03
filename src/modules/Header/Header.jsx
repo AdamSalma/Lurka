@@ -29,7 +29,7 @@ export default class Header extends Component {
             boardID, 
             threadID, 
             activePanel, 
-            isNavbarOpen 
+            isNavbarOpen
         } = this.props;
 
         const placeholder = `Search ${threadIsActive ? "thread" : "board"} ...`
@@ -48,6 +48,14 @@ export default class Header extends Component {
                         boardID={boardID}
                         threadIsActive={threadIsActive}
                     />
+                    <SubNav 
+                        activePanel={activePanel}
+                        toggleHeaderPanel={toggleHeaderPanel}
+                        threadIsActive={threadIsActive}
+
+                        isHomePage={false} 
+                    />
+                    {/*TODO: Add isHomePage to initialState ^^*/}
                 </div>
             </div>
         )
