@@ -3,10 +3,6 @@ import React, {Component} from 'react'
 import cx from 'classnames'
 
 import {
-    Icon,
-    LogoText,
-    SearchBox,
-    Hierarchy,
     HeaderItem
 } from '~/components'
 
@@ -14,22 +10,23 @@ import IconGroup from '../HeaderIconGroup'
 
 export default function SubNav(props) {
     const {
-        toggleHeaderPanel, activePanel
+        toggleHeaderPanel, activePanel, isHomePage
     } = props
-
-    const iconProps = {
-        activePanel,
-        toggleHeaderPanel,
-        icons: [
-            'search', 'filter', 'sort', 'layout'
-        ]
-    }
 
     return (
         <div className="SubNav">
-            <HeaderItem>
-                <IconGroup {...iconProps}/>
-            </HeaderItem>
+            { isHomePage 
+                ? <IconGroup icons={['home', 'star', 'info']}
+                    className="home-icons"
+                    activePanel={activePanel}
+                    toggleHeaderPanel={toggleHeaderPanel}
+                  />
+                : <IconGroup icons={['search', 'filter', 'sort', 'layout']}
+                    className="content-icons"
+                    activePanel={activePanel}
+                    toggleHeaderPanel={toggleHeaderPanel}
+                  /> 
+            }
         </div>
     )
 }

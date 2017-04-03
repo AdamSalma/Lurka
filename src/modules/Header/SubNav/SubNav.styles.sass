@@ -1,27 +1,17 @@
 @import '~styles/base'
 
 .SubNav
-    display: inline-block
-    width: 100vw
-    // height: $header-sub-height
-    // line-height: $header-sub-height
-    border-bottom: grey(4) solid 1px
-    background: grey(7)
-    display: flex
-
-
-    .HeaderItem
-        align-self: center
-        padding: 0 3px
-
-    .HeaderItem:first-child
-        align-self: flex-start
-
-    .HeaderItem:last-child
-        align-self: flex-end
-        margin-right: 0
-        margin-left: auto
-        padding-left: 6px
+    height: $header-sub-height
+    line-height: $header-sub-height
 
     .HeaderIconGroup
-        font-size: $font-size-medium
+        width: 175px
+        background: grey(7)
+        margin: 0 auto
+        height: inherit
+        line-height: inherit
+
+        font-size: 18px
+        display: flex
+        justify-content: center
+        align-items: center
