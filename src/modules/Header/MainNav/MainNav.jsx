@@ -43,22 +43,7 @@ export default function MainNav(props) {
             </HeaderItem>
 
             <HeaderItem className="icons">
-                <IconGroup 
-                    className="feature-icons"
-                    icons={[
-                        'archive', 'watch', 'account'
-                    ]}
-                    activePanel={activePanel}
-                    toggleHeaderPanel={toggleHeaderPanel}
-                />
-                <IconGroup 
-                    className="content-icons"
-                    icons={[
-                        'search', 'filter', 'sort', 'layout'
-                    ]}
-                    activePanel={activePanel}
-                    toggleHeaderPanel={toggleHeaderPanel}
-                />
+                <IconGroup {...iconProps}/>
             </HeaderItem>
         </div>
     )
