@@ -1,9 +1,9 @@
-import "./HeaderIconGroup.styles"
+import "./IconGroup.styles"
 import React, { Component, PropTypes } from 'react';
 
 import HeaderIcon from './HeaderIcon'
 
-class HeaderIconGroup extends Component {
+class IconGroup extends Component {
     constructor(props) {
         super(props);
         this.handleIconClick = this.handleIconClick.bind(this)
@@ -15,7 +15,7 @@ class HeaderIconGroup extends Component {
 
         return (
             <div className={[
-                "HeaderIconGroup", 
+                "IconGroup", 
                 className
             ].join(' ')}>
                 {icons.map(iconName => {
@@ -56,7 +56,7 @@ class HeaderIconGroup extends Component {
                                 active={activePanel === 'layout'}
                             />
                         default: 
-                            throw new Error('Invalid HeaderIconGroup name:', iconName)
+                            throw new Error('Invalid IconGroup name:', iconName)
                     }
                 })}            
             </div>
@@ -68,4 +68,4 @@ class HeaderIconGroup extends Component {
     }
 }
 
-export default HeaderIconGroup;
+export default IconGroup;
