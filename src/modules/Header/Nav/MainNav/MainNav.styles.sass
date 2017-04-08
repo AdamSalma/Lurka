@@ -1,0 +1,45 @@
+@import '~styles/base'
+
+.MainNav
+    +set-dims(100%, $header-height)
+    position: fixed
+    // top: -$header-height  // hide on start
+    top: 0
+    border-bottom: 2px color(primary, darkest) solid
+    z-index: 20
+
+    .background
+        opacity: 0.95
+        background: grey(8)
+        +set-dims(100%, 100%)
+        position: absolute
+        z-index: -1
+
+    .content
+        width: 100vw
+        height: $header-height
+        line-height: $header-height
+        display: flex
+        justify-content: center
+
+    .HeaderItem
+        align-self: center
+        padding: 0 8px
+        margin-left: 0
+
+        &.left
+            margin-right: auto
+
+        &.right
+            margin-left: auto
+
+        &.center
+            margin: 0 8px
+
+        .icon
+            color: color(text-secondary)
+            font-size: 20px
+
+            &:after
+                +circle(34px)
+                background-color: blue
