@@ -2,12 +2,11 @@ import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import AlertContainer from 'react-alert'
-
 import {
     Header,
     HeaderPanels,
     Navbar,
+    AlertContainer,
 } from "~/modules";
 
 import { 
@@ -39,16 +38,7 @@ class GlobalPage extends Component {
             - Navbar
             - Alert container
      */
-    constructor(props) {
-        super(props);
-        this.showAlert = this.showAlert.bind(this)
-    }
-
-    componentDidUpdate({ status:{ alertMessage } }) {
-        if (this.props.status.alertMessage !== alertMessage ) {
-            this.showAlert(this.props.status.alertMessage)
-        }
-    }
+ 
 
     render() {
         const {
@@ -93,17 +83,9 @@ class GlobalPage extends Component {
 
                     status={status} boardList={boardList} settings={settings}
                 />
-                <AlertContainer ref={a => this.msg = a} position='bottom right'/>
+                <AlertContainer position="bottom right"/>
             </div>
         )
-    }
-
-    showAlert({message, type='info', time=4000, icon=false}) {
-        if (type === 'info') {
-            icon = <img src="alert-info.png"/>
-        }
-
-        this.msg.show(message, {time, type, icon})
     }
 }
 
