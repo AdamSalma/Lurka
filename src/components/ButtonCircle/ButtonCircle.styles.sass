@@ -1,0 +1,49 @@
+@import '~styles/base'
+
+$iconcircle-icon-size: 22px
+$iconcircle-circlesize: 45px
+
+.ButtonCircle
+    display: inline-block
+    margin: 0 9px
+    position: relative
+    +clickable
+
+    .icon
+        font-size: $iconcircle-icon-size
+        +square($iconcircle-circlesize)
+        display: table-cell
+        vertical-align: middle
+        color: color(text-secondary)
+        text-align: center
+        transition: all .2s
+
+    &::before
+        content: ''
+        +square($iconcircle-circlesize)
+        position: absolute
+        background: grey(8)
+        border-radius: 50%
+        border: 1px solid grey(6)
+        transform: scale(1)
+        transition: all .2s
+        margin-left: -1px
+
+    &:hover
+        &::before
+            background: grey(7)
+            transform: scale(1.3)
+            border-color: color(primary)
+
+        .icon
+            transform: scale(1.15)
+            color: color(text-primary)
+
+    &.selected
+        &::before
+            border-color: color(primary)
+            background-color: color(primary)
+
+        .icon
+            color: color(text-primary)
+
