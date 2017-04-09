@@ -1,7 +1,12 @@
 import './Sidebar.styles'
 import React, { PropTypes } from 'react';
 
-import {ButtonCircle, LogoText, Icon} from '~/components'
+import {
+    ButtonCircle, 
+    LogoText, 
+    Icon, 
+    Line
+} from '~/components'
 
 const SidebarIcon = ({ name, ...restProps }) => {
     return (
@@ -15,12 +20,11 @@ const Sidebar = ({ togglePanel: toggle }) => {
     return (
         <div className="Sidebar">
             <LogoText/>
-            <div className="line"/>
-            <SidebarIcon name="account" onClick={() => toggle('account')}/>
-            <SidebarIcon name="storage" onClick={() => toggle('storage')}/>
-            <SidebarIcon name="download" onClick={() => toggle('download')}/>
+            <Line />
+            <SidebarIcon name="person-add" onClick={() => toggle('account')}/>
+            <SidebarIcon name="ios-box" onClick={() => toggle('archive')}/>
             <SidebarIcon name="eye" onClick={() => toggle('eye')}/>
-            <SidebarIcon name="settings" onClick={() => toggle('settings')}/>
+            <SidebarIcon name="gear-a" onClick={() => toggle('settings')}/>
         </div>
     );
 };

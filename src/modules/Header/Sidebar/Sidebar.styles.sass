@@ -1,16 +1,24 @@
 @import '~styles/base'
 
+
+$iconcircle-circle-size: 45px
+$iconcircle-icon-size: 25px
+$sidebar-width: 80px
+
 .Sidebar
     display: flex
     flex-direction: column
     align-items: center
     height: 100vh
-    width: 80px
+    width: $sidebar-width
     background-color: grey(8)
     border-right: grey(4) solid 1px
+    z-index: -1
+
 
     > *
         margin: 7px 0
+        z-index: 1
 
         &:last-child
             margin-top: auto
@@ -23,11 +31,12 @@
             top: 21px
             right: 1px
 
-        &:after
-            content: ""
-            position: absolute
-            +set-dims(100%, 1px)
-            background-color: color(text-secondary)
-            bottom: 0
-            left: 0
+    .ButtonCircle
+        font-size: 26px
+
+    .Line
+        width: $sidebar-width - 20px
+
+        &:before, &:after
+            content: none
 
