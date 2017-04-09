@@ -11,10 +11,10 @@
     flex-direction: column
     +no-select
 
-    .overlay
+    .Overlay
         z-index: -1
 
-        &.overlay-active
+        &.Overlay-active
             opacity: 0.8 !important
 
 
@@ -27,11 +27,11 @@
         padding: 0 3px
         margin-top: 2px
 
-        .searchbox
+        .Searchbox
             display: inline-block
             width: 100%
 
-            .searchbox-content
+            .content
                 height: 28px
                 margin-bottom: 0
 
@@ -59,15 +59,15 @@
         position: absolute
         +set-dims(100%, 100%)
 
-    .dropdown
+    .Dropdown
         // Fix for scroller outside of items
         width: auto !important
 
         .item:hover
-            .icon
+            .Icon
                 color: grey(2)
 
-        .icon
+        .Icon
             float: right
             position: relative
             color: grey(5)

@@ -10,7 +10,7 @@ export default class Overlay extends Component {
             loading
         } = this.props;
         // const iconProps = {
-        //     className: styles.icon,
+        //     className: styles.Icon,
         //     height: 40,
         //     width: 40,
         //     fill: '#fff'

@@ -22,7 +22,7 @@ export default class Dropdown extends Component {
     }
 
     updateScroller( opts={} ) {
-        $(this.refs.dropdown).nanoScroller(opts);
+        this._dropdown.nanoScroller(opts);
     }
 
     render () {
@@ -30,8 +30,8 @@ export default class Dropdown extends Component {
         const dropdownClasses = classes(className, "nano");
 
         return (
-            <div ref="dropdown" className={dropdownClasses}>
-                <div className="dropdown nano-content" onClick={onClick}>
+            <div ref={el => this._dropdown = $(el)} className={dropdownClasses}>
+                <div className="Dropdown nano-content" onClick={onClick}>
                     {items.length && items.map( item => 
                         <span key={uuid.v4()} className="item">
                             {item}

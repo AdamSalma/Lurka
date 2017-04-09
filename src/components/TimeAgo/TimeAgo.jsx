@@ -25,7 +25,7 @@ export default class TimeAgo extends Component {
         const {canToggle, toggledFormat, agoSuffix} = this.props
         const time = moment(this.props.time)
 
-        return <span className="timeago" onClick={this.toggleFormat}>
+        return <span className="TimeAgo" onClick={this.toggleFormat}>
             {this.state.clicked && canToggle ? 
                 time.format(toggledFormat) : time.fromNow(agoSuffix)
             }

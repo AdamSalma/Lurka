@@ -33,7 +33,7 @@ export default class ThreadPost extends Component {
         }} = this.props
 
         return (
-            <div id={"p"+id} className='thread-post clearfix' onClick={e => e.stopPropagation()}>
+            <div id={"p"+id} className='ThreadPost' onClick={e => e.stopPropagation()}>
                 <div className='post-info'>
                     {renderTitle(title)}
                     <span className='name'>{name}</span>

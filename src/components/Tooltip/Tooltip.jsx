@@ -26,18 +26,18 @@ export default class Tooltip extends Component {
 
     render() {
         const { className, content, children } = this.props
-        const contentClasses = classes("tooltip-content", {
-            'tooltip-active': this.state.isVisible
+        const contentClasses = classes("Tooltip-content", {
+            'Tooltip-active': this.state.isVisible
         })
 
         return <div className={[
-            'tooltip',  
+            'Tooltip',  
             className
         ].join(' ')}>
             <div className={contentClasses}>
                 {content}
             </div>
-            <div className="tooltip-target"
+            <div className="Tooltip-target"
             onMouseEnter={this.showTooltip}
             onMouseLeave={this.hideTooltip}>
                 {children}

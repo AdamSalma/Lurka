@@ -18,7 +18,7 @@ export default class BoardList extends Component {
 
     render() {
         const {boardList, provider, onClick, boardListElements} = this.props
-        const boardlistClasses = classes('boardlist', `p-${provider}`)
+        const boardlistClasses = classes('Boardlist', `p-${provider}`)
         const hasBoards = boardListElements && boardListElements.length;
 
         return (

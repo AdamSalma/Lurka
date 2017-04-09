@@ -33,7 +33,7 @@ export default function BoardInfo(props) {
     } = props;
 
     return (
-        <div className="board-info">
+        <div className="BoardInfo">
             <ul>
                 <li>{is_archived ? "Is Archived" : "No Archive"}</li>
                 {image_limit && 

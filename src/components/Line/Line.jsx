@@ -3,6 +3,6 @@ import React from "react"
 
 export default ({ isVertical }) => {
     return isVertical ? 
-        <span className='pipe'/> : 
-        <span className="line"/>
+        <span className='Pipe'/> : 
+        <span className="Line"/>
 }
