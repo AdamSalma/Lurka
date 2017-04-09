@@ -1,3 +1,4 @@
+import './ButtonCircle.styles'
 import React, {Component} from 'react'
 import classes from 'classnames'
 
@@ -12,7 +13,7 @@ export default class ControlWrapper extends Component {
     }
 
     render() {
-        const controlClasses = classes('control-wrapper', {
+        const controlClasses = classes('ButtonCircle', {
             "selected": this.props.isActive
         })
 
