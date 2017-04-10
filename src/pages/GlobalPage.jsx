@@ -72,7 +72,7 @@ class GlobalPage extends Component {
                     activePanel={status.activeHeaderPanel} status={status} 
                     threadMonitor={threadMonitor} settings={settings}
                 />
-                <Navbar 
+                {/*<Navbar 
                     fetchBoardList={fetchBoardList}
                     addToFavourites={addToFavourites}
                     removeFromFavourites={removeFromFavourites}
@@ -82,7 +82,7 @@ class GlobalPage extends Component {
                     searchBoardlist={searchBoardlist} closeThread={closeThread}
 
                     status={status} boardList={boardList} settings={settings}
-                />
+                />*/}
                 <AlertContainer position="bottom right"/>
             </div>
         )
