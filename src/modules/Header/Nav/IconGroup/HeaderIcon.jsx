@@ -1,14 +1,14 @@
 import React from 'react'
 import classes from 'classnames'
-import {HeaderItem, Icon} from '~/components'
+import {HeaderItem, ButtonCircle, Icon} from '~/components'
 
 const HeaderIcon = ({name, onClick, active, ...restProps}) => {
     return (
-        <HeaderItem 
+        <ButtonCircle
         className={classes("HeaderIcon", {"active": active})} 
         onClick={onClick} {...restProps}>
             <Icon name={name}/>
-        </HeaderItem>
+        </ButtonCircle>
     )
 }
 

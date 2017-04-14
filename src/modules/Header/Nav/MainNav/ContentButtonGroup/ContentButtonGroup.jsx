@@ -9,13 +9,13 @@ const ContentButtonGroup = ({ className, children, onArrowClick, onButtonClick }
             className
         ].join(' ')}>
             <div className="arrow arrow-left" onClick={() => onArrowClick({left:true})}>
-                <Icon name="arrow-left"/>
+                <Icon name="chevron-left"/>
             </div>
             <button className="button" onClick={onButtonClick}>
                 {children}
             </button>
             <div className="arrow arrow-right" onClick={() => onArrowClick({right:true})}>
-                <Icon name="arrow-right"/>
+                <Icon name="chevron-right"/>
             </div>
 
         </div>

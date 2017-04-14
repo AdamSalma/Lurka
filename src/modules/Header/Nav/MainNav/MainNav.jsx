@@ -46,7 +46,7 @@ export default function MainNav(props) {
                     <ContentButtonGroup 
                     onButtonClick={toggleContentNav} 
                     onArrowClick={cycleContentNav}>
-                        {!threadIsActive ? `/${boardID}/` : `Thread #${threadID}`}
+                        {!threadIsActive ? `${boardID}` : `Thread #${threadID}`}
                     </ContentButtonGroup>
                 </HeaderItem>
 
