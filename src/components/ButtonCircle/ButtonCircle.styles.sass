@@ -1,15 +1,16 @@
 @import '~styles/base'
 
-$iconcircle-icon-size: 22px
-$iconcircle-circlesize: 45px
+$iconcircle-icon-size: 1em
+$iconcircle-circlesize: 1.8em
 
 .ButtonCircle
     display: inline-block
     margin: 0 9px
     position: relative
     +clickable
+    font-size: 22px
 
-    .icon
+    .Icon
         font-size: $iconcircle-icon-size
         +square($iconcircle-circlesize)
         display: table-cell
@@ -17,9 +18,9 @@ $iconcircle-circlesize: 45px
         color: color(text-secondary)
         text-align: center
         transition: all .2s
+        z-index: 1
 
-    &::before
-        content: ''
+    .Circle
         +square($iconcircle-circlesize)
         position: absolute
         background: grey(8)
@@ -27,23 +28,22 @@ $iconcircle-circlesize: 45px
         border: 1px solid grey(6)
         transform: scale(1)
         transition: all .2s
-        margin-left: -1px
+        z-index: -1
 
     &:hover
-        &::before
+        .Circle
             background: grey(7)
-            transform: scale(1.3)
+            transform: scale(1.25)
             border-color: color(primary)
 
-        .icon
-            transform: scale(1.15)
+        .Icon
+            transform: scale(1.2)
             color: color(text-primary)
 
     &.selected
-        &::before
+        .Circle
             border-color: color(primary)
             background-color: color(primary)
 
-        .icon
+        .Icon
             color: color(text-primary)
-

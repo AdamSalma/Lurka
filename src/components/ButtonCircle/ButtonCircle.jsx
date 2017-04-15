@@ -2,6 +2,8 @@ import './ButtonCircle.styles'
 import React, {Component} from 'react'
 import classes from 'classnames'
 
+import Circle from '../Circle'
+
 export default class ControlWrapper extends Component {
     constructor(props) {
         super(props);
@@ -19,6 +21,7 @@ export default class ControlWrapper extends Component {
 
         return (
             <div className={controlClasses} onClick={this.handleClick}>
+                <Circle/>
                 {this.renderChildren()}
             </div>
         )
