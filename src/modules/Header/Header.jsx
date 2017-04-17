@@ -4,8 +4,9 @@ import classes from "classnames";
 
 import {bindMembersToClass} from '~/utils'
 
-import Nav from './Nav'
+import Navbar from './Navbar'
 import Panels from './Panels'
+import Drawer from './Drawer'
 // import DropdownNav from './DropdownNav'
 
 
@@ -35,8 +36,9 @@ export default class Header extends Component {
 
         return (
             <div id="header" className="Header">
-                <Nav {...this.props}/>
+                <Navbar {...this.props}/>
                 <Panels {...this.props}/>
+                <Drawer {...this.props}/>
             </div>
         )
     }

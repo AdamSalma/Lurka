@@ -129,7 +129,7 @@ function loadThreadFromHistory({ threadHistory }, threadID) {
 
 
 
-export function closeThread(callback) {
+export function closeThread(callback=false) {
     return (dispatch, getState) => {
         const state = getState(),
               threadID = state.status.threadID
