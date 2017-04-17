@@ -19,6 +19,7 @@ import {
     scrollPage, 
     scrollHeader, 
     toggleNavbar,
+    toggleDrawer, 
     fetchBoardList, 
     searchBoardlist, 
     addToFavourites, 
@@ -47,8 +48,9 @@ class GlobalPage extends Component {
             searchBoard, closeThread, changeProvider, toggleNavbar, 
             toggleSetting, searchBoardlist, fetchThread, toggleHeaderPanel,
             updateMonitoredThread, monitorThread, unmonitorThread,
+            toggleDrawer,
 
-            status, boardList, threadIsActive, settings, threadMonitor
+            status, boardList, settings, threadMonitor, display
         } = this.props;
 
         return (
@@ -58,12 +60,12 @@ class GlobalPage extends Component {
                     fetchBoardList={fetchBoardList} fetchBoard={fetchBoard} 
                     searchBoard={searchBoard} closeThread={closeThread}
                     destroyBoard={destroyBoard} toggleHeaderPanel={toggleHeaderPanel}
-                    toggleNavbar={toggleNavbar}
+                    toggleNavbar={toggleNavbar} toggleDrawer={toggleDrawer}
 
-                    {...status} activePanel={status.activeHeaderPanel}
-                    threadIsActive={threadIsActive} boardList={boardList} 
-                />  
-                <HeaderPanels
+                    {...status} activePanel={display.activeHeaderPanel}
+                    threadIsActive={display.isThreadOpen} boardList={boardList} 
+                />
+                {/*<HeaderPanels
                     fetchThread={fetchThread} closeThread={closeThread} 
                     fetchBoard={fetchBoard}
                     updateMonitoredThread={updateMonitoredThread}
@@ -71,7 +73,7 @@ class GlobalPage extends Component {
 
                     activePanel={status.activeHeaderPanel} status={status} 
                     threadMonitor={threadMonitor} settings={settings}
-                />
+                />*/}
                 {/*<Navbar 
                     fetchBoardList={fetchBoardList}
                     addToFavourites={addToFavourites}
@@ -89,14 +91,14 @@ class GlobalPage extends Component {
     }
 }
 
-function mapStateToProps({status, boardList, thread, settings, board, threadMonitor}) {
+function mapStateToProps({status, boardList, settings, display, board, threadMonitor}) {
     return {
         status,
         boardList,
-        threadIsActive: thread.isActive,
         settings,
         board,
-        threadMonitor
+        threadMonitor,
+        display
     }
 }
 
@@ -119,7 +121,8 @@ function mapDispatchToProps(dispatch) {
         toggleHeaderPanel,
         updateMonitoredThread,
         monitorThread,
-        unmonitorThread
+        unmonitorThread,
+        toggleDrawer
     }, dispatch)
 }
 

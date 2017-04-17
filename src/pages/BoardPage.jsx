@@ -12,14 +12,14 @@ import {
     fetchThread
 } from '~/redux/actions';
 
-class ContentPanel extends Component {
+class BoardPanel extends Component {
     render() {
         const {
             /* Actions */
-            fetchThread, fetchBoard, loadMorePosts, scrollHeader,
+            fetchThread, fetchBoard, loadMorePosts, scrollHeader, isAppReady,
 
             /* State */
-            status, board
+            status, board, isThreadOpen, isDrawerOpen
         } = this.props;
 
         return (
@@ -28,8 +28,9 @@ class ContentPanel extends Component {
                     fetchBoard={fetchBoard} fetchThread={fetchThread} 
                     loadMorePosts={loadMorePosts} scrollHeader={scrollHeader}
 
-                    board={board} provider={status.provider} appReady={status.appReady}
+                    board={board} provider={status.provider} isAppReady={isAppReady}
                     boardID={status.boardID} isFetching={board.isFetching}
+                    isDrawerOpen={isDrawerOpen} isThreadOpen={isThreadOpen}
                 /> 
             </div>
         )  // TODO: use destructuring on 'board' to pass children as props
@@ -37,10 +38,13 @@ class ContentPanel extends Component {
 }
 
 
-function mapStateToProps({ status, board }) {
+function mapStateToProps({ status, display, board, thread }) {
     return {
         status,
         board,
+        isAppReady:   display.isAppReady,
+        isDrawerOpen: display.isDrawerOpen,
+        isThreadOpen: display.isThreadOpen
     }
 }
 
@@ -53,4 +57,4 @@ function mapDispatchToProps(dispatch) {
     }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContentPanel)
+export default connect(mapStateToProps, mapDispatchToProps)(BoardPanel)

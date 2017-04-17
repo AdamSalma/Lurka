@@ -22,7 +22,7 @@ class ThreadPage extends Component {
             closeThread, monitorThread, unmonitorThread,
 
             // Props
-            status, thread 
+            status, thread, display
         } = this.props;
 
         return (
@@ -30,14 +30,15 @@ class ThreadPage extends Component {
                 <Thread 
                     closeThread={closeThread} scrollHeader={scrollHeader}
 
-                    thread={thread} isActive={thread.isActive} 
+                    thread={thread} isActive={display.isThreadOpen} 
                     isFetching={thread.isFetching} threadID={status.threadID}
+                    isDrawerOpen={display.isDrawerOpen}
                 />
                 <ThreadControls
                     monitorThread={monitorThread} unmonitorThread={unmonitorThread}
                     toggleHeaderPanel={toggleHeaderPanel}
 
-                    thread={thread} status={status}
+                    thread={thread} status={status} {...display}
                 />
             </div>
         )
@@ -45,10 +46,11 @@ class ThreadPage extends Component {
 }
 
 
-function mapStateToProps({ status, thread }) {
+function mapStateToProps({ status, thread, display }) {
     return {
         status,
-        thread
+        thread,
+        display
     }
 }
 
