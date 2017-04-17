@@ -1,14 +1,19 @@
 export default {
 	status: {
-		appReady: false,
-		isScrolling: false,  // app scroll
-		isHeaderVisible: true,  // if currentPage == "content"
-		isNavbarOpen: false,
-		activeHeaderPanel: null,  // responses to header buttons
 		alertMessage: null,  // reveal status to user
 		provider: "4chan",
 		boardID: null,
 		threadID: null,
+	},
+
+	display: {
+		isAppReady: false,
+		isScrolling: false,  // app scroll
+		isHeaderVisible: true,
+		isNavbarOpen: false,
+		isDrawerOpen: true,
+		isThreadOpen: false,
+		activeHeaderPanel: null,  // responses to header buttons
 	},
 
 	boardList: {
