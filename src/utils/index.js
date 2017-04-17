@@ -13,3 +13,9 @@ export {
 export {
     findParentWithClass
 } from './dom-helpers'
+
+export {
+    throttleByCount,
+    invokeThenIgnoreForPeriod,
+    invokeAfterUninterruptedDelay
+} from './throttle'
