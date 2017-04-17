@@ -6,3 +6,7 @@ expect.extend(expectJSX);
 
 global.expect = expect;
 global.shallow = shallow;
+
+global.window = {
+    appSettings: {}
+}

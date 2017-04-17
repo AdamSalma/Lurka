@@ -1,3 +1,7 @@
 --compilers js:babel-core/register
 -r ./test/setup.js
+--use_strict 
+--colors
+--debug
+--no-exit
 ./src/**/*.test.*

@@ -1,7 +1,12 @@
 {
   "plugins": [
     "react-hot-loader/babel",
-    "transform-decorators-legacy"
+    "transform-decorators-legacy",
+    ["module-resolver", {
+      "alias": {
+        "~": "./src/"
+      }
+    }]
   ],
   "presets": [
     "es2015",
