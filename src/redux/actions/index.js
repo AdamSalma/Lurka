@@ -1,40 +1,59 @@
 export {
-    scrollHeader,
-    toggleNavbar,
-} from './AnimationActions'
-
-export {
-    loadMorePosts,
-    fetchBoard,
-    destroyBoard,
-    searchBoard,
-} from './BoardActions'
-
-export {
-    fetchBoardList,
-    searchBoardlist,
     addToFavourites,
     removeFromFavourites
-} from './BoardListActions'
+} from './board-favourites'
+
+export {
+    fetchBoard
+} from './board-fetch'
+
+export {
+    destroyBoard,
+    loadMorePosts,
+} from './board'
+
+export {
+    scrollHeader
+} from './header'
 
 export {
     toggleSetting
-} from './SettingsActions'
+} from './settings'
+
+export {
+    fetchBoardList,
+} from './boardlist-fetch'
+
+export {
+    appReady,
+} from './app'
+
+export {
+    alertMessage,
+} from './alert'
 
 export {
     changeProvider,
-    alertMessage,
-    toggleHeaderPanel,
-    appReady
-} from './StatusActions'
+} from './status'
+
+export {
+    toggleHeaderPanel
+} from './header-panel'
 
 export {
     fetchThread,
+} from './thread-fetch'
+
+export {
     closeThread,
-} from './ThreadActions'
+} from './thread'
 
 export {
     updateMonitoredThread,
     monitorThread,
     unmonitorThread
-} from './ThreadMonitorActions'
+} from './thread-monitor'
+
+export {
+    toggleDrawer
+} from './drawer'

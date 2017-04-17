@@ -1,22 +1,13 @@
 import Axios from 'axios';
 
 import API from '~/config/api'
-import {alertMessage} from './StatusActions'
+import {alertMessage} from './alert'
 import {secondsAgo} from '~/utils'
 import {
     BOARD_REQUESTED, 
     BOARD_LOADED, 
-    BOARD_DESTROYED,
-
     BOARD_INVALIDATED,
-
-    BOARD_CHANGE,
-
-    BOARD_SEARCHED, 
-    BOARD_SCROLLED_TO_BOTTOM,
-
-    BOARD_SAVED_TO_HISTORY,
-    BOARD_LOADED_FROM_HISTORY,
+    BOARD_CHANGE
 } from '../types';
 
 
@@ -49,27 +40,6 @@ function setBoard( boardID ) {
         payload: boardID
     }
 }
-
-
-
-
-export function loadMorePosts( limit ) {
-    return (dispatch, getState) => {
-        if ( shouldLoadMorePosts(getState(), limit) ) {
-            dispatch({
-                type: BOARD_SCROLLED_TO_BOTTOM,
-                payload: limit
-            })
-        }
-    }
-}
-
-function shouldLoadMorePosts({ board }, limitToSet) {
-    return limitToSet < board.posts.length
-}
-
-
-
 
 export function fetchBoard({ provider="4chan", boardID }) {
     const url = API.board(boardID)
@@ -146,89 +116,3 @@ function loadBoardFromHistory({ boardHistory }, boardID) {
 }
 
 
-
-export function destroyBoard() {
-    console.log("Action destroyBoard()")
-    return (dispatch, getState) => {
-        const state = getState()
-        if ( shouldDestroyBoard(state) ) {
-            console.warn("Board Destroyed! yay")
-            dispatch(saveBoardToHistory(state))
-            dispatch({type: BOARD_DESTROYED})
-
-        }
-    }
-}
-
-function shouldDestroyBoard({ board }) {
-    return board.posts.length
-}
-
-function saveBoardToHistory({ board, status }) {
-    return {
-        type: BOARD_SAVED_TO_HISTORY,
-        provider: status.provider,
-        boardID: status.boardID,
-        payload: {
-            receivedAt: board.receivedAt,
-            posts: board.posts,
-            watch: board.watch,
-        }
-    }    
-}
-
-
-
-export function searchBoard( searchWord ) {
-    return dispatch => {
-        dispatch({
-            type: BOARD_SEARCHED,
-            payload: searchWord
-        })
-    }
-
-}
-
-// function requestPosts(reddit) {
-//   return {
-//     type: REQUEST_POSTS,
-//     reddit
-//   }
-// }
-//
-// function receivePosts(reddit, json) {
-//   return {
-//     type: RECEIVE_POSTS,
-//     reddit,
-//     posts: json.data.children.map(child => child.data),
-//     receivedAt: Date.now()
-//   }
-// }
-//
-// function fetchPosts(reddit) {
-//   return dispatch => {
-//     dispatch(requestPosts(reddit))
-//     return fetch(`https://www.reddit.com/r/${reddit}.json`)
-//       .then(response => response.json())
-//       .then(json => dispatch(receivePosts(reddit, json)))
-//   }
-// }
-//
-// function shouldFetchPosts(state, reddit) {
-//   const posts = state.postsByReddit[reddit]
-//   if (!posts) {
-//     return true
-//   }
-//   if (posts.isFetching) {
-//     return false
-//   }
-//   return posts.didInvalidate
-// }
-//
-// export function fetchPostsIfNeeded(reddit) {
-//   return (dispatch, getState) => {
-//     if (shouldFetchPosts(getState(), reddit)) {
-//       return dispatch(fetchPosts(reddit))
-//     }
-//   }
-// }

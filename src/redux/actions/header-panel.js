@@ -1,43 +1,10 @@
-import Axios from 'axios';
 import {
-    PROVIDER_CHANGE,
-    FILTER_BOARD, FILTER_THREAD,
-    SERACH_BOARD, SEARCH_THREAD,
-    ALERT_MESSAGE,
-
-    HEADER_PANEL_OPENED, HEADER_PANEL_CLOSED,
-
-    APP_READY
+    HEADER_PANEL_OPENED, 
+    HEADER_PANEL_CLOSED,
 } from '../types';
-// TODO: Filter + Search actions
 
-export function changeProvider( provider ) {
-    return (dispatch, getState) => {
-        if (shouldChangeProvider(getState(), provider)) {
-            console.info("Action changeProvider() to " + provider);
-            dispatch({
-                type: PROVIDER_CHANGE,
-                payload: provider
-            })
-        }
-    }   
-}
+const panels = ['watch', 'archive', 'theme']
 
-function shouldChangeProvider( {status}, provider) {
-    return status.provider !== provider
-}
-
-export function alertMessage( message ) {
-    console.info(`Action alertMessage(): ${message.message}`);
-
-    return {
-        type: ALERT_MESSAGE,
-        payload: message
-    }   
-}
-
-
-const panels = ['watch', 'archive', 'sort', 'filter']
 export function toggleHeaderPanel({ panel, panelState=null }) {
     console.warn("toggleHeaderPanel: panel", panel, "panelState:", panelState)
     console.warn(arguments)
@@ -67,12 +34,4 @@ function shouldntTogglePanelState({status}, panel, panelState){
     return panelState ? // true: keep panel open
         status.activeHeaderPanel !== panel :
         status.activeHeaderPanel === panel
-        
-}
-
-
-export function appReady() {
-    return {
-        type: APP_READY
-    }
 }

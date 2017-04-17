@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 import API from '~/config/api'
-import { alertMessage } from './StatusActions';
+import { alertMessage } from './alert';
 
 import {
     THREAD_MONITOR_ADDED,

@@ -2,7 +2,7 @@ import Axios from 'axios';
 
 import API from '~/config/api'
 import { secondsAgo } from '~/utils'
-import { alertMessage } from './StatusActions'
+import { alertMessage } from './alert'
 import {
     THREAD_REQUESTED, 
     THREAD_LOADED, 
@@ -126,59 +126,3 @@ function loadThreadFromHistory({ threadHistory }, threadID) {
         threadID,
     }
 }
-
-
-
-export function closeThread(callback=false) {
-    return (dispatch, getState) => {
-        const state = getState(),
-              threadID = state.status.threadID
-
-        if (threadIsFetching(state)) {
-            const err = `Closed thread '${threadID}' before it could be loaded`
-            dispatch(alertMessage({
-                message: err,
-                type: "error",
-                time: 3000
-            }))
-            dispatch(invalidateThread( new Error(err) ))
-            return 
-        }
-
-        if (!shouldCloseThread(state)) {
-            console.warn('Thread close rejected')
-            callback && callback()
-            return 
-        }
-
-        return $("#thread").velocity({top: window.innerHeight+"px"}, {
-            duration: 150,
-            complete: () => {
-                dispatch(saveThreadToHistory(state))
-                dispatch(destroyThread(threadID))
-                callback && callback()
-            }
-        })
-    } 
-}
-
-function threadIsFetching({ thread }) {
-    return thread.isFetching
-}
-
-function shouldCloseThread({ thread }) {
-    console.log(`shouldCloseThread(): isActive: ${thread.isActive}`);
-    return thread.isActive
-}
-
-function saveThreadToHistory({ status, thread }) {
-    return {
-        type: THREAD_SAVED_TO_HISTORY,
-        threadID: status.threadID,
-        payload: {
-            posts: thread.posts,
-            receivedAt: thread.receivedAt
-        }
-    }
-}
-
