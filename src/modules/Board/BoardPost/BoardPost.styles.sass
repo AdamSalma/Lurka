@@ -24,10 +24,13 @@
 
     &.animate
         visibility: visible
+        transform: translateY(200px)
+        animation: moveUp 0.65s ease forwards
 
     &:hover
-        transition: all .2s
+        transition: all .2s ease-out
         transform: translateY(300px) !important
+        box-shadow: 0 0 6px color(text-secondary)
 
         .counters
             opacity: 1
@@ -39,12 +42,14 @@
             border-top: color(primary)
 
         img
+            // animation: zoomInThenSlowMo 6s forwards
             transform: scale(1.05)
+            transition: transform 1s ease-in-out
 
-    
     .image-wrap
         user-select: none
         position: relative
+        overflow: hidden
 
 
     img
@@ -54,7 +59,8 @@
         display: inherit
         margin: 0 auto
         height: auto
-        transition: transform .2s ease-out
+        transition: none
+        // transition: transform .5s ease-out
 
 
     .comment-wrap
@@ -87,7 +93,7 @@
 
 
     /* Counters + Icons */
-    .counters
+    .BoardPostHeader
         user-select: none
         display: flex
 
@@ -100,14 +106,12 @@
             display: inline-block
             padding: 0 3px
 
-            &.TimeAgo
-                margin-left: auto
+            &.timeago
+                margin-right: auto
 
-    .mdi
-        margin-right: 2px
+        .Icon
+            margin-right: 2px
 
-    .line
+    .Line
         width: $board-post-width / 2
         margin: 4px auto 0
-
-
