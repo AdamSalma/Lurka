@@ -7,6 +7,7 @@ import ContentButtonGroup from './ContentButtonGroup'
 
 import {HeaderItem, LogoText} from '~/components'
 
+
 class Navbar extends Component {
     static propTypes = {
         className: PropTypes.string,
@@ -17,23 +18,24 @@ class Navbar extends Component {
     }
 
     render() {
-        // const { 
+        // const {
         //     // Actions
         //     //State
-        //     scrollHeader, closeThread, toggleNavbar, 
-            
+        //     scrollHeader, closeThread, toggleNavbar,
+
         // } = this.props;
 
         const {
-            toggleContentNav, cycleContentNav, toggleHeaderPanel,
-            boardID, threadID, threadIsActive, activePanel,
-            isDrawerOpen, toggleDrawer,
-            ...restProps
+            // Actions
+            toggleContentNav, cycleContentNav, toggleDrawer, togglePanel,
+            // State
+            boardID, threadID, isThreadOpen, isDrawerOpen, activePanel,
         } = this.props
 
         const navbarClasses = cx('HeaderNav', {
             'drawer-open': isDrawerOpen
         })
+        console.log('Navbar render')
 
         return (
             <div className={navbarClasses}>
@@ -42,24 +44,25 @@ class Navbar extends Component {
                     <HeaderItem className="left">
                         <LogoText />
                     </HeaderItem>
-
+{
                     <HeaderItem className="center">
-                        <ContentButtonGroup 
-                        onButtonClick={toggleContentNav} 
+                        <ContentButtonGroup
+                        onButtonClick={toggleContentNav}
                         onArrowClick={cycleContentNav}>
-                            {!threadIsActive ? `${boardID}` : `Thread #${threadID}`}
+                            {!isThreadOpen ? `/${boardID}/` : `#${threadID}`}
                         </ContentButtonGroup>
-                    </HeaderItem>
+                    </HeaderItem>}
 
                     <HeaderItem className="right">
-                        <IconGroup 
+                        <IconGroup
                             activePanel={activePanel}
-                            toggleHeaderPanel={toggleHeaderPanel}
-                            onSearchClick={toggleDrawer}
+                            togglePanel={togglePanel}
+                            toggleDrawer={toggleDrawer}
+                            isDrawerOpen={isDrawerOpen}
                         />
                     </HeaderItem>
-                </div> 
-            </div> 
+                </div>
+            </div>
         );
     }
 }

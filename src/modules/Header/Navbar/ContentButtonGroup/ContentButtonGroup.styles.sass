@@ -1,14 +1,17 @@
 @import '~styles/base'
 
+$navbar-central-font-size: 24px
+
 .ContentButtonGroup
-    font-size: $font-size-large
+    font-size: $navbar-central-font-size
+    font-family: $font-main
     color: color(text-secondary)
     +no-select
 
     .arrow
         display: inline-block
         +clickable
-        
+
         .icon
             border: grey(9) solid 1px
             background: grey(8)
@@ -31,8 +34,6 @@
         color: inherit
         margin: 0 12px
         padding: 0 2px
-        font-family: $font-main
-        font-size: 22px
         transition: color .15s ease-in
         position: relative
         top: -1px

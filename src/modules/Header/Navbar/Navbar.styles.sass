@@ -7,7 +7,7 @@ $header-navbar-padding: 40px
     +position(0, 0)
     // top: -$header-height  // hide on start
     border-bottom: 2px color(primary, darkest) solid
-    z-index: 20
+    z-index: 500
 
     .background
         opacity: 0.95
@@ -18,7 +18,6 @@ $header-navbar-padding: 40px
 
     .content
         width: calc(100% - #{$header-navbar-padding})
-        height: $header-height
         line-height: $header-height
         display: flex
         justify-content: center
@@ -34,17 +33,25 @@ $header-navbar-padding: 40px
 
         &.right
             margin-left: auto
+            padding-right: 0
+            transition: padding 240ms cubic-bezier(0.4,0,1,1);
+
 
         &.center
             margin: 0 8px
 
-        .icon
+        .Icon
             color: color(text-secondary)
             font-size: 20px
 
             &:after
                 +circle(34px)
                 background-color: blue
+
+    &.drawer-open
+        .HeaderItem.right
+            padding-right: $drawer-width
+            transition: padding 240ms cubic-bezier(0,0,0.2,1);
 
     .ButtonCircle
         font-size: 18px
