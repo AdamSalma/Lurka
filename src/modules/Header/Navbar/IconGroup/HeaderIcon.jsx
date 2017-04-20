@@ -6,8 +6,8 @@ const HeaderIcon = ({name, onClick, active, ...restProps}) => {
     return (
         <ButtonCircle
         className={classes("HeaderIcon", {"active": active})} 
-        onClick={onClick} {...restProps}>
-            <Icon name={name}/>
+        {...restProps}>
+            <Icon onClick={onClick} name={name}/>
         </ButtonCircle>
     )
 }

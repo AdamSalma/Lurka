@@ -1,52 +1,60 @@
 import "./IconGroup.styles"
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import HeaderIcon from './HeaderIcon'
 
-class IconGroup extends Component {
-    constructor(props) {
-        super(props);
-        this.togglePanel = this.togglePanel.bind(this)
-    }
+const i = window.appSettings.icons
 
-    render() {
-        const {
-            activePanel, 
-            className,
-            onSearchClick
-        } = this.props
+const IconGroup = (props) => {
+    const {
+        activePanel,
+        className,
+        toggleDrawer,
+        togglePanel,
+        isDrawerOpen
+    } = props
 
-        return (
-            <div className={[
-                "IconGroup", 
-                className
-            ].join(' ')}>
-                <HeaderIcon name="android-person" key="account" title="Account"
-                    onClick={() => this.togglePanel('account')}
-                    active={activePanel === 'account'}
-                />
-                <HeaderIcon name="ios-eye" key="watch" title="Thread Watcher"
-                    onClick={() => this.togglePanel('watch')}
-                    active={activePanel === 'watch'}
-                />
-                <HeaderIcon name="ios-box" key="archive" title="Local archive"
-                    onClick={() => this.togglePanel('archive')}
-                    active={activePanel === 'archive'}
-                />
-                <HeaderIcon name="paintbucket" key="theme" title="Theme"
-                    onClick={() => this.togglePanel('theme')}
-                    active={activePanel === 'theme'}
-                />
-                <HeaderIcon name="ios-search-strong" key="search" title="Search"
-                    onClick={onSearchClick}
-                />
-            </div>
-        );
-    }
+    console.warn('Rendering IconGroup')
 
-    togglePanel(panel) {
-        this.props.toggleHeaderPanel({panel})
-    }
-}
+    return (
+        <div className={[
+            "IconGroup",
+            className
+        ].join(' ')}>
+            <HeaderIcon name={i.navbarEye} title="Thread Watcher"
+                onClick={() => togglePanel('watch')}
+                active={activePanel === 'watch'}
+            />
+            <HeaderIcon name={i.navbarArchive} title="Local archive"
+                onClick={() => togglePanel('archive')}
+                active={activePanel === 'archive'}
+            />
+            <HeaderIcon name={i.navbarPaintbucket} title="Theme"
+                onClick={() => togglePanel('theme')}
+                active={activePanel === 'theme'}
+            />
+            {
+                isDrawerOpen
+                    ? <HeaderIcon
+                        key="chevron"
+                        name={i.navbarChevron}
+                        title="Minimize"
+                        onClick={toggleDrawer}/>
+                    : <HeaderIcon
+                        key="search"
+                        name={i.navbarSearch}
+                        title="Search"
+                        onClick={toggleDrawer}/>
+
+            }
+        </div>
+    );
+};
+
+IconGroup.displayName = 'IconGroup';
+
+IconGroup.propTypes = {
+    className: PropTypes.string,
+};
 
 export default IconGroup;
