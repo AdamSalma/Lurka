@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Alert from 'react-alert'
 
-class AlertContainer extends Component {
+class AlertWrapper extends Component {
     static propTypes = {
         position: PropTypes.string,
     };
@@ -26,8 +26,8 @@ class AlertContainer extends Component {
 
     render() {
         return (
-            <Alert 
-                ref={el => this._msg = el} 
+            <Alert
+                ref={el => this._msg = el}
                 position={this.props.position}
             />
         );
@@ -43,10 +43,8 @@ class AlertContainer extends Component {
 }
 
 export default connect(
-    ({status}) => {
-        return {
-            alertMessage: status.alertMessage
-        }
-    })
-(AlertContainer)
+    ({status}) => ({
+        alertMessage: status.alertMessage
+    }))
+(AlertWrapper)
 
