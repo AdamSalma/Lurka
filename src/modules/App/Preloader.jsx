@@ -1,32 +1,14 @@
-import './App.styles'
-import React, { Component } from "react";
+import React, {Component} from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-/* Pages */
-import BoardPage from '../BoardPage';
-import ThreadPage from '../ThreadPage';
-import SettingsPage from '../SettingsPage';
-import GlobalPage from '../GlobalPage';
-
-/* Actions */
-import { fetchBoard, fetchBoardList } from '~/redux/actions';
-
 import updatePreloader from '~/preload'
+import { fetchBoard, fetchBoardList, appReady } from '~/redux/actions';
+
+import Views from '~/views'
 
 
-const App = () => {
-    return (
-        <div id="pages">
-            <BoardPage/>
-            <ThreadPage/>
-            <SettingsPage/>
-            <GlobalPage/>
-    	</div>
-    )
-}
-
-class AppContainer extends Component {
+class Preloader extends Component {
     constructor(props) {
         super();
         updatePreloader()  // if loaded from localStorage
@@ -40,10 +22,10 @@ class AppContainer extends Component {
     render() {
         // TODO: Multipage application
         // this.props.instances
-        
+
 
         // Temp until multipage
-        return <App />
+        return false
     }
 
     fetchInitialContent(props) {
@@ -76,4 +58,4 @@ function mapDispatchToProps(dispatch) {
     }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(Preloader)

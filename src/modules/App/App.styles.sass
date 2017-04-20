@@ -4,7 +4,7 @@ $background-color1: grey(7)
 $background-color2: grey(8)
 
 // set pages offscreen
-.page 
+.View
     +set-dims(100vw, 100vh)
     position: fixed
     top: 100%
@@ -12,15 +12,12 @@ $background-color2: grey(8)
     background: linear-gradient(135deg, $background-color2, $background-color1, $background-color2)
     background: url('/backgrounds/dark_wall.png')
 
-.page-board
-    z-index: 1
+.ContentView
     top: 0 !important
+    z-index: 1
 
-.page-thread
+.SettingsView
     z-index: 10
 
-.page-settings
+.HomeView
     z-index: 100
-
-.page-global
-    z-index: 1000
