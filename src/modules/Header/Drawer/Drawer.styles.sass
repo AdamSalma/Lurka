@@ -1,1 +1,43 @@
 @import '~styles/base'
+
+$drawer-border-left-color: color(primary, darkest)
+
+.Drawer
+    position: fixed
+    right: 0
+    top: 0
+    height: 100vh
+    background-color: grey(8)
+    width: $drawer-width
+    z-index: 500
+    // border-left: 2px solid color(primary, darkest)
+    // border-left: 2px solid color(primary, darkest)
+
+    transform: translateX(0);
+    will-change: transform
+
+    &.is-open
+        transition: transform 240ms cubic-bezier(0,0,0.2,1);
+        transform: translateX(0);
+
+    &.is-closed
+        transition: transform 240ms cubic-bezier(0.4,0,1,1);
+        transform: translateX(100%);
+
+    .Searchbar
+        background-color: grey(8)
+        height: $header-height
+        border-bottom: 2px solid color(primary, darkest)
+        // border-left: 2px solid color(primary, darkest)
+        border-left: 2px solid $drawer-border-left-color
+
+        .Icon.search
+            padding-left: 24px
+
+    .container
+        border-left: 2px solid $drawer-border-left-color
+        height: 100%
+        padding: 20px 20px 0 24px
+
+        .footer
+            text-align: center
