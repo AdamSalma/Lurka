@@ -1,68 +1,54 @@
-module.exports = {
-    "download-location": {
-        type: 'OS',
-        title: "Download location", 
-        value: './',
-        desc: "The default folder to save content to",
+export const details = {
+    theme: {
+        group: 'Appearance',
+        title: 'Theme',
+        desc: 'Light/Dark'
     },
-    "stylesheet": {
-        type: 'Interface',
-        title: "Custom Styles",
-        value: null,
-        desc: "Insert a custom CSS stylesheet",
+    nsfw: {
+        group: 'Content',
+        title: 'NSFW',
+        desc: 'Allow over 18 content',
+        boolean: true
     },
-    "NSFW": {
-        type: 'Content',
-        title: "NSFW",
-        value: false,
-        desc: "Over 18",
-        checkbox: true
+    downloadLocation: {
+        group: 'Storage',
+        title: 'Download location',
+        desc: 'The default folder to save content to',
     },
-    "boardUpdateInterval": {
-        type: 'Resource Fetching',
-        title: "Board Update",
-        value: 15,
-        desc: "Seconds to wait before updating the current board",
+    boardUpdateInterval: {
+        group: 'Content',
+        title: 'Board Update',
+        desc: 'Seconds to wait before updating the current board',
     },
-    "threadUpdateInterval": {
-        type: 'Resource Fetching',
-        title: "Thread Update",
-        value: 5,
-        desc: "Seconds to wait before updating the current thread",
-    },
-    "requestThrottle": {
-        disabled: true,
-        type: 'Resource Fetching',
-        title: "Limit Requests",
-        value: 3,
-        desc: "Limit seconds to wait between requests",
-    },
-    "maxBoardAge": {
-        disabled: true,
-        type: 'Resource Fetching',
-        title: "Board Age",
-        value: 900,  // 15 mins
-        desc: "Maximum age (seconds) to load a board from history rather than a new request",
-    },
-    "maxThreadAge": {
-        disabled: true,
-        type: 'Resource Fetching',
-        title: "Thread Age",
-        value: 900,  // 15 mins
-        desc: "Maximum age (seconds) to load a thread from history rather than a new request",
-    },
-    "muteWebM": {
-        type: 'Content',
-        title: "Auto-mute Videos",
-        value: false,
-        desc: "Mute WebM videos automatically when opened",
-        checkbox: true
-    },
-    "homeBoard": {
-        type: 'Content',
+    homeBoard: {
+        group: 'Content',
         title: 'Home Board',
-        value: 'g',
         desc: 'Your home board that Lurka starts on'
-
-    }
+    },
+    threadUpdateInterval: {
+        group: 'Content',
+        title: 'Thread Update',
+        desc: 'Seconds to wait before updating the current thread',
+    },
+    requestThrottle: {
+        group: 'Content',
+        title: 'Limit Requests',
+        desc: 'Limit seconds to wait between requests',
+    },
+    maxBoardAge: {
+        group: 'Content',
+        title: 'Board Age',
+        desc: 'Maximum age (seconds) to load a board from history rather than a new request',
+    },
+    maxThreadAge: {
+        group: 'Content',
+        title: 'Thread Age',
+        desc: 'Maximum age (seconds) to load a thread from history rather than a new request',
+    },
+    autoMute: {
+        group: 'Content',
+        title: 'Auto-mute Videos',
+        desc: 'Mute WebM videos automatically when opened',
+        boolean: true
+    },
 }
