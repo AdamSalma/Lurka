@@ -12,7 +12,7 @@ export const throttleByCount = (count, callback) => {
     return () => {
         if (i >= count) {
             i = 0
-            return callback()
+            return callback.apply(null, arguments)
         }
         i++
     }
@@ -32,7 +32,7 @@ export const invokeThenIgnoreForPeriod = (time, callback) => {
         if (canCall) {
             canCall = false
             setTimeout(() => canCall = true, time)
-            return callback()
+            return callback.apply(null, arguments)
         }
     }
 }
@@ -51,12 +51,13 @@ export const invokeThenIgnoreForPeriod = (time, callback) => {
 export const invokeAfterUninterruptedDelay = (delay, callback) => {
     let calls = 0
 
-    return () => {
+    return function () {
+        console.log(arguments)
         calls++
         setTimeout(() => {
             calls--
             if (calls === 0)
-                callback()
+                callback.apply(null, arguments)
         }, delay)
     }
 }
