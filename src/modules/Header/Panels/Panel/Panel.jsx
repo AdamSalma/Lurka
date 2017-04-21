@@ -1,4 +1,4 @@
-import './HeaderPanel.styles'
+import './Panel.styles'
 import React, {Component} from 'react'
 import classes from 'classnames'
 
