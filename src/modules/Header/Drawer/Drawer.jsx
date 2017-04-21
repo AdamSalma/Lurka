@@ -10,6 +10,8 @@ import {
     invokeAfterUninterruptedDelay
 } from '~/utils'
 
+import Sort from './Sort'
+
 class Drawer extends Component {
     constructor(props) {
         super(props);
@@ -45,7 +47,7 @@ class Drawer extends Component {
                 </div>
                 <div className="container">
                     <div className="content">
-                        Content
+                        <Sort/>
                     </div>
                     <div className="footer">
                         <LogoText />

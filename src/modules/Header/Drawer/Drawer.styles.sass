@@ -1,6 +1,6 @@
 @import '~styles/base'
 
-$drawer-border-left-color: color(primary, darkest)
+$drawer-border-left-color: $header-border-color
 
 .Drawer
     position: fixed
@@ -18,7 +18,7 @@ $drawer-border-left-color: color(primary, darkest)
 
     &.is-open
         transition: transform 240ms cubic-bezier(0,0,0.2,1);
-        transform: translateX(0);
+        transform: translateX(-$board-scroller-width);
 
     &.is-closed
         transition: transform 240ms cubic-bezier(0.4,0,1,1);
@@ -27,7 +27,7 @@ $drawer-border-left-color: color(primary, darkest)
     .Searchbar
         background-color: grey(8)
         height: $header-height
-        border-bottom: 2px solid color(primary, darkest)
+        border-bottom: 2px solid $drawer-border-left-color
         // border-left: 2px solid color(primary, darkest)
         border-left: 2px solid $drawer-border-left-color
 
@@ -39,5 +39,11 @@ $drawer-border-left-color: color(primary, darkest)
         height: 100%
         padding: 20px 20px 0 24px
 
-        .footer
-            text-align: center
+    .content
+
+    .footer
+        text-align: center
+        height: $header-height // TODO: make own variable
+        position: absolute
+        bottom: 0
+        left: 0
