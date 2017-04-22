@@ -1,29 +1,24 @@
 import { combineReducers } from 'redux';
 
-import BoardReducer from "./BoardReducer";
-import BoardlistReducer from "./BoardlistReducer";
-import BoardHistoryReducer from "./BoardHistoryReducer";
-import DisplayReducer from "./DisplayReducer";
-
-import ThreadReducer from "./ThreadReducer";
-import ThreadHistoryReducer from "./ThreadHistoryReducer";
-import ThreadMonitor from "./ThreadMonitor";
-
-import StatusReducer from "./StatusReducer";
-
-import SettingsReducer from "./SettingsReducer";
+import BoardReducer from "./board";
+import BoardlistReducer from "./board-list";
+import CacheReducer from "./cache";
+import DisplayReducer from "./display";
+import ThreadReducer from "./thread";
+import ThreadMonitorReducer from "./thread-monitor";
+import StatusReducer from "./status";
+import SettingsReducer from "./settings";
 
 // TODO: Add PostReducer
 const rootReducer = combineReducers({
     boardList: BoardlistReducer,
     board: BoardReducer,
-    boardHistory: BoardHistoryReducer,
     display: DisplayReducer,
     thread: ThreadReducer,
-    threadHistory: ThreadHistoryReducer,
+    cache: CacheReducer,
     status: StatusReducer,
     settings: SettingsReducer,
-    threadMonitor: ThreadMonitor
+    threadMonitor: ThreadMonitorReducer,
 });
 
 export default rootReducer

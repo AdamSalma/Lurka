@@ -1,5 +1,5 @@
 import initialState from '../initialState';
-import { 
+import {
     ALERT_MESSAGE,
     PROVIDER_CHANGE,
     BOARD_CHANGE,

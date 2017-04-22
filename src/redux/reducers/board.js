@@ -1,14 +1,14 @@
 import initialState from '../initialState';
-import { 
-    BOARD_REQUESTED, 
-    BOARD_LOADED, 
-    BOARD_DESTROYED, 
+import {
+    BOARD_REQUESTED,
+    BOARD_LOADED,
+    BOARD_DESTROYED,
     BOARD_SCROLLED_TO_BOTTOM,
     BOARD_INVALIDATED,
     BOARD_SEARCHED,
     ADD_FILTER,
     REMOVE_FILTER,
-    BOARD_LOADED_FROM_HISTORY
+    BOARD_CACHE_LOADED
 } from '../types'
 
 export default function (state = initialState.board, action) {
@@ -47,7 +47,7 @@ export default function (state = initialState.board, action) {
                 searchWord: action.payload || null
             })
 
-        case BOARD_LOADED_FROM_HISTORY:
+        case BOARD_CACHE_LOADED:
             return Object.assign({}, state, action.payload)
 
         case ADD_FILTER:

@@ -1,10 +1,10 @@
 import initialState from '../initialState';
-import { 
-    THREAD_LOADED, 
-    THREAD_REQUESTED, 
+import {
+    THREAD_LOADED,
+    THREAD_REQUESTED,
     THREAD_DESTROYED,
     THREAD_INVALIDATED,
-    THREAD_LOADED_FROM_HISTORY
+    THREAD_CACHE_LOADED
 } from '../types'
 
 export default function (state = initialState.thread, action) {
@@ -37,7 +37,7 @@ export default function (state = initialState.thread, action) {
                 isActive: false
             })
 
-        case THREAD_LOADED_FROM_HISTORY:
+        case THREAD_CACHE_LOADED:
             return Object.assign({}, state, action.payload, {
                 isActive: true
             })

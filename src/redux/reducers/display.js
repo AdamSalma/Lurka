@@ -1,12 +1,12 @@
 import initialState from '../initialState';
-import { 
+import {
     APP_READY,
     HEADER_TOGGLED,
     DRAWER_TOGGLED,
     NAVBAR_TOGGLED,
     HEADER_PANEL_OPENED,
     THREAD_REQUESTED,
-    THREAD_LOADED_FROM_HISTORY,
+    THREAD_CACHE_LOADED,
     THREAD_DESTROYED,
     HEADER_PANEL_CLOSED
 } from '../types';
@@ -36,7 +36,7 @@ export default function (state = initialState.display, action) {
             })
 
         case THREAD_REQUESTED:
-        case THREAD_LOADED_FROM_HISTORY:
+        case THREAD_CACHE_LOADED:
             return Object.assign({}, state, {
                 isThreadOpen: true
             })

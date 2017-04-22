@@ -1,5 +1,5 @@
 import initialState from '../initialState';
-import { 
+import {
     THREAD_MONITOR_ADDED,
     THREAD_MONITOR_DELETED,
     THREAD_MONITOR_UPDATED,
@@ -22,8 +22,6 @@ export default function (state = initialState.threadMonitor, action) {
         case THREAD_MONITOR_DELETED:
 
         case THREAD_MONITOR_UPDATED:
-            // return {}
-            // return {}
             // return {}
 
         default:
