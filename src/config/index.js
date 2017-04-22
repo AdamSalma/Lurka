@@ -2,9 +2,10 @@ const env = process.env.NODE_ENV
 
 export default {
   env: env || 'development',
-  prodEnv: env === 'production' || env === "prod",
+  inProduction: env === 'production' || env === "prod",
   meta: {
-    title: 'Lurka'
+    title: 'Lurka',
+    version: require('../../package.json')
   },
   server: {
     schema: 'http',

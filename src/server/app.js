@@ -11,20 +11,20 @@ import rootRequire from './services/rootRequire'
 
 
 // app_root is used to locate ../index.html in production/development env's
-global.app_root = config.prodEnv ? __dirname : join(__dirname, '..')
+global.app_root = config.inProduction ? __dirname : join(__dirname, '..')
 global.rootRequire = rootRequire
 
 const app = Express();
 
 log.app(`Environment: "${config.env}"`);
-if (config.prodEnv) {
+if (config.inProduction) {
     app.use(Express.static(__dirname));
     app.use(Express.static(join(__dirname, 'public')));
 } else {
     app.use(Express.static(join(__dirname, '../..', 'public')));
     webpackHotMiddleware(app);
 }
- 
+
 app.use(checkInternet);
 
 // Proxy
@@ -43,10 +43,10 @@ app.use('/api', routes.api);  // Request content from external API
 // 404 handler
 app.use(({ url }, res, next) => {
     // Ignore HMR
-    if (url.includes("webpack")) 
+    if (url.includes("webpack"))
         return next()
 
-    if (config.prodEnv) {
+    if (config.inProduction) {
         log.error(`404 Not found: ${url}`)
         res.status(404);
     } else {
@@ -66,6 +66,6 @@ app.use((err, req, res, next) => {
     res.send(err.message)
 
 })
- 
+
 
 export default app;
