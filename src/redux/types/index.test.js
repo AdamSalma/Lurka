@@ -57,14 +57,6 @@ describe('Types', () => {
     expect(types.BOARD_LIST_REQUESTED).toEqual('BOARD_LIST_REQUESTED');
   });
 
-  it('contains BOARD_LIST_SEARCH_REQUESTED', () => {
-    expect(types.BOARD_LIST_SEARCH_REQUESTED).toEqual('BOARD_LIST_SEARCH_REQUESTED');
-  });
-
-  it('contains BOARD_LIST_SEARCH_LOADED', () => {
-    expect(types.BOARD_LIST_SEARCH_LOADED).toEqual('BOARD_LIST_SEARCH_LOADED');
-  });
-
   it('contains BOARD_LIST_LOADED', () => {
     expect(types.BOARD_LIST_LOADED).toEqual('BOARD_LIST_LOADED');
   });
@@ -132,43 +124,43 @@ describe('Types', () => {
   it('contains BOARD_LIST_REMOVE_FAVOURITE', () => {
     expect(types.BOARD_LIST_REMOVE_FAVOURITE).toEqual('BOARD_LIST_REMOVE_FAVOURITE');
   });
-  
+
   it('contains THREAD_INVALIDATED', () => {
     expect(types.THREAD_INVALIDATED).toEqual('THREAD_INVALIDATED');
   });
-  
-  it('contains BOARD_SAVED_TO_HISTORY', () => {
-    expect(types.BOARD_SAVED_TO_HISTORY).toEqual('BOARD_SAVED_TO_HISTORY');
-  });
-  
-  it('contains BOARD_LOADED_FROM_HISTORY', () => {
-    expect(types.BOARD_LOADED_FROM_HISTORY).toEqual('BOARD_LOADED_FROM_HISTORY');
-  });
-  
-  it('contains BOARD_HISTROY_CLEARED', () => {
-    expect(types.BOARD_HISTROY_CLEARED).toEqual('BOARD_HISTROY_CLEARED');
+
+  it('contains BOARD_CACHE_SAVED', () => {
+    expect(types.BOARD_CACHE_SAVED).toEqual('BOARD_CACHE_SAVED');
   });
 
-  it('contains THREAD_SAVED_TO_HISTORY', () => {
-    expect(types.THREAD_SAVED_TO_HISTORY).toEqual('THREAD_SAVED_TO_HISTORY');
+  it('contains BOARD_CACHE_LOADED', () => {
+    expect(types.BOARD_CACHE_LOADED).toEqual('BOARD_CACHE_LOADED');
   });
-  
-  it('contains THREAD_LOADED_FROM_HISTORY', () => {
-    expect(types.THREAD_LOADED_FROM_HISTORY).toEqual('THREAD_LOADED_FROM_HISTORY');
+
+  it('contains BOARD_CACHE_CLEARED', () => {
+    expect(types.BOARD_CACHE_CLEARED).toEqual('BOARD_CACHE_CLEARED');
   });
-  
-  it('contains THREAD_HISTROY_CLEARED', () => {
-    expect(types.THREAD_HISTROY_CLEARED).toEqual('THREAD_HISTROY_CLEARED');
+
+  it('contains THREAD_CACHE_SAVED', () => {
+    expect(types.THREAD_CACHE_SAVED).toEqual('THREAD_CACHE_SAVED');
   });
-  
+
+  it('contains THREAD_CACHE_LOADED', () => {
+    expect(types.THREAD_CACHE_LOADED).toEqual('THREAD_CACHE_LOADED');
+  });
+
+  it('contains THREAD_CACHE_CLEARED', () => {
+    expect(types.THREAD_CACHE_CLEARED).toEqual('THREAD_CACHE_CLEARED');
+  });
+
   it('contains THREAD_MONITOR_ADDED', () => {
     expect(types.THREAD_MONITOR_ADDED).toEqual('THREAD_MONITOR_ADDED');
   });
-  
+
   it('contains THREAD_MONITOR_DELETED', () => {
     expect(types.THREAD_MONITOR_DELETED).toEqual('THREAD_MONITOR_DELETED');
   });
-  
+
   it('contains THREAD_MONITOR_UPDATED', () => {
     expect(types.THREAD_MONITOR_UPDATED).toEqual('THREAD_MONITOR_UPDATED');
   });
