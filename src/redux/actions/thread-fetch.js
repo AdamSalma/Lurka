@@ -4,14 +4,14 @@ import API from '~/config/api'
 import { secondsAgo } from '~/utils'
 import { alertMessage } from './alert'
 import {
-    THREAD_REQUESTED, 
-    THREAD_LOADED, 
+    THREAD_REQUESTED,
+    THREAD_LOADED,
     THREAD_DESTROYED,
     THREAD_SCROLLED_BOTTOM,
-    THREAD_CHANGE, 
+    THREAD_CHANGE,
     THREAD_INVALIDATED,
-    THREAD_LOADED_FROM_HISTORY,
-    THREAD_SAVED_TO_HISTORY
+    THREAD_CACHE_LOADED,
+    THREAD_CACHE_SAVED
 } from '../types';
 
 function requestThread(threadID) {
@@ -57,11 +57,11 @@ export function fetchThread(boardID, threadID) {
 
         if (!shouldFetchThread(state)) {
             console.warn('Thread request rejected:', url)
-            return 
+            return
         }
 
-        if (threadInHistoryAndRecent(state, threadID)) {
-            dispatch(loadThreadFromHistory(state, threadID))
+        if (threadCachedAndRecent(state, threadID)) {
+            dispatch(loadCachedThread(state, threadID))
             dispatch(alertMessage({
                 message: `Loading thread ${threadID} from history`,
                 type: "success"
@@ -78,6 +78,7 @@ export function fetchThread(boardID, threadID) {
         return Axios.get(url)
             .then( data => dispatch(receiveThread(data)))
             .catch( err => {
+                console.log(err)
                 if (err.status === 404) {
                     dispatch(alertMessage({
                         messagge: "Thread 404'd",
@@ -85,19 +86,19 @@ export function fetchThread(boardID, threadID) {
                     }))
                 } else {
                     dispatch(alertMessage({
-                        message: err.response.data,
+                        message: err.response.data || err,
                         type: "error",
                         time: 20000
                     }))
 
-                    dispatch(invalidateThread(err.response.data))
+                    dispatch(invalidateThread(err.response.data || err))
                 }
             });
     }
 }
 
 function shouldFetchThread({ thread, settings }) {
-    const requestThrottle = settings["requestThrottle"].value
+    const requestThrottle = settings.internal.requestThrottle
 
     console.log(`Date.now(): ${Date.now()}, receivedAt: ${thread.receivedAt}`);
     const lastRequested = secondsAgo(thread.receivedAt)
@@ -106,9 +107,9 @@ function shouldFetchThread({ thread, settings }) {
     return !thread.isFetching && lastRequested > requestThrottle
 }
 
-function threadInHistoryAndRecent({threadHistory, settings }, threadID) {
-    const maxThreadAge = settings["maxThreadAge"].value
-    const threadInHistory = threadHistory[threadID]
+function threadCachedAndRecent({cache, settings }, threadID) {
+    const maxThreadAge = settings.internal.maxThreadAge
+    const threadInHistory = cache.thread[threadID]
 
     // TODO: Remove this test code from thread/boardInHistory
     if (!threadInHistory){
@@ -118,10 +119,10 @@ function threadInHistoryAndRecent({threadHistory, settings }, threadID) {
     return threadInHistory && secondsAgo(thread.receivedAt) < maxThreadAge
 }
 
-function loadThreadFromHistory({ threadHistory }, threadID) {
-    const thread = threadHistory[threadID]
+function loadCachedThread({ cache }, threadID) {
+    const thread = cache.thread[threadID]
     return {
-        type: THREAD_LOADED_FROM_HISTORY,
+        type: THREAD_CACHE_LOADED,
         payload: thread,
         threadID,
     }

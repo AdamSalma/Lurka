@@ -4,8 +4,8 @@ import API from '~/config/api'
 import {alertMessage} from './alert'
 import {secondsAgo} from '~/utils'
 import {
-    BOARD_REQUESTED, 
-    BOARD_LOADED, 
+    BOARD_REQUESTED,
+    BOARD_LOADED,
     BOARD_INVALIDATED,
     BOARD_CHANGE
 } from '../types';
@@ -41,22 +41,22 @@ function setBoard( boardID ) {
     }
 }
 
-export function fetchBoard({ provider="4chan", boardID }) {
+export function fetchBoard(boardID) {
     const url = API.board(boardID)
     console.log('Action FetchBoard()', url);
 
     return (dispatch, getState) => {
         const state = getState()
         if (!canRequestBoard(state)) {
-            console.warn(`Board request rejected: ${provider}/${boardID}`)
+            console.warn(`Board request rejected: ${url}`)
             return
         }
 
-        if ( boardInHistoryAndRecent(state, boardID)) {
-            dispatch(loadBoardFromHistory(state, boardID))
+        if ( boardCachedAndRecent(state, boardID)) {
+            dispatch(loadBoardFromCache(state, boardID))
             dispatch(setBoard(boardID))
             dispatch(alertMessage({
-                message: `Loading board from history: /${boardID}/`,
+                message: `Loading board from cache: /${boardID}/`,
                 type: "success"
             }))
             return
@@ -86,19 +86,19 @@ export function fetchBoard({ provider="4chan", boardID }) {
 }
 
 function canRequestBoard({ board, settings }) {
-    const requestThrottle = settings["requestThrottle"].value
+    const requestThrottle = settings.internal.requestThrottle
     const lastRequested = secondsAgo(board.receivedAt)
 
     console.log(`canRequestBoard(): ${lastRequested} > ${requestThrottle} = ${lastRequested > requestThrottle}`)
     return !board.isFetching && lastRequested > requestThrottle
 }
 
-function boardInHistoryAndRecent({boardHistory, settings}, boardID) {
-    const maxBoardAge = settings["maxBoardAge"].value
-    const board = boardHistory[boardID]
+function boardCachedAndRecent({cache, settings}, boardID) {
+    const maxBoardAge = settings.internal.maxBoardAge
+    const board = cache.board[boardID]
 
     if (!board){
-        console.warn('Board was not in history')
+        console.warn('Board was not in cache')
     } else {
         console.warn(`DID EXIST. ${secondsAgo(board.receivedAt)} < ${maxBoardAge} = ${secondsAgo(board.receivedAt) < maxBoardAge}`)
         console.warn(board)
@@ -106,10 +106,10 @@ function boardInHistoryAndRecent({boardHistory, settings}, boardID) {
     return board && secondsAgo(board.receivedAt) < maxBoardAge
 }
 
-function loadBoardFromHistory({ boardHistory }, boardID) {
-    const board = boardHistory[boardID]
+function loadBoardFromCache({ cache }, boardID) {
+    const board = cache.board[boardID]
     return {
-        type: BOARD_LOADED_FROM_HISTORY,
+        type: BOARD_CACHE_LOADED,
         payload: board,
         boardID,
     }
