@@ -9,11 +9,11 @@ body
     margin-right: auto
 
 // from NeutronCss
-html 
+html
     -moz-box-sizing: border-box
     box-sizing: border-box
 
-    * 
+    *
         -moz-box-sizing: inherit
         box-sizing: inherit
 
@@ -24,7 +24,7 @@ h1, h2, h3, h4, h5, h6
 a
 	color: color(links)
 
-#App 
+#App
     width: 100vw
     position: absolute
     left: 0
@@ -37,16 +37,19 @@ pre
     word-wrap: normal
     margin: 12px 0 16px
     font-family: Consolas, sans-serif
-    overflow-x: scroll
+    overflow-x: auto
 
 textarea:focus, input:focus
     outline: none
 
-[placeholder]:focus::-webkit-input-placeholder
-    transition: opacity 0.5s ease
-    opacity: 0
+[placeholder]
+    &::-webkit-input-placeholder
+        transition: opacity .24s ease
+    &:focus::-webkit-input-placeholder
+        transition: opacity .5s ease
+        opacity: 0
 
-::selection 
+::selection
     background-color: color(primary, dark)
     color: #ffffff
 
@@ -57,12 +60,15 @@ textarea:focus, input:focus
 img
     user-select: none
 
-.react-alerts 
+.react-alerts
+    position: fixed !important
+    z-index: 9999 !important
+
+    .alert
+        z-index: 9999 !important
+
     .close:hover
         opacity: 1 !important
 
     .close-dark:hover
         background-color: color(primary)
-
-.nano-pane
-    width: 5px
