@@ -10,10 +10,6 @@ import Preloader from './Preloader'
 // Setup preloader trigger
 window.appReady = () => store.dispatch(appReady());
 
-// <Provider store={store}>
-
-// </Provider>
-
 const App = () => {
     return (
         <div>

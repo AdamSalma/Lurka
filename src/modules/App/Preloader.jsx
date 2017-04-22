@@ -1,60 +1,65 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import updatePreloader from '~/preload'
-import { fetchBoard, fetchBoardList, appReady } from '~/redux/actions';
+import {
+    createPreloader,
+    fetchInitialContent
+} from './preload'
 
-import Views from '~/views'
+import {
+    fetchBoard,
+    fetchBoardList,
+} from '~/redux/actions';
 
+import { bindMembersToClass } from '~/utils'
 
 class Preloader extends Component {
     constructor(props) {
         super();
-        updatePreloader()  // if loaded from localStorage
-        this.fetchInitialContent(props)
+        this.preloading = true
+        bindMembersToClass(this, 'updatePreloader', 'onPreloadComplete')
+        this.checkPreloadProgress = createPreloader(this.onPreloadComplete)
+        fetchInitialContent(props)
+        this.updatePreloader(props)  // loaded from localStorage
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.warn("shouldComponentUpdate(): " + this.preloading)
+        return this.preloading
     }
 
     componentDidUpdate() {
-        updatePreloader()
+        this.updatePreloader()
     }
 
-    render() {
-        // TODO: Multipage application
-        // this.props.instances
+    render() { return false }
 
-
-        // Temp until multipage
-        return false
+    onPreloadComplete() {
+        console.warn("Preloaded!")
+        this.preloading = false
     }
 
-    fetchInitialContent(props) {
-        const {board, boardList, fetchBoard, fetchBoardList, provider, homeBoard} = props;
-
-        if (!boardList[provider] || !boardList[provider].length) {
-            fetchBoardList(provider)
-        }
-
-        if (!board.posts.length && !board.isFetching) {
-            console.warn("Homeboard is ", homeBoard)
-            fetchBoard({boardID: homeBoard})
-        }
+    updatePreloader(props=false) {
+        console.log("updatePreloader:", this)
+        this.checkPreloadProgress(props || this.props)
     }
+
+
 }
 
 function mapStateToProps({status, boardList, board, settings}) {
     return {
-        provider: status.provider,
-        homeBoard: settings.homeBoard.value,
-        boardList,
-        board
+        boardList, board,
+        homeBoard: settings.external.homeBoard,
+        alertMessage: status.alertMessage,
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchBoardList,
-        fetchBoard
+        fetchBoard,
     }, dispatch)
 }
 
