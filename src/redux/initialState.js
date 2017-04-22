@@ -23,6 +23,10 @@ export default {
         favourites: []  // [{id:'4chan', board: 'g'}, ...]
     },
 
+    cache: {
+        board: { },
+        thread: { }
+    },
 
     board: {
         receivedAt: 0,  // unix timestamp
@@ -34,8 +38,6 @@ export default {
         limit: 30  // infinite scroll
     },
 
-    boardHistory: { },
-
     thread: {
         receivedAt: 0,  // unix timestamp
         isActive: false,
@@ -45,15 +47,12 @@ export default {
         posts: [],
     },
 
-    threadHistory: { },
-
     threadMonitor: {
         newPosts: 0,
         threads: [
             // e.g. {threadID, boardID, posts}
         ]
     },
-
 
     post: {
         isAuthenticated: false,
