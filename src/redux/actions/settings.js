@@ -2,34 +2,32 @@ import {
     SETTING_CHANGED
 } from '../types'
 
-export function toggleSetting({name, setTo}) {
+export function setSetting(setting, value) {
+    console.log("Action toggleSetting()", setting, value);
 
-    console.log("Action toggleSetting()", name);
     return (dispatch, getState) => {
-        const settings = getState().settings
-        const val = settings[name].value
 
-        if (typeof val === "boolean") {
-            // toggle
-            console.info(`${name} was toggled to ${!val}`);
-            dispatch(settingToggle(name, !val))
-        } else {
-            // set
-            if (setTo === undefined) {
-                throw new Error(`Setting change: No setTo value was set. (${name} can't be toggled)`)
-            }
-            console.info(`${name} was changed from ${val} to ${setTo}`);
-            dispatch(settingToggle(name, setTo))
+        if (shouldChangeSetting(getState(), setting, value)) {
+            console.warn(`Action setSetting() rejected. value arg: ${value}, state value: ${val}`)
+            return
+        }
+
+        console.info(`${setting} was changed from ${val} to ${value}`);
+        dispatch(settingSet(setting, value))
+    }
+}
+
+function settingSet(setting, value) {
+    return {
+        type: SETTING_CHANGED,
+        payload: {
+            setting, value
         }
     }
 }
 
-function settingToggle(name, value) {
-    return {
-        type: SETTING_CHANGED, 
-        payload: {
-            name,
-            value
-        }
-    }
+function shouldChangeSetting({settings}, setting, value) {
+    const val = settings.external[setting]
+
+    return !val || val === value
 }
