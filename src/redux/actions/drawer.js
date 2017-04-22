@@ -5,26 +5,14 @@ const drawerAnimationDuration = window.appSettings.drawerAnimationDuration
 
 export const toggleDrawer = (open=null, callback=()=>{}) => {
     return (dispatch, getState) => {
-        let right
+        const { isDrawerOpen } = getState().display
 
-        if (open !== null) {
-            if (open) {
-                right = 0
-            } else {
-                right = -drawerWidth
-            }
-        } else {
-            right = getState().display.isDrawerOpen ? -drawerWidth : 0
+        if (open !== null && open === isDrawerOpen) {
+            console.warn('Drawer toggle rejected')
+            return
         }
 
-        dispatch(drawerToggled(right === 0))
-
-        return $("#drawer").velocity({right: right + "px"}, {
-            duration: 400,
-            complete: () => {
-                callback()
-            }
-        })
+        dispatch(drawerToggled(!isDrawerOpen))
     }
 }
 
