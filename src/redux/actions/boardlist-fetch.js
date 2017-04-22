@@ -19,42 +19,43 @@ function requestBoardList(provider) {
 function receiveBoardList(boardList, provider){
     return {
         type: BOARD_LIST_LOADED,
-        payload: boardList.data || [],
-        provider
+        payload: {
+            items: boardList.data || [],
+            receivedAt: Date.now(),
+        }
     }
 }
 
 function invalidateBoardlist(error) {
-    console.error("ERROR:")
-    console.warn(error)
     return {
         type: BOARD_LIST_INVALIDATED,
         error
     }
 }
 
-export function fetchBoardList( provider ) {
+export function fetchBoardList() {
     const url = API.boardlist()
     console.log(`Action fetchBoardList() to ${url}`);
     return (dispatch, getState) => {
-        if (shouldFetchBoardList(getState(), provider)) {
-            dispatch(requestBoardList(provider))
+        if (shouldFetchBoardList(getState())) {
+            dispatch(requestBoardList())
 
             return Axios.get(url)
-                .then( data => dispatch(receiveBoardList(data, provider)))
+                .then( data => dispatch(receiveBoardList(data)))
                 .catch( err => {
+                    console.error(err)
                     dispatch(alertMessage({
                         message: `From boardlist: ${err.response.data}`,
                         type: "error",
                         time: 20000
                     }))
-                    dispatch(invalidateBoardlist(err.response.data))
+                    dispatch(invalidateBoardlist(err.response.data || err))
                 });
         }
     }
 }
 
 function shouldFetchBoardList({boardList}, provider) {
-    return !boardList.hasOwnProperty(provider)
+    return boardList.items.length === 0
 }
 

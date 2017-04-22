@@ -20,7 +20,8 @@ export default {
 
     boardList: {
         didInvalidate: false,
-        favourites: []  // [{id:'4chan', board: 'g'}, ...]
+        favourites: [],
+        items: []
     },
 
     cache: {
