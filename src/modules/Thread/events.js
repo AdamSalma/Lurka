@@ -32,7 +32,6 @@ export function setupQuoteEvents(thread) {
     })
 }
 
-const threadWidth = $('#thread').width()
 function createTooltip(event) {
     const target = event.target,
           href = target.getAttribute('href'),
@@ -49,7 +48,7 @@ function createTooltip(event) {
     let left, top, el = document.createElement('div')
 
     el.innerHTML = post
-    el.className = 'thread-post tip'
+    el.className = 'ThreadPost tip'
 
     document.body.appendChild(el)
 

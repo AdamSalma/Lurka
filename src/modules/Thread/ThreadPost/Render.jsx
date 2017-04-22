@@ -1,10 +1,10 @@
 import React from 'react'
 import uuid from 'uuid'
 
-import { 
-    Line, 
+import {
+    Line,
     Icon,
-    ToggleOnClick, 
+    ToggleOnClick,
     Image,
     Video,
     DualMedia
@@ -12,14 +12,15 @@ import {
 
 import { setHTML, findParentWithClass } from '~/utils'
 
+const i = window.appSettings.icons
 
 export function renderControls(controls) {
     // TODO: Add functionality to thread icons
-    // const { download, openReferences, ...} = controls 
+    // const { download, openReferences, ...} = controls
     return (
         <div className="thread-post-controls">
             <div className="controls-menu-toggle">
-                <Icon name="dots-horizontal" />
+                <Icon name={i.threadPostMenu} />
             </div>
             <ul className="controls-menu">
                 <li onClick={()=> console.log('Clicked on download icon')}>
@@ -49,9 +50,9 @@ export function renderRefs(refs) {
         <Line/>
         <span className="reference-header">
             <span className="reply-count">({refs.length}) </span>
-            <Icon name="account-multiple"/> 
+            <Icon name="account-multiple"/>
         </span>
-        {refs.map( ref => 
+        {refs.map( ref =>
             <span key={uuid.v4()} className="quote">
                 <a className="quotelink" href={`#p${ref}`}>
                     {`>>${ref}`}
@@ -62,7 +63,7 @@ export function renderRefs(refs) {
 }
 
 export function renderTitle(title) {
-    if (title) return <span className='title'> 
+    if (title) return <span className='title'>
         <strong {...setHTML(title)}/>
         <span className='pipe'/>
     </span>
@@ -95,14 +96,14 @@ export function renderMediaInfo(media) {
 }
 
 export function renderMedia(media) {
-    if (!media) 
+    if (!media)
         return
 
     const { thumbnail, srcLarge, filetype, height, width } = media
 
     // TODO: Lazy load thread thumbnails
     return (
-        <DualMedia className="thread-media" 
+        <DualMedia className="thread-media"
             thumbnail={<Image src={thumbnail}/>}>
             {createExpandedMedia(filetype, srcLarge)}
         </DualMedia>
@@ -111,7 +112,7 @@ export function renderMedia(media) {
 
 function createExpandedMedia(ext, src) {
     return ext === ".webm" ? (
-        <Video loop autoPlay muted 
+        <Video loop autoPlay muted
             src={src}
             type="video/mp4"
             className="expanded"

@@ -4,18 +4,18 @@ import {
     Spinner
 } from '~/components'
 
-
-
 const threadConnect = (ThreadComponent) => {
     const ThreadHOC = (props) => {
-        const {isActive, thread:{posts}, closeThread} = props
+        const {isThreadOpen, posts, closeThread} = props
+
+        console.log(props)
         return (
-            <div className="ThreadHOC">
-                <Overlay 
-                    isVisible={isActive} 
+            <div className="Thread">
+                <Overlay
+                    isVisible={isThreadOpen}
                     onClick={closeThread}
                 />
-                <Spinner isSpinning={isActive && !posts.length}/>
+                <Spinner isSpinning={isThreadOpen && !posts.length}/>
                 <ThreadComponent {...props} />
             </div>
         )

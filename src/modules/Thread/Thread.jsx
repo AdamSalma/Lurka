@@ -2,78 +2,84 @@ import './Thread.styles'
 import React, { Component } from "react";
 
 import classes from 'classnames';
-import Velocity from 'velocity-animate';
 import uuid from "uuid";
 
-import ThreadPost from '../ThreadPost';
+import ThreadPost from './ThreadPost';
 
 import {
     Overlay,
     Spinner,
     TimeAgo
-} from '../../components';
+} from '~/components';
 
 import {
-    setupQuoteEvents, 
+    setupQuoteEvents,
     enableFullscreen
 } from './events'
 
+import {
+    bindMembersToClass
+} from '~/utils'
 
-export default class Thread extends Component {
+import threadConnect from './ThreadHOC'
+
+class Thread extends Component {
     constructor(props) {
-        super(props)
-        this.openThread = this.openThread.bind(this)
-        this.closeThread = this.closeThread.bind(this)
+        super(props);
+
+        bindMembersToClass(this,
+            'openThread',
+            'closeThread'
+        );
+
+        this.state = {
+            headerHeight: window.appSettings.headerHeight
+        }
     }
 
     componentDidMount() {
         console.log("Thread mounted");
         enableFullscreen(this._thread)
         setupQuoteEvents(this._thread)
-        this._threadWrap && this._threadWrap.nanoScroller({ 
-            sliderMinHeight: 40, 
-            alwaysVisible: true 
+        this._threadWrap && this._threadWrap.nanoScroller({
+            sliderMinHeight: 40,
+            alwaysVisible: true
         })
     }
 
-    componentDidUpdate({ thread: oldthread } ) {
-        const { thread } = this.props;
-
-        if (!oldthread.posts.length && thread.posts.length) {
-            // New thread
+    componentDidUpdate({ posts } ) {
+        if (!posts.length && this.props.posts.length) {
             this.openThread()
         }
-
     }
 
-    shouldComponentUpdate({thread}, nextState) {
-        return thread.isActive !== this.props.thread.isActive || 
-               this.props.thread.posts.length !== thread.posts.length
-    }
+    // shouldComponentUpdate({thread}, nextState) {
+    //     return thread.isThreadOpen !== this.props.thread.isThreadOpen ||
+    //            this.props.thread.posts.length !== thread.posts.length
+    // }
 
     componentWillUnmount() {
         console.log("Thread will unmount");
     }
 
     render() {
-        const { isActive, thread:{ posts, didInvalidate }} = this.props
-        const threadWrapClasses = 
-            classes('thread-wrap', 'nano', {
-                "thread-wrap-active": isActive
-            });
+        const { isDrawerOpen, isCommentPanelOpen, isThreadOpen, didInvalidate, posts } = this.props
+        const threadWrapClasses = classes('wrapper', 'nano', {
+            "make-visible": isThreadOpen,
+            "center-left": isDrawerOpen || isCommentPanelOpen,
+            "double-center-left": isDrawerOpen || isCommentPanelOpen
+        });
 
-        const threadClasses = 
-            classes('thread', 'nano-content', {
-                "thread-active": isActive
-            });
+        const threadClasses = classes('content', 'nano-content', {
+            "is-active": isThreadOpen
+        });
 
-        if (didInvalidate) 
+        if (didInvalidate)
             return null
 
         return (
             <div ref={t => this._threadWrap = $(t)} className={threadWrapClasses}>
                 <div id="thread" className={threadClasses} ref={t => this._thread = $(t)} onClick={this.closeThread}>
-                    <div className="header-gap" />
                     {posts.length && this.createPosts( posts )}
                 </div>
             </div>
@@ -82,9 +88,9 @@ export default class Thread extends Component {
     // <div className="header-gap"></div>
 
     createPosts( posts ) {
-        return posts.map( 
-            post => <ThreadPost 
-                key={post.id} 
+        return posts.map(
+            post => <ThreadPost
+                key={post.id}
                 post={post}>
                 <TimeAgo date={post.time}/>
             </ThreadPost>
@@ -95,8 +101,8 @@ export default class Thread extends Component {
         // Must have separate invocations
         this._threadWrap.nanoScroller({ scroll: "top" })
         this._threadWrap.nanoScroller({ stop: true })
-        
-        this._thread.velocity({top: 0}, {
+
+        this._thread.velocity({top: this.state.headerHeight}, {
             duration: 850,
             easing: [0.25, 0.8, 0.25, 1],
             complete: () => this._threadWrap.nanoScroller()
@@ -111,3 +117,5 @@ export default class Thread extends Component {
         scrollHeader(true)
     }
 }
+
+export default threadConnect(Thread)
