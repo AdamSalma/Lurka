@@ -2,13 +2,14 @@ import './Board.styles'
 import React, { Component, PropTypes } from "react";
 import classes from 'classnames'
 
-import BoardPost from '../BoardPost';
+import BoardPost from './BoardPost';
 import { catchTooltip } from './events';
 import createLayout from './layout';
 
 import {
     bindMembersToClass,
-    throttleByCount
+    throttleByCount,
+    invokeAfterUninterruptedDelay
 } from '~/utils';
 
 
@@ -25,12 +26,13 @@ export default class Board extends Component {
         this.state = {
             load: 25,
             headerHeight: 60,  // Beware if header height changes
+            scrollTop: 0
         }
 
         bindMembersToClass(this,
             'onBoardPostClick',
             'loadMorePosts',
-            'checkPostsInView'
+            'checkPostsInView',
         )
 
         this.throttle = throttleByCount(12, this.checkPostsInView)
@@ -64,7 +66,7 @@ export default class Board extends Component {
         catchTooltip(board);  // TODO: Implement catchtooltip on board
     }
 
-    componentDidUpdate({ board, boardID, isAppReady, isDrawerOpen }) {
+    componentDidUpdate({ board, isAppReady, isDrawerOpen }) {
         if (board.posts.length !== this.props.board.posts.length) {
             console.info('Creating Layout')
             this.applyLayout()
@@ -80,11 +82,12 @@ export default class Board extends Component {
 
         if (isDrawerOpen !== this.props.isDrawerOpen) {
             this.applyLayout = createLayout(
-                isDrawerOpen
+                this.props.isDrawerOpen
                     ? this.layoutPropsForDrawer
                     : this.layoutProps
             )
             this.applyLayout()
+            setTimeout(this.checkPostsInView, 400)
         }
 
     }
@@ -96,7 +99,8 @@ export default class Board extends Component {
     render() {
         const boardClasses = classes('Board', 'nano', {
             'show-all': this.props.board.searchWord,
-            'thread-open': this.props.threadIsActive
+            'disable-animations': this.props.isThreadOpen,
+            'move-scrollbar': this.props.isDrawerOpen
         })
 
         return (
@@ -111,12 +115,11 @@ export default class Board extends Component {
         );
     }
 
-    // trackScroll({ scrollTop, scrollHeight }) {
-    //     this.checkPostsInView()
-
-    //     if (scrollTop + window.innerHeight + 600 > scrollHeight ) {
-    //         this.loadMorePosts()
-    //     }
+    // updateScrollTop({ scrollTop, scrollHeight }) {
+    //     this.setState({
+    //         scrollTop,
+    //         threadHeight: scrollHeight,
+    //     })
     // }
 
     checkPostsInView() {
@@ -140,7 +143,7 @@ export default class Board extends Component {
                     key={id}
                     post={post}
                     onClick={this.onBoardPostClick.bind(null, id)}
-                    onLoad={this.applyLayout.bind(null, true)}
+                    onLoad={this.applyLayout}
                 />
             );
         });
@@ -193,9 +196,9 @@ export default class Board extends Component {
     onBoardPostClick( threadID ){
         // Fetch if user not highlighting any text
         if (!window.getSelection().toString()) {
-            const { boardID, fetchThread, scrollHeader } = this.props;
+            const { status, fetchThread, scrollHeader } = this.props;
 
-            fetchThread(boardID, threadID);
+            fetchThread(status.boardID, threadID);
 
             // Hide Thread scrollbar
             $('.thread-wrap').nanoScroller({ stop: true })
