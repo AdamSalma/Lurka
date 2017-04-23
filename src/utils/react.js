@@ -1,6 +1,8 @@
+import React from 'react'
+
 /**
  * Bind methods to a class. Use in class init: `constructor(){ }`
- * 
+ *
  * @param  {Object}  that    - Class scope reference; 'this'
  * @param  {...Func} members - Methods
  * @return {undefined}
@@ -12,9 +14,9 @@ export const bindMembersToClass = (that, ...members) => {
 }
 
 /**
- * Bind external functions to a class instance to be used as methods. 
+ * Bind external functions to a class instance to be used as methods.
  * Use in class init: `constructor(){ }`
- * 
+ *
  * @param  {Object}  that    - Class scope reference; 'this'
  * @param  {...Func} members - Functions
  * @return {undefined}
@@ -27,7 +29,7 @@ export const bindFunctionsAsInstanceMethods = (that, ...funcs) => {
 
 /**
  * Shorthand for using dangerouslySetInnerHTML as an element prop
- * 
+ *
  * @param  {String} html - Raw html to insert
  * @return {Object}
  */
@@ -37,4 +39,9 @@ export const setHTML = (html) => {
             __html: html
         }
     }
+}
+
+
+export const cloneChildren = (children, props) => {
+    return React.Children.map(children, child => React.cloneElement(child, props))
 }

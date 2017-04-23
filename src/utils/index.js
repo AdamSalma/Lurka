@@ -1,18 +1,18 @@
 export {
-    convertBytes, 
-    commaify, 
+    convertBytes,
+    commaify,
     secondsAgo
-} from './number-helpers'
+} from './number'
 
 export {
     setHTML,
-    bindMembersToClass, 
+    bindMembersToClass,
     bindFunctionsAsInstanceMethods
-} from './react-helpers'
+} from './react'
 
 export {
     findParentWithClass
-} from './dom-helpers'
+} from './dom'
 
 export {
     throttleByCount,
