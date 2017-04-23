@@ -1,9 +1,11 @@
-import './SearchBar.styles'
+import './Searchbar.styles'
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames'
-import Icon from '../Icon'
 
-class SearchBar extends Component {
+import Icon from '../Icon'
+import {bindMembersToClass} from '~/utils'
+
+class Searchbar extends Component {
     static propTypes = {
         className: PropTypes.string,
         showIcons: PropTypes.bool,
@@ -18,53 +20,67 @@ class SearchBar extends Component {
         this.state = {
             'searchValue': ''
         }
+
+        bindMembersToClass(this,
+            'handleKeyPress',
+            'clear',
+            'setRef'
+        )
     }
 
     focus() {
-        this._searchbar.focus()
+        this._searchInput && this._searchInput.focus()
     }
 
     clear() {
-        this._searchbar.value = ''
+        this._searchInput.value = ''
         this.setState({
             'searchValue': ''
         })
     }
 
     handleKeyPress(e) {
-        const { searchValue } = this.state
-        this.setState({ searchValue: this.refs.searchInput.value }, () => {
-            if (this.props.onKeyPress !== undefined) {
-                this.props.onKeyPress(searchValue)
+        const searchValue = this._searchInput.value
+        this.setState({ searchValue }, () => {
+            if (this.props.onChange !== undefined) {
+                this.props.onChange(searchValue)
             }
         })
     }
 
+    setRef(c) {
+        this._searchInput = c
+    }
+
     render() {
         const {
-            showIcons, 
-            className, 
+            showIcons,
+            className,
             ...restProps
         } = this.props;
 
+        const searchbarClass = cx('Searchbar', className)
+
         return (
-            <div className={cx('SeachBar', className)}>
-                {showIcons && <Icon 
-                    name="search" title="Search"
+            <div className={searchbarClass}>
+                {showIcons && <Icon
+                    className="search"
+                    name="ios-search-strong" title="Search"
                     onClick={this.focus}
                 />}
-                <input 
-                    type="text"
-                    ref={el => this._searchbar = el} 
-                    onKeyPress={this.handleKeyPress}
+                <input
                     maxLength="100"
                     autoCapitalize="none"
                     autoComplete="off"
                     autoCorrect="off"
                     {...restProps}
+                    type="text"
+                    ref={this.setRef}
+                    onChange={this.handleKeyPress}
                 />
-                {showIcons && <Icon 
-                    name="close" title="Clear search" 
+                {showIcons && this.state.searchValue && <Icon
+                    className="close"
+                    name="close" title="Clear search"
                     onClick={this.clear}
                 />}
             </div>
@@ -72,4 +88,4 @@ class SearchBar extends Component {
     }
 }
 
-export default SearchBar;
+export default Searchbar;

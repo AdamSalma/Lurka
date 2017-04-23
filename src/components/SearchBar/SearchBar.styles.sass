@@ -1,26 +1,37 @@
 @import '~styles/base'
 
-.SearchBar
+.Searchbar
     font-family: $font-alt
     line-height: 100%
+    display: flex
+    align-items: center
+    height: 30px
+    background: grey(8)
 
     .Icon
         line-height: inherit
         display: inline-block
+        padding: 6px 16px
+
+        &.search
+            color: inherit
+
+        &.close
+            position: absolute
+            right: 0
+            color: #d55250
 
     input
         line-height: inherit
-        border: grey(7) solid 1px
-        width: 100%
-        padding-left: 10px
-        background: lighten(grey(7), 4%)
-        color: color(text-secondary)
-        border-radius: 4px
+        height: 100%
+        border: none
+        background: inherit
+        color: inherit
         transition: all .3s ease
+        display: inline-block
+        margin-right: 10px
 
         &:focus
-            background: mix(color(primary), grey(7), 20%)
-
             &::-webkit-input-placeholder
                 transition: opacity 0.5s ease
                 opacity: 0
