@@ -5,33 +5,28 @@ module.exports = [
 		loader: 'babel',
 	},
     {
-        test: /\.scss$/,
+        test: /\.sass|scss$/,
         exclude: /node_modules/,
-        loaders: ['style', 'css', 'postcss', 'sass']
-    },
-    {
-        test: /\.sass$/,
-        exclude: /node_modules/,
-        loaders: ['style', 'css', 'postcss', 'sass']
+        loaders: ['style', 'css?sourceMap', 'postcss?sourceMap', 'sass?sourceMap']
     },
 	{
 		test: /\.css$/,
-		loaders: ['style', 'css']
+		loaders: ['style', 'css?sourceMap']
 	},
 	{
 		test: /\.json$/,
 		loader: 'json'
 	},
-	{ 
-		test: /.(png|gif|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/, 
-		loader: 'url-loader?limit=100000&name=[name]-[hash].[ext]' 
+	{
+		test: /.(png|gif|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/,
+		loader: 'url-loader?limit=100000&name=[name]-[hash].[ext]'
 	},
 	{
-		test: /\.(md|ejs)$/, 
-		loader: 'ignore-loader' 
+		test: /\.(md|ejs)$/,
+		loader: 'ignore-loader'
 	},
 	{
-		test: /\LICENSE$/, 
-		loader: 'ignore-loader' 
+		test: /\LICENSE$/,
+		loader: 'ignore-loader'
 	}
 ];

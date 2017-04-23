@@ -27,6 +27,7 @@ module.exports = {
 		loaders: loaders
 	},
 	plugins: [
+        new webpack.optimize.UglifyJsPlugin(),
 		new webpack.ProvidePlugin({
 			$: "jquery",
 			jQuery: "jquery",
@@ -40,6 +41,7 @@ module.exports = {
 		new HtmlWebpackPlugin({
             template: path.join(src, 'index.html')
         })
+
 	],
 	postcss: function () {
         return [autoprefixer, require('postcss-nested')];
