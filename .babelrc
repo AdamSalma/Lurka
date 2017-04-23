@@ -4,7 +4,8 @@
     "transform-decorators-legacy",
     ["module-resolver", {
       "alias": {
-        "~": "./src/"
+        "~": "./src/",
+        "Lurka": "./"
       }
     }]
   ],
