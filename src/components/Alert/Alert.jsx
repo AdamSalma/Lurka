@@ -29,6 +29,9 @@ class AlertWrapper extends Component {
             <Alert
                 ref={el => this._msg = el}
                 position={this.props.position}
+                offset={this.props.offset}
+                theme={this.props.theme}
+                transition={this.props.transition}
             />
         );
     }
