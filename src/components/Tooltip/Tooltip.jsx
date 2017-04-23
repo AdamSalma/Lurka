@@ -1,59 +1,94 @@
 import './Tooltip.styles'
 import React, { Component, PropTypes } from 'react';
-import classes from 'classnames';
+import cx from 'classnames';
+import {bindMembersToClass} from '~/utils';
 
 export default class Tooltip extends Component {
     constructor(props) {
         super(props);
-        this.showTooltip = this.showTooltip.bind(this)
-        this.hideTooltip = this.hideTooltip.bind(this)
+
+        bindMembersToClass(this,
+            'show',
+            'hide',
+            'onMouseEnter',
+            'onMouseLeave'
+        )
+
         this.state = {
             isVisible: false
         }
     }
 
-    showTooltip() {
-        this.setState({
-            isVisible: true
+    componentDidMount() {
+        const {clientWidth, clientHeight} = this.refs.tip
+
+        this.size = {
+            height: clientHeight,
+            width: clientWidth
+        }
+    }
+
+    onMouseEnter(e) {
+        this.show(this.props.onMouseEnter)
+    }
+
+    onMouseLeave(e) {
+        this.hide(this.props.onMouseLeave)
+    }
+
+    show(callback) {
+        this.setState({isVisible: true}, () => {
+            if (typeof this.props.onMouseEnter !== 'undefined') {
+                callback()
+            }
         })
     }
 
-    hideTooltip() {
-        this.setState({
-            isVisible: false
+    hide(callback) {
+        this.setState({isVisible: false}, () => {
+            if (typeof this.props.onMouseEnter !== 'undefined') {
+                callback()
+            }
         })
     }
 
     render() {
-        const { className, content, children } = this.props
-        const contentClasses = classes("Tooltip-content", {
-            'Tooltip-active': this.state.isVisible
-        })
+        const { tooltip, className, children, position:pos, ...restProps } = this.props
+        const contentClasses = cx(
+            className,
+            "Tooltip__content",
+            `Tooltip__content--${pos}`,
+            {'Tooltip__content--active': this.state.isVisible}
+        )
 
-        return <div className={[
-            'Tooltip',  
-            className
-        ].join(' ')}>
-            <div className={contentClasses}>
-                {content}
-            </div>
-            <div className="Tooltip-target"
-            onMouseEnter={this.showTooltip}
-            onMouseLeave={this.hideTooltip}>
+        const tipStyles = {        }
+
+        return (
+            <div
+            {...restProps}
+            className='Tooltip'
+            onMouseEnter={this.onMouseEnter}
+            onMouseLeave={this.onMouseLeave}>
+                <div ref="tip" className={contentClasses} style={tipStyles}>
+                    {tooltip}
+                </div>
                 {children}
             </div>
-        </div>
+        )
     }
 }
 
 Tooltip.defaultProps = {
-    className: ''
+    className: '',
+    position: 'top',
+    tooltip: 'No tooltip provided'
 }
 
 Tooltip.propTypes = {
     className: PropTypes.string,
-    content: PropTypes.oneOfType([
+    position: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
+    tooltip: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.element
-    ])
+    ]),
 }
