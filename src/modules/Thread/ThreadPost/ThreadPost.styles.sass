@@ -40,14 +40,14 @@ $thread-post-control-width: 200px
     /* Tooltip */
     &.tip
         z-index: 10000
-        border: 1px dashed color(primary)
+        border: 2px solid grey(6)
         position: absolute
         max-width: 800px
         width: auto
         padding-right: 40px
         word-wrap: break-word
         white-space: pre-line
-        box-shadow: 0 3px 8px grey(9)
+        box-shadow: 0 0 8px grey(10)
 
         a
             color: color(primary)
@@ -126,9 +126,14 @@ $thread-post-control-width: 200px
             margin-right: 6px
 
             .reply-count
-                position: relative
-                bottom: 2px
+                bottom: 5px
                 font-size: 13px
+                position: absolute
+                right: 12px
+
+            .Icon
+                top: 1px
+                position: relative
 
         .quotelink
             margin-right: 5px
@@ -151,18 +156,17 @@ $thread-post-control-width: 200px
     .deadlink
         color: color(text-disabled)
         text-decoration: line-through
-        font-weight: bold
         font-family: $font-alt
 
         &::after
-            content: "(404'd)"
+            content: "(deleted)"
             text-decoration: none
             display: inline-block
             vertical-align: bottom
             margin: auto 4px
             font-size: 11px
             color: color(text-secondary)
-            font-family: $font-main
+            font-family: $font-main-light
 
     .quotelink
         color: color(primary)
