@@ -9,3 +9,6 @@
 @function primary-opacity($opacity)
     @return rgba(red(color(primary)), green(color(primary)), blue(color(primary)), $opacity)
 
+@function calculateRem($size)
+    $remSize: $size / 16px
+    @return $remSize * 1rem
