@@ -1,21 +1,62 @@
-// Font size
-@function calculateRem($size)
-    $remSize: $size / 16px
-    @return $remSize * 1rem
+// Centering
+%pos-horizon
+    left: 0
+    right: 0
+
+%pos-vertical
+    top: 0
+    bottom: 0
+
+=center-icon
+    display: table-cell
+    vertical-align: middle
+    text-align: center
 
 =font-size($size)
     font-size: $size
     font-size: calculateRem($size)
 
+=nano-can-expand($width)
+    cursor: grab
+    &:hover, &:active
+        width: $width
+        transition: width .24s ease-in
 
-// Centering
-%cenH
-    left: 0
-    right: 0
+=nano-rect($width)
+    width: $width
+    border-radius: 0 !important
 
-%cenV
-    top: 0
-    bottom: 0
+=gradient($color)
+    $tint: darken($color, 5%)
+    background: $color
+    background: linear-gradient(to top left, $tint, $color, $tint)
+
+=square($size)
+    height: $size
+    width:  $size
+
+=circle($size)
+    height: $size
+    width:  $size
+    border-radius: 50%
+
+=pseudo-circle($size, $color)
+    position: relative
+    &::after
+        content: ''
+        z-index: -1 // to not mess with icons
+        +circle($size)
+        position: absolute
+        background-color: $color
+
+=clickable
+    cursor: pointer
+
+=will-change($prop)
+    will-change: $prop
+
+=no-select()
+    user-select: none
 
 =position($top:auto, $left:auto, $bottom:auto, $right:auto)
     top: $top
@@ -28,8 +69,8 @@
     height: $height
     position: absolute
     margin: auto
-    @extend %cenH
-    @extend %cenV
+    @extend %pos-horizon
+    @extend %pos-vertical
 
 =center-horizontal($width)
     width: $width
@@ -63,26 +104,3 @@
 =set-max($w, $h)
     max-width: $w
     max-height: $h
-
-=gradient($color)
-    $tint: tint($color)
-    background: $color
-    background: linear-gradient(to bottom, $tint, $color, $tint)
-
-=square($size)
-    height: $size
-    width:  $size
-
-=circle($size)
-    height: $size
-    width:  $size
-    border-radius: 50%    
-
-=clickable
-    cursor: pointer
-
-=will-change($prop)
-    will-change: $prop
-
-=no-select()
-    user-select: none
