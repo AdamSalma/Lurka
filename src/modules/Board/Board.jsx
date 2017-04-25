@@ -3,6 +3,9 @@ import React, { Component, PropTypes } from "react";
 import classes from 'classnames'
 
 import BoardPost from './BoardPost';
+import SideIconGroup from './SideIconGroup';
+import {Icon, Circle, Tooltip} from '~/components';
+
 import { catchTooltip } from './events';
 import createLayout from './layout';
 
@@ -12,6 +15,7 @@ import {
     invokeAfterUninterruptedDelay
 } from '~/utils';
 
+const settings = window.appSettings
 
 export default class Board extends Component {
     static propTypes = {
@@ -25,7 +29,7 @@ export default class Board extends Component {
 
         this.state = {
             load: 25,
-            headerHeight: 60,  // Beware if header height changes
+            headerHeight: settings.headerHeight,  // Beware if header height changes
             scrollTop: 0
         }
 
@@ -40,15 +44,19 @@ export default class Board extends Component {
         this.layoutProps = {
             targetSelector: '.BoardPost',
             containerSelector: '#board',
-            gutterLeft: 60,
-            gutterRight: 60
+            margin: settings.boardpostMargin,
+            gutterLeft: settings.boardOuterMargin,
+            gutterRight: settings.boardOuterMargin
         }
 
         this.layoutPropsForDrawer = Object.assign({}, this.layoutProps, {
-            gutterRight: window.appSettings.drawerWidth + 60
+            gutterRight: settings.drawerWidth + settings.boardOuterMargin
         })
 
-        this.applyLayout = createLayout(this.layoutPropsForDrawer)
+        this.applyLayout = createLayout(props.isDrawerOpen
+            ? this.layoutPropsForDrawer
+            : this.layoutProps
+        )
 
         this.nanoOpts = {
             sliderMaxHeight: 400,
@@ -62,34 +70,22 @@ export default class Board extends Component {
         this._board.nanoScroller(this.nanoOpts)
 
         // Hover over board posts reveals more info
-        $(window).resize(this.applyLayout)
+        $(window).resize(() => this.applyLayout())
         catchTooltip(board);  // TODO: Implement catchtooltip on board
     }
 
     componentDidUpdate({ board, isAppReady, isDrawerOpen }) {
-        if (board.posts.length !== this.props.board.posts.length) {
-            console.info('Creating Layout')
-            this.applyLayout()
-            this._board.nanoScroller()
-            this._board.trigger('scroll')
-
-            setTimeout(this.checkPostsInView, 500)
+        if (isAppReady !== this.props.isAppReady && isAppReady) {
+            this.onAppReady()
         }
 
-        if (isAppReady !== this.props.isAppReady) {
-            this.checkPostsInView()
+        if (board.posts.length !== this.props.board.posts.length) {
+            this.onPostsChange()
         }
 
         if (isDrawerOpen !== this.props.isDrawerOpen) {
-            this.applyLayout = createLayout(
-                this.props.isDrawerOpen
-                    ? this.layoutPropsForDrawer
-                    : this.layoutProps
-            )
-            this.applyLayout()
-            setTimeout(this.checkPostsInView, 400)
+            this.onDrawerToggle()
         }
-
     }
 
     componentWillUnmount() {
@@ -108,6 +104,22 @@ export default class Board extends Component {
                 <div className="nano-content">
                     <div className="header-gap"/>
                     <div className="posts" ref={p => this._posts = p}>
+                        <SideIconGroup className="side-icons">
+                            <div className="side-icon-wrap">
+                                <Tooltip tooltip="Return to top" position="top">
+                                    <Circle>
+                                        <Icon name="chevron-up"/>
+                                    </Circle>
+                                </Tooltip>
+                            </div>
+                            <div className="side-icon-wrap">
+                                <Tooltip tooltip="Refresh the board" position="bottom">
+                                    <Circle>
+                                        <Icon name="refresh"/>
+                                    </Circle>
+                                </Tooltip>
+                            </div>
+                        </SideIconGroup>
                         {this.createPosts()}
                     </div>
                 </div>
@@ -117,10 +129,33 @@ export default class Board extends Component {
 
     // updateScrollTop({ scrollTop, scrollHeight }) {
     //     this.setState({
+
+    onAppReady() {
+        this.c
+heckPostsInView()
     //         scrollTop,
     //         threadHeight: scrollHeight,
-    //     })
-    // }
+    //     })    // }
+    }
+
+    onDrawerToggle() {
+        this.applyLayout = createLayout(
+            this.props.isDrawerOpen
+                ? this.layoutPropsForDrawer
+                : this.layoutProps
+        )
+        this.applyLayout()
+        setTimeout(this.checkPostsInView, 400)
+    }
+
+    onPostsChange() {
+        console.info('Creating Layout')
+        this.applyLayout()
+        this._board.nanoScroller()
+        this._board.trigger('scroll')
+
+        setTimeout(this.checkPostsInView, 500)
+    }
 
     checkPostsInView() {
         if (!this._posts)
