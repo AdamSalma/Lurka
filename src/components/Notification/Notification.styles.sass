@@ -1,0 +1,24 @@
+@import '~styles/base'
+
+.Notification
+    position: relative
+    display: inline-block
+
+    .Notification__content
+        position: absolute
+        top: 4px
+        left: 27px
+        display: block
+        padding: 2px 5px 2px 3px
+        background: grey(5)
+        line-height: 1
+        font-size: .625rem
+        color: color(text-primary)
+        text-decoration: none
+        letter-spacing: -.075em
+        border-top-left-radius: 6px
+        border-top-right-radius: 6px
+        border-bottom-right-radius: 6px
+
+    .Notification__content--active
+        background: color(primary)
