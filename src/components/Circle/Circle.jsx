@@ -1,9 +1,11 @@
 import './Circle.styles'
 import React, { PropTypes } from 'react';
 
-const Circle = ({ className }) => {
+const Circle = ({ className, children }) => {
     return (
-        <div className={["Circle", className].join(' ')}/>
+        <div className={["Circle", className].join(' ')}>
+            {children}
+        </div>
     );
 };
 
