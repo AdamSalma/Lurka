@@ -6,10 +6,12 @@ import Radio from './Radio'
 const RadioField = ({ className, label, isActive, onClick }) => {
     console.info(label);
     return (
-        <div className={cx("RadioGroup__field", className)} onClick={onClick}>
+        <div className={cx("RadioGroup__field", className, {
+            'RadioGroup__field--active': isActive
+        })} onClick={onClick}>
             <Radio isActive={isActive} />
             <div className="RadioGroup__label">
-                {label} {isActive && 'active'}
+                {label}
             </div>
         </div>
     );
