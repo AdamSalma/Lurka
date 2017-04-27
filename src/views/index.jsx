@@ -5,12 +5,12 @@ import ContentView from './ContentView';
 import SettingsView from './SettingsView';
 
 
-const Views = ({ id }) => {
+const Views = ({ id, homeID, contentID, settingsID }) => {
     return (
         <div id={id} className="Views">
-            <HomeView />
-            <ContentView />
-            <SettingsView />
+            <HomeView id={homeID}/>
+            <ContentView id={contentID}/>
+            <SettingsView id={settingsID} />
         </div>
     );
 };
@@ -18,7 +18,10 @@ const Views = ({ id }) => {
 Views.displayName = 'Views';
 
 Views.propTypes = {
-    className: PropTypes.string,
+    id: PropTypes.string,
+    homeID: PropTypes.string,
+    contentID: PropTypes.string,
+    settingsID: PropTypes.string,
 };
 
 export default Views;

@@ -5,9 +5,9 @@ import Thread from '~/modules/Thread'
 import Header from '~/modules/Header'
 
 
-const ContentView = ({ className, ...restProps }) => {
+const ContentView = ({ id, className, ...restProps }) => {
     return (
-        <div {...restProps} className={[
+        <div id={id} {...restProps} className={[
             'View ContentView', className
         ].join(' ')}>
             <Board />

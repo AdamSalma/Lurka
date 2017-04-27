@@ -14,9 +14,16 @@ window.appReady = () => store.dispatch(appReady());
 const App = () => {
     return (
         <div>
-            <Views/>
-            <Preloader/>
-            <Alert position="top left" offset={window.appSettings.headerHeight}/>
+            <Views
+                homeID='HomeView'
+                contentID='ContentView'
+                settingsID='SettingsView'
+            />
+            <Preloader />
+            <Alert
+                position="top left"
+                offset={window.appSettings.headerHeight}
+            />
         </div>
     )
 }
