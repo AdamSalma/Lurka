@@ -67,7 +67,7 @@ class Thread extends Component {
         const threadWrapClasses = classes('wrapper', 'nano', {
             "make-visible": isThreadOpen,
             "center-left": isDrawerOpen || isCommentPanelOpen,
-            "double-center-left": isDrawerOpen || isCommentPanelOpen
+            "double-center-left": isDrawerOpen && isCommentPanelOpen
         });
 
         const threadClasses = classes('content', 'nano-content', {
