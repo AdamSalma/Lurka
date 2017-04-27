@@ -6,16 +6,16 @@ import {
 
 const threadConnect = (ThreadComponent) => {
     const ThreadHOC = (props) => {
-        const {isThreadOpen, posts, closeThread} = props
+        const {isThreadOpen, posts, closeThread, didInvalidate} = props
 
         console.log(props)
         return (
             <div className="Thread">
                 <Overlay
-                    isVisible={isThreadOpen}
+                    isVisible={isThreadOpen && !didInvalidate}
                     onClick={closeThread}
                 />
-                <Spinner isSpinning={isThreadOpen && !posts.length}/>
+                <Spinner isSpinning={isThreadOpen && !posts.length && !didInvalidate}/>
                 <ThreadComponent {...props} />
             </div>
         )
