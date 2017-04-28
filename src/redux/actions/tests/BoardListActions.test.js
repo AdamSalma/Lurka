@@ -2,35 +2,36 @@ import Axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import {
-    BOARD_REQUESTED, 
-    BOARD_LOADED, 
-    BOARD_DESTROYED,
     BOARD_LIST_REQUESTED,
     BOARD_LIST_LOADED,
-    BOARD_CHANGE
 } from '../../types';
 
 import {
-  fetchBoard,
   fetchBoardList
-} from './BoardActions';
+} from '..';
 
 
 const mock = new MockAdapter(Axios)
 mock.onAny('/api').reply(200);
 
-// Test vars
 const dispatch = expect.createSpy();
+
 const provider = "4chan"
-const board = "g";
 
 describe('Actions', () => {
 
-  it('creates BOARD_LIST_REQUESTED action', () => {
-    const fn = fetchBoardList( provider );
+  it('creates BOARD_LIST_REQUESTED', () => {
+    const fn = fetchBoardList(provider);
     expect(fn).toBeA('function');
-    const getState = () => ({ provider: '4chan' });
+    const getState = () => ({ boardList: {provider: null} });
+
     fn(dispatch, getState);
+    expect(dispatch).toHaveBeenCalledWith({ type: BOARD_LIST_REQUESTED, provider });
+
+    for (let x in expect.assert) {
+      console.error(x)
+    }
+
     expect(dispatch).toHaveBeenCalledWith({ type: BOARD_LIST_REQUESTED });
   });
 

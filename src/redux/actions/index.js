@@ -57,3 +57,8 @@ export {
 export {
     toggleDrawer
 } from './drawer'
+
+export {
+    navigateToView,
+    toggleHomeView
+} from './navigation'

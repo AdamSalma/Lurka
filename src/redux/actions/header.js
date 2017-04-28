@@ -2,9 +2,9 @@ import * as types from '../types'
 
 export function scrollHeader(toVisible, delay) {
     const $header = $('#header'), duration=300;
-    var 
-        delay = delay||0, 
-        easing='ease-in', 
+    var
+        delay = delay||0,
+        easing='ease-in',
         top=`-${$header.height()}px`;
 
     if (toVisible) {
@@ -18,6 +18,8 @@ export function scrollHeader(toVisible, delay) {
             return $header.velocity(
                 {top}, {duration, easing, delay, complete: () => dispatch(headerToggle())}
             )
+        } else {
+            console.warn('Thread scroll rejected')
         }
     }
 }
@@ -30,6 +32,6 @@ function headerToggle(toVisible) {
     }
 }
 
-function shouldScrollHeader({status:{ isHeaderVisible }}, toVisible) {    
+function shouldScrollHeader({status:{ isHeaderVisible }}, toVisible) {
     return isHeaderVisible !== toVisible
 }
