@@ -21,6 +21,10 @@ describe('Types', () => {
     expect(types.USER_LOADED_ARCHIVE).toEqual('USER_LOADED_ARCHIVE');
   });
 
+  it('contains USER_NAVIGATED', () => {
+    expect(types.USER_NAVIGATED).toEqual('USER_NAVIGATED');
+  });
+
   it('contains SETTINGS_LOADED', () => {
     expect(types.SETTINGS_LOADED).toEqual('SETTINGS_LOADED');
   });
