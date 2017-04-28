@@ -15,6 +15,7 @@ export default {
         isNavbarOpen: false,
         isDrawerOpen: true,
         isThreadOpen: false,
+        activeView: "content",  // for toggling home page
         activeHeaderPanel: null,  // responses to header buttons
     },
 
