@@ -8,7 +8,8 @@ import {
     THREAD_REQUESTED,
     THREAD_CACHE_LOADED,
     THREAD_DESTROYED,
-    HEADER_PANEL_CLOSED
+    HEADER_PANEL_CLOSED,
+    USER_NAVIGATED
 } from '../types';
 
 
@@ -54,6 +55,11 @@ export default function (state = initialState.display, action) {
         case HEADER_PANEL_CLOSED:
             return Object.assign({}, state, {
                 activeHeaderPanel: null
+            })
+
+        case USER_NAVIGATED:
+            return Object.assign({}, state, {
+                activeView: action.payload
             })
 
         default:
