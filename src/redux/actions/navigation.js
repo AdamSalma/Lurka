@@ -25,6 +25,9 @@ export const navigateToView = (destination, callback=()=>{}) => {
 
 export const toggleHomeView = (override, callback=()=>{}) => {
     let top;
+    const easing_in = [0.23, 1, 0.32, 1]
+    const easing_out = [0.23, 1, 0.32, 1]
+    const duration = 600
 
     return (dispatch, getState) => {
         if (typeof override !== "undefined") {
@@ -39,14 +42,10 @@ export const toggleHomeView = (override, callback=()=>{}) => {
 
         // 2px +- used to cover border
         const navigatedTo = top === 0 ? 'content' : 'home'
-        console.warn("changing to", navigatedTo);
-        console.warn("top", top);
-        console.warn("element is", $(contentID));
-
+        const easing = top === 0 ? easing_out : easing_in
 
         return $(contentID).velocity({top}, {
-            duration: 400,
-            easing: 'ease-out',
+            duration, easing,
             complete: () => {
                 dispatch(userNavigated(navigatedTo))
                 callback(navigatedTo)
