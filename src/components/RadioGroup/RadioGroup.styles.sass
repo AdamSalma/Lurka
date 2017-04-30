@@ -5,12 +5,17 @@ $radio-button-size: 20px
 .RadioGroup
 
     .RadioGroup__field
-        display: block
+        display: flex
+        align-items: center
         color: color(text-disabled)
 
         &.RadioGroup__field--active
             color: color(text-primary)
             transition: color $key-animation-duration $key-bezier-animation-in
+
+        &:hover .Radio__circle
+            background: grey(7)
+            border: 2px solid grey(8)
 
     .RadioGroup__label
         display: inline-block
@@ -33,6 +38,7 @@ $radio-button-size: 20px
             background: grey(9)
             position: relative
             border: 2px solid grey(9)
+            transition: background-color $key-animation-duration ease-out
 
             &::after
                 content: ''
@@ -40,6 +46,6 @@ $radio-button-size: 20px
                 left: -2px
                 position: absolute
                 border: 2px solid transparent
-                +circle($radio-button-size - 2px)
+                +circle($radio-button-size - 4px)
                 transform: scale(0)
                 transition: transform $key-animation-duration $key-bezier-animation-out
