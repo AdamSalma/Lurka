@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import classes from 'classnames'
 
 
-export default class Setting extends Component {
+export default class Setting extends PureComponent {
   constructor(props) {
     super(props);
   }

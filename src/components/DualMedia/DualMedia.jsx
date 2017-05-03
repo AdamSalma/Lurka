@@ -1,10 +1,10 @@
 import './DualMedia.styles'
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import classes from 'classnames'
 import { bindMembersToClass } from '~/utils'
 
 
-export default class DualMedia extends Component {
+export default class DualMedia extends PureComponent {
     static propTypes = {
         thumbnail: PropTypes.element,
     }
@@ -26,7 +26,7 @@ export default class DualMedia extends Component {
     render() {
         const {thumbnail, children, className, ...restProps} = this.props
         const dualMediaClasses = classes("dual-media", className, {
-            "toggled": this.state.toggled 
+            "toggled": this.state.toggled
         })
 
         console.warn(this.state.toggled)
@@ -35,7 +35,7 @@ export default class DualMedia extends Component {
                 <div className="dual-media-thumbnail">
                     {thumbnail}
                 </div>
-                { this.state.toggled && 
+                { this.state.toggled &&
                     <div className="dual-media-children">
                         {children}
                     </div>

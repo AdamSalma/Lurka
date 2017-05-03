@@ -1,11 +1,11 @@
 import './TimeAgo.styles'
 
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import moment from 'moment'
 
 import Tooltip from '../Tooltip'
 
-export default class TimeAgo extends Component {
+export default class TimeAgo extends PureComponent {
     constructor(props) {
         super(props)
         this.update = this.update.bind(this)
@@ -18,7 +18,7 @@ export default class TimeAgo extends Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this._interval)    
+        clearInterval(this._interval)
     }
 
     render() {
@@ -26,7 +26,7 @@ export default class TimeAgo extends Component {
         const time = moment(this.props.time)
 
         return <span className="TimeAgo" onClick={this.toggleFormat}>
-            {this.state.clicked && canToggle ? 
+            {this.state.clicked && canToggle ?
                 time.format(toggledFormat) : time.fromNow(agoSuffix)
             }
         </span>

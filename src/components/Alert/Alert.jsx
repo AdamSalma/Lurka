@@ -1,10 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Alert from 'react-alert'
 
-class AlertWrapper extends Component {
+class AlertWrapper extends PureComponent {
     static propTypes = {
         position: PropTypes.string,
     };

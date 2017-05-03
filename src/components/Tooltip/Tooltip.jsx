@@ -1,9 +1,33 @@
 import './Tooltip.styles'
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import cx from 'classnames';
-import {bindMembersToClass} from '~/utils';
 
-export default class Tooltip extends Component {
+import { bindMembersToClass } from '~/utils';
+
+
+export default class Tooltip extends PureComponent {
+
+    static defaultProps = {
+        className: '',
+        position: 'top',
+        tooltip: 'No tooltip provided',
+        effect: 'scale',
+    };
+
+    static propTypes = {
+        className: PropTypes.string,
+        position: PropTypes.oneOf([
+            'top', 'bottom', 'left', 'right'
+        ]),
+        effect: PropTypes.oneOf([
+            'fade', 'scale'
+        ]),
+        tooltip: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.element
+        ]),
+    };
+
     constructor(props) {
         super(props);
 
@@ -16,15 +40,6 @@ export default class Tooltip extends Component {
 
         this.state = {
             isVisible: false
-        }
-    }
-
-    componentDidMount() {
-        const {clientWidth, clientHeight} = this.refs.tip
-
-        this.size = {
-            height: clientHeight,
-            width: clientWidth
         }
     }
 
@@ -54,41 +69,33 @@ export default class Tooltip extends Component {
 
     render() {
         const { tooltip, className, children, position:pos, ...restProps } = this.props
-        const contentClasses = cx(
+        const mainClass = cx('Tooltip', {
+            'Tooltip--active': this.state.isVisible
+        })
+
+        const wrapperClass = cx(
             className,
-            "Tooltip__content",
-            `Tooltip__content--${pos}`,
-            {'Tooltip__content--active': this.state.isVisible}
+            "Tooltip__wrap",
+            `Tooltip__content--effect-${this.props.effect}`
         )
 
-        const tipStyles = {        }
+        const contentClass = cx(
+            'Tooltip__content',
+            `Tooltip__wrap--${pos}`,
+        )
 
         return (
-            <div
-            {...restProps}
+            <div {...restProps}
             className='Tooltip'
             onMouseEnter={this.onMouseEnter}
             onMouseLeave={this.onMouseLeave}>
-                <div ref="tip" className={contentClasses} style={tipStyles}>
-                    {tooltip}
+                <div className={wrapperClass}>
+                    <div className={contentClass}>
+                        {tooltip}
+                    </div>
                 </div>
                 {children}
             </div>
         )
     }
-}
-
-Tooltip.defaultProps = {
-    className: '',
-    position: 'top',
-    tooltip: 'No tooltip provided'
-}
-
-Tooltip.propTypes = {
-    className: PropTypes.string,
-    position: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
-    tooltip: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.element
-    ]),
 }

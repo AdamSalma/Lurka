@@ -1,10 +1,10 @@
 import './ButtonCircle.styles'
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import classes from 'classnames'
 
 import Circle from '../Circle'
 
-export default class ControlWrapper extends Component {
+export default class ControlWrapper extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {

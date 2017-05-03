@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classes from 'classnames';
 
 
-export default class ToggleOnClick extends Component {
+export default class ToggleOnClick extends PureComponent {
     constructor(props) {
         super(props);
         this.toggle = this.toggle.bind(this)
@@ -28,7 +28,7 @@ export default class ToggleOnClick extends Component {
         this.setState(state => {
             console.log('ToggleOnClick() clicked. expanding ?', state.isExpanded)
             return {
-                isExpanded: !state.isExpanded                
+                isExpanded: !state.isExpanded
             }
         })
     }

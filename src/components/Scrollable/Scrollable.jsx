@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import classes from "classnames";
 
-export default class Scrollable extends Component {
+export default class Scrollable extends PureComponent {
     constructor(props) {
         super(props);
         this.updateScroller = this.updateScroller.bind(this);
@@ -35,7 +35,7 @@ export default class Scrollable extends Component {
     updateScroller( opts={} ) {
         this._scroller.nanoScroller(opts);
     }
-} 
+}
 
 Scrollable.defaultProps = {
     scrollOpts: {sliderMinHeight: 50}

@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import classes from 'classnames'
 
 
-class Image extends Component {
+class Image extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,7 +25,7 @@ class Image extends Component {
     }
 
     renderPlaceholder(props) {
-        // Use custom onload to reveal image, then trigger the users `onLoad` 
+        // Use custom onload to reveal image, then trigger the users `onLoad`
         // as a callback to setState
         const imageProps = Object.assign({}, this.imageProps, {onLoad: this.onLoad})
 

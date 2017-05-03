@@ -1,11 +1,11 @@
 import './Searchbar.styles'
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import cx from 'classnames'
 
 import Icon from '../Icon'
 import {bindMembersToClass} from '~/utils'
 
-class Searchbar extends Component {
+class Searchbar extends PureComponent {
     static propTypes = {
         className: PropTypes.string,
         showIcons: PropTypes.bool,

@@ -1,6 +1,6 @@
-import React, {Component, PropTypes} from 'react'
+import React, {PureComponent, PropTypes} from 'react'
 
-export default class Timer extends Component {
+export default class Timer extends PureComponent {
 
     constructor({seconds, interval, active, autoreset}) {
         super();
@@ -36,8 +36,8 @@ export default class Timer extends Component {
         const { seconds, displayCounter } = this.props
         const { active } = this.state
 
-        return active && displayCounter ? 
-            <span className="timer">{seconds}</span> 
+        return active && displayCounter ?
+            <span className="timer">{seconds}</span>
             : false
     }
 
@@ -50,11 +50,11 @@ export default class Timer extends Component {
 
                 if (autoreset) {
                     state.seconds = this.props.seconds
-                } 
+                }
                 else {
                     this.clearInterval()
                 }
-            } 
+            }
             else {
                 state.seconds = --seconds
             }

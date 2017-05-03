@@ -1,9 +1,9 @@
 import './Dropdown.styles'
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import uuid from "uuid";
 import classes from "classnames";
 
-export default class Dropdown extends Component {
+export default class Dropdown extends PureComponent {
     constructor(props) {
         super(props);
         this.updateScroller = this.updateScroller.bind(this);
@@ -32,7 +32,7 @@ export default class Dropdown extends Component {
         return (
             <div ref={el => this._dropdown = $(el)} className={dropdownClasses}>
                 <div className="Dropdown nano-content" onClick={onClick}>
-                    {items.length && items.map( item => 
+                    {items.length && items.map( item =>
                         <span key={uuid.v4()} className="item">
                             {item}
                         </span>
@@ -41,7 +41,7 @@ export default class Dropdown extends Component {
             </div>
         )
     }
-} 
+}
 
 Dropdown.defaultProps = {
     scrollOpts: {sliderMinHeight: 50},

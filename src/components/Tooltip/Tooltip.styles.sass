@@ -2,32 +2,46 @@
 
 $tooltip-triangle-size: 8px
 $tooltip-color-light: grey(1)
-$tooltip-color-dark: grey(9)
+$tooltip-color-dark: grey(5)
 
 .Tooltip
     position: relative
     display: inline-block
     z-index: 1000
 
+    .Tooltip__wrap--effect-fade
+        transition: opacity $key-animation-duration $key-bezier-animation-in
+        opacity: 0
+
+    .Tooltip__wrap--effect-scale
+        transition: transform $key-animation-duration $key-bezier-animation-in
+        transform: scale(0)
+        transform-origin: bottom left
+
     .Tooltip__content  // is Tooltip
         position: absolute
         visibility: hidden
-        opacity: 0
-        transition: opacity .240s ease-out
+        transition: transform $key-animation-duration $key-bezier-animation-in
         color: color(text-primary)
         background: $tooltip-color-dark
-        line-height: 100%
+        line-height: 1
         text-align: center
         white-space: nowrap
         padding: 6px 12px
         border-radius: 4px
         border: grey(10)
 
-        &.Tooltip__content--active
-            visibility: visible !important
-            opacity: 1
+        &.Tooltip__wrap--active
+            visibility: visible
+
+            .Tooltip__wrap--effect-fade
+                opacity: 1
+
+            .Tooltip__wrap--effect-scale
+                transform: scale(1)
 
         &::before
+            // ::before is the triangle
             content: ''
             position: absolute
             margin: auto
@@ -42,6 +56,8 @@ $tooltip-color-dark: grey(9)
             margin-top: -$tooltip-triangle-size
 
             &::before
+                left: 0
+                right: 0
                 bottom: -$tooltip-triangle-size + 1px
                 border-top: $tooltip-triangle-size solid $tooltip-color-dark
                 border-right: $tooltip-triangle-size solid transparent
@@ -54,6 +70,8 @@ $tooltip-color-dark: grey(9)
             transform: translate(-100%, -50%)
 
             &::before
+                top: 0
+                bottom: 0
                 right: -$tooltip-triangle-size + 1px
                 border-left: $tooltip-triangle-size solid $tooltip-color-dark
                 border-top: $tooltip-triangle-size solid transparent
@@ -66,6 +84,8 @@ $tooltip-color-dark: grey(9)
             transform: translate(100%, -50%)
 
             &::before
+                top: 0
+                bottom: 0
                 left: -$tooltip-triangle-size + 1px
                 border-right: $tooltip-triangle-size solid $tooltip-color-dark
                 border-top: $tooltip-triangle-size solid transparent
@@ -74,10 +94,12 @@ $tooltip-color-dark: grey(9)
         &.Tooltip__content--bottom
             margin-bottom: -$tooltip-triangle-size
             bottom: 0
-            right: 50%
+            left: 50%
             transform: translate(-50%, 100%)
 
             &::before
+                left: 0
+                right: 0
                 top: -$tooltip-triangle-size + 1px
                 border-bottom: $tooltip-triangle-size solid $tooltip-color-dark
                 border-right: $tooltip-triangle-size solid transparent

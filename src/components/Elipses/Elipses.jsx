@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from "react";
+import React, { PureComponent, PropTypes } from "react";
 import classes from "classnames"
 
-export default class Elipses extends Component {
+export default class Elipses extends PureComponent {
     constructor({maxDots, interval}) {
         super();
         this.tick = this.tick.bind(this)
@@ -16,7 +16,7 @@ export default class Elipses extends Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this._interval)    
+        clearInterval(this._interval)
     }
 
     render() {
