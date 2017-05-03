@@ -1,10 +1,12 @@
 /**
- * Global settings that do not change in a production environment
+ * Global settings that do not change in a production environment.
+ *
+ * To see the effects you must either rebuild the project or run in dev mode.
+ * See package.json -> scripts
  */
 
 if (typeof window === 'undefined') {
-    // For tests
-    global.window = {}
+    global.window = {}  // For tests
 }
 
 window.appSettings = {
