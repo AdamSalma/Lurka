@@ -4,14 +4,16 @@
     "transform-decorators-legacy",
     ["module-resolver", {
       "alias": {
+        "-": "./",
         "~": "./src/",
-        "Lurka": "./"
+        "styles": "./src/styles/"
       }
     }]
   ],
   "presets": [
     "es2015",
     "react",
-    "stage-1"
+    "stage-1",
+    "flow"
   ]
 }
