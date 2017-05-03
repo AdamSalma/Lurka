@@ -1,22 +1,28 @@
 const {app, BrowserWindow} = require('electron')
 
-const serverURL = 'http://127.0.0.1:3000'
+// TODO: Refactor webpack to copy the config file to the current dir.
+const serverURL = require('../config').server.url
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 
 function createWindow () {
-  // Start up server
-  require('./server.bundle.js')  
+
+  // Start up server in new process
+  require('./server.bundle.js')
+
   // Create the browser window.
   win = new BrowserWindow({width: 800, height: 600})
+
   // Load the index.html
   win.loadURL(serverURL)
 
   win.setFullScreen(true);
+
   // Emitted when the window is closed.
   win.on('closed', (arg1, arg2) => {
+
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.

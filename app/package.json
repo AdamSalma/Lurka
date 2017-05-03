@@ -3,7 +3,7 @@
   "version": "0.11.0",
   "description": "A 4chan desktop application",
   "author": "Adam Salma <adam3salma@gmail.com>",
-  "main": "index.js",
+  "main": "electron.index.js",
   "license": "MIT",
   "private": true,
   "dependencies": {
