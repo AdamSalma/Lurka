@@ -1,11 +1,10 @@
-build
 node_modules
 *.log
-*.bundle.js
 *.sublime*
+bash.exe.stackdump
 
-# Ignore everything in app
+# Build folder: everything except
 app/*
-
-# Except package.json
 !app/package.json
+!app/electron.index.js
+
