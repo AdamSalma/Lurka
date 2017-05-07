@@ -52,7 +52,6 @@ export const invokeAfterUninterruptedDelay = (delay, callback) => {
     let calls = 0
 
     return function () {
-        console.log(arguments)
         calls++
         setTimeout(() => {
             calls--
