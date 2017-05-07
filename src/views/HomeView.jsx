@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
+import Home from '~/modules/Home'
 
 const HomeView = ({ className, children }) => {
     return (
         <div className={[
             'View HomeView', className
         ].join(' ')}>
-            Home Panel!
-            {children}
+            <Home />
         </div>
     );
 };
