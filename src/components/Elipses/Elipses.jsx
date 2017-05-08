@@ -16,13 +16,13 @@ export default class Elipses extends PureComponent {
     }
 
     componentWillUnmount() {
-        clearInterval(this._interval)
+        clearInterval(this._interval);
     }
 
     render() {
         return (
             <div className="elipses-wrap">
-                {this.props.text}
+                {this.props.children}
                 <span className="elipses">
                     {'.'.repeat(this.state.dots)}
                 </span>
