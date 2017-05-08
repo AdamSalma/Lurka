@@ -12,10 +12,7 @@ import {
     TimeAgo
 } from '~/components';
 
-import {
-    setupQuoteEvents,
-    enableFullscreen
-} from './events'
+import setupThreadEvents from './events'
 
 import {
     bindMembersToClass
@@ -79,6 +76,7 @@ class Thread extends Component {
 
         return (
             <div ref={t => this._threadWrap = $(t)} className={threadWrapClasses}>
+                {this.props.children}
                 <div id="thread" className={threadClasses} ref={t => this._thread = $(t)} onClick={this.closeThread}>
                     {posts.length && this.createPosts( posts )}
                 </div>
