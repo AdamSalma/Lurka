@@ -1,9 +1,11 @@
 import 'babel-polyfill';
-import 'velocity-animate'
+import 'velocity-animate';
+
+import './events/setup';
 import './styles/global';
 import './vendor/polyfills';
 import './vendor/nanoscroller';
-import './config/globalSettings';
+import '-/config/client.settings';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
