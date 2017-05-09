@@ -2,7 +2,7 @@
 'use strict';
 import app from './app';
 import http from 'http';
-import config from '../config';
+import config from '-/config';
 
 const server = http.createServer(app);
 const port = normalizePort(config.server.port);

@@ -1,8 +1,9 @@
 import Express from 'express'
 import { join } from 'path';
 
+import config from '-/config'
+
 import routes from './routes'
-import config from '../config'
 
 import webpackHotMiddleware from './middleware/webpackMiddleware'
 import routeLogger from './middleware/routeLogger'
@@ -21,7 +22,7 @@ if (config.inProduction) {
     app.use(Express.static(__dirname));
     app.use(Express.static(join(__dirname, 'public')));
 } else {
-    app.use(Express.static(join(__dirname, '../..', 'public')));
+    app.use(Express.static(join(__dirname, 'public')));
     webpackHotMiddleware(app);
 }
 
@@ -49,7 +50,8 @@ app.use(({ url }, res, next) => {
     if (config.inProduction) {
         log.error(`404 Not found: ${url}`)
         res.status(404);
-    } else {
+    }
+    else {
         log.error(`Not found: ${url}`);
         res.status(404);
         res.send(new Error(`Not found: ${url}`))

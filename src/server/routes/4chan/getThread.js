@@ -1,8 +1,8 @@
 import Axios from 'axios';
 import moment from 'moment'
 
-import API from '../../../config/4chanAPI';
-import options from '../../../config/proxy';
+import API from '-/config/api.4chan';
+import options from '-/config/proxy';
 import { parseThread } from '../../parsers';
 import { writeObjToRoot, printObj } from '../../services/inspector'
 
@@ -34,7 +34,7 @@ export default function (req, res, next) {
 
 
 /**
- * Sometimes 4chan sends jpeg images instead of json. 
+ * Sometimes 4chan sends jpeg images instead of json.
  * This function validates a thread's response.
  */
 function checkResponse(res) {

@@ -1,9 +1,9 @@
-import API from '../../config/4chanAPI';
+import API from '-/config/api.4chan';
 import proxify from '../services/proxyUrls';
 
 /**
  * Standardises a 4chan thread.
- * 
+ *
  * @param  {Object} posts   - Directly from 4chan's API
  * @param  {String} boardID - Board ID, used for creating media URLs
  * @return {Array}          - Array of standardised objects
@@ -17,7 +17,7 @@ export default function parseThread( posts, boardID ) {
     }
 
     const thumbUrl = API.thumbnail(boardID)
-    const mediaUrl = API.media(boardID)    
+    const mediaUrl = API.media(boardID)
 
     const thread = posts.map( post => {
         let ext = post.ext
@@ -57,12 +57,12 @@ export default function parseThread( posts, boardID ) {
 
 
 /**
- * Connects thread posts by checking who referenced who then merging 
+ * Connects thread posts by checking who referenced who then merging
  * references back into posts
- * 
+ *
  * @param  {Array} posts - Each thread post
  * @return {Array}       - Posts merged with references
- * 
+ *
  */
 function connectPosts(posts) {
     // returns a list of IDs that quoted the current ID
@@ -77,7 +77,7 @@ function connectPosts(posts) {
         })
         return refs
     });
-    
+
     for (let i=0; i < ids.length; i++) {
         posts[i].references = references[i]
     }

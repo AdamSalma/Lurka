@@ -1,10 +1,10 @@
-import API from '../../config/4chanAPI';
+import API from '-/config/api.4chan';
 import proxify from '../services/proxyUrls';
 
 
 /**
  * Standardises a 4chan board.
- * 
+ *
  * @param  {Object} board   - Directly from 4chan's API
  * @param  {String} boardID - ID used to request board with
  * @return {Array}          - Array of standardised objects
@@ -16,7 +16,7 @@ export default function parseBoard( board, boardID ) {
 
     log.app(`Parsing 4chan board ${boardID} ...`)
 
-    try {   
+    try {
         for (let page in board) {
             if (!board.hasOwnProperty(page)) return false;
             board[page].threads.map( post => formatPost(post))

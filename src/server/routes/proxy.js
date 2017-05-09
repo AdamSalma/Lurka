@@ -1,6 +1,6 @@
 import Express from "express";
 import request from "request";
-import _config from '../../config/proxy'
+import _config from '-/config/proxy'
 
 // Replace some request headers. Need new object otherwise modifies original.
 const config = { headers: Object.assign({}, _config.headers, {
