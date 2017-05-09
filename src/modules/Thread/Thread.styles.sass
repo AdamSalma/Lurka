@@ -4,7 +4,7 @@
     .wrapper
         display: none
         +set-dims($thread-width, 100vh)
-        position: fixed
+        position: absolute
         top: 0
         left: 0
         right: 0
@@ -25,7 +25,8 @@
         +will-change(top)
         position: absolute
         top: 100%  // for thread slide in
-        max-width: 100%  // disable horizontal scroll
+        width: calc(100% + 19px)
+        // max-width: 100%  // disable horizontal scroll
         overflow-x: hidden
         overflow-y: scroll
         line-height: $thread-line-height

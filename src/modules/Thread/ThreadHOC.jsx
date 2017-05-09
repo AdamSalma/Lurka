@@ -15,8 +15,9 @@ const threadConnect = (ThreadComponent) => {
                     isVisible={isThreadOpen && !didInvalidate}
                     onClick={closeThread}
                 />
-                <Spinner isSpinning={isThreadOpen && !posts.length && !didInvalidate}/>
-                <ThreadComponent {...props} />
+                <ThreadComponent {...props}>
+                    <Spinner isSpinning={isThreadOpen && !posts.length && !didInvalidate}/>
+                </ThreadComponent>
             </div>
         )
     }
