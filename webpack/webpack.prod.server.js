@@ -23,7 +23,8 @@ module.exports = {
     entry: `./src/server/`,
     output: {
         path: outpath,
-        filename: 'server.bundle.js'
+        filename: 'server.bundle.js',
+        publicPath: require('../config').server.url,
     },
     resolve: {
         extensions: ['', '.js', '.json'],
@@ -33,7 +34,10 @@ module.exports = {
         loaders: loaders
     },
     plugins: [
-        new webpack.optimize.UglifyJsPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            sourceMap: false,
+            warnings: false,
+        }),
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': JSON.stringify('production')
