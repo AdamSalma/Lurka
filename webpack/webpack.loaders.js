@@ -19,7 +19,7 @@ module.exports = [
 	},
 	{
 		test: /.(png|gif|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/,
-		loader: 'url-loader?limit=100000&name=[name]-[hash].[ext]'
+		loader: 'url-loader?limit=100000&name=[name].[ext]'
 	},
 	{
 		test: /\.(md|ejs)$/,
