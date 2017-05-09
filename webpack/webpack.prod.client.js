@@ -16,6 +16,7 @@ module.exports = {
 	output: {
 		path: app,
 		filename: '[name].bundle.js',
+		publicPath: require('../config').server.url,
 		sourceMapFilename: '[name].bundle.map'
 	},
 	resolve: {
@@ -27,7 +28,10 @@ module.exports = {
 		loaders: loaders
 	},
 	plugins: [
-        new webpack.optimize.UglifyJsPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+        	sourceMap: false,
+    		warnings: false,
+        }),
 		new webpack.ProvidePlugin({
 			$: "jquery",
 			jQuery: "jquery",
@@ -41,7 +45,6 @@ module.exports = {
 		new HtmlWebpackPlugin({
             template: path.join(src, 'index.html')
         })
-
 	],
 	postcss: function () {
         return [autoprefixer, require('postcss-nested')];
