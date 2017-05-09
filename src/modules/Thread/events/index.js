@@ -1,4 +1,4 @@
-import {createTooltip, destroyTooltip} from './tooltip';
+import {createTooltipCreator, destroyTooltip} from './tooltip';
 import createPostScroller from './scroll';
 import setupFullscreen from './media';
 
@@ -11,6 +11,7 @@ export default function setupThreadEvents(thread) {
 
     setupFullscreen($thread);
     const scrollToPost = createPostScroller($thread);
+    const createTooltip = createTooltipCreator($thread);
 
     $thread.on('click mouseenter mouseleave', '.quotelink', function(event) {
         event.stopPropagation();

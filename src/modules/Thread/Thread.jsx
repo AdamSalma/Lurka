@@ -36,8 +36,7 @@ class Thread extends Component {
 
     componentDidMount() {
         console.log("Thread mounted");
-        enableFullscreen(this._thread)
-        setupQuoteEvents(this._thread)
+        setupThreadEvents(this._thread)
         this._threadWrap && this._threadWrap.nanoScroller({
             sliderMinHeight: 40,
             alwaysVisible: true
