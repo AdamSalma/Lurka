@@ -5,16 +5,12 @@ import autoprefixer from 'autoprefixer';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import loaders from './webpack.loaders';
-import config from '../src/config';
+import config from '../config';
 import alias from './webpack.alias'
-
-const HOST = config.server.host
-const PORT = config.server.port
 
 const src = path.join(__dirname, "..", "src")
 const app = path.join(__dirname, "..", "app")
 const node_modules = path.join(app, "node_modules")
-
 
 export default {
     entry: [
@@ -22,12 +18,13 @@ export default {
         'webpack/hot/dev-server',
         path.join(src, 'index.jsx')
     ],
-    devtool: process.env.WEBPACK_DEVTOOL || 'inline-source-map',
     output: {
         path: '/',
-        publicPath: `http://${HOST}:${PORT}/`,
-        filename: 'app.bundle.js'
+        publicPath: config.server.url,
+        filename: 'app.bundle.js',
+        sourceMapFileName: 'app.bundle.map'
     },
+    devtool: 'eval',
     resolve: {
         extensions: ['', '.js', '.jsx', '.css', '.scss', '.sass'],
         root: node_modules,
@@ -39,8 +36,8 @@ export default {
         noInfo: false, //  --no-info option
         hot: true,
         inline: true,
-        port: PORT,
-        host: HOST
+        port: config.server.port,
+        host: config.server.host
     },
     plugins: [
         new webpack.NoErrorsPlugin(),
