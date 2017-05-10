@@ -1,2 +1,4 @@
 export const APP_READY = "APP_READY"
-export const DRAWER_TOGGLE = "DRAWER_TOGGLE"
+
+export const TOGGLE_DRAWER = "TOGGLE_DRAWER"
+export const TOGGLE_CONTENT_VIEW = "TOGGLE_CONTENT_VIEW"
