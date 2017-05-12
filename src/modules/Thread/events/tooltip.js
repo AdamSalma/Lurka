@@ -3,10 +3,17 @@ import { isElementInViewport } from '~/utils/dom'
 var tooltipNode;
 var $highlightedPost;
 
-const { headerHeight } = window.appSettings;
+const { headerHeight, threadWidth } = window.appSettings;
+
+const highlightClass = 'highlight';
+const animateClass = ' ' + 'animate';
+const tooltipClass = 'ThreadPost tip';
+const tooltipMargin = 5
 
 export const createTooltipCreator = ($thread) => {
     return function (event) {
+        console.groupCollapsed('%c Tooltip', 'color:gold');
+
         const target = event.target,
               href = target.getAttribute('href'),
               $post = $thread.find(href),
@@ -14,7 +21,7 @@ export const createTooltipCreator = ($thread) => {
               linkPos = target.getBoundingClientRect()  // position of link
 
         if (isElementInViewport($post)){
-            $post.addClass('highlight')
+            $post.addClass(highlightClass)
             $highlightedPost = $post
             return
         }
@@ -22,24 +29,23 @@ export const createTooltipCreator = ($thread) => {
         let left, top, el = document.createElement('div')
 
         el.innerHTML = post
-        el.className = 'ThreadPost tip'
+        el.className = tooltipClass
 
         document.body.appendChild(el)
 
+        // Set distance from left == to the hovered link
         left = linkPos.left
 
-        /* Check if would render out of page vertically */
-        console.groupCollapsed('%c Tooltip', 'color:gold')
+        // Set top to render above the link
+        top = linkPos.top - el.offsetHeight - tooltipMargin
 
-        // render above - default
-        top = linkPos.top - el.offsetHeight - 5
-
-        if (top < headerHeight ) {
+        // Check if would render out of page vertically
+        if (top < headerHeight) {
             // top of element overflowed
             console.log("top overflowed")
 
             // render below
-            top = linkPos.bottom + 5
+            top = linkPos.bottom + tooltipMargin
 
             // check if bottom will overflow
             if (top + el.offsetHeight > window.innerHeight) {
@@ -47,7 +53,7 @@ export const createTooltipCreator = ($thread) => {
                 console.warn("bottom overflowed")
 
                 top = linkPos.top - (el.offsetHeight / 2) - target.offsetHeight / 2
-                left = linkPos.right + 5
+                left = linkPos.right + tooltipMargin
 
                 if (top < headerHeight || top + el.offsetHeight > window.innerHeight) {
                     // element overflows; render at top of window
@@ -58,51 +64,28 @@ export const createTooltipCreator = ($thread) => {
         }
 
         // Check if right side overflows
-        if (left + el.offsetWidth > window.innerWidth) {
-            left = linkPos.left - el.offsetWidth - 5
+        if (left + el.offsetWidth > window.innerWidth - threadWidth/2) {
+            left = linkPos.left - el.offsetWidth/2 - 5;
         }
 
-        // top = linkPos.top - el.offsetHeight - 5
-
-        // if (top < 0) {
-        //     // top of element overflowed
-        //     console.log("top of element overflowed")
-        //     // render below
-        //     top = target.offsetHeight + el.offsetHeight + 5
-
-        //     // check if bottom will overflow
-        //     if (top + el.offsetHeight > window.innerHeight) {
-        //         // center elementm around link
-        //         console.warn("bottom overflowed")
-
-        //         top = window.innerHeight - (linkPos.top + el.offsetHeight) / 2
-        //         left = linkPos.right + 4
-
-        //         if (top < 0 || top + el.offsetHeight > window.innerHeight) {
-        //             console.warn("top = 0")
-        //             // element overflows; render at top of window
-        //             top = 2
-        //         }
-        //     }
-        // }
-
         console.log(`top: ${top}, left: ${left}, el.offsetHeight: ${el.offsetHeight} linkPos.top: ${linkPos.top}`);
+        console.groupEnd()
 
-        let style = el.style
-        style.top = top + 'px'
-        style.left = left + 'px'
+        el.style.top  = top + 'px'
+        el.style.left = left + 'px'
+
+        el.className += animateClass
 
         tooltipNode = el
-        console.groupEnd()
     }
 }
 
 export const destroyTooltip = () => {
     if (tooltipNode) {
-      document.body.removeChild(tooltipNode);
-      tooltipNode = null;
+        document.body.removeChild(tooltipNode);
+        tooltipNode = null;
     } else if ($highlightedPost) {
-        $highlightedPost.removeClass('highlight')
+        $highlightedPost.removeClass(highlightClass);
         $highlightedPost = null;
     }
 }
