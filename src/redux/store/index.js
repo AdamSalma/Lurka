@@ -1,19 +1,22 @@
-import config from '~/config'
+import config from '-/config';
 import configureStore from './configure';
 import { loadState, saveState } from './localStorage';
+import { invokeAfterUninterruptedDelay } from '~/utils';
 
-const state = config.prodEnv ? loadState() : undefined;
+const state = config.isProduction ? loadState() : undefined;
 const store = configureStore(state);
+const onDispatch = () => saveState(store.getState());
+const throttle = invokeAfterUninterruptedDelay(250, onDispatch);
 
-if (!config.prodEnv) {
-    // For debugging
-    window.getState = store.getState;
-    console.info('Initial Store:', store.getState());
-}
-
-// Save changes to localstorage each time an action is dispatched
-store.subscribe( () => {
-    saveState(store.getState());
-});
+store.subscribe( throttle );
 
 export default store;
+
+
+if (!config.isProduction) {
+    window.getState = store.getState;
+    console.group('%c Development Mode', 'color:cyan;');
+    console.log('Added window.getState');
+    console.log('State:', store.getState());
+    console.groupEnd();
+}
