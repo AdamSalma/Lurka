@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-import API from '~/config/api'
+import API from '-/config/api.localhost'
 import {alertMessage} from './alert'
 import {secondsAgo} from '~/utils'
 import {
@@ -41,7 +41,7 @@ function setBoard( boardID ) {
     }
 }
 
-export function fetchBoard(boardID) {
+export function fetchBoard(boardID, callback) {
     const url = API.board(boardID)
     console.log('Action FetchBoard()', url);
 
@@ -55,8 +55,9 @@ export function fetchBoard(boardID) {
         if ( boardCachedAndRecent(state, boardID)) {
             dispatch(loadBoardFromCache(state, boardID))
             dispatch(setBoard(boardID))
+            // TODO: Use timeago for cache alerts to show how old cached item is
             dispatch(alertMessage({
-                message: `Loading board from cache: /${boardID}/`,
+                message: `Loaded from cache: /${boardID}/`,
                 type: "success"
             }))
             return
@@ -68,20 +69,20 @@ export function fetchBoard(boardID) {
             type: "info"
         }))
 
-        return Axios.get(url)
-            .then( data => {
-                dispatch(receiveBoard(data))
-                dispatch(setBoard(boardID))
-            })
-            .catch( err => {
-                console.error(err)
-                dispatch(alertMessage({
-                    message: `From board ${boardID}: ${err.response.data}`,
-                    type: "error",
-                    time: 20000
-                }))
-                dispatch(invalidateBoard(err.response.data))
-            });
+        return Axios.get(url).then( data => {
+            dispatch(receiveBoard(data))
+            dispatch(setBoard(boardID))
+            callback && callback();
+        })
+        .catch( err => {
+            console.error(err)
+            dispatch(alertMessage({
+                message: `From board ${boardID}: ${err.response.data}`,
+                type: "error",
+                time: 20000
+            }))
+            dispatch(invalidateBoard(err.response.data))
+        });
     }
 }
 

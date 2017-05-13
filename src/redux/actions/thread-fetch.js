@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-import API from '~/config/api'
+import API from '-/config/api.localhost'
 import { secondsAgo } from '~/utils'
 import { alertMessage } from './alert'
 import {
@@ -11,7 +11,7 @@ import {
     THREAD_CHANGE,
     THREAD_INVALIDATED,
     THREAD_CACHE_LOADED,
-    THREAD_CACHE_SAVED
+    THREAD_CACHED
 } from '../types';
 
 function requestThread(threadID) {
@@ -49,7 +49,7 @@ function destroyThread(threadID) {
 
 
 
-export function fetchThread(boardID, threadID) {
+export function fetchThread({boardID, threadID, callback}) {
     const url = API.thread(boardID, threadID)
 
     return (dispatch, getState) => {
@@ -76,24 +76,32 @@ export function fetchThread(boardID, threadID) {
         }));
 
         return Axios.get(url)
-            .then( data => dispatch(receiveThread(data)))
+            .then( data => {
+                dispatch(receiveThread(data));
+                callback && callback();
+            })
             .catch( err => {
-                console.log(err)
-                if (err.status === 404) {
-                    dispatch(alertMessage({
-                        messagge: "Thread 404'd",
-                        type: "error",
-                    }))
-                } else {
-                    dispatch(alertMessage({
-                        message: err.response.data || err,
-                        type: "error",
-                        time: 20000
-                    }))
-
-                    dispatch(invalidateThread(err.response.data || err))
-                }
+                handleFetchError(err, dispatch)
             });
+    }
+}
+
+function handleFetchError(err, dispatch) {
+    err = err.response && err.response.data || err;
+    console.error(err);
+    if (err.status === 404) {
+        dispatch(alertMessage({
+            messagge: "Thread 404'd",
+            type: "error",
+        }))
+    } else {
+        dispatch(alertMessage({
+            message: err,
+            type: "error",
+            time: 20000
+        }))
+
+        dispatch(invalidateThread(err.response.data || err))
     }
 }
 

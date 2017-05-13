@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-import API from '~/config/api'
+import API from '-/config/api.localhost'
 import { alertMessage } from './alert';
 
 import {
@@ -43,7 +43,7 @@ export function monitorThread(thread, boardID) {
                 'message': `Thread #${threadID} is already being watched`,
                 'duration': 8000
             }))
-            return 
+            return
         }
 
         dispatch(alertMessage({
@@ -52,7 +52,7 @@ export function monitorThread(thread, boardID) {
             'duration': 8000
         }))
 
-        dispatch(threadMonitor(thread))        
+        dispatch(threadMonitor(thread))
     }
 }
 
@@ -67,7 +67,7 @@ export function unmonitorThread(threadID) {
     return (dispatch, getState) => {
         if (!threadBeingMonitored(threadID, getState())) {
             console.warn("unmonitorThread rejected");
-            return 
+            return
         }
 
         dispatch(alertMessage({
@@ -76,7 +76,7 @@ export function unmonitorThread(threadID) {
             'duration': 8000
         }))
 
-        dispatch(threadUnmonitor(threadID))        
+        dispatch(threadUnmonitor(threadID))
     }
 }
 

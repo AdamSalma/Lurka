@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-import API from '~/config/api'
+import API from '-/config/api.localhost'
 import { alertMessage } from './alert'
 import {
     BOARD_LIST_REQUESTED,
