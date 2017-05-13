@@ -1,11 +1,17 @@
 import './Overlay.styles'
 import React from 'react';
-import classes from 'classnames';
+import cx from 'classnames';
 
-export default ({ isVisible=true, className, ...restProps }) => {
-    const overlayClasses = classes("Overlay", className, {
+const Overlay = ({ isVisible=true, className, children, ...restProps }) => {
+    return <div className={cx("Overlay", className, {
         "Overlay-active": isVisible
-    })
-    
-    return <div className={overlayClasses} {...restProps}/>
+    })} {...restProps}>
+        {children}
+    </div>
 }
+
+Overlay.defaultProps = {
+    isVisible: true
+}
+
+export default Overlay
