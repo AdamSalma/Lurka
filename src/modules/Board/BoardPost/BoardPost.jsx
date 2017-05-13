@@ -1,5 +1,5 @@
 import './BoardPost.styles'
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 
 import {
     Counter,
@@ -21,7 +21,7 @@ function setHTML(html) {
 }
 
 
-export default class BoardPost extends Component {
+export default class BoardPost extends PureComponent {
 
     constructor(props) {
         super(props);
@@ -48,11 +48,11 @@ export default class BoardPost extends Component {
     renderImage(onLoad, {media}) {
         return !this.state.imageInvalidated ? (
             <div className="image-wrap">
-                <Image 
+                <Image
                     src={media.thumbnail}
                     onLoad={onLoad} onError={this.hideImage}
                 />
-            </div> 
+            </div>
         ): false
     }
 
