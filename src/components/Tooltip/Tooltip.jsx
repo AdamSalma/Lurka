@@ -10,7 +10,7 @@ export default class Tooltip extends PureComponent {
     static defaultProps = {
         className: '',
         position: 'top',
-        tooltip: 'No tooltip provided',
+        content: 'No tooltip provided',
         effect: 'scale',
     };
 
@@ -22,7 +22,7 @@ export default class Tooltip extends PureComponent {
         effect: PropTypes.oneOf([
             'fade', 'scale'
         ]),
-        tooltip: PropTypes.oneOfType([
+        content: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.element
         ]),
@@ -68,7 +68,7 @@ export default class Tooltip extends PureComponent {
     }
 
     render() {
-        const { tooltip, className, children, position:pos, ...restProps } = this.props
+        const { content, className, children, effect, position:pos, ...restProps } = this.props
         const mainClass = cx('Tooltip', {
             'Tooltip--active': this.state.isVisible
         })
@@ -91,7 +91,7 @@ export default class Tooltip extends PureComponent {
             onMouseLeave={this.onMouseLeave}>
                 <div className={wrapperClass}>
                     <div className={contentClass}>
-                        {tooltip}
+                        {content}
                     </div>
                 </div>
                 {children}
