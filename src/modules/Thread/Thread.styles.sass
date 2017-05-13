@@ -11,6 +11,7 @@
         margin: 0 auto
         z-index: 10
         overflow: hidden
+        box-shadow: 0 0 0 black
 
         @include breakpoint(to-tablet)
             width: 100% !important
@@ -20,6 +21,10 @@
 
         &.make-visible
             display: initial !important
+
+        &.fadein-boxshadow
+            box-shadow: 0 0 4px grey(10)
+            transition: box-shadow $animation-speed-normal $bezier-slow
 
     .content
         +will-change(top)
@@ -31,6 +36,7 @@
         overflow-y: scroll
         line-height: $thread-line-height
         background: $thread-color
+
 
     .nano-pane
         +nano-can-expand(12px)
