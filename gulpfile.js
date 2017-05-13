@@ -34,6 +34,7 @@ gulp.task('clear', function() {
     return del([
         'app/**/*',
         '!app/package.json',
+        '!app/electron.index.js',
         '!app/node_modules',
         '!app/node_modules/**/*'
     ])
@@ -48,7 +49,7 @@ gulp.task('copy', function(){
 gulp.task('bundle', ['bundle:client', 'bundle:server']);
 gulp.task('build', function(done){  // TODO - full elctron build
     runSequence('clear', 'bundle', 'copy', done)
-})  
+})
 gulp.task('default', ['build']);
 
 
