@@ -4,11 +4,11 @@ import Settings from '~/modules/Settings'
 
 const SettingsView = ({ className, ...restProps }) => {
     return (
-        <div {...restProps} className={[
+        <section {...restProps} className={[
             'View SettingsView', className
         ].join(' ')}>
             <h2>This is SettingsPage</h2>
-        </div>
+        </section>
     );
 };
 

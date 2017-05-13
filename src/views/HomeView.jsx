@@ -3,11 +3,11 @@ import Home from '~/modules/Home'
 
 const HomeView = ({ className, children }) => {
     return (
-        <div className={[
+        <section className={[
             'View HomeView', className
         ].join(' ')}>
             <Home />
-        </div>
+        </section>
     );
 };
 
