@@ -12,8 +12,6 @@ export const SETTINGS_LOADED = "SETTINGS_LOADED"
 export const SETTINGS_SAVED = "SETTINGS_SAVED"
 export const SETTING_CHANGED = "SETTING_CHANGED"
 
-export const APP_READY = "APP_READY"
-
 
 /**
  * Content
@@ -47,7 +45,7 @@ export const THREAD_DESTROYED = "THREAD_DESTROYED"
 export const THREAD_INVALIDATED = "THREAD_INVALIDATED"
 
 export const THREAD_CACHE_LOADED = "THREAD_CACHE_LOADED"
-export const THREAD_CACHE_SAVED = "THREAD_CACHE_SAVED"
+export const THREAD_CACHED = "THREAD_CACHED"
 export const THREAD_CACHE_CLEARED = "THREAD_CACHE_CLEARED"
 
 export const THREAD_MONITOR_ADDED = "THREAD_MONITOR_ADDED"
@@ -73,3 +71,12 @@ export const NAVBAR_TOGGLED = "NAVBAR_TOGGLED"
 export const DRAWER_TOGGLED = "DRAWER_TOGGLED"
 export const PAGE_SCROLL_STARTED = "PAGE_SCROLL_STARTED"
 export const PAGE_SCROLL_ENDED = "PAGE_SCROLL_ENDED"
+
+
+
+// TODO: IDEA -- store pubsub variables in localstorage. pubsub state tree
+// TODO: IDEA -- preloader start page is LURKA in caps, big font size. underneath to the right is "loading..."
+// TODO: IDEA -- url for electron and webpack: make iffe in src/config.js
+// TODO: IDEA -- Nested reducers
+// TODO: IDEA -- scroll events using throttled pub-sub. BOARD_SCROLLED THREAD_SCROLLED and toggle navbar based on that.
+// TODO: IDEA -- move state's internal settings to config/public.settings.js

@@ -145,8 +145,8 @@ describe('Types', () => {
     expect(types.BOARD_CACHE_CLEARED).toEqual('BOARD_CACHE_CLEARED');
   });
 
-  it('contains THREAD_CACHE_SAVED', () => {
-    expect(types.THREAD_CACHE_SAVED).toEqual('THREAD_CACHE_SAVED');
+  it('contains THREAD_CACHED', () => {
+    expect(types.THREAD_CACHED).toEqual('THREAD_CACHED');
   });
 
   it('contains THREAD_CACHE_LOADED', () => {
