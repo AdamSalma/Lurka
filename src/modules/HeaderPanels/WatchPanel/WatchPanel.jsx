@@ -3,8 +3,8 @@ import React, {Component} from 'react'
 import classes from 'classnames'
 
 import {
-    HeaderPanel, 
-    Timer, 
+    HeaderPanel,
+    Timer,
     TimeAgo,
     Icon,
     Line,
@@ -35,8 +35,8 @@ export default class WatchPanel extends Component {
     renderDescription(tm) {
         return !tm.length ? (
             <div className="description">
-                Threads that are being watched will appear here. 
-                To add a thread, click on the watch button in an open thread. 
+                Threads that are being watched will appear here.
+                To add a thread, click on the watch button in an open thread.
             </div>
         ) : false
     }
@@ -67,9 +67,9 @@ export default class WatchPanel extends Component {
     }
 
     renderWatchItem(thread) {
-        return <WatchItem 
+        return <WatchItem
             key={thread.threadID}
-            updateInterval={this.props.settings.threadUpdateInterval.value} 
+            updateInterval={this.props.settings.external.threadUpdateInterval}
             thread={thread}
             onUpdate={this.handleUpdate.bind(null, thread)}
             onUnwatch={this.handleUnwatch.bind(null, thread.threadID)}
@@ -106,11 +106,11 @@ function WatchItem(props){
     const {
         updateInterval, onUpdate, onUnwatch, onClick,
         thread: {
-            newPosts=0, 
-            threadID, 
-            boardID, 
-            totalPosts, 
-            didInvalidate, 
+            newPosts=0,
+            threadID,
+            boardID,
+            totalPosts,
+            didInvalidate,
             isFetching,
             lastReplyAt,
             op: { title, media, comment, time }
@@ -132,16 +132,16 @@ function WatchItem(props){
                     <img src={media.thumbnail} />
                 </div>
                 <div className="watch-post">
-                    <span 
-                        className="text" 
+                    <span
+                        className="text"
                         dangerouslySetInnerHTML={{
                             __html: title ? title : comment
                         }}
                     />
 
                     {/* Watch Stats */}
-                    { isFetching ? 
-                        <div className="watch-stats"><div className="updating">Updating</div></div> 
+                    { isFetching ?
+                        <div className="watch-stats"><div className="updating">Updating</div></div>
                         : (<div className="watch-stats">
                             <div className={postClasses}>
                                 {postText}
@@ -166,11 +166,11 @@ function WatchItem(props){
                     <Icon name="update"/>
                 </div>
             </div>
-            
-            <Timer 
+
+            <Timer
                 displayCounter={false}
                 seconds={updateInterval}
-                autoreset={true} 
+                autoreset={true}
                 active={!didInvalidate}
                 onTimerEnd={onUpdate}
             />
