@@ -5,14 +5,18 @@ import rootReducer from '../reducers';
 
 export default function configureStore(preloadedState) {
   // This is for a chrome addon called redux devtools. Very useful.
-  const composeEnhancers = 
+  const composeEnhancers =
         window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
   const store = createStore(
     rootReducer,
     preloadedState,
     composeEnhancers(
-      applyMiddleware(thunkMiddleware, createLogger())
+      applyMiddleware(thunkMiddleware, createLogger({
+        collapsed: true,
+        duration: true,
+        diff: true
+      }))
     )
   );
 
