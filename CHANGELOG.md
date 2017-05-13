@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/) 
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
@@ -10,7 +10,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 
-## v0.11 01/04/2017
+## v0.12.0
+### Added
+- Added a sidebar to handle content settings
+- Added a home screen where different boards can be navigated to
+- Boardpost image onmouseleave smoothly transitions back to original scale
+
+### Changed
+- Redesigned navbar to show board stats
+
+### Fixed
+- Fonts not loading through electron; localhost != 127.0.0.1
+
+
+## v0.11.0 01/04/2017
 ### Added
 - Added header panels that popup when a header icon is clicked. Panels added:
     - Thread monitoring
@@ -26,7 +39,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fixed thread quotelinks onclick changing url
 
 
-## v0.10 - 30/01/2017
+## v0.10.0 - 30/01/2017
 ### Added
 - Board posts slide into view when scrolled
 - New header layout and content options
@@ -43,7 +56,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Lots of things
 
 
-## v0.9 - 24/12/2016
+## v0.9.0 - 24/12/2016
 ### Added
 - Added support for reddit board lists
 - New homepage layout
@@ -58,7 +71,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fixed board post text highlighting triggering a fetch
 
 
-## v0.8
+## v0.8.0
 ### Added
 - Header displays the apps status.
 - Header now has a seachbox.
@@ -72,11 +85,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fixed 4chan blocking media requests by proxying imgs/vids through server.
 
 
-## v0.7 - 14/11/2016
+## v0.7.0 - 14/11/2016
 ### Added
 - Board now has infinite scrolling.
 - Add pintrest-like grid structure to Board.
-- (4chan) Thread Posts now have backquotes that scroll to post onclick. 
+- (4chan) Thread Posts now have backquotes that scroll to post onclick.
 - Add support for Redux DevTools addon in chrome.
 - Add thread support code syntax (/g/)
 - Thread posts now have timeago date formats with a tooltip on mouseover
