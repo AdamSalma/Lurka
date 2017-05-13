@@ -1,18 +1,16 @@
 import './Drawer.styles';
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import cx from 'classnames'
 
 import {
-    SearchBar, LogoText
+    SearchBar, LogoText, Icon
 } from '~/components'
 
-import {
-    invokeAfterUninterruptedDelay
-} from '~/utils'
+import { invokeAfterUninterruptedDelay } from '~/utils'
 
 import Sort from './Sort'
 
-class Drawer extends Component {
+class Drawer extends PureComponent {
     constructor(props) {
         super(props);
         this.throttleSearch = invokeAfterUninterruptedDelay(200, this.handleSearch)
@@ -22,8 +20,8 @@ class Drawer extends Component {
         const { isDrawerOpen } = this.props
 
         if (isDrawerOpen && prevProps.isDrawerOpen !== isDrawerOpen) {
-            console.warn("Focusing drawer seabox")
-            this.SearchBarRef.focus()
+            console.warn("Focusing drawer searchbox")
+            this.searchBarRef.focus()
         }
     }
 
@@ -40,17 +38,21 @@ class Drawer extends Component {
             <div id="drawer" className={drawerClass}>
                 <div className="header">
                     <SearchBar showIcons
-                        ref={el => this.SearchBarRef = el}
+                        ref={el => this.searchBarRef = el}
                         placeholder={searchPlaceholder}
                         onChange={this.throttleSearch}
                     />
                 </div>
                 <div className="container">
                     <div className="content">
-                        <Sort/>
+                        <Sort
+                            className="Drawer__Panel"
+                        />
                     </div>
                     <div className="footer">
                         <LogoText />
+                        <Icon name="ios-lightbulb"/>
+                        <Icon name="android-settings"/>
                     </div>
                 </div>
             </div>

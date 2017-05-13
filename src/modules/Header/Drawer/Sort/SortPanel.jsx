@@ -1,10 +1,13 @@
 import './SortPanel.styles'
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import cx from 'classnames'
 
 import SortIcon from './SortIcon'
+import {RadioGroup} from '~/components'
 
-class SortPanel extends Component {
+// TODO: have draawer panels as individia; and make
+//
+class SortPanel extends PureComponent {
     static propTypes = {
         className: PropTypes.string,
     };
@@ -19,13 +22,24 @@ class SortPanel extends Component {
     render() {
         // const sortClass = cx('SortPanel')
         const i = this.state.activeIcon
-
-
+        const { isThreadOpen } = this.props
 
         return (
             <div className="SortPanel">
                 <h3>Sort</h3>
-                <SortIcon iconName="arrow-graph-up-right"
+                {/*<ul>
+                    <li>Higher ratio of images</li>
+                    <li>Latest reply</li>
+                    <li>Creation date</li>
+                    <li>Most replies</li>
+                </ul>*/}
+                <RadioGroup activeChild={0}>
+                    <div>Higher ratio of images</div>
+                    <div>Latest reply</div>
+                    <div>Creation date</div>
+                    <div>Most replies</div>
+                </RadioGroup>
+                {/*<SortIcon iconName="arrow-graph-up-right"
                     active={i === null}
                     onClick={() => this.toggleIcon(null)}
                 />
@@ -40,7 +54,7 @@ class SortPanel extends Component {
                 <SortIcon iconName="image"
                     active={i === "images"}
                     onClick={() => this.toggleIcon('images')}
-                />
+                />*/}
             </div>
         );
     }
