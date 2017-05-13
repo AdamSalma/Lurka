@@ -5,14 +5,14 @@ $navbar-central-font-size: 24px
 .ContentButtonGroup
     font-size: $navbar-central-font-size
     font-family: $font-main
-    color: color(text-secondary)
+    color: color(text-primary)
     +no-select
 
     .arrow
         display: inline-block
         +clickable
 
-        .icon
+        .Icon
             border: grey(9) solid 1px
             background: grey(8)
             padding: 4px 6px
@@ -20,9 +20,9 @@ $navbar-central-font-size: 24px
             text-shadow: 2px 2px 1px grey(10)
             box-shadow: 0 0 0 grey(10)
 
-        &:hover .icon
+        &:hover .Icon
             border: grey(10) solid 1px
-            color: color(text-primary)
+            color: inherit
             transition: box-shadow .1s ease-out
             box-shadow: inset 0 1px 4px grey(8)
 
@@ -31,8 +31,8 @@ $navbar-central-font-size: 24px
         background: none
         border: none
         outline: none
-        color: inherit
-        margin: 0 12px
+        color: color(primary)
+        margin: 0 8px
         padding: 0 2px
         transition: color .15s ease-in
         position: relative
@@ -40,3 +40,4 @@ $navbar-central-font-size: 24px
 
         &:hover
             color: color(text-primary)
+            text-shadow: 0 0 40px color(primary, darkest)

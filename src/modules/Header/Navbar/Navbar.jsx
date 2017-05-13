@@ -1,14 +1,15 @@
-import './Navbar.styles'
-import React, { Component, PropTypes } from 'react';
-import cx from 'classnames'
+import './Navbar.styles';
+import React, { PureComponent, PropTypes } from 'react';
+import cx from 'classnames';
 
-import IconGroup from './IconGroup'
-import ContentButtonGroup from './ContentButtonGroup'
+import IconGroup from './IconGroup';
+import ContentButtonGroup from './ContentButtonGroup';
+import BoardSpecs from './BoardSpecs';
 
-import {HeaderItem, LogoText} from '~/components'
+import {HeaderItem, LogoText} from '~/components';
+import {emitContentViewToggle} from '~/events/publishers';
 
-
-class Navbar extends Component {
+class Navbar extends PureComponent {
     static propTypes = {
         className: PropTypes.string,
     };
@@ -30,28 +31,41 @@ class Navbar extends Component {
             toggleContentNav, cycleContentNav, toggleDrawer, togglePanel,
             // State
             boardID, threadID, isThreadOpen, isDrawerOpen, activePanel,
+            boardList
         } = this.props
 
         const navbarClasses = cx('HeaderNav', {
             'drawer-open': isDrawerOpen
         })
-        console.log('Navbar render')
 
+        // TODO: Use selector for this:
+        const navbarTitle = boardList.items.length && boardList.items.find( b =>
+            b.boardID === boardID
+        ).short_desc
+
+                    // <HeaderItem className="left">
+                       // <LogoText />
+                    // </HeaderItem>
         return (
             <div className={navbarClasses}>
                 <div className="background"/>
                 <div className='content'>
+
                     <HeaderItem className="left">
                         <LogoText />
                     </HeaderItem>
-{
+
                     <HeaderItem className="center">
                         <ContentButtonGroup
                         onButtonClick={toggleContentNav}
                         onArrowClick={cycleContentNav}>
-                            {!isThreadOpen ? `/${boardID}/` : `#${threadID}`}
+                            <BoardSpecs
+                                boardList={boardList}
+                                boardID={boardID}
+                                onClick={emitContentViewToggle}
+                            />
                         </ContentButtonGroup>
-                    </HeaderItem>}
+                    </HeaderItem>
 
                     <HeaderItem className="right">
                         <IconGroup
