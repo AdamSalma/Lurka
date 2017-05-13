@@ -37,6 +37,8 @@ export default {
         searchWord: null,
         filterWords: [],
         posts: [],
+        postsOrder: {},  // { postId: {}}
+        postsById: {},  // { postId: {}}
         limit: 30  // infinite scroll
     },
 

@@ -5,7 +5,7 @@ import {
     BOARD_CACHE_CLEARED,
 
     THREAD_CACHE_LOADED,
-    THREAD_CACHE_SAVED,
+    THREAD_CACHED,
     THREAD_CACHE_CLEARED,
 } from '../types'
 
@@ -16,7 +16,7 @@ export default function (state = initialState.cache, action) {
                 [action.boardID]: action.payload
             }))
 
-        case THREAD_CACHE_SAVED:
+        case THREAD_CACHED:
             return Object.assign({}, state, Object.assign({}, state.thread, {
                 [action.threadID]: action.payload
             }))
