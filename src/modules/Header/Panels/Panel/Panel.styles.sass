@@ -14,25 +14,23 @@
 
     box-shadow: -4px 4px 40px grey(8)
 
-    transition: all .15s ease-in
-    transform-origin: top
+    // transition: all .15s ease-in
     transform: translateY(-200px) scale(.66)
+    transform-origin: top
 
-
+    &.animate-out
+        transition: all .15s $key-bezier-animation-out
+        transition-property: transform, opacity
 
     &.animate-in
         // transition: all .8s cubic-bezier(0.165, 0.84, 0.44, 1)
-        transition: all .6s cubic-bezier(0.19, 1, 0.22, 1)
+        // transition: all .6s cubic-bezier(0.19, 1, 0.22, 1)
+        transition: all $key-animation-duration $key-bezier-animation-in
+        transition-property: transform, opacity
         // transition: all .8s cubic-bezier(0.23, 1, 0.32, 1)
         transform: translate(0) scale(1)
         opacity: 1
         z-index: 11
 
-
-
-@keyframes flipIn
-    0%
-        transform: perspective(800px)
-    100%
-        transform: perspective(120px) translate(0, 0)
-        opacity: 1
+    &.shift-left
+        right: $drawer-width

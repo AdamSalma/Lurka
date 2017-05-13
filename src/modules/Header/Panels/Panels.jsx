@@ -1,23 +1,25 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
+import cx from 'classnames'
 
-class Panels extends Component {
-    static propTypes = {
-        className: PropTypes.string,
-    };
+import WatchPanel from './WatchPanel'
+import ArchivePanel from './ArchivePanel'
+import CommentPanel from './CommentPanel'
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            activePanel: null
-        }
-    }
+const Panels = ({ className, isDrawerOpen, activePanel: panel, ...restProps}) => {
+    console.log("Active panel is:", panel)
+    const panelClass = cx('HeaderPanels', {'drawer-open': isDrawerOpen}, className)
+    return (
+        <div className={panelClass}>
+            <WatchPanel isActive={panel === "watch"} isDrawerOpen={isDrawerOpen} {...restProps} />
+            <ArchivePanel isActive={panel === "archive"} isDrawerOpen={isDrawerOpen} {...restProps} />
+        </div>
+    );
+};
 
-    render() {
-        switch (this.state.activePanel) {
-            default:
-                return null
-        }
-    }
-}
+Panels.displayName = 'Panels';
+
+Panels.propTypes = {
+    className: PropTypes.string,
+};
 
 export default Panels;

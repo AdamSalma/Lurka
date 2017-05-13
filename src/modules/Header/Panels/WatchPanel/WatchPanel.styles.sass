@@ -16,14 +16,23 @@ $watch-accent-color: color(primary, darkest)
 
 $_img_container_width: $watch-panel-width / 5
 
-.watch-panel
+.WatchPanel
     +set-dims($watch-panel-width, $watch-panel-height)
 
     background: grey(8)
     padding: 6px $watch-right-gutter-width 0 6px !important
     border: grey(6) solid 1px !important
+    resize: both
+    overflow: hidden
+
+    &.show-description
+        .description
+            display: initial !important
+        .tilt-container
+            display: none !important
 
     .description
+        display: none
         font-size: 18px
         padding: 20px
         padding-top: 60px
@@ -34,7 +43,7 @@ $_img_container_width: $watch-panel-width / 5
         // right: -$watch-right-gutter-width
         margin-top: $watch-group-size
         margin-bottom: 6px
-        
+
         .nano-slider
             background: grey(6) !important
 
@@ -131,7 +140,7 @@ $_img_container_width: $watch-panel-width / 5
             > *
                 display: inline-block
                 margin-right: 8px
-    
+
     .watch-controls
         +square($watch-item-height)
         position: absolute
@@ -156,7 +165,7 @@ $_img_container_width: $watch-panel-width / 5
 
 
 
-/* 
+/*
     .watch-group
         .watch-item
             .watch-content
@@ -246,8 +255,8 @@ $_img_container_width: $watch-panel-width / 5
             font-size: 20px
             box-shadow: -2px 0 5px grey(7)
             line-height: $watch-item-height
-            
-            > * 
+
+            > *
                 width: $watch-item-height
                 display: inline-block
 
@@ -255,5 +264,5 @@ $_img_container_width: $watch-panel-width / 5
                 background: $watch-accent-color
 
             .timer
-            
+
 
