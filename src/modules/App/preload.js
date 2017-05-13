@@ -1,3 +1,7 @@
+import {
+    emitAppReady as onPreloadSuccess
+} from '~/events/publishers'
+
 /**
  * Contains the initialisation code used to set up the app for
  * first time usage.
@@ -8,7 +12,7 @@
  * Updates the preload screen with the state of the application.
  */
 
-export const createPreloader = (onPreloadSuccess) => {
+export const createPreloader = function() {
     // The below DOM elements are directly embedded into index.html.
     // They are decoupled from React and can therefore be manipulated freely.
     const preloadScreenEl = $('#preload-screen')
@@ -42,9 +46,8 @@ export const createPreloader = (onPreloadSuccess) => {
                 preloadTextEl.text("Ready")
                 preloadScreenEl.addClass('loaded')
                 preloadTextEl.removeClass('elipses')
-                window.appReady && window.appReady()
+                onPreloadSuccess()
             }, loadTimeout)
-            onPreloadSuccess()
         }
 
         preloadTextEl.text(text)

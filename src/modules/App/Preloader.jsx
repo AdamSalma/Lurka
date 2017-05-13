@@ -13,13 +13,15 @@ import {
 } from '~/redux/actions';
 
 import { bindMembersToClass } from '~/utils'
+import {onAppReady} from '~/events/subscribers';
+
 
 class Preloader extends Component {
     constructor(props) {
         super();
         this.preloading = true
-        bindMembersToClass(this, 'updatePreloader', 'onPreloadComplete')
-        this.checkPreloadProgress = createPreloader(this.onPreloadComplete)
+        bindMembersToClass(this, 'updatePreloader')
+        this.checkPreloadProgress = createPreloader()
         fetchInitialContent(props)
         this.updatePreloader(props)  // loaded from localStorage
     }
@@ -35,16 +37,15 @@ class Preloader extends Component {
 
     render() { return false }
 
-    onPreloadComplete() {
-        console.warn("Preloaded!")
-        this.preloading = false
-    }
-
     updatePreloader(props=false) {
         console.log("updatePreloader:", this)
         this.checkPreloadProgress(props || this.props)
     }
 
+    @onAppReady
+    onAppReady() {
+        this.preloading = false
+    }
 
 }
 
