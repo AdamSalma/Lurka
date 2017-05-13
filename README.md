@@ -6,8 +6,6 @@ Lurka is still under development. The plan is to eventually have a separate repo
 
 Take a look at the [TODO's](TODO.md) for upcoming additions.
 
-> Lurka is built with Electron, React, Node, Express, ES6, SASS, Gulp, Webpack and love.
-
 ## Installation
 You will first need to have [Node](https://nodejs.org/en/) and [Git](https://git-scm.com/) installed.
 ```bash
@@ -15,9 +13,9 @@ You will first need to have [Node](https://nodejs.org/en/) and [Git](https://git
 git clone https://github.com/AdamSalma/Lurka.git
 
 # Enter repo and install dependencies
-cd Lurka && npm run install-all
+cd Lurka && npm install
 ```
-## Development mode 
+## Development mode
 This will run Lurka through `localhost:3000` in your browser:
 ```bash
 npm run dev
@@ -30,6 +28,8 @@ This runs as a desktop application using Electron:
 ```bash
 npm run build && npm start
 ```
+
+> Lurka is built with Electron, React, Node, Express, SASS, Gulp, Webpack and love.
 
 ---
 
