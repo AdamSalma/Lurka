@@ -11,7 +11,8 @@ export {
 } from './react'
 
 export {
-    findParentWithClass
+    findParentWithClass,
+    isElementInViewport
 } from './dom'
 
 export {
@@ -19,3 +20,5 @@ export {
     invokeThenIgnoreForPeriod,
     invokeAfterUninterruptedDelay
 } from './throttle'
+
+export { isFunction } from './core'
