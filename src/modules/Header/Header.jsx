@@ -8,15 +8,19 @@ import Navbar from './Navbar'
 import Panels from './Panels'
 import Drawer from './Drawer'
 
+import {onDrawerToggle} from '~/events/subscribers';
+import {
+    DRAWER_TOGGLED,
+    PANEL_TOGGLED
+} from '~/redux/types'
+
+
 class Header extends Component {
     constructor(props) {
         super(props);
+
         bindMembersToClass(this, 'toggleDrawer', 'togglePanel')
-        // bindMembersToClass(this,
-        //     'handleKeyUp',
-        //     'toggleActive',
-        //     'handleIconClick'
-        // )
+
         this.state = {
             isDrawerOpen: props.isDrawerOpen,
             activePanel: null
@@ -24,18 +28,6 @@ class Header extends Component {
     }
 
     render() {
-        // const {
-        //     // Actions
-        //     scrollHeader, closeThread, toggleNavbar, toggleHeaderPanel,
-        //     //State
-        //     threadIsActive,
-        //     provider,
-        //     boardID,
-        //     threadID,
-        //     activePanel,
-        //     isNavbarOpen
-        // } = this.props;
-
         const {
             isDrawerOpen,
             activePanel
@@ -58,6 +50,7 @@ class Header extends Component {
         )
     }
 
+    @onDrawerToggle
     toggleDrawer() {
         console.log("toggleDrawer()")
         this.setState( state => {
@@ -65,7 +58,7 @@ class Header extends Component {
                 isDrawerOpen: !state.isDrawerOpen
             }
         })
-        this.props.toggleDrawer()
+        setTimeout(this.props.toggleDrawer, 300)
     }
 
     togglePanel(panel) {
@@ -76,6 +69,7 @@ class Header extends Component {
                 activePanel: samePanel ? null : panel
             }
         })
+        this.forceUpdate()
     }
 }
 

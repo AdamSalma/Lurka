@@ -12,20 +12,30 @@ import {
     fetchThread,
     updateMonitoredThread,
     monitorThread,
-    unmonitorThread
+    unmonitorThread,
+    navigateToView,
+    toggleHomeView
 } from '~/redux/actions';
 
-function mapStateToProps({ status, display, boardList, threadMonitor, settings }) {
+import { isBoardFetchingSelector } from '~/redux/selectors/BoardSelectors'
+import { boardIDSelector, threadIDSelector } from '~/redux/selectors/StatusSelectors'
+
+function mapStateToProps(state) {
     return {
-        status,
-        activePanel: display.activeHeaderPanel,
-        isThreadOpen: display.isThreadOpen,
-        isDrawerOpen: display.isDrawerOpen,
-        boardID: status.boardID,
-        threadID: status.threadID,
-        threadMonitor,
-        boardList,
-        settings,
+        // TODO: Refactor these to come from settings not display:
+        activePanel: state.display.activeHeaderPanel,
+        activeView: state.display.activeView,
+        isThreadOpen: state.display.isThreadOpen,
+        isDrawerOpen: state.display.isDrawerOpen,
+
+        boardID: boardIDSelector(state),
+        threadID: threadIDSelector(state),
+        boardIsFetching: isBoardFetchingSelector(state),
+
+        // Non-selectors
+        threadMonitor: state.threadMonitor,
+        boardList: state.boardList,
+        settings: state.settings
     }
 }
 
@@ -39,7 +49,9 @@ function mapDispatchToProps(dispatch) {
         fetchThread,
         updateMonitoredThread,
         monitorThread,
-        unmonitorThread
+        unmonitorThread,
+        navigateToView,
+        toggleHomeView
     }, dispatch)
 }
 
