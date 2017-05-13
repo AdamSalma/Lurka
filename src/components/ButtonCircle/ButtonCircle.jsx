@@ -4,7 +4,7 @@ import classes from 'classnames'
 
 import Circle from '../Circle'
 
-export default class ControlWrapper extends PureComponent {
+class ButtonCircle extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,14 +15,14 @@ export default class ControlWrapper extends PureComponent {
     }
 
     render() {
-        const controlClasses = classes('ButtonCircle', {
+        const controlClasses = classes('ButtonCircle', this.props.className, {
             "selected": this.props.isActive
         })
 
         return (
             <div className={controlClasses} onClick={this.handleClick}>
                 <Circle/>
-                {this.renderChildren()}
+                {this.props.toggleProps && this.renderChildren() || this.props.children}
             </div>
         )
     }
@@ -31,9 +31,7 @@ export default class ControlWrapper extends PureComponent {
         const { children, toggleProps } = this.props
 
         if (this.state.isToggled) {
-            console.log("RENDERING TOGGLED PROPS")
             return React.Children.map(children, child => {
-                // Use custom props
                 return React.cloneElement(child, toggleProps)
             })
         } else {
@@ -41,11 +39,17 @@ export default class ControlWrapper extends PureComponent {
         }
     }
 
-    handleClick() {
-        this.setState(state => {
-            return {
-                isToggled: !state.isToggled
+    handleClick(e) {
+        console.log("ButtonCircle.handleClick")
+        e.stopPropagation();
+        this.setState({isToggled: !this.state.isToggled}, () => {
+            if (this.props.onClick) {
+                console.log("triggering callback onClick");
+                this.props.onClick(e)
             }
         })
     }
 }
+
+
+export default ButtonCircle
