@@ -5,6 +5,7 @@ export default function createLayout(options) {
         margin = 25,
         gutterLeft = 60,
         gutterRight = 60,
+        gutterTop = 0,
         targetSelector,
         containerSelector,
     } = options;
@@ -47,7 +48,7 @@ export default function createLayout(options) {
             var index = $.inArray(min, blocks)
             var leftPos = gutterLeft + outerMargin/2 + margin/2 + (index * colWidth)
             $(this).css({
-                'top': min+'px',
+                'top': gutterTop + min+'px',
                 'left': leftPos+'px'
             })
 
