@@ -5,20 +5,18 @@
     display: inline-block
 
     .Notification__content
+        display: none
         position: absolute
-        top: 4px
+        top: 5px
         left: 27px
-        display: block
-        padding: 2px 5px 2px 3px
-        background: grey(5)
+        padding: 1px 4px 2px 2px
         line-height: 1
         font-size: .625rem
         color: color(text-primary)
         text-decoration: none
         letter-spacing: -.075em
-        border-top-left-radius: 6px
-        border-top-right-radius: 6px
-        border-bottom-right-radius: 6px
+        border-radius: 6px 6px 6px 0
+        background: color(primary)
 
     .Notification__content--active
-        background: color(primary)
+        display: initial
