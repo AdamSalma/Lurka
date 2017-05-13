@@ -1,7 +1,6 @@
 import './Thread.styles'
 import React, { Component } from "react";
-
-import classes from 'classnames';
+import cx from 'classnames';
 import uuid from "uuid";
 
 import ThreadPost from './ThreadPost';
@@ -12,13 +11,14 @@ import {
     TimeAgo
 } from '~/components';
 
-import setupThreadEvents from './events'
-
+import setupThreadEvents from './events';
 import {
-    bindMembersToClass
-} from '~/utils'
+    onDrawerToggle,
+    onThreadOpen, onThreadClose
+} from '~/events/subscribers';
+import {bindMembersToClass, isFunction} from '~/utils'
 
-import threadConnect from './ThreadHOC'
+const settings = window.appSettings;
 
 class Thread extends Component {
     constructor(props) {
@@ -30,22 +30,43 @@ class Thread extends Component {
         );
 
         this.state = {
-            headerHeight: window.appSettings.headerHeight
+            isDrawerOpen: props.isDrawerOpen,
+            isOpen: props.isThreadOpen,
+            isOpening: false,
+            isClosing: false,
         }
+    }
+
+    @onDrawerToggle
+    onDrawerToggle(isDrawerOpen) {
+        this.setState({isDrawerOpen});
+    }
+
+    @onThreadOpen
+    onThreadOpen() {
+        this.openThread();
+    }
+
+    @onThreadClose
+    onThreadClose() {
+        this.closeThread();
+
     }
 
     componentDidMount() {
         console.log("Thread mounted");
         setupThreadEvents(this._thread)
-        this._threadWrap && this._threadWrap.nanoScroller({
+
+        // Creates the initial scroller
+        this.updateScroller({
             sliderMinHeight: 40,
             alwaysVisible: true
-        })
+        });
     }
 
     componentDidUpdate({ posts } ) {
         if (!posts.length && this.props.posts.length) {
-            this.openThread()
+            this.openThread();
         }
     }
 
@@ -59,60 +80,98 @@ class Thread extends Component {
     }
 
     render() {
-        const { isDrawerOpen, isCommentPanelOpen, isThreadOpen, didInvalidate, posts } = this.props
-        const threadWrapClasses = classes('wrapper', 'nano', {
-            "make-visible": isThreadOpen,
-            "center-left": isDrawerOpen || isCommentPanelOpen,
-            "double-center-left": isDrawerOpen && isCommentPanelOpen
-        });
+        const { isFetching, didInvalidate, posts, className } = this.props;
+        const { isOpen, isOpening, isClosing, isDrawerOpen } = this.state;
 
-        const threadClasses = classes('content', 'nano-content', {
-            "is-active": isThreadOpen
+        console.info(`Thread updated: isOpen: ${isOpen}, isOpening: ${isOpening}, isClosing: ${isClosing}`);
+        const threadWrapClasses = cx('wrapper', 'nano', {
+            "center-left": isDrawerOpen,
+            "make-visible": isOpening || isOpen,
+            "fadein-boxshadow": isOpen && !isClosing && !isOpening
         });
 
         if (didInvalidate)
             return null
 
+        console.warn("posts:",posts.length)
         return (
-            <div ref={t => this._threadWrap = $(t)} className={threadWrapClasses}>
-                {this.props.children}
-                <div id="thread" className={threadClasses} ref={t => this._thread = $(t)} onClick={this.closeThread}>
-                    {posts.length && this.createPosts( posts )}
+            <div className={cx("Thread", className)}>
+                <Overlay onClick={this.closeThread} isVisible={!didInvalidate && (isFetching || isOpening || isOpen)}>
+                    <Spinner isSpinning={!posts.length && (isFetching || isOpening)}/>
+                </Overlay>
+
+                <div ref={ref => this._threadWrap = ref} className={threadWrapClasses}>
+                    <div id="thread" className='content nano-content' ref={ref => this._thread = ref} onClick={this.closeThread}>
+                        {posts.length && posts.map(
+                            post => <ThreadPost
+                                key={post.id}
+                                post={post}>
+                                <TimeAgo date={post.time}/>
+                            </ThreadPost>
+                        )}
+                    </div>
                 </div>
             </div>
         )
     }
     // <div className="header-gap"></div>
 
-    createPosts( posts ) {
-        return posts.map(
-            post => <ThreadPost
-                key={post.id}
-                post={post}>
-                <TimeAgo date={post.time}/>
-            </ThreadPost>
-        )
-    }
+    openThread(callback) {
+        this.setState({ isOpening: true }, () => {
 
-    openThread() {
+
         // Must have separate invocations
-        this._threadWrap.nanoScroller({ scroll: "top" })
-        this._threadWrap.nanoScroller({ stop: true })
+        this.updateScroller({ scroll: "top" });
+        this.updateScroller({ stop: true });
 
-        this._thread.velocity({top: this.state.headerHeight}, {
-            duration: 850,
+        // TODO: Change from global appSettings into redux settingrs
+        this.animateThread({top: window.appSettings.headerHeight}, {
+            duration: 850,  // this too
             easing: [0.25, 0.8, 0.25, 1],
-            complete: () => this._threadWrap.nanoScroller()
+            complete: () => {
+                this.updateScroller();
+                this.setState({
+                    isOpen: true,
+                    isOpening: false
+                });
+                isFunction(callback) && callback();
+            }
+        });
         });
     }
 
-    closeThread() {
-        const { closeThread, threadID, scrollHeader } = this.props;
+    closeThread(callback) {
+        this.setState({
+            isClosing: true
+        })
+        // Close scroller otherwise thread slides down while it remains
+        this.updateScroller({ stop: true });
 
-        this._threadWrap.nanoScroller({ stop: true })
-        closeThread()
-        scrollHeader(true)
+        // TODO: Is the header going to be animated in-out?
+        // scrollHeader(true)
+
+        this.animateThread({top: window.innerHeight+"px"}, {
+            duration: 150,
+            complete: () => {
+                // TODO: get these from this.props:
+                // dispatch(saveThreadToHistory(state))
+                // dispatch(destroyThread(threadID))
+                isFunction(callback) && callback();
+                this.setState({
+                    isOpen: false,
+                    isClosing: false
+                })
+            }
+        });
+    }
+
+    updateScroller(args) {
+        this._threadWrap && $(this._threadWrap).nanoScroller(args);
+    }
+
+    animateThread(styles, options) {
+        this._thread && $(this._thread).velocity(styles, options);
     }
 }
 
-export default threadConnect(Thread)
+export default Thread
