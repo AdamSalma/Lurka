@@ -1,14 +1,22 @@
 import './Header.styles'
-import React, { Component } from "react";
-import classes from "classnames";
+import React, {
+    Component
+} from 'react';
 
-import {bindMembersToClass} from '~/utils'
+import {
+    bindMembersToClass
+} from '~/utils'
 
 import Navbar from './Navbar'
 import Panels from './Panels'
+import Footer from './Footer';
+
 // import Drawer from './Drawer'
 
-import {onDrawerToggle} from '~/events/subscribers';
+import {
+    onDrawerToggle
+} from '~/events/subscribers';
+
 import {
     DRAWER_TOGGLED,
     PANEL_TOGGLED
@@ -34,26 +42,28 @@ class Header extends Component {
         } = this.state
 
         return (
-            <div id="header" className="Header">
-                <Navbar {...this.props}
-                    isDrawerOpen={isDrawerOpen}
-                    activePanel={activePanel}
-                    togglePanel={this.togglePanel}
-                    toggleDrawer={this.toggleDrawer}
-                />
-                <Panels {...this.props}
-                    isDrawerOpen={isDrawerOpen}
-                    activePanel={activePanel}/>
-                {/*<Drawer {...this.props}
-                    isDrawerOpen={isDrawerOpen}/>*/}
+            <div
+              id='header'
+              className='Header'>
+              <Navbar
+                {...this.props}
+                isDrawerOpen={isDrawerOpen}
+                activePanel={activePanel}
+                togglePanel={this.togglePanel}
+                toggleDrawer={this.toggleDrawer} />
+              <Panels
+                {...this.props}
+                isDrawerOpen={isDrawerOpen}
+                activePanel={activePanel} />
+              <Footer {...this.props}/>
             </div>
         )
     }
 
     @onDrawerToggle
     toggleDrawer() {
-        console.log("toggleDrawer()")
-        this.setState( state => {
+        console.log('toggleDrawer()')
+        this.setState(state => {
             return {
                 isDrawerOpen: !state.isDrawerOpen
             }
@@ -62,8 +72,8 @@ class Header extends Component {
     }
 
     togglePanel(panel) {
-        console.log("togglePanel()")
-        this.setState( state => {
+        console.log('togglePanel()')
+        this.setState(state => {
             const samePanel = state.activePanel === panel
             return {
                 activePanel: samePanel ? null : panel
