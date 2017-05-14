@@ -20,6 +20,10 @@ const IconGroup = (props) => {
             "IconGroup",
             className
         ].join(' ')}>
+            <Icon name={i.navbarAccount} title="Local archive"
+                onClick={() => togglePanel('archive')}
+            />
+
             <Notification number={0}>
                 <Icon name={i.navbarEye} title="Thread Watcher"
                     onClick={() => togglePanel('watch')}
@@ -29,6 +33,10 @@ const IconGroup = (props) => {
             <Icon name={i.navbarArchive} title="Local archive"
                 onClick={() => togglePanel('archive')}
             />
+            <Icon name={i.navbarSettings} title="Local archive"
+                onClick={() => togglePanel('archive')}
+            />
+
             <Icon
                 name={ido ? i.navbarChevron : i.navbarSearch}
                 title={ido ? "Minimize" : "Search"}

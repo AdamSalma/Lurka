@@ -7,16 +7,7 @@ $header-navbar-padding: 68px
     +position(0, 0)
     // top: -$header-height  // hide on start
     border-bottom: 2px $header-border-color solid
-    border-bottom: 2px $header-border-color solid
     z-index: 500
-
-    &::before
-        content: ''
-        position: absolute
-        top: -2px
-        left: 0
-        width: inherit
-        border-top: 2px $header-border-color solid
 
     .background
         opacity: 0.95
@@ -27,10 +18,11 @@ $header-navbar-padding: 68px
 
     .content
         width: 100%
-        line-height: 1
         display: flex
         flex-wrap: block
         align-items: center
+        height: 100%
+        padding: 0 20px
 
     .HeaderItem
         padding: 0 8px
@@ -50,45 +42,10 @@ $header-navbar-padding: 68px
             display: inline-block
 
         .Icon
-            font-size: $header-icon-size
             +clickable
+            font-size: $header-icon-size
+            padding: 0 10px
+
             &:hover, &:active
                 color: color(primary)
                 transition: color .2s ease-out
-
-    .Navbar__title
-        display: inline-block
-        padding: 0 20px
-
-        .Icon
-            padding: 0 10px
-
-        .Title
-            padding: 0 10px
-            font-size: 20px
-            font-family: $font-main-light
-
-    .Navbar__logo
-
-    .Navbar__menu
-        padding: 0 20px
-
-    .Navbar__search
-        flex: 1
-        display: auto 0
-        display: inline-block
-        width: 100%
-
-        .Searchbar
-            min-width: 100%
-            height: $header-height * 0.5
-            border-radius: 4px
-            background: grey(7)
-            color: grey(1)
-
-            input
-                min-width: 100%
-                padding-left: 10px
-
-    .ButtonCircle
-        font-size: 18px

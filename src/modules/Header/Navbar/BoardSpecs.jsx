@@ -1,5 +1,12 @@
-import React, { PureComponent, PropTypes } from 'react';
-import {Icon, Elipses} from '~/components';
+import React, {
+    PureComponent,
+    PropTypes
+} from 'react';
+
+import {
+    Icon,
+    Elipses
+} from '~/components';
 
 class BoardSpecs extends PureComponent {
     static propTypes = {
@@ -20,11 +27,11 @@ class BoardSpecs extends PureComponent {
         }
 
         this.specStyles = {
-            fontSize: "12px",
-            color: "#fff",
-            position: "relative",
-            top: "22px",
-            position: "absolute",
+            fontSize: '12px',
+            color: '#fff',
+            position: 'relative',
+            top: '22px',
+            position: 'absolute',
             right: 0,
             left: 0,
         }
@@ -40,40 +47,62 @@ class BoardSpecs extends PureComponent {
     // }
 
     render() {
-        const {posts, images, replies} = this.state
+        const {
+            posts,
+            images,
+            replies
+        } = this.state
 
         return (
-            <div className="BoardSpecs" onClick={() => {console.log('boardspecs'); this.props.onClick();}}>
-                <div className="BoardSpecs__title" style={this.titleStyles}>
-                    /g/ - Technoloy
-                    {this.renderStats()}
-                </div>
+            <div
+              className='BoardSpecs'
+              onClick={() => {
+                           console.log('boardspecs'); this.props.onClick();
+                       }}>
+              <div className='BoardSpecs__title'>
+                {this.props.title}
+              </div>
+              <div
+                className='BoardSpecs__specs'
+                style={this.titleStyles}>
+                {this.renderStats()}
+              </div>
             </div>
-        );
+        )
     }
 
     renderStats() {
         if (this.props.boardIsFetching) {
             return (
-                <div className="BoardSpecs__specs" style={this.specStyles}>
-                    <Elipses>Loading board</Elipses>
+                <div
+                  className='BoardSpecs__specs'
+                  style={this.specStyles}>
+                  <Elipses>
+                    Loading board
+                  </Elipses>
                 </div>
             )
         }
 
         if (this.props.threadIsFetching) {
             return (
-                <div className="BoardSpecs__specs" style={this.specStyles}>
-                    <Elipses>Loading thread</Elipses>
+                <div
+                  className='BoardSpecs__specs'
+                  style={this.specStyles}>
+                  <Elipses>
+                    Loading thread
+                  </Elipses>
                 </div>
             )
         }
 
         return (
-            <div className="BoardSpecs__specs" style={this.specStyles}>
-                <span>{this.state.posts}</span>
-                <span> / {this.state.images}</span>
-                <span> / {this.state.replies}</span>
+            <div
+              className='BoardSpecs__specs'
+              style={this.specStyles}>
+              <span>{this.state.posts}</span>
+              <span>/ {this.state.images}</span>
+              <span>/ {this.state.replies}</span>
             </div>
         )
     }
@@ -84,7 +113,11 @@ class BoardSpecs extends PureComponent {
         if (!board)
             return
 
-        const {posts, images, replies} = this.getSpecs(board)
+        const {
+            posts,
+            images,
+            replies
+        } = this.getSpecs(board)
 
         this.setState({
             title: board.short_desc,
@@ -94,14 +127,18 @@ class BoardSpecs extends PureComponent {
         })
     }
 
-    getBoard({boardID, boardList}) {
-        boardID && boardList.items && boardList.items.find( b => b.boardID === boardID).short_desc
+    getBoard({
+            boardID,
+            boardList
+        }) {
+        boardID && boardList.items && boardList.items.find(b => b.boardID === boardID).short_desc
     }
 
-    // getPosts(board) {
-    //     let posts = 0
-    //     board.
-    // }
+// getPosts(board) {
+//     let posts = 0
+//     board.
+// }
 }
 
 export default BoardSpecs;
+
