@@ -1,6 +1,8 @@
 import React from 'react';
 import Icon from '../Icon'
 
+const i = window.appSettings.icons;
+
 function hasAudio (video) {
     return video && video.mozHasAudio ||
     Boolean(video.webkitAudioDecodedByteCount) ||
@@ -10,14 +12,14 @@ function hasAudio (video) {
 function formatVolumeIcon(muted, volume) {
     console.info(muted, volume)
     if (muted)
-        return <Icon name="volume-off"/>
+        return <Icon name={i.videoVolumeOff}/>
     if (volume <= 0)
-        return <Icon name="volume-mute"/>
+        return <Icon name={i.videoVolumeMute}/>
     if (volume < 0.3)
-        return <Icon name="volume-low"/>
+        return <Icon name={i.videoVolumeLow}/>
     if (volume < 0.6)
-        return <Icon name="volume-medium"/>
-    return <Icon name="volume-high"/>
+        return <Icon name={i.videoVolumeMedium}/>
+    return <Icon name={i.videoVolumeHigh}/>
 }
 
 export default ({ onChange, onClick, getVideoEl, volume, muted, className, ariaLabelMute, ariaLabelUnmute }) => {

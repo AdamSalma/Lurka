@@ -1,5 +1,5 @@
 @import '~styles/base'
-$header-navbar-padding: 40px
+$header-navbar-padding: 68px
 
 .HeaderNav
     position: absolute
@@ -26,28 +26,28 @@ $header-navbar-padding: 40px
         z-index: -1
 
     .content
-        width: calc(100% - #{$header-navbar-padding})
-        line-height: $header-height
+        width: 100%
+        line-height: 1
         display: flex
-        justify-content: center
-        margin-left: $header-navbar-padding
         flex-wrap: block
+        align-items: center
 
     .HeaderItem
-        align-self: center
         padding: 0 8px
-        margin-left: 0
         transition: padding $key-animation-duration $key-bezier-animation-out
 
-        &.left
+        &.Navbar--left
+            margin-left: 0
             margin-right: auto
 
-        &.right
-            margin-left: auto
+        &.Navbar--right
             padding-right: 0
 
-        &.center
+        &.Navbar--center
             margin: 0 8px
+
+        > *
+            display: inline-block
 
         .Icon
             font-size: $header-icon-size
@@ -56,10 +56,39 @@ $header-navbar-padding: 40px
                 color: color(primary)
                 transition: color .2s ease-out
 
-    &.drawer-open
-        .HeaderItem
-            padding-right: $drawer-width
-            transition: padding $key-animation-duration $key-bezier-animation-in
+    .Navbar__title
+        display: inline-block
+        padding: 0 20px
+
+        .Icon
+            padding: 0 10px
+
+        .Title
+            padding: 0 10px
+            font-size: 20px
+            font-family: $font-main-light
+
+    .Navbar__logo
+
+    .Navbar__menu
+        padding: 0 20px
+
+    .Navbar__search
+        flex: 1
+        display: auto 0
+        display: inline-block
+        width: 100%
+
+        .Searchbar
+            min-width: 100%
+            height: $header-height * 0.5
+            border-radius: 4px
+            background: grey(7)
+            color: grey(1)
+
+            input
+                min-width: 100%
+                padding-left: 10px
 
     .ButtonCircle
         font-size: 18px

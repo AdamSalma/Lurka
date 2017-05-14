@@ -155,10 +155,10 @@ const WatchItem = props => {
             </div>
             <div className="watch-controls">
                 <div className="watch-close" onClick={onUnwatch}>
-                    <Icon name="close"/>
+                    <Icon name={i.watchPanelClose}/>
                 </div>
                 <div className="watch-update" onClick={onUpdate}>
-                    <Icon name="update"/>
+                    <Icon name={i.watchPanelUpdate}/>
                 </div>
             </div>
 

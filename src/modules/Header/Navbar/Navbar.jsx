@@ -6,7 +6,7 @@ import IconGroup from './IconGroup';
 import ContentButtonGroup from './ContentButtonGroup';
 import BoardSpecs from './BoardSpecs';
 
-import {HeaderItem, LogoText} from '~/components';
+import {HeaderItem, LogoText, SearchBar, Icon} from '~/components';
 import {emitContentViewToggle} from '~/events/publishers';
 
 class Navbar extends PureComponent {
@@ -43,31 +43,31 @@ class Navbar extends PureComponent {
             b.boardID === boardID
         ).short_desc
 
-                    // <HeaderItem className="left">
-                       // <LogoText />
-                    // </HeaderItem>
         return (
             <div className={navbarClasses}>
                 <div className="background"/>
                 <div className='content'>
+                    <HeaderItem className="Navbar__menu Navbar--left">
+                        <Icon name={i.navbarMenu}/>
+                    </HeaderItem>
 
-                    <HeaderItem className="left">
+                    <HeaderItem className="Navbar__logo Navbar--left">
                         <LogoText />
                     </HeaderItem>
 
-                    <HeaderItem className="center">
-                        <ContentButtonGroup
-                        onButtonClick={toggleContentNav}
-                        onArrowClick={cycleContentNav}>
-                            <BoardSpecs
-                                boardList={boardList}
-                                boardID={boardID}
-                                onClick={emitContentViewToggle}
-                            />
-                        </ContentButtonGroup>
+                    <HeaderItem className="Navbar__title Navbar--left">
+                        <Icon name={i.navbarBackwards}/>
+                        <Icon name={i.navbarForwards}/>
+                        <Icon name={i.navbarRefresh}/>
+                        <h2 className="Title">{navbarTitle}</h2>
+                        <Icon name={i.navbarCompose}/>
                     </HeaderItem>
 
-                    <HeaderItem className="right">
+                    <HeaderItem className="Navbar--right Navbar__search">
+                        <SearchBar placeholder={`Search ${boardID}...`}/>
+                    </HeaderItem>
+
+                    <HeaderItem className="Navbar--right">
                         <IconGroup
                             activePanel={activePanel}
                             togglePanel={togglePanel}

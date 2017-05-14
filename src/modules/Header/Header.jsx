@@ -6,7 +6,7 @@ import {bindMembersToClass} from '~/utils'
 
 import Navbar from './Navbar'
 import Panels from './Panels'
-import Drawer from './Drawer'
+// import Drawer from './Drawer'
 
 import {onDrawerToggle} from '~/events/subscribers';
 import {
@@ -44,8 +44,8 @@ class Header extends Component {
                 <Panels {...this.props}
                     isDrawerOpen={isDrawerOpen}
                     activePanel={activePanel}/>
-                <Drawer {...this.props}
-                    isDrawerOpen={isDrawerOpen}/>
+                {/*<Drawer {...this.props}
+                    isDrawerOpen={isDrawerOpen}/>*/}
             </div>
         )
     }

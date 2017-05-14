@@ -1,6 +1,7 @@
 @import '~styles/base'
 
 $thread-post-control-width: 200px
+$quotelink-color: color(primary, dark)
 
 .ThreadPost
     background-color: $thread-post-color
@@ -58,7 +59,7 @@ $thread-post-control-width: 200px
             opacity: 1
 
         a
-            color: color(primary)
+            color: $quotelink-color
 
         .thread-media
             margin-right: 10px
@@ -116,7 +117,6 @@ $thread-post-control-width: 200px
 
         .id
             font-family: $font-alt
-            color: color(primary)
 
         .name
             padding-left: 0px
@@ -153,6 +153,7 @@ $thread-post-control-width: 200px
             display: inline-block
             font-size: 11px
             font-weight: normal
+            color: $quotelink-color
 
     br
         line-height: 0.8
@@ -164,7 +165,7 @@ $thread-post-control-width: 200px
 
     /* 4chan links */
     .quote
-        color: color(greentext)
+        color: color(primary, lightest)
 
     .deadlink
         color: color(text-disabled)
@@ -182,7 +183,7 @@ $thread-post-control-width: 200px
             font-family: $font-main-light
 
     .quotelink
-        color: color(primary)
+        color: $quotelink-color
         text-decoration: none
         font-weight: bold
         transition: 0.1s ease-out

@@ -32,12 +32,33 @@ window.appSettings = {
     settingsViewID: 'SettingsView',
 
     icons: {
-        navbarArchive: 'ios-box',
-        navbarEye:     'ios-eye',
-        navbarChevron: 'ios-arrow-right',
-        navbarSearch:  'ios-search-strong',
+        navbarMenu: "navicon",
+        navbarForwards: "arrow-right-c",
+        navbarBackwards: "arrow-left-c",
         navbarCompose: 'plus',
         navbarRefresh: 'refresh',
+
+
+        navbarAccount: 'person-add',
+        navbarArchive: 'ios-box',
+        navbarEye:     'ios-eye',
+        navbarSettings: 'gear-b',
+
+        searchMagnify: "ios-search-strong",
+        searchClose: "close",
+
+        videoFullscreen: "fullscreen",
+        videoPlay: "play",
+        videoPause: "pause",
+        videoError: "alert-octagon",
+        videoVolumeOff: "volume-off",
+        videoVolumeMute: "volume-mute",
+        videoVolumeLow: "volume-low",
+        videoVolumeMedium: "volume-medium",
+        videoVolumeHigh: "volume-high",
+
+        boardPostReplyCount: "chatbox",
+        boardPostImageCount: "image",
 
         threadPostImageFullscreen: 'arrow-expand',
 
@@ -46,7 +67,16 @@ window.appSettings = {
         threadPostControlsDownload: "arrow-down-a",
         threadPostControlsReply: "chatbox-working",
         threadPostControlsImageSearch: "ios-search-strong",
-        threadPostControlsHide: "minus-circled"
+        threadPostControlsHide: "minus-circled",
 
+        watchPanelClose: "close",
+        watcchPanelUpdate: "update",
+
+        "footerSort": "stats-bars",
+        "footerFilter": "funnel",
+        "footerLayout": "ios-browsers",
+        "footerInfo": "information-circled",
+        "footerOpen": "chevron-up",
+        "footerClose": "chevron-down",
     }
 }

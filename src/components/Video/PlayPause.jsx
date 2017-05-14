@@ -1,6 +1,8 @@
 import React from 'react';
 import Icon from '../Icon'
 
+const i = window.appSettings.icons;
+
 export default ({ onClick, paused, className, ariaLabelPlay, ariaLabelPause }) => {
     return (
         <div className="playpause">
@@ -12,8 +14,8 @@ export default ({ onClick, paused, className, ariaLabelPlay, ariaLabelPause }) =
                     : ariaLabelPause }
                 type="button">
                 { paused
-                    ? <Icon name="play"/>
-                    : <Icon name="pause"/>
+                    ? <Icon name={i.videoPlay}/>
+                    : <Icon name={i.videoPause}/>
                 }
             </button>
         </div>

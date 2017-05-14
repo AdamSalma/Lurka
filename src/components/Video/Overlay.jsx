@@ -2,14 +2,16 @@ import React, { PureComponent } from 'react';
 import Icon from '../Icon'
 import Spinner from '../Spinner'
 
+const i = window.appSettings.icons;
+
 const OverlayIcon = ({ error, paused, loading }) => {
     if (!error && !loading && !paused)
         return null
 
     return <span className="overlay-icon">
-        { error ? <Icon name="alert-octagon"/>
+        { error ? <Icon name={i.videoError}/>
             : loading ? <Spinner />
-                : paused ? <Icon name="play"/>
+                : paused ? <Icon name={i.videoPlay}/>
                     : null
         }
     </span>
