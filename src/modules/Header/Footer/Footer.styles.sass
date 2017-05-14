@@ -1,0 +1,77 @@
+@import '~styles/base'
+$header-navbar-padding: 68px
+$footer-border-color: grey(5)
+$footer-height: 50px
+$footer-icon-size: 16px
+$footer-font-size: 14px
+
+.Footer
+    position: absolute
+    +set-dims(100vw, $footer-height)
+    bottom: 0
+    left: 0
+    // top: -$footer-height  // hide on start
+    border-top: 2px $footer-border-color solid
+    z-index: 500
+    font-size: $footer-font-size
+
+    .background
+        opacity: 0.95
+        background: grey(8)
+        +set-dims(inherit, inherit)
+        position: absolute
+        z-index: -1
+
+    .content
+        width: 100%
+        height: 100%
+        line-height: 1
+        display: flex
+        flex-wrap: block
+        align-items: center
+
+    .HeaderItem
+        padding: 0 20px
+        transition: padding $key-animation-duration $key-bezier-animation-out
+
+        &.Footer--left
+            margin-left: 0
+            margin-right: auto
+
+        &.Footer--right
+            padding-right: 0
+
+        &.Footer--center
+            margin: 0 8px
+
+        > *
+            display: inline-block
+
+        .Icon
+            +clickable
+            font-size: $footer-icon-size
+            padding: 0 20px
+            &:hover, &:active
+                color: color(primary)
+                transition: color .2s ease-out
+
+            &:last-child
+                padding-right: 25px
+
+
+    .Footer__search
+        flex: 1
+        display: auto 0
+        display: inline-block
+        width: 100%
+
+        .Searchbar
+            min-width: 100%
+            height: $footer-height * 0.5
+            border-radius: 4px
+            background: grey(7)
+            color: grey(1)
+
+            input
+                min-width: 100%
+                padding-left: 10px
