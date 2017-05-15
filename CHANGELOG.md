@@ -62,6 +62,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Added support for reddit board lists
 - New homepage layout
 - Added Header scrolling in/out of view when board/thread scrolled
+- Added Board/Thread caching
 
 ### Changed
 - Changed text highlighting color to primary
@@ -84,6 +85,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - Fixed 4chan blocking media requests by proxying imgs/vids through server.
+- Fix server stream errors with HMR
 
 
 ## v0.7.0 - 14/11/2016
