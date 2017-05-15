@@ -14,7 +14,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Added a sidebar to handle content settings
 - Added a home screen where different boards can be navigated to
-- Boardpost image onmouseleave smoothly transitions back to original scale
+- Board post image zooms in on mouseover
+- Thread tooltips now bounce on entry
 
 ### Changed
 - Redesigned navbar to show board stats
