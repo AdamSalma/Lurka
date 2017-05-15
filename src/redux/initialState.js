@@ -13,7 +13,7 @@ export default {
         isScrolling: false,  // app scroll
         isHeaderVisible: true,
         isNavbarOpen: false,
-        isDrawerOpen: true,
+        isDrawerOpen: false,
         isThreadOpen: false,
         activeView: "content",  // for toggling home page
         activeHeaderPanel: null,  // responses to header buttons
