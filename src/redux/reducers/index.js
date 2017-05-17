@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 
-import BoardReducer from "./board";
-import BoardlistReducer from "./board-list";
-import CacheReducer from "./cache";
-import DisplayReducer from "./display";
-import ThreadReducer from "./thread";
-import ThreadMonitorReducer from "./thread-monitor";
-import StatusReducer from "./status";
-import SettingsReducer from "./settings";
+import BoardReducer from "./BoardReducer";
+import BoardlistReducer from "./BoardListReducer";
+import CacheReducer from "./CacheReducer";
+import DisplayReducer from "./DisplayReducer";
+import ThreadReducer from "./ThreadReducer";
+import ThreadMonitorReducer from "./ThreadMonitorReducer";
+import StatusReducer from "./StatusReducer";
+import SettingsReducer from "./SettingsReducer";
 
 // TODO: Add PostReducer
 const rootReducer = combineReducers({
