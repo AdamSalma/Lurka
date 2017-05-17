@@ -10,3 +10,8 @@ export const shallow = (component) => {
     renderer
   };
 };
+
+
+export const createSuite = (name, tests) => {
+    return describe.bind(null, name, tests);
+}
