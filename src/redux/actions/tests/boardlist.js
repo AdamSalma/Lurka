@@ -23,16 +23,12 @@ describe('Actions', () => {
   it('creates BOARD_LIST_REQUESTED', () => {
     const fn = fetchBoardList(provider);
     expect(fn).toBeA('function');
-    const getState = () => ({ boardList: {provider: null} });
+    const getState = () => ({ boardList: { items: {}, didInvalidate: null } });
 
     fn(dispatch, getState);
-    expect(dispatch).toHaveBeenCalledWith({ type: BOARD_LIST_REQUESTED, provider });
-
-    for (let x in expect.assert) {
-      console.error(x)
-    }
-
     expect(dispatch).toHaveBeenCalledWith({ type: BOARD_LIST_REQUESTED });
+
+    // expect(dispatch).toHaveBeenCalledWith({ type: BOARD_LIST_REQUESTED });
   });
 
   // it('creates BOARD_REQUESTED action', () => {
