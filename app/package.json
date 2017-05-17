@@ -14,6 +14,7 @@
     "jquery": "^3.2.1",
     "moment": "^2.18.1",
     "mousetrap": "^1.6.0",
+    "pub-sub-es6": "^1.4.13",
     "query-string": "^4.3.2",
     "react": "^15.4.2",
     "react-addons-css-transition-group": "^15.4.2",
