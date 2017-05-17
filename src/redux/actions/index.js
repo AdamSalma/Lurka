@@ -8,7 +8,7 @@ export {
     loadMorePosts
 } from './board'
 
-export { fetchBoard } from './board-fetch'
+export fetchBoard from './board-fetch'
 export { fetchBoardList } from './boardlist-fetch'
 export { fetchThread } from './thread-fetch'
 

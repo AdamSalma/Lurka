@@ -9,29 +9,6 @@ import {
 } from '../types';
 
 
-function requestBoardList(provider) {
-    return {
-        payload: provider,
-        type: BOARD_LIST_REQUESTED
-    }
-}
-
-function receiveBoardList(boardList, provider){
-    return {
-        type: BOARD_LIST_LOADED,
-        payload: {
-            items: boardList.data || [],
-            receivedAt: Date.now(),
-        }
-    }
-}
-
-function invalidateBoardlist(error) {
-    return {
-        type: BOARD_LIST_INVALIDATED,
-        error
-    }
-}
 
 export function fetchBoardList() {
     const url = API.boardlist()
@@ -55,7 +32,30 @@ export function fetchBoardList() {
     }
 }
 
-function shouldFetchBoardList({boardList}, provider) {
+export function requestBoardList() {
+    return {
+        type: BOARD_LIST_REQUESTED
+    }
+}
+
+export function receiveBoardList(boardList, provider){
+    return {
+        type: BOARD_LIST_LOADED,
+        payload: {
+            items: boardList.data || [],
+            receivedAt: Date.now(),
+        }
+    }
+}
+
+export function invalidateBoardlist(error) {
+    return {
+        type: BOARD_LIST_INVALIDATED,
+        error
+    }
+}
+
+export function shouldFetchBoardList({boardList}, provider) {
     return boardList.items.length === 0
 }
 

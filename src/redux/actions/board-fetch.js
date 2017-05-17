@@ -11,43 +11,13 @@ import {
 } from '../types';
 
 
-function requestBoard(boardID) {
-    return {
-        type: BOARD_REQUESTED,
-        payload: boardID
-    }
-}
-
-function receiveBoard(board){
-    return {
-        type: BOARD_LOADED,
-        posts: board.data || [],
-        receivedAt: Date.now()
-    }
-}
-
-function invalidateBoard(error) {
-    console.error(error)
-    return {
-        type: BOARD_INVALIDATED
-    }
-}
-
-function setBoard( boardID ) {
-    console.log("Setting board to " + boardID)
-    return {
-        type: BOARD_CHANGE,
-        payload: boardID
-    }
-}
-
-export function fetchBoard(boardID, callback) {
+export default function fetchBoard(boardID, callback) {
     const url = API.board(boardID)
     console.log('Action FetchBoard()', url);
 
     return (dispatch, getState) => {
         const state = getState()
-        if (!canRequestBoard(state)) {
+        if (!shouldRequestBoard(state)) {
             console.warn(`Board request rejected: ${url}`)
             return
         }
@@ -86,15 +56,43 @@ export function fetchBoard(boardID, callback) {
     }
 }
 
-function canRequestBoard({ board, settings }) {
+export function requestBoard(boardID) {
+    return {
+        type: BOARD_REQUESTED,
+        payload: boardID
+    }
+}
+
+export function receiveBoard(board){
+    return {
+        type: BOARD_LOADED,
+        posts: board.data || [],
+        receivedAt: Date.now()
+    }
+}
+
+export function invalidateBoard(error) {
+    return {
+        type: BOARD_INVALIDATED
+    }
+}
+
+export function setBoard( boardID ) {
+    return {
+        type: BOARD_CHANGE,
+        payload: boardID
+    }
+}
+
+export function shouldRequestBoard({ board, settings }) {
     const requestThrottle = settings.internal.requestThrottle
     const lastRequested = secondsAgo(board.receivedAt)
 
-    console.log(`canRequestBoard(): ${lastRequested} > ${requestThrottle} = ${lastRequested > requestThrottle}`)
+    console.log(`shouldRequestBoard(): ${lastRequested} > ${requestThrottle} = ${lastRequested > requestThrottle}`)
     return !board.isFetching && lastRequested > requestThrottle
 }
 
-function boardCachedAndRecent({cache, settings}, boardID) {
+export function boardCachedAndRecent({cache, settings}, boardID) {
     const maxBoardAge = settings.internal.maxBoardAge
     const board = cache.board[boardID]
 
@@ -107,7 +105,7 @@ function boardCachedAndRecent({cache, settings}, boardID) {
     return board && secondsAgo(board.receivedAt) < maxBoardAge
 }
 
-function loadBoardFromCache({ cache }, boardID) {
+export function loadBoardFromCache({ cache }, boardID) {
     const board = cache.board[boardID]
     return {
         type: BOARD_CACHE_LOADED,
