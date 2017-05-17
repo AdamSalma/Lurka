@@ -1,6 +1,6 @@
 import * as types from '.';
 
-describe('Types', () => {
+describe('Redux Types', () => {
   it('contains USER_SAVED_POST', () => {
     expect(types.USER_SAVED_POST).toEqual('USER_SAVED_POST');
   });
@@ -35,10 +35,6 @@ describe('Types', () => {
 
   it('contains SETTING_CHANGED', () => {
     expect(types.SETTING_CHANGED).toEqual('SETTING_CHANGED');
-  });
-
-  it('contains APP_READY', () => {
-    expect(types.APP_READY).toEqual('APP_READY');
   });
 
   it('contains BOARD_REQUESTED', () => {
