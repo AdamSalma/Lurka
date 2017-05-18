@@ -1,7 +1,7 @@
 import config from '-/config';
 import configureStore from './configure';
 import { loadState, saveState } from './localStorage';
-import { invokeAfterUninterruptedDelay } from '~/utils';
+import { invokeAfterUninterruptedDelay } from '~/utils/throttle';
 
 const state = config.isProduction ? loadState() : undefined;
 const store = configureStore(state);

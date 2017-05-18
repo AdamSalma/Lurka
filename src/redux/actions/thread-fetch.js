@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 import API from '-/config/api.localhost'
-import { secondsAgo } from '~/utils'
+import { secondsAgo } from '~/utils/time'
 import { alertMessage } from './alert'
 import {
     THREAD_REQUESTED,
