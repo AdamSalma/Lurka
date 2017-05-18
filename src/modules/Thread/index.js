@@ -11,11 +11,8 @@ import {
     toggleHeaderPanel
 } from '~/redux/actions';
 
-function mapStateToProps({ status, thread, display }) {
+function mapStateToProps({ status, thread }) {
     return {
-        isThreadOpen: display.isThreadOpen,
-        isCommentPanelOpen: display.isCommentPanelOpen,
-        isDrawerOpen: display.isDrawerOpen,
         boardID: status.boardID,
         threadID: status.threadID,
         ...thread

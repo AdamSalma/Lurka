@@ -16,7 +16,8 @@ import {
     onDrawerToggle,
     onThreadOpen, onThreadClose
 } from '~/events/subscribers';
-import {bindMembersToClass, isFunction} from '~/utils'
+import {bindMembersToClass} from '~/utils/react'
+import {isFunction} from '~/utils/types'
 
 const settings = window.appSettings;
 

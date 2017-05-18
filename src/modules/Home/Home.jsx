@@ -4,7 +4,7 @@ import classes from 'classnames'
 
 import Toolbar from './Toolbar'
 import Card from './Card'
-import {bindMembersToClass} from '~/utils'
+import {bindMembersToClass} from '~/utils/react'
 
 const settings = window.appSettings
 

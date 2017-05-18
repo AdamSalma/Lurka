@@ -22,12 +22,6 @@ import { boardIDSelector, threadIDSelector } from '~/redux/selectors/StatusSelec
 
 function mapStateToProps(state) {
     return {
-        // TODO: Refactor these to come from settings not display:
-        activePanel: state.display.activeHeaderPanel,
-        activeView: state.display.activeView,
-        isThreadOpen: state.display.isThreadOpen,
-        isDrawerOpen: state.display.isDrawerOpen,
-
         boardID: boardIDSelector(state),
         threadID: threadIDSelector(state),
         boardIsFetching: isBoardFetchingSelector(state),

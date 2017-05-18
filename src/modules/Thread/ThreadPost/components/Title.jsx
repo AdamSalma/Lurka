@@ -1,5 +1,5 @@
 import React from 'react'
-import { setHTML } from '~/utils'
+import { setHTML } from '~/utils/react'
 
 const Title = ({ title }) => {
     return title ? (

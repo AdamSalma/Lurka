@@ -5,7 +5,7 @@ import React, {
 
 import {
     bindMembersToClass
-} from '~/utils'
+} from '~/utils/react'
 
 import Navbar from './Navbar'
 import Panels from './Panels'

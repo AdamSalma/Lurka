@@ -2,7 +2,7 @@ import './Title.styles';
 import React, { Component, PropTypes } from 'react';
 import { Icon, Tooltip } from '~/components';
 import cx from 'classnames'
-import {bindMembersToClass} from '~/utils'
+import {bindMembersToClass} from '~/utils/react'
 
 const i = window.appSettings.icons
 

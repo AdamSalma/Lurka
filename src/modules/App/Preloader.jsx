@@ -12,7 +12,7 @@ import {
     fetchBoardList,
 } from '~/redux/actions';
 
-import { bindMembersToClass } from '~/utils'
+import { bindMembersToClass } from '~/utils/react'
 import {onAppReady} from '~/events/subscribers';
 
 
