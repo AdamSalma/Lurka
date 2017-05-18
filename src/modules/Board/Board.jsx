@@ -10,13 +10,15 @@ import {Icon, Circle, Tooltip} from '~/components';
 
 import { onAppReady, onDrawerToggle } from '~/events/subscribers';
 import { emitThreadOpen } from '~/events/publishers';
+
+import { bindMembersToClass } from '~/utils/react'
 import {
-    bindMembersToClass,
     throttleByCount,
     invokeAfterUninterruptedDelay
-} from '~/utils';
+} from '~/utils/throttle';
 
 const settings = window.appSettings
+
 
 export default class Board extends Component {
     static propTypes = {
@@ -96,17 +98,17 @@ export default class Board extends Component {
             'move-scrollbar': this.props.isDrawerOpen
         })
 
+                        // <BoardStats
+                        //     posts={this.props.posts && this.props.posts.length}
+                        //     images={this.props.imageCount}
+                        //     replies={this.props.replyCount}
+                        //     boardName={this.props.boardName}
+                        // />
         return (
             <div id="board" className={boardClasses} ref={ b => this._board = $(b)} onScroll={this.throttle}>
                 <div className="nano-content">
                     <div className="header-gap"/>
-                    <div className="posts" ref={p => this._posts = p}>
-                        <BoardStats
-                            posts={this.props.posts && this.props.posts.length}
-                            images={this.props.imageCount}
-                            replies={this.props.replyCount}
-                            boardName={this.props.boardName}
-                        />
+                    <div className="posts" ref={p => this._postContainer = p}>
                         {this.renderPosts()}
                     </div>
                 </div>
@@ -143,12 +145,12 @@ export default class Board extends Component {
     }
 
     checkPostsInView() {
-        if (!this._posts)
+        if (!this._postContainer)
             return
 
-        const winHeight = window.innerHeight + 200
-        $.each(this._posts.children, function(index, element) {
-            if (element.getBoundingClientRect().bottom <= winHeight) {
+        const toloratedHeight = window.innerHeight + 200;
+        $.each(this._postContainer.children, function(index, element) {
+            if (element.getBoundingClientRect().bottom <= toloratedHeight) {
                 element.classList.add('animate');
             }
         })

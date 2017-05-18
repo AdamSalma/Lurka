@@ -10,13 +10,10 @@ import {
     fetchThread
 } from '~/redux/actions';
 
-function mapStateToProps({ status, display, board, thread }) {
+function mapStateToProps({ status, board }) {
     return {
         status,
-        board,
-        isAppReady:   display.isAppReady,
-        isDrawerOpen: display.isDrawerOpen,
-        isThreadOpen: display.isThreadOpen
+        board
     }
 }
 
