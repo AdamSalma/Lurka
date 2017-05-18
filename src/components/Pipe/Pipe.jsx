@@ -1,9 +1,9 @@
-import './Line.styles'
+import './Pipe.styles'
 import React from "react"
 
 export default ({ className }) => {
     return <div className={[
-        'Line',
+        'Pipe',
         className
     ].join(' ')}/>
 }

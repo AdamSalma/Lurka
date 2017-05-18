@@ -1,0 +1,17 @@
+@import '~styles/base'
+
+$drawer-sort-height: 150px
+
+.SortPanel
+    width: 100%
+    display: block
+    height: $drawer-sort-height
+
+    &:hover h3
+        color: color(primary)
+        transition: color $key-animation-duration $key-bezier-animation-out
+
+    h3
+        margin-bottom: 6px
+        font-size: $font-size-medium
+        color: color(text-secondary)
