@@ -11,7 +11,8 @@ import {
     HeaderItem as FooterSpacer,
     LogoText,
     SearchBar,
-    Icon
+    Icon,
+    Pipe
 } from '~/components';
 
 import {
@@ -19,6 +20,13 @@ import {
 } from '~/events/publishers';
 
 const i = window.appSettings.icons;
+
+const TitledIcon = ({ name, title }) => {
+    return <div>
+        <Icon name={name}/>
+        <span>{title}</span>
+    </div>
+}
 
 class Footer extends PureComponent {
     static propTypes = {
@@ -54,26 +62,27 @@ class Footer extends PureComponent {
             <div className={footerClasses}>
               <div className='background' />
               <div className='content'>
-                <FooterSpacer className='Footer__logo Footer--left'>
-                  <LogoText />
+                <FooterSpacer className='Footer--left'>
+                    Board Stats:  151 / 1583 / 356
                 </FooterSpacer>
-                <FooterSpacer className='Footer__logo Footer--left'>
-                  Searching board...
-                </FooterSpacer>
-                <FooterSpacer className='Footer--right Footer__search'>
+                <FooterSpacer className='Footer--center Footer__search'>
                   <SearchBar placeholder={`Search /${boardID}/`} />
                 </FooterSpacer>
                 <FooterSpacer className='Footer--right'>
-                  <Icon name={i.footerSort} />
-                  <Icon name={i.footerFilter} />
-                  <Icon name={i.footerLayout} />
-                  <Icon name={i.footerInfo} />
-                  <Icon name={i.footerClose} />
+                  <TitledIcon name={i.footerSort} title='Sort'/>
+                  <Pipe className="Footer__Pipe"/>
+                  <TitledIcon name={i.footerFilter} title='Filter'/>
+                  <Pipe className="Footer__Pipe"/>
+                  <TitledIcon name={i.footerLayout} title='Filter'/>
                 </FooterSpacer>
               </div>
             </div>
-            );
+        )
     }
+                // <FooterSpacer className='Footer--right'>
+                //   <Icon name={i.footerInfo} />
+                //   <Icon name={i.footerClose} />
+                // </FooterSpacer>
 }
 
 export default Footer;
