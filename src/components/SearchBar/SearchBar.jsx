@@ -3,7 +3,7 @@ import React, { PureComponent, PropTypes } from 'react';
 import cx from 'classnames'
 
 import Icon from '../Icon'
-import {bindMembersToClass} from '~/utils'
+import { bindMembersToClass } from '~/utils/react'
 
 const i = window.appSettings.icons;
 

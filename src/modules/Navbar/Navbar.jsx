@@ -4,15 +4,15 @@ import classes from 'classnames'
 import uuid from 'uuid'
 
 import {
-    Icon, 
-    BoardList, 
+    Icon,
+    BoardList,
     BoardInfo,
-    SearchBox, 
+    SearchBox,
     Checkbox,
     Overlay,
 } from '../../components'
 
-import {bindMembersToClass} from '~/utils'
+import { bindMembersToClass } from '~/utils/react';
 
 export default class Navbar extends Component {
     constructor({ status:{provider}, fetchBoardList, boardList }) {
@@ -25,7 +25,7 @@ export default class Navbar extends Component {
 
         }
 
-        bindMembersToClass(this, 
+        bindMembersToClass(this,
             'prepareForFetch',
             'toggleFavourite',
             'renderBoardlist',
@@ -61,8 +61,8 @@ export default class Navbar extends Component {
         const {favouritesOnly} = this.state
         const {
             toggleSetting, toggleNavbar,
-            status:{ isNavbarOpen }, 
-            settings:{ NSFW }, 
+            status:{ isNavbarOpen },
+            settings:{ NSFW },
         } = this.props
 
         const favClasses = classes('list-toggle favourite', {'disabled': !favouritesOnly})
@@ -78,8 +78,8 @@ export default class Navbar extends Component {
                 <div className="navbar-controls">
                     {/*Section 1*/}
                     <div className="navbar-search">
-                        <SearchBox 
-                            onKeyUp={this.handleSearch} 
+                        <SearchBox
+                            onKeyUp={this.handleSearch}
                             placeholder="Search..."
                             ref={this.setSearchBoxRef}
                         />
@@ -111,12 +111,12 @@ export default class Navbar extends Component {
             })
 
             return (
-                <div key={boardID} className={"p-"+provider} 
+                <div key={boardID} className={"p-"+provider}
                     onClick={this.prepareForFetch.bind(null, provider, boardID)}
                     onMouseEnter={this.handleBoardMouseEnter.bind(null, boardID)}
                     onMouseLeave={this.handleBoardMouseLeave}
                 >
-                    <Icon className={star} 
+                    <Icon className={star}
                         onClick={ e => this.toggleFavourite(e, provider, boardID)}
                     />
                     {short_desc}
@@ -124,7 +124,7 @@ export default class Navbar extends Component {
             )
         })
 
-        return <BoardList 
+        return <BoardList
             shouldPreload={false}
             boardListElements={elements}
             boardList={boardlist}
@@ -183,14 +183,14 @@ export default class Navbar extends Component {
         if (favouritesOnly) {
             // filter 'em
             boardlist = boardlist.filter( ({boardID}) => this.isFavourite(boardID))
-        } 
+        }
 
         if (NSFW.value) {
             boardlist = boardlist.filter( ({info}) => info.NSFW)
         }
 
         if (searchPhrase) {
-            boardlist = boardlist.filter( board => 
+            boardlist = boardlist.filter( board =>
                 board.description
                      .toLowerCase()
                      .includes(searchPhrase)
@@ -203,7 +203,7 @@ export default class Navbar extends Component {
             if (a < b)
                 return -1
             if (a > b)
-                return 1    
+                return 1
             return 0
         })
     }
@@ -215,7 +215,7 @@ export default class Navbar extends Component {
         if (this.isFavourite(provider, boardID)) {
             console.log(`removeFromFavourites() ${provider} ${boardID}`)
             this.props.removeFromFavourites(provider, boardID)
-        } 
+        }
 
         else {
             console.log(`addToFavourites() ${provider} ${boardID}`)
