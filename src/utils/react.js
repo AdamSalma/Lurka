@@ -28,7 +28,8 @@ export const bindFunctionsAsInstanceMethods = (that, ...funcs) => {
 }
 
 /**
- * Shorthand for using dangerouslySetInnerHTML as an element prop
+ * Shorthand for using dangerouslySetInnerHTML as an element prop:
+ *   <div {...setHTML(title)}> </div>
  *
  * @param  {String} html - Raw html to insert
  * @return {Object}
@@ -42,6 +43,8 @@ export const setHTML = (html) => {
 }
 
 
-export const cloneChildren = (children, props) => {
-    return React.Children.map(children, child => React.cloneElement(child, props))
-}
+export const cloneChildren = (children, props) =>
+    React.Children.map(children,
+        child => React.cloneElement(child, props)
+    )
+
