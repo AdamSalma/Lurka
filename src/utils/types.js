@@ -1,4 +1,4 @@
-const toString = Object.toString;
+const toString = {}.toString;
 
 export const isArray = function(value) {
     return toString.call(value) == '[object Array]';
