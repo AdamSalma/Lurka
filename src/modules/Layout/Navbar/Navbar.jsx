@@ -11,7 +11,8 @@ import {
     HeaderItem,
     LogoText,
     SearchBar,
-    Icon
+    Icon,
+    Logo
 } from '~/components';
 
 import { emitSelectionViewToggle } from '~/events/publishers';
@@ -68,9 +69,10 @@ class Navbar extends PureComponent {
               <div className='background' />
               <div className='content'>
                 <HeaderItem className='Navbar--left Navbar__logo'>
+                  <Logo/>
                   <LogoText/>
                 </HeaderItem>
-                <HeaderItem className='Navbar--left'>
+                <HeaderItem className='Navbar--center'>
                     <Title onTitleClick={() => emitSelectionViewToggle()}>
                         {!!navbarTitle && navbarTitle}
                     </Title>

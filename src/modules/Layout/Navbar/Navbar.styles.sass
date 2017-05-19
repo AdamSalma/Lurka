@@ -23,7 +23,7 @@ $header-icon-size: 20px
         flex-wrap: block
         align-items: center
         height: 100%
-        padding: 0 20px
+        padding: $header-padding
 
     .HeaderItem
         padding: 0 8px
@@ -35,9 +35,12 @@ $header-icon-size: 20px
 
         &.Navbar--right
             padding-right: 0
+            margin-left: auto
 
         &.Navbar--center
-            margin: 0 8px
+            margin: 0 auto
+            // align-self: center
+            text-align: center
 
         > *
             display: inline-block
@@ -51,10 +54,11 @@ $header-icon-size: 20px
                 color: color(primary)
                 transition: color .2s ease-out
 
+    .Logo
+        top: 4px
+        padding: 8px
+
     .Navbar__logo
-        .LogoText
-            top: -2px
-        .version
-            top: 21px
+        cursor: pointer
 
 

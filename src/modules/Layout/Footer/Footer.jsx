@@ -73,7 +73,7 @@ class Footer extends PureComponent {
                   <Pipe className="Footer__Pipe"/>
                   <TitledIcon name={i.footerFilter} title='Filter'/>
                   <Pipe className="Footer__Pipe"/>
-                  <TitledIcon name={i.footerLayout} title='Filter'/>
+                  <TitledIcon name={i.footerLayout} title='Layout'/>
                 </FooterSpacer>
               </div>
             </div>
