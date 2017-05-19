@@ -20,7 +20,7 @@ export const createTooltipCreator = ($thread) => {
               post = $post.html(),
               linkPos = target.getBoundingClientRect()  // position of link
 
-        if (isElementInViewport($post)){
+        if (isElementInViewport($post[0])){
             $post.addClass(highlightClass)
             $highlightedPost = $post
             return
