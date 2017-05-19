@@ -31,8 +31,8 @@ class Thread extends Component {
         );
 
         this.state = {
-            isDrawerOpen: props.isDrawerOpen,
-            isOpen: props.isThreadOpen,
+            isDrawerOpen: props.isDrawerOpen || false,
+            isOpen: props.isThreadOpen || false,
             isOpening: false,
             isClosing: false,
         }
@@ -65,12 +65,6 @@ class Thread extends Component {
         });
     }
 
-    componentDidUpdate({ posts } ) {
-        if (!posts.length && this.props.posts.length) {
-            this.openThread();
-        }
-    }
-
     // shouldComponentUpdate({thread}, nextState) {
     //     return thread.isThreadOpen !== this.props.thread.isThreadOpen ||
     //            this.props.thread.posts.length !== thread.posts.length
@@ -88,7 +82,7 @@ class Thread extends Component {
         const threadWrapClasses = cx('wrapper', 'nano', {
             "center-left": isDrawerOpen,
             "make-visible": isOpening || isOpen,
-            "fadein-boxshadow": isOpen && !isClosing && !isOpening
+            // "fadein-boxshadow": isOpen && !isClosing && !isOpening
         });
 
         if (didInvalidate)
@@ -97,8 +91,13 @@ class Thread extends Component {
         console.warn("posts:",posts.length)
         return (
             <div className={cx("Thread", className)}>
-                <Overlay onClick={this.closeThread} isVisible={!didInvalidate && (isFetching || isOpening || isOpen)}>
-                    <Spinner isSpinning={!posts.length && (isFetching || isOpening)}/>
+                <Overlay
+                    onClick={this.closeThread}
+                    ref={ ref => this._overlay = ref}
+                    isVisible={!didInvalidate && (isFetching || isOpening || isOpen)}>
+                    <Spinner
+                        isSpinning={!posts.length && (isFetching || isOpening)}
+                    />
                 </Overlay>
 
                 <div ref={ref => this._threadWrap = ref} className={threadWrapClasses}>
@@ -118,51 +117,51 @@ class Thread extends Component {
     // <div className="header-gap"></div>
 
     openThread(callback) {
+        this._overlay.show();
         this.setState({ isOpening: true }, () => {
+            // Must have separate invocations
+            this.updateScroller({ scroll: "top" });
+            this.updateScroller({ stop: true });
 
-
-        // Must have separate invocations
-        this.updateScroller({ scroll: "top" });
-        this.updateScroller({ stop: true });
-
-        // TODO: Change from global appSettings into redux settingrs
-        this.animateThread({top: window.appSettings.headerHeight}, {
-            duration: 850,  // this too
-            easing: [0.25, 0.8, 0.25, 1],
-            complete: () => {
-                this.updateScroller();
-                this.setState({
-                    isOpen: true,
-                    isOpening: false
-                });
-                isFunction(callback) && callback();
-            }
-        });
+            // TODO: Change from global appSettings into redux settingrs
+            this.animateThread({top: window.appSettings.headerHeight}, {
+                duration: 850,  // this too
+                easing: [0.25, 0.8, 0.25, 1],
+                complete: () => {
+                    this.updateScroller();
+                    this.setState({
+                        isOpen: true,
+                        isOpening: false
+                    });
+                    isFunction(callback) && callback();
+                }
+            });
         });
     }
 
     closeThread(callback) {
+        // Close scroller otherwise thread slides down while it remains
+        this._overlay.hide();
         this.setState({
             isClosing: true
-        })
-        // Close scroller otherwise thread slides down while it remains
-        this.updateScroller({ stop: true });
+        }, () => {
+            // TODO: Is the header going to be animated in-out?
+            // scrollHeader(true)
 
-        // TODO: Is the header going to be animated in-out?
-        // scrollHeader(true)
-
-        this.animateThread({top: window.innerHeight+"px"}, {
-            duration: 150,
-            complete: () => {
-                // TODO: get these from this.props:
-                // dispatch(saveThreadToHistory(state))
-                // dispatch(destroyThread(threadID))
-                isFunction(callback) && callback();
-                this.setState({
-                    isOpen: false,
-                    isClosing: false
-                })
-            }
+            this.updateScroller({ stop: true });
+            this.animateThread({top: window.innerHeight+"px"}, {
+                duration: 150,
+                complete: () => {
+                    // TODO: get these from this.props:
+                    // dispatch(saveThreadToHistory(state))
+                    // dispatch(destroyThread(threadID))
+                    isFunction(callback) && callback();
+                    this.setState({
+                        isOpen: false,
+                        isClosing: false
+                    })
+                }
+            });
         });
     }
 
