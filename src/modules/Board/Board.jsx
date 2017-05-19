@@ -74,8 +74,11 @@ export default class Board extends Component {
         // Board scroller
         this._board.nanoScroller(this.nanoOpts)
 
-        // Must be in callback because this.applyLayout changes
-        $(window).resize(() => this.applyLayout())
+        const onWindowResize =
+            // Must be in callback because this.applyLayout changes
+            invokeAfterUninterruptedDelay(50, () => this.applyLayout())
+
+        $(window).resize(onWindowResize)
 
         // Hover over board posts reveals more info
         // catchTooltip(board);  // TODO: Implement catchtooltip on board
