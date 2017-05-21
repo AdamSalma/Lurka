@@ -1,0 +1,20 @@
+@import '~styles/base'
+
+.HeaderItem
+    display: inline-block
+
+    &.breadcrumb
+        margin: 0
+
+    &.shift-right
+        margin-left: auto
+
+    &.header-icon:last-child
+        margin-right: 20px !important
+
+        &:hover
+            background: grey(6)
+            border-color: color(primary)
+
+        &.active
+            background: color(primary)
