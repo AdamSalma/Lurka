@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import BoardSelection from '~/modules/BoardSelection';
-import {onSelectionViewToggle} from '~/events/subscribers';
+// import {onSelectionViewToggle} from '~/events/subscribers';
 import {bindMembersToClass} from '~/utils/react';
 
 class SelectionView extends Component {
@@ -19,7 +19,7 @@ class SelectionView extends Component {
         bindMembersToClass(this, 'toggleViewState');
     }
 
-    @onSelectionViewToggle
+    // @onSelectionViewToggle
     onToggle() {
         console.log('SelectionView.onToggle(). isVisible:', this.state.isVisible)
         this.state.isVisible ? this.hide() : this.show();

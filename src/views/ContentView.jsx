@@ -5,10 +5,8 @@ import React, {
 
 import Board from '~/modules/Board'
 import Thread from '~/modules/Thread'
-import Layout from '~/modules/Layout'
-import {
-    // onSelectionViewToggle
-} from '~/events/subscribers';
+import Header from '~/modules/Header'
+import { onContentViewToggle } from '~/events/subscribers';
 
 import {
     bindMembersToClass
@@ -36,7 +34,7 @@ class ContentView extends Component {
         bindMembersToClass(this, 'toggleViewState');
     }
 
-    // @onSelectionViewToggle
+    @onContentViewToggle
     onToggle() {
         console.log('ContentView.onToggle(). inView:', this.state.inView)
         this.state.inView ? this.hide() : this.show();
@@ -44,7 +42,7 @@ class ContentView extends Component {
 
     hide() {
         $(this._view).velocity({
-            top: window.innerHeight - headerHeight
+            top: window.innerHeight - headerHeight + 2 // 2 = header border
         }, {
             duration: this.state.hideDuration,
             easing:   this.state.hideEasing,
@@ -79,9 +77,10 @@ class ContentView extends Component {
               {...restProps}
               ref={ref => this._view = ref}
               className='View ContentView'>
+              <Header.containers.MainHeader/>
+              <Header.containers.SubHeader/>
               <Board />
               <Thread />
-              <Layout/>
             </section>
         )
     }
