@@ -45,8 +45,7 @@ class SubHeader extends PureComponent {
 
         this.animateInOpts = {
             duration: 400,
-            easing: [0, 0, 0.2, 1],
-            queue: false
+            easing: [0, 0, 0.2, 1]
         }
 
         this.animateOutStyles = {
@@ -55,9 +54,8 @@ class SubHeader extends PureComponent {
         }
 
         this.animateOutOpts = {
-            duration: 400,
+            duration: 375,
             easing: [0.25, 0.46, 0.45, 0.94],
-            queue: false
         }
     }
 
@@ -133,7 +131,7 @@ class SubHeader extends PureComponent {
     }
 
     animate(styles, options) {
-        this._subheader && $(this._subheader).velocity(styles, options);
+        this._subheader && $(this._subheader).velocity('finish').velocity(styles, options);
     }
 }
 
