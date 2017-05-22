@@ -1,0 +1,13 @@
+@import '~styles/base'
+
+.TitledIcon
+    +clickable
+    font-size: $footer-icon-size
+    padding-right: 16px
+
+    &:hover, &:active
+        color: color(primary)
+        transition: color .2s ease-out
+
+    &:last-child
+        padding-right: 25px
