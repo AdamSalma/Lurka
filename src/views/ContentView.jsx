@@ -42,7 +42,8 @@ class ContentView extends Component {
 
     hide() {
         $(this._view).velocity({
-            top: window.innerHeight - headerHeight + 2 // 2 = header border
+            translateY: window.innerHeight - headerHeight + 2, // 2 = header border
+            translateZ: 0
         }, {
             duration: this.state.hideDuration,
             easing:   this.state.hideEasing,
@@ -52,7 +53,8 @@ class ContentView extends Component {
 
     show() {
         $(this._view).velocity({
-            top: 0
+            translateY: 0,
+            translateZ: 0
         }, {
             duration: this.state.showDuration,
             easing:   this.state.showEasing,
