@@ -22,7 +22,7 @@ window.appSettings = {
 
     // The following settings can't be changed explcitly.
     // Needs to be kept in sync with src/styles/base/variables
-    headerHeight: 60,
+    headerHeight: 64,
     threadWidth: 981,
     drawerWidth: 250,
     drawerAnimationDuration: 500,
@@ -44,14 +44,17 @@ window.appSettings = {
         navbarEye:     'ios-eye',
         navbarSettings: 'gear-b',
 
+        subNavbarOpen: 'chevron-down',
+        subNavbarClose: 'chevron-up',
+
         searchMagnify: "ios-search-strong",
         searchClose: "close",
 
-        videoFullscreen: "fullscreen",
+        videoFullscreen: "arrow-expand",
         videoPlay: "play",
         videoPause: "pause",
         videoError: "alert-octagon",
-        videoVolumeOff: "volume-off",
+        videoVolumeOff: "android-volume-off",
         videoVolumeMute: "volume-mute",
         videoVolumeLow: "volume-low",
         videoVolumeMedium: "volume-medium",
