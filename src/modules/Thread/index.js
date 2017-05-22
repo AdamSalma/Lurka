@@ -8,7 +8,8 @@ import {
     monitorThread,
     unmonitorThread,
     scrollHeader,
-    toggleHeaderPanel
+    toggleHeaderPanel,
+    destroyThread
 } from '~/redux/actions';
 
 function mapStateToProps({ status, thread }) {
@@ -25,7 +26,8 @@ function mapDispatchToProps(dispatch) {
         monitorThread,
         unmonitorThread,
         scrollHeader,
-        toggleHeaderPanel
+        toggleHeaderPanel,
+        destroyThread
     }, dispatch)
 }
 

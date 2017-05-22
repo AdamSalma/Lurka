@@ -35,7 +35,7 @@ const Media = ({ media, onLargeImageClick }) => {
 
 const ThreadImage = ({ src, onClick }) => {
     return (
-        <ImageWithChild className="ThreadMedia--expanded" src={src}>
+        <ImageWithChild className="ThreadMedia--expanded ThreadMedia--IWC" src={src}>
             <ButtonCircle className="ThreadMedia__FullscreenIcon"
                 onClick={onClick}>
                 <Icon name={i.threadPostImageFullscreen}/>
