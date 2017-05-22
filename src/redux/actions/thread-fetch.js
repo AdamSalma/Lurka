@@ -100,9 +100,9 @@ function handleFetchError(err, dispatch) {
             type: "error",
             time: 20000
         }))
-
-        dispatch(invalidateThread(err.response.data || err))
     }
+
+    dispatch(invalidateThread(err))
 }
 
 function shouldFetchThread({ thread, settings }) {

@@ -5,23 +5,12 @@ import {
 } from '../types';
 
 
-export const clearThread = () => {
-    return (dispatch, getState) => {
-        if (shouldClearThread(getState()))
-            dispatch(threadCleared());
-        else
-            console.warn("Thread clear rejected");
+export const destroyThread = () => {
+    return dispatch => {
+        dispatch({ type: THREAD_DESTROYED });
     }
 }
 
-const threadCleared = () => {
-    return {
-        type: THREAD_DESTROYED,
-        payload: threadID
-    }
-}
-
-// TODO IDEA: saveThreadToHistory
 
 function threadIsFetching({ thread }) {
     return thread.isFetching

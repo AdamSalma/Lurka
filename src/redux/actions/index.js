@@ -17,7 +17,7 @@ export { toggleSetting } from './settings'
 export { alertMessage } from './alert'
 export { changeProvider } from './status'
 export { toggleHeaderPanel } from './header-panel'
-export { closeThread } from './thread'
+export { destroyThread } from './thread'
 
 export {
     updateMonitoredThread,
