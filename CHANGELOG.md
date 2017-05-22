@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 ### Changed
 ### Fixed
+- Disable linkd opening when clicking on a board post
 
 
 ## v0.12.0
