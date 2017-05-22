@@ -226,7 +226,7 @@ $quotelink-color: color(primary, dark)
 
         li
             color: grey(4)
-            margin-left: 2px
+            margin-left: 12px
             +clickable
             transition: color .1s ease-out
             list-style-type: none
@@ -236,6 +236,9 @@ $quotelink-color: color(primary, dark)
 
             span
                 padding: 6px
+
+            &:last-child
+                margin-left: 0
 
     &:hover .menu
         transform: translateX(0)
