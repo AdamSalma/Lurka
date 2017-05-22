@@ -36,7 +36,7 @@ export const Video = ({
 }) => {
     return (
         <div className={[
-            "video-wrapper", 
+            "video-wrapper",
             className
         ].join(' ')}>
             <video
@@ -47,7 +47,7 @@ export const Video = ({
             <Overlay
                 onClick={onPlayPauseClick}
                 {...video} />
-            { !video.error ? 
+            { !video.error ?
                 <div className="video-controls">
                     <PlayPause
                         ariaLabelPlay={aria.play}
@@ -106,7 +106,5 @@ export default videoConnect(
         onVolumeClick: (e) => {e.stopPropagation(); toggleMute(videoEl, state)},
         onPlayPauseClick: (e) => {e.stopPropagation(); togglePause(videoEl, state)},
         onVolumeChange: (e) => {e.stopPropagation(); setVolume(videoEl, state, e.target.value)},
-        onSeekChange: (e) => {e.stopPropagation(); setCurrentTime(videoEl, state, e.target.value * state.duration / 100)},
-        getVideoEl: () => videoEl
-    })
+        onSeekChange: (e) => {e.stopPropagation(); setCurrentTime(videoEl, state, e.target.value * state.duration / 100)}    })
 );

@@ -17,8 +17,7 @@ const OverlayIcon = ({ error, paused, loading }) => {
     </span>
 }
 
-const VideoOverlay = () => {
-    const { onClick, error, paused, loading } = this.props;
+const VideoOverlay = ({ onClick, error, paused, loading }) => {
     return (
         <div className="video-overlay"
         onClick={onClick}>

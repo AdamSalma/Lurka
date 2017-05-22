@@ -3,8 +3,8 @@ import Icon from '../Icon'
 
 const i = window.appSettings.icons;
 
-function hasAudio (video) {
-    return video && video.mozHasAudio ||
+function hasAudio (video={}) {
+    return video.mozHasAudio ||
     Boolean(video.webkitAudioDecodedByteCount) ||
     Boolean(video.audioTracks && video.audioTracks.length);
 }
@@ -28,7 +28,7 @@ export default ({ onChange, onClick, getVideoEl, volume, muted, className, ariaL
         : +volume;
     const isSilent = muted || volume <= 0;
 
-    return hasAudio(getVideoEl()) ? (
+    return (
         <div className="volume">
             <button
                 aria-label={isSilent
@@ -39,7 +39,7 @@ export default ({ onChange, onClick, getVideoEl, volume, muted, className, ariaL
                 type="button">
                 { formatVolumeIcon(muted, volume) }
             </button>
-            <div className="volume-slider">
+            <div className="volume-slider" onClick={e => e.stopPropagation()}>
                 <div className="volume-track">
                     <div
                         className="volume-fill"
@@ -58,5 +58,5 @@ export default ({ onChange, onClick, getVideoEl, volume, muted, className, ariaL
                 </div>
             </div>
         </div>
-    ) : null;
+    );
 };
