@@ -20,4 +20,8 @@ describe('Event Types', () => {
   it('contains THREAD_CLOSE', () => {
     expect(types.THREAD_CLOSE).toEqual('THREAD_CLOSE');
   });
+
+  it('contains SUB_HEADER_TOGGLE', () => {
+    expect(types.SUB_HEADER_TOGGLE).toEqual('SUB_HEADER_TOGGLE');
+  });
 })
