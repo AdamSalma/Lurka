@@ -3,7 +3,11 @@ import BoardSelection from './BoardSelection';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { fetchBoard, addBoardToFavourites } from '~/redux/actions';
+import {
+    fetchBoard,
+    addBoardToFavourites,
+    destroyBoard
+} from '~/redux/actions';
 
 function mapStateToProps({ boardList, status }) {
     return {
@@ -15,7 +19,8 @@ function mapStateToProps({ boardList, status }) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchBoard,
-        addBoardToFavourites
+        addBoardToFavourites,
+        destroyBoard
     }, dispatch)
 }
 

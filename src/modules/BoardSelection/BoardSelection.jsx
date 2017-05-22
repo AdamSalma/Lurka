@@ -2,6 +2,7 @@ import './BoardSelection.styles';
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
 import {emitContentViewToggle} from '~/events/publishers';
+import {bindMembersToClass} from '~/utils/react';
 
 class BoardSelection extends Component {
     static propTypes = {
@@ -11,6 +12,7 @@ class BoardSelection extends Component {
     constructor(props) {
         super(props);
         this.renderBoardSelectionTiles = this.renderBoardSelectionTiles.bind(this);
+        bindMembersToClass(this, 'handleTileClick');
     }
 
     render() {
@@ -24,7 +26,7 @@ class BoardSelection extends Component {
     }
 
     renderBoardSelectionTiles() {
-        const {boardList, currentBoard} = this.props
+        const {boardList, currentBoard, fetchBoard} = this.props
         if (!boardList.items || !boardList.items.length ) {
             return false
         }
@@ -33,6 +35,7 @@ class BoardSelection extends Component {
            return (
                <div
                  key={boardID}
+                 onClick={this.handleTileClick.bind(null, boardID)}
                  className={cx('BoardSelection__Tile', {
                     'is-current': boardID === this.props.currentBoard
                  })}>
@@ -42,6 +45,12 @@ class BoardSelection extends Component {
                </div>
            )
        })
+    }
+
+    handleTileClick(boardID) {
+        emitContentViewToggle();
+        this.props.destroyBoard()
+        this.props.fetchBoard(boardID)
     }
 }
 
