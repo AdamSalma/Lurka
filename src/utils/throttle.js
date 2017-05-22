@@ -9,7 +9,7 @@
 export const throttleByCount = (count, callback) => {
     let i = 0
 
-    return () => {
+    return function() {
         if (i >= count) {
             i = 0
             return callback.apply(null, arguments)
@@ -28,7 +28,7 @@ export const throttleByCount = (count, callback) => {
 export const invokeThenIgnoreForPeriod = (time, callback) => {
     let canCall = true
 
-    return () => {
+    return function() {
         if (canCall) {
             canCall = false
             setTimeout(() => canCall = true, time)
