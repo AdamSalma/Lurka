@@ -55,9 +55,8 @@ class SubHeader extends PureComponent {
         }
 
         this.animateOutOpts = {
-            translateY: 0,
-            duration: 240,
-            easing: [0.4, 0, 1, 1],
+            duration: 400,
+            easing: [0.25, 0.46, 0.45, 0.94],
             queue: false
         }
     }
@@ -88,7 +87,11 @@ class SubHeader extends PureComponent {
               <div className='background' />
               <div className='content'>
                 <HeaderItem className='SubHeader--left'>
-                    Board Stats:  151 / 1583 / 356
+                    <Icon name="android-lock"/>
+                    <Pipe className="SubHeader__Pipe"/>
+                    <TitledIcon name={i.navbarCompose} title='New Post'/>
+                    <Pipe className="SubHeader__Pipe"/>
+                    <TitledIcon name={i.navbarRefresh} title='Refresh'/>
                 </HeaderItem>
                 <HeaderItem className='SubHeader--center SubHeader__search'>
                   <SearchBar placeholder={`Quick search`} />
