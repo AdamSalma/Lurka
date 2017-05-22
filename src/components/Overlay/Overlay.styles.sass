@@ -8,10 +8,13 @@
     top: 0
     left: 0
     opacity: 0
-    display: none
-    transition: opacity .1s .2s
+    transition: opacity .2s ease-out
+    pointer-events: none
 
     &.Overlay-active
-        display: initial
-        transition: opacity $animation-speed-fast $bezier-fast
+        pointer-events: auto
+        opacity: .95
+
+    &.fade
+        pointer-events: auto
         opacity: .95
