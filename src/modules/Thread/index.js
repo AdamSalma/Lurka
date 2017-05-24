@@ -9,7 +9,8 @@ import {
     unmonitorThread,
     scrollHeader,
     toggleHeaderPanel,
-    destroyThread
+    destroyThread,
+    cacheCurrentThread
 } from '~/redux/actions';
 
 function mapStateToProps({ status, thread }) {
@@ -27,7 +28,8 @@ function mapDispatchToProps(dispatch) {
         unmonitorThread,
         scrollHeader,
         toggleHeaderPanel,
-        destroyThread
+        destroyThread,
+        cacheCurrentThread
     }, dispatch)
 }
 

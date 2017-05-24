@@ -21,7 +21,7 @@ import {
     emitSubHeaderToggle
 } from '~/events/publishers';
 
-import {bindMembersToClass} from '~/utils/react'
+import {bindMembersToClass, setHTML} from '~/utils/react'
 import {isFunction} from '~/utils/types'
 import {throttleByCount} from '~/utils/throttle';
 
@@ -124,7 +124,7 @@ class Thread extends Component {
                         ref={ref => this._thread = ref}
                         onClick={this.closeThread}
                         onScroll={this.onScroll}>
-                        <div className="subheader-gap"></div>
+                        <div className="Thread__start-gap"></div>
                         {this.renderTitle(posts)}
                         {this.renderPosts(posts)}
                     </div>
@@ -134,10 +134,9 @@ class Thread extends Component {
     }
 
     renderTitle(posts) {
-        return posts && posts.length && posts[0] && posts[0].title ?
-            <div className="Thread__title">
-                {posts[0].title}
-            </div> : null
+        return posts && posts.length && posts[0] && posts[0].title
+            ? <div className="Thread__title" {...setHTML(posts[0].title)}/>
+            : null
     }
 
     renderPosts(posts) {
@@ -167,7 +166,7 @@ class Thread extends Component {
         this.updateScroller({ scroll: "top" });
         this.updateScroller({ stop: true });
         emitSubHeaderToggle(true, {
-            delay: 100
+            delay: 200
         });
 
         // TODO: Change from global appSettings into redux settingrs
@@ -210,13 +209,13 @@ class Thread extends Component {
                 // TODO: get these from this.props:
                 // dispatch(saveThreadToHistory(state))
                 // dispatch(destroyThread(threadID))
-                this.setState({isOpen: false})
-                this.isClosed = true
-
-                console.info('Thread closed')
+                this.setState({isOpen: false});
+                this.isClosed = true;
+                this.props.cacheCurrentThread();
+                console.info('Thread closed');
                 this.props.destroyThread();
                 isFunction(callback) && callback();
-                console.info('Setstate isClosing: false')
+                console.info('Setstate isClosing: false');
             }
         });
 

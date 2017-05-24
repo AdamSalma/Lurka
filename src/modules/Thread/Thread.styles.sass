@@ -7,6 +7,8 @@ $thread-animate-in-easing: $bezier-fast
 $thread-animate-out-speed: .150s
 $thread-animate-out-easing: $bezier-fast
 
+$thread-end-gap: 200px
+
 .Thread
     .wrapper
         display: none
@@ -51,11 +53,15 @@ $thread-animate-out-easing: $bezier-fast
         z-index: 2
         margin-top: $header-height
 
-    .subheader-gap
+    .Thread__start-gap
         height: $subheader-height
-        background: $thread-post-color
         width: $thread-width - 4px
         border-left: grey(9) solid 5px
+
+    .Thread__end-gap
+        height: $thread-end-gap
+        width: $thread-width - 4px
+        // border-left: grey(9) solid 5px
 
     .Thread__title
         padding: 24px 16px
