@@ -2,21 +2,26 @@ import './Board.styles';
 import React, { Component, PropTypes } from "react";
 import classes from 'classnames';
 
-import createLayout from './layout';
 import BoardPost from './BoardPost';
 import SideIconGroup from './components/SideIconGroup';
 import BoardStats from './components/BoardStats';
 import {Icon, Circle, Tooltip} from '~/components';
 
+import createLayout from './layout';
 import { onAppReady, onDrawerToggle } from '~/events/subscribers';
-import { emitThreadOpen } from '~/events/publishers';
 import {
-    bindMembersToClass,
+    emitThreadOpen,
+    emitSubHeaderToggle
+} from '~/events/publishers';
+
+import { bindMembersToClass } from '~/utils/react'
+import {
     throttleByCount,
     invokeAfterUninterruptedDelay
-} from '~/utils';
+} from '~/utils/throttle';
 
 const settings = window.appSettings
+
 
 export default class Board extends Component {
     static propTypes = {
@@ -39,9 +44,11 @@ export default class Board extends Component {
             'handlePostClick',
             'loadMorePosts',
             'checkPostsInView',
+            'handleScroll'
         )
 
-        this.throttle = throttleByCount(12, this.checkPostsInView)
+        this._onScroll = throttleByCount(10, this.handleScroll);
+        this.previousScrollTop = 0
 
         this.layoutProps = {
             targetSelector: '.BoardPost',
@@ -72,8 +79,11 @@ export default class Board extends Component {
         // Board scroller
         this._board.nanoScroller(this.nanoOpts)
 
-        // Must be in callback because this.applyLayout changes
-        $(window).resize(() => this.applyLayout())
+        const onWindowResize =
+            // Must be in callback because this.applyLayout changes
+            invokeAfterUninterruptedDelay(50, () => this.applyLayout())
+
+        $(window).resize(onWindowResize)
 
         // Hover over board posts reveals more info
         // catchTooltip(board);  // TODO: Implement catchtooltip on board
@@ -96,17 +106,17 @@ export default class Board extends Component {
             'move-scrollbar': this.props.isDrawerOpen
         })
 
+                        // <BoardStats
+                        //     posts={this.props.posts && this.props.posts.length}
+                        //     images={this.props.imageCount}
+                        //     replies={this.props.replyCount}
+                        //     boardName={this.props.boardName}
+                        // />
         return (
-            <div id="board" className={boardClasses} ref={ b => this._board = $(b)} onScroll={this.throttle}>
-                <div className="nano-content">
+            <div id="board" className={boardClasses} ref={b => this._board = $(b)}>
+                <div className="nano-content" onScroll={this._onScroll}>
                     <div className="header-gap"/>
-                    <div className="posts" ref={p => this._posts = p}>
-                        <BoardStats
-                            posts={this.props.posts && this.props.posts.length}
-                            images={this.props.imageCount}
-                            replies={this.props.replyCount}
-                            boardName={this.props.boardName}
-                        />
+                    <div className="posts" ref={x => this._postContainer = x}>
                         {this.renderPosts()}
                     </div>
                 </div>
@@ -142,21 +152,33 @@ export default class Board extends Component {
         setTimeout(this.checkPostsInView, 500)
     }
 
+    handleScroll(e) {
+        e.stopPropagation();
+
+        this.checkPostsInView();
+
+        // Condition overrides toggle
+        emitSubHeaderToggle(e.target.scrollTop < this.previousScrollTop);
+
+        this.previousScrollTop = e.target.scrollTop;
+    }
+
     checkPostsInView() {
-        if (!this._posts)
+        console.info("BOARD::checkPostsInView")
+        if (!this._postContainer)
             return
 
-        const winHeight = window.innerHeight + 200
-        $.each(this._posts.children, function(index, element) {
-            if (element.getBoundingClientRect().bottom <= winHeight) {
+        const toloratedHeight = window.innerHeight + 250;
+        $.each(this._postContainer.children, function(index, element) {
+            if (element.getBoundingClientRect().bottom <= toloratedHeight) {
                 element.classList.add('animate');
             }
         })
     }
 
     renderPosts() {
-        const posts = this.getPosts()
-        return posts.map( (post, index) => {
+
+        return this.getPosts().map( (post, index) => {
             let id = post.id
             return (
                 <BoardPost
@@ -170,7 +192,7 @@ export default class Board extends Component {
     }
 
     getPosts() {
-        const { posts, limit, searchWord, filterWords } = this.props.board;
+        const { posts, searchWord, filterWords } = this.props.board;
         let _posts
 
         if (searchWord) {
@@ -227,6 +249,8 @@ export default class Board extends Component {
         // Fetch if user not highlighting any text
         if (!window.getSelection().toString()) {
             const { status, fetchThread, scrollHeader } = this.props;
+            // always close subheader while fetching thread
+            emitSubHeaderToggle(false);
 
             fetchThread({
                 threadID,

@@ -8,13 +8,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 ### Changed
 ### Fixed
+- Disable linkd opening when clicking on a board post
 
 
 ## v0.12.0
 ### Added
 - Added a sidebar to handle content settings
 - Added a home screen where different boards can be navigated to
-- Boardpost image onmouseleave smoothly transitions back to original scale
+- Board post image zooms in on mouseover
+- Thread tooltips now bounce on entry
 
 ### Changed
 - Redesigned navbar to show board stats
@@ -61,6 +63,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Added support for reddit board lists
 - New homepage layout
 - Added Header scrolling in/out of view when board/thread scrolled
+- Added Board/Thread caching
 
 ### Changed
 - Changed text highlighting color to primary
@@ -83,6 +86,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - Fixed 4chan blocking media requests by proxying imgs/vids through server.
+- Fix server stream errors with HMR
 
 
 ## v0.7.0 - 14/11/2016

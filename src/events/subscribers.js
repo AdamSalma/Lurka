@@ -33,3 +33,8 @@ export const onThreadOpen = function () {
 export const onThreadClose = function () {
     on(types.THREAD_CLOSE).apply(null, arguments);
 }
+
+export const onSubHeaderToggle = function () {
+    on(types.SUB_HEADER_TOGGLE).apply(null, arguments);
+}
+

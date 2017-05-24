@@ -2,8 +2,7 @@ import './Tooltip.styles'
 import React, { PureComponent, PropTypes } from 'react';
 import cx from 'classnames';
 
-import { bindMembersToClass } from '~/utils';
-
+import { bindMembersToClass } from '~/utils/react'
 
 export default class Tooltip extends PureComponent {
 

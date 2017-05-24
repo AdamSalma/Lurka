@@ -1,5 +1,12 @@
 @import '~styles/base'
 
+
+$thread-animate-in-speed: .850s
+$thread-animate-in-easing: $bezier-fast
+
+$thread-animate-out-speed: .150s
+$thread-animate-out-easing: $bezier-fast
+
 .Thread
     .wrapper
         display: none
@@ -27,16 +34,15 @@
             transition: box-shadow $animation-speed-normal $bezier-slow
 
     .content
-        +will-change(top)
+        +will-change(transform)
         position: absolute
-        top: 100%  // for thread slide in
         width: calc(100% + 19px)
-        // max-width: 100%  // disable horizontal scroll
         overflow-x: hidden
         overflow-y: scroll
+        // top: 100vh
         line-height: $thread-line-height
         background: $thread-color
-
+        transform: translateY(100vh) translateZ(0)
 
     .nano-pane
         +nano-can-expand(12px)
@@ -44,3 +50,17 @@
         background: grey(9)
         z-index: 2
         margin-top: $header-height
+
+    .subheader-gap
+        height: $subheader-height
+        background: $thread-post-color
+        width: $thread-width - 4px
+        border-left: grey(9) solid 5px
+
+    .Thread__title
+        padding: 24px 16px
+        background: grey(8)
+        border-left: 4px solid grey(9)
+        text-align: center
+        font-family: $font-alt
+        font-size: 20px

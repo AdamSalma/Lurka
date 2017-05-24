@@ -1,12 +1,20 @@
-import React, { Component, PropTypes } from 'react';
+import React, {
+    Component,
+    PropTypes
+} from 'react';
 
 import Board from '~/modules/Board'
 import Thread from '~/modules/Thread'
 import Header from '~/modules/Header'
 import { onContentViewToggle } from '~/events/subscribers';
-import { bindMembersToClass } from '~/utils/react';
 
-const { headerHeight } = window.appSettings
+import {
+    bindMembersToClass
+} from '~/utils/react';
+
+const {
+    headerHeight
+} = window.appSettings
 
 
 class ContentView extends Component {
@@ -16,11 +24,11 @@ class ContentView extends Component {
 
         // inView: props.settings.activeView == "content"
         this.state = {
-            inView: true,
+            inView:       true,
             hideDuration: 600,
             showDuration: 600,
-            hideEasing: [0.23, 1, 0.32, 1],
-            showEasing: [0.23, 1, 0.32, 1]
+            hideEasing:   [0.23, 1, 0.32, 1],
+            showEasing:   [0.23, 1, 0.32, 1]
         }
 
         bindMembersToClass(this, 'toggleViewState');
@@ -28,26 +36,28 @@ class ContentView extends Component {
 
     @onContentViewToggle
     onToggle() {
-        console.log("ContentView.onToggle(). inView:", this.state.inView)
+        console.log('ContentView.onToggle(). inView:', this.state.inView)
         this.state.inView ? this.hide() : this.show();
     }
 
     hide() {
         $(this._view).velocity({
-            top: window.innerHeight - headerHeight
+            translateY: window.innerHeight - headerHeight + 2, // 2 = header border
+            translateZ: 0
         }, {
             duration: this.state.hideDuration,
-            easing: this.state.hideEasing,
+            easing:   this.state.hideEasing,
             complete: this.toggleViewState
         });
     }
 
     show() {
         $(this._view).velocity({
-            top: 0
+            translateY: 0,
+            translateZ: 0
         }, {
             duration: this.state.showDuration,
-            easing: this.state.showEasing,
+            easing:   this.state.showEasing,
             complete: this.toggleViewState
         });
     }
@@ -59,18 +69,24 @@ class ContentView extends Component {
     }
 
     render() {
-        const { id, className, ...restProps } = this.props;
+        const {
+            id,
+            ...restProps
+        } = this.props;
+
         return (
-            <section {...restProps} ref={ref => this._view = ref} className={[
-                'View ContentView', className
-            ].join(' ')}>
-                <Board />
-                <Thread />
-                <Header />
+            <section
+              {...restProps}
+              ref={ref => this._view = ref}
+              className='View ContentView'>
+              <Header.containers.MainHeader/>
+              <Header.containers.SubHeader/>
+              <Board />
+              <Thread />
             </section>
-        );
+        )
     }
-};
+}
 
 ContentView.displayName = 'ContentView';
 

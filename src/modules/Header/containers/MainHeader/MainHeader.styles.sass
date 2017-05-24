@@ -1,0 +1,77 @@
+@import '~styles/base'
+$header-navbar-padding: 68px
+$header-icon-size: 20px
+$header-main-border-color: grey(5)
+$header-main-border-color: color(primary, darkest)
+
+.MainHeader
+    position: absolute
+    +set-dims(100vw, $header-height)
+    +position(0, 0)
+    // top: -$header-height  // hide on start
+    z-index: 501
+    box-shadow: 0 2px 5px grey(10)
+    border-bottom: $header-main-border-color 2px solid
+
+    &:before
+        content: ""
+        position: absolute
+        +position(-2px, 0)
+        +set-dims(100%, 2px)
+        background: $header-main-border-color
+
+    .background
+        opacity: 0.95
+        background: grey(8)
+        +set-dims(100%, 100%)
+        position: absolute
+        z-index: -1
+
+    .content
+        width: 100%
+        display: flex
+        flex-wrap: block
+        align-items: center
+        height: 100%
+        padding: $header-padding
+
+    .HeaderItem
+        padding: 0 8px
+        transition: padding $key-animation-duration $key-bezier-animation-out
+
+        &.MainHeader--left
+            margin-left: 0
+            margin-right: auto
+
+        &.MainHeader--right
+            padding-right: 0
+            margin-left: auto
+
+        &.MainHeader--center
+            margin: 0 auto
+            // align-self: center
+            text-align: center
+
+        > *
+            display: inline-block
+
+        .IconGroup .Icon
+            +clickable
+            font-size: $header-icon-size
+            padding: 16px
+
+            &:hover, &:active
+                color: color(primary)
+                transition: color .2s ease-out
+
+        .IconCircle
+            display: inline-table
+
+    .Logo
+        top: 4px
+        padding: 8px
+
+    .Navbar__logo
+        cursor: pointer
+
+

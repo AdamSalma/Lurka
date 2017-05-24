@@ -1,34 +1,49 @@
-import { isElementInViewport } from '~/utils/dom'
+import { isElementInViewport, findParentWithClass } from '~/utils/dom'
 
 var tooltipNode;
 var $highlightedPost;
+var modifiedQuotelinks = [];
 
-const { headerHeight, threadWidth } = window.appSettings;
+const { headerHeight } = window.appSettings;
 
 const highlightClass = 'highlight';
 const animateClass = ' ' + 'animate';
 const tooltipClass = 'ThreadPost tip';
+
+// Space between the tooltip and the quote link
 const tooltipMargin = 5
+
+// When a person quotes multiple posts, what text should be used to
+// distinguish the post you're on from the other posts
+// e.g. hover over a quote, a tooltip pops up with multple quotes. Which one is
+// replying to the post you're on?
+const quoteDistinguisher = " (This)";
+
+// Distance from the right side of the screen. When to render the tooltip on
+// the left instead of the right
+const rightThreshold = 200;
 
 export const createTooltipCreator = ($thread) => {
     return function (event) {
-        console.groupCollapsed('%c Tooltip', 'color:gold');
 
         const target = event.target,
               href = target.getAttribute('href'),
               $post = $thread.find(href),
-              post = $post.html(),
-              linkPos = target.getBoundingClientRect()  // position of link
+              linkPos = target.getBoundingClientRect()  // abs position of link
 
-        if (isElementInViewport($post)){
+        highlightQuotedIDIfMultiple($post, target);
+
+        if (isElementInViewport($post[0])) {
             $post.addClass(highlightClass)
             $highlightedPost = $post
             return
         }
 
+        console.groupCollapsed('%c Tooltip', 'color:gold');
+
         let left, top, el = document.createElement('div')
 
-        el.innerHTML = post
+        el.innerHTML = $post.html()
         el.className = tooltipClass
 
         document.body.appendChild(el)
@@ -64,8 +79,8 @@ export const createTooltipCreator = ($thread) => {
         }
 
         // Check if right side overflows
-        if (left + el.offsetWidth > window.innerWidth - threadWidth/2) {
-            left = linkPos.left - el.offsetWidth/2 - 5;
+        if (left + el.offsetWidth > window.innerWidth - rightThreshold) {
+            left = linkPos.left - 5;
         }
 
         console.log(`top: ${top}, left: ${left}, el.offsetHeight: ${el.offsetHeight} linkPos.top: ${linkPos.top}`);
@@ -88,4 +103,35 @@ export const destroyTooltip = () => {
         $highlightedPost.removeClass(highlightClass);
         $highlightedPost = null;
     }
+
+    if (modifiedQuotelinks.length) {
+        for (let i = 0; i < modifiedQuotelinks.length; i++) {
+            modifiedQuotelinks[i].text =
+                modifiedQuotelinks[i].text.replace(quoteDistinguisher, "");
+        }
+
+        modifiedQuotelinks = []
+    }
 }
+
+
+function highlightQuotedIDIfMultiple($post, target) {
+    const id = findParentWithClass(target, 'ThreadPost').id.replace('p', '');
+    const $quotes = $post.find('blockquote .quotelink');
+
+    if ($quotes.length <= 1) {
+        console.info("Tooltip contained single quote");
+        return
+    }
+
+
+    $quotes.each( function( ) {
+        if (this.text.includes(id)) {
+            this.text += quoteDistinguisher;
+            modifiedQuotelinks.push(this);
+        } else {
+            console.info(`${id} not in ${this.text}`)
+        }
+    });
+}
+

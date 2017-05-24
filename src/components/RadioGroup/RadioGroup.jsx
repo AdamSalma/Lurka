@@ -3,7 +3,7 @@ import React, { PureComponent, PropTypes, Children } from 'react';
 import cx from 'classnames'
 
 import RadioField from './RadioField'
-import {bindMembersToClass} from '~/utils'
+import { bindMembersToClass } from '~/utils/react'
 
 class RadioGroup extends PureComponent {
     static propTypes = {

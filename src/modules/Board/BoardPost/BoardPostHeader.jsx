@@ -13,12 +13,12 @@ export default ({time, replies}) => {
             <TimeAgo time={time} canToggle={false}/>
         </div>
         <div className="counter comments">
-            <Icon name="chatbox"/>
+            <Icon name={i.boardPostReplyCount}/>
             <Counter value={replies.textCount}/>
         </div>
         <div className="counter images">
             {/*<Icon name="image-filter-hdr"/>*/}
-            <Icon name="image"/>
+            <Icon name={i.boardPostImageCount}/>
             <Counter value={replies.imgCount} />
         </div>
     </div>

@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
+import cx from 'classnames';
 import { Image } from '~/components';
 
-const ImageWithChild = ({ children, ...restProps }) => {
+const ImageWithChild = ({ className, children, ...restProps }) => {
     return (
-        <div className="ImageWithChild" style={{position: 'relative'}}>
+        <div className={cx("ImageWithChild", className)} style={{position: 'relative'}}>
             <Image {...restProps}/>
             {children}
         </div>

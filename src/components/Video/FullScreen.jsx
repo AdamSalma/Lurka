@@ -1,6 +1,8 @@
 import React from 'react'
 import Icon from '../Icon'
 
+const i = window.appSettings.icons;
+
 export default ({ onClick, className, ariaLabel }) => {
     return (
         <div className="fullscreen">
@@ -9,7 +11,7 @@ export default ({ onClick, className, ariaLabel }) => {
                 onClick={onClick}
                 aria-label={ariaLabel}
                 className="fullscreen-button">
-                    <Icon name="fullscreen" />
+                    <Icon name={i.videoFullscreen} />
             </button>
         </div>
     );

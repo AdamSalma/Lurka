@@ -16,7 +16,7 @@ import Title from './components/Title';
 import MediaInfo from './components/MediaInfo';
 import Comment from './components/Comment';
 
-import { setHTML, bindMembersToClass } from '~/utils';
+import { setHTML, bindMembersToClass } from '~/utils/react';
 import { emitMediaReelOpen } from '~/events/publishers';
 
 export default class ThreadPost extends Component {

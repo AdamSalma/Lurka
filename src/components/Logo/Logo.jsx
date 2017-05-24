@@ -2,12 +2,10 @@ import './Logo.styles'
 import React from "react"
 import classes from 'classnames'
 
-export default function ({ className }) {
-    const logoClasses = classes("logo", className);
+const Logo = () => (
+    <div className="Logo">
+        <img className="Logo__content" src={require('./lurka.svg')} alt="logo"/>
+    </div>
+)
 
-    return (
-        <div className="logo-wrap">
-            <img src='./logo.png' className={logoClasses}/>
-        </div>      
-    )
-}
+export default Logo

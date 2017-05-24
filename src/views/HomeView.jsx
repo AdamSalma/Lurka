@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
-import Home from '~/modules/Home'
+import BoardSelection from '~/modules/BoardSelection';
 
 const HomeView = ({ className, children }) => {
     return (
         <section className={[
             'View HomeView', className
         ].join(' ')}>
-            <Home />
+            <BoardSelection />
         </section>
     );
 };

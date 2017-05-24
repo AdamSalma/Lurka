@@ -22,9 +22,9 @@ $color-shades: (
     lightest: (#ffffff, 40%),
 );
 
-// Greys used for text and backgrounds alike. reversing the order will invert 
+// Greys used for text and backgrounds alike. reversing the order will invert
 // the scheme
-// 
+//
 // Is used by the function `grey(index)`
 $greys: (
     #F5F5F5, // 1
@@ -54,7 +54,7 @@ $greys: (
 
 
 // $primary: c(punch);
-$primary: mix(c(contessa),c(punch));
+$primary: lighten(c(punch), 10%);
 $secondary: c(horizon);
 $background-tint: c(horizon);
 
@@ -79,7 +79,7 @@ $color-palette: (
     fourchan:       c(fern),
     reddit:         c(vermilion),
     favourite:      c(putty),
-    anon-name:           c(putty),
+    anon-name:      c(putty),
     text-primary:   rgba(255,255,255, 1),
     text-secondary: rgba(255,255,255, 0.7),
     text-disabled:  rgba(255,255,255, 0.5),

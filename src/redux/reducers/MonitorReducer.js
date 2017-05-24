@@ -9,10 +9,10 @@ export default createReducer(initialState.threadMonitor, {
         mergeState(state, {
             newPosts: state.newPosts + action.newPosts || 0,
             threads: [...state.threads, action.payload]
-        });
+        }),
 
-    [types.THREAD_MONITOR_DELETED]: (state, action) => state
+    [types.THREAD_MONITOR_DELETED]: (state, action) => state,
 
-    [types.THREAD_MONITOR_UPDATED]: (state, action) => state
+    [types.THREAD_MONITOR_UPDATED]: (state, action) => state,
 
 });

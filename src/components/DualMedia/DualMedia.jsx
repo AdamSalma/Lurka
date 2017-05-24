@@ -1,7 +1,7 @@
 import './DualMedia.styles'
 import React, { PureComponent, PropTypes } from 'react';
 import classes from 'classnames'
-import { bindMembersToClass } from '~/utils'
+import { bindMembersToClass } from '~/utils/react'
 
 
 export default class DualMedia extends PureComponent {

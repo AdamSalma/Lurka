@@ -28,7 +28,7 @@ export function destroyBoard() {
         const state = getState()
         if ( shouldDestroyBoard(state) ) {
             console.warn("Board Destroyed! yay")
-            dispatch(saveBoardToHistory(state));
+            // dispatch(saveBoardToHistory(state));
             dispatch({type: BOARD_DESTROYED});
         }
     }

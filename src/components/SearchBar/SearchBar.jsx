@@ -3,7 +3,9 @@ import React, { PureComponent, PropTypes } from 'react';
 import cx from 'classnames'
 
 import Icon from '../Icon'
-import {bindMembersToClass} from '~/utils'
+import { bindMembersToClass } from '~/utils/react'
+
+const i = window.appSettings.icons;
 
 class Searchbar extends PureComponent {
     static propTypes = {
@@ -65,7 +67,7 @@ class Searchbar extends PureComponent {
             <div className={searchbarClass}>
                 {showIcons && <Icon
                     className="search"
-                    name="ios-search-strong" title="Search"
+                    name={i.searchMagnify} title="Search"
                     onClick={this.focus}
                 />}
                 <input
@@ -80,7 +82,7 @@ class Searchbar extends PureComponent {
                 />
                 {showIcons && this.state.searchValue && <Icon
                     className="close"
-                    name="close" title="Clear search"
+                    name={i.searchClose} title="Clear search"
                     onClick={this.clear}
                 />}
             </div>
