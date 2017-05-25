@@ -4,7 +4,7 @@ import classes from 'classnames';
 
 import {
     TimeAgo,
-    Line,
+    Pipe,
     ToggleOnClick,
     Image
 } from '~/components';
@@ -39,7 +39,7 @@ export default class ThreadPost extends Component {
                     <Title title={title}/>
                     <span className='name'>{name}</span>
                     <span className='id'>#{id}</span>
-                    <Line isVertical />
+                    <Pipe />
                     <TimeAgo time={time}/>
                     <Controls controls={controls}/>
                 </div>
