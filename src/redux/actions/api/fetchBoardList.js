@@ -1,16 +1,16 @@
 import Axios from 'axios';
 
 import API from '-/config/api.localhost'
-import { alertMessage } from './alert'
+import { alertMessage } from '../alert'
 import {
     BOARD_LIST_REQUESTED,
     BOARD_LIST_LOADED,
     BOARD_LIST_INVALIDATED
-} from '../types';
+} from '~/redux/types';
 
 
 
-export function fetchBoardList() {
+export default function fetchBoardList() {
     const url = API.boardlist()
     console.log(`Action fetchBoardList() to ${url}`);
     return (dispatch, getState) => {
