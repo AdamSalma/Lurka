@@ -11,7 +11,7 @@ import fetchBoard, {
   shouldRequestBoard,
   boardCachedAndRecent,
   loadBoardFromCache,
-} from '../board-fetch';
+} from '../api/fetchBoard';
 
 const mock = new MockAdapter(Axios)
 mock.onAny('/api').reply(200);
