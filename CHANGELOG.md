@@ -6,18 +6,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- Split up the header to contain a main and sub toolbar.
-- Sub toolbar animates in and out of view when scrolling in a board/thread.
-- Threads now have a title in big font.
-- Hovering over filename shows full title.
 - Boards/Threads are cached in state to increase performance when reopening.
+- Header:
+    - Split up the header to contain a main and sub toolbar.
+    - Sub toolbar animates in and out of view when scrolling in a board/thread.
+- Thread:
+    - Threads now have a title post at the top.
+    - Tooltips generate a '(This)' field when there are more than one quote in a tooltip.
+    - OP quotes now have a '(OP)' field
+    - Hovering over filename shows full title.
 
 ### Changed
 - Use hardware acceleration and CSS3's translate to prevent stutter when animating throughout the app.
-- Scrolling between posts now uses velocity.js for increased performance.
+- Scrolling between thread posts uses velocity instead of jQuery.animate for increased performance.
+- Remove Drawer
 
 ### Fixed
-- Disable links opening when clicking on a board post.
+- Fixed board post links opening when clicked.
 
 
 ## v0.12.0
