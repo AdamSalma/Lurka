@@ -4,7 +4,7 @@ import { createReducer, mergeState } from '~/utils/redux';
 
 
 // TODO: Complete monitor reducer
-export default createReducer(initialState.threadMonitor, {
+export default createReducer(initialState.watch, {
     [types.THREAD_MONITOR_ADDED]: (state, action) =>
         mergeState(state, {
             newPosts: state.newPosts + action.newPosts || 0,
