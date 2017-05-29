@@ -1,8 +1,6 @@
-@import '~styles/base'
+@import '~sass/partials'
 $header-navbar-padding: 68px
 $header-icon-size: 20px
-$header-main-border-color: grey(5)
-$header-main-border-color: color(primary, darkest)
 
 .MainHeader
     position: absolute
@@ -11,14 +9,14 @@ $header-main-border-color: color(primary, darkest)
     // top: -$header-height  // hide on start
     z-index: 501
     box-shadow: 0 2px 5px grey(10)
-    border-bottom: $header-main-border-color 2px solid
+    border-bottom: color(layout) 2px solid
 
     &:before
         content: ""
         position: absolute
         +position(-2px, 0)
         +set-dims(100%, 2px)
-        background: $header-main-border-color
+        background: color(layout)
 
     .background
         opacity: 0.95
@@ -55,10 +53,12 @@ $header-main-border-color: color(primary, darkest)
         > *
             display: inline-block
 
-        .IconGroup .Icon
+        .Icon
             +clickable
             font-size: $header-icon-size
             padding: 16px
+            color: color(text-primary)
+            text-shadow: 2px 2px 1px grey(10)
 
             &:hover, &:active
                 color: color(primary)

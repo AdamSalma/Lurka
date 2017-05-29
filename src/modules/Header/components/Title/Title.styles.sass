@@ -1,6 +1,6 @@
-@import '~styles/base'
+@import '~sass/partials'
 
-@import '~styles/base'
+@import '~sass/partials'
 
 $navbar-central-font-size: 24px
 
@@ -14,31 +14,24 @@ $navbar-central-font-size: 24px
     display: flex
     align-items: center
 
-    &.Title--hovering
-        .Title__icon
-            transition: all .240s $bezier-fast
-            opacity: 1
-            transform: translateX(0) scale(1)
-
     .Title__icon
         +clickable
         display: inline-block
-        opacity: 0
-        transition: all .240s .24s $bezier-slow
+        border: 1px solid grey(8)
+        background: grey(7)
 
         &:hover
             border-color: grey(6)
 
         .Icon
-            color: color(text-primary) !important
+            color: color(text-secondary)
             line-height: 1
             font-size: 22px
+            position: relative
+            top: 2px
 
-    .Title__icon--right
-        transform: translateX(-40px) scale(0)
-
-    .Title__icon--left
-        transform: translateX(40px) scale(0)
+        .Circle
+            display: none
 
     .button
         +clickable

@@ -1,9 +1,9 @@
-@import '~styles/base'
+@import '~sass/partials'
 
 $header-navbar-padding: 68px
 $footer-border-color: grey(5)
 // $footer-border-color: color(primary)
-$footer-height: 50px
+$footer-height: 40px
 $footer-icon-size: 16px
 $footer-font-size: 14px
 
@@ -17,7 +17,7 @@ $footer-font-size: 14px
     left: 0
     right: 0
     margin: 0 auto
-    width: $thread-width - 9
+    width: $thread-width - 5
     // top: -$footer-height  // hide on start
     font-size: $footer-font-size
     z-index: 500
@@ -30,7 +30,7 @@ $footer-font-size: 14px
         +set-dims(inherit, inherit)
         position: absolute
         z-index: -1
-        border-radius: 0 0 8px 8px
+        border-radius: 0 0 4px 4px
 
     .content
         z-index: 2
@@ -43,7 +43,8 @@ $footer-font-size: 14px
         padding: 0 20px
         border: 2px $footer-border-color solid
         border-top: none
-        border-radius: 0 0 8px 8px
+        border-radius: 0 0 4px 4px
+        box-shadow: 0 0 5px grey(10)
 
 
     .HeaderItem
