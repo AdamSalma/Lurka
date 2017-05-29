@@ -16,6 +16,6 @@ export const createReducer = (initialState, handlers) =>
  * @param  {Object} newState - The new store state
  * @return {Object}
  */
-export const mergeState = function(oldState, newState) {
-    return Object.assign({}, oldState, newState);
+export const mergeState = function() {
+    return Object.assign.bind(null, {}).apply(null, arguments)
 }
