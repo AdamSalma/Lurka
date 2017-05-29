@@ -1,5 +1,5 @@
 import * as types from '~/redux/types';
-import {isFavouriteBoard} from '~/redux/selectors';
+import {isFavouriteBoard} from '~/redux/selectors/board';
 
 export default function removeBoardFromFavourites(boardID) {
     return (dispatch, getState) => {

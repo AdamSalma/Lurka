@@ -10,12 +10,12 @@ export default function setSetting(key, value) {
             return
         }
 
-        dispatch(modifySetting(key, value))
+        dispatch(settingChanged(key, value))
         console.info(`The setting ${key} was changed to ${value}`);
     }
 }
 
-export function modifySetting(setting, value) {
+export function settingChanged(setting, value) {
     return {
         type: types.SETTING_CHANGED,
         payload: { setting, value }

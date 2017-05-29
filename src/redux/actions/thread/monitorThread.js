@@ -21,12 +21,12 @@ export function monitorThread(thread, boardID) {
             'duration': 8000
         }))
 
-        dispatch(threadMonitor(thread))
+        dispatch(watchThread(thread))
     }
 }
 
 
-export function threadMonitor(thread) {
+export function watchThread(thread) {
     return {
         type: types.THREAD_MONITOR_ADDED,
         payload: thread

@@ -1,6 +1,6 @@
 import * as types from '~/redux/types';
 import { alertMessage } from '../alert';
-import { isThreadBeingMonitored } from '~/redux/selectors/';
+import { isThreadBeingMonitored } from '~/redux/selectors/thread';
 
 export default function unmonitorThread(threadID) {
     console.log("Action unmonitorThread");

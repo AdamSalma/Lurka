@@ -1,9 +1,14 @@
-import * as types from 'redux/types';
+import * as types from '~/redux/types';
 
 export default function destroyThread () {
     return dispatch => {
-        dispatch({
-            type: types.THREAD_DESTROYED
-        });
+        dispatch(threadDestroyed());
     }
 }
+
+export function threadDestroyed () {
+    return {
+        type: types.THREAD_DESTROYED
+    }
+}
+

@@ -1,6 +1,9 @@
 import * as types from '~/redux/types'
-import {getThreadPosts, getThreadReceivedAt} from '~/redux/selectors/thread'
-import {getThreadID, getBoardID} from '~/redux/selectors/status'
+import {
+    getThreadID,
+    getThreadPosts,
+    getThreadReceivedAt
+} from '~/redux/selectors'
 
 export default function cacheCurrentThread () {
     return function(dispatch, getState) {
@@ -11,24 +14,23 @@ export default function cacheCurrentThread () {
         const threadReceivedAt = getThreadReceivedAt(state);
 
         if (threadPosts && threadPosts.length) {
-            dispatch(cacheThread(threadID, threadPosts, receivedAt));
+            dispatch(threadCached(threadID, threadPosts, threadReceivedAt));
         }
 
         else {
-            console.error(`Could not cache invalid thread. Was: '${threadPosts}'`);
+            console.error(`Could not cache invalid thread. Was: ${threadPosts}`);
         }
     }
 }
 
 
-export function cacheThread (threadID, threadPosts, receivedAt) {
+export function threadCached (threadID, threadPosts, threadReceivedAt) {
     return {
         type: types.THREAD_CACHED,
         threadID: threadID,
         payload: {
             posts: threadPosts,
-            receivedAt: receivedAt,
-            cachedAt: Date.now()
+            receivedAt: threadReceivedAt
         }
     }
 }

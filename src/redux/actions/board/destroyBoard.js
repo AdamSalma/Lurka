@@ -8,11 +8,11 @@ export default function destroyBoard() {
         const state = getState()
         if ( shouldDestroyBoard(state) ) {
             console.warn("Board Destroyed! yay")
-            dispatch({type: types.BOARD_DESTROYED});
+            dispatch(boardDestroyed());
         }
     }
 }
 
-export function shouldDestroyBoard(state) {
-    return getBoardPosts(state).length > 0
-}
+export const shouldDestroyBoard = (state) => getBoardPosts(state).length > 0
+
+export const boardDestroyed = () => ({ type: types.BOARD_DESTROYED })
