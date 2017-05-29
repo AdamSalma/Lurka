@@ -6,17 +6,8 @@ export default {
         provider: '4chan',
         boardID: null,
         threadID: null,
-    },
-
-    display: {
-        isAppReady: false,
-        isScrolling: false,  // app scroll
-        isHeaderVisible: true,
-        isNavbarOpen: false,
-        isDrawerOpen: false,
-        isThreadOpen: false,
-        activeView: "content",  // for toggling home page
-        activeHeaderPanel: null,  // responses to header buttons
+        searchWord: null,
+        filterWords: [],
     },
 
     boardList: {
@@ -34,12 +25,9 @@ export default {
         receivedAt: 0,  // unix timestamp
         isFetching: false,
         didInvalidate: false,
-        searchWord: null,
-        filterWords: [],
         posts: [],
-        postsOrder: {},  // { postId: {}}
-        postsById: {},  // { postId: {}}
-        limit: 30  // infinite scroll
+        filters: [],
+        search: ''
     },
 
     thread: {
@@ -51,11 +39,23 @@ export default {
         posts: [],
     },
 
-    threadMonitor: {
-        newPosts: 0,
-        threads: [
-            // e.g. {threadID, boardID, posts}
-        ]
+    watch: {
+        update: [/*
+            {
+                type: "thread",
+                interval: 3000,
+                lastUpdated: UNIX_TS,
+                url: '/boardID/threadID'
+            }
+        */],
+        updated: [/*
+        e.g.
+            {
+                type: "thread",
+                updatedAt: UNIX_TS,
+                newPosts: []
+            }
+        */]
     },
 
     post: {
@@ -69,21 +69,22 @@ export default {
 
     settings: {
         internal: {
+            // Internal settings that the user should not have access to
             requestThrottle: 3,
             maxBoardAge: 900,  // 15 mins
             maxThreadAge: 900,  // 15 mins
         },
 
-        external: {
-            theme: 'dark',
-            homeBoard: 'g',
-            nsfw: false,
-            downloadLocation: '~/Downloads/Lurka',
-            boardUpdateInterval: 15,
-            threadUpdateInterval: 5,
-            autoMute: false
-        },
+        // External settings the user can configure:
+        theme: 'dark',
+        homeBoard: 'g',
+        nsfw: false,
+        downloadLocation: '~/Downloads/Lurka',
+        boardUpdateInterval: 15,
+        threadUpdateInterval: 5,
+        autoMute: false,
 
-       details: settingDetails
+        // Details for non-internal settings. Used for providing desciptions etc to user.
+        details: settingDetails
     }
 }
