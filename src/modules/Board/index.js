@@ -10,10 +10,24 @@ import {
     fetchThread
 } from '~/redux/actions';
 
-function mapStateToProps({ status, board }) {
+import {
+    getBoardPosts,
+    getBoardPostsBySearch,
+    getBoardPostsByFilter,
+    isBoardFetching,
+    isBoardBeingSearched,
+    isBoardFiltered,
+    getBoardID
+} from '~/redux/selectors'
+
+function mapStateToProps(state) {
     return {
-        status,
-        board
+        boardID: getBoardID(state),
+        posts: getBoardPosts(state),
+        postsBySearchTerm: getBoardPostsBySearch(state),
+        postsByFilterTerm: getBoardPostsByFilter(state),
+        isBeingSearched: isBoardBeingSearched(state),
+        isFiltered: isBoardFiltered(state)
     }
 }
 

@@ -76,4 +76,38 @@ export default class BoardPost extends PureComponent {
             imageInvalidated: true
         })
     }
+
+    handleCommentClick() {
+        this.state.commentSliderActivated
+            ? this.slideCommentUp()
+            : this.slideCommentDown();
+    }
+
+    onMouseLeave() {
+        if (this.state.commentSliderActivated) {
+            this.slideCommentDown()
+        }
+    }
+
+    slideCommentUp() {
+        this.animateComment({
+            translateY: "+=100",
+            translateZ: 0
+        }, {
+            duration: 400,
+        });
+    }
+
+    slideCommentDown() {
+        this.animateComment({
+            translateY: 0,
+            translateZ: 0
+        }, {
+            duration: 400,
+        });
+    }
+
+    animateComment(styles, opts) {
+        this._comment && $(this._comment).velocity('stop').velocity(styles, opts)
+    }
 }
