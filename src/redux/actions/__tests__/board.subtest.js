@@ -25,7 +25,7 @@ const mockState = {
 
 const boardID = "g"
 
-export default createSuite('Board', () => {
+export default describe.bind(null, 'Board', () => {
   // it('creates BOARD_REQUESTED', () => {
   //   const fn = fetchBoard(boardID);
   //   expect(fn).toBeA('function');

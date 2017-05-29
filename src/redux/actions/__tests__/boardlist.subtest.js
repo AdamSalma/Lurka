@@ -18,7 +18,7 @@ const dispatch = expect.createSpy();
 
 const provider = "4chan"
 
-describe('Actions', () => {
+describe.bind(null, 'Actions', () => {
 
   it('creates BOARD_LIST_REQUESTED', () => {
     const fn = fetchBoardList(provider);
