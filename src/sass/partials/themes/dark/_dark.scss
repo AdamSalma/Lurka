@@ -13,32 +13,6 @@ $base-colors: (
     putty:     #EBCB8B,  // Nord
 );
 
-// Are mixed with the base colors using the fn `color(name, shade)`
-// values are: (shade, shadePercent)
-$color-shades: (
-    darkest:  (#000000, 20%),
-    dark:     (#5c5c5c, 20%),
-    light:    (#ffffff, 20%),
-    lightest: (#ffffff, 40%),
-);
-
-// Greys used for text and backgrounds alike. reversing the order will invert
-// the scheme
-//
-// Is used by the function `grey(index)`
-$greys: (
-    #F5F5F5, // 1
-    #E0E0E0,
-    #BDBDBD,
-    #757575,
-    #616161, // 5
-    #424242,
-    #282828,
-    #202020,
-    #191919,
-    #000000, // 10
-);
-
 // Helper functions
 @function color-shade($key) {
     @return map-get($color-shades, $key);
@@ -54,19 +28,20 @@ $greys: (
 
 
 // $primary: c(punch);
-$primary: lighten(c(punch), 10%);
+// $primary: lighten(c(punch), 10%);
+// $primary: #D13438;
+
+// $primary: #F44336;  // original
+$primary: #c3362b;  // dark 20%
+
 $secondary: c(horizon);
-$background-tint: c(horizon);
+$background-tint: $primary;
 
 
 @function color-tint($color) {
     @return mix($background-tint, $color, 0.5%)
 }
 
-@function grey($index) {
-    $grey: nth($greys, $index);
-    @return color-tint($grey);
-};
 // Helper functions end
 
 
@@ -80,6 +55,7 @@ $color-palette: (
     reddit:         c(vermilion),
     favourite:      c(putty),
     anon-name:      c(putty),
+    layout:         #c3362b,
     text-primary:   rgba(255,255,255, 1),
     text-secondary: rgba(255,255,255, 0.7),
     text-disabled:  rgba(255,255,255, 0.5),
