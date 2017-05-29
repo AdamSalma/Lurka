@@ -22,7 +22,7 @@ export default class WatchPanel extends PureComponent {
     }
 
     render() {
-        const {isDrawerOpen, isActive, threadMonitor: {newPosts, threads}} = this.props
+        const {isDrawerOpen, isActive, watch: {newPosts, threads}} = this.props
 
         const watchClass = cx('WatchPanel', {
             'show-description': !threads && !threads.length,
@@ -64,7 +64,7 @@ export default class WatchPanel extends PureComponent {
     renderWatchItem(thread) {
         return <WatchItem
             key={thread.threadID}
-            updateInterval={this.props.settings.external.threadUpdateInterval}
+            updateInterval={this.props.settings.threadUpdateInterval}
             thread={thread}
             onUpdate={this.handleUpdate.bind(null, thread)}
             onUnwatch={this.handleUnwatch.bind(null, thread.threadID)}
