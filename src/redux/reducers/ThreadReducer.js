@@ -27,7 +27,8 @@ export default createReducer(initialState.thread, {
     [types.THREAD_DESTROYED]: (state, action) =>
         mergeState(state, {
             posts: [],
-            isActive: false
+            isActive: false,
+            receivedAt: 0
         }),
 
     [types.THREAD_CACHE_LOADED]: (state, action) =>

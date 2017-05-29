@@ -44,9 +44,9 @@ export default createReducer(initialState.board, {
     [types.BOARD_CACHE_LOADED]: (state, action) =>
         mergeState(state, action.payload),
 
-    [types.BOARD_SEARCHED]: () =>
+    [types.BOARD_SEARCHED]: (state, action) =>
         mergeState(state, {
-            searchWord: action.payload || null
+            search: action.payload || null
         }),
 
     [types.BOARD_SCROLLED_TO_BOTTOM]: (state, action) =>
