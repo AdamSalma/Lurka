@@ -1,10 +1,10 @@
 import 'babel-polyfill';
 import 'velocity-animate';
+import 'nanoscroller';
 
+import './sass/base.scss';
 import './events/setup';
-import './styles/global';
-import './vendor/polyfills';
-import './vendor/nanoscroller';
+import './utils/polyfills';
 import '-/config/client.settings';
 
 import React from 'react';
