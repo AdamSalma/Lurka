@@ -129,8 +129,8 @@ describe('Redux Types', () => {
     expect(types.THREAD_INVALIDATED).toEqual('THREAD_INVALIDATED');
   });
 
-  it('contains BOARD_CACHE_SAVED', () => {
-    expect(types.BOARD_CACHE_SAVED).toEqual('BOARD_CACHE_SAVED');
+  it('contains BOARD_CACHED', () => {
+    expect(types.BOARD_CACHED).toEqual('BOARD_CACHED');
   });
 
   it('contains BOARD_CACHE_LOADED', () => {

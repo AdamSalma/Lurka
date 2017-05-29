@@ -47,7 +47,7 @@ export default function parseThread( posts, boardID ) {
     log.app(`Created ${posts.length} 4chan posts`);
 
     try {
-        return connectPosts(thread)
+        return modifyOPQuotes( connectPosts(thread) );
     } catch (e) {
         console.error(thread)
         log.error(e)
@@ -58,28 +58,58 @@ export default function parseThread( posts, boardID ) {
 
 /**
  * Connects thread posts by checking who referenced who then merging
- * references back into posts
+ * inserting a new `references` attr into posts
  *
  * @param  {Array} posts - Each thread post
  * @return {Array}       - Posts merged with references
  *
  */
 function connectPosts(posts) {
-    // returns a list of IDs that quoted the current ID
     const ids = posts.map( post => post.id);
     const references = ids.map( (id, index) => {
-        var refs = [];
+        var references = [];
+
+        // Check all comments against the current id
         posts.map( ({ id:referer, comment }) => {
-            // Check all comments for ID, add any that refer to ID
             if (comment && comment.includes(id)) {
-                refs.push(referer)
+                references.push(referer)
             }
         })
-        return refs
+
+        return references
     });
 
+    // Merge references back into original posts
     for (let i=0; i < ids.length; i++) {
         posts[i].references = references[i]
     }
+
     return posts
+}
+
+
+/**
+ * Every quote that references OP (the first comment) is highlighted
+ * So `>>123456` would become `>>123456 (OP)`
+ *
+ * @param  {Array} posts - Contains parsed thread post objects
+ * @return {Array}
+ */
+function modifyOPQuotes(posts) {
+    if (!posts || !posts.length || !posts[0].id) {
+        return posts
+    }
+
+    const OPID = `&gt;${posts[0].id}`;
+    const replace = `${OPID} (OP)`;
+
+    return posts.map(post => {
+        let c = post.comment;
+
+        if (c && c.includes(OPID)) {
+            post.comment = c.replace(OPID, replace);
+        }
+
+        return post
+    });
 }

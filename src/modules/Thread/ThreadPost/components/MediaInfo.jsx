@@ -23,7 +23,7 @@ const MediaInfo = ({ media }) => {
     return (
         <div className="media-info">
             <Icon name={iconName}/>
-            <span className="filename" {...setHTML(fName)}/>
+            <span className="filename" {...setHTML(fName)} title={filename}/>
         </div>
     )
 

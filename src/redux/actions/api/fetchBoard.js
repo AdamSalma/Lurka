@@ -1,14 +1,9 @@
-import Axios from 'axios';
-
+import * as types from '~/redux/types';
 import API from '-/config/api.localhost'
-import {alertMessage} from './alert'
+
+import Axios from 'axios';
+import {alertMessage} from '../alert'
 import {secondsAgo} from '~/utils/time'
-import {
-    BOARD_REQUESTED,
-    BOARD_LOADED,
-    BOARD_INVALIDATED,
-    BOARD_CHANGE
-} from '../types';
 
 
 export default function fetchBoard(boardID, callback) {
@@ -58,14 +53,14 @@ export default function fetchBoard(boardID, callback) {
 
 export function requestBoard(boardID) {
     return {
-        type: BOARD_REQUESTED,
+        type: types.BOARD_REQUESTED,
         payload: boardID
     }
 }
 
 export function receiveBoard(board){
     return {
-        type: BOARD_LOADED,
+        type: types.BOARD_LOADED,
         posts: board.data || [],
         receivedAt: Date.now()
     }
@@ -73,13 +68,13 @@ export function receiveBoard(board){
 
 export function invalidateBoard(error) {
     return {
-        type: BOARD_INVALIDATED
+        type: types.BOARD_INVALIDATED
     }
 }
 
 export function setBoard( boardID ) {
     return {
-        type: BOARD_CHANGE,
+        type: types.BOARD_CHANGE,
         payload: boardID
     }
 }
@@ -108,7 +103,7 @@ export function boardCachedAndRecent({cache, settings}, boardID) {
 export function loadBoardFromCache({ cache }, boardID) {
     const board = cache.board[boardID]
     return {
-        type: BOARD_CACHE_LOADED,
+        type: types.BOARD_CACHE_LOADED,
         payload: board,
         boardID,
     }

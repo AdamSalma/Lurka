@@ -8,13 +8,15 @@ export default function createPostScroller( $context ) {
 
     return function (href) {
         const $item = $context.find(href);
-        const offset = $item[0].offsetTop;
+        // $context.animate({
+        //     scrollTop: offset - headerHeight
+        // }, threadpostScrollDuration);
 
-        console.log(`Post scrolled to has offset: "${offset}px"`);
-
-        $context.animate({
-            scrollTop: offset - headerHeight
-        }, threadpostScrollDuration);
+        $item.velocity('scroll', {
+            container: $context,
+            duration: threadpostScrollDuration,
+            offset: -headerHeight
+        });
 
         $item.addClass('highlight');
         setTimeout(() => $item.removeClass('highlight'),

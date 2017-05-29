@@ -40,6 +40,7 @@ class SubHeader extends PureComponent {
 
         this.animateInStyles = {
             translateY: 50,
+            translateZ: 0,
             opacity: 1,
         }
 
@@ -50,6 +51,7 @@ class SubHeader extends PureComponent {
 
         this.animateOutStyles = {
             translateY: 0,
+            translateZ: 0,
             opacity: 0,
         }
 
@@ -131,7 +133,7 @@ class SubHeader extends PureComponent {
     }
 
     animate(styles, options) {
-        this._subheader && $(this._subheader).velocity('finish').velocity(styles, options);
+        this._subheader && $(this._subheader).velocity('stop').velocity(styles, options);
     }
 }
 

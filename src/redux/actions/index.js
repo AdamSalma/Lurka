@@ -1,31 +1,6 @@
-export {
-    addToFavourites,
-    removeFromFavourites
-} from './board-favourites'
-
-export {
-    destroyBoard,
-    loadMorePosts
-} from './board'
-
-export fetchBoard from './board-fetch'
-export { fetchBoardList } from './boardlist-fetch'
-export { fetchThread } from './thread-fetch'
-
-export { scrollHeader } from './header'
-export { toggleSetting } from './settings'
-export { alertMessage } from './alert'
-export { changeProvider } from './status'
-export { toggleHeaderPanel } from './header-panel'
-export { destroyThread } from './thread'
-
-export {
-    updateMonitoredThread,
-    monitorThread,
-    unmonitorThread
-} from './thread-monitor'
-
-export {
-    navigateToView,
-    toggleHomeView
-} from './navigation'
+// Only default functions are exposed for every directory
+export * from './api';
+export * from './board';
+export * from './cache';
+export * from './settings';
+export * from './thread';

@@ -80,7 +80,7 @@ export const createTooltipCreator = ($thread) => {
 
         // Check if right side overflows
         if (left + el.offsetWidth > window.innerWidth - rightThreshold) {
-            left = linkPos.left - 5;
+            left -= el.offsetWidth/2 - 26;
         }
 
         console.log(`top: ${top}, left: ${left}, el.offsetHeight: ${el.offsetHeight} linkPos.top: ${linkPos.top}`);

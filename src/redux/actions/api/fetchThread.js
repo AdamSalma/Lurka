@@ -1,55 +1,38 @@
+import * as types from '~/redux/types'
 import Axios from 'axios';
 
 import API from '-/config/api.localhost'
 import { secondsAgo } from '~/utils/time'
-import { alertMessage } from './alert'
-import {
-    THREAD_REQUESTED,
-    THREAD_LOADED,
-    THREAD_DESTROYED,
-    THREAD_SCROLLED_BOTTOM,
-    THREAD_CHANGE,
-    THREAD_INVALIDATED,
-    THREAD_CACHE_LOADED,
-    THREAD_CACHED
-} from '../types';
+import { isFunction } from '~/utils/types'
+import { alertMessage } from '../alert'
 
-function requestThread(threadID) {
+export function requestThread(threadID) {
     console.log("Action RequestThread wth ID:", threadID);
     return {
-        type: THREAD_REQUESTED,
+        type: types.THREAD_REQUESTED,
         payload: threadID
     }
 }
 
-function receiveThread(thread) {
+export function receiveThread(thread) {
     console.log("Action RecieveThread:", thread);
     return {
-        type: THREAD_LOADED,
+        type: types.THREAD_LOADED,
         posts: thread.data || [],
         receivedAt: Date.now()
     }
 }
 
-function invalidateThread(error) {
+export function invalidateThread(error) {
     console.error(error);
     return {
-        type: THREAD_INVALIDATED,
+        type: types.THREAD_INVALIDATED,
         error
     }
 }
 
-function destroyThread(threadID) {
-    console.log('Destroying thread', threadID)
-    return {
-        type: THREAD_DESTROYED,
-        payload: threadID
-    }
-}
 
-
-
-export function fetchThread({boardID, threadID, callback}) {
+export default function fetchThread({boardID, threadID, callback}) {
     const url = API.thread(boardID, threadID)
 
     return (dispatch, getState) => {
@@ -78,15 +61,13 @@ export function fetchThread({boardID, threadID, callback}) {
         return Axios.get(url)
             .then( data => {
                 dispatch(receiveThread(data));
-                callback && callback();
+                isFunction(callback) && callback();
             })
-            .catch( err => {
-                handleFetchError(err, dispatch)
-            });
+            .catch( err => handleFetchError(err, dispatch));
     }
 }
 
-function handleFetchError(err, dispatch) {
+export function handleFetchError(err, dispatch) {
     err = err.response && err.response.data || err;
     console.error(err);
     if (err.status === 404) {
@@ -105,7 +86,7 @@ function handleFetchError(err, dispatch) {
     dispatch(invalidateThread(err))
 }
 
-function shouldFetchThread({ thread, settings }) {
+export function shouldFetchThread({ thread, settings }) {
     const requestThrottle = settings.internal.requestThrottle
 
     console.log(`Date.now(): ${Date.now()}, receivedAt: ${thread.receivedAt}`);
@@ -115,22 +96,22 @@ function shouldFetchThread({ thread, settings }) {
     return !thread.isFetching && lastRequested > requestThrottle
 }
 
-function threadCachedAndRecent({cache, settings }, threadID) {
+export function threadCachedAndRecent({cache, settings }, threadID) {
     const maxThreadAge = settings.internal.maxThreadAge
     const threadInHistory = cache.thread[threadID]
 
     // TODO: Remove this test code from thread/boardInHistory
-    if (!threadInHistory){
+    if (!threadInHistory) {
         console.warn('Thread was not in history; Requesting...')
     }
 
     return threadInHistory && secondsAgo(thread.receivedAt) < maxThreadAge
 }
 
-function loadCachedThread({ cache }, threadID) {
+export function loadCachedThread({ cache }, threadID) {
     const thread = cache.thread[threadID]
     return {
-        type: THREAD_CACHE_LOADED,
+        type: types.THREAD_CACHE_LOADED,
         payload: thread,
         threadID,
     }

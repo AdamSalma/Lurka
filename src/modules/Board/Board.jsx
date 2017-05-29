@@ -56,7 +56,7 @@ export default class Board extends Component {
             margin: settings.boardPostMargin,
             gutterLeft: settings.boardOuterMargin,
             gutterRight: settings.boardOuterMargin,
-            gutterTop: 100
+            gutterTop: settings.headerHeight
         }
 
         this.layoutPropsForDrawer = Object.assign({}, this.layoutProps, {
