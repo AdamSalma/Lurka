@@ -23,9 +23,8 @@ window.appSettings = {
     // The following settings can't be changed explcitly.
     // Needs to be kept in sync with src/styles/base/variables
     headerHeight: 64,
+    subheaderHeight: 50,
     threadWidth: 981,
-    drawerWidth: 250,
-    drawerAnimationDuration: 500,
 
     homeViewID: 'HomeView',
     contentViewID: 'ContentView',
@@ -35,12 +34,13 @@ window.appSettings = {
         navbarMenu: "navicon",
         navbarForwards: "arrow-right-c",
         navbarBackwards: "arrow-left-c",
-        navbarCompose: 'plus',
+        navbarInfo: 'ios-information',
         navbarRefresh: 'refresh',
 
 
         navbarAccount: 'person-add',
         navbarArchive: 'ios-box',
+        navbarLocalDB: 'ios-box',  // TODO: change this
         navbarEye:     'ios-eye',
         navbarSettings: 'gear-b',
 
