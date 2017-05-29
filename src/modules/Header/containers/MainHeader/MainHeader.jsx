@@ -14,10 +14,14 @@ import {
     LogoText,
     SearchBar,
     Icon,
-    Logo
+    Logo,
+    Notification,
 } from '~/components';
 
-import { emitContentViewToggle } from '~/events/publishers';
+import {
+    emitContentViewToggle,
+    emitSubHeaderToggle
+} from '~/events/publishers';
 
 const i = window.appSettings.icons;
 
@@ -75,21 +79,35 @@ class MainHeader extends PureComponent {
                   <Logo/>
                   <LogoText/>
                 </HeaderItem>
-                <HeaderItem className='MainHeader--center'>
+                <HeaderItem className='MainHeader--center' onMouseEnter={this.onTitleHover}>
                     <Title onTitleClick={(e) => emitContentViewToggle()}>
                         {!!navbarTitle && navbarTitle}
                     </Title>
                 </HeaderItem>
-                <HeaderItem className='MainHeader--right'>
-                  <IconGroup
-                    activePanel={activePanel}
-                    togglePanel={togglePanel}
-                    toggleDrawer={toggleDrawer}
-                    isDrawerOpen={isDrawerOpen} />
+                <HeaderItem className='MainHeader--right IconGroup'>
+                    <Icon
+                        name={i.navbarAccount}
+                        title='Account'
+                        onClick={() => togglePanel('account')} />
+                      <Notification number={0}>
+                        <Icon
+                          name={i.navbarEye}
+                          title='Thread Watcher'
+                          onClick={() => togglePanel('watch')} />
+                      </Notification>
+                      <Icon
+                        name={i.navbarArchive}
+                        title='Local archive'
+                        onClick={() => togglePanel('archive')} />
                 </HeaderItem>
               </div>
             </div>
         )
+    }
+
+    onTitleHover() {
+        // Ensure subheader can be accessed in all scenarios
+        emitSubHeaderToggle(true);
     }
 }
 

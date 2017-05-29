@@ -23,6 +23,7 @@ import { bindMembersToClass } from '~/utils/react';
 import { isFunction } from '~/utils/types';
 
 const i = window.appSettings.icons;
+const {subheaderHeight, headerHeight} = window.appSettings
 
 
 class SubHeader extends PureComponent {
@@ -39,7 +40,7 @@ class SubHeader extends PureComponent {
         bindMembersToClass(this, 'onSubHeaderToggle');
 
         this.animateInStyles = {
-            translateY: 50,
+            translateY: subheaderHeight,
             translateZ: 0,
             opacity: 1,
         }
@@ -63,27 +64,14 @@ class SubHeader extends PureComponent {
 
     render() {
         const {
-            toggleContentNav,
-            cycleContentNav,
-            toggleDrawer,
-            togglePanel,
             boardID,
             threadID,
-            isThreadOpen,
-            isDrawerOpen,
-            activePanel,
-            boardList
+            boardList,
+            searchBoard
         } = this.props
 
-        const footerClasses = cx('SubHeader', {
-            'drawer-open': isDrawerOpen
-        });
-
-        // TODO: Use selector for this:
-        const footerTitle = boardList.items.length && boardList.items.find(b => b.boardID === boardID).short_desc
-
         return (
-            <div className={footerClasses} ref={r => this._subheader = r}>
+            <div className='SubHeader' ref={r => this._subheader = r}>
               <div className='background' />
               <div className='content'>
                 <HeaderItem className='SubHeader--left'>
@@ -94,7 +82,7 @@ class SubHeader extends PureComponent {
                     <TitledIcon name={i.navbarRefresh} title='Refresh'/>
                 </HeaderItem>
                 <HeaderItem className='SubHeader--center SubHeader__search'>
-                  <SearchBar placeholder={`Quick search`} />
+                  <SearchBar placeholder={`Quick search`} onChange={searchBoard}/>
                 </HeaderItem>
                 <HeaderItem className='SubHeader--right'>
                   <TitledIcon name={i.footerSort} title='Sort'/>
@@ -116,7 +104,7 @@ class SubHeader extends PureComponent {
         if (override !== undefined) {
             if (override === this.state.isOpen)
                 return
-            willBeOpen = override
+            willBeOpen = !!override
         } else {
             willBeOpen = !this.state.isOpen
         }
@@ -133,7 +121,7 @@ class SubHeader extends PureComponent {
     }
 
     animate(styles, options) {
-        this._subheader && $(this._subheader).velocity('stop').velocity(styles, options);
+        this._subheader && $(this._subheader).velocity(styles, options);
     }
 }
 

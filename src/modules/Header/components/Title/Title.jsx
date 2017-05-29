@@ -13,7 +13,7 @@ class Title extends Component {
         this.state = {
             hovering: false
         }
-        bindMembersToClass(this, 'handleMouseLeave', 'handleMouseEnter')
+        bindMembersToClass(this, 'handleMouseLeave', 'handleMouseEnter');
     }
 
     render () {
@@ -34,9 +34,9 @@ class Title extends Component {
             onMouseEnter={this.handleMouseEnter}
             onMouseLeave={this.handleMouseLeave}>
               <div className='Title__icon Title__icon--left'>
-                <Tooltip content="Create Thread" position="bottom">
+                <Tooltip content="Board Info" position="left">
                     <IconCircle
-                      name={i.navbarCompose}
+                      name={i.navbarInfo}
                       onClick={onCompose} />
                 </Tooltip>
               </div>
@@ -46,9 +46,9 @@ class Title extends Component {
                 {children}
               </button>
               <div className='Title__icon Title__icon--right'>
-                <Tooltip content="Reload board" position="bottom">
+                <Tooltip content="View Archive" position="right">
                     <IconCircle
-                      name={i.navbarRefresh}
+                      name={i.navbarArchive}
                       onClick={onRefresh} />
                 </Tooltip>
               </div>

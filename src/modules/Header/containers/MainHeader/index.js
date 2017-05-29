@@ -6,28 +6,27 @@ import { connect } from 'react-redux';
 import {
     fetchBoardList,
     fetchBoard,
-    closeThread,
     destroyBoard,
-    toggleDrawer,
     fetchThread,
     updateMonitoredThread,
     monitorThread,
     unmonitorThread,
-    navigateToView,
-    toggleHomeView
 } from '~/redux/actions';
 
-import { isBoardFetchingSelector } from '~/redux/selectors/BoardSelectors'
-import { boardIDSelector, threadIDSelector } from '~/redux/selectors/StatusSelectors'
+import {
+    getIsBoardFetching,
+    getBoardID,
+    getThreadID
+} from '~/redux/selectors'
 
 function mapStateToProps(state) {
     return {
-        boardID: boardIDSelector(state),
-        threadID: threadIDSelector(state),
-        boardIsFetching: isBoardFetchingSelector(state),
+        boardID: getBoardID(state),
+        threadID: getThreadID(state),
+        boardIsFetching: getIsBoardFetching(state),
 
         // Non-selectors
-        threadMonitor: state.threadMonitor,
+        watch: state.watch,
         boardList: state.boardList,
         settings: state.settings
     }
@@ -37,15 +36,11 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchBoardList,
         fetchBoard,
-        closeThread,
         destroyBoard,
-        toggleDrawer,
         fetchThread,
         updateMonitoredThread,
         monitorThread,
         unmonitorThread,
-        navigateToView,
-        toggleHomeView
     }, dispatch)
 }
 
