@@ -53,6 +53,10 @@ describe('Redux Types', () => {
     expect(types.BOARD_INVALIDATED).toEqual('BOARD_INVALIDATED');
   });
 
+  it('contains BOARD_SEARCHED', () => {
+    expect(types.BOARD_SEARCHED).toEqual('BOARD_SEARCHED');
+  });
+
   it('contains BOARD_LIST_REQUESTED', () => {
     expect(types.BOARD_LIST_REQUESTED).toEqual('BOARD_LIST_REQUESTED');
   });
