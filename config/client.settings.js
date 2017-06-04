@@ -30,55 +30,56 @@ window.appSettings = {
     contentViewID: 'ContentView',
     settingsViewID: 'SettingsView',
 
+    iconPackName: 'lurka',
     icons: {
-        navbarMenu: "navicon",
-        navbarForwards: "arrow-right-c",
-        navbarBackwards: "arrow-left-c",
-        navbarInfo: 'ios-information',
+        // navbarMenu: "navicon",
+        navbarForwards: "arrow-big-right",
+        navbarBackwards: "arrow-big-left",
+
+        navbarInfo: 'information',
         navbarRefresh: 'refresh',
 
-
         navbarAccount: 'person-add',
-        navbarArchive: 'ios-box',
-        navbarLocalDB: 'ios-box',  // TODO: change this
-        navbarEye:     'ios-eye',
-        navbarSettings: 'gear-b',
+        navbarArchive: 'box',
+        navbarDB: 'data',
+        navbarEye:     'eye-1',
+        navbarSettings: 'cog',
 
         subNavbarOpen: 'chevron-down',
         subNavbarClose: 'chevron-up',
 
-        searchMagnify: "ios-search-strong",
-        searchClose: "close",
+        searchMagnify: "search-1",
+        searchClose: "times",
 
-        videoFullscreen: "arrow-expand",
+        // videoFullscreen: "arrow-expand",
         videoPlay: "play",
         videoPause: "pause",
-        videoError: "alert-octagon",
-        videoVolumeOff: "android-volume-off",
+        videoError: "warning-alt",
+        videoVolumeOff: "volume-disabled",
         videoVolumeMute: "volume-mute",
         videoVolumeLow: "volume-low",
-        videoVolumeMedium: "volume-medium",
+        videoVolumeMedium: "volume-med",
         videoVolumeHigh: "volume-high",
 
-        boardPostReplyCount: "chatbox",
+        boardPostReplyCount: "mesage-1",
         boardPostImageCount: "image",
 
-        threadPostImageFullscreen: 'arrow-expand',
+        // threadPostImageFullscreen: 'arrow-expand',
 
-        threadPostMenu: 'more',
+        threadPostMenu: 'dot-3',
         threadPostControlsReport: "flag",
-        threadPostControlsDownload: "arrow-down-a",
-        threadPostControlsReply: "chatbox-working",
-        threadPostControlsImageSearch: "ios-search-strong",
-        threadPostControlsHide: "minus-circled",
+        threadPostControlsDownload: "download-1", // TODO: Change
+        threadPostControlsReply: "quote",
+        threadPostControlsImageSearch: "search-2",
+        threadPostControlsHide: "minus-circle",
 
-        watchPanelClose: "close",
-        watcchPanelUpdate: "update",
+        watchPanelClose: "times",
+        // watcchPanelUpdate: "update",
 
-        "footerSort": "stats-bars",
-        "footerFilter": "funnel",
-        "footerLayout": "ios-browsers",
-        "footerInfo": "information-circled",
+        "footerSort": "bar-chart",
+        "footerFilter": "filter-outline",
+        "footerLayout": "layout",
+        "footerInfo": "info",
         "footerOpen": "chevron-up",
         "footerClose": "chevron-down",
     }
