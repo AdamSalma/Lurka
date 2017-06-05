@@ -27,15 +27,15 @@ $base-colors: (
 };
 
 
-// $primary: c(punch);
+$primary: c(punch);
 // $primary: lighten(c(punch), 10%);
 // $primary: #D13438;
 
 // $primary: #F44336;  // original
-$primary: #c3362b;  // dark 20%
+// $primary: #c3362b;  // dark 20%
 
-$secondary: c(horizon);
-$background-tint: $primary;
+$secondary: #4285F4;
+$background-tint: $secondary;
 
 
 @function color-tint($color) {
