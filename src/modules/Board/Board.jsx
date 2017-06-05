@@ -1,11 +1,15 @@
 import './Board.styles';
 import React, { Component, PropTypes } from "react";
-import classes from 'classnames';
+import cx from 'classnames';
+
+import {
+    NoSearchResults,
+    BoardStats,
+} from '../../components';
+
+import {Icon, Circle, Tooltip} from '~/components';
 
 import BoardPost from './BoardPost';
-import SideIconGroup from './components/SideIconGroup';
-import BoardStats from './components/BoardStats';
-import {Icon, Circle, Tooltip} from '~/components';
 
 import createLayout from './layout';
 import { onAppReady, onDrawerToggle } from '~/events/subscribers';
@@ -70,13 +74,14 @@ export default class Board extends Component {
 
         this.nanoOpts = {
             sliderMaxHeight: 400,
-            sliderMinHeight: 50
         }
     }
 
     @onAppReady
     onAppReady() {
         this.checkPostsInView()
+
+            sliderMinHeight: 50
     }
 
     @onDrawerToggle
@@ -115,7 +120,7 @@ export default class Board extends Component {
     }
 
     render() {
-        const boardClasses = classes('Board', 'nano', {
+        const boardClasses = cx('Board', 'nano', {
             'show-all': this.props.isBeingSearched
         })
 
