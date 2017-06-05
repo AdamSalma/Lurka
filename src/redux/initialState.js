@@ -40,22 +40,19 @@ export default {
     },
 
     watch: {
-        update: [/*
-            {
-                type: "thread",
-                interval: 3000,
-                lastUpdated: UNIX_TS,
-                url: '/boardID/threadID'
-            }
-        */],
-        updated: [/*
-        e.g.
-            {
-                type: "thread",
-                updatedAt: UNIX_TS,
-                newPosts: []
-            }
-        */]
+        lastRequestAt: 0, // unix timestamp
+        entities: {
+            next: null,
+            byId: [/*
+                {
+                    url: '/api/4chan/g',       // API url to monitor
+                    interval: 10,              // seconds to pause for
+                    type: BOARD_UPDATED,       // Action to use when a url returns a 200 HTTP response code
+                    lastRequestAt: 140374197,  // unix timestamp
+                    expireOnError: true        // Remove this object when a bad status code occurs, excluding 304s
+                },
+            */]
+        }
     },
 
     post: {
