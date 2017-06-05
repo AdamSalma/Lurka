@@ -3,22 +3,19 @@
 $header-navbar-padding: 68px
 $footer-border-color: grey(5)
 // $footer-border-color: color(primary)
-$footer-height: 40px
 $footer-icon-size: 16px
 $footer-font-size: 14px
 
 .SubHeader
     position: absolute
-    +set-dims(100vw, $footer-height)
+    +set-dims($subheader-width, $subheader-height)
 
-    top: $header-height - $footer-height
-    transform: translateY($footer-height) translateZ(0)
+    top: $header-height - $subheader-height
+    transform: translateY($subheader-height) translateZ(0)
     backface-visibility: hidden
     left: 0
     right: 0
     margin: 0 auto
-    width: $thread-width - 5
-    // top: -$footer-height  // hide on start
     font-size: $footer-font-size
     z-index: 500
     +will-change(transform)
@@ -73,7 +70,7 @@ $footer-font-size: 14px
 
         .Searchbar
             min-width: 100%
-            height: $footer-height * 0.5
+            height: $subheader-height * 0.5
             border-radius: 4px
             background: grey(7)
 

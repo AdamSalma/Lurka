@@ -16,6 +16,7 @@ import {
     Icon,
     Logo,
     Notification,
+    Tooltip
 } from '~/components';
 
 import {
@@ -85,20 +86,32 @@ class MainHeader extends PureComponent {
                     </Title>
                 </HeaderItem>
                 <HeaderItem className='MainHeader--right IconGroup'>
-                    <Icon
-                        name={i.navbarAccount}
-                        title='Account'
-                        onClick={() => togglePanel('account')} />
+                    <Tooltip content="Thread Watcher" position="bottom">
                       <Notification number={0}>
                         <Icon
                           name={i.navbarEye}
                           title='Thread Watcher'
                           onClick={() => togglePanel('watch')} />
                       </Notification>
+                    </Tooltip>
+                    <Tooltip content="Board Archive" position="bottom">
                       <Icon
                         name={i.navbarArchive}
-                        title='Local archive'
+                        title='Board Archive'
                         onClick={() => togglePanel('archive')} />
+                    </Tooltip>
+                    <Tooltip content="Database" position="bottom">
+                      <Icon
+                        name={i.navbarDB}
+                        title='Local archive'
+                        onClick={() => togglePanel('database')} />
+                    </Tooltip>
+                    <Tooltip content="Settings" position="bottom">
+                      <Icon
+                        name={i.navbarSettings}
+                        title='Settings'
+                        onClick={() => togglePanel('settings')} />
+                    </Tooltip>
                 </HeaderItem>
               </div>
             </div>
