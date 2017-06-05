@@ -1,12 +1,14 @@
 import React, { PropTypes } from 'react';
-import BoardSelection from '~/modules/BoardSelection';
+import cx from 'classnames'
+// import BoardSelection from '~/modules/BoardSelection';
+import Home from '~/modules/Home';
 
 const HomeView = ({ className, children }) => {
     return (
-        <section className={[
-            'View HomeView', className
-        ].join(' ')}>
-            <BoardSelection />
+        <section className={cx('View HomeView', className)}>
+            <Home.containers.BoardSearch/>
+            <Home.containers.BoardList/>
+            {/*<BoardSelection />*/}
         </section>
     );
 };
