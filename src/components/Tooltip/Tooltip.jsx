@@ -3,6 +3,7 @@ import React, { PureComponent, PropTypes } from 'react';
 import cx from 'classnames';
 
 import { bindMembersToClass } from '~/utils/react'
+import { isFunction } from '~/utils/types'
 
 export default class Tooltip extends PureComponent {
 
@@ -51,16 +52,18 @@ export default class Tooltip extends PureComponent {
     }
 
     show(callback) {
+        console.log("Tooltip::show()")
         this.setState({isVisible: true}, () => {
-            if (typeof this.props.onMouseEnter !== 'undefined') {
+            if (isFunction(callback)) {
                 callback()
             }
         })
     }
 
     hide(callback) {
+        console.log("Tooltip::hide()")
         this.setState({isVisible: false}, () => {
-            if (typeof this.props.onMouseEnter !== 'undefined') {
+            if (isFunction(callback)) {
                 callback()
             }
         })
