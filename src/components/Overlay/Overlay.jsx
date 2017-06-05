@@ -1,6 +1,7 @@
 import './Overlay.styles'
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
+import {bindMembersToClass} from '~/utils/react';
 
 class Overlay extends Component {
     static propTypes = {
@@ -9,17 +10,18 @@ class Overlay extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            fade: props.isVisible
+        bindMembersToClass(this, 'show', 'hide');
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        if (this.props.isVisible !== nextProps.isVisible) {
+            nextProps.isVisible ? this.show() : this.hide();
         }
     }
 
     render() {
         const { isVisible, className, children, ...restProps } = this.props;
-        return <div className={cx("Overlay", className, {
-            "Overlay-active": isVisible,
-            "fade": this.state.fade
-        })} {...restProps}>
+        return <div {...restProps} className={cx("Overlay", className, {"Overlay-active": isVisible})}>
             {children}
         </div>
     }
@@ -27,14 +29,14 @@ class Overlay extends Component {
     show() {
         console.warn("Overlay.show()")
         this.setState({
-            fade: true
+            isVisible: true
         });
     }
 
     hide() {
         console.warn("Overlay.hide()")
         this.setState({
-            fade: false
+            isVisible: false
         });
     }
 }
