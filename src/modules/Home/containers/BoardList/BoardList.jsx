@@ -40,6 +40,7 @@ class BoardList extends Component {
         return this.props.orderedBoards.map( board => {
             return (
                 <BoardListItem
+                    key={board.boardID}
                     className="BoardList__ScrollItem"
                     title={board.url}
                     description={board.title}
