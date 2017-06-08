@@ -5,3 +5,5 @@ export const canSetSetting = (state, setting, value) => {
 
     return value && currentValue !== value;
 }
+
+export const getHomeBoard = state => state.settings.homeBoard;
