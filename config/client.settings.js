@@ -32,6 +32,9 @@ window.appSettings = {
 
     iconPackName: 'lurka',
     icons: {
+
+        home: "", // TODO: Set this
+
         // navbarMenu: "navicon",
         navbarForwards: "arrow-big-right",
         navbarBackwards: "arrow-big-left",
