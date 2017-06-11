@@ -1,4 +1,26 @@
-// Animation
+// -----------------
+// Font + Typography
+// -----------------
+
+$font-main: "OpenSans-Regular"
+$font-main-light: "OpenSans-Light"
+$font-alt: "Raleway-Regular"
+
+$font-dir: 'base/fonts/'
+$icon-dir: 'base/icons/'
+
+$line-height: 1.618
+
+$font-size-small: 13px
+$font-size-medium: 16px
+$font-size-large: 20px
+$font-size-xlarge: 24px
+
+
+// -----------------------
+// Animation + Transitions
+// -----------------------
+
 $key-animation-duration: .240s
 $key-bezier-animation-in: cubic-bezier(0,0,0.2,1)
 $key-bezier-animation-out: cubic-bezier(0.4,0,1,1)
@@ -11,20 +33,17 @@ $animation-speed-fast: .240s
 $animation-speed-normal: .400s
 $animation-speed-slow: .720s
 
-// Scrollers
+
+// -------------
+// Nano scroller
+// -------------
 $board-scroller-width: 4px
 $thread-scroller-width: 4px
-// $board-scroller-width
 
 
-// Base Variables
-$line-height: 1.618
-$font-size-small: 13px
-$font-size-medium: 16px
-$font-size-large: 20px
-$font-size-xlarge: 24px
-
-
+// -------------
+// Board Related
+// -------------
 $board-color: grey(8)
 $board-post-color: color(boardpost)
 $board-post-width: 236px
@@ -33,6 +52,9 @@ $board-post-shadow-color: color(boardpost, dark)
 $board-post-shadow-hover-color: color(boardpost, lightest)
 
 
+// --------------
+// Thread Related
+// --------------
 $thread-width: 981px
 $thread-color: transparent
 $thread-line-height: 1.618
@@ -41,18 +63,26 @@ $thread-post-color: color(threadpost)
 $thread-post-info-size: 14px
 
 
+// --------------
+// Header Related
+// --------------
 $header-width: 992px
 $header-height: 64px
-$subheader-width: $thread-width - 7
-$subheader-height: 50px
-
-$drawer-width: 256px
 $header-icon-size: 24px
-$footer-icon-size: 16px
-
-
 $header-border-color: color(primary, darkest)
 $header-padding: 0 16px 0 72px
+
+$subheader-width: $thread-width - 7px
+$subheader-height: 48px
+$subheader-icon-size: 18px
+$subheader-font-size: 14px
+
+
+// ----------------
+// Settings Related
+// ----------------
+$settings-drawer-width: 256px
+$drawer-width: 256px
 
 $settings-color: grey(3)
 $settings-font-size-ratio: 1.2
@@ -60,21 +90,25 @@ $settings-font-size-large: $font-size-large * $settings-font-size-ratio
 $settings-font-size-medium: $font-size-medium * $settings-font-size-ratio
 $settings-font-size-small: $font-size-small * $settings-font-size-ratio
 
-
+// deprecated - refactor to be used by settings
 $navbar-width: 385px
 $navbar-height: calc(100vh - #{$header-height})
 $navbar-icon-size: 18px
 $navbar-button-effect-amount: 20%
 
 
+// -------------
+// App Preloader
+// -------------
+
 // $preloader-color-inner: color(primary)
 // $preloader-color-middle: adjust-hue(color(primary), 120deg)
 // $preloader-color-outer: adjust-hue(color(primary), -120deg)
 
-$preloader-base-color: color(primary, light)
-$preloader-color-outer: darken($preloader-base-color, 25%)
-$preloader-color-middle: darken($preloader-base-color, 10%)
+$preloader-base-color: color(primary)
 $preloader-color-inner: $preloader-base-color
+$preloader-color-middle: darken($preloader-base-color, 10%)
+$preloader-color-outer: darken($preloader-base-color, 25%)
 
 $preloader-arc-width: 3px
 $preloader-spin-multiplier: 1
@@ -85,13 +119,3 @@ $preloader-text-box-size: 400px
 
 $dropdown-color: grey(7)
 $dropdown-color-hover: lighten($dropdown-color, 5%)
-
-
-// Non component stuff
-$font-dir: 'base/fonts/'
-$ionicons-font-path: 'base/fonts/icons'
-$icon-dir: 'base/fonts/custom-icons/'
-
-$font-main: "OpenSans-Regular"
-$font-main-light: "OpenSans-Light"
-$font-alt: "Raleway-Regular"
