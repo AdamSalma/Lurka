@@ -1,2 +1,13 @@
-@import 'partials/index';
-@import 'base/index';
+// Sass Utilities
+@import 'partials';
+
+// Fonts
+@import 'base/typography';
+@import 'base/icons';
+
+// Core styles
+@import 'base/reset';
+@import 'base/preloader';
+@import 'base/animations';
+@import 'base/classes';
+@import 'base/vendor';
