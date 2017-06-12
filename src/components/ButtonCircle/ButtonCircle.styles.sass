@@ -4,15 +4,16 @@ $iconcircle-icon-size: 1em
 $iconcircle-circlesize: 1.8em
 
 .ButtonCircle
+    +clickable
+    +size($iconcircle-circlesize)
+    font-size: 22px
+    position: relative
     display: inline-block
     margin: 0 9px
-    position: relative
-    +clickable
-    font-size: 22px
 
     .Icon
         font-size: $iconcircle-icon-size
-        +square($iconcircle-circlesize)
+        +size(inherit)
         display: table-cell
         vertical-align: middle
         color: color(text-secondary)
@@ -21,7 +22,7 @@ $iconcircle-circlesize: 1.8em
         z-index: 1
 
     .Circle
-        +circle($iconcircle-circlesize)
+        +circle(inherit)
         position: absolute
         background: grey(8)
         border: 1px solid grey(6)
