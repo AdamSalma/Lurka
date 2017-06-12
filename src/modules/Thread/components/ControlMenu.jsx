@@ -3,7 +3,7 @@ import { Icon, Tooltip } from '~/components'
 
 const i = window.appSettings.icons
 
-const Controls = ({ onImageDownload, onReply, onImageSearch, onReport, onPostHide }) => {
+const ControlMenu = ({ onImageDownload, onReply, onImageSearch, onReport, onPostHide }) => {
     // TODO: Add functionality to thread icons
     // const { download, openReferences, ...} = controls
     return (
@@ -45,6 +45,6 @@ const Controls = ({ onImageDownload, onReply, onImageSearch, onReport, onPostHid
     )
 }
 
-Controls.displayName = 'Controls';
+ControlMenu.displayName = 'ControlMenu';
 
-export default Controls;
+export default ControlMenu;

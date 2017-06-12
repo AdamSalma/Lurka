@@ -3,7 +3,6 @@
 $thread-post-control-width: 200px
 $quotelink-color: color(primary, dark)
 
-
 .ThreadPost
     background-color: $thread-post-color
     display: block
@@ -209,30 +208,23 @@ $quotelink-color: color(primary, dark)
 
 
     .menu
-        position: absolute
-        right: 0
-        // TODO: Delete thread-post-control-width variable
-        // width: $thread-post-control-width
-        transform: translateX($thread-post-control-width)
-        top: 0
-        background-color: $thread-post-color
-        padding: 12px
-        padding-left: 2px
-        padding-top: 8px
-        z-index: 1
-        transition: transform 1s .4s cubic-bezier(0.19,1,0.22,1)
         display: flex
         flex-direction: row-reverse
+        position: absolute
+        right: 0
+        top: 0
+        background-color: $thread-post-color
+        padding: 8px 6px 0 0
+        z-index: 1
+        transform: translateX($thread-post-control-width)
+        transition: transform 1s $animation-speed-fast $bezier-fast
 
         li
+            +clickable
+            +hover-color(color(primary, light))
             color: grey(4)
             margin-left: 12px
-            +clickable
-            transition: color .1s ease-out
             list-style-type: none
-
-            &:hover
-                color: color(primary, light)
 
             span
                 padding: 6px
@@ -243,3 +235,4 @@ $quotelink-color: color(primary, dark)
     &:hover .menu
         transform: translateX(0)
         transition: transform $animation-speed-fast $bezier-fast
+
