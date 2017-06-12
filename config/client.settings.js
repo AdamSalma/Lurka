@@ -21,10 +21,11 @@ window.appSettings = {
     threadpostScrollHighlightDuration: 2000,
 
     // The following settings can't be changed explcitly.
-    // Needs to be kept in sync with src/styles/base/variables
+    // Needs to be kept in sync with src/sass/partials/_config.sass
     headerHeight: 64,
     subheaderHeight: 50,
     threadWidth: 981,
+    settingsWidth: 256,
 
     homeViewID: 'HomeView',
     contentViewID: 'ContentView',
@@ -42,11 +43,12 @@ window.appSettings = {
         navbarInfo: 'information',
         navbarRefresh: 'refresh',
 
-        navbarAccount: 'person-add',
-        navbarArchive: 'box',
-        navbarDB: 'data',
-        navbarEye:     'eye-1',
+        navbarAccount:  'person-add',
+        navbarBookmark: 'bookmark',
+        navbarDB:       'data',
+        navbarEye:      'eye-2',
         navbarSettings: 'cog',
+        navbarTheme: 'paint-brush-2',
 
         subNavbarOpen: 'chevron-down',
         subNavbarClose: 'chevron-up',
