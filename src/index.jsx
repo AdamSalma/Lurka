@@ -5,6 +5,7 @@ import 'nanoscroller';
 import './sass/base.scss';
 import './events/setup';
 import './utils/polyfills';
+import './utils/logger';
 import '-/config/client.settings';
 
 import React from 'react';
