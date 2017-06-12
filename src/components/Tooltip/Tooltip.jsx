@@ -11,7 +11,7 @@ export default class Tooltip extends PureComponent {
         className: '',
         position: 'top',
         content: 'No tooltip provided',
-        effect: 'scale',
+        effect: 'fade',
     };
 
     static propTypes = {
@@ -52,7 +52,7 @@ export default class Tooltip extends PureComponent {
     }
 
     show(callback) {
-        console.log("Tooltip::show()")
+        logger.method("Tooltip.show")
         this.setState({isVisible: true}, () => {
             if (isFunction(callback)) {
                 callback()
@@ -61,7 +61,7 @@ export default class Tooltip extends PureComponent {
     }
 
     hide(callback) {
-        console.log("Tooltip::hide()")
+        logger.method("Tooltip.hide")
         this.setState({isVisible: false}, () => {
             if (isFunction(callback)) {
                 callback()
@@ -73,26 +73,21 @@ export default class Tooltip extends PureComponent {
         const { content, className, children, effect, position:pos, ...restProps } = this.props
         const mainClass = cx('Tooltip', {
             'Tooltip--active': this.state.isVisible
-        })
+        });
 
-        const wrapperClass = cx(
-            className,
+        const wrapperClass = cx(className,
             "Tooltip__wrap",
-            `Tooltip__content--effect-${this.props.effect}`
-        )
-
-        const contentClass = cx(
-            'Tooltip__content',
             `Tooltip__wrap--${pos}`,
+            `Tooltip__wrap--effect-${this.props.effect}`
         )
 
         return (
             <div {...restProps}
-            className='Tooltip'
+            className={mainClass}
             onMouseEnter={this.onMouseEnter}
             onMouseLeave={this.onMouseLeave}>
                 <div className={wrapperClass}>
-                    <div className={contentClass}>
+                    <div className='Tooltip__content'>
                         {content}
                     </div>
                 </div>
