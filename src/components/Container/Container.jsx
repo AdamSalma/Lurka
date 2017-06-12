@@ -5,7 +5,7 @@ import './Container.styles';
 
 const Container = ({ className, children, padding }) => {
     return (
-        <div className={cx('Container', className)} styles={{padding}}>
+        <div className={cx('Container', className)} style={{padding}}>
             {children}
         </div>
     );
