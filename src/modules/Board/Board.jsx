@@ -9,10 +9,10 @@ import {
 
 import {Icon, Circle, Tooltip} from '~/components';
 
-import BoardPost from './BoardPost';
+import BoardPost from '../BoardPost';
 
 import createLayout from './layout';
-import { onAppReady, onDrawerToggle } from '~/events/subscribers';
+import { onAppReady, onSettingsToggle } from '~/events/subscribers';
 import {
     emitThreadOpen,
     emitSubHeaderToggle
@@ -60,11 +60,11 @@ export default class Board extends Component {
             margin: settings.boardPostMargin,
             gutterLeft: settings.boardOuterMargin,
             gutterRight: settings.boardOuterMargin,
-            gutterTop: settings.headerHeight
+            gutterTop: settings.headerHeight + settings.subheaderHeight
         }
 
         this.layoutPropsForDrawer = Object.assign({}, this.layoutProps, {
-            gutterRight: settings.drawerWidth + settings.boardOuterMargin
+            gutterRight: settings.settingsWidth + settings.boardOuterMargin
         })
 
         this.applyLayout = createLayout(props.isDrawerOpen
@@ -74,18 +74,17 @@ export default class Board extends Component {
 
         this.nanoOpts = {
             sliderMaxHeight: 400,
+            sliderMinHeight: 50
         }
     }
 
     @onAppReady
     onAppReady() {
-        this.checkPostsInView()
-
-            sliderMinHeight: 50
+        this.checkPostsInView();
     }
 
-    @onDrawerToggle
-    onDrawerToggle(isOpen) {
+    @onSettingsToggle
+    onSettingsToggle(isOpen) {
         this.applyLayout = createLayout(
             isOpen
                 ? this.layoutPropsForDrawer
