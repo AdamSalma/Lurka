@@ -1,8 +1,8 @@
 import * as types from './types';
 
 describe('Event Types', () => {
-  it('contains TOGGLE_DRAWER', () => {
-    expect(types.TOGGLE_DRAWER).toEqual('TOGGLE_DRAWER');
+  it('contains TOGGLE_SETTINGS', () => {
+    expect(types.TOGGLE_SETTINGS).toEqual('TOGGLE_SETTINGS');
   });
 
   it('contains TOGGLE_CONTENT_VIEW', () => {

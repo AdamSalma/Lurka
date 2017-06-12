@@ -3,7 +3,7 @@ import * as types from "./types"
 
 export const emitAppReady = dispatch.bind(null, types.APP_READY);
 
-export const emitDrawerToggle = dispatch.bind(null, types.TOGGLE_DRAWER);
+export const emitSettingsToggle = dispatch.bind(null, types.TOGGLE_SETTINGS);
 export const emitContentViewToggle = dispatch.bind(null, types.TOGGLE_CONTENT_VIEW);
 export const emitSubHeaderToggle = dispatch.bind(null, types.SUB_HEADER_TOGGLE);
 

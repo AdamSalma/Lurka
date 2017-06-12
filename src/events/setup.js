@@ -1,7 +1,7 @@
 import { PubSubEs6, config } from 'pub-sub-es6';
-import { isProduction } from '-/config';
+import { env } from '-/config';
 
-if (!isProduction) {
+if (env.development) {
     config.enableDebugger = true
     config.trace = true
 }
