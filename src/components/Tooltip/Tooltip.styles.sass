@@ -3,16 +3,17 @@
 $tooltip-triangle-size: 8px
 $tooltip-color-light: grey(1)
 $tooltip-color-dark: grey(7)
+$tooltip-border-color: grey(10)
+
+$icon-arrow-facing-top: ''
 
 .Tooltip
     position: relative
     display: inline-block
-    background-color: $tooltip-color-dark
-
 
     &.Tooltip--active
         .Tooltip__wrap
-            z-index: 1000
+            z-index: $tooltip-z-index
             visibility: visible
 
         .Tooltip__wrap--effect-fade
@@ -35,13 +36,13 @@ $tooltip-color-dark: grey(7)
         visibility: hidden
         transition: transform $key-animation-duration $key-bezier-animation-in
         color: color(text-primary)
-        background: inherit
+        background: $tooltip-color-dark
         line-height: 1
         text-align: center
         white-space: nowrap
         padding: 6px 12px
         border-radius: 4px
-        border: grey(10)
+        border: $tooltip-border-color
 
 
         &::before
@@ -108,3 +109,4 @@ $tooltip-color-dark: grey(7)
                 border-bottom: $tooltip-triangle-size solid $tooltip-color-dark
                 border-right: $tooltip-triangle-size solid transparent
                 border-left: $tooltip-triangle-size solid transparent
+                outline: 1px solid $tooltip-border-color

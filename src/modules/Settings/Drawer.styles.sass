@@ -8,12 +8,9 @@ $drawer-border-left-color: $header-border-color
     top: $header-height
     height: calc(100vh - #{$header-height})
     background-color: grey(8)
+    z-index: $drawer-z-index
     width: $drawer-width
-    z-index: 500
-    // border-left: 2px solid color(primary, darkest)
-    // border-left: 2px solid color(primary, darkest)
-
-    transform: translateX(100%);  // default closed
+    transform: translateX($drawer-width);  // default closed
     +will-change(transform)
 
     .container
