@@ -5,11 +5,11 @@ import cx from 'classnames';
 import {
     NoSearchResults,
     BoardStats,
-} from '../../components';
+} from './components';
 
 import {Icon, Circle, Tooltip} from '~/components';
 
-import BoardPost from '../BoardPost';
+import {BoardPost as Post} from './containers';
 
 import createLayout from './layout';
 import { onAppReady, onSettingsToggle } from '~/events/subscribers';
@@ -143,7 +143,7 @@ export default class Board extends Component {
     renderPosts() {
         // TODO: Do a quick render using index
         return this.getPosts().map((post, index) => {
-            return <BoardPost
+            return <Post
                 key={post.id}
                 post={post}
                 onClick={() => this.handlePostClick(post.id)}
