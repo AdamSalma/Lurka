@@ -1,0 +1,22 @@
+@import '~sass/partials'
+
+$logo-offset: 3px
+
+.FullLogo
+    display: block
+
+    .FullLogo__Logo
+        display: inline-block
+        +size($header-height - $logo-offset)
+        padding: 8px + $logo-offset
+
+    .FullLogo__LogoText
+        display: inline-block
+        font-variant: small-caps
+
+        .name
+            font-family: $font-main
+
+        .version
+            font-family: $font-alt
+            letter-spacing: .075rem

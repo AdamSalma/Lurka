@@ -1,9 +1,3 @@
-import { PubSubEs6, config } from 'pub-sub-es6';
-import { isProduction } from '-/config';
-
-if (!isProduction) {
-    config.enableDebugger = true
-    config.trace = true
-}
+import PubSubEs6 from 'pub-sub-es6';
 
 global.PubSub = PubSubEs6

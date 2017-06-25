@@ -1,4 +1,4 @@
-import Board from './Board'
+import Board from './Board';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';

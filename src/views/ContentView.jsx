@@ -6,6 +6,8 @@ import React, {
 import Board from '~/modules/Board'
 import Thread from '~/modules/Thread'
 import Header from '~/modules/Header'
+import SettingsDrawer from '~/modules/Settings'
+
 import { onContentViewToggle } from '~/events/subscribers';
 
 import {
@@ -41,7 +43,7 @@ class ContentView extends Component {
     }
 
     hide() {
-        $(this._view).velocity({
+        this.animate({
             translateY: window.innerHeight - headerHeight + 2, // 2 = header border
             translateZ: 0
         }, {
@@ -52,7 +54,7 @@ class ContentView extends Component {
     }
 
     show() {
-        $(this._view).velocity({
+        this.animate({
             translateY: 0,
             translateZ: 0
         }, {
@@ -83,8 +85,13 @@ class ContentView extends Component {
               <Header.containers.SubHeader/>
               <Board />
               <Thread />
+              <SettingsDrawer />
             </section>
         )
+    }
+
+    animate(styles, options) {
+        this._view && $(this._view).velocity(styles, options);
     }
 }
 

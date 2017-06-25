@@ -11,6 +11,7 @@
   font-style: normal;
 }
 
+
 [data-icon]:before {
   font-family: "lurka" !important;
   content: attr(data-icon);
@@ -340,7 +341,7 @@
 .lurka-barcode:before {
   content: "\e007";
 }
-.lurka-lock:before {
+.lurka-lock-alt:before {
   content: "\e008";
 }
 .lurka-information-circle:before {
@@ -475,18 +476,6 @@
 .lurka-expand-outline:before {
   content: "\e033";
 }
-.lurka-caret-down:before {
-  content: "\e034";
-}
-.lurka-caret-down-outline:before {
-  content: "\e035";
-}
-.lurka-caret-up:before {
-  content: "\e036";
-}
-.lurka-caret-up-outline:before {
-  content: "\e037";
-}
 .lurka-pin:before {
   content: "\e038";
 }
@@ -501,4 +490,85 @@
 }
 .lurka-bookmark-outline:before {
   content: "\e03c";
+}
+.lurka-caret-top:before {
+  content: "\e03d";
+}
+.lurka-caret-down:before {
+  content: "\e03e";
+}
+.lurka-caret-left:before {
+  content: "\e03f";
+}
+.lurka-caret-right:before {
+  content: "\e040";
+}
+.lurka-reorder:before {
+  content: "\e034";
+}
+.lurka-lock:before {
+  content: "\e035";
+}
+.lurka-unlock:before {
+  content: "\e036";
+}
+.lurka-unlock-o:before {
+  content: "\e037";
+}
+.lurka-lock-o:before {
+  content: "\e042";
+}
+.lurka-remove-o:before {
+  content: "\e041";
+}
+.lurka-remove:before {
+  content: "\e043";
+}
+.lurka-add-1:before {
+  content: "\e044";
+}
+.lurka-add-multiple:before {
+  content: "\e045";
+}
+.lurka-add-o:before {
+  content: "\e046";
+}
+.lurka-play-o:before {
+  content: "\e047";
+}
+.lurka-play-1:before {
+  content: "\e048";
+}
+.lurka-menu:before {
+  content: "\e049";
+}
+.lurka-reply:before {
+  content: "\e04a";
+}
+.lurka-settings:before {
+  content: "\e04b";
+}
+.lurka-video-next:before {
+  content: "\e050";
+}
+.lurka-video-previous:before {
+  content: "\e04c";
+}
+.lurka-star-full:before {
+  content: "\e04d";
+}
+.lurka-star-half:before {
+  content: "\e04e";
+}
+.lurka-star-o:before {
+  content: "\e04f";
+}
+.lurka-autoplay:before {
+  content: "\e051";
+}
+.lurka-upload-1:before {
+  content: "\e052";
+}
+.lurka-layout-fixed:before {
+  content: "\e053";
 }

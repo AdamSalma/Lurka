@@ -9,12 +9,15 @@ import {
     Image
 } from '~/components';
 
-import Media from './containers/Media';
-import Controls from './components/Controls';
-import References from './components/References';
-import Title from './components/Title';
-import MediaInfo from './components/MediaInfo';
-import Comment from './components/Comment';
+import {
+    ControlMenu,
+    References,
+    Title,
+    MediaInfo,
+    Comment
+} from '../../components';
+
+import Media from '../ThreadMedia'
 
 import { setHTML, bindMembersToClass } from '~/utils/react';
 import { emitMediaReelOpen } from '~/events/publishers';
@@ -41,7 +44,7 @@ export default class ThreadPost extends Component {
                     <span className='id'>#{id}</span>
                     <Pipe />
                     <TimeAgo time={time}/>
-                    <Controls controls={controls}/>
+                    <ControlMenu controls={controls}/>
                 </div>
                 <MediaInfo media={media}/>
                 <Media media={media} onLargeImageClick={this.handleLargeImageClick}/>

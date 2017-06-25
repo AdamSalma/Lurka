@@ -17,11 +17,11 @@ describe('Event Emitters', () => {
     expect(dispatched).toBe(true);
   });
 
-  it('emits TOGGLE_DRAWER', () => {
-    receive(types.TOGGLE_DRAWER, () => {
+  it('emits TOGGLE_SETTINGS', () => {
+    receive(types.TOGGLE_SETTINGS, () => {
         dispatched = true;
     });
-    publishers.emitDrawerToggle();
+    publishers.emitSettingsToggle();
     expect(dispatched).toBe(true);
   });
 });

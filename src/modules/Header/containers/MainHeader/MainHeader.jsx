@@ -21,8 +21,11 @@ import {
 
 import {
     emitContentViewToggle,
-    emitSubHeaderToggle
+    emitSubHeaderToggle,
+    emitSettingsToggle
 } from '~/events/publishers';
+
+import {bindMembersToClass} from '~/utils/react';
 
 const i = window.appSettings.icons;
 
@@ -34,6 +37,8 @@ class MainHeader extends PureComponent {
 
     constructor(props) {
         super(props);
+        this.toggleFlag = props.isSettingsOpen || false
+        bindMembersToClass(this, 'onSettingsClick');
     }
 
     render() {
@@ -86,36 +91,37 @@ class MainHeader extends PureComponent {
                     </Title>
                 </HeaderItem>
                 <HeaderItem className='MainHeader--right IconGroup'>
-                    <Tooltip content="Thread Watcher" position="bottom">
-                      <Notification number={0}>
+                    <Tooltip className="navtip" content="Thread Watcher" position="bottom">
+                      <Notification number={1}>
                         <Icon
                           name={i.navbarEye}
-                          title='Thread Watcher'
                           onClick={() => togglePanel('watch')} />
                       </Notification>
                     </Tooltip>
-                    <Tooltip content="Board Archive" position="bottom">
+                    <Tooltip className="navtip" content="Bookmarks" position="bottom">
                       <Icon
-                        name={i.navbarArchive}
-                        title='Board Archive'
-                        onClick={() => togglePanel('archive')} />
+                        name={i.navbarBookmark}
+                        onClick={() => togglePanel('bookmarks')} />
                     </Tooltip>
-                    <Tooltip content="Database" position="bottom">
+                    <Tooltip className="navtip" content="Media Database" position="bottom">
                       <Icon
                         name={i.navbarDB}
-                        title='Local archive'
                         onClick={() => togglePanel('database')} />
                     </Tooltip>
-                    <Tooltip content="Settings" position="bottom">
+                    <Tooltip className="navtip" content="Settings" position="bottom">
                       <Icon
                         name={i.navbarSettings}
-                        title='Settings'
-                        onClick={() => togglePanel('settings')} />
+                        onClick={this.onSettingsClick} />
                     </Tooltip>
                 </HeaderItem>
               </div>
             </div>
         )
+    }
+
+    onSettingsClick(e) {
+        emitSettingsToggle(this.toggleFlag);
+        this.toggleFlag = !this.toggleFlag;
     }
 
     onTitleHover() {
@@ -125,4 +131,3 @@ class MainHeader extends PureComponent {
 }
 
 export default MainHeader;
-

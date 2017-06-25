@@ -4,23 +4,37 @@ import React, { Component } from "react";
 import classes from 'classnames';
 import uuid from "uuid";
 
-import { Icon, ButtonCircle } from '~/components'
-
 import {
-    WatchController, 
-    ArchiveController, 
-    CommentController, 
+    WatchController,
+    ArchiveController,
+    CommentController,
     UpdateController
-} from './controllers'
+} from '../../components'
 
 
 export default class ThreadControls extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            show: false,
+            hide: true
+        }
+    }
+
+    show() {
+        this.setState({ show: true, hide: false });
+    }
+
+    hide() {
+        this.setState({ show: false, hide: true });
+    }
+
     render() {
-        const {thread:{ isActive, posts }} = this.props;
+        const { show, hide } = this.state;
 
         const controlClasses = classes('thread-controls', {
-            "animate-in": isActive && posts.length,
-            "animate-out": !isActive
+            "animate-in": show,
+            "animate-out": hide
         })
 
         return (
@@ -37,7 +51,7 @@ export default class ThreadControls extends Component {
                     <UpdateController {...this.props}/>
 
                     {/*<ButtonCircle toggleProps={{name:"download"}}>
-                        <Icon name="download" /> 
+                        <Icon name="download" />
                     </ButtonCircle>*/}
 
                     {/*<ButtonCircle toggleProps={{name:"close"}}>

@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## v.0.13.0 25/07/2017
 ### Added
 - Boards/Threads are cached in state to increase performance when reopening.
 - Header:
@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fixed board post links opening when clicked.
 
 
-## v0.12.0
+## v0.12.0  13/05/2017
 ### Added
 - Added a sidebar to handle content settings.
 - Added a home screen where different boards can be navigated to.

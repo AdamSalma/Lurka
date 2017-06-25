@@ -1,0 +1,71 @@
+@import '~sass/partials'
+
+$settings-width: 200px
+
+.Settings
+    position: absolute
+    left: 20px
+    top: 30px
+    text-align: left
+    color: $settings-color
+    font-family: $font-alt
+    font-size: $settings-font-size-small
+    transition: height .3s
+
+    &:hover
+        .header
+            color: grey(1)
+
+    .header
+        font-size: $settings-font-size-large + 2
+        color: tint($settings-color, 30%)
+        padding-bottom: 2px
+        width: $settings-width
+        border-bottom: 1px solid grey(5)
+        margin-bottom: 20px 0
+        transition: color .2s
+
+    .group
+        transition: height .3s
+
+    .setting
+        padding: 4px 24px
+        padding-right: 0
+        position: relative
+        +clickable
+
+        > span
+            padding-right: 4px
+
+        .name::after
+            content: ":"
+
+        &:hover
+            color: grey(1)
+            .description
+                opacity: 1
+                padding-left: 10px
+                height: initial
+
+            .value
+                color: color(primary)
+
+    .group-name
+        font-size: $settings-font-size-medium
+        color: tint($settings-color,  30%)
+
+    .description
+        opacity: 0
+        transition: all .2s ease-in
+        padding-top: inherit
+        padding-left: 0
+        color: grey(1)
+        font-size: 13px
+        height: 0
+        overflow: hidden
+
+
+    .value
+        transition: color .2s ease-out
+        font-family: $font-main
+        font-weight: bold
