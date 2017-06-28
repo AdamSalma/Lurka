@@ -50,16 +50,18 @@ textarea:focus, input:focus
         opacity: 0
 
 ::selection
-    background-color: color(primary)
-    color: #ffffff
+    background-color: color(text-selection)
+    color: lighten(color(text-selection), 60%)
+    // background-color: color(primary, light)
 
 // Nano stuff
 .nano-slider
     background: color(layout) !important
 
 img
-    user-select: none
+    +no-select
 
+// react-alert library
 .react-alerts
     position: fixed !important
     z-index: $react-alerts-z-index !important
@@ -97,3 +99,21 @@ video
 
 .Icon::before
     line-height: inherit !important
+
+
+// As we're using icons from multiple packs, some aren't aligned properly. This
+// fixes it:
+.lurka-refresh-1:before,
+.lurka-eye-2:before,
+.lurka-bookmark:before,
+    vertical-align: inherit
+
+
+// Reset elements
+canvas, caption, center, cite, code, dd, del, dfn,
+div, dl, dt, em, embed, fieldset, font, form
+    margin: 0
+    padding: 0
+    border: 0
+    font-size: 100%
+    background: rgba(0, 0, 0, 0)
