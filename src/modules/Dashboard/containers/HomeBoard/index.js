@@ -26,8 +26,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        fetchBoard,
-
+        fetchBoard
     }, dispatch);
 }
 
