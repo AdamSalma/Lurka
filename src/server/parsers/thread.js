@@ -16,15 +16,32 @@ export default function parseThread( posts, boardID ) {
         throw new Error("parseThread: No posts supplied");
     }
 
+    const thread = createPostParser(boardID)(posts)
+
+    log.app(`Created ${thread.length} 4chan posts`);
+
+    try {
+        return replaceOPQuotes( connectPosts(thread) );
+    } catch (e) {
+        console.error(thread)
+        log.error(e)
+        return thread
+    }
+}
+
+export const createPostParser = (boardID) => {
     const thumbUrl = API.thumbnail(boardID)
     const mediaUrl = API.media(boardID)
 
-    const thread = posts.map( post => {
-        let ext = post.ext
-        let smImg = thumbUrl + post.tim + "s.jpg"
-        let lgImg = mediaUrl + post.tim + ext
+    return (posts) => posts.map(postParser);
 
-        return {
+    // Hoisted
+    function postParser(post, index) {
+        const ext = post.ext
+        const smImg = thumbUrl + post.tim + "s.jpg"
+        const lgImg = mediaUrl + post.tim + ext
+
+        const regularPost = {
             id: post.no,
             date: post.now,
             name: post.name,
@@ -42,16 +59,18 @@ export default function parseThread( posts, boardID ) {
                 filetype: ext
             } : null
         }
-    });
 
-    log.app(`Created ${posts.length} 4chan posts`);
+        if (index === 0 ) {
+            // Update post with OP specific metadata
+            return Object.assign({}, regularPost, {
+                tail_call: post.tail_call,
+                replies: post.replies,
+                unique_ips: post.unique_ips,
+                images: post.images,
+            })
+        }
 
-    try {
-        return modifyOPQuotes( connectPosts(thread) );
-    } catch (e) {
-        console.error(thread)
-        log.error(e)
-        return thread
+        return regularPost
     }
 }
 
@@ -64,7 +83,7 @@ export default function parseThread( posts, boardID ) {
  * @return {Array}       - Posts merged with references
  *
  */
-function connectPosts(posts) {
+export const connectPosts = (posts) => {
     const ids = posts.map( post => post.id);
     const references = ids.map( (id, index) => {
         var references = [];
@@ -95,7 +114,7 @@ function connectPosts(posts) {
  * @param  {Array} posts - Contains parsed thread post objects
  * @return {Array}
  */
-function modifyOPQuotes(posts) {
+export const replaceOPQuotes = (posts) => {
     if (!posts || !posts.length || !posts[0].id) {
         return posts
     }
