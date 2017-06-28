@@ -1,16 +1,15 @@
+import { isFunction } from '~/utils/types';
+
 const {
     headerHeight,
     threadpostScrollDuration,
     threadpostScrollHighlightDuration
 } = window.appSettings;
 
-export default function createPostScroller( $context ) {
+const createPostScroller = ( $context, onScroll ) => {
 
     return function (href) {
         const $item = $context.find(href);
-        // $context.animate({
-        //     scrollTop: offset - headerHeight
-        // }, threadpostScrollDuration);
 
         $item.velocity('scroll', {
             container: $context,
@@ -18,9 +17,13 @@ export default function createPostScroller( $context ) {
             offset: -headerHeight
         });
 
+        isFunction(onScroll) && onScroll();
+
         $item.addClass('highlight');
         setTimeout(() => $item.removeClass('highlight'),
             threadpostScrollHighlightDuration
         );
     }
 }
+
+export default createPostScroller;

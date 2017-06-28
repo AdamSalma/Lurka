@@ -10,7 +10,7 @@ export default function setupThreadEvents(thread) {
     }
 
     setupFullscreen($thread);
-    const scrollToPost = createPostScroller($thread);
+    const scrollToPost = createPostScroller($thread, destroyTooltip);
     const createTooltip = createTooltipCreator($thread);
 
     $thread.on('click mouseenter mouseleave', '.quotelink', function(event) {
