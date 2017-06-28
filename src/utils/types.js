@@ -31,3 +31,7 @@ export const isMap = function(value) {
 export const isSet = function(value) {
     return toString.call(value) == '[object Set]';
 }
+
+export const isDefined = function(value) {
+    return value !== undefined
+}

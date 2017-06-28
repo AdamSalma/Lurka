@@ -26,3 +26,25 @@ export const formatTimeInterval = (time) => {
 
   return str
 }
+
+
+export const getShortTimeAgo = (time) => {
+    const secs = secondsAgo(time)
+
+    const days = secs/60/60/24;
+    if (days > 1) {
+        return Math.floor(days) + 'd ago';
+    }
+
+    const hours = secs/60/60;
+    if (hours > 1) {
+        return Math.floor(hours) + 'h ago';
+    }
+
+    const minutes = secs/60;
+    if (minutes > 1) {
+        return Math.floor(minutes) + 'm ago';
+    }
+
+    return Math.floor(secs) + 's ago';
+}
