@@ -12,6 +12,8 @@ export default class Tooltip extends PureComponent {
         position: 'top',
         content: 'No tooltip provided',
         effect: 'fade',
+        delay: 2000,
+        offset: "0px"
     };
 
     static propTypes = {
@@ -26,6 +28,7 @@ export default class Tooltip extends PureComponent {
             PropTypes.string,
             PropTypes.element
         ]),
+        delay: PropTypes.Number
     };
 
     constructor(props) {
@@ -41,13 +44,25 @@ export default class Tooltip extends PureComponent {
         this.state = {
             isVisible: false
         }
+
+        this.isHovering = false;
+        this.hoverTimeoutInstances = 0
     }
 
     onMouseEnter(e) {
-        this.show(this.props.onMouseEnter)
+        this.isHovering = true;
+        this.hoverTimeoutInstances++
+
+        setTimeout(() => {
+            this.hoverTimeouts--
+            if (this.isHovering && this.hoverTimeoutInstances == 0)
+                this.show(this.props.onMouseEnter)
+        }, this.props.delay)
     }
 
     onMouseLeave(e) {
+        this.isHovering = false
+        this.isCanceled = true
         this.hide(this.props.onMouseLeave)
     }
 
@@ -82,16 +97,15 @@ export default class Tooltip extends PureComponent {
         )
 
         return (
-            <div {...restProps}
-            className={mainClass}
-            onMouseEnter={this.onMouseEnter}
-            onMouseLeave={this.onMouseLeave}>
+            <div {...restProps} className={mainClass}>
                 <div className={wrapperClass}>
                     <div className='Tooltip__content'>
                         {content}
                     </div>
                 </div>
-                {children}
+                <div onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
+                    {children}
+                </div>
             </div>
         )
     }
