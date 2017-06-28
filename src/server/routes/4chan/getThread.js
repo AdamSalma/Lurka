@@ -4,7 +4,7 @@ import moment from 'moment';
 import API from '-/config/api.4chan';
 import proxySettings from '-/config/proxy';
 import { parseThread } from '../../parsers';
-import { writeObjToRoot, printObj } from '../../services/inspector';
+import { writeObjToRoot, printObj } from '../../utils/inspector';
 
 const options = Object.assign({}, proxySettings);
 const timeFormat = 'ddd[,] M MMM YYYY hh:mm:ss [GMT]';
