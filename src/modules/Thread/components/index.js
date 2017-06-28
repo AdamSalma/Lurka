@@ -1,8 +1,11 @@
 export {default as Overlay} from './Overlay'
 export {default as Comment} from './Comment'
-export {default as ControlMenu} from './ControlMenu'
+export {default as ThreadHeader} from './ThreadHeader'
+export {default as PostToolbar} from './PostToolbar'
+export {default as ThreadMedia} from './ThreadMedia'
+
 export {default as MediaInfo} from './MediaInfo'
 export {default as References} from './References'
-export {default as Title} from './Title'
+export {default as PostID} from './PostID'
 
 export * from './Controllers'
