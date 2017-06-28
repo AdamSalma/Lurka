@@ -85,9 +85,9 @@ $quotelink-color: color(primary, dark)
         margin-top: 0
 
     .media-info
-        font-size: 12px
+        font-size: $font-size-xsmall
         position: relative
-        bottom: 6px
+        bottom: 3px
 
         > span
             margin-right: 4px
@@ -117,6 +117,7 @@ $quotelink-color: color(primary, dark)
 
         .id
             font-family: $font-alt
+            color: color(text-primary)
 
         .name
             padding-left: 0px
@@ -173,14 +174,16 @@ $quotelink-color: color(primary, dark)
         font-family: $font-alt
 
         &::after
-            content: "(deleted)"
+            content: "deleted"
             text-decoration: none
             display: inline-block
             vertical-align: bottom
             margin: auto 4px
-            font-size: 11px
+            font-size: $font-size-xsmall
             color: color(text-secondary)
             font-family: $font-main-light
+            font-variant: small-caps
+            letter-spacing: 0.075em
 
     .quotelink
         color: $quotelink-color

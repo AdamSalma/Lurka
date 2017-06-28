@@ -14,10 +14,11 @@ import {
     References,
     Title,
     MediaInfo,
-    Comment
+    Comment,
+    PostID,
+    PostToolbar,
+    ThreadMedia as Media
 } from '../../components';
-
-import Media from '../ThreadMedia'
 
 import { setHTML, bindMembersToClass } from '~/utils/react';
 import { emitMediaReelOpen } from '~/events/publishers';
@@ -39,12 +40,11 @@ export default class ThreadPost extends Component {
         return (
             <div id={"p"+id} className='ThreadPost' onClick={e => e.stopPropagation()}>
                 <div className='post-info'>
-                    <Title title={title}/>
                     <span className='name'>{name}</span>
-                    <span className='id'>#{id}</span>
+                    <PostID id={id}/>
                     <Pipe />
                     <TimeAgo time={time}/>
-                    <ControlMenu controls={controls}/>
+                    <PostToolbar controls={controls}/>
                 </div>
                 <MediaInfo media={media}/>
                 <Media media={media} onLargeImageClick={this.handleLargeImageClick}/>
