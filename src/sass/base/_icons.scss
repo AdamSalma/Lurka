@@ -38,6 +38,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 .lurka-eye:before {
   content: "\61";
 }
@@ -173,7 +174,7 @@
 .lurka-chevron-down:before {
   content: "\55";
 }
-.lurka-chervon-up:before {
+.lurka-chevron-up:before {
   content: "\56";
 }
 .lurka-mesage-1:before {
@@ -571,4 +572,7 @@
 }
 .lurka-layout-fixed:before {
   content: "\e053";
+}
+.lurka-expand-2:before {
+  content: "\e054";
 }
