@@ -48,9 +48,10 @@ export default class BoardPost extends PureComponent {
     renderImage(onLoad, {media}) {
         return !this.state.imageInvalidated ? (
             <div className="image-wrap">
-                <Image
-                    src={media.thumbnail}
-                    onLoad={onLoad} onError={this.hideImage}
+                <Image src={media.thumbnail}
+                    width={media.width} height={media.height}
+                    onLoad={onLoad}
+                    onError={this.hideImage}
                 />
             </div>
         ): false
