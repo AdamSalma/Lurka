@@ -49,6 +49,7 @@ window.appSettings = {
         navbarEye:      'eye-2',
         navbarSettings: 'cog',
         navbarTheme: 'paint-brush-2',
+        navbarMenu: 'menu',
 
         subNavbarOpen: 'chevron-down',
         subNavbarClose: 'chevron-up',
@@ -56,7 +57,7 @@ window.appSettings = {
         searchMagnify: "search-1",
         searchClose: "times",
 
-        // videoFullscreen: "arrow-expand",
+        videoFullscreen: "arrow-expand",
         videoPlay: "play",
         videoPause: "pause",
         videoError: "warning-alt",
@@ -73,7 +74,7 @@ window.appSettings = {
 
         threadPostMenu: 'dot-3',
         threadPostControlsReport: "flag",
-        threadPostControlsDownload: "download-1", // TODO: Change
+        threadPostControlsBookmark: "bookmark", // TODO: Change
         threadPostControlsReply: "quote",
         threadPostControlsImageSearch: "search-2",
         threadPostControlsHide: "minus-circle",
