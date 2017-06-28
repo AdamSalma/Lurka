@@ -2,43 +2,31 @@ import './Settings.styles'
 import React, { Component } from 'react'
 import classes from 'classnames'
 
-import { Setting } from '../../components'
+import { Setting } from '~/components'
 
 
 export default class Settings extends Component {
-    constructor({settings}) {
+    constructor({ settings, settingDetails }) {
         super();
         this.state = {
             revealMaxSettings: 3
         }
 
-        // TODO: two settings for internal/client?
-        // Filter disabled settings
-        this._settings = {}
-        for (let setting in settings) {
-            if (!setting.disabled) {
-                this._settings[setting] = settings[setting]
-            }
-        }
-
-        console.warn(this._settings);
-
-        this._uniqueTypes = this.getUniqueTypes(this._settings)
-
-
+        this.uniqueGroupings = this.getUniqueGroupings(settingDetails)
     }
 
+    getUniqueGroupings(settings) {
+        logger.method("Settings::getUniqueGroupings");
 
-    getUniqueTypes(settings) {
-        const types = []
-        for (let setting in settings) {
+        const groups = []
+        for (var key in settings) {
             if (!settings.hasOwnProperty(setting))
                 return
-            if (!types.includes(settings[setting].type)) {
-                types.push(settings[setting].type)
+            if (!groups.includes(settings[setting].group)) {
+                groups.push(settings[setting].group)
             }
         }
-        return types
+        return groups
     }
 
     render() {
@@ -51,8 +39,8 @@ export default class Settings extends Component {
     }
 
     createSettings() {
-        return this._uniqueTypes.map( groupType => {
-            // Create a group for every 'type'. 
+        return this.uniqueGroupings.map( groupType => {
+            // Create a group for every 'type'.
             // End structure: settings > groupType > setting
             let groupClasses = classes('group', groupType.toLowerCase())
 
@@ -72,7 +60,7 @@ export default class Settings extends Component {
                 return
 
             let s = this._settings[setting]
-            if (s.type === groupType) {
+            if (s.group === groupType) {
                 ret.push(<Setting key={setting} setting={s} />)
             }
         }

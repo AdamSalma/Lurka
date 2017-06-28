@@ -19,16 +19,12 @@ export const findParentWithClass = (el, clss) => {
 
 // http://stackoverflow.com/a/7557433
 export const isElementInViewport = (el) => {
-    if (typeof jQuery === "function" && el instanceof jQuery) {
-        el = el[0];
-    }
-
-    var rect = el.getBoundingClientRect();
+    const rect = el.getBoundingClientRect();
 
     return (
         rect.top >= 0 &&
         rect.left >= 0 &&
-        rect.bottom <= $(window).height() &&
-        rect.right <= $(window).width()
+        rect.bottom <= window.innerHeight &&
+        rect.right <= window.innerWidth
     );
 }

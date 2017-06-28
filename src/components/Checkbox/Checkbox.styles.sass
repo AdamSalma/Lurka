@@ -1,4 +1,4 @@
-@import '~styles/base'
+@import '~sass/partials'
 
 .Checkbox
     width: 20px
@@ -6,7 +6,7 @@
     display: inline
     margin-left: 6px
 
-    label 
+    label
         +square(20px)
         cursor: pointer
         position: absolute
@@ -15,7 +15,7 @@
         background: linear-gradient(to top, grey(9), grey(8))
         border-radius: 4px
         box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0 0 4px rgba(255,255,255,.3)
-        &::after 
+        &::after
             content: ''
             width: 9px
             height: 5px
@@ -29,12 +29,12 @@
             opacity: 0
             transform: rotate(-45deg)
 
-    &:hover::after 
+    &:hover::after
       opacity: 0.3
 
-    input[type=checkbox] 
+    input[type=checkbox]
         visibility: hidden
-        &:checked + label::after 
+        &:checked + label::after
             opacity: 1
 
 

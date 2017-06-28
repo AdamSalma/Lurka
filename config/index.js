@@ -1,3 +1,5 @@
+const env = process.env.NODE_ENV;
+
 const server = {
   schema: 'http',
   host: 'localhost',
@@ -7,8 +9,12 @@ const server = {
 server.url = `${server.schema}://${server.host}:${server.port}/`
 
 var config = {
-  env: process.env.NODE_ENV || 'development',
-  inProduction: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === "prod",
+  env: {
+    raw: env,
+    production: env === 'production' || env === 'prod',
+    development: env === 'development' || env === 'dev',
+    testing: env === 'testing' || env === 'test'
+  },
   meta: {
     title: 'Lurka',
     version: require('../package.json').version

@@ -1,25 +1,27 @@
 import Axios from 'axios';
-import moment from 'moment'
+import moment from 'moment';
 
 import API from '-/config/api.4chan';
-import options from '-/config/proxy';
+import proxySettings from '-/config/proxy';
 import { parseThread } from '../../parsers';
-import { writeObjToRoot, printObj } from '../../services/inspector'
+import { writeObjToRoot, printObj } from '../../utils/inspector';
 
-
-const timeFormat = 'ddd[,] M MMM YYYY hh:mm:ss [GMT]'
+const options = Object.assign({}, proxySettings);
+const timeFormat = 'ddd[,] M MMM YYYY hh:mm:ss [GMT]';
 
 export default function (req, res, next) {
     const { boardID, threadID } = req.params;
     const { receivedAt } = req.query;
-    const url = API.thread(boardID, threadID)
+    const url = API.thread(boardID, threadID);
 
     if (receivedAt) {
         log.warn(`receivedAt: ${receivedAt}`)
-        options.headers["If-Modified-Since"] = moment(parseInt(receivedAt)).format(timeFormat)
+        options.headers["If-Modified-Since"] = moment(parseInt(receivedAt)).format(timeFormat);
+    } else {
+        options.headers["If-Modified-Since"] = 0;
     }
 
-    log.http(`Fetching Thread from ${url}`)
+    log.http(`Fetching Thread from ${url}`);
 
     Axios(url, options)
         .then( checkResponse )
@@ -27,8 +29,8 @@ export default function (req, res, next) {
         .then( posts => parseThread(posts, boardID))
         .then( thread => res.send(thread))
         .catch( err => {
-            printObj(err)
-            next(err)
+            printObj(err);
+            next(err);
         });
 };
 
@@ -39,15 +41,15 @@ export default function (req, res, next) {
  */
 function checkResponse(res) {
     if (!res || !res.data) {
-        throw new Error('No response or response.data received')
+        throw new Error('No response or response.data received');
     }
 
     if (!res.data.posts) {
-        log.warn("No posts")
-        printObj(err)
-        writeObjToRoot('4chan_thread_error.json', res)
-        throw new Error('No thread posts received. Written response to app/4chan_thread_error.json')
+        log.warn("No posts");
+        printObj(err);
+        writeObjToRoot('4chan_thread_error.json', res);
+        throw new Error('No thread posts received. Written response to app/4chan_thread_error.json');
     }
 
-    return res
+    return res;
 }

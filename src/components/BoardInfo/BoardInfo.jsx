@@ -2,17 +2,17 @@ import './BoardInfo.styles'
 import React, {Component} from 'react';
 import classes from 'classnames'
 
-import {convertBytes, commaify} from '~/utils'
+import {convertBytes, commaify} from '~/utils/conversions'
 
 
 export default function BoardInfo(props) {
     const {
-        is_archived, 
+        is_archived,
         max_filesize,
-        max_comment_chars, 
-        image_limit, 
-        max_webm_duration, 
-        max_webm_filesize, 
+        max_comment_chars,
+        image_limit,
+        max_webm_duration,
+        max_webm_filesize,
         NSFW,
         bump_limit,
         cooldowns,
@@ -36,13 +36,13 @@ export default function BoardInfo(props) {
         <div className="BoardInfo">
             <ul>
                 <li>{is_archived ? "Is Archived" : "No Archive"}</li>
-                {image_limit && 
+                {image_limit &&
                     <li>Image limit: {convertBytes(image_limit).megabytes}</li>}
-                {max_filesize && 
+                {max_filesize &&
                     <li>Max filesize: {convertBytes(max_filesize).megabytes}</li>}
                 {max_comment_chars && <li>Max comment characters: {commaify(max_comment_chars)}</li>}
                 {max_webm_duration && <li>Max WebM duration: {max_webm_duration}</li>}
-                {max_webm_filesize && 
+                {max_webm_filesize &&
                     <li>Max WebM filesize: {convertBytes(max_webm_filesize).megabytes}</li>}
                 <li>{NSFW ? "NSFW" : "SFW"}</li>
                 {bump_limit && <li>Bump limit: {bump_limit}</li>}

@@ -1,4 +1,4 @@
-@import '~styles/base'
+@import '~sass/partials'
 
 $background-color1: grey(7)
 $background-color2: grey(8)
@@ -10,13 +10,13 @@ $background-color2: grey(8)
     top: 0
     background: grey(8)
     background: linear-gradient(135deg, $background-color2, $background-color1, $background-color2)
-    background: url('~styles/../server/public/backgrounds/dark_wall.png')
+    background: url('~public/backgrounds/dark_wall.png')
 
-.HomeView
-    z-index: 1
+.DashboardView
+    z-index: $homepage-z-index
 
 .ContentView
-    z-index: 10
+    z-index: $contentpage-z-index
 
 .SettingsView
     z-index: 100

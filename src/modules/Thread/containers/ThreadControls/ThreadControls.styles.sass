@@ -1,0 +1,37 @@
+@import '~sass/partials'
+
+$thread-controls-gutter-size: 12px
+$thread-controls-height: 65px
+
+.thread-controls
+    position: fixed
+    width: 100vw
+    bottom: 0
+    left: 0
+    z-index: 20
+    height: 1px
+
+    &.animate-in
+        transform: translateY(0)
+        transition: transform .65s ease
+
+    &.animate-out
+        transform: translateY($thread-controls-height)
+        transition: transform .2s $bezier-fast
+
+    .left-controls
+        left: 0
+
+        .ButtonCircle
+            float: right
+
+
+    .right-controls
+        right: 0
+
+    .controls
+        width: calc((100vw - #{$thread-width}) / 2)
+        position: fixed
+        height: $thread-controls-height
+        bottom: 0
+        padding: 0 $thread-controls-gutter-size

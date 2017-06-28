@@ -18,8 +18,8 @@ export const onContentViewToggle = function () {
     on(types.TOGGLE_CONTENT_VIEW).apply(null, arguments);
 }
 
-export const onDrawerToggle = function () {
-    on(types.TOGGLE_DRAWER).apply(null, arguments);
+export const onSettingsToggle = function () {
+    on(types.TOGGLE_SETTINGS).apply(null, arguments);
 }
 
 export const onMediaReelOpen = function () {
@@ -33,3 +33,8 @@ export const onThreadOpen = function () {
 export const onThreadClose = function () {
     on(types.THREAD_CLOSE).apply(null, arguments);
 }
+
+export const onSubHeaderToggle = function () {
+    on(types.SUB_HEADER_TOGGLE).apply(null, arguments);
+}
+

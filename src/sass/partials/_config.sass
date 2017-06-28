@@ -1,0 +1,154 @@
+// -----------------
+// Font + Typography
+// -----------------
+
+$font-main: "OpenSans-Regular"
+$font-main-light: "OpenSans-Light"
+$font-alt: "Raleway-Regular"
+// $font-accent: "FaricyNew-Light"
+$font-accent: "Montserrat-Light"
+
+
+$font-dir: 'base/fonts/'
+$icon-dir: 'base/icons/'
+
+$line-height: 1.618
+
+$font-size-xsmall: 12px
+$font-size-small: 13px
+$font-size-medium: 16px
+$font-size-large: 20px
+$font-size-xlarge: 24px
+
+
+// -----------------------
+// Animation + Transitions
+// -----------------------
+
+$key-animation-duration: .240s
+$key-bezier-animation-in: cubic-bezier(0,0,0.2,1)
+$key-bezier-animation-out: cubic-bezier(0.4,0,1,1)
+
+$bezier-fast: cubic-bezier(0,0,0.2,1)
+$bezier-slow: cubic-bezier(0.4,0,1,1)
+$bezier-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275)
+
+$animation-speed-fast: .240s
+$animation-speed-normal: .400s
+$animation-speed-slow: .720s
+
+$delay-fast: .05s
+$delay-normal: .2s
+$delay-slow: .4s
+
+
+// -------------
+// Layering (z-index)
+// -------------
+
+// Top level pages:
+$homepage-z-index: 1
+$contentpage-z-index: 10
+$preload-screen-z-index: 99999
+// Layout:
+$mainheader-z-index: 501
+$subheader-z-index: 500
+$drawer-z-index: 500
+// Components:
+$tooltip-z-index: 1000
+$thread-tooltip-z-index: 10000
+$react-alerts-z-index: 9999
+
+
+// -------------
+// Nano scroller
+// -------------
+$board-scroller-width: 4px
+$thread-scroller-width: 4px
+
+
+// -------------
+// Board Related
+// -------------
+$board-color: grey(8)
+$board-post-color: color(boardpost)
+$board-post-width: 236px
+$board-post-comment-max-height: 175px
+$board-post-shadow-color: color(boardpost, dark)
+$board-post-shadow-hover-color: color(boardpost, lightest)
+
+
+// --------------
+// Thread Related
+// --------------
+$thread-width: 981px
+$thread-color: transparent
+$thread-line-height: 1.618
+
+$thread-post-color: color(threadpost)
+$thread-post-info-size: 14px
+
+
+// --------------
+// Header Related
+// --------------
+$header-width: 992px
+$header-height: 64px
+$header-icon-size: 20px
+$header-border-color: color(primary, darkest)
+$header-padding: 0 16px 0 16px
+$header-logo-padding: 56px
+
+$subheader-width: $thread-width - 7px
+$subheader-height: 48px
+$subheader-icon-size: 18px
+$subheader-font-size: 14px
+
+
+// ----------------
+// Settings Related
+// ----------------
+$settings-drawer-width: 256px
+$drawer-width: 256px
+
+$settings-color: grey(3)
+$settings-font-size-ratio: 1.2
+$settings-font-size-large: $font-size-large * $settings-font-size-ratio
+$settings-font-size-medium: $font-size-medium * $settings-font-size-ratio
+$settings-font-size-small: $font-size-small * $settings-font-size-ratio
+
+// deprecated - refactor to be used by settings
+$navbar-width: 385px
+$navbar-height: calc(100vh - #{$header-height})
+$navbar-icon-size: 18px
+$navbar-button-effect-amount: 20%
+
+
+// -------------
+// App Preloader
+// -------------
+
+// $preloader-color-inner: color(primary)
+// $preloader-color-middle: adjust-hue(color(primary), 120deg)
+// $preloader-color-outer: adjust-hue(color(primary), -120deg)
+
+$preloader-base-color: color(primary)
+$preloader-color-inner: $preloader-base-color
+$preloader-color-middle: darken($preloader-base-color, 10%)
+$preloader-color-outer: darken($preloader-base-color, 25%)
+
+$preloader-arc-width: 3px
+$preloader-spin-multiplier: 1
+$preloader-size: 150px
+
+$preloader-text-box-size: 400px
+
+
+$dropdown-color: grey(7)
+$dropdown-color-hover: lighten($dropdown-color, 5%)
+
+
+// ---------------
+// Other variables
+// ---------------
+$golden-ratio: 1.618

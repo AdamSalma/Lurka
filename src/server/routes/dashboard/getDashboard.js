@@ -2,11 +2,14 @@ import fs from 'fs';
 import path from 'path';
 
 export default function (req, res, next) {
-    if (req.xhr) // if not ajax
+    if (req.xhr) {
+        // if not ajax
         return next();
+    }
 
-    log.app(`Streaming dashboard from ${global.app_root}`);
+    log.app(`Streaming dashboard from ${clientRoot}`);
+
     fs.createReadStream(
-        path.join(global.app_root, 'index.html')
+        path.join(clientRoot, 'index.html')
     ).pipe(res);
 }

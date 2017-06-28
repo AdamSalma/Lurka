@@ -1,0 +1,51 @@
+@import '~sass/partials'
+
+$iconcircle-icon-size: 1em
+$iconcircle-circlesize: 1.8em
+
+.IconCircle
+    +clickable
+    +size($iconcircle-circlesize)
+    font-size: 22px
+    position: relative
+    display: inline-block
+    margin: 0 9px
+
+    .Icon
+        font-size: inherit
+        +size(inherit)
+        display: table-cell
+        vertical-align: middle
+        color: color(text-secondary)
+        text-align: center
+        transition: all .2s
+        z-index: 1
+        line-height: inherit
+
+    .Circle
+        +circle(inherit)
+        position: absolute
+        background: grey(8)
+        border-radius: 50%
+        border: 1px solid grey(6)
+        transform: scale(1)
+        transition: all .2s
+        z-index: -1
+
+    &:hover
+        .Circle
+            background: grey(7)
+            transform: scale(1.25)
+            border-color: color(primary)
+
+        .Icon
+            transform: scale(1.2)
+            color: color(text-primary)
+
+    &.selected
+        .Circle
+            border-color: color(primary)
+            background-color: color(primary)
+
+        .Icon
+            color: color(text-primary)

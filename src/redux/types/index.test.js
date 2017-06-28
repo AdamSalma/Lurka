@@ -1,6 +1,6 @@
 import * as types from '.';
 
-describe('Types', () => {
+describe('Redux Types', () => {
   it('contains USER_SAVED_POST', () => {
     expect(types.USER_SAVED_POST).toEqual('USER_SAVED_POST');
   });
@@ -37,10 +37,6 @@ describe('Types', () => {
     expect(types.SETTING_CHANGED).toEqual('SETTING_CHANGED');
   });
 
-  it('contains APP_READY', () => {
-    expect(types.APP_READY).toEqual('APP_READY');
-  });
-
   it('contains BOARD_REQUESTED', () => {
     expect(types.BOARD_REQUESTED).toEqual('BOARD_REQUESTED');
   });
@@ -55,6 +51,10 @@ describe('Types', () => {
 
   it('contains BOARD_INVALIDATED', () => {
     expect(types.BOARD_INVALIDATED).toEqual('BOARD_INVALIDATED');
+  });
+
+  it('contains BOARD_SEARCHED', () => {
+    expect(types.BOARD_SEARCHED).toEqual('BOARD_SEARCHED');
   });
 
   it('contains BOARD_LIST_REQUESTED', () => {
@@ -133,8 +133,8 @@ describe('Types', () => {
     expect(types.THREAD_INVALIDATED).toEqual('THREAD_INVALIDATED');
   });
 
-  it('contains BOARD_CACHE_SAVED', () => {
-    expect(types.BOARD_CACHE_SAVED).toEqual('BOARD_CACHE_SAVED');
+  it('contains BOARD_CACHED', () => {
+    expect(types.BOARD_CACHED).toEqual('BOARD_CACHED');
   });
 
   it('contains BOARD_CACHE_LOADED', () => {

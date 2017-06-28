@@ -7,9 +7,9 @@
  * @return {Function}
  */
 export const throttleByCount = (count, callback) => {
-    let i = 0
+    var i = 0
 
-    return () => {
+    return function() {
         if (i >= count) {
             i = 0
             return callback.apply(null, arguments)
@@ -26,9 +26,9 @@ export const throttleByCount = (count, callback) => {
  * @return {Function}
  */
 export const invokeThenIgnoreForPeriod = (time, callback) => {
-    let canCall = true
+    var canCall = true
 
-    return () => {
+    return function() {
         if (canCall) {
             canCall = false
             setTimeout(() => canCall = true, time)
@@ -49,7 +49,7 @@ export const invokeThenIgnoreForPeriod = (time, callback) => {
  * @return {Function}
  */
 export const invokeAfterUninterruptedDelay = (delay, callback) => {
-    let calls = 0
+    var calls = 0
 
     return function () {
         calls++
@@ -57,6 +57,49 @@ export const invokeAfterUninterruptedDelay = (delay, callback) => {
             calls--
             if (calls === 0)
                 callback.apply(null, arguments)
+        }, delay)
+    }
+}
+
+export const invokeOnceThenAgainAfterUninterruptedDelay = (delay, callback) => {
+    var calls = 0
+
+    return function () {
+        if (calls === 0) {
+            return callback.apply(null, arguments)
+        }
+
+        calls++
+        setTimeout(() => {
+            calls--
+            if (calls === 0)
+                callback.apply(null, arguments)
+        }, delay)
+    }
+}
+
+
+export const invokeAtBeginingEndAndByCount = ({delay, count, callback}) => {
+    var calls = 0;
+    var counter = 0;
+
+    return function () {
+        if (!calls || counter >= count) {
+            if (counter) {
+                counter = 0
+            }
+            return callback.apply(null, arguments)
+        }
+
+        calls++
+        counter++
+
+        setTimeout(() => {
+            calls--
+            if (calls === 0) {
+                callback.apply(null, arguments)
+                counter = 0
+            }
         }, delay)
     }
 }

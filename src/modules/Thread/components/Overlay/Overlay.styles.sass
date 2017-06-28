@@ -1,0 +1,16 @@
+@import '~sass/partials'
+
+.Overlay
+    +set-dims(100%, 100%)
+    z-index: 10
+    position: absolute
+    background-color: grey(9)
+    top: 0
+    left: 0
+    opacity: 0
+    transition: opacity .2s ease-out
+    pointer-events: none
+
+    &.Overlay-active
+        pointer-events: auto
+        opacity: .95

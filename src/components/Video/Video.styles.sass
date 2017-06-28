@@ -1,4 +1,4 @@
-@import '~styles/base'
+@import '~sass/partials'
 
 $video-highlight-color: color(primary)
 $video-volume-fill-color: grey(1)
@@ -28,7 +28,7 @@ $video-controls-background-color: grey(9)
     &:hover .video-controls
         opacity: 1
 
-    .video 
+    .video
         width: 100%
         height: 100%
 
@@ -45,20 +45,20 @@ $video-controls-background-color: grey(9)
         &:hover
             background-color: $video-controls-background-color
 
-        .playpause-button 
+        .playpause-button
             +_video-button
 
 
-            // .Icon 
+            // .Icon
             //     padding 5
-    
+
     .volume
         position: relative
 
         &:hover
             background-color: $video-controls-background-color
 
-            .slider
+            .volume-slider
                 display: block
 
         .volume-button

@@ -1,0 +1,8 @@
+// Are mixed with the base colors using the fn `color(name, shade)`
+// values are: (shade, shadePercent)
+$color-shades: (
+    darkest:  (#000000, 20%),
+    dark:     (#5c5c5c, 20%),
+    light:    (#ffffff, 20%),
+    lightest: (#ffffff, 40%),
+);

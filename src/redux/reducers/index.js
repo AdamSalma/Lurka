@@ -3,9 +3,9 @@ import { combineReducers } from 'redux';
 import BoardReducer from "./BoardReducer";
 import BoardlistReducer from "./BoardListReducer";
 import CacheReducer from "./CacheReducer";
-import DisplayReducer from "./DisplayReducer";
+// import DisplayReducer from "./DisplayReducer";
 import ThreadReducer from "./ThreadReducer";
-import ThreadMonitorReducer from "./ThreadMonitorReducer";
+import WatchReducer from "./WatchReducer";
 import StatusReducer from "./StatusReducer";
 import SettingsReducer from "./SettingsReducer";
 
@@ -13,12 +13,12 @@ import SettingsReducer from "./SettingsReducer";
 const rootReducer = combineReducers({
     boardList: BoardlistReducer,
     board: BoardReducer,
-    display: DisplayReducer,
+    // display: DisplayReducer,
     thread: ThreadReducer,
     cache: CacheReducer,
     status: StatusReducer,
     settings: SettingsReducer,
-    threadMonitor: ThreadMonitorReducer,
+    watch: WatchReducer,
 });
 
 export default rootReducer

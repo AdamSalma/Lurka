@@ -12,7 +12,7 @@ import {
     fetchBoardList,
 } from '~/redux/actions';
 
-import { bindMembersToClass } from '~/utils'
+import { bindMembersToClass } from '~/utils/react'
 import {onAppReady} from '~/events/subscribers';
 
 
@@ -27,7 +27,6 @@ class Preloader extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        console.warn("shouldComponentUpdate(): " + this.preloading)
         return this.preloading
     }
 
@@ -52,7 +51,7 @@ class Preloader extends Component {
 function mapStateToProps({status, boardList, board, settings}) {
     return {
         boardList, board,
-        homeBoard: settings.external.homeBoard,
+        homeBoard: settings.homeBoard,
         alertMessage: status.alertMessage,
     }
 }

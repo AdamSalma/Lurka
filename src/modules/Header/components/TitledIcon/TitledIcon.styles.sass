@@ -1,0 +1,22 @@
+@import '~sass/partials'
+
+.TitledIcon
+    +clickable
+    font-size: $subheader-font-size
+    padding-right: 16px
+    color: color(text-secondary)
+    transition: color .2s ease-out
+
+    &:hover, &:active
+        color: color(text-primary)
+
+        .Icon
+            color: color(text-primary)
+
+    &:last-child
+        padding-right: 0
+        margin-right: 0
+
+    .Icon
+        font-size: $subheader-icon-size
+        vertical-align: middle

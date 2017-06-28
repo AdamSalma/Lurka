@@ -3,22 +3,43 @@ import React, { Component } from "react";
 import cx from 'classnames';
 import uuid from "uuid";
 
-import ThreadPost from './ThreadPost';
-
+/* Components */
 import {
-    Overlay,
     Spinner,
     TimeAgo
 } from '~/components';
-
-import setupThreadEvents from './events';
 import {
-    onDrawerToggle,
-    onThreadOpen, onThreadClose
-} from '~/events/subscribers';
-import {bindMembersToClass, isFunction} from '~/utils'
+    Overlay,
+    ThreadHeader
+} from './components';
+import {
+    ThreadPost as Post,
+    ThreadControls as Controls
+} from './containers';
 
-const settings = window.appSettings;
+
+/* Events */
+import setupEvents from './events/setup';
+import { emitSubHeaderToggle } from '~/events/publishers';
+import {
+    onSettingsToggle,
+    onThreadOpen,
+    onThreadClose
+} from '~/events/subscribers';
+
+/* Utilities */
+import {bindMembersToClass, setHTML} from '~/utils/react'
+import {isFunction} from '~/utils/types'
+import {throttleByCount} from '~/utils/throttle';
+
+/* Animation settings */
+import {
+    animationOptions,
+    animationStyles
+} from './config'
+
+const { headerHeight } = window.appSettings;
+
 
 class Thread extends Component {
     constructor(props) {
@@ -26,48 +47,47 @@ class Thread extends Component {
 
         bindMembersToClass(this,
             'openThread',
-            'closeThread'
+            'closeThread',
+            'handleScroll',
+            'onThreadClosed',
+            'onThreadOpened'
         );
 
         this.state = {
-            isDrawerOpen: props.isDrawerOpen,
-            isOpen: props.isThreadOpen,
+            isDrawerOpen: props.isDrawerOpen || false,
+            isOpen: props.isThreadOpen || false,
             isOpening: false,
-            isClosing: false,
+            isClosing: false
         }
-    }
 
-    @onDrawerToggle
-    onDrawerToggle(isDrawerOpen) {
-        this.setState({isDrawerOpen});
+        this.previousScrollTop = 0;
+
+        this.scrollerOpts = {
+            alwaysVisible: true,
+            // scrollerMinHeight etc ...
+        }
+
+        this.onScroll = throttleByCount(8, this.handleScroll);
     }
 
     @onThreadOpen
     onThreadOpen() {
-        this.openThread();
+        // Ignore if already open or opening
+        !this.state.isOpen && !this.state.isOpening && this.openThread();
     }
 
     @onThreadClose
     onThreadClose() {
-        this.closeThread();
-
+        // Ignore if already closed
+        this.state.isOpen && this.openThread();
     }
 
     componentDidMount() {
-        console.log("Thread mounted");
-        setupThreadEvents(this._thread)
+        logger.log("Thread mounted");
+        setupEvents(this._thread)
 
         // Creates the initial scroller
-        this.updateScroller({
-            sliderMinHeight: 40,
-            alwaysVisible: true
-        });
-    }
-
-    componentDidUpdate({ posts } ) {
-        if (!posts.length && this.props.posts.length) {
-            this.openThread();
-        }
+        this.updateScroller(this.scrollerOpts);
     }
 
     // shouldComponentUpdate({thread}, nextState) {
@@ -75,94 +95,155 @@ class Thread extends Component {
     //            this.props.thread.posts.length !== thread.posts.length
     // }
 
-    componentWillUnmount() {
-        console.log("Thread will unmount");
+    componentDidUpdate(prevProps, prevState) {
+        if (!prevProps.isFetching && this.props.isFetching) {
+            this._overlay.show();
+        }
     }
 
     render() {
         const { isFetching, didInvalidate, posts, className } = this.props;
         const { isOpen, isOpening, isClosing, isDrawerOpen } = this.state;
 
-        console.info(`Thread updated: isOpen: ${isOpen}, isOpening: ${isOpening}, isClosing: ${isClosing}`);
+        logger.info(`Thread updated: isOpen: ${isOpen}, isOpening: ${isOpening}, isClosing: ${isClosing}`);
         const threadWrapClasses = cx('wrapper', 'nano', {
             "center-left": isDrawerOpen,
-            "make-visible": isOpening || isOpen,
-            "fadein-boxshadow": isOpen && !isClosing && !isOpening
+            "make-visible": isOpening || isOpen && !isClosing,
+            // "fadein-boxshadow": isOpen && !isClosing && !isOpening
         });
 
         if (didInvalidate)
             return null
 
-        console.warn("posts:",posts.length)
+        logger.warn("posts:",posts.length)
         return (
             <div className={cx("Thread", className)}>
-                <Overlay onClick={this.closeThread} isVisible={!didInvalidate && (isFetching || isOpening || isOpen)}>
-                    <Spinner isSpinning={!posts.length && (isFetching || isOpening)}/>
+                <Overlay
+                    onClick={this.closeThread}
+                    ref={ ref => this._overlay = ref}>
+                    <Spinner
+                        isSpinning={!posts.length && (isFetching || isOpening)}
+                    />
                 </Overlay>
 
                 <div ref={ref => this._threadWrap = ref} className={threadWrapClasses}>
-                    <div id="thread" className='content nano-content' ref={ref => this._thread = ref} onClick={this.closeThread}>
-                        {posts.length && posts.map(
-                            post => <ThreadPost
-                                key={post.id}
-                                post={post}>
-                                <TimeAgo date={post.time}/>
-                            </ThreadPost>
-                        )}
+                    <div
+                      className='content nano-content'
+                      ref={ref => this._thread = ref}
+                      onClick={this.closeThread}
+                      onScroll={undefined/*this.onScroll*/}>
+                        {this.renderHeader(posts)}
+                        {this.renderPosts(posts)}
                     </div>
                 </div>
+                <Controls ref={ref => this._controls = ref} show={isOpen} hide={isClosing}/>
             </div>
         )
     }
-    // <div className="header-gap"></div>
+
+    renderHeader(posts) {
+        if (posts && posts.length && posts[0]) {
+            posts.length
+            return <ThreadHeader
+                      OP={posts[0]}
+                      lastUpdated={posts[posts.length-1].time}
+                    />
+        }
+    }
+
+    renderPosts(posts) {
+        const {isOpen, isClosing} = this.state;
+        const quickRender = !isOpen && !isClosing
+        const _posts = []
+
+        for (var i = 0; i < posts.length; i++) {
+            if (quickRender && i >= 8) {
+                // Animation performance bonus
+                logger.warn("Terminated early")
+                break
+            }
+
+            _posts.push(
+                <Post
+                    key={posts[i].id}
+                    post={posts[i]}>
+                    <TimeAgo date={posts[i].time}/>
+                </Post>
+            )
+        }
+
+        return _posts || null
+    }
 
     openThread(callback) {
-        this.setState({ isOpening: true }, () => {
-
+        logger.method('openThread');
+        this._overlay.show();
 
         // Must have separate invocations
         this.updateScroller({ scroll: "top" });
         this.updateScroller({ stop: true });
 
-        // TODO: Change from global appSettings into redux settingrs
-        this.animateThread({top: window.appSettings.headerHeight}, {
-            duration: 850,  // this too
-            easing: [0.25, 0.8, 0.25, 1],
-            complete: () => {
-                this.updateScroller();
-                this.setState({
-                    isOpen: true,
-                    isOpening: false
-                });
-                isFunction(callback) && callback();
-            }
+        this.setState({ isOpening: true });
+        // emitSubHeaderToggle(true, {
+            // delay: 200
+        // });
+
+        const animationOpts = Object.assign({}, animationOptions.in, {
+            complete: this.onThreadOpened.bind(null, callback)
         });
-        });
+
+        this.animateThread(animationStyles.in, animationOpts);
+    }
+
+    onThreadOpened(callback) {
+        logger.method('onThreadOpened');
+        this.updateScroller({ scroll: "top", stop: false });
+        this._controls.show();
+        this.setState({
+            isOpen: true,
+            isOpening: false
+        }, this.updateScroller);
+        isFunction(callback) && callback();
     }
 
     closeThread(callback) {
-        this.setState({
-            isClosing: true
-        })
+        logger.method('closeThread');
+        this._controls.hide();
+        this._overlay.hide();
+
+        // Always close subeheader on thread exit
+        emitSubHeaderToggle(false);
+
         // Close scroller otherwise thread slides down while it remains
         this.updateScroller({ stop: true });
 
-        // TODO: Is the header going to be animated in-out?
-        // scrollHeader(true)
-
-        this.animateThread({top: window.innerHeight+"px"}, {
-            duration: 150,
-            complete: () => {
-                // TODO: get these from this.props:
-                // dispatch(saveThreadToHistory(state))
-                // dispatch(destroyThread(threadID))
-                isFunction(callback) && callback();
-                this.setState({
-                    isOpen: false,
-                    isClosing: false
-                })
-            }
+        const animationOpts = Object.assign({}, animationOptions.out, {
+            complete: this.onThreadClosed.bind(null, callback)
         });
+
+        this.animateThread(animationStyles.out, animationOpts);
+    }
+
+    onThreadClosed(callback) {
+        this.updateScroller({ scroll: "top" });
+        logger.method("onThreadClosed")
+        this.setState({ isOpen: false });
+        this.isClosed = true;
+        this.props.cacheCurrentThread();
+        this.props.destroyThread();
+        isFunction(callback) && callback();
+        // is second invocation, fixes bug when thread open/closed quickly
+        this._controls.hide();
+    }
+
+    handleScroll(e) {
+        e.stopPropagation();
+
+        logger.log("Thread::previousScrollTop:", this.previousScrollTop)
+        // Condition overrides toggle
+        emitSubHeaderToggle(e.target.scrollTop < this.previousScrollTop);
+
+        this.previousScrollTop = e.target.scrollTop;
     }
 
     updateScroller(args) {
@@ -174,4 +255,4 @@ class Thread extends Component {
     }
 }
 
-export default Thread
+export default Thread;

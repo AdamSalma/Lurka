@@ -22,7 +22,8 @@ export default {
         path: '/',
         publicPath: config.server.url,
         filename: 'app.bundle.js',
-        sourceMapFileName: 'app.bundle.map'
+        sourceMapFileName: 'app.bundle.map',
+        pathinfo: true
     },
     devtool: 'eval',
     resolve: {

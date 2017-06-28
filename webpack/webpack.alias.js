@@ -4,5 +4,6 @@ var rootPath = path.join(__dirname, '..');
 module.exports = {
     '-': rootPath,
     '~': path.join(rootPath, 'src'),
-    'styles': path.join(rootPath, 'src', 'styles'),
+    'sass': path.join(rootPath, 'src', 'sass'),
+    'public': path.join(rootPath, 'src', 'server', 'public'),
 }

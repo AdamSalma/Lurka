@@ -1,0 +1,13 @@
+=center-icon
+    display: table-cell
+    vertical-align: middle
+    text-align: center
+
+=pseudo-circle($size, $color)
+    position: relative
+    &::after
+        content: ''
+        z-index: -1 // to not mess with icons
+        +circle($size)
+        position: absolute
+        background-color: $color

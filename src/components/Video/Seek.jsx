@@ -2,7 +2,7 @@ import React from 'react';
 
 export default ({ onChange, percentagePlayed, percentageBuffered, className, ariaLabel }) => {
     return (
-        <div className="seek">
+        <div className="seek" onClick={e => e.stopPropagation()}>
             <div className="seek-track">
                 <div
                     className="seek-buffer"

@@ -6,7 +6,8 @@
       "alias": {
         "-": "./",
         "~": "./src/",
-        "styles": "./src/styles/"
+        "sass": "./src/sass/",
+        "public": "./src/server/public"
       }
     }]
   ],

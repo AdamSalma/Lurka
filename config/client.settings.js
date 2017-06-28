@@ -21,32 +21,72 @@ window.appSettings = {
     threadpostScrollHighlightDuration: 2000,
 
     // The following settings can't be changed explcitly.
-    // Needs to be kept in sync with src/styles/base/variables
-    headerHeight: 60,
+    // Needs to be kept in sync with src/sass/partials/_config.sass
+    headerHeight: 64,
+    subheaderHeight: 50,
     threadWidth: 981,
-    drawerWidth: 250,
-    drawerAnimationDuration: 500,
+    settingsWidth: 256,
 
     homeViewID: 'HomeView',
     contentViewID: 'ContentView',
     settingsViewID: 'SettingsView',
 
+    iconPackName: 'lurka',
     icons: {
-        navbarArchive: 'ios-box',
-        navbarEye:     'ios-eye',
-        navbarChevron: 'ios-arrow-right',
-        navbarSearch:  'ios-search-strong',
-        navbarCompose: 'plus',
+
+        home: "", // TODO: Set this
+
+        // navbarMenu: "navicon",
+        navbarForwards: "arrow-big-right",
+        navbarBackwards: "arrow-big-left",
+
+        navbarInfo: 'information',
         navbarRefresh: 'refresh',
 
-        threadPostImageFullscreen: 'arrow-expand',
+        navbarAccount:  'person-add',
+        navbarBookmark: 'bookmark',
+        navbarDB:       'data',
+        navbarEye:      'eye-2',
+        navbarSettings: 'cog',
+        navbarTheme: 'paint-brush-2',
+        navbarMenu: 'menu',
 
-        threadPostMenu: 'more',
+        subNavbarOpen: 'chevron-down',
+        subNavbarClose: 'chevron-up',
+
+        searchMagnify: "search-1",
+        searchClose: "times",
+
+        videoFullscreen: "arrow-expand",
+        videoPlay: "play",
+        videoPause: "pause",
+        videoError: "warning-alt",
+        videoVolumeOff: "volume-disabled",
+        videoVolumeMute: "volume-mute",
+        videoVolumeLow: "volume-low",
+        videoVolumeMedium: "volume-med",
+        videoVolumeHigh: "volume-high",
+
+        boardPostReplyCount: "mesage-1",
+        boardPostImageCount: "image",
+
+        // threadPostImageFullscreen: 'arrow-expand',
+
+        threadPostMenu: 'dot-3',
         threadPostControlsReport: "flag",
-        threadPostControlsDownload: "arrow-down-a",
-        threadPostControlsReply: "chatbox-working",
-        threadPostControlsImageSearch: "ios-search-strong",
-        threadPostControlsHide: "minus-circled"
+        threadPostControlsBookmark: "bookmark", // TODO: Change
+        threadPostControlsReply: "quote",
+        threadPostControlsImageSearch: "search-2",
+        threadPostControlsHide: "minus-circle",
 
+        watchPanelClose: "times",
+        // watcchPanelUpdate: "update",
+
+        "footerSort": "bar-chart",
+        "footerFilter": "filter-outline",
+        "footerLayout": "layout",
+        "footerInfo": "info",
+        "footerOpen": "chevron-up",
+        "footerClose": "chevron-down",
     }
 }

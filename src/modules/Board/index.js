@@ -1,4 +1,4 @@
-import Board from './Board'
+import Board from './Board';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -10,13 +10,24 @@ import {
     fetchThread
 } from '~/redux/actions';
 
-function mapStateToProps({ status, display, board, thread }) {
+import {
+    getBoardPosts,
+    getBoardPostsBySearch,
+    getBoardPostsByFilter,
+    isBoardFetching,
+    isBoardBeingSearched,
+    isBoardFiltered,
+    getBoardID
+} from '~/redux/selectors'
+
+function mapStateToProps(state) {
     return {
-        status,
-        board,
-        isAppReady:   display.isAppReady,
-        isDrawerOpen: display.isDrawerOpen,
-        isThreadOpen: display.isThreadOpen
+        boardID: getBoardID(state),
+        posts: getBoardPosts(state),
+        postsBySearchTerm: getBoardPostsBySearch(state),
+        postsByFilterTerm: getBoardPostsByFilter(state),
+        isBeingSearched: isBoardBeingSearched(state),
+        isFiltered: isBoardFiltered(state)
     }
 }
 

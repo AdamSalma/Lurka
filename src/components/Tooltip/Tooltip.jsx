@@ -2,8 +2,8 @@ import './Tooltip.styles'
 import React, { PureComponent, PropTypes } from 'react';
 import cx from 'classnames';
 
-import { bindMembersToClass } from '~/utils';
-
+import { bindMembersToClass } from '~/utils/react'
+import { isFunction } from '~/utils/types'
 
 export default class Tooltip extends PureComponent {
 
@@ -11,7 +11,9 @@ export default class Tooltip extends PureComponent {
         className: '',
         position: 'top',
         content: 'No tooltip provided',
-        effect: 'scale',
+        effect: 'fade',
+        delay: 2000,
+        offset: "0px"
     };
 
     static propTypes = {
@@ -26,6 +28,7 @@ export default class Tooltip extends PureComponent {
             PropTypes.string,
             PropTypes.element
         ]),
+        delay: PropTypes.Number
     };
 
     constructor(props) {
@@ -41,27 +44,41 @@ export default class Tooltip extends PureComponent {
         this.state = {
             isVisible: false
         }
+
+        this.isHovering = false;
+        this.hoverTimeoutInstances = 0
     }
 
     onMouseEnter(e) {
-        this.show(this.props.onMouseEnter)
+        this.isHovering = true;
+        this.hoverTimeoutInstances++
+
+        setTimeout(() => {
+            this.hoverTimeouts--
+            if (this.isHovering && this.hoverTimeoutInstances == 0)
+                this.show(this.props.onMouseEnter)
+        }, this.props.delay)
     }
 
     onMouseLeave(e) {
+        this.isHovering = false
+        this.isCanceled = true
         this.hide(this.props.onMouseLeave)
     }
 
     show(callback) {
+        logger.method("Tooltip.show")
         this.setState({isVisible: true}, () => {
-            if (typeof this.props.onMouseEnter !== 'undefined') {
+            if (isFunction(callback)) {
                 callback()
             }
         })
     }
 
     hide(callback) {
+        logger.method("Tooltip.hide")
         this.setState({isVisible: false}, () => {
-            if (typeof this.props.onMouseEnter !== 'undefined') {
+            if (isFunction(callback)) {
                 callback()
             }
         })
@@ -71,30 +88,24 @@ export default class Tooltip extends PureComponent {
         const { content, className, children, effect, position:pos, ...restProps } = this.props
         const mainClass = cx('Tooltip', {
             'Tooltip--active': this.state.isVisible
-        })
+        });
 
-        const wrapperClass = cx(
-            className,
+        const wrapperClass = cx(className,
             "Tooltip__wrap",
-            `Tooltip__content--effect-${this.props.effect}`
-        )
-
-        const contentClass = cx(
-            'Tooltip__content',
             `Tooltip__wrap--${pos}`,
+            `Tooltip__wrap--effect-${this.props.effect}`
         )
 
         return (
-            <div {...restProps}
-            className='Tooltip'
-            onMouseEnter={this.onMouseEnter}
-            onMouseLeave={this.onMouseLeave}>
+            <div {...restProps} className={mainClass}>
                 <div className={wrapperClass}>
-                    <div className={contentClass}>
+                    <div className='Tooltip__content'>
                         {content}
                     </div>
                 </div>
-                {children}
+                <div onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
+                    {children}
+                </div>
             </div>
         )
     }

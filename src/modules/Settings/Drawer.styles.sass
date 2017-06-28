@@ -1,0 +1,46 @@
+@import '~sass/partials'
+
+$drawer-border-left-color: $header-border-color
+
+.Drawer
+    position: absolute
+    right: 0
+    top: $header-height
+    height: calc(100vh - #{$header-height})
+    background-color: grey(8)
+    z-index: $drawer-z-index
+    width: $drawer-width
+    transform: translateX($drawer-width);  // default closed
+    +will-change(transform)
+
+    .container
+        border-left: 2px solid $drawer-border-left-color
+        height: 100%
+        padding: 20px 20px 0 24px
+
+        .SortPanel
+            font-family: $font-main-light
+
+    .content
+
+    .footer
+        height: $header-height // TODO: make own variable
+        position: absolute
+        bottom: 0
+        left: 0
+        width: 100%
+
+        display: flex
+        align-items: center
+
+        .LogoText
+            margin-left: 0
+            margin-right: auto
+
+        $drawer-icon-size: 22px
+        .Icon
+            font-size:
+            margin: 0 4px
+            padding: 0 4px
+            +pseudo-circle($drawer-icon-size+4, color(primary))
+            +center-icon
