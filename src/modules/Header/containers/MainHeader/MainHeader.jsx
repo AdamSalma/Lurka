@@ -2,30 +2,35 @@ import './MainHeader.styles';
 import React, { PureComponent, PropTypes } from 'react';
 import cx from 'classnames';
 
+/* Header Specific components */
 import {
     IconGroup,
-    Title,
+    HeaderTitle,
     HeaderItem,
     BoardSpecs,
-    ContentButtonGroup
+    ContentButtonGroup,
+    FullLogo,
+    SlideDownBG
 } from '../../components';
 
+/* Generic Components */
 import {
-    LogoText,
     SearchBar,
     Icon,
-    Logo,
     Notification,
     Tooltip
 } from '~/components';
 
+/* Events */
 import {
     emitContentViewToggle,
     emitSubHeaderToggle,
     emitSettingsToggle
 } from '~/events/publishers';
+import { onContentViewToggle } from '~/events/subscribers';
 
-import {bindMembersToClass} from '~/utils/react';
+/* Helpers */
+import { bindMembersToClass } from '~/utils/react';
 
 const i = window.appSettings.icons;
 
@@ -35,10 +40,14 @@ class MainHeader extends PureComponent {
         className: PropTypes.string,
     };
 
+    state = {
+        isContentInView: true
+    }
+
     constructor(props) {
         super(props);
-        this.toggleFlag = props.isSettingsOpen || false
         bindMembersToClass(this, 'onSettingsClick');
+        this.isSettingsOpen = !!props.isSettingsOpen
     }
 
     render() {
@@ -69,7 +78,9 @@ class MainHeader extends PureComponent {
         });
 
         // TODO: Use selector for this:
-        const navbarTitle = boardList.items.length && boardList.items.find(b => b.boardID === boardID).short_desc
+        const navbarTitle = boardList.items.length
+            && boardList.items.find(b => b.boardID === boardID).short_desc
+
         // <Icon
         //    name={i.navbarBackwards}
         //  className='MainHeader__backwards' />
@@ -77,51 +88,87 @@ class MainHeader extends PureComponent {
         // name={i.navbarForwards}
         //    className='MainHeader__forwards' />
 
+                // <HeaderItem className='HeaderItem__menu-icon'>
+                  // <div className="MainHeader__menu-icon">
+                    // <SlideDownBG>
+                        // <Icon name={i.navbarMenu}/>
+                    // </SlideDownBG>
+                  // </div>
+                // </HeaderItem>
+
+
         return (
             <div className={headerClass}>
               <div className='background' />
               <div className='content'>
-                <HeaderItem className='MainHeader--left MainHeader__logo'>
-                  <Logo/>
-                  <LogoText/>
-                </HeaderItem>
+                { this.state.isContentInView &&
+                    <HeaderItem className='MainHeader--left HeaderItem__logo'>
+                      <FullLogo className="MainHeader__FullLogo"/>
+                    </HeaderItem>
+                }
                 <HeaderItem className='MainHeader--center' onMouseEnter={this.onTitleHover}>
-                    <Title onTitleClick={(e) => emitContentViewToggle()}>
-                        {!!navbarTitle && navbarTitle}
-                    </Title>
+                  <HeaderTitle onClick={this.onTitleClick}>
+                    {!!navbarTitle && navbarTitle}
+                    <Icon name={ this.state.isContentInView
+                        ? "chevron-down"
+                        : "chevron-up"}/>
+                  </HeaderTitle>
                 </HeaderItem>
-                <HeaderItem className='MainHeader--right IconGroup'>
-                    <Tooltip className="navtip" content="Thread Watcher" position="bottom">
-                      <Notification number={1}>
-                        <Icon
-                          name={i.navbarEye}
-                          onClick={() => togglePanel('watch')} />
-                      </Notification>
-                    </Tooltip>
-                    <Tooltip className="navtip" content="Bookmarks" position="bottom">
-                      <Icon
-                        name={i.navbarBookmark}
-                        onClick={() => togglePanel('bookmarks')} />
-                    </Tooltip>
-                    <Tooltip className="navtip" content="Media Database" position="bottom">
-                      <Icon
-                        name={i.navbarDB}
-                        onClick={() => togglePanel('database')} />
-                    </Tooltip>
-                    <Tooltip className="navtip" content="Settings" position="bottom">
-                      <Icon
-                        name={i.navbarSettings}
-                        onClick={this.onSettingsClick} />
-                    </Tooltip>
-                </HeaderItem>
+                { this.state.isContentInView &&
+                    <HeaderItem className='MainHeader--right IconGroup'>
+                        <Tooltip className="navtip" content="Thread Watcher" position="bottom" offset="10px">
+                            <SlideDownBG>
+                              <Notification number={1}>
+                                <Icon
+                                  name={i.navbarEye}
+                                  onClick={() => togglePanel('watch')} />
+                              </Notification>
+                            </SlideDownBG>
+                        </Tooltip>
+                        <Tooltip className="navtip" content="Bookmarks" position="bottom">
+                            <SlideDownBG>
+                              <Icon
+                                name={i.navbarBookmark}
+                                onClick={() => togglePanel('bookmarks')} />
+                            </SlideDownBG>
+                        </Tooltip>
+                        <Tooltip className="navtip" content="Media Database" position="bottom">
+                            <SlideDownBG>
+                              <Icon
+                                name={i.navbarDB}
+                                onClick={() => togglePanel('database')} />
+                            </SlideDownBG>
+                        </Tooltip>
+                        <Tooltip className="navtip" content="Settings" position="bottom">
+                            <SlideDownBG>
+                              <Icon
+                                name={i.navbarSettings}
+                                onClick={this.onSettingsClick} />
+                            </SlideDownBG>
+                        </Tooltip>
+                    </HeaderItem>
+                }
               </div>
             </div>
         )
     }
 
     onSettingsClick(e) {
-        emitSettingsToggle(this.toggleFlag);
-        this.toggleFlag = !this.toggleFlag;
+        logger.log(`MainHeader.Settings - toggling drawer from ${this.isSettingsOpen} to ${!this.isSettingsOpen}`)
+        const openDrawer = !this.isSettingsOpen;
+        emitSettingsToggle(openDrawer);
+        this.isSettingsOpen = openDrawer;
+    }
+
+    onTitleClick(e) {
+        emitContentViewToggle()
+    }
+
+    @onContentViewToggle
+    onContentViewToggle() {
+        this.setState({
+            isContentInView: !this.state.isContentInView
+        });
     }
 
     onTitleHover() {
