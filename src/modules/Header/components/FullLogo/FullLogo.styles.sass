@@ -4,6 +4,7 @@ $logo-offset: 3px
 
 .FullLogo
     display: block
+    +clickable
 
     .FullLogo__Logo
         display: inline-block
@@ -11,12 +12,16 @@ $logo-offset: 3px
         padding: 8px + $logo-offset
 
     .FullLogo__LogoText
-        display: inline-block
+        display: inline-table
         font-variant: small-caps
+        vertical-align: baseline
 
         .name
             font-family: $font-main
 
         .version
             font-family: $font-alt
-            letter-spacing: .075rem
+            font-size: $font-size-small
+            letter-spacing: 0rem
+            text-align: left
+            left: 2px
