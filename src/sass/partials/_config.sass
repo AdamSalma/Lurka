@@ -5,12 +5,16 @@
 $font-main: "OpenSans-Regular"
 $font-main-light: "OpenSans-Light"
 $font-alt: "Raleway-Regular"
+// $font-accent: "FaricyNew-Light"
+$font-accent: "Montserrat-Light"
+
 
 $font-dir: 'base/fonts/'
 $icon-dir: 'base/icons/'
 
 $line-height: 1.618
 
+$font-size-xsmall: 12px
 $font-size-small: 13px
 $font-size-medium: 16px
 $font-size-large: 20px
@@ -32,6 +36,10 @@ $bezier-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275)
 $animation-speed-fast: .240s
 $animation-speed-normal: .400s
 $animation-speed-slow: .720s
+
+$delay-fast: .05s
+$delay-normal: .2s
+$delay-slow: .4s
 
 
 // -------------
@@ -86,9 +94,10 @@ $thread-post-info-size: 14px
 // --------------
 $header-width: 992px
 $header-height: 64px
-$header-icon-size: 24px
+$header-icon-size: 20px
 $header-border-color: color(primary, darkest)
-$header-padding: 0 16px 0 72px
+$header-padding: 0 16px 0 16px
+$header-logo-padding: 56px
 
 $subheader-width: $thread-width - 7px
 $subheader-height: 48px
@@ -137,3 +146,9 @@ $preloader-text-box-size: 400px
 
 $dropdown-color: grey(7)
 $dropdown-color-hover: lighten($dropdown-color, 5%)
+
+
+// ---------------
+// Other variables
+// ---------------
+$golden-ratio: 1.618

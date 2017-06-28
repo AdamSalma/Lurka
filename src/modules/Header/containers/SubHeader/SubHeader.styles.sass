@@ -21,16 +21,27 @@ $subheader-border-color: grey(5)
     &:hover .background
         opacity: 0.95
 
+
     .background
         transition: opacity $animation-speed-fast $bezier-fast
-        opacity: 0.85
+        opacity: 0.95
         background: darken(grey(6), 5%)
         // background: grey(6)
         +set-dims(inherit, inherit)
         position: absolute
         z-index: -1
-        border-radius: 0 0 4px 4px
 
+        &::before, &::after
+            position: absolute
+            top: 0
+            background: inherit
+            +size(80px, inherit)
+
+        &::before
+            left: 0
+
+        &::after
+            right: 0
 
     .content
         z-index: 2
@@ -41,9 +52,7 @@ $subheader-border-color: grey(5)
         flex-wrap: block
         align-items: center
         padding: 0 20px
-        border: 2px $subheader-border-color solid
-        border-top: none
-        border-radius: 0 0 4px 4px
+        border-bottom: 2px $subheader-border-color solid
         box-shadow: 0 0 5px grey(10)
 
 

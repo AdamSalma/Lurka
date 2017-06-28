@@ -8,7 +8,10 @@ import {
     Spinner,
     TimeAgo
 } from '~/components';
-import { Overlay } from './components';
+import {
+    Overlay,
+    ThreadHeader
+} from './components';
 import {
     ThreadPost as Post,
     ThreadControls as Controls
@@ -125,12 +128,11 @@ class Thread extends Component {
 
                 <div ref={ref => this._threadWrap = ref} className={threadWrapClasses}>
                     <div
-                        className='content nano-content'
-                        ref={ref => this._thread = ref}
-                        onClick={this.closeThread}
-                        onScroll={this.onScroll}>
-                        <div className="Thread__start-gap"></div>
-                        {this.renderTitle(posts)}
+                      className='content nano-content'
+                      ref={ref => this._thread = ref}
+                      onClick={this.closeThread}
+                      onScroll={undefined/*this.onScroll*/}>
+                        {this.renderHeader(posts)}
                         {this.renderPosts(posts)}
                     </div>
                 </div>
@@ -139,10 +141,14 @@ class Thread extends Component {
         )
     }
 
-    renderTitle(posts) {
-        return posts && posts.length && posts[0] && posts[0].title
-            ? <div className="Thread__title" {...setHTML(posts[0].title)}/>
-            : null
+    renderHeader(posts) {
+        if (posts && posts.length && posts[0]) {
+            posts.length
+            return <ThreadHeader
+                      OP={posts[0]}
+                      lastUpdated={posts[posts.length-1].time}
+                    />
+        }
     }
 
     renderPosts(posts) {
@@ -152,6 +158,7 @@ class Thread extends Component {
 
         for (var i = 0; i < posts.length; i++) {
             if (quickRender && i >= 8) {
+                // Animation performance bonus
                 logger.warn("Terminated early")
                 break
             }
@@ -177,9 +184,9 @@ class Thread extends Component {
         this.updateScroller({ stop: true });
 
         this.setState({ isOpening: true });
-        emitSubHeaderToggle(true, {
-            delay: 200
-        });
+        // emitSubHeaderToggle(true, {
+            // delay: 200
+        // });
 
         const animationOpts = Object.assign({}, animationOptions.in, {
             complete: this.onThreadOpened.bind(null, callback)

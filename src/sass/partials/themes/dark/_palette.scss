@@ -16,4 +16,5 @@ $color-palette: (
     highlight:      mix($primary, grey(7), 10%),
     boardpost:      grey(8),
     threadpost:     grey(7),
+    text-selection: $primary
 );

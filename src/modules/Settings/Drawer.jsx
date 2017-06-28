@@ -3,25 +3,28 @@ import React, { PureComponent, PropTypes } from 'react';
 import cx from 'classnames'
 
 import {
-    LogoText, Icon
+    LogoText, Icon, Container
 } from '~/components'
 
 import { invokeAfterUninterruptedDelay } from '~/utils/throttle'
 import { bindMembersToClass } from '~/utils/react'
 
-import Sort from './Sort'
+import Settings from './Settings'
 import { onSettingsToggle } from '~/events/subscribers';
+
+const { settingsWidth } = window.appSettings;
+
 
 class Drawer extends PureComponent {
     constructor(props) {
         super(props);
         this.throttleSearch = invokeAfterUninterruptedDelay(200, this.handleSearch)
+        this.isSettingsOpen = props.isSettingsOpen || false;
         this.state = {
-            isSettingsOpen: props.isSettingsOpen || false,
-            hideDuration: 600,
-            showDuration: 600,
-            hideEasing:   [0.23, 1, 0.32, 1],
-            showEasing:   [0.23, 1, 0.32, 1]
+            closeDuration: 600,
+            closeEasing:   [0.23, 1, 0.32, 1],
+            openDuration: 600,
+            openEasing:   [0.23, 1, 0.32, 1]
         }
 
         bindMembersToClass(this, 'toggleViewState');
@@ -34,64 +37,59 @@ class Drawer extends PureComponent {
             <div className='Drawer' ref={ref => this._drawer = ref}>
                 <div className="header">
                 </div>
-                <div className="container">
-                    <div className="content">
-                        <Sort
-                            className="Drawer__Panel"
-                        />
-                    </div>
-                    <div className="footer">
-                        <LogoText />
-                        <Icon name="ios-lightbulb"/>
-                        <Icon name="android-settings"/>
-                    </div>
-                </div>
+                <Container className="container">
+                    <Settings settings={this.props.settings} settingDetails={this.props.settingDetails} />
+                </Container>
             </div>
         );
     }
 
     @onSettingsToggle
-    onToggle({ override, callback }) {
-        logger.method('ContentView.onToggle', arguments)
-        if (override !== undefined) {
-            override ? this.hide() : this.show();
-        } else {
-            this.state.isSettingsOpen ? this.hide() : this.show();
+    onToggle(shouldOpen) {
+        window.openDrawer = this.open.bind(this);
+        window.closeDrawer = this.close.bind(this);
+        logger.method('Drawer.onSettingsToggle', "shouldOpen is", shouldOpen)
+        if (shouldOpen === this.isSettingsOpen) {
+            return
         }
+
+        if (!shouldOpen) {
+            shouldOpen = !this.isSettingsOpen
+        }
+
+        shouldOpen ? this.open() : this.close();
     }
 
-    hide() {
-        logger.log("Drawer.hide()")
+    open() {
+        logger.method("Drawer.open")
+        this.toggleViewState();
         this.animate({
             translateX: 0,
             translateZ: 0
         }, {
-            duration: this.state.hideDuration,
-            easing:   this.state.hideEasing,
-            complete: this.toggleViewState
+            duration: this.state.openDuration,
+            easing:   this.state.openEasing
         });
     }
 
-    show() {
-        logger.log("Drawer.hide()")
+    close() {
+        logger.method("Drawer.close")
+        this.toggleViewState();
         this.animate({
-            translateX: "100%",
+            translateX: settingsWidth,
             translateZ: 0
         }, {
-            duration: this.state.showDuration,
-            easing:   this.state.showEasing,
-            complete: this.toggleViewState
+            duration: this.state.closeDuration,
+            easing:   this.state.closeEasing
         });
     }
 
     toggleViewState() {
-        this.setState({
-            isSettingsOpen: !this.state.isSettingsOpen
-        })
+        this.isSettingsOpen = !this.isSettingsOpen;
     }
 
     animate(styles, options) {
-        this._drawer && $(this._drawer).velocity(styles, options);
+        this._drawer && $(this._drawer).stop().velocity(styles, options);
     }
 }
 

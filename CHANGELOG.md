@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Added
+- Opened thread images now load over a stretched, blurred thumbnail for a better visual effect
+- Dashboard supports board drag-n-drop
+- Server caches media proxy requests for speed
+- Thread header now displays metadata about the current thread
+- Main navbar icons have a new sliding animation
+- Added settings to main content page as a sidebar/drawer
+
+### Changed
+- Replace icon pack with custom version
+
+### Fixed
+- Thread control icons now aligned properly
+
+
 ## v.0.13.0 25/07/2017
 ### Added
 - Boards/Threads are cached in state to increase performance when reopening.

@@ -6,7 +6,7 @@ import uuid from "uuid";
 
 import {
     WatchController,
-    ArchiveController,
+    BookmarkController,
     CommentController,
     UpdateController
 } from '../../components'
@@ -41,7 +41,7 @@ export default class ThreadControls extends Component {
             <div className={controlClasses}>
                 <div className="controls left-controls">
 
-                    <ArchiveController {...this.props}/>
+                    <BookmarkController {...this.props}/>
                     <WatchController {...this.props}/>
 
                 </div>

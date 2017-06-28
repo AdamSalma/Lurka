@@ -8,3 +8,4 @@ app/*
 !app/package.json
 !app/electron.index.js
 
+img/

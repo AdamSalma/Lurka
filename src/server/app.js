@@ -1,5 +1,6 @@
-import Express from 'express'
+import Express from 'express';
 import { join } from 'path';
+import apicache from 'apicache';
 
 import config from '-/config'
 import routes from './routes'
@@ -13,6 +14,7 @@ global.clientRoot = config.env.production ? __dirname : join(__dirname, '..');
 global.rootRequire = rootRequire;
 
 const app = Express();
+const cache = apicache.middleware;
 
 app.use(checkInternet);
 
@@ -31,7 +33,7 @@ if (config.env.production) {
 
 // Proxy media queries through server to set headers
 // (4chan blocks if you request media with localhost)
-app.use('/proxy', routes.proxy);
+app.use('/proxy', cache('5 minutes'), routes.proxy);
 
 app.all('*', routeLogger);
 app.use('/', routes.index);

@@ -1,6 +1,4 @@
 @import '~sass/partials'
-$header-navbar-padding: 68px
-$header-icon-size: 20px
 
 .MainHeader
     position: absolute
@@ -36,19 +34,27 @@ $header-icon-size: 20px
     .HeaderItem
         padding: 0 8px
         transition: padding $key-animation-duration $key-bezier-animation-out
+        display: flex
+        justify-content: center
+        flex: 1
 
         &.MainHeader--left
             margin-left: 0
             margin-right: auto
+            > :last-child
+                margin-right: auto
 
         &.MainHeader--right
             padding-right: 0
             margin-left: auto
+            > :first-child
+                margin-left: auto
 
         &.MainHeader--center
             margin: 0 auto
             // align-self: center
             text-align: center
+            flex: 1
 
         > *
             display: inline-block
@@ -61,7 +67,7 @@ $header-icon-size: 20px
             text-shadow: 2px 2px 1px grey(10)
 
             &:hover, &:active
-                color: color(primary)
+                // color: color(primary)
                 transition: color .2s ease-out
 
         .IconCircle
@@ -71,6 +77,9 @@ $header-icon-size: 20px
         top: 4px
         padding: 8px
 
+    .HeaderItem__logo
+        margin-right: 0
+
     .Navbar__logo
         cursor: pointer
 
@@ -78,8 +87,13 @@ $header-icon-size: 20px
         border: grey(5) solid 1px
         box-shadow: 0 1px 4px 1px grey(10)
         padding: 12px
+        margin-top: 10px
+        transform: translateY($header-height) translateX(-50%) !important;
 
-    .MainHeader__logo
+    .MainHeader__FullLogo
         display: inline-block
         .Logo
 
+    .MainHeader__menu-icon
+        display: inline-block
+        line-height: 1
