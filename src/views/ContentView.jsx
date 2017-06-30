@@ -44,7 +44,7 @@ class ContentView extends Component {
 
     hide() {
         this.animate({
-            translateY: window.innerHeight - headerHeight + 2, // 2 = header border
+            translateY: window.innerHeight,
             translateZ: 0
         }, {
             duration: this.state.hideDuration,
