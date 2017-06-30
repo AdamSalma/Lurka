@@ -75,26 +75,38 @@ class SubHeader extends PureComponent {
               <div className='background' />
               <div className='content'>
                 <HeaderItem className='SubHeader--left'>
-                    <Icon name="android-lock"/>
-                    <Pipe className="SubHeader__Pipe"/>
-                    <TitledIcon name={i.navbarCompose} title='New Post'/>
-                    <Pipe className="SubHeader__Pipe"/>
-                    <TitledIcon name={i.navbarRefresh} title='Refresh'/>
+                  <TitledIcon name={i.footerSort} title='Sort'/>
                 </HeaderItem>
                 <HeaderItem className='SubHeader--center SubHeader__search'>
                   <SearchBar placeholder={`Quick search`} onChange={searchBoard}/>
                 </HeaderItem>
                 <HeaderItem className='SubHeader--right'>
-                  <TitledIcon name={i.footerSort} title='Sort'/>
-                  <Pipe className="SubHeader__Pipe"/>
                   <TitledIcon name={i.footerFilter} title='Filter'/>
-                  <Pipe className="SubHeader__Pipe"/>
-                  <TitledIcon name={i.footerLayout} title='Layout'/>
                 </HeaderItem>
               </div>
             </div>
         )
     }
+
+            // <div className='content'>
+            //     <HeaderItem className='SubHeader--left'>
+            //         <Icon name="android-lock"/>
+            //         <Pipe className="SubHeader__Pipe"/>
+            //         <TitledIcon name={i.navbarCompose} title='New Post'/>
+            //         <Pipe className="SubHeader__Pipe"/>
+            //         <TitledIcon name={i.navbarRefresh} title='Refresh'/>
+            //     </HeaderItem>
+            //     <HeaderItem className='SubHeader--center SubHeader__search'>
+            //       <SearchBar placeholder={`Quick search`} onChange={searchBoard}/>
+            //     </HeaderItem>
+            //     <HeaderItem className='SubHeader--right'>
+            //       <TitledIcon name={i.footerSort} title='Sort'/>
+            //       <Pipe className="SubHeader__Pipe"/>
+            //       <TitledIcon name={i.footerFilter} title='Filter'/>
+            //       <Pipe className="SubHeader__Pipe"/>
+            //       <TitledIcon name={i.footerLayout} title='Layout'/>
+            //     </HeaderItem>
+            //   </div>
 
 
     @onSubHeaderToggle
