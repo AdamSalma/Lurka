@@ -3,7 +3,7 @@ var rootPath = path.join(__dirname, '..');
 
 module.exports = {
     '-': rootPath,
-    '~': path.join(rootPath, 'src'),
-    'sass': path.join(rootPath, 'src', 'sass'),
-    'public': path.join(rootPath, 'src', 'server', 'public'),
+    '~': path.join(rootPath, 'src', 'UI'),
+    'sass': path.join(rootPath, 'src', 'UI', 'sass'),
+    'public': path.join(rootPath, 'src', 'Server', 'public'),
 }

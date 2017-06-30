@@ -4,14 +4,14 @@ var autoprefixer = require('autoprefixer');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-var src = path.join(__dirname, "..", "src")
+var UI = path.join(__dirname, "..", "src", "UI")
 var app = path.join(__dirname, "..", "app")
 var node_modules = path.join(app, "node_modules")
 
 module.exports = {
     target: "electron",
     entry: {
-        app: path.join(src, 'index.jsx')
+        app: path.join(UI, 'index.jsx')
     },
     output: {
         path: app,
@@ -43,7 +43,7 @@ module.exports = {
             }
         }),
         new HtmlWebpackPlugin({
-            template: path.join(src, 'index.html')
+            template: path.join(UI, 'index.html')
         })
     ],
     postcss: function () {

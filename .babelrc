@@ -5,9 +5,9 @@
     ["module-resolver", {
       "alias": {
         "-": "./",
-        "~": "./src/",
-        "sass": "./src/sass/",
-        "public": "./src/server/public"
+        "~": "./src/UI",
+        "sass": "./src/UI/sass/",
+        "public": "./src/Server/public"
       }
     }]
   ],
