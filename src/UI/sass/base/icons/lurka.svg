@@ -186,4 +186,8 @@
 <glyph glyph-name="upload-1" unicode="&#57426;" d="M192 107l0 128-85 0 149 149 149-149-85 0 0-128-128 0m-85-86l0 43 298 0 0-43z"/>
 <glyph glyph-name="layout-fixed" unicode="&#57427;" d="M64 213l171 0 0 171-171 0m0-384l171 0 0 171-171 0m213-171l171 0 0 171-171 0m0 213l0-171 171 0 0 171"/>
 <glyph glyph-name="expand-2" unicode="&#57428;" d="M203 169l30-30-96-96 76 0 0-43-149 0 0 149 43 0 0-76 96 96m30 76l-30-30-96 96 0-76-43 0 0 149 149 0 0-43-76 0 96-96m76-76l96-96 0 76 43 0 0-149-149 0 0 43 76 0-96 96 30 30m-30 76l96 96-76 0 0 43 149 0 0-149-43 0 0 76-96-96z"/>
+<glyph glyph-name="playback-fast-forward" unicode="&#57429;" d="M64 128l192 128-192 128z m384 128l-192 128 0-256z"/>
+<glyph glyph-name="playback-pause" unicode="&#57430;" d="M128 96l96 0 0 320-96 0z m160 320l0-320 96 0 0 320z"/>
+<glyph glyph-name="playback-play" unicode="&#57431;" d="M128 416l256-160-256-160z"/>
+<glyph glyph-name="playback-rewind" unicode="&#57432;" d="M256 256l192-128 0 256z m-192 0l192-128 0 256z"/>
 </font></defs></svg>

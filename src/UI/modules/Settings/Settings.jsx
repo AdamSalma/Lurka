@@ -2,7 +2,7 @@ import './Settings.styles'
 import React, { Component } from 'react'
 import classes from 'classnames'
 
-import { Setting } from '~/components'
+import { Setting } from './components'
 
 
 export default class Settings extends Component {

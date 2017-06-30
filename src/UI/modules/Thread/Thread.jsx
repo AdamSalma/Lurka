@@ -5,7 +5,7 @@ import uuid from "uuid";
 
 /* Components */
 import {
-    Spinner,
+    SquareSpinner,
     TimeAgo
 } from '~/components';
 import {
@@ -121,7 +121,7 @@ class Thread extends Component {
                 <Overlay
                     onClick={this.closeThread}
                     ref={ ref => this._overlay = ref}>
-                    <Spinner
+                    <SquareSpinner
                         isSpinning={!posts.length && (isFetching || isOpening)}
                     />
                 </Overlay>

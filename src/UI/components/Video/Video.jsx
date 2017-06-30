@@ -1,39 +1,31 @@
-import './Video.styles'
 import React, { PropTypes } from 'react';
-import videoConnect from 'react-html5video';
 
-import aria from './aria-label';
 import {
-    setVolume,
-    showTrack,
-    toggleTracks,
-    toggleMute,
-    togglePause,
-    setCurrentTime,
-    toggleFullscreen,
-    getPercentagePlayed,
-    getPercentageBuffered
-} from './api';
-import Time from './Time';
-import Seek from './Seek';
-import Volume from './Volume';
-import PlayPause from './PlayPause';
-import Fullscreen from './Fullscreen';
-import Overlay from './Overlay';
+    Time,
+    Seek,
+    Volume,
+    PlayPause,
+    Fullscreen,
+    Overlay
+} from './components';
 
-export const Video = ({
-    aria,
-    video,
-    children,
-    className,
-    onSeekChange,
-    onVolumeChange,
-    onVolumeClick,
-    onPlayPauseClick,
-    onFullscreenClick,
-    getVideoEl,
-    ...restProps
-}) => {
+import './Video.styles'
+
+const Video = (props) => {
+    const {
+        aria,
+        video,
+        children,
+        className,
+        onSeekChange,
+        onVolumeChange,
+        onVolumeClick,
+        onPlayPauseClick,
+        onFullscreenClick,
+        getVideoEl,
+        ...restProps
+    } = props;
+
     return (
         <div className={[
             "video-wrapper",
@@ -77,34 +69,8 @@ export const Video = ({
     );
 };
 
-
 Video.defaultProps = {
-    aria,
     video: {}
 };
 
-Video.propTypes = {
-    aria: PropTypes.object.isRequired,
-    video: PropTypes.object.isRequired
-};
-
-export default videoConnect(
-    Video,
-    ({ networkState, readyState, error, ...restState }) => ({
-        video: {
-            readyState,
-            networkState,
-            error: error || networkState === 3,
-            loading: readyState < 4,
-            percentagePlayed: getPercentagePlayed(restState),
-            percentageBuffered: getPercentageBuffered(restState),
-            ...restState
-        }
-    }),
-    (videoEl, state) => ({
-        onFullscreenClick: (e) => {e.stopPropagation(); toggleFullscreen(videoEl.parentElement)},
-        onVolumeClick: (e) => {e.stopPropagation(); toggleMute(videoEl, state)},
-        onPlayPauseClick: (e) => {e.stopPropagation(); togglePause(videoEl, state)},
-        onVolumeChange: (e) => {e.stopPropagation(); setVolume(videoEl, state, e.target.value)},
-        onSeekChange: (e) => {e.stopPropagation(); setCurrentTime(videoEl, state, e.target.value * state.duration / 100)}    })
-);
+export default Video
