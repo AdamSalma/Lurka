@@ -3,8 +3,11 @@ import cx from 'classnames';
 import { DragDropContextProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import {BoardList, HomeBoard} from './containers'
-// import './Dashboard.styles';
+import {BoardList, BoardSelection} from './containers';
+import {HomeBoard} from './components';
+import {Logo, Scrollable} from '~/components';
+
+import './Dashboard.styles';
 
 class Dashboard extends Component {
     static propTypes = {
@@ -19,9 +22,17 @@ class Dashboard extends Component {
         const { className } = this.props;
         return (
             <DragDropContextProvider backend={HTML5Backend}>
-                <div>
-                    <BoardList />
-                    <HomeBoard />
+                <div className="Dashboard">
+                    <div className="Dashboard__header">
+                        <BoardList />
+                        <Logo/>
+                        <HomeBoard />
+                    </div>
+                    <div className="Dashboard__boards">
+                        <Scrollable>
+                            <BoardSelection/>
+                        </Scrollable>
+                    </div>
                 </div>
             </DragDropContextProvider>
         );

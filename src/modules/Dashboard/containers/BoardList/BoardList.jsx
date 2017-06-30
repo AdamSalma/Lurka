@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
 
 import './BoardList.styles';
+import {ScrollableList} from '~/components'
 import {
-    ScrollableList,
     BoardListItem
 } from '../../components';
 
