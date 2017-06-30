@@ -2,7 +2,7 @@ import React, { PropTypes, Children } from 'react';
 import cx from 'classnames';
 
 import './ScrollableList.styles';
-import { Scrollable } from '~/components';
+import { Scrollable } from '..';
 
 const ScrollableList = ({ className, children, ...restProps }) => {
     return (

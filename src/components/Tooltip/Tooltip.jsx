@@ -85,7 +85,7 @@ export default class Tooltip extends PureComponent {
     }
 
     render() {
-        const { content, className, children, effect, position:pos, ...restProps } = this.props
+        const { content, className, children, effect, delay, position:pos, ...restProps } = this.props
         const mainClass = cx('Tooltip', {
             'Tooltip--active': this.state.isVisible
         });
