@@ -8,7 +8,7 @@ import loaders from './webpack.loaders';
 import config from '../config';
 import alias from './webpack.alias'
 
-const src = path.join(__dirname, "..", "src")
+const UI = path.join(__dirname, "..", "src", "UI")
 const app = path.join(__dirname, "..", "app")
 const node_modules = path.join(app, "node_modules")
 
@@ -16,7 +16,7 @@ export default {
     entry: [
         'webpack-hot-middleware/client',
         'webpack/hot/dev-server',
-        path.join(src, 'index.jsx')
+        path.join(UI, 'index.jsx')
     ],
     output: {
         path: '/',
@@ -34,7 +34,7 @@ export default {
     module: { loaders },
     devServer: {
         contentBase: app,
-        noInfo: false, //  --no-info option
+        noInfo: false,
         hot: true,
         inline: true,
         port: config.server.port,
@@ -44,7 +44,7 @@ export default {
         new webpack.NoErrorsPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-            template: path.join(src, 'index.html')
+            template: path.join(UI, 'index.html')
         }),
         new webpack.DefinePlugin({
             'process.env': {

@@ -58,8 +58,8 @@ window.appSettings = {
         searchClose: "times",
 
         videoFullscreen: "arrow-expand",
-        videoPlay: "play",
-        videoPause: "pause",
+        videoPlay: "playback-play",
+        videoPause: "playback-pause",
         videoError: "warning-alt",
         videoVolumeOff: "volume-disabled",
         videoVolumeMute: "volume-mute",
@@ -74,7 +74,7 @@ window.appSettings = {
 
         threadPostMenu: 'dot-3',
         threadPostControlsReport: "flag",
-        threadPostControlsBookmark: "bookmark", // TODO: Change
+        threadPostControlsBookmark: "bookmark",
         threadPostControlsReply: "quote",
         threadPostControlsImageSearch: "search-2",
         threadPostControlsHide: "minus-circle",

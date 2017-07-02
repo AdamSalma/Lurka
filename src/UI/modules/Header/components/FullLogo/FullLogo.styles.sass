@@ -1,0 +1,33 @@
+@import '~sass/partials'
+
+$logo-offset: 3px
+
+.FullLogo
+    display: block
+    +clickable
+
+    .FullLogo__Logo
+        display: inline-block
+        +size($header-height - $logo-offset)
+        padding: 8px + $logo-offset
+
+    .FullLogo__LogoText
+        display: inline-table
+        font-variant: small-caps
+        vertical-align: baseline
+
+        .name
+            top: -5px;
+            position: relative;
+            font-size: 32px;
+            font-family: "Raleway-Regular";
+            letter-spacing: 6px;
+            line-height: 1;
+            font-variant: none;
+
+        .version
+            font-family: $font-alt
+            font-size: $font-size-small
+            letter-spacing: 0rem
+            text-align: left
+            left: 2px
