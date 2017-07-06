@@ -6,7 +6,7 @@ import cx from 'classnames';
 
 import './SubHeader.styles';
 
-import { HeaderItem, TitledIcon } from '../../components';
+import { HeaderGroup, TitledIcon } from '../../components';
 import {
     LogoText,
     SearchBar,
@@ -74,38 +74,38 @@ class SubHeader extends PureComponent {
             <div className='SubHeader' ref={r => this._subheader = r}>
               <div className='background' />
               <div className='content'>
-                <HeaderItem className='SubHeader--left'>
+                <HeaderGroup className='SubHeader--left'>
                   <TitledIcon name={i.footerSort} title='Sort'/>
-                </HeaderItem>
-                <HeaderItem className='SubHeader--center SubHeader__search'>
+                </HeaderGroup>
+                <HeaderGroup className='SubHeader--center SubHeader__search'>
                   <SearchBar placeholder={`Quick search`} onChange={searchBoard}/>
-                </HeaderItem>
-                <HeaderItem className='SubHeader--right'>
+                </HeaderGroup>
+                <HeaderGroup className='SubHeader--right'>
                   <TitledIcon name={i.footerFilter} title='Filter'/>
-                </HeaderItem>
+                </HeaderGroup>
               </div>
             </div>
         )
     }
 
             // <div className='content'>
-            //     <HeaderItem className='SubHeader--left'>
+            //     <HeaderGroup className='SubHeader--left'>
             //         <Icon name="android-lock"/>
             //         <Pipe className="SubHeader__Pipe"/>
             //         <TitledIcon name={i.navbarCompose} title='New Post'/>
             //         <Pipe className="SubHeader__Pipe"/>
             //         <TitledIcon name={i.navbarRefresh} title='Refresh'/>
-            //     </HeaderItem>
-            //     <HeaderItem className='SubHeader--center SubHeader__search'>
+            //     </HeaderGroup>
+            //     <HeaderGroup className='SubHeader--center SubHeader__search'>
             //       <SearchBar placeholder={`Quick search`} onChange={searchBoard}/>
-            //     </HeaderItem>
-            //     <HeaderItem className='SubHeader--right'>
+            //     </HeaderGroup>
+            //     <HeaderGroup className='SubHeader--right'>
             //       <TitledIcon name={i.footerSort} title='Sort'/>
             //       <Pipe className="SubHeader__Pipe"/>
             //       <TitledIcon name={i.footerFilter} title='Filter'/>
             //       <Pipe className="SubHeader__Pipe"/>
             //       <TitledIcon name={i.footerLayout} title='Layout'/>
-            //     </HeaderItem>
+            //     </HeaderGroup>
             //   </div>
 
 
@@ -140,7 +140,7 @@ class SubHeader extends PureComponent {
 export default SubHeader;
 
 
-                // <HeaderItem className='SubHeader--right'>
+                // <HeaderGroup className='SubHeader--right'>
                 //   <Icon name={i.footerInfo} />
                 //   <Icon name={i.footerClose} />
-                // </HeaderItem>
+                // </HeaderGroup>

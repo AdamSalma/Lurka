@@ -83,6 +83,11 @@ export const createTooltipCreator = ($thread) => {
             left -= el.offsetWidth/2 - 26;
         }
 
+        // Overflows on left when screen width is small
+        if (left <= 0 || left + el.offsetWidth >= window.innerWidth) {
+            left = 0
+        }
+
         console.log(`top: ${top}, left: ${left}, el.offsetHeight: ${el.offsetHeight} linkPos.top: ${linkPos.top}`);
         console.groupEnd()
 

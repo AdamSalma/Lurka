@@ -9,7 +9,7 @@ import {
 
 import {Icon, Circle, Tooltip} from '~/components';
 
-import {BoardPost as Post} from './containers';
+import {BoardPost as Post} from './assemblies';
 
 import createLayout from './layout';
 import { onAppReady, onSettingsToggle } from '~/events/subscribers';

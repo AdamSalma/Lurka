@@ -1,0 +1,29 @@
+@import '~sass/partials'
+
+$logo-offset: 3px
+$logo-padding: 8px
+
+.FullLogo
+    display: flex !important
+    justify-content: center
+    +clickable
+    line-height: 1
+
+    .FullLogo__Logo
+        +size($header-height - $logo-offset)
+        padding: $logo-padding + $logo-offset
+        top: 0
+
+    .FullLogo__LogoText
+        font-size: 24px;
+        font-family: $font-main-bold;
+        letter-spacing: .075rem;
+        position: relative
+        align-self: center
+        line-height: 1
+        color: color(text-primary)
+        // top: -$logo-padding / 2 - $logo-offset
+        margin-left: -4px
+
+    &:hover .FullLogo__LogoText
+        color: color(layout)

@@ -6,7 +6,7 @@ import cx from 'classnames';
 import {
     IconGroup,
     HeaderTitle,
-    HeaderItem,
+    HeaderGroup,
     BoardSpecs,
     ContentButtonGroup,
     FullLogo,
@@ -88,13 +88,13 @@ class MainHeader extends PureComponent {
         // name={i.navbarForwards}
         //    className='MainHeader__forwards' />
 
-                // <HeaderItem className='HeaderItem__menu-icon'>
+                // <HeaderGroup className='HeaderGroup__menu-icon'>
                   // <div className="MainHeader__menu-icon">
                     // <SlideDownBG>
                         // <Icon name={i.navbarMenu}/>
                     // </SlideDownBG>
                   // </div>
-                // </HeaderItem>
+                // </HeaderGroup>
 
 
         return (
@@ -102,20 +102,25 @@ class MainHeader extends PureComponent {
               <div className='background' />
               <div className='content'>
                 { this.state.isContentInView &&
-                    <HeaderItem className='MainHeader--left HeaderItem__logo'>
+                    <HeaderGroup className='MainHeader--left HeaderGroup__logo'>
                       <FullLogo className="MainHeader__FullLogo"/>
-                    </HeaderItem>
+                    </HeaderGroup>
                 }
-                <HeaderItem className='MainHeader--center' onMouseEnter={this.onTitleHover}>
-                  <HeaderTitle onClick={this.onTitleClick}>
-                    {!!navbarTitle && navbarTitle}
+                <HeaderGroup className='MainHeader--center' onMouseEnter={this.onTitleHover}>
+                  <HeaderTitle onClick={this.onTitleClick} className="MainHeader__Title">
+                    <span className="title-normal">
+                        {!!navbarTitle && navbarTitle}
+                    </span>
+                    <span className="title-small">
+                        {!!navbarTitle && `/${boardID}/`}
+                    </span>
                     <Icon name={ this.state.isContentInView
                         ? "chevron-down"
                         : "chevron-up"}/>
                   </HeaderTitle>
-                </HeaderItem>
+                </HeaderGroup>
                 { this.state.isContentInView &&
-                    <HeaderItem className='MainHeader--right IconGroup'>
+                    <HeaderGroup className='MainHeader--right IconGroup'>
                         <Tooltip className="navtip" content="Thread Watcher" position="bottom" offset="10px">
                             <SlideDownBG>
                               <Notification number={1}>
@@ -146,7 +151,7 @@ class MainHeader extends PureComponent {
                                 onClick={this.onSettingsClick} />
                             </SlideDownBG>
                         </Tooltip>
-                    </HeaderItem>
+                    </HeaderGroup>
                 }
               </div>
             </div>

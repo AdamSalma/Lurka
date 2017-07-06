@@ -31,7 +31,7 @@
         height: 100%
         padding: $header-padding
 
-    .HeaderItem
+    .HeaderGroup
         padding: 0 8px
         transition: padding $key-animation-duration $key-bezier-animation-out
         display: flex
@@ -90,10 +90,20 @@
         margin-top: 10px
         transform: translateY($header-height) translateX(-50%) !important;
 
-    .MainHeader__FullLogo
-        display: inline-block
-        .Logo
-
     .MainHeader__menu-icon
         display: inline-block
         line-height: 1
+
+    .IconGroup > div:last-child
+        margin-right: 1em
+
+    .MainHeader__Title
+        .title-small
+            display: none
+
+        @include breakpoint(to-phablet)
+            .title-normal
+                display: none
+            .title-small
+                display: initial
+

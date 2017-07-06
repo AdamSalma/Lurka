@@ -11,7 +11,9 @@ const FullLogo = ({ className }) => {
     return (
         <div className={cx('FullLogo', className)}>
             <Logo className="FullLogo__Logo"/>
-            <LogoText className="FullLogo__LogoText"/>
+            <div className="FullLogo__LogoText">
+                Lurka
+            </div>
         </div>
     );
 };
