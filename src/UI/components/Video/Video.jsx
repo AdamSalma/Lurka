@@ -6,7 +6,8 @@ import {
     Volume,
     PlayPause,
     Fullscreen,
-    Overlay
+    Overlay,
+    Download
 } from './components';
 
 import './Video.styles'
@@ -23,6 +24,8 @@ const Video = (props) => {
         onPlayPauseClick,
         onFullscreenClick,
         getVideoEl,
+
+        vidSrc,
         ...restProps
     } = props;
 
@@ -63,6 +66,7 @@ const Video = (props) => {
                         ariaLabel={aria.fullscreen}
                         onClick={onFullscreenClick}
                         {...video} />
+                    <Download downloadLink={vidSrc} {...video}/>
                 </div>
             : null }
         </div>
