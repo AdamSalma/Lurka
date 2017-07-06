@@ -57,7 +57,8 @@ window.appSettings = {
         searchMagnify: "search-1",
         searchClose: "times",
 
-        videoFullscreen: "arrow-expand",
+        videoFullscreen: "expand-2",
+        videoDownload: "download-1",
         videoPlay: "playback-play",
         videoPause: "playback-pause",
         videoError: "warning-alt",
@@ -82,11 +83,11 @@ window.appSettings = {
         watchPanelClose: "times",
         // watcchPanelUpdate: "update",
 
-        "footerSort": "bar-chart",
-        "footerFilter": "filter-outline",
-        "footerLayout": "layout",
-        "footerInfo": "info",
-        "footerOpen": "chevron-up",
-        "footerClose": "chevron-down",
+        footerSort: "bar-chart",
+        footerFilter: "filter-outline",
+        footerLayout: "layout",
+        footerInfo: "info",
+        footerOpen: "chevron-up",
+        footerClose: "chevron-down",
     }
 }
