@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames'
 
-import WatchPanel from './WatchPanel'
-import ArchivePanel from './ArchivePanel'
-import CommentPanel from './CommentPanel'
+import {
+    WatchPanel,
+    ArchivePanel
+} from './assemblies';
 
 const Panels = ({ className, isDrawerOpen, activePanel: panel, ...restProps}) => {
     console.log("Active panel is:", panel)

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames'
 
-import Dashboard from '~/modules/Dashboard';
+import Dashboard from '~/containers/Dashboard';
 
 const DashboardView = ({ className }) => {
     return (

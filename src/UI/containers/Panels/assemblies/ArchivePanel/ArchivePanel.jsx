@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import classes from 'classnames'
 
-import Panel from '../Panel'
+import Panel from '../../components/Panel'
 
 
 export default function ArchivePanel({isActive}) {

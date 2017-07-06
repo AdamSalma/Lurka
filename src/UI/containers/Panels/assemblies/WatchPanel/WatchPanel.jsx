@@ -2,7 +2,7 @@ import './WatchPanel.styles'
 import React, {PureComponent} from 'react'
 import cx from 'classnames'
 
-import Panel from '../Panel'
+import Panel from '../../components/Panel'
 import {
     Timer,
     TimeAgo,
