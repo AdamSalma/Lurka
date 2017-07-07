@@ -2,6 +2,8 @@ const {app, BrowserWindow} = require('electron');
 
 // TODO: Refactor webpack to copy the config file to the current dir.
 const config = require('../../../config');
+const onBeforeSendHeaders = require('./onBeforeSendHeaders');
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -21,13 +23,7 @@ function createWindow () {
   //   main.webContents.executeJavaScript(() => { alert(details.requestHeaders) })
   // });
 
-  main.webContents.session.webRequest.onBeforeSendHeaders(function(details, callback) {
-    details.requestHeaders['Host'] = "s.4cdn.org";
-    details.requestHeaders['User-Agent'] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0";
-    details.requestHeaders['DNT'] = 1;
-    details.requestHeaders['TESTING'] = 1;
-    callback({cancel: false, requestHeaders: details.requestHeaders});
-  });
+  main.webContents.session.webRequest.onBeforeSendHeaders(onBeforeSendHeaders);
 
   preloader = new BrowserWindow(Object.assign({}, config.electron.preloader, {
     parent: main

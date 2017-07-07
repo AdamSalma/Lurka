@@ -46,8 +46,8 @@ export default function parseBoard( board, boardID ) {
             comment: post.com,
             time: post.tim || post.time * 1000,
             media: {
-                thumbnail: proxify(smImg),
-                srcLarge: proxify(lgImg),
+                thumbnail: smImg,
+                srcLarge: lgImg,
                 width: post.w,
                 height: post.h,
                 filesize: post.fsize,
