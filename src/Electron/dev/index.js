@@ -1,7 +1,3 @@
-const path = require('path');
-const node_modules = path.join(__dirname + '/../../app/node_modules');
-require('module').globalPaths.push(node_modules);
-
 const {app, BrowserWindow} = require('electron');
 
 // TODO: Refactor webpack to copy the config file to the current dir.
@@ -16,7 +12,22 @@ function createWindow () {
   // Create the browser window.
   main = new BrowserWindow(config.electron.main);
   main.webContents.openDevTools();
+
   main.loadURL(config.server.url);
+  // main.session.webRequest.onBeforeSendHeaders([filter, ]listener)
+  // main.webContents.setUserAgent(userAgent)
+  // main.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
+  //   // details.requestHeaders
+  //   main.webContents.executeJavaScript(() => { alert(details.requestHeaders) })
+  // });
+
+  main.webContents.session.webRequest.onBeforeSendHeaders(function(details, callback) {
+    details.requestHeaders['Host'] = "s.4cdn.org";
+    details.requestHeaders['User-Agent'] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0";
+    details.requestHeaders['DNT'] = 1;
+    details.requestHeaders['TESTING'] = 1;
+    callback({cancel: false, requestHeaders: details.requestHeaders});
+  });
 
   preloader = new BrowserWindow(Object.assign({}, config.electron.preloader, {
     parent: main
@@ -28,6 +39,7 @@ function createWindow () {
   main.once('ready-to-show', () => {
     main.show();
     preloader.hide();
+    // main.webContents.downloadURL('http://i.4cdn.org/g/1499398209850.jpg');
   })
 
   main.setFullScreen(true);
