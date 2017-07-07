@@ -10,6 +10,6 @@ export default function (req, res, next) {
     log.app(`Streaming dashboard from ${clientRoot}`);
 
     fs.createReadStream(
-        path.join(clientRoot, 'index.html')
+        path.join(clientRoot, '/UI/index.html')
     ).pipe(res);
 }
