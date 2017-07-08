@@ -3,42 +3,50 @@
 $iconcircle-icon-size: 1em
 $iconcircle-circlesize: 1.8em
 
+%Transition-Out
+    transition: all $animation-speed-normal $delay-fast $bezier-fast
+
+%Transition-In
+    transition: all $animation-speed-fast $bezier-slow
+
+// Component
 .ButtonCircle
     +clickable
     +size($iconcircle-circlesize)
-    font-size: 22px
+    font-size: 24px
     position: relative
     display: inline-block
     margin: 0 9px
 
     .Icon
-        font-size: $iconcircle-icon-size
         +size(inherit)
+        @extend %Transition-Out
+        font-size: inherit
         display: table-cell
         vertical-align: middle
         color: color(text-secondary)
         text-align: center
-        transition: all .2s
         z-index: 1
 
     .Circle
         +circle(inherit)
+        @extend %Transition-Out
+        transform: scale(1)
         position: absolute
         background: grey(8)
         border: 1px solid grey(6)
-        transform: scale(1)
-        transition: all .2s
         z-index: -1
 
-    &:hover
-        .Circle
-            background: grey(7)
-            transform: scale(1.25)
-            border-color: color(primary)
+    &:hover .Circle
+        @extend %Transition-In
+        transform: scale(1.28)
+        background: grey(7)
+        border-color: color(primary)
 
-        .Icon
-            transform: scale(1.2)
-            color: color(text-primary)
+    &:hover .Icon
+        @extend %Transition-In
+        transform: scale(1.2)
+        color: color(text-primary)
 
     &.selected
         .Circle

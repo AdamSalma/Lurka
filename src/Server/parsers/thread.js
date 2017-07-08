@@ -50,8 +50,8 @@ export const createPostParser = (boardID) => {
             time: post.tim || post.time * 1000,
             comment: post.com,
             media: !!ext ? {
-                thumbnail: proxify(smImg),
-                srcLarge: proxify(lgImg),
+                thumbnail: smImg,
+                srcLarge: lgImg,
                 width: post.w,
                 height: post.h,
                 filesize: post.fsize,

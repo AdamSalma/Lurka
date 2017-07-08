@@ -3,10 +3,12 @@ import React, {
     PropTypes
 } from 'react';
 
-import Board from '~/modules/Board'
-import Thread from '~/modules/Thread'
-import Header from '~/modules/Header'
-import SettingsDrawer from '~/modules/Settings'
+import {
+    Board,
+    Thread,
+    Header,
+    Settings
+} from '~/containers'
 
 import { onContentViewToggle } from '~/events/subscribers';
 
@@ -85,7 +87,7 @@ class ContentView extends Component {
               <Header.containers.SubHeader/>
               <Board />
               <Thread />
-              <SettingsDrawer />
+              <Settings />
             </section>
         )
     }

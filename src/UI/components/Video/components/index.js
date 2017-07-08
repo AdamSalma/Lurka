@@ -4,3 +4,4 @@ export {default as Volume} from './Volume';
 export {default as PlayPause} from './PlayPause';
 export {default as Fullscreen} from './Fullscreen';
 export {default as Overlay} from './Overlay';
+export {default as Download} from './Download';

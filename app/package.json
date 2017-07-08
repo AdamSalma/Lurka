@@ -1,6 +1,6 @@
 {
   "name": "Lurka",
-  "version": "0.13.0",
+  "version": "0.15.0",
   "description": "A 4chan desktop application",
   "author": "Adam Salma <adam3salma@gmail.com>",
   "main": "electron.index.js",

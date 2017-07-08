@@ -1,0 +1,94 @@
+@import '~sass/partials'
+
+.BoardPost
+    +clickable
+    width: $board-post-width
+    background: $board-post-color
+    box-shadow: $board-post-shadow-color 0 0 0
+    border: 2px solid $board-post-color
+    font-family: $font-main
+
+    // initial position offscreen, positioned via JS
+    position: absolute
+    top: 100vh
+    overflow: hidden
+    text-align: center
+    border-radius: 4px 4px 0 0
+
+    visibility: hidden
+    opacity: 0
+    transform: translateY(0)
+    transition: all .4s ease-out
+    transition-property: top, left, box-shadow
+
+    &.animate
+        visibility: visible
+        transform: translateY(200px)
+        animation: moveUp 0.65s ease forwards
+
+    &:hover
+        transition: box-shadow .2s ease-out
+        box-shadow: 0 0 6px color(text-secondary)
+
+        .counters
+            opacity: 1
+
+            > div
+                border-color: grey(7)
+
+        .comment-wrap
+            border-top: color(primary)
+
+        img
+            // animation: zoomInThenSlowMo 6s forwards
+            transform: scale(1.05)
+            transition: transform 2.4s ease-out
+
+    .image-wrap
+        user-select: none
+        position: relative
+        overflow: hidden
+
+
+    img
+        max-width: 100%
+        min-width: 100%
+        height: auto
+        max-height: 400px
+        display: inherit
+        margin: 0 auto
+        height: auto
+        transition: transform .4s ease-out
+
+
+    .comment-wrap
+        padding-top: 6px
+        position: relative
+        background: inherit
+        top: 0
+        transition: top .2s ease-out
+        box-shadow: grey(8) -4px 0 4px
+        max-height: $board-post-comment-max-height
+
+    .op
+        padding: 0 15px
+        padding-bottom: 10px
+        width: 100%
+        word-wrap: break-word !important
+
+        .title
+            display: block
+            padding-top: 4px
+            padding-bottom: 2px
+
+        .comment
+            padding-top: 4px
+            width: 100%
+
+    a
+        color: grey(1) !important
+        text-decoration: none
+
+    .Line
+        width: $board-post-width / 2
+        margin: 4px auto 0

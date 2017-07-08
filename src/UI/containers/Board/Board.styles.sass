@@ -1,0 +1,35 @@
+@import '~sass/partials'
+
+.Board
+    position: relative
+    +set-dims(100vw, 100vh)
+
+    .nano-pane
+        +nano-can-expand(12px)
+        display: block !important
+        margin-top: $header-height + 2px
+        margin-bottom: 2px
+        width: $board-scroller-width
+        right: 3px
+
+    .posts
+        position: relative
+        height: calc(100% - #{$header-height})
+
+    pre
+        width: 100%
+        display: inline-block
+        text-overflow: ellipsis
+        text-align: left !important
+        overflow: hidden
+
+    &.disable-animations
+        .BoardPost
+            visibility: visible !important
+            opacity: 1 !important
+            animation: none !important
+            transform: none !important
+
+    // Disable link clicking
+    a
+        pointer-events: none

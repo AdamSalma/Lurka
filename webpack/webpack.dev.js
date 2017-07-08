@@ -13,6 +13,7 @@ const app = path.join(__dirname, "..", "app")
 const node_modules = path.join(app, "node_modules")
 
 export default {
+    target: "electron",
     entry: [
         'webpack-hot-middleware/client',
         'webpack/hot/dev-server',

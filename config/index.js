@@ -20,6 +20,23 @@ var config = {
     version: require('../package.json').version
   },
   server: server,
+  electron: {
+    main: {
+      kiosk: true,
+      show: false,
+      title: "Lurka",
+      titleBarStyle: 'hidden',
+      autoHideMenuBar: true
+    },
+    preloader: {
+      width: 350,
+      height: 425,
+      modal: true,
+      titleBarStyle: 'hidden',
+      frame: false,
+      title: "Lurka"
+    }
+  }
 }
 
 module.exports = module.exports.default = config
