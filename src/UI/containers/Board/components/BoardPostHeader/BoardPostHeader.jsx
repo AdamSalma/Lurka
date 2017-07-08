@@ -5,6 +5,9 @@ import {
     Counter
 } from '~/components'
 
+
+import './BoardPostHeader.styles';
+
 const i = window.appSettings.icons
 
 export default ({time, replies}) => {
