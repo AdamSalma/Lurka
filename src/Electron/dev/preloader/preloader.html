@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loading...</title>
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #2e2c29;
+            color: white;
+            text-align: center;
+            font-family: sans-serif;
+        }
+
+        .preload-text {
+            position: relative;
+            font-size: 34px;
+            margin-bottom: 20px;
+        }
+
+/*        .preload-text::before {
+            content: "";
+            position: absolute;
+            bottom: -20px;
+            left: 15.5%;
+            width: 66%;
+            border-bottom: grey solid 1px;
+        }
+*/
+        .versions {
+            position: absolute;
+            bottom: 50px;
+            display: flex;
+            padding: 0 10px;
+        }
+
+        .versions span {
+            display: block;
+            margin: 0 4px;
+        }
+
+        img {
+            margin: 60px 0 50px;
+        }
+
+        .preload-text span {
+          font-size: 34px;
+          animation-name: blink;
+          animation-duration: 1.4s;
+          animation-iteration-count: infinite;
+          animation-fill-mode: both;
+        }
+
+        .preload-text span:nth-child(2) {
+          animation-delay: .2s;
+        }
+
+        .preload-text span:nth-child(3) {
+          animation-delay: .4s;
+        }
+
+        @keyframes blink {
+          0% {
+            opacity: .2;
+          }
+          20% {
+            opacity: 1;
+          }
+          100% {
+            opacity: .2;
+          }
+        }
+    </style>
+</head>
+<body>
+    <img src="./logo.png">
+    <div class="preload-text">Bundling<span>.</span><span>.</span><span>.</span></div>
+    <div class="versions">
+        <span>
+            Node.js v<script>document.write(process.versions.node)</script>,
+        </span>
+        <span>
+            Chromium v<script>document.write(process.versions.chrome)</script>,
+        </span>
+        <span>
+            Electron v<script>document.write(process.versions.electron)</script>
+        </span>
+    </div>
+</body>
+</html>

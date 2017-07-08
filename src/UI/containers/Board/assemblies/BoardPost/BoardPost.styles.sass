@@ -10,6 +10,7 @@
 
     // initial position offscreen, positioned via JS
     position: absolute
+    top: 100vh
     overflow: hidden
     text-align: center
     border-radius: 4px 4px 0 0
@@ -52,6 +53,7 @@
     img
         max-width: 100%
         min-width: 100%
+        height: auto
         max-height: 400px
         display: inherit
         margin: 0 auto
@@ -86,29 +88,6 @@
     a
         color: grey(1) !important
         text-decoration: none
-
-
-    /* Counters + Icons */
-    .BoardPostHeader
-        user-select: none
-        display: flex
-
-        padding: 0 12px
-        color: color(text-secondary)
-        font-size: $font-size-small
-        font-family: $font-main-light
-
-        .counter
-            display: inline-block
-            padding: 0 3px
-
-            &.timeago
-                margin-right: auto
-
-        .Icon
-            margin-right: 2px
-            &::before
-                vertical-align: top
 
     .Line
         width: $board-post-width / 2

@@ -10,15 +10,8 @@ import {
     Line
 } from '~/components'
 
-import PostHeader from './BoardPostHeader'
-
-function setHTML(html) {
-    return {
-        dangerouslySetInnerHTML: {
-            __html: html
-        }
-    }
-}
+import {BoardPostHeader as PostHeader} from '../../components';
+import { setHTML } from '~/utils/react';
 
 
 export default class BoardPost extends PureComponent {
@@ -39,17 +32,21 @@ export default class BoardPost extends PureComponent {
 
         return (
             <div id={"t" + post.id} className="BoardPost" onClick={ onClick }>
-                {this.renderImage(onLoad, post)}
+                {this.renderImage(post.media, onLoad)}
                 {this.renderComment(post)}
             </div>
         )
     }
 
-    renderImage(onLoad, {media}) {
+    renderImage({ thumbnail, width, height }, onLoad) {
+        //
+        height *= 232 / width;
+
         return !this.state.imageInvalidated ? (
             <div className="image-wrap">
-                <Image src={media.thumbnail}
-                    width={media.width} height={media.height}
+                <Image
+                    src={thumbnail}
+                    style={{height}}
                     onLoad={onLoad}
                     onError={this.hideImage}
                 />
