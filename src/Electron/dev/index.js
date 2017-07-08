@@ -7,48 +7,40 @@ const onBeforeSendHeaders = require('./onBeforeSendHeaders');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let main
+let main, preloader
 
 function createWindow () {
 
-  // Create the browser window.
+  // Create the windows
   main = new BrowserWindow(config.electron.main);
-  main.webContents.openDevTools();
+  preloader = new BrowserWindow(config.electron.preloader);
 
-  main.loadURL(config.server.url);
-  // main.session.webRequest.onBeforeSendHeaders([filter, ]listener)
-  // main.webContents.setUserAgent(userAgent)
-  // main.webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
-  //   // details.requestHeaders
-  //   main.webContents.executeJavaScript(() => { alert(details.requestHeaders) })
-  // });
-
-  main.webContents.session.webRequest.onBeforeSendHeaders(onBeforeSendHeaders);
-
-  preloader = new BrowserWindow(Object.assign({}, config.electron.preloader, {
-    parent: main
-  }));
-
+  // Load preloader modal
   preloader.loadURL(`file://${__dirname}/preloader/preloader.html`);
 
-  // Toggle preloader when webpack bundle completes.
+  // Give enough time for bundle to begin, otherwise it loads an empty page
+  setTimeout(() => {
+    main.loadURL(config.server.url);
+  }, 2000);
+
+  // Set custom headers to bypass 4chan image block
+  main.webContents.session.webRequest.onBeforeSendHeaders(onBeforeSendHeaders);
+
+  // Display UI when bundled and ready
   main.once('ready-to-show', () => {
     main.show();
-    preloader.hide();
-    // main.webContents.downloadURL('http://i.4cdn.org/g/1499398209850.jpg');
-  })
+    preloader.close();
+    main.webContents.openDevTools('bottom');
+  });
 
-  main.setFullScreen(true);
-
-  // Emitted when the window is closed.
-  main.on('closed', (arg1, arg2) => {
-
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    console.warn(`arg1, arg2: ${arg1} ${arg2}`)
+  // Dereference the windows on close
+  main.on('closed', () => {
     main = null
-  })
+  });
+
+  preloader.on('closed', () => {
+    preloader = null
+  });
 }
 
 // This method will be called when Electron has finished

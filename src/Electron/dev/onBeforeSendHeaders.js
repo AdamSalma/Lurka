@@ -1,5 +1,4 @@
 const onBeforeSendHeaders = (details, callback) => {
-    console.log(details.url);
 
     details.requestHeaders['Host'] = "i.4cdn.org";
     details.requestHeaders['User-Agent'] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0";
