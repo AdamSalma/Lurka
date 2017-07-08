@@ -120,7 +120,7 @@ export default class Board extends Component {
 
     render() {
         const boardClasses = cx('Board', 'nano', {
-            'show-all': this.props.isBeingSearched
+            'disable-animations': this.props.isBeingSearched
         })
 
                         // <BoardStats

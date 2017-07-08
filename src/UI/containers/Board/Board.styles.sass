@@ -23,35 +23,13 @@
         text-align: left !important
         overflow: hidden
 
-    &.show-all
+    &.disable-animations
         .BoardPost
             visibility: visible !important
             opacity: 1 !important
             animation: none !important
+            transform: none !important
 
-    &.disable-animations
-        .BoardPost
-            transition: none !important
-
-    &.move-scrollbar
-        .side-icons
-            margin-right: $drawer-width
-
-        .nano-pane
-            right: $drawer-width + 5px
-
-    .side-icons
-        // stay above drawer and board posts
-        z-index: 1000
-
-        .side-icon-wrap
-            display: block
-            margin-bottom: 12px
-        .Circle
-            +circle(34px)
-            +center-icon
-            +clickable
-            background: grey(6)
-
+    // Disable link clicking
     a
         pointer-events: none
