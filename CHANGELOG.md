@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## v0.14.0 08/08/2017
 ### Added
 - Opened thread images now load over a stretched, blurred thumbnail for a better visual effect
 - Dashboard supports board drag-n-drop
@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Thread control icons now aligned properly
 
 
-## v.0.13.0 25/07/2017
+## v.0.13.0 25/06/2017
 ### Added
 - Boards/Threads are cached in state to increase performance when reopening.
 - Header:

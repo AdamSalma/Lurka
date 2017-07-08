@@ -1,7 +1,7 @@
 {
   "author": "Adam Salma <adam3salma@gmail.com>",
   "name": "Lurka",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "description": "A 4chan desktop app for power users",
   "scripts": {
     "build": "gulp build",
