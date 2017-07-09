@@ -27,8 +27,8 @@ module.exports = {
         publicPath: require('../config').server.url,
     },
     resolve: {
-        extensions: ['.js', '.json'],
-        modules: [node_modules, 'node_modules']
+        extensions: ['', '.js', '.json'],
+        root: node_modules
     },
     module: {
         loaders: loaders
