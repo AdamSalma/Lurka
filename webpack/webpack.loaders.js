@@ -69,10 +69,10 @@ function createLoaders(callback) {
     }
 
     const loaders = {
-        sass: [style, css, postcss, sass],
-        css: [style, css, postcss],
-        babel: [babel],
-        url: [url],
+        sass: [styleLoader, cssLoader, postcssLoader, sassLoader],
+        css: [styleLoader, cssLoader, postcssLoader],
+        babel: [babelLoader],
+        url: [urlLoader],
         ignore: ['ignore-loader']
     }
 
