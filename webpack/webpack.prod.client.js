@@ -1,32 +1,36 @@
 var webpack = require('webpack');
+var loaders = require('./webpack.loaders');
 var autoprefixer = require('autoprefixer');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var loaders = require('./webpack.loaders');
 
 var UI = path.join(__dirname, "..", "src", "UI")
 var app = path.join(__dirname, "..", "app")
 var node_modules = path.join(app, "node_modules")
 
 module.exports = {
-    // target: "electron",
+    target: "electron",
     entry: {
         app: path.join(UI, 'index.jsx')
     },
     output: {
         path: app,
         filename: '[name].bundle.js',
-        publicPath: require('../config').server.url
+        publicPath: require('../config').server.url,
+        sourceMapFilename: '[name].bundle.map'
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.css', '.scss', '.sass'],
-        alias: require("./webpack.alias"),
-        modules: ['node_modules', node_modules, UI]
+        extensions: ['', '.js', '.jsx', '.css', '.scss', '.sass', '.json'],
+        root: node_modules,
+        alias: require("./webpack.alias")
     },
-    module: { loaders: loaders },
+    module: {
+        loaders: loaders
+    },
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
-            warnings: false
+            sourceMap: false,
+            warnings: false,
         }),
         new webpack.ProvidePlugin({
             $: "jquery",
@@ -41,5 +45,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.join(UI, 'index.html')
         })
-    ]
+    ],
+    postcss: function () {
+        return [autoprefixer, require('postcss-nested')];
+    }
 };

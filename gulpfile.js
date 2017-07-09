@@ -8,7 +8,7 @@ var serverConfig = require('./webpack/webpack.prod.server.js')
 
 
 /* App Bundle */
-gulp.task('bundle:ui', function(done) {
+gulp.task('bundle:client', function(done) {
     webpack( clientConfig ).run(onWebpackBundle(done))
 });
 
@@ -46,7 +46,7 @@ gulp.task('copy', function(){
 
 
 /* Main tasks */
-gulp.task('bundle', ['bundle:ui', 'bundle:server']);
+gulp.task('bundle', ['bundle:client', 'bundle:server']);
 gulp.task('build', function(done){  // TODO - full elctron build
     runSequence('clear', 'bundle', 'copy', done)
 })
