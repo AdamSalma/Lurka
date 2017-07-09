@@ -1,32 +1,80 @@
-module.exports = [
+module.exports = createLoaders((loaders) => [
     {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel',
+        use: loaders.babel,
     },
     {
         test: /\.sass|scss$/,
         exclude: /node_modules/,
-        loaders: ['style', 'css?sourceMap', 'postcss?sourceMap', 'sass?sourceMap']
+        use: loaders.sass
     },
     {
         test: /\.css$/,
-        loaders: ['style', 'css?sourceMap']
-    },
-    {
-        test: /\.json$/,
-        loader: 'json'
+        use: loaders.css
     },
     {
         test: /.(png|gif|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/,
-        loader: 'url-loader?limit=100000&name=[name].[ext]'
+        use: loaders.url
     },
     {
         test: /\.(md|ejs)$/,
-        loader: 'ignore-loader'
+        use: loaders.ignore
     },
     {
         test: /\LICENSE$/,
-        loader: 'ignore-loader'
+        use: loaders.ignore
     }
-];
+])
+
+function createLoaders(callback) {
+    const cssLoader = {
+        loader: 'css-loader',
+        options: {
+            importLoaders: 1,
+            sourceMap: true
+        }
+    }
+
+    const postcssLoader = {
+        loader: 'postcss-loader',
+        options: {
+            sourceMap: true,
+            config: require('path').join(__dirname, '../config'),
+            plugins: (loader) => [require('autoprefixer')()]
+        }
+    }
+
+    const sassLoader = {
+        loader: 'sass-loader',
+        options: { sourceMap: true }
+    }
+
+    const styleLoader = {
+        loader: 'style-loader',
+        options: { sourceMap: true }
+    }
+
+    const urlLoader = {
+        'loader': 'url-loader',
+        options: {
+            limit: 100000,
+            name: '[name].[ext]'
+        }
+    }
+
+    const babelLoader = {
+        loader: 'babel-loader',
+        options: { cacheDirectory: true }
+    }
+
+    const loaders = {
+        sass: [style, css, postcss, sass],
+        css: [style, css, postcss],
+        babel: [babel],
+        url: [url],
+        ignore: ['ignore-loader']
+    }
+
+    return callback(loaders);
+}
