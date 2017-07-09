@@ -13,7 +13,6 @@ const app = path.join(__dirname, "..", "app")
 const node_modules = path.join(app, "node_modules")
 
 export default {
-    target: "electron",
     entry: [
         'webpack-hot-middleware/client',
         'webpack/hot/dev-server',
@@ -23,14 +22,13 @@ export default {
         path: '/',
         publicPath: config.server.url,
         filename: 'app.bundle.js',
-        sourceMapFileName: 'app.bundle.map',
         pathinfo: true
     },
     devtool: 'eval',
     resolve: {
-        extensions: ['', '.js', '.jsx', '.css', '.scss', '.sass'],
-        root: node_modules,
-        alias: alias
+        extensions: ['.js', '.jsx', '.css', '.scss', '.sass'],
+        alias: alias,
+        modules: ['node_modules', node_modules, UI]
     },
     module: { loaders },
     devServer: {
@@ -42,7 +40,7 @@ export default {
         host: config.server.host
     },
     plugins: [
-        new webpack.NoErrorsPlugin(),
+        new webpack.NoEmitOnErrorsPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             template: path.join(UI, 'index.html')
@@ -57,8 +55,5 @@ export default {
             jQuery: "jquery",
             "window.jQuery": "jquery"
         })
-    ],
-    postcss: function () {
-        return [autoprefixer, require('postcss-nested')];
-    }
+    ]
 };
