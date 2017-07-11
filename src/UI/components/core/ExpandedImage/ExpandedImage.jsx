@@ -4,7 +4,7 @@ import { Image } from '~/components';
 import './ExpandedImage.styles';
 
 
-const ExpandedImage = ({ className, srcThumbnail, srcExpanded }) => {
+const ExpandedImage = ({ className, srcThumbnail, srcExpanded, ...restProps }) => {
 
     const thumbnailStyles = {
         backgroundImage: `url(${srcThumbnail})`
@@ -12,7 +12,7 @@ const ExpandedImage = ({ className, srcThumbnail, srcExpanded }) => {
 
     // Else is loading fullsize image
     return (
-        <div className={cx('ExpandedImage', className)}>
+        <div className={cx('ExpandedImage', className)} {...restProps}>
             <div className="ExpandedImage__blurred-thumbnail" style={thumbnailStyles}/>
             <Image className="ExpandedImage__expanded" src={srcExpanded}/>
         </div>
