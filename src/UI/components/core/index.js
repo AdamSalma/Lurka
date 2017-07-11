@@ -1,4 +1,5 @@
 export {default as Alert} from './Alert'
+export {default as Button} from './Button'
 export {default as ButtonCircle} from './ButtonCircle'
 export {default as Circle} from './Circle'
 export {default as Counter} from './Counter'
