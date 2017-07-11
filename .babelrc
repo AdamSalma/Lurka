@@ -2,6 +2,7 @@
   "plugins": [
     "react-hot-loader/babel",
     "transform-decorators-legacy",
+    "transform-async-to-generator",
     ["module-resolver", {
       "alias": {
         "-": "./",
