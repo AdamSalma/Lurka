@@ -2,7 +2,10 @@
 
 .Board
     position: relative
-    +set-dims(100vw, 100vh)
+    +set-dims(100vw, calc(100vh - $header-height))
+    top: $header-height
+    background: color(board)
+    background-image: linear-gradient(to bottom, color(board, darkest), color(board))
 
     .nano-pane
         +nano-can-expand(12px)
@@ -33,3 +36,20 @@
     // Disable link clicking
     a
         pointer-events: none
+
+    .Button
+        // background-image: linear-gradient(to bottom, grey(5), grey(6))
+        // background-image: linear-gradient(to bottom, color(layout), color(layout, dark))
+        background-color: color(layout, dark)
+        margin: 12px 24px
+        font-family: $font-accent
+        border: color(layout, darkest) solid 1px
+        box-shadow: 0 1px 1px grey(10)
+        transition: all .2s
+        text-shadow: 0 1px 1px grey(4)
+
+        &:hover
+            // background-image: linear-gradient(to top, color(layout), color(layout, dark))
+            box-shadow: 0 1px 4px grey(10)
+            background-color: color(layout, darkest)
+

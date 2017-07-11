@@ -7,17 +7,19 @@ import {
     fetchBoard,
     loadMorePosts,
     scrollHeader,
-    fetchThread
+    fetchThread,
+    searchBoard
 } from '~/redux/actions';
 
 import {
+    getBoardID,
     getBoardPosts,
     getBoardPostsBySearch,
     getBoardPostsByFilter,
-    isBoardFetching,
+    getBoardStatistics,
     isBoardBeingSearched,
+    isBoardFetching,
     isBoardFiltered,
-    getBoardID
 } from '~/redux/selectors'
 
 function mapStateToProps(state) {
@@ -27,7 +29,9 @@ function mapStateToProps(state) {
         postsBySearchTerm: getBoardPostsBySearch(state),
         postsByFilterTerm: getBoardPostsByFilter(state),
         isBeingSearched: isBoardBeingSearched(state),
-        isFiltered: isBoardFiltered(state)
+        isFiltered: isBoardFiltered(state),
+        isFetching: isBoardFetching(state),
+        statistics: getBoardStatistics(state)
     }
 }
 
@@ -36,7 +40,8 @@ function mapDispatchToProps(dispatch) {
         fetchBoard,
         fetchThread,
         loadMorePosts,
-        scrollHeader
+        scrollHeader,
+        searchBoard
     }, dispatch)
 }
 

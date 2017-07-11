@@ -3,16 +3,25 @@ import React, { Component, PropTypes } from "react";
 import cx from 'classnames';
 
 import {
+    Icon,
+    Circle,
+    Tooltip,
+    CircleSpinner as Spinner,
+    Button
+} from '~/components';
+
+import {
     NoSearchResults,
     BoardStats,
 } from './components';
 
-import {Icon, Circle, Tooltip} from '~/components';
-
-import {BoardPost as Post} from './assemblies';
+import {
+    BoardPost as Post,
+    BoardToolbar as Toolbar
+} from './assemblies';
 
 import createLayout from './layout';
-import { onAppReady, onSettingsToggle } from '~/events/subscribers';
+import { onAppReady, onSettingsToggle, onBoardReset } from '~/events/subscribers';
 import {
     emitThreadOpen,
     emitSubHeaderToggle
@@ -46,7 +55,8 @@ export default class Board extends Component {
 
         bindMembersToClass(this,
             'handlePostClick',
-            'checkPostsInView',
+            'revealPostsInView',
+            'revealPostsPartiallyInView',
             'handleScroll',
             'resetBoard'
         )
@@ -60,7 +70,7 @@ export default class Board extends Component {
             margin: settings.boardPostMargin,
             gutterLeft: settings.boardOuterMargin,
             gutterRight: settings.boardOuterMargin,
-            gutterTop: settings.headerHeight + settings.subheaderHeight
+            // gutterTop: settings.headerHeight + settings.subheaderHeight
         }
 
         this.layoutPropsForDrawer = Object.assign({}, this.layoutProps, {
@@ -78,9 +88,14 @@ export default class Board extends Component {
         }
     }
 
+    @onBoardReset
+    onBoardReset() {
+        this.updateScroller({ scroll:"top" });
+    }
+
     @onAppReady
     onAppReady() {
-        this.checkPostsInView();
+        this.revealPostsPartiallyInView();
     }
 
     @onSettingsToggle
@@ -91,7 +106,7 @@ export default class Board extends Component {
                 : this.layoutProps
         )
         this.applyLayout()
-        setTimeout(this.checkPostsInView, 400);
+        setTimeout(this.revealPostsInView, 400);
     }
 
     componentDidMount() {
@@ -108,9 +123,16 @@ export default class Board extends Component {
         // catchTooltip(board);  // TODO: Implement catchtooltip on board
     }
 
-    componentDidUpdate({ posts }) {
-        if (posts.length !== this.props.posts.length) {
+    componentWillUpdate({ posts }) {
+        if (posts !== this.props.posts) {
             this.onPostsChange();
+        }
+    }
+
+    componentDidUpdate({ posts }) {
+        if (posts !== this.props.posts) {
+            this.applyLayout();
+            setTimeout(this.revealPostsPartiallyInView, 200);
         }
     }
 
@@ -119,20 +141,23 @@ export default class Board extends Component {
     }
 
     render() {
+        const { posts, isFetching, statistics, searchBoard } = this.props;
+
         const boardClasses = cx('Board', 'nano', {
             'disable-animations': this.props.isBeingSearched
         })
 
-                        // <BoardStats
-                        //     posts={this.props.posts && this.props.posts.length}
-                        //     images={this.props.imageCount}
-                        //     replies={this.props.replyCount}
-                        //     boardName={this.props.boardName}
-                        // />
         return (
             <div id="board" className={boardClasses} ref={b => this._board = $(b)}>
                 <div className="nano-content" onScroll={this.onScroll}>
+                    <Toolbar
+                        posts={posts}
+                        statistics={statistics}
+                        onSearch={searchBoard}
+                    />
                     <div className="posts" ref={x => this._postContainer = x}>
+                        {isFetching && !posts.length
+                            && <Spinner />}
                         {this.renderPosts()}
                     </div>
                 </div>
@@ -144,10 +169,10 @@ export default class Board extends Component {
         // TODO: Do a quick render using index
         return this.getPosts().map((post, index) => {
             return <Post
+                className={index < 10 ? "animate" : ""}
                 key={post.id}
                 post={post}
                 onClick={() => this.handlePostClick(post.id)}
-                onLoad={this.applyLayout}
             />
         });
     }
@@ -161,25 +186,39 @@ export default class Board extends Component {
 
     onPostsChange() {
         this.resetBoard();
-        setTimeout(this.checkPostsInView, 500)
+        setTimeout(this.revealPostsPartiallyInView, 400)
     }
 
     handleScroll(e) {
         e.stopPropagation();
-        this.checkPostsInView();
+        this.revealPostsInView();
         // Condition overrides toggle
         emitSubHeaderToggle(e.target.scrollTop < this.previousScrollTop);
         this.previousScrollTop = e.target.scrollTop;
     }
 
-    checkPostsInView() {
-        console.info("BOARD::checkPostsInView")
+    revealPostsInView() {
+        console.info("BOARD::revealPostsInView")
         if (!this._postContainer)
             return
 
         const toloratedHeight = window.innerHeight + 250;
         $.each(this._postContainer.children, function(index, element) {
             if (element.getBoundingClientRect().bottom <= toloratedHeight) {
+                element.classList.add('animate');
+            } else {
+                return false
+            }
+        })
+    }
+
+    revealPostsPartiallyInView() {
+        if (!this._postContainer)
+            return
+
+        const toloratedHeight = window.innerHeight;
+        $.each(this._postContainer.children, function(index, element) {
+            if (element.getBoundingClientRect().top < toloratedHeight) {
                 element.classList.add('animate');
             }
         })
@@ -204,7 +243,8 @@ export default class Board extends Component {
     resetBoard() {
         // Reshuffle posts and scroll to top of container
         this.updateScroller({ scroll:"top" });
-        this.applyLayout()
+        this.applyLayout();
+        this.revealPostsPartiallyInView();
         this._board.trigger('scroll');
     }
 
