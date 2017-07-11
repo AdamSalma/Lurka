@@ -20,6 +20,8 @@
     transform: translateY(0)
     transition: all .4s ease-out
     transition-property: top, left, box-shadow
+    +will-change(top)
+    +will-change(left)
 
     &.animate
         visibility: visible
