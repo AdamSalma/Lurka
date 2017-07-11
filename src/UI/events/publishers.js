@@ -14,3 +14,6 @@ export const emitThreadOpen = dispatch.bind(null, types.THREAD_OPEN);
 export const emitThreadClose = dispatch.bind(null, types.THREAD_CLOSE);
 
 export const emitBoardReset = dispatch.bind(null, types.RESET_BOARD);
+
+export const emitModalOpen = dispatch.bind(null, types.MODAL_OPEN);
+export const emitModalClose = dispatch.bind(null, types.MODAL_CLOSE);

@@ -41,3 +41,11 @@ export const onSubHeaderToggle = function () {
 export const onBoardReset = function () {
     on(types.RESET_BOARD).apply(null, arguments);
 }
+
+export const onModalOpen = function () {
+    on(types.OPEN_MODAL).apply(null, arguments);
+}
+
+export const onModalClose = function () {
+    on(types.CLOSE_MODAL).apply(null, arguments);
+}

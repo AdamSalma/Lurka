@@ -10,3 +10,6 @@ export const THREAD_CLOSE = "THREAD_CLOSE"
 export const SUB_HEADER_TOGGLE = "SUB_HEADER_TOGGLE"
 
 export const RESET_BOARD = "RESET_BOARD"
+
+export const OPEN_MODAL = "OPEN_MODAL"
+export const CLOSE_MODAL = "CLOSE_MODAL"
