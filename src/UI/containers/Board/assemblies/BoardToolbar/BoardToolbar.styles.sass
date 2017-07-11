@@ -1,0 +1,44 @@
+@import '~sass/partials'
+
+$searchbar-height: 60px
+$total-height: $searchbar-height * $golden-ratio
+$margin-top: $total-height - 40px
+$margin-bottom: $total-height * $golden-ratio - 29px + 40px
+
+$board-toolbar-width: $thread-width / $golden-ratio
+
+.BoardToolbar
+    +size($board-toolbar-width, $total-height)
+
+    background: grey(6)
+    border: solid 1px grey(4)
+    position: inline-block
+    margin: $margin-top auto $margin-bottom
+
+    .Searchbar input
+        font-size: 20px
+        background: darken(grey(7), 2%)
+
+        &:focus
+            box-shadow: inset 0 0 8px color(layout)
+
+    &__Footer
+        display: flex
+        align-items: center
+        padding: 0 16px
+        background: grey(7)
+        height: $total-height - $searchbar-height - 2
+
+        &--right
+            margin-left: auto
+        &--left
+            margin-right: auto
+
+    &__ActionButtons
+        display: flex
+        justify-content: space-between
+        padding: 0 40px
+        margin-top: 40px
+
+        .Button
+            padding: 7px 14px
