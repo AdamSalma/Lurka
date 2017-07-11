@@ -19,7 +19,7 @@ export default function parseBoard( board, boardID ) {
     try {
         for (let page in board) {
             if (!board.hasOwnProperty(page)) return false;
-            board[page].threads.map( post => formatPost(post))
+            board[page].threads.map( post => formatPost(post, page))
         }
     } catch (e) {
         log.error(e)
@@ -35,7 +35,7 @@ export default function parseBoard( board, boardID ) {
     log.app(`Created ${_board.length} board posts`)
     return _board;
 
-    function formatPost(post) {
+    function formatPost(post, page) {
         let smImg = thumbUrl + post.tim + "s.jpg"
         let lgImg = mediaUrl + post.tim + post.ext
 
@@ -45,6 +45,7 @@ export default function parseBoard( board, boardID ) {
             title: post.sub || "",
             comment: post.com,
             time: post.tim || post.time * 1000,
+            page: page,
             media: {
                 thumbnail: smImg,
                 srcLarge: lgImg,
