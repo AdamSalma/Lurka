@@ -12,7 +12,7 @@ import {
 
 const i = window.appSettings.icons;
 
-const Media = ({ media, onLargeImageClick }) => {
+const Media = ({ media, onMediaToggle }) => {
     if (!media)
         return null
 
@@ -21,13 +21,14 @@ const Media = ({ media, onLargeImageClick }) => {
     // TODO: Lazy load thread thumbnails
     return (
         <DualMedia className="ThreadMedia"
-            thumbnail={<Image src={thumbnail}/>}>
+            thumbnail={<Image src={thumbnail} onClick={onMediaToggle}/>}>
             {
                 filetype === ".webm"
                     ? <Video loop autoPlay muted
                         src={srcLarge}
                         type="video/mp4"
-                        className="ThreadMedia--expanded"/>
+                        className="ThreadMedia--expanded"
+                      />
                     : (
                         // <ThreadImage src={srcLarge} onClick={onLargeImageClick}/>
                         <ExpandedImage
@@ -35,6 +36,7 @@ const Media = ({ media, onLargeImageClick }) => {
                             height={height}
                             srcExpanded={srcLarge}
                             srcThumbnail={thumbnail}
+                            onClick={onMediaToggle}
                         />
                     )
             }
