@@ -27,7 +27,7 @@ export default function setupThreadEvents(thread) {
 
         switch (event.type) {
             case 'click':
-                return scrollToPost(href);
+                return scrollToPost({href});
             case 'mouseenter':
                 return createTooltip(event);
             case 'mouseleave':
@@ -36,4 +36,10 @@ export default function setupThreadEvents(thread) {
                 throw new Error(`Uncaught event: ${event.type}`);
         }
     })
+
+    return {
+        scrollToPost,
+        createTooltip,
+        destroyTooltip
+    }
 }

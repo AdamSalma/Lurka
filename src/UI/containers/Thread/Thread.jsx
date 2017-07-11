@@ -50,7 +50,8 @@ class Thread extends Component {
             'closeThread',
             'handleScroll',
             'onThreadClosed',
-            'onThreadOpened'
+            'onThreadOpened',
+            'onMediaToggle'
         );
 
         this.state = {
@@ -68,6 +69,8 @@ class Thread extends Component {
         }
 
         this.onScroll = throttleByCount(8, this.handleScroll);
+
+        this.expandedMediaByPostId = {}
     }
 
     @onThreadOpen
@@ -83,8 +86,8 @@ class Thread extends Component {
     }
 
     componentDidMount() {
-        logger.log("Thread mounted");
-        setupEvents(this._thread)
+        console.log("Thread mounted");
+        this.events = setupEvents(this._thread)
 
         // Creates the initial scroller
         this.updateScroller(this.scrollerOpts);
@@ -155,6 +158,7 @@ class Thread extends Component {
         const {isOpen, isClosing} = this.state;
         const quickRender = !isOpen && !isClosing
         const _posts = []
+        var post;
 
         for (var i = 0; i < posts.length; i++) {
             if (quickRender && i >= 8) {
@@ -163,12 +167,15 @@ class Thread extends Component {
                 break
             }
 
+            post = posts[i]
+
             _posts.push(
-                <Post
-                    key={posts[i].id}
-                    post={posts[i]}>
-                    <TimeAgo date={posts[i].time}/>
-                </Post>
+                <Post key={post.id} post={post}
+                    onMediaToggle={
+                        this.onMediaToggle
+                            .bind(null, post.id, post.media)
+                    }
+                />
             )
         }
 
@@ -224,14 +231,14 @@ class Thread extends Component {
         this.animateThread(animationStyles.out, animationOpts);
     }
 
-    onThreadClosed(callback) {
+    onThreadClosed(callback, element) {
         this.updateScroller({ scroll: "top" });
         logger.method("onThreadClosed")
         this.setState({ isOpen: false });
         this.isClosed = true;
         this.props.cacheCurrentThread();
         this.props.destroyThread();
-        isFunction(callback) && callback();
+        isFunction(callback) && callback(element);
         // is second invocation, fixes bug when thread open/closed quickly
         this._controls.hide();
     }
@@ -252,6 +259,30 @@ class Thread extends Component {
 
     animateThread(styles, options) {
         this._thread && $(this._thread).velocity(styles, options);
+    }
+
+    onMediaToggle(postId, media) {
+        let isExpanded = this.expandedMediaByPostId[postId]
+
+        this.scrollToPost({
+            href: postId,
+            highlightPost: false,
+            scrollDuration: isExpanded ? 200 : 400, // snap back on close
+            offset: isExpanded ? 0 : 50  // scroll to img on open, to post on close
+        });
+
+
+        if (isExpanded && media.ext === ".webm") {
+            // close
+            alert("Expanded webm!!!")
+        }
+
+        this.expandedMediaByPostId[postId] = !this.expandedMediaByPostId[postId]
+
+    }
+
+    scrollToPost(options, delay=1) {
+        setTimeout(() => this.events.scrollToPost(options), delay)
     }
 }
 
