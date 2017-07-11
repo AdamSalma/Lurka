@@ -13,3 +13,4 @@ export const emitMediaReelOpen = dispatch.bind(null, types.OPEN_MEDIA_REEL);
 export const emitThreadOpen = dispatch.bind(null, types.THREAD_OPEN);
 export const emitThreadClose = dispatch.bind(null, types.THREAD_CLOSE);
 
+export const emitBoardReset = dispatch.bind(null, types.RESET_BOARD);

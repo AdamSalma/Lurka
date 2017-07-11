@@ -38,3 +38,6 @@ export const onSubHeaderToggle = function () {
     on(types.SUB_HEADER_TOGGLE).apply(null, arguments);
 }
 
+export const onBoardReset = function () {
+    on(types.RESET_BOARD).apply(null, arguments);
+}

@@ -9,3 +9,4 @@ export const THREAD_CLOSE = "THREAD_CLOSE"
 
 export const SUB_HEADER_TOGGLE = "SUB_HEADER_TOGGLE"
 
+export const RESET_BOARD = "RESET_BOARD"
