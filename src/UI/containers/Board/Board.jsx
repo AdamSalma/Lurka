@@ -33,7 +33,7 @@ import {
     invokeAfterUninterruptedDelay
 } from '~/utils/throttle';
 
-const settings = window.appSettings
+const s = window.appSettings
 
 
 export default class Board extends Component {
@@ -48,18 +48,10 @@ export default class Board extends Component {
 
         this.state = {
             load: 25,
-            headerHeight: settings.headerHeight,  // Beware if header height changes
+            headerHeight: s.headerHeight,  // Beware if header height changes
             scrollTop: 0,
             isDrawerOpen: props.isDrawerOpen
         }
-
-        bindMembersToClass(this,
-            'handlePostClick',
-            'revealPostsInView',
-            'revealPostsPartiallyInView',
-            'handleScroll',
-            'resetBoard'
-        )
 
         this.onScroll = throttleByCount(10, this.handleScroll);
         this.previousScrollTop = 0
@@ -67,14 +59,14 @@ export default class Board extends Component {
         this.layoutProps = {
             targetSelector: '.BoardPost',
             containerSelector: '#board',
-            margin: settings.boardPostMargin,
-            gutterLeft: settings.boardOuterMargin,
-            gutterRight: settings.boardOuterMargin,
-            // gutterTop: settings.headerHeight + settings.subheaderHeight
+            margin: s.boardPostMargin,
+            gutterLeft: s.boardOuterMargin,
+            gutterRight: s.boardOuterMargin,
+            // gutterTop: s.headerHeight + s.subheaderHeight
         }
 
         this.layoutPropsForDrawer = Object.assign({}, this.layoutProps, {
-            gutterRight: settings.settingsWidth + settings.boardOuterMargin
+            gutterRight: s.settingsWidth + s.boardOuterMargin
         })
 
         this.applyLayout = createLayout(props.isDrawerOpen
@@ -157,7 +149,7 @@ export default class Board extends Component {
                     />
                     <div className="posts" ref={x => this._postContainer = x}>
                         {isFetching && !posts.length
-                            && <Spinner />}
+                            && <Spinner className="Board__Spinner"/>}
                         {this.renderPosts()}
                     </div>
                 </div>
@@ -167,14 +159,16 @@ export default class Board extends Component {
 
     renderPosts() {
         // TODO: Do a quick render using index
-        return this.getPosts().map((post, index) => {
-            return <Post
-                className={index < 10 ? "animate" : ""}
-                key={post.id}
-                post={post}
-                onClick={() => this.handlePostClick(post.id)}
-            />
-        });
+        return this.getPosts().map(
+            (post, index) => {
+                return <Post
+                    className={index < 10 ? "animate" : ""}
+                    key={post.id}
+                    post={post}
+                    onClick={() => this.handlePostClick(post.id)}
+                />
+            }
+        );
     }
 
     // updateScrollTop({ scrollTop, scrollHeight }) {
@@ -189,7 +183,7 @@ export default class Board extends Component {
         setTimeout(this.revealPostsPartiallyInView, 400)
     }
 
-    handleScroll(e) {
+    handleScroll = (e) => {
         e.stopPropagation();
         this.revealPostsInView();
         // Condition overrides toggle
@@ -197,8 +191,7 @@ export default class Board extends Component {
         this.previousScrollTop = e.target.scrollTop;
     }
 
-    revealPostsInView() {
-        console.info("BOARD::revealPostsInView")
+    revealPostsInView = () => {
         if (!this._postContainer)
             return
 
@@ -212,7 +205,7 @@ export default class Board extends Component {
         })
     }
 
-    revealPostsPartiallyInView() {
+    revealPostsPartiallyInView = () => {
         if (!this._postContainer)
             return
 
@@ -240,7 +233,7 @@ export default class Board extends Component {
         return this.props.posts
     }
 
-    resetBoard() {
+    resetBoard = () => {
         // Reshuffle posts and scroll to top of container
         this.updateScroller({ scroll:"top" });
         this.applyLayout();
@@ -252,7 +245,7 @@ export default class Board extends Component {
         this._board.nanoScroller(args);
     }
 
-    handlePostClick( threadID ){
+    handlePostClick = (threadID) => {
         // Fetch if user not highlighting any text
         if (!window.getSelection().toString()) {
             const { boardID, fetchThread, scrollHeader } = this.props;
