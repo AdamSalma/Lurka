@@ -1,9 +1,9 @@
 import './Spinner.styles'
 import React from 'react';
-import classes from 'classnames';
+import cx from 'classnames';
 
-export default ({ isSpinning=true }) => {
-    const spinnerClasses = classes("VideoSpinner", {
+export default ({ isSpinning=true, className }) => {
+    const spinnerClasses = cx("VideoSpinner", className, {
         "Spinner-active": isSpinning
     })
 

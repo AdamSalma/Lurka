@@ -2,8 +2,8 @@ import './Spinner.styles'
 import React from 'react';
 import classes from 'classnames';
 
-export default ({ isSpinning=true }) => {
-    const spinnerClasses = classes("Spinner2", {
+export default ({ isSpinning=true, className }) => {
+    const spinnerClasses = classes("Spinner2", className, {
         "Spinner-active": isSpinning
     })
 
