@@ -35,3 +35,7 @@ export const isSet = function(value) {
 export const isDefined = function(value) {
     return value !== undefined
 }
+
+export const isJQueryElement = function(value) {
+    return $ && value instanceof $
+}

@@ -48,3 +48,7 @@ export const cloneChildren = (children, props) =>
         child => React.cloneElement(child, props)
     )
 
+
+export const getDisplayName = (Component) => {
+  return Component.displayName || Component.name || 'Component';
+}
