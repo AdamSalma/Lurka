@@ -11,4 +11,4 @@ const onBeforeSendHeaders = (details, callback) => {
     });
 }
 
-module.exports = onBeforeSendHeaders;
+export default onBeforeSendHeaders;
