@@ -11,33 +11,61 @@ import {
     bindMembersToClass
 } from '~/utils/react';
 
-class BoardList extends Component {
-    static propTypes = {
-        className: PropTypes.string,
-    };
 
+
+import {DropTarget} from "react-dnd";
+
+const dustbinTarget = {
+  drop(props, monitor, component) {
+    component.onDrop(monitor.getItem());
+  },
+};
+
+@DropTarget("BoardListItem", dustbinTarget, (connect, monitor) => ({
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver(),
+    canDrop: monitor.canDrop(),
+    hoverItem: monitor.isOver() && monitor.getItem(),
+    isDragging: monitor.getItemType() === "BoardListItem",
+    dragOffset: monitor.getClientOffset,
+    x: (() => console.info(monitor))(),
+}))
+
+
+class BoardList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             search: ''
         };
+    }
 
-        bindMembersToClass(this, 'renderListItems', 'handleItemClick');
+    onDrop(item) {
+        this.props.addBoardToFavourites(item.boardID);
+        this.lastDroppedItem = item;
     }
 
     render() {
-        const { className, orderedBoards } = this.props;
-        return (
+        const { className, orderedBoards, favouriteBoards } = this.props;
+        const { dragOffset, connectDropTarget, isOver, lastDroppedItem, hoverItem, isDragging, } = this.props;
+
+        return connectDropTarget(
             <div className={cx('BoardList', className)}>
-                <ScrollableList className="BoardList__ScrollList">
-                    {this.renderListItems()}
-                </ScrollableList>
+                {isDragging && !isOver && "DROP HERE"  /* Some sort of drop overlay component */}
+                <div>{ isOver ? (
+                        this.renderListItems([hoverItem])
+                    ) : this.renderListItems(favouriteBoards)}
+                </div>
             </div>
         )
     }
+                // <ScrollableList className="BoardList__ScrollList">
+                //     {this.renderListItems()}
+                // </ScrollableList>
 
-    renderListItems() {
-        return this.props.orderedBoards.map( board => {
+    renderListItems = (orderedBoards) => {
+        // return this.props.orderedBoards.map( board => {
+        return orderedBoards.map( board => {
             return (
                 <BoardListItem
                     key={board.boardID}
@@ -51,7 +79,7 @@ class BoardList extends Component {
         });
     }
 
-    handleItemClick(boardID) {
+    handleItemClick = (boardID) => {
         this.props.fetchBoard(boardID)
     }
 }

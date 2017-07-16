@@ -24,13 +24,13 @@ class Dashboard extends Component {
             <DragDropContextProvider backend={HTML5Backend}>
                 <div className="Dashboard">
                     <div className="Dashboard__header">
-                        <BoardList />
-                        <Logo/>
+                        <BoardList accepts="BoardListItem"/>
+                        {/*<Logo/>*/}
                         <HomeBoard />
                     </div>
                     <div className="Dashboard__boards">
                         <Scrollable>
-                            <BoardSelection/>
+                            <BoardSelection />
                         </Scrollable>
                     </div>
                 </div>

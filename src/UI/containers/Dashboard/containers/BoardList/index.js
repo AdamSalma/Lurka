@@ -7,7 +7,7 @@ import {
     getBoardID,
     getHomeBoard,
     getBoardsOrderedAlphabetically,
-    getFavouriteBoards
+    getFavouriteBoards,
 } from '~/redux/selectors';
 
 import {
@@ -20,7 +20,8 @@ import {
 function mapStateToProps(state) {
     return {
         currentBoard: getBoardID(state),
-        orderedBoards: getBoardsOrderedAlphabetically(state)
+        orderedBoards: getBoardsOrderedAlphabetically(state),
+        favouriteBoards: getFavouriteBoards(state)
     }
 }
 
