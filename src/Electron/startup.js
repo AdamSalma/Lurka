@@ -1,8 +1,5 @@
 import { app } from 'electron';
-import api from './api';
 import createWindow from './createWindow';
-
-global.api = api
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

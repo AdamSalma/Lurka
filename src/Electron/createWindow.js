@@ -47,28 +47,29 @@ function createMainWindow(opts) {
     // Set custom headers to bypass 4chan image block
     main.webContents.session.webRequest.onBeforeSendHeaders(onBeforeSendHeaders);
 
-    if (config.env.production) {
-        // TODO: Where to load URL from. Webpack bundle?
-        // main.loadURL(mainIndex);
-        throw new Error("Not implemented");
-
-    } else {
-        let url;
-
-        if (config.electron.devPerformance) {
-            // Enable react performance
-            url = `${config.server.url}?react_perf`
-        } else {
-            url = config.server.url
-        }
-
-        // Give enough time for UI bundle to begin, otherwise it loads an empty page
-        setTimeout(() => {
-            main.loadURL(url);
-        }, 5000);
+    if (process.env.NODE_ENV === "development") {
+        loadDevHtml(main);
     }
 
     main.on('closed', () => {
         main = null
     });
+}
+
+
+function loadDevHtml(main) {
+    // let url;
+    let url = require('path').join('file://', __dirname, '/../UI/index.html')
+
+    // if (config.electron.devPerformance) {
+    //     // Enable react performance
+    //     url = `${config.server.url}?react_perf`
+    // } else {
+    //     url = config.server.url
+    // }
+
+    // Give enough time for UI bundle to begin, otherwise it loads an empty page
+    main.loadURL(url);
+    // setTimeout(() => {
+    // }, 5000);
 }

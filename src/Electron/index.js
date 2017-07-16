@@ -11,3 +11,4 @@ require('babel-register');
 
 // Start the application
 require('./startup');
+
