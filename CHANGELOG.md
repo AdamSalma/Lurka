@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - Board post images now render with a placeholder to increase performance when rendering a new board.
-
+- Migrate to Webpack 3 for improved code bundling.
 
 ## v0.14.0 08/08/2017
 ### Added
