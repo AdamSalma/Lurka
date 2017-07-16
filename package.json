@@ -7,8 +7,8 @@
     "build": "gulp build",
     "start": "electron ./app",
     "preview": "npm run build && npm run start",
-    "dev": "concurrently -k \"npm run server\" \"npm run electron\"",
-    "server": "npm run env:dev node ./src/Server",
+    "dev": "concurrently -k \"npm run webpack\" \"npm run electron\"",
+    "webpack": "webpack-dev-server --watch -d --color --config webpack/webpack.dev.js",
     "electron": "npm run env:dev electron ./src/Electron",
     "clear": "gulp clear",
     "flow": "flow",
@@ -88,6 +88,7 @@
     "webpack": "^3.1.0",
     "webpack-build-notifier": "^0.1.14",
     "webpack-dev-middleware": "^1.11.0",
+    "webpack-dev-server": "^2.5.1",
     "webpack-hot-middleware": "^2.18.2"
   },
   "dependencies": {}
