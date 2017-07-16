@@ -1,26 +1,26 @@
-import webpack from 'webpack';
-import path from 'path';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import autoprefixer from 'autoprefixer';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import WebpackBuildNotifierPlugin from 'webpack-build-notifier';
+const webpack = require('webpack')
+const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const autoprefixer = require('autoprefixer')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const WebpackBuildNotifierPlugin = require('webpack-build-notifier')
 
-import loaders from './webpack.loaders';
-import config from '../config';
-import alias from './webpack.alias'
+const loaders = require('./webpack.loaders')
+const config = require('../config')
+const alias = require('./webpack.alias')
 
 const UI = path.join(__dirname, "..", "src", "UI")
 const app = path.join(__dirname, "..", "app")
 const node_modules = path.join(app, "node_modules")
 
-export default {
+module.exports = {
     entry: [
-        'webpack-hot-middleware/client',
-        'webpack/hot/dev-server',
+        `webpack-hot-middleware/client?path=${config.server.url}__webpack_hmr`,
+        // 'webpack/hot/dev-server',
         path.join(UI, 'index.jsx')
     ],
     output: {
-        path: '/',
+        path: "/",
         publicPath: config.server.url,
         filename: 'app.bundle.js',
         pathinfo: true
