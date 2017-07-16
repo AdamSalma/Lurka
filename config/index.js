@@ -21,8 +21,8 @@ var config = {
   },
   server: server,
   electron: {
+    devPerformance: false,
     main: {
-      kiosk: true,
       show: false,
       title: "Lurka",
       titleBarStyle: 'hidden',

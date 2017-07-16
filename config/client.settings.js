@@ -83,11 +83,11 @@ window.appSettings = {
         watchPanelClose: "times",
         // watcchPanelUpdate: "update",
 
-        footerSort: "bar-chart",
-        footerFilter: "filter-outline",
-        footerLayout: "layout",
-        footerInfo: "info",
-        footerOpen: "chevron-up",
-        footerClose: "chevron-down",
+        boardToolbarSort: "sort-az",
+        boardToolbarFilter: "filter-full",
+        boardToolbarLayout: "layout",
+        boardToolbarInfo: "info",
+        boardToolbarOpen: "chevron-up",
+        boardToolbarClose: "chevron-down",
     }
 }
