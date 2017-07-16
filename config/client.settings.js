@@ -24,8 +24,8 @@ window.appSettings = {
     // Needs to be kept in sync with src/sass/partials/_config.sass
     headerHeight: 64,
     subheaderHeight: 50,
-    threadWidth: 981,
-    settingsWidth: 256,
+    threadWidth: 1024,
+    settingsWidth: 320,
 
     homeViewID: 'HomeView',
     contentViewID: 'ContentView',
