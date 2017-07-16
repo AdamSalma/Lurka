@@ -1,6 +1,4 @@
 import API from '-/config/api.4chan';
-import proxify from '../services/proxyUrls';
-
 
 /**
  * Standardises a 4chan board.
@@ -14,25 +12,18 @@ export default function parseBoard( board, boardID ) {
     const thumbUrl = API.thumbnail(boardID)
     const mediaUrl = API.media(boardID)
 
-    log.app(`Parsing 4chan board ${boardID} ...`)
+    console.group('%cBOARD PARSE', 'color: skyblue')
+    console.info(`Parsing 4chan board ${boardID} ...`)
 
-    try {
-        for (let page in board) {
-            if (!board.hasOwnProperty(page)) return false;
-            board[page].threads.map( post => formatPost(post, page))
-        }
-    } catch (e) {
-        log.error(e)
-        log.error(board)
-        throw new Error(board)
+    for (let page in board) {
+        board[page].threads.map( post => formatPost(post, page))
     }
-
 
     if (!_board.length) {
-        throw new Error("4chan board was not parsed: No posts extracted")
+        throw new Error("No posts extracted in parseBoard. Input:", board)
     }
 
-    log.app(`Created ${_board.length} board posts`)
+    console.info(`Created ${_board.length} board posts`)
     return _board;
 
     function formatPost(post, page) {

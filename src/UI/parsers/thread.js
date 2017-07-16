@@ -1,5 +1,4 @@
 import API from '-/config/api.4chan';
-import proxify from '../services/proxyUrls';
 
 /**
  * Standardises a 4chan thread.
@@ -10,21 +9,21 @@ import proxify from '../services/proxyUrls';
  */
 export default function parseThread( posts, boardID ) {
     if (!posts || !posts.length) {
-        log.error("parseThread(): No posts supplied")
-        log.error(posts)
-        log.error(`typeof posts: ${typeof posts}`)
+        console.error("parseThread(): No posts supplied")
+        console.error(posts)
+        console.error(`typeof posts: ${typeof posts}`)
         throw new Error("parseThread: No posts supplied");
     }
 
     const thread = createPostParser(boardID)(posts)
 
-    log.app(`Created ${thread.length} 4chan posts`);
+    console.info(`Created ${thread.length} 4chan posts`);
 
     try {
         return replaceOPQuotes( connectPosts(thread) );
     } catch (e) {
         console.error(thread)
-        log.error(e)
+        console.error(e)
         return thread
     }
 }
