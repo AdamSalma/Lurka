@@ -20,7 +20,6 @@ class Preloader extends Component {
     constructor(props) {
         super();
         this.preloading = true
-        bindMembersToClass(this, 'updatePreloader')
         this.checkPreloadProgress = createPreloader()
         fetchInitialContent(props)
         this.updatePreloader(props)  // loaded from localStorage
@@ -34,9 +33,9 @@ class Preloader extends Component {
         this.updatePreloader()
     }
 
-    render() { return false }
+    render() { return null }
 
-    updatePreloader(props=false) {
+    updatePreloader = (props=false) => {
         console.log("updatePreloader:", this)
         this.checkPreloadProgress(props || this.props)
     }
