@@ -1,20 +1,42 @@
 @import '~sass/partials'
 
+=hover-animation--slide
+    &::before
+        +size(0, 2px)
+        color: grey(1)
+
+    &:hover::before
+        width: 100%
+        transition: width .24s $bezier-
+
+
+// IDEA: Continue here
+=shrink-on
+    .content
+        transition: all .3s ease
+        // transform: rotateX(40deg) translateY(-20px)
+
+
+
 .MainHeader
     position: absolute
     +set-dims(100vw, $header-height)
     +position(0, 0)
     // top: -$header-height  // hide on start
     z-index: $mainheader-z-index
-    box-shadow: 0 2px 5px grey(10)
-    border-bottom: color(layout) 2px solid
+    // box-shadow: 0 2px 5px grey(10)
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12);
+    border-bottom: color(content-border) 2px solid
+
+    &.shrink-on
+        +shrink-on
 
     &:before
         content: ""
         position: absolute
         +position(-2px, 0)
         +set-dims(100%, 2px)
-        background: color(layout)
+        background: color(content-border)
 
     .background
         // opacity: 0.95
@@ -25,11 +47,14 @@
 
     .content
         width: 100%
+        max-width: $thread-width * $golden-ratio
+        margin: 0 auto
         display: flex
         flex-wrap: block
         align-items: center
         height: 100%
         padding: $header-padding
+        position: relative
 
     .HeaderGroup
         padding: 0 8px
@@ -107,3 +132,11 @@
             .title-small
                 display: initial
 
+        .Icon
+            position: relative
+            transition: all .2s ease
+            transition-property: color, top
+
+        &:hover .Icon
+            top: 4px
+            color: color(layout)

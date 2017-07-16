@@ -2,7 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 
 import './HeaderGroup.styles'
-import Tooltip from '~/components/Tooltip'
+import { Tooltip } from '~/components'
 
 export default ({children, className, ...restProps}) => {
     return (

@@ -1,3 +1,1 @@
-import * as containers from "./containers";
-
-export default { containers };
+export {MainHeader as default} from "./containers";

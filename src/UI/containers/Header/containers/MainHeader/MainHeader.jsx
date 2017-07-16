@@ -70,11 +70,16 @@ class MainHeader extends PureComponent {
             isThreadOpen,
             isDrawerOpen,
             activePanel,
-            boardList
+            boardList,
+            headerMode={
+                shrunk: true,
+                shrinking: false,
+            }
         } = this.props
 
         const headerClass = cx('MainHeader', {
-            'drawer-open': isDrawerOpen
+            'drawer-open': isDrawerOpen,
+            'shrink-on': headerMode.shrunk,
         });
 
         // TODO: Use selector for this:
@@ -114,9 +119,7 @@ class MainHeader extends PureComponent {
                     <span className="title-small">
                         {!!navbarTitle && `/${boardID}/`}
                     </span>
-                    <Icon name={ this.state.isContentInView
-                        ? "chevron-down"
-                        : "chevron-up"}/>
+                    <Icon name={ "chevron-down"}/>
                   </HeaderTitle>
                 </HeaderGroup>
                 { this.state.isContentInView &&
