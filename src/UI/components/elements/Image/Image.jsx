@@ -9,13 +9,9 @@ class Image extends PureComponent {
             isVisible: !props.hideUntilLoaded
         }
 
-        // Remove non-html properties to enable using `{...imageProps}`
-        // Otherwise would have to specify every property. The horror.
-        this.imageProps = Object.assign({}, props)
-        delete this.imageProps['hideUntilLoaded']
-        delete this.imageProps['loader']
-
-        this.onLoad = this.onLoad.bind(this)
+        // Filter props and assign to image specific props
+        let { hideUntilLoaded, loader, ...imageProps } = props;
+        this.imageProps = Object.assign({}, imageProps)
     }
 
     render() {
@@ -38,7 +34,7 @@ class Image extends PureComponent {
         return <img {...imageProps}/>
     }
 
-    onLoad() {
+    onLoad = () => {
         this.setState({
             isVisible: true
         }, this.props.onLoad)

@@ -28,7 +28,7 @@ export default class Tooltip extends PureComponent {
             PropTypes.string,
             PropTypes.element
         ]),
-        delay: PropTypes.Number
+        delay: PropTypes.number
     };
 
     constructor(props) {

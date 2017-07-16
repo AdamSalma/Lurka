@@ -43,16 +43,17 @@ export default function createLayout(options) {
     }
 
     function positionItems() {
-        $items && $items.each(function(){
-            var min = Array.min(blocks)
-            var index = $.inArray(min, blocks)
-            var leftPos = gutterLeft + outerMargin/2 + margin/2 + (index * colWidth)
-            $(this).css({
-                'top': gutterTop + min+'px',
-                'left': leftPos+'px'
-            })
+        var min, index, leftPos;
 
-            blocks[index] = min + $(this).outerHeight() + margin
+        $items && $items.each(function() {
+            min = Math.min.apply(Math, blocks)
+            index = blocks.indexOf(min)
+            leftPos = gutterLeft + outerMargin/2 + margin/2 + (index * colWidth)
+
+            this.style.top = gutterTop + min+'px'
+            this.style.left = leftPos+'px'
+
+            blocks[index] = min + this.offsetHeight + margin
         })
     }
 }

@@ -8,7 +8,7 @@ import {
     Fullscreen,
     Overlay,
     Download
-} from './components';
+} from './elements';
 
 import './Video.styles'
 

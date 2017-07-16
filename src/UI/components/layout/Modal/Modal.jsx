@@ -77,7 +77,7 @@ class Modal extends PureComponent {
             return null
 
         const { className, ...restProps } = this.props;
-        const { hasOverlay, overlayOpts, ModalComponent, isOpen, } this.state;
+        const { hasOverlay, overlayOpts, ModalComponent, isOpen, } = this.state;
 
         return this.state.isOpen ? (
             <div className={cx("Modal")} {...restProps}>

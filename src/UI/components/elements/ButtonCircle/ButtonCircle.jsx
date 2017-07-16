@@ -2,7 +2,7 @@ import './ButtonCircle.styles'
 import React, {PureComponent} from 'react'
 import classes from 'classnames'
 
-import Circle from '../Circle'
+import Circle from './Circle'
 
 class ButtonCircle extends PureComponent {
     constructor(props) {

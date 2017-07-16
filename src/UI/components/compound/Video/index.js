@@ -21,7 +21,7 @@ export default videoConnect(
     (videoEl, state) => ({
         onFullscreenClick: (e) => {
             e.stopPropagation();
-            api.toggleFullscreen(videoEl.parentElement)
+            api.toggleFullscreen(videoEl)
         },
         onVolumeClick: (e) => {
             e.stopPropagation();

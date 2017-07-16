@@ -1,0 +1,76 @@
+@import '~sass/partials'
+
+@keyframes bounce
+    0%
+        transform:translateY(-100%)
+        opacity: 0
+
+    5%
+        transform:translateY(-100%)
+        opacity: 0
+
+    15%
+        transform:translateY(0)
+        padding-bottom: 5px
+
+    30%
+        transform:translateY(-50%)
+
+    40%
+        transform:translateY(0%)
+        padding-bottom: 6px
+
+    50%
+        transform:translateY(-30%)
+
+    70%
+        transform:translateY(0%)
+        padding-bottom: 7px
+
+    80%
+        transform:translateY(-15%)
+
+    90%
+        transform:translateY(0%)
+        padding-bottom: 8px
+
+    95%
+        transform:translateY(-7%)
+
+    97%
+        transform:translateY(0%)
+        padding-bottom: 9px
+
+    99%
+        transform:translateY(-3%)
+
+    100%
+        transform:translateY(0)
+        padding-bottom: 9px
+        opacity: 1
+
+
+
+
+.Notification
+    position: relative
+    display: inline-block
+
+    &__content
+        display: none
+        position: absolute
+        top: -7px
+        left: 34px
+        padding: 1px 5px 2px 3px
+        line-height: 1
+        font-size: .625rem
+        color: color(text-primary)
+        text-decoration: none
+        letter-spacing: -.075em
+        border-radius: 6px 6px 6px 0
+        background: color(primary)
+
+        &--active
+            display: initial
+            animation: notification .2s forwards
+

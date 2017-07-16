@@ -14,8 +14,6 @@ export default class DualMedia extends PureComponent {
         super(props);
 
         this.state = { isToggled: false }
-
-        bindMembersToClass(this, 'toggle')
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -42,7 +40,7 @@ export default class DualMedia extends PureComponent {
         )
     }
 
-    toggle(e) {
+    toggle = (e) => {
         this.setState({
             isToggled: !this.state.isToggled
         }, () => {

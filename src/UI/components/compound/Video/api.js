@@ -40,7 +40,7 @@ export const toggleMute = (videoEl, { volume, muted }) => {
     }
 };
 
-export const toggleFullscreen = (videoEl) => {
+export const toggleFullscreen = ({ parentElement, isFullscreen }) => {
     videoEl.requestFullScreen =
         videoEl.requestFullscreen
         || videoEl.msRequestFullscreen
@@ -58,8 +58,10 @@ export const toggleFullscreen = (videoEl) => {
         || document.webkitFullscreenElement;
     if (fullscreenElement === videoEl) {
         document.exitFullscreen();
+        isFullscreen = false
     } else {
         videoEl.requestFullScreen();
+        isFullscreen = true
     }
 };
 
