@@ -6,6 +6,7 @@ export const getBoardSearchTerms = state => state.board.search
 export const getBoardFilterTerms = state => state.board.filters
 export const isBoardBeingSearched = state => !!state.board.search;
 export const isBoardFiltered = state => state.board.filters.length > 0
+export const isBoardFetching = state => state.board.isFetching
 
 
 export const getBoardPostsBySearch = createSelector(
@@ -35,4 +36,16 @@ export const getBoardPostsByFilter = createSelector(
             }
             return shouldKeep
         })
+)
+
+export const getBoardStatistics = createSelector(
+    getBoardPosts,
+    (posts=[]) => {
+        var stats = { replies: 0, images: 0};
+        for (var i = 0; i < posts.length; i++) {
+            stats.replies += posts[i].replies.textCount
+            stats.images += posts[i].replies.imgCount
+        }
+        return stats
+    }
 )
