@@ -20,8 +20,10 @@ const Media = ({ media, onMediaToggle }) => {
 
     // TODO: Lazy load thread thumbnails
     return (
-        <DualMedia className="ThreadMedia"
-            thumbnail={<Image src={thumbnail} onClick={onMediaToggle}/>}>
+        <DualMedia
+            className="ThreadMedia"
+            onClick={onMediaToggle}
+            thumbnail={<Image src={thumbnail}/>}>
             {
                 filetype === ".webm"
                     ? <Video loop autoPlay muted
@@ -36,7 +38,6 @@ const Media = ({ media, onMediaToggle }) => {
                             height={height}
                             srcExpanded={srcLarge}
                             srcThumbnail={thumbnail}
-                            onClick={onMediaToggle}
                         />
                     )
             }

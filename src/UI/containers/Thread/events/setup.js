@@ -27,7 +27,7 @@ export default function setupThreadEvents(thread) {
 
         switch (event.type) {
             case 'click':
-                return scrollToPost({href});
+                return scrollToPost(href);
             case 'mouseenter':
                 return createTooltip(event);
             case 'mouseleave':
@@ -40,6 +40,10 @@ export default function setupThreadEvents(thread) {
     return {
         scrollToPost,
         createTooltip,
-        destroyTooltip
+        destroyTooltip,
+        teardownThreadEvents: function() {
+            $thread.off();
+            $thread = null
+        }
     }
 }

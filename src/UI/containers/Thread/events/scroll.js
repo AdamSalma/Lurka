@@ -1,4 +1,4 @@
-import { isFunction } from '~/utils/types';
+import { isFunction, isString, isJQueryElement } from '~/utils/types';
 
 const {
     headerHeight,
@@ -6,29 +6,34 @@ const {
     threadpostScrollHighlightDuration
 } = window.appSettings;
 
+const isRequired = () => { throw new Error('param is required'); };
+
 const createPostScroller = ( $context, onScroll ) => {
+    console.log("Thread scroller created");
 
-    return function ({ href, highlightPost=true, scrollDuration=threadpostScrollDuration, highlightDuration=threadpostScrollHighlightDuration, offset=0 }) {
+    return function (target=isRequired(), {
+        highlightPost = true,
+        highlightDuration = threadpostScrollHighlightDuration,
+        scrollDuration = threadpostScrollDuration,
+        offset = 0,
+        easing = [0.445, 0.05, 0.55, 0.95]
+    }={}) {
 
-        if (!href) {
-            throw new Error("No href provided to thread scroller.")
+        let $item;
+
+        if (isJQueryElement(target)) {
+            $item = target;
+        } else {
+            $item = $context.find(target)
         }
 
-        if (href[0] !== "#") {
-            href = "#p" + href
-        }
-
-        console.log("scrolling to " + href);
-
-        const $item = $context.find(href);
+        console.log("Scrolling to:", $item);
 
         $item.stop().velocity('scroll', {
             container: $context,
             duration: scrollDuration,
-            // easing: "ease-out",
-            easing: [0.445, 0.05, 0.55, 0.95],
+            easing: easing,
             offset: offset
-            // offset: -headerHeight
         });
 
         isFunction(onScroll) && onScroll();

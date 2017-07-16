@@ -10,14 +10,18 @@ $thread-controls-height: 65px
     left: 0
     z-index: 20
     height: 1px
+    opacity: 1
 
     &.animate-in
         transform: translateY(0)
         transition: transform .65s ease
+        opacity: 1
 
     &.animate-out
         transform: translateY($thread-controls-height)
         transition: transform .2s $bezier-fast
+        transition-property: transform, opacity
+        opacity: 0
 
     .left-controls
         left: 0

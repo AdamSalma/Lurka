@@ -35,7 +35,8 @@ import {throttleByCount} from '~/utils/throttle';
 /* Animation settings */
 import {
     animationOptions,
-    animationStyles
+    animationStyles,
+    scrollConfig
 } from './config'
 
 const { headerHeight } = window.appSettings;
@@ -155,6 +156,10 @@ class Thread extends Component {
     }
 
     renderPosts(posts) {
+        if (!posts || !posts.length) {
+            return null
+        }
+
         const {isOpen, isClosing} = this.state;
         const quickRender = !isOpen && !isClosing
         const _posts = []
@@ -166,6 +171,8 @@ class Thread extends Component {
                 logger.warn("Terminated early")
                 break
             }
+
+            logger.log('Thread render in progress')
 
             post = posts[i]
 
@@ -262,27 +269,67 @@ class Thread extends Component {
     }
 
     onMediaToggle(postId, media) {
-        let isExpanded = this.expandedMediaByPostId[postId]
+        console.groupCollapsed('%cMediaToggled', 'color: skyblue; background: #212121')
+        let willClose = this.expandedMediaByPostId[postId] || false;
+        let post = this._thread.querySelector('#p' + postId)
 
-        this.scrollToPost({
-            href: postId,
-            highlightPost: false,
-            scrollDuration: isExpanded ? 200 : 400, // snap back on close
-            offset: isExpanded ? 0 : 50  // scroll to img on open, to post on close
-        });
-
-
-        if (isExpanded && media.ext === ".webm") {
-            // close
-            alert("Expanded webm!!!")
+        // Initialise options with default values (assume closing):
+        let options = {
+            highlightPost: scrollConfig.highlightPost,
+            offset: scrollConfig.postOffset,
+            scrollDuration: scrollConfig.closeDuration,
         }
 
-        this.expandedMediaByPostId[postId] = !this.expandedMediaByPostId[postId]
+        let shouldScroll = true
 
-    }
+        console.log(`Media is ${willClose ? 'closing' : 'opening'}. (postId: ${postId})`);
+        console.log("Expanded media by post:", this.expandedMediaByPostId);
 
-    scrollToPost(options, delay=1) {
-        setTimeout(() => this.events.scrollToPost(options), delay)
+        if (willClose) {
+            let { top } = post.getBoundingClientRect();
+
+            console.log("Media top", top);
+            console.log("Is media below header?", top > 14);
+            if (top > scrollConfig.headerOffset) {
+                // dont scroll down if the user has scrolled back up
+                console.log("Media below header: not scrolling");
+                shouldScroll = false
+            }
+        } else {
+            // Media will open
+
+            let threadHeight = window.innerHeight - headerHeight
+            let isWebmOrSizeLessThanWindowButBiggerThanHalf =
+                    media.filetype === ".webm" ||
+                    media.height < threadHeight
+                    && media.height > threadHeight/2
+
+            let renderHeight = media.width > 1024 ? media.height * (1024 / media.width) : media.height;
+
+            console.log("Render height:", renderHeight);
+            console.log("Original height:", media.height);
+            console.log("Thread height:", threadHeight);
+
+            let isLargeImage = renderHeight > threadHeight;
+
+            options.ease = scrollConfig.openEase
+            options.scrollDuration = scrollConfig.openDuration
+            options.offset = isLargeImage
+                ? scrollConfig.imageOffset
+                : scrollConfig.postOffset;
+        }
+
+        if (shouldScroll) {
+            console.log("Scrolling with options:", options)
+            this.events.scrollToPost($(post), options);
+        } else {
+            console.log("Scroll rejected");
+        }
+
+        // Keep reference of media state
+        this.expandedMediaByPostId[postId] = !willClose;
+
+        console.groupEnd();
     }
 }
 

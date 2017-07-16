@@ -32,3 +32,13 @@ export const animationOptions = {
         easing: [0.19, 1, 0.22, 1],       // ease out expo
     }
 }
+
+export const scrollConfig = {
+    highlightPost: false,
+    headerOffset: 14,  // for determining if media (top) is below or above header
+    imageOffset: 52,
+    postOffset: 0,
+    closeDuration: 0,
+    openDuration: 400,
+    openEase: 'ease'
+}

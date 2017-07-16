@@ -1,5 +1,5 @@
 import './ThreadPost.styles';
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import classes from 'classnames';
 
 import {
@@ -23,7 +23,10 @@ import {
 import { setHTML, bindMembersToClass } from '~/utils/react';
 import { emitMediaReelOpen } from '~/events/publishers';
 
-export default class ThreadPost extends Component {
+import { getShortTimeAgo } from '~/utils/time';
+
+
+export class ThreadPost extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -44,6 +47,7 @@ export default class ThreadPost extends Component {
                     <PostID id={id}/>
                     <Pipe />
                     <TimeAgo time={time}/>
+
                     <PostToolbar controls={controls}/>
                 </div>
                 <MediaInfo media={media}/>
@@ -59,5 +63,27 @@ export default class ThreadPost extends Component {
     }
 }
 
+const FunctionalThreadPost = ({ controls, post, onMediaToggle }) => {
+    const {id, name, title, date, media, comment, references, time} = post;
 
+    // TODO: Remove threadpost onClick propagation abd put a check on the thread onClick
+    return (
+        <div id={"p"+id} className='ThreadPost' onClick={e => e.stopPropagation()}>
+            <div className='post-info'>
+                <span className='name'>{name}</span>
+                <PostID id={id}/>
+                <Pipe />
+                <TimeAgo time={time}/>
+                <PostToolbar controls={controls}/>
+            </div>
+            <MediaInfo media={media}/>
+            <Media media={media} onMediaToggle={onMediaToggle}/>
+            <Comment comment={comment}/>
+            <References refs={references}/>
+        </div>
+    );
+};
 
+FunctionalThreadPost.displayName = 'FunctionalThreadPost';
+
+export default FunctionalThreadPost;
