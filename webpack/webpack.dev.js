@@ -3,6 +3,7 @@ import path from 'path';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import WebpackBuildNotifierPlugin from 'webpack-build-notifier';
 
 import loaders from './webpack.loaders';
 import config from '../config';
@@ -40,11 +41,9 @@ export default {
         host: config.server.host
     },
     plugins: [
+        new WebpackBuildNotifierPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new HtmlWebpackPlugin({
-            template: path.join(UI, 'index.html')
-        }),
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': JSON.stringify('development')
@@ -54,6 +53,9 @@ export default {
             $: "jquery",
             jQuery: "jquery",
             "window.jQuery": "jquery"
-        })
+        }),
+        new HtmlWebpackPlugin({
+            template: path.join(UI, 'index.html')
+        }),
     ]
 };

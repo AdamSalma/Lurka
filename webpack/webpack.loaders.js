@@ -14,7 +14,7 @@ module.exports = createLoaders((loaders) => [
         use: loaders.css
     },
     {
-        test: /.(png|gif|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/,
+        test: /.(png|gif|woff(2)?|eot|ttf|svg|otf)(\?[a-z0-9=\.]+)?$/,
         use: loaders.url
     },
     {
