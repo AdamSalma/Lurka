@@ -20,13 +20,14 @@ import { setHTML } from '~/utils/react';
 
 
 const BoardPost = ({ onClick, onImageLoad, post, className }) => {
-    const { thumbnail, width, height } = post.media;
+    let { thumbnail, width, height } = post.media;
+    height *= (232/width);  //  Calculates placeholder height before image loads. 232 is post width
 
     return (
         <div id={"t" + post.id} className={cx("BoardPost", className)} onClick={ onClick }>
             <Image
                 src={thumbnail}
-                height={height * (232 / width)} {/* <- Calculates placeholder height before image loads. 232 is post width */}
+                height={height}
                 onLoad={onImageLoad}
             />
             <Comment
@@ -38,3 +39,5 @@ const BoardPost = ({ onClick, onImageLoad, post, className }) => {
         </div>
     )
 }
+
+export default BoardPost;

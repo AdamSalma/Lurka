@@ -53,15 +53,19 @@
             box-shadow: 0 1px 4px grey(10)
             background-color: color(layout, darkest)
 
-    .Board__Spinner::before
-        content: "Loading..."
-        font-size: 20px
-        text-align: center
-        position: relative
-        bottom: -66%
-        width: inherit
-        left: -10px
-        // left: -5px
-        // transform: translateX(50%)
+    .Board__Spinner
+        top: 400px
+        bottom: auto
 
-        // top: 80px
+        &::before
+            content: "Loading..."
+            font-size: 20px
+            text-align: center
+            position: relative
+            bottom: -100%
+            width: inherit
+            left: -10px
+            // left: -5px
+            // transform: translateX(50%)
+
+            // top: 80px

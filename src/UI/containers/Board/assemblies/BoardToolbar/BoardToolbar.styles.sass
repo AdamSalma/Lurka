@@ -7,13 +7,17 @@ $margin-bottom: $total-height * $golden-ratio - 29px + 40px
 
 $board-toolbar-width: $thread-width / $golden-ratio
 
+$action-button-height: 40px
+
+=vertical-margin($top, $bottom:$top)
+    margin: $top 0 $bottom
+
 .BoardToolbar
     +size($board-toolbar-width, $total-height)
-
     background: grey(6)
-    border: solid 1px grey(4)
     position: inline-block
     margin: $margin-top auto $margin-bottom
+    border: solid 1px grey(4)
 
     .Searchbar input
         font-size: 20px
@@ -21,24 +25,35 @@ $board-toolbar-width: $thread-width / $golden-ratio
 
         &:focus
             box-shadow: inset 0 0 8px color(layout)
-
     &__Footer
         display: flex
         align-items: center
+        height: $total-height - $searchbar-height - 2
         padding: 0 16px
         background: grey(7)
-        height: $total-height - $searchbar-height - 2
 
         &--right
             margin-left: auto
+
         &--left
             margin-right: auto
 
     &__ActionButtons
+        // IDEA: space action buttons out with golden ratio and make them bigger (in relation to the posts? ooo font size too)
+        +vertical-margin($margin-top, $margin-top * $golden-ratio)
         display: flex
-        justify-content: space-between
-        padding: 0 40px
-        margin-top: 40px
+        justify-content: space-around
+        position: relative
+        font-size: 24px
+        font-size: 21.7px
+        font-size: 18px
+        width: 100%
+        // letter-spacing: 1px
 
         .Button
+            // position: absolute
             padding: 7px 14px
+            padding: 12px
+            margin-left: 20px
+            line-height: 1
+            font-family: $font-main
