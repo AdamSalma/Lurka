@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 
 // State
-export const getFavouriteBoards = (state) => state.boardList.favourites
 export const getBoardListItems = (state) => state.boardList.items
+export const getFavouriteBoardIDs = (state) => state.boardList.favourites
 
 // Operations
 export const isFavouriteBoard = (state, boardID) =>
@@ -23,3 +23,11 @@ export const getBoardsOrderedAlphabetically = createSelector(
         })
     }
 );
+
+export const getFavouriteBoards = createSelector(
+    getFavouriteBoardIDs,
+    getBoardListItems,
+    (faveIDs, boards) =>
+        faveIDs.map( boardID =>
+            boards.find( board => board.boardID === boardID))
+)
