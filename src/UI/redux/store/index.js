@@ -16,9 +16,15 @@ export default store;
 if (config.env.development) {
     window.getState = store.getState;
     window.getCache = loadCache;
-    console.group('%c Development Mode', 'color:cyan;');
+
+    console.group('%cDevelopment Mode', 'color:cyan;');
     console.log('Enabled: %cwindow.getState, window.getCache', 'color: skyblue');
     console.log('State:', store.getState());
     console.log('Cache:', loadCache());
+
+    if (window.location.search === "?react_perf") {
+        console.log("React performance enabled. Open the DevTools Timeline tab and press Record.");
+    }
+
     console.groupEnd();
 }
