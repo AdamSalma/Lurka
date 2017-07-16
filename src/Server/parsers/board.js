@@ -46,6 +46,7 @@ export default function parseBoard( board, boardID ) {
             comment: post.com,
             time: post.tim || post.time * 1000,
             page: page,
+            last_modified: post.last_modified,
             media: {
                 thumbnail: smImg,
                 srcLarge: lgImg,
@@ -57,7 +58,6 @@ export default function parseBoard( board, boardID ) {
                 textCount: post.replies,
                 imgCount: post.images,
             },
-            last_modified: post.last_modified
         });
     }
 }
