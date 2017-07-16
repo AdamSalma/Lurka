@@ -1,10 +1,12 @@
 import * as types from '~/redux/types';
-import {isFavouriteBoard} from '~/redux/selectors/board';
+import {
+    isFavouriteBoard
+} from '~/redux/selectors';
 
 export default function addBoardToFavourites(boardID) {
     return (dispatch, getState) => {
-        if (!isFavouriteBoard(getState(), boardID)) {
-            console.warn(`${boardID} is already in favourites`);
+        if (isFavouriteBoard(getState(), boardID)) {
+            console.warn(`addBoardToFavourites(${boardID}) rejected: board is already in favourites`);
             return
         }
 
