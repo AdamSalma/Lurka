@@ -1,12 +1,13 @@
 import * as types from '~/redux/types'
 import Axios from 'axios';
 
-import API from '-/config/api.localhost'
+import API from '-/config/api.4chan'
 import { secondsAgo } from '~/utils/time'
 import { isFunction } from '~/utils/types'
 import { alertMessage } from '../alert'
 
 import {getCachedThread} from '~/redux/selectors'
+import {parseThread} from '~/parsers'
 
 export function threadRequested(threadID) {
     console.log("Action RequestThread wth ID:", threadID);
@@ -20,7 +21,7 @@ export function threadLoaded(thread) {
     console.log("Action RecieveThread:", thread);
     return {
         type: types.THREAD_LOADED,
-        posts: thread.data || [],
+        posts: thread,
         receivedAt: Date.now()
     }
 }
@@ -66,8 +67,10 @@ export default function fetchThread({ boardID, threadID, callback }) {
 
         // Perform request
         return Axios.get(url)
-            .then( data => {
-                dispatch(threadLoaded(data));
+            .then(res => res.data.posts)
+            .then(data => parseThread(data, boardID))
+            .then(thread => {
+                dispatch(threadLoaded(thread));
                 isFunction(callback) && callback();
             })
             .catch( err => handleFetchError(err, dispatch));
