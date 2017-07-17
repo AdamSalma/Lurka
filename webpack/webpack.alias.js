@@ -5,5 +5,5 @@ module.exports = {
     '-': rootPath,
     '~': path.join(rootPath, 'src', 'UI'),
     'sass': path.join(rootPath, 'src', 'UI', 'sass'),
-    'public': path.join(rootPath, 'src', 'Server', 'public'),
+    'resources': path.join(rootPath, 'src', 'Common', 'resources'),
 }
