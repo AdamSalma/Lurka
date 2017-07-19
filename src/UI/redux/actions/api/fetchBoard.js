@@ -36,10 +36,9 @@ export default function fetchBoard(boardID, callback) {
         }))
 
         return Axios.get(url)
-            .then( res => res.data )
-            .then( data => parseBoard(data, boardID) )
-            .then( board => { console.log("Parsed board output:", board); return board })
-            .then( board => {
+            .then(res => res.data)
+            .then(data => parseBoard(data, boardID))
+            .then(board => {
                 dispatch(receiveBoard(board))
                 dispatch(setBoard(boardID))
                 callback && callback();

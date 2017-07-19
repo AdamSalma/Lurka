@@ -12,18 +12,21 @@ export default function parseBoard( board, boardID ) {
     const thumbUrl = API.thumbnail(boardID)
     const mediaUrl = API.media(boardID)
 
-    console.group('%cBOARD PARSE', 'color: skyblue')
-    console.info(`Parsing 4chan board ${boardID} ...`)
+    console.group('%cBoard API parse', 'color: skyblue');
+    console.log(`Board ID: /${boardID}/`);
 
     for (let page in board) {
-        board[page].threads.map( post => formatPost(post, page))
+        board[page].threads.map( post => formatPost(post, page));
     }
 
     if (!_board.length) {
-        throw new Error("No posts extracted in parseBoard. Input:", board)
+        throw new Error("No posts extracted in parseBoard. Input:", board);
     }
 
-    console.info(`Created ${_board.length} board posts`)
+    console.log(`Created ${_board.length} board posts`);
+    console.log("Board:", _board)
+    console.groupEnd();
+
     return _board;
 
     function formatPost(post, page) {

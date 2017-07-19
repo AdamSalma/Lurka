@@ -165,8 +165,16 @@ $quotelink-color: color(primary, dark)
 
 
     /* 4chan links */
-    .quote
-        color: color(primary, lightest)
+    blockquote .quote
+        // color: color(text-primary)
+        background: mix(white, color(primary, lightest), 8%)
+        color: grey(9)
+        padding: 4px 8px 4px 2px
+        // background: color(primary)
+        margin-bottom: 4px
+        border-left: 2px solid color(primary, light)
+        line-height: 1
+        display: inline-block
 
     .deadlink
         color: color(text-disabled)

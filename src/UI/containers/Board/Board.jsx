@@ -158,9 +158,13 @@ export default class Board extends Component {
     }
 
     renderPosts() {
-        // TODO: Do a quick render using index
+        var pageNum;
+
         return this.getPosts().map(
             (post, index) => {
+                if (post.page !== pageNum) {
+                    pageNum = post.page
+                }
                 return <Post
                     className={index < 10 ? "animate" : ""}
                     key={post.id}

@@ -45,21 +45,21 @@ export default function createLayout(options) {
     function positionItems() {
         var min, index, leftPos;
 
+        console.warn("blocks before:", blocks);
         $items && $items.each(function() {
             min = Math.min.apply(Math, blocks)
             index = blocks.indexOf(min)
             leftPos = gutterLeft + outerMargin/2 + margin/2 + (index * colWidth)
 
-            this.style.top = gutterTop + min+'px'
-            this.style.left = leftPos+'px'
+            this.style.top = gutterTop + min + 'px'
+            this.style.left = leftPos + 'px'
 
             blocks[index] = min + this.offsetHeight + margin
-        })
+        });
+
+        console.info("blocks after:", blocks);
     }
 }
 
 
-// Function to get the Min value in Array
-Array.min = function(array) {
-    return Math.min.apply(Math, array)
-}
+[8036, 8137, 8617, 8289, 8286, 8218, 8080]
