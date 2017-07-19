@@ -1,12 +1,5 @@
+const pkg = require('../package.json');
 const env = process.env.NODE_ENV;
-
-const server = {
-  schema: 'http',
-  host: 'localhost',
-  port: 3000
-}
-
-server.url = `${server.schema}://${server.host}:${server.port}/`
 
 var config = {
   env: {
@@ -16,10 +9,14 @@ var config = {
     testing: env === 'testing' || env === 'test'
   },
   meta: {
-    title: 'Lurka',
+    title: pkg.name,
     version: require('../package.json').version
   },
-  server: server,
+  server: {
+    schema: 'http',
+    host: 'localhost',
+    port: 3000
+  },
   electron: {
     devPerformance: false,
     main: {
@@ -38,5 +35,7 @@ var config = {
     }
   }
 }
+
+config.server.url = `${config.server.schema}://${config.server.host}:${config.server.port}/`
 
 module.exports = module.exports.default = config
