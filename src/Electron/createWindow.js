@@ -1,5 +1,7 @@
 import {BrowserWindow} from 'electron';
-import onBeforeSendHeaders from './events/onBeforeSendHeaders';
+import handleBeforeSendHeaders from './events/handleBeforeSendHeaders';
+import path from 'path';
+import url from 'url';
 
 let preloaderIndex = `file://${__dirname}/resources/preloader.${config.env.production ? 'prod' : 'dev' }.html`
 let mainIndex = `TBD`
@@ -19,7 +21,7 @@ const createWindow = () => {
         preloader.close();
 
         if (config.env.development)
-            main.webContents.openDevTools('bottom');
+            main.webContents.openDevTools('right');
     });
 }
 
@@ -31,7 +33,20 @@ function createPreloaderWindow(opts) {
 
     preloader = new BrowserWindow(config.electron.preloader)
 
-    preloader.loadURL(preloaderIndex);
+
+    if (process.env.NODE_ENV === "development") {
+        preloader.loadURL(url.format({
+            pathname: path.join(__dirname, 'resources', `preloader.dev.html`),
+            protocol: 'file:',
+            slashes: true
+        }));
+    } else {
+        preloader.loadURL(url.format({
+            pathname: path.join(__dirname, "preloader.html"),
+            protocol: 'file:',
+            slashes: true
+        }));
+    }
 
     preloader.on('closed', () => {
         preloader = null
@@ -45,31 +60,23 @@ function createMainWindow(opts) {
     main = new BrowserWindow(config.electron.main)
 
     // Set custom headers to bypass 4chan image block
-    main.webContents.session.webRequest.onBeforeSendHeaders(onBeforeSendHeaders);
+    main.webContents.session.webRequest.onBeforeSendHeaders(handleBeforeSendHeaders);
 
     if (process.env.NODE_ENV === "development") {
-        loadDevHtml(main);
+        main.loadURL(url.format({
+            pathname: path.join(__dirname, '..', 'UI', 'index.html'),
+            protocol: 'file:',
+            slashes: true
+        }));
+    } else {
+        main.loadURL(url.format({
+            pathname: path.join(__dirname, 'index.html'),
+            protocol: 'file:',
+            slashes: true
+        }));
     }
 
     main.on('closed', () => {
         main = null
     });
-}
-
-
-function loadDevHtml(main) {
-    // let url;
-    let url = require('path').join('file://', __dirname, '/../UI/index.html')
-
-    // if (config.electron.devPerformance) {
-    //     // Enable react performance
-    //     url = `${config.server.url}?react_perf`
-    // } else {
-    //     url = config.server.url
-    // }
-
-    // Give enough time for UI bundle to begin, otherwise it loads an empty page
-    main.loadURL(url);
-    // setTimeout(() => {
-    // }, 5000);
 }
