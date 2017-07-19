@@ -1,7 +1,9 @@
 module.exports = {
-    bundleUI: require('./bundle-ui'),
-    bundleServer: require('./bundle-server'),
+    bundleUI: require('./bundleUI'),
+    bundleServer: require('./bundleServer'),
     clear: require('./clear'),
-    copyAssets: require('./copy-assets'),
-    copyFonts: require('./copy-fonts')
+    copyAssets: require('./copyAssets'),
+    copyFonts: require('./copyFonts'),
+    mkdirDist: require('./mkdirDist'),
+    ensureAppIsBuilt: require('./ensureAppIsBuilt'),
 }

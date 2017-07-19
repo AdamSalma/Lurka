@@ -16,4 +16,16 @@ gulp.task('copy', () => runSequence(['copy:assets'], 'copy:fonts'));
 gulp.task('clear', tasks.clear);
 
 /* Build*/
-gulp.task('build', (done) => runSequence('clear', 'bundle', 'copy', done))
+gulp.task('build', (done) => runSequence('clear', 'bundle', 'copy', done));
+gulp.task('ensureAppIsBuilt', tasks.ensureAppIsBuilt);
+gulp.task('mkdir:dist', tasks.mkdirDist);
+
+gulp.task('prepackage', ['ensureAppIsBuilt', 'mkdir:dist']);
+
+gulp.task('hello', () => console.log("hello world!!"));
+
+/* Electron package */
+// architectures: ia32, x64, armv7l
+// platforms:  linux, win32, darwin, mas
+
+gulp.task('default', ['build']);
