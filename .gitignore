@@ -9,3 +9,5 @@ app/*
 !app/electron.index.js
 
 img/
+dist/
+
