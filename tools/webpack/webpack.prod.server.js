@@ -1,10 +1,12 @@
 var webpack = require('webpack');
 var loaders = require('./webpack.loaders');
+var config = require('../../config');
 var path = require('path');
 var fs = require('fs');
 
-var outpath = path.join(__dirname, "..", "app");
-var node_modules = path.join(outpath, "node_modules");
+var root = path.join(__dirname, '../..');
+var app = path.join(root, "app")
+var node_modules = path.join(app, "node_modules")
 
 // excludes some node_modules files from bundle to avoid errors (esp with Express)
 var modules = {};
@@ -22,9 +24,9 @@ module.exports = {
     externals: modules,
     entry: `./src/server/`,
     output: {
-        path: outpath,
+        path: app,
         filename: 'server.bundle.js',
-        publicPath: require('../config').server.url,
+        publicPath: config.server.url,
     },
     resolve: {
         extensions: ['.js', '.json'],

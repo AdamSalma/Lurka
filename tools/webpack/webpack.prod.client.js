@@ -3,9 +3,12 @@ var autoprefixer = require('autoprefixer');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var loaders = require('./webpack.loaders');
+var aliases = require("./webpack.alias");
+var config = require('../../config');
 
-var UI = path.join(__dirname, "..", "src", "UI")
-var app = path.join(__dirname, "..", "app")
+var root = path.join(__dirname, '../..');
+var UI = path.join(root, "src", "UI")
+var app = path.join(root, "app")
 var node_modules = path.join(app, "node_modules")
 
 module.exports = {
@@ -16,11 +19,11 @@ module.exports = {
     output: {
         path: app,
         filename: '[name].bundle.js',
-        publicPath: require('../config').server.url
+        publicPath: config.server.url
     },
     resolve: {
         extensions: ['.js', '.jsx', '.css', '.scss', '.sass'],
-        alias: require("./webpack.alias"),
+        alias: aliases,
         modules: ['node_modules', node_modules, UI]
     },
     module: { loaders: loaders },
@@ -30,7 +33,7 @@ module.exports = {
             sourceMap: true,
             compress: {
               screw_ie8: true, // React doesn't support IE8
-              warnings: isVerbose,
+              warnings: false,
               unused: true,
               dead_code: true,
             },
@@ -41,8 +44,7 @@ module.exports = {
               comments: false,
               screw_ie8: true,
             },
-          }),
-        ]),
+        }),
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",

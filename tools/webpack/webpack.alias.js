@@ -1,5 +1,5 @@
 var path = require('path');
-var rootPath = path.join(__dirname, '..');
+var rootPath = path.join(__dirname, '..', '..');
 
 module.exports = {
     '-': rootPath,

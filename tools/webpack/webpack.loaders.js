@@ -40,7 +40,6 @@ function createLoaders(callback) {
         loader: 'postcss-loader',
         options: {
             sourceMap: true,
-            config: require('path').join(__dirname, '../config'),
             plugins: (loader) => [require('autoprefixer')()]
         }
     }
