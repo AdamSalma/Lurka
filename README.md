@@ -26,10 +26,9 @@ npm run dev
 ## Production mode
 This runs as a desktop application using Electron:
 ```bash
-npm run build && npm start
+npm start
 ```
-
-> Lurka is built with Electron, React, Node, Express, SASS, Gulp, Webpack and love.
+Note: It will build the application before starting, but this will only happen once.
 
 ---
 
