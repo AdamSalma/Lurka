@@ -1,7 +1,5 @@
 // Greys used for text and backgrounds alike. reversing the order will invert
 // the scheme
-//
-// Is used by the function `grey(index)`
 $greys: (
     hsl(0, 0%, 96%), // 1
     hsl(0, 0%, 88%),
@@ -17,6 +15,5 @@ $greys: (
 
 @function grey($index) {
     $grey: nth($greys, $index);
-    // @return color-tint($grey);
-    @return $grey;
+    @return warm-tint($grey);  // or cool-tint()
 };

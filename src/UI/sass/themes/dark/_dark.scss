@@ -1,10 +1,3 @@
-
-
-// Helper functions
-@function color-shade($key) {
-    @return map-get($color-shades, $key);
-};
-
 @function c($key, $var:null) {
     $c: map-get($base-colors, $key);
     @if ($var != null) {
@@ -18,6 +11,9 @@ $primary: c(punch);
 $primary: #f12b24; // youtube
 $primary: #E74C3C;
 $primary: #f44336; // material design
+$primary: #A50100; // periphery
+$primary: #b73433; // periphery light
+
 // $primary: lighten(c(punch), 10%);
 // $primary: #D13438;
 
@@ -29,7 +25,9 @@ $background-tint: $secondary;
 
 
 @function color-tint($color) {
-    @return mix($background-tint, $color, 0.5%)
+    // @return adjust-color($color, $red: -2, $blue: 2);
+    // @return adjust-color($color, $red: -2, $green: -1);
+    @return adjust-color($color, $red: 3, $blue: -3);
 }
 
 // Helper functions end
@@ -40,7 +38,7 @@ $background-tint: $secondary;
 // color(primary, light)
 // color(secondary, dark)
 @function color($color-name, $shade:null) {
-    $color: map-get($color-palette, $color-name);
+    $color: map-get($dark-palette, $color-name);
 
     @if ($shade) {
         $shade-color: nth(color-shade($shade), 1);

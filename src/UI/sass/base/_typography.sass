@@ -1,29 +1,12 @@
-@font-face
-	font-family: $font-main
-	src: url( $font-dir + $font-main + '.ttf' ) format('truetype')
-    font-weight: normal
-    font-style: normal
+@mixin create-font($font-name)
+    @font-face
+        font-family: $font-name
+        src: url( $font-dir + $font-name + '.ttf' ) format('truetype')
+        font-weight: normal
+        font-style: normal
 
-@font-face
-    font-family: $font-main-light
-    src: url( $font-dir + $font-main-light + '.ttf' ) format('truetype')
-    font-weight: normal
-    font-style: normal
-
-@font-face
-    font-family: $font-alt
-    src: url( $font-dir + $font-alt + '.ttf' ) format('truetype')
-    font-weight: normal
-    font-style: normal
-
-@font-face
-    font-family: $font-accent
-    src: url( $font-dir + $font-accent + '.ttf' ) format('truetype')
-    font-weight: normal
-    font-style: normal
-
-@font-face
-    font-family: $font-main-bold
-    src: url( $font-dir + $font-main-bold + '.ttf' ) format('truetype')
-    font-weight: normal
-    font-style: normal
++create-font($font-main)
++create-font($font-main-light)
++create-font($font-main-bold)
++create-font($font-alt)
++create-font($font-accent)

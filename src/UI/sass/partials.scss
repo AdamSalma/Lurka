@@ -2,10 +2,10 @@
 @import 'partials/neutron';
 
 // Themes + color palettes
-@import 'partials/themes';
+@import 'themes';
 
 // Global variables (theme dependency)
-@import 'config.scss';
+@import 'config';
 
 // Other sass helpers
 @import 'partials/functions';

@@ -1,5 +1,5 @@
 // Main color palette
-$color-palette:   (
+$dark-palette:   (
     primary:          $primary,
     secondary:        $secondary,
     links:            c(picton),
@@ -19,6 +19,7 @@ $color-palette:   (
     threadpost:       grey(7),
     settings-drawer:  grey(8),
     board:            grey(7),
-    text-selection:   $primary
+    text-selection:   $primary,
+    thread-quote:     #da7c7b,
 );
     // layout:         #  c3362b,

@@ -1,0 +1,66 @@
+// -----------------
+// Font + Typography
+// -----------------
+
+$font-main: "OpenSans-Regular";
+$font-main-light: "OpenSans-Light";
+$font-alt: "Raleway-Regular";
+$font-accent: "FaricyNew-Light";
+$font-main-bold: "OpenSans-Bold";
+
+// delete these:
+// $font-main: "Roboto-Light"
+// $font-main: "Montserrat-Regular";
+
+
+
+$font-dir: 'base/fonts/';
+$icon-dir: 'base/icons/';
+
+$line-height: 1.618;
+
+$font-size-xsmall: 12px;
+$font-size-small: 13px;
+$font-size-medium: 16px;
+$font-size-large: 20px;
+$font-size-xlarge: 24px;
+
+
+$font-palette: (
+    body: $font-main,
+    // Board
+    Board__Button: $font-accent,
+    BoardToolbar: $font-main,
+    BoardPost: $font-main,
+    BoardPost__title: $font-main-bold,
+    BoardPostHeader: $font-main-bold,
+    BoardListItem__title: $font-accent,
+    BoardListItem__tag: $font-alt,
+    BoardSelection__boardID: $font-accent,
+    // Thread
+    ThreadPost__deadlink: $font-main-light,
+    ThreadPost__PostID: $font-alt,
+    ThreadPost__quotelink: $font-alt,
+    ThreadHeader__title: $font-accent,
+    // Header
+    HeaderTags: $font-alt,
+    HeaderTitle: $font-main,
+    HeaderTitle__button: $font-accent,
+    Header__Title__button: $font-main-light,
+    Header__ContentButtonGroup: $font-main,
+    // Settings
+    Drawer__SortPanel: $font-main-light,
+    Settings: $font-alt,
+    Settings__value: $font-main,
+    // Components
+    Hierarchy__threadID: $font-alt,
+    FullLogo: $font-main-bold,
+    LogoText__name: $font-alt,
+    LogoText__version: $font-alt,
+    Searchbar: $font-alt,
+    Button: $font-accent,
+);
+
+@function font-for($component-name) {
+    @return map-get($font-palette, $component-name);
+}

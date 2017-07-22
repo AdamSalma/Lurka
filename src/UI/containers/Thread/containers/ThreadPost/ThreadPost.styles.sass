@@ -1,7 +1,7 @@
 @import '~sass/partials'
 
 $thread-post-control-width: 200px
-$quotelink-color: color(primary, dark)
+$quotelink-color: color(primary)
 
 .ThreadPost
     background-color: $thread-post-color
@@ -116,7 +116,7 @@ $quotelink-color: color(primary, dark)
                 margin-right: 5px
 
         .id
-            font-family: $font-alt
+            font-family: font-for(ThreadPost__PostID)
             color: color(text-primary)
 
         .name
@@ -166,20 +166,24 @@ $quotelink-color: color(primary, dark)
 
     /* 4chan links */
     blockquote .quote
-        // color: color(text-primary)
-        background: mix(white, color(primary, lightest), 8%)
-        color: grey(9)
-        padding: 4px 8px 4px 2px
+        $background: #611716;
+        $background: #4c1413;   // #b78933
+        $background: darken(adjust-hue(color(primary), 40%), 10%)
+        background: grey(5)
+        border-left: 2px solid color(primary, darkest)
+        // border-left: 2px solid color(primary, light)
+        // border-left: 2px solid mix(white, $background, 30%)
+        color: lighten(color(primary), 21%)
+        // padding: 6px 8px 6px 6px
+        padding: 4px 8px
         // background: color(primary)
-        margin-bottom: 4px
-        border-left: 2px solid color(primary, light)
-        line-height: 1
+        margin-bottom: 6px
         display: inline-block
 
     .deadlink
         color: color(text-disabled)
         text-decoration: line-through
-        font-family: $font-alt
+        font-family: font-for(ThreadPost__deadlink)
 
         &::after
             content: "deleted"
@@ -189,7 +193,7 @@ $quotelink-color: color(primary, dark)
             margin: auto 4px
             font-size: $font-size-xsmall
             color: color(text-secondary)
-            font-family: $font-main-light
+            font-family: font-for(ThreadPost__deadlink)
             font-variant: small-caps
             letter-spacing: 0.075em
 
@@ -198,7 +202,7 @@ $quotelink-color: color(primary, dark)
         text-decoration: none
         font-weight: bold
         transition: 0.1s ease-out
-        font-family: $font-alt
+        font-family: font-for(ThreadPost__quotelink)
         font-size: 15px
         +clickable
 
