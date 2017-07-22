@@ -3,17 +3,17 @@
 .TitledIcon
     +clickable
     font-size: $subheader-font-size
-    color: color(text-secondary)
+    color: theme(dark, text-secondary)
     padding-right: 16px / $golden-ratio !important
     transition: color .2s ease-out
     display: inline-block
 
     &:hover, &:active
         transition: color .1s ease-out
-        color: color(layout, lightest) !important
+        color: theme(dark, layout, lightest) !important
 
         .Icon
-            color: color(layout, light) !important
+            color: theme(dark, layout, light) !important
 
     &:last-child
         padding-right: 0 !important

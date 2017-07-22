@@ -2,8 +2,8 @@
 
 $border-color: grey(9)
 $background-color: grey(7)
-// $stat-color: color(layout, lightest)
-$stat-color: color(text-primary)
+// $stat-color: theme(dark, layout, lightest)
+$stat-color: theme(dark, text-primary)
 
 .ThreadHeader
     padding: 30px 25px
@@ -25,7 +25,7 @@ $stat-color: color(text-primary)
     .ThreadHeader__stats
         display: flex
         justify-content: center
-        color: color(text-secondary)
+        color: theme(dark, text-secondary)
         +font-size($font-size-small)
         align-items: center
 

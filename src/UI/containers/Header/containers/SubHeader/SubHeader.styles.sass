@@ -2,7 +2,7 @@
 
 $header-navbar-padding: 68px
 $subheader-border-color: grey(5)
-// $subheader-border-color: color(primary)
+// $subheader-border-color: theme(dark, primary)
 
 .SubHeader
     position: absolute
@@ -96,8 +96,8 @@ $subheader-border-color: grey(5)
                 box-shadow: inset 0 0 0 transparent
 
                 &:active, &:focus
-                    color: color(text-primary)
-                    box-shadow: inset 0 0 5px 0 color(primary)
+                    color: theme(dark, text-primary)
+                    box-shadow: inset 0 0 5px 0 theme(dark, primary)
 
     .SubHeader__Pipe
         padding: 0 16px

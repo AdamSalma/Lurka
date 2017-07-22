@@ -1,7 +1,7 @@
 @import '~sass/partials'
 
 $thread-post-control-width: 200px
-$quotelink-color: color(primary)
+$quotelink-color: theme(dark, primary)
 
 .ThreadPost
     background-color: $thread-post-color
@@ -24,16 +24,16 @@ $quotelink-color: color(primary)
         position: absolute
         +position(0, 0)
         +set-dims(2px, 100%)
-        background: color($thread-post-color)
+        background: theme(dark, $thread-post-color)
 
     &.highlight
         position: relative
-        background: color(highlight)
+        background: theme(dark, highlight)
         transition: none !important
 
         &:before
             transition: none !important
-            background: color(primary)
+            background: theme(dark, primary)
 
     &:last-child
         margin-bottom: $header-height
@@ -96,7 +96,7 @@ $quotelink-color: color(primary)
             color: grey(3)
 
         .Icon
-            color: color(secondary, lightest)
+            color: theme(dark, secondary, lightest)
             font-size: 13px
             position: relative
             top: 1px
@@ -104,20 +104,20 @@ $quotelink-color: color(primary)
     .post-info
         +font-size($thread-post-info-size)
         padding: 5px 0
-        color: color(text-secondary)
+        color: theme(dark, text-secondary)
 
         > *
             display: inline-block
             padding: 0 3px
 
         .title
-            color: color(text-primary) !important
+            color: theme(dark, text-primary) !important
             strong
                 margin-right: 5px
 
         .id
             font-family: font-for(ThreadPost__PostID)
-            color: color(text-primary)
+            color: theme(dark, text-primary)
 
         .name
             padding-left: 0px
@@ -168,20 +168,20 @@ $quotelink-color: color(primary)
     blockquote .quote
         $background: #611716;
         $background: #4c1413;   // #b78933
-        $background: darken(adjust-hue(color(primary), 40%), 10%)
+        $background: darken(adjust-hue(theme(dark, primary), 40%), 10%)
         background: grey(5)
-        border-left: 2px solid color(primary, darkest)
-        // border-left: 2px solid color(primary, light)
+        border-left: 2px solid theme(dark, primary, darkest)
+        // border-left: 2px solid theme(dark, primary, light)
         // border-left: 2px solid mix(white, $background, 30%)
-        color: lighten(color(primary), 21%)
+        color: lighten(theme(dark, primary), 21%)
         // padding: 6px 8px 6px 6px
         padding: 4px 8px
-        // background: color(primary)
+        // background: theme(dark, primary)
         margin-bottom: 6px
         display: inline-block
 
     .deadlink
-        color: color(text-disabled)
+        color: theme(dark, text-disabled)
         text-decoration: line-through
         font-family: font-for(ThreadPost__deadlink)
 
@@ -192,7 +192,7 @@ $quotelink-color: color(primary)
             vertical-align: bottom
             margin: auto 4px
             font-size: $font-size-xsmall
-            color: color(text-secondary)
+            color: theme(dark, text-secondary)
             font-family: font-for(ThreadPost__deadlink)
             font-variant: small-caps
             letter-spacing: 0.075em
@@ -217,7 +217,7 @@ $quotelink-color: color(primary)
     .menu-toggle
         +clickable
         margin-top: 2px
-        color: color(primary)
+        color: theme(dark, primary)
         padding-right: 10px
         font-size: 22px
 

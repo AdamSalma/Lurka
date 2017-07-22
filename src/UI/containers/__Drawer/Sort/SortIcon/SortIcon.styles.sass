@@ -6,7 +6,7 @@ $drawer-sort-icon-width: 34px
 
 .SortIcon
     background-color: inherit
-    color: color(text-secondary)
+    color: theme(dark, text-secondary)
     border-color: $header-border-color
     outline: none
     padding: 3px 5px
@@ -14,10 +14,10 @@ $drawer-sort-icon-width: 34px
     margin-right: 8px
 
     &.active
-        +gradient(color(primary))
-        color: color(text-primary)
+        +gradient(theme(dark, primary))
+        color: theme(dark, text-primary)
         border-color: transparent
-        box-shadow: 0 0 2px color(primary, darkest)
+        box-shadow: 0 0 2px theme(dark, primary, darkest)
 
     .Icon
         font-size: $drawer-sort-icon-size

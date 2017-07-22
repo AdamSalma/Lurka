@@ -7,10 +7,10 @@ $radio-button-size: 20px
     .RadioGroup__field
         display: flex
         align-items: center
-        color: color(text-disabled)
+        color: theme(dark, text-disabled)
 
         &.RadioGroup__field--active
-            color: color(text-primary)
+            color: theme(dark, text-primary)
             transition: color $key-animation-duration $key-bezier-animation-in
 
         &:hover .Radio__circle
@@ -29,7 +29,7 @@ $radio-button-size: 20px
         // margin-top: -50%
 
         &.Radio--active .Radio__circle::after
-            border: 2px solid color(primary)
+            border: 2px solid theme(dark, primary)
             transform: scale(1)
             transition: transform $key-animation-duration $key-bezier-animation-in
 

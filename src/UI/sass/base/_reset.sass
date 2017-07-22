@@ -1,6 +1,6 @@
 body
     background: grey(8) !important
-    color: color(text-primary)
+    color: theme(dark, text-primary)
     font-family: font-for(body)
     overflow: hidden
     line-height: $line-height
@@ -22,7 +22,7 @@ h1, h2, h3, h4, h5, h6
 	font-family: font-for(HeaderTags)
 
 a
-	color: color(links)
+	color: theme(dark, links)
 
 #App
     width: 100vw
@@ -50,13 +50,13 @@ textarea:focus, input:focus
         opacity: 0
 
 ::selection
-    background-color: color(text-selection)
-    color: lighten(color(text-selection), 60%)
-    // background-color: color(primary, light)
+    background-color: theme(dark, text-selection)
+    color: lighten(theme(dark, text-selection), 60%)
+    // background-color: theme(dark, primary, light)
 
 // Nano stuff
 .nano-slider
-    background: color(layout) !important
+    background: theme(dark, layout) !important
 
 img
     +no-select
@@ -73,7 +73,7 @@ img
         opacity: 1 !important
 
     .close-dark:hover
-        background-color: color(primary)
+        background-color: theme(dark, primary)
 
 
 video:-webkit-full-screen, audio:-webkit-full-screen
