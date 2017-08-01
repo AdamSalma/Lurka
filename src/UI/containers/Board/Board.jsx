@@ -32,6 +32,7 @@ import {
     throttleByCount,
     invokeAfterUninterruptedDelay
 } from '~/utils/throttle';
+import {isDefined} from '~/utils/types'
 
 const s = window.appSettings
 
@@ -78,6 +79,10 @@ export default class Board extends Component {
             sliderMaxHeight: 400,
             sliderMinHeight: 50
         }
+
+        this.isSubheaderOpen = isDefined(props.isSubheaderOpen)
+                                 ? props.isSubheaderOpen
+                                 : true
     }
 
     @onBoardReset
@@ -190,9 +195,21 @@ export default class Board extends Component {
     handleScroll = (e) => {
         e.stopPropagation();
         this.revealPostsInView();
-        // Condition overrides toggle
-        emitSubHeaderToggle(e.target.scrollTop < this.previousScrollTop);
-        this.previousScrollTop = e.target.scrollTop;
+        this.emitScroll(e)
+    }
+
+    emitScroll(e) {
+        const toolbarHeight = 300;
+        const willOpenSubheader = e.target.scrollTop > toolbarHeight;
+
+        if (this.isSubheaderOpen === willOpenSubheader) {
+            return
+        }
+
+        emitSubHeaderToggle(willOpenSubheader);
+
+        console.log("Will open subheader:", willOpenSubheader)
+        this.isSubheaderOpen = willOpenSubheader;
     }
 
     revealPostsInView = () => {
