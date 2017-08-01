@@ -4,10 +4,14 @@
 
 $font-main: "OpenSans-Regular";
 $font-main-light: "OpenSans-Light";
+$font-main-bold: "OpenSans-Bold";
+$font-main-semibold: "OpenSans-Semibold";
 $font-alt: "Raleway-Regular";
 $font-accent: "FaricyNew-Light";
-$font-main-bold: "OpenSans-Bold";
 
+// Used tp auto-generate fonts with @font-face
+$font-list: $font-main, $font-main-light, $font-main-bold,
+            $font-main-semibold, $font-alt, $font-accent;
 // delete these:
 // $font-main: "Roboto-Light"
 // $font-main: "Montserrat-Regular";
@@ -32,8 +36,8 @@ $font-palette: (
     Board__Button: $font-accent,
     BoardToolbar: $font-main,
     BoardPost: $font-main,
-    BoardPost__title: $font-main-bold,
-    BoardPostHeader: $font-main-bold,
+    BoardPost__title: $font-main-semibold,
+    BoardPostHeader: $font-main,
     BoardListItem__title: $font-accent,
     BoardListItem__tag: $font-alt,
     BoardSelection__boardID: $font-accent,
@@ -44,18 +48,20 @@ $font-palette: (
     ThreadHeader__title: $font-accent,
     // Header
     HeaderTags: $font-alt,
-    HeaderTitle: $font-main,
-    HeaderTitle__button: $font-accent,
+    HeaderTitle: $font-main-light,
     Header__Title__button: $font-main-light,
     Header__ContentButtonGroup: $font-main,
+    DynamicHeader__Title: $font-main-light,
+    DynamicHeader__LogoText: $font-main-semibold,
+
     // Settings
     Drawer__SortPanel: $font-main-light,
     Settings: $font-alt,
     Settings__value: $font-main,
     // Components
     Hierarchy__threadID: $font-alt,
-    FullLogo: $font-main-bold,
-    LogoText__name: $font-alt,
+    FullLogo: $font-main-semibold,
+    LogoText__name: $font-main,
     LogoText__version: $font-alt,
     Searchbar: $font-alt,
     Button: $font-accent,
