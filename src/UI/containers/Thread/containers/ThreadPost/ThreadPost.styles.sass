@@ -166,16 +166,14 @@ $quotelink-color: theme(dark, primary)
 
     /* 4chan links */
     blockquote .quote
-        $background: #611716;
-        $background: #4c1413;   // #b78933
-        $background: darken(adjust-hue(theme(dark, primary), 40%), 10%)
-        background: grey(5)
-        border-left: 2px solid theme(dark, primary, darkest)
+        $quote-highlight: lighten(theme(dark, primary), 21%)
+        background: darken(grey(7), 1.618%)
         // border-left: 2px solid theme(dark, primary, light)
-        // border-left: 2px solid mix(white, $background, 30%)
-        color: lighten(theme(dark, primary), 21%)
+        border-left: 2px solid #3e2e2e        // #3e2e2e   // #422e2e
+        color: $quote-highlight
         // padding: 6px 8px 6px 6px
         padding: 4px 8px
+        padding-right: 10px
         // background: theme(dark, primary)
         margin-bottom: 6px
         display: inline-block
