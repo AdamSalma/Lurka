@@ -83,7 +83,8 @@ class ContentView extends Component {
               {...restProps}
               ref={ref => this._view = ref}
               className='View ContentView'>
-              <Header />
+              <Header.containers.DynamicHeader />
+              {/*<Header.containers.SubHeader />*/}
               <Board />
               <Thread />
               <Settings />
