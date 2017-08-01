@@ -6,3 +6,5 @@ export {default as HeaderTitle} from './HeaderTitle';
 export {default as IconGroup} from './IconGroup';
 export {default as SlideDownBG} from './SlideDownBG';
 export {default as TitledIcon} from './TitledIcon';
+export {default as VerticallyTitledIcon} from './VerticallyTitledIcon';
+export {default as HeaderButtonIcon} from './HeaderButtonIcon';

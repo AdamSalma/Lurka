@@ -25,7 +25,7 @@
     // top: -$header-height  // hide on start
     z-index: $mainheader-z-index
     // box-shadow: 0 2px 5px grey(10)
-    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12);
+    // box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12);
     border-bottom: theme(dark, content-border) 2px solid
 
     &.shrink-on
@@ -47,7 +47,7 @@
 
     .content
         width: 100%
-        max-width: $thread-width * $golden-ratio
+        // max-width: $thread-width * $golden-ratio
         margin: 0 auto
         display: flex
         flex-wrap: block
@@ -121,22 +121,3 @@
 
     .IconGroup > div:last-child
         margin-right: 1em
-
-    .MainHeader__Title
-        .title-small
-            display: none
-
-        @include breakpoint(to-phablet)
-            .title-normal
-                display: none
-            .title-small
-                display: initial
-
-        .Icon
-            position: relative
-            transition: all .2s ease
-            transition-property: color, top
-
-        &:hover .Icon
-            top: 4px
-            color: theme(dark, layout)

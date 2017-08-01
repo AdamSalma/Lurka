@@ -1,4 +1,4 @@
-import './MainHeader.styles';
+import './DynamicHeader.styles';
 import React, { PureComponent, PropTypes } from 'react';
 import cx from 'classnames';
 
@@ -10,7 +10,8 @@ import {
     BoardSpecs,
     ContentButtonGroup,
     FullLogo,
-    SlideDownBG
+    SlideDownBG,
+    VerticallyTitledIcon as TitledIcon
 } from '../../components';
 
 /* Generic Components */
@@ -33,28 +34,30 @@ import { onContentViewToggle } from '~/events/subscribers';
 import { bindMembersToClass } from '~/utils/react';
 
 const i = window.appSettings.icons;
+const headerToggleDuration = 200
 
 
-class MainHeader extends PureComponent {
+class DynamicHeader extends PureComponent {
     static propTypes = {
         className: PropTypes.string,
     };
-
-    state = {
-        isContentInView: true
-    }
 
     constructor(props) {
         super(props);
         bindMembersToClass(this, 'onSettingsClick');
         this.isSettingsOpen = !!props.isSettingsOpen
+        this.state = {
+            isContentInView: true,
+            isExpanded: true,
+            isToggling: false
+        }
     }
 
     render() {
         // const {
         //     // Actions
         //     //State
-        //     scrollHeader, closeThread, toggleMainHeader,
+        //     scrollHeader, closeThread, toggleDynamicHeader,
 
         // } = this.props;
 
@@ -70,16 +73,12 @@ class MainHeader extends PureComponent {
             isThreadOpen,
             isDrawerOpen,
             activePanel,
-            boardList,
-            headerMode={
-                shrunk: true,
-                shrinking: false,
-            }
+            boardList
         } = this.props
 
-        const headerClass = cx('MainHeader', {
-            'drawer-open': isDrawerOpen,
-            'shrink-on': headerMode.shrunk,
+        const headerClass = cx('DynamicHeader', {
+            // 'drawer-open': isDrawerOpen,
+            'shrink': !this.state.isExpanded,
         });
 
         // TODO: Use selector for this:
@@ -88,13 +87,13 @@ class MainHeader extends PureComponent {
 
         // <Icon
         //    name={i.navbarBackwards}
-        //  className='MainHeader__backwards' />
+        //  className='DynamicHeader__backwards' />
         // <Icon
         // name={i.navbarForwards}
-        //    className='MainHeader__forwards' />
+        //    className='DynamicHeader__forwards' />
 
                 // <HeaderGroup className='HeaderGroup__menu-icon'>
-                  // <div className="MainHeader__menu-icon">
+                  // <div className="DynamicHeader__menu-icon">
                     // <SlideDownBG>
                         // <Icon name={i.navbarMenu}/>
                     // </SlideDownBG>
@@ -106,13 +105,11 @@ class MainHeader extends PureComponent {
             <div className={headerClass}>
               <div className='background' />
               <div className='content'>
-                { this.state.isContentInView &&
-                    <HeaderGroup className='MainHeader--left HeaderGroup__logo'>
-                      <FullLogo className="MainHeader__FullLogo"/>
-                    </HeaderGroup>
-                }
-                <HeaderGroup className='MainHeader--center' onMouseEnter={this.onTitleHover}>
-                  <HeaderTitle onClick={this.onTitleClick} className="MainHeader__Title">
+                <HeaderGroup className='left'>
+                  <FullLogo className="DynamicHeader__FullLogo"/>
+                </HeaderGroup>
+                <HeaderGroup className='center' onMouseEnter={this.onTitleHover}>
+                  <HeaderTitle onClick={this.onTitleClick} className="DynamicHeader__Title">
                     <span className="title-normal">
                         {!!navbarTitle && navbarTitle}
                     </span>
@@ -122,39 +119,48 @@ class MainHeader extends PureComponent {
                     <Icon name={ "chevron-down"}/>
                   </HeaderTitle>
                 </HeaderGroup>
-                { this.state.isContentInView &&
-                    <HeaderGroup className='MainHeader--right IconGroup'>
-                        <Tooltip className="navtip" content="Thread Watcher" position="bottom" offset="10px">
-                            <SlideDownBG>
-                              <Notification number={1}>
-                                <Icon
-                                  name={i.navbarEye}
-                                  onClick={() => togglePanel('watch')} />
-                              </Notification>
-                            </SlideDownBG>
-                        </Tooltip>
-                        <button>
-                            Downloads
-                        </button>
-                        <button>
-                            Bookmarks
-                        </button>
-                    </HeaderGroup>
-                }
+                <HeaderGroup className='right'>
+                    <div className="vertical-icon">
+                        <Notification number={1}>
+                          <Icon name={i.navbarEye}/>
+                        </Notification>
+                        <span className="title">Watch</span>
+                    </div>
+
+                    <div className="vertical-icon">
+                        <Icon name={i.navbarBookmark}/>
+                        <span className="title">Bookmarks</span>
+                    </div>
+
+                    <div className="vertical-icon">
+                        <Icon name={i.navbarDB}/>
+                        <span className="title">Database</span>
+                    </div>
+
+                    <div className="vertical-icon">
+                        <Icon name={i.navbarSettings}/>
+                        <span className="title">Settings</span>
+                    </div>
+
+                </HeaderGroup>
               </div>
             </div>
         )
     }
 
     onSettingsClick(e) {
-        logger.log(`MainHeader.Settings - toggling drawer from ${this.isSettingsOpen} to ${!this.isSettingsOpen}`)
+        logger.log(`DynamicHeader.Settings - toggling drawer from ${this.isSettingsOpen} to ${!this.isSettingsOpen}`)
         const openDrawer = !this.isSettingsOpen;
         emitSettingsToggle(openDrawer);
         this.isSettingsOpen = openDrawer;
     }
 
-    onTitleClick(e) {
-        emitContentViewToggle()
+    onTitleClick = (e) => {
+        this.state.isExpanded
+            ? this.onHeaderShrink()
+            : this.onHeaderExpand()
+
+        // emitContentViewToggle()
     }
 
     @onContentViewToggle
@@ -164,13 +170,37 @@ class MainHeader extends PureComponent {
         });
     }
 
+    // TODO: Remove this
     onTitleHover() {
         // Ensure subheader can be accessed in all scenarios
         emitSubHeaderToggle(true);
     }
+
+    onHeaderShrink = () => {
+        if (this.state.isExpanded) {
+            this.setState(
+                { isExpanded: false, isToggling: true },
+                () => setTimeout(toggleComplete, headerToggleDuration)
+            );
+        }
+    }
+
+    onHeaderExpand = () => {
+        if (!this.state.isExpanded) {
+            this.setState(
+                { isExpanded: true, isToggling: true },
+                () => setTimeout(toggleComplete, headerToggleDuration)
+            );
+        }
+    }
+
+    toggleComplete = () => {
+        this.setState({ isToggling: false })
+    }
+
 }
 
-export default MainHeader;
+export default DynamicHeader;
 
 
 
