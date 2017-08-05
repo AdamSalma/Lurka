@@ -2,11 +2,11 @@ import 'babel-polyfill';
 import 'velocity-animate';
 import 'nanoscroller';
 
-import './sass/base.scss';
+import './sass/core';
 import './events/setup';
 import './utils/polyfills';
 import './utils/logger';
-import '-/config/client.settings';
+import 'config/client.settings';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
