@@ -23,7 +23,8 @@ var config = {
       show: false,
       title: "Lurka",
       titleBarStyle: 'hidden',
-      autoHideMenuBar: true
+      autoHideMenuBar: true,
+      frame: true
     },
     preloader: {
       width: 350,

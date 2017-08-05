@@ -5,15 +5,18 @@ module.exports = {
     navbarBackwards: "arrow-big-left",
 
     navbarInfo: 'information',
-    navbarRefresh: 'refresh',
+    navbarRefresh: 'refresh-1',
+    navbarNewThread: 'plus',
 
     navbarAccount:  'person-add',
     navbarBookmark: 'bookmark-outline',
     navbarDB:       'data',
     navbarEye:      'ios-clock',
     navbarSettings: 'cog',
-    navbarTheme: 'paint-brush-2',
-    navbarMenu: 'menu',
+    navbarTheme:    'paint-brush-2',
+    navbarMenu:     'menu',
+    navbarToTop:    'arrow-doubled-up',
+    navbarSearch:   'search-1',
 
     subNavbarOpen: 'chevron-down',
     subNavbarClose: 'chevron-up',
