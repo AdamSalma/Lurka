@@ -1,0 +1,23 @@
+@import 'dark';
+@import 'light';
+
+$theme-registery: (
+    dark: $dark-palette,
+    light: $light-palette
+);
+
+
+// This is the function used throughout lurka to color every component
+@function theme($theme-name, $component-name, $shade: null) {
+    $theme: map-get($theme-registery, $theme-name);
+    $color: map-get($theme, $component-name);
+
+    @if ($shade) {
+        $shade-color: nth(color-shade($shade), 1);
+        $percent: nth(color-shade($shade), 2);
+
+        @return mix($shade-color, $color, $percent);
+    }
+
+    @return $color;
+};

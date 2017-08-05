@@ -6,13 +6,11 @@ import cx from 'classnames';
 
 import './SubHeader.styles';
 
-import { HeaderGroup, TitledIcon } from '../../components';
 import {
-    LogoText,
-    SearchBar,
-    Icon,
-    Pipe
-} from '~/components';
+    HeaderGroup,
+    TitledIcon,
+    HeaderButtonIcon as Icon } from '../../components';
+import { SearchBar } from '~/components';
 
 import {onSubHeaderToggle} from '~/events/subscribers';
 
@@ -74,16 +72,23 @@ class SubHeader extends PureComponent {
             <div className='SubHeader' ref={r => this._subheader = r}>
               <div className='background' />
               <div className='content'>
-                <HeaderGroup className='SubHeader--left'>
-                  <TitledIcon name={i.footerSort} title='Sort'/>
-                </HeaderGroup>
-                <HeaderGroup className='SubHeader--center SubHeader__search'>
-                  <SearchBar placeholder={`Quick search`} onChange={searchBoard}/>
-                </HeaderGroup>
-                <HeaderGroup className='SubHeader--right'>
-                  <TitledIcon name={i.footerFilter} title='Filter'/>
-                </HeaderGroup>
-              </div>
+                <div className="segment navigation">
+                      <Icon name={i.subheaderToolbarNewThread} title='Create Thread'/>
+                      <Icon name={i.subheaderToolbarRefresh} title='Refresh'/>
+                </div>
+                <div className="segment toolbar">
+                    <HeaderGroup className='SubHeader--left'>
+                    </HeaderGroup>
+                    <HeaderGroup className='SubHeader--center SubHeader__search'>
+                      <SearchBar placeholder={`Quick search`} onChange={searchBoard}/>
+                    </HeaderGroup>
+                    <HeaderGroup className='SubHeader--right'>
+                    </HeaderGroup>
+                  </div>
+                  <div className="segment settings">
+                      <Icon name={i.subheaderToolbarSettings} title='Settings'/>
+                  </div>
+                </div>
             </div>
         )
     }

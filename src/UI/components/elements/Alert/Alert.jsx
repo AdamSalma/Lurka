@@ -18,10 +18,11 @@ class AlertWrapper extends PureComponent {
         this.showAlert = this.showAlert.bind(this)
     }
 
-    componentDidUpdate({ alertMessage }) {
+    shouldComponentUpdate({ alertMessage }) {
         if (this.props.alertMessage !== alertMessage ) {
-            this.showAlert(this.props.alertMessage)
+            this.showAlert(alertMessage)
         }
+        return false
     }
 
     render() {

@@ -133,27 +133,12 @@ class MainHeader extends PureComponent {
                               </Notification>
                             </SlideDownBG>
                         </Tooltip>
-                        <Tooltip className="navtip" content="Bookmarks" position="bottom">
-                            <SlideDownBG>
-                              <Icon
-                                name={i.navbarBookmark}
-                                onClick={() => togglePanel('bookmarks')} />
-                            </SlideDownBG>
-                        </Tooltip>
-                        <Tooltip className="navtip" content="Media Database" position="bottom">
-                            <SlideDownBG>
-                              <Icon
-                                name={i.navbarDB}
-                                onClick={() => togglePanel('database')} />
-                            </SlideDownBG>
-                        </Tooltip>
-                        <Tooltip className="navtip" content="Settings" position="bottom">
-                            <SlideDownBG>
-                              <Icon
-                                name={i.navbarSettings}
-                                onClick={this.onSettingsClick} />
-                            </SlideDownBG>
-                        </Tooltip>
+                        <button>
+                            Downloads
+                        </button>
+                        <button>
+                            Bookmarks
+                        </button>
                     </HeaderGroup>
                 }
               </div>
@@ -186,3 +171,32 @@ class MainHeader extends PureComponent {
 }
 
 export default MainHeader;
+
+
+
+/*
+
+                        <Tooltip className="navtip" content="Bookmarks" position="bottom">
+                            <SlideDownBG>
+                              <Icon
+                                name={i.navbarBookmark}
+                                onClick={() => togglePanel('bookmarks')} />
+                            </SlideDownBG>
+                        </Tooltip>
+                        <Tooltip className="navtip" content="Media Database" position="bottom">
+                            <SlideDownBG>
+                              <Icon
+                                name={i.navbarDB}
+                                onClick={() => togglePanel('database')} />
+                            </SlideDownBG>
+                        </Tooltip>
+                        <Tooltip className="navtip" content="Settings" position="bottom">
+                            <SlideDownBG>
+                              <Icon
+                                name={i.navbarSettings}
+                                onClick={this.onSettingsClick} />
+                            </SlideDownBG>
+                        </Tooltip>
+
+
+ */

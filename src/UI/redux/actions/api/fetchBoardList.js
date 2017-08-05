@@ -1,6 +1,7 @@
 import Axios from 'axios';
 
-import API from '-/config/api.localhost'
+import API from '-/config/api.4chan'
+import {parseBoardList} from '~/parsers'
 import { alertMessage } from '../alert'
 import {
     BOARD_LIST_REQUESTED,
@@ -18,7 +19,9 @@ export default function fetchBoardList() {
             dispatch(requestBoardList())
 
             return Axios.get(url)
-                .then( data => dispatch(receiveBoardList(data)))
+                .then( res => res.data.boards)
+                .then( boards => parseBoardList(boards))
+                .then( boardList => dispatch(receiveBoardList(boardList)))
                 .catch( err => {
                     console.error(err)
                     dispatch(alertMessage({
@@ -42,7 +45,7 @@ export function receiveBoardList(boardList, provider){
     return {
         type: BOARD_LIST_LOADED,
         payload: {
-            items: boardList.data || [],
+            items: boardList,
             receivedAt: Date.now(),
         }
     }

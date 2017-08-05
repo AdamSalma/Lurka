@@ -6,8 +6,8 @@ $navbar-central-font-size: 24px
 
 .Title
     font-size: $navbar-central-font-size
-    font-family: $font-main
-    color: color(text-primary)
+    font-family: font-for(HeaderTitle)
+    color: theme(dark, text-primary)
     +no-select
     height: 100%
     font-size: 24px
@@ -24,7 +24,7 @@ $navbar-central-font-size: 24px
             border-color: grey(6)
 
         .Icon
-            color: color(text-secondary)
+            color: theme(dark, text-secondary)
             line-height: 1
             font-size: 22px
             position: relative
@@ -40,7 +40,7 @@ $navbar-central-font-size: 24px
         border: transparent 2px solid
         outline: none
         color: inherit
-        font-family: $font-main-light
+        font-family: font-for(Header__Title__button)
         z-index: 10
         background: grey(8)
         height: 100%

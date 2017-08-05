@@ -8,7 +8,7 @@
         "-": "./",
         "~": "./src/UI",
         "sass": "./src/UI/sass/",
-        "public": "./src/Server/public"
+        "resources": "./src/Common/Resources"
       }
     }]
   ],

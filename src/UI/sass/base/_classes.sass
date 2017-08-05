@@ -14,7 +14,7 @@
 .image-loading
     filter: blur(2px)
     z-index: 2
-    
+
     &::after
         content: ""
         +center(100%, 100%)
@@ -30,18 +30,18 @@
     flex-wrap: wrap
     justify-content: space-between
 
-.clearfix:after 
+.clearfix:after
     content: " "
     display: table
     clear: both
 
 .float-left
     float: left
-    
+
 .float-right
     float: right
 
-.elipses::after 
+.elipses::after
     content: " ..."
     overflow: hidden
     display: inline-block
@@ -57,7 +57,7 @@
     clear: both
 
 .disabled
-    color: color(text-disabled)
+    color: theme(dark, text-disabled)
 
 
 .hover-progress
@@ -84,5 +84,5 @@
         position: relative
 
 
-    
+
 

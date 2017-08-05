@@ -10,8 +10,8 @@ $drawer-border-left-color: $header-border-color
     background-color: grey(8)
     width: $drawer-width
     z-index: 500
-    // border-left: 2px solid color(primary, darkest)
-    // border-left: 2px solid color(primary, darkest)
+    // border-left: 2px solid theme(dark, primary, darkest)
+    // border-left: 2px solid theme(dark, primary, darkest)
 
     transform: translateX(0);
     will-change: transform
@@ -28,9 +28,9 @@ $drawer-border-left-color: $header-border-color
         background-color: grey(8)
         height: $header-height
         border-bottom: 2px solid $drawer-border-left-color
-        // border-left: 2px solid color(primary, darkest)
+        // border-left: 2px solid theme(dark, primary, darkest)
         border-left: 2px solid $drawer-border-left-color
-        color: color(text-primary) !important
+        color: theme(dark, text-primary) !important
 
         .Icon.search
             padding-left: 24px
@@ -65,5 +65,5 @@ $drawer-border-left-color: $header-border-color
             font-size:
             margin: 0 4px
             padding: 0 4px
-            +pseudo-circle($drawer-icon-size+4, color(primary))
+            +pseudo-circle($drawer-icon-size+4, theme(dark, primary))
             +center-icon

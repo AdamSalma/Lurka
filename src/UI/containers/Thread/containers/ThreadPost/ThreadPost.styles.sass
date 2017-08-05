@@ -1,7 +1,7 @@
 @import '~sass/partials'
 
 $thread-post-control-width: 200px
-$quotelink-color: color(primary, dark)
+$quotelink-color: theme(dark, primary)
 
 .ThreadPost
     background-color: $thread-post-color
@@ -24,16 +24,16 @@ $quotelink-color: color(primary, dark)
         position: absolute
         +position(0, 0)
         +set-dims(2px, 100%)
-        background: color($thread-post-color)
+        background: theme(dark, $thread-post-color)
 
     &.highlight
         position: relative
-        background: color(highlight)
+        background: theme(dark, highlight)
         transition: none !important
 
         &:before
             transition: none !important
-            background: color(primary)
+            background: theme(dark, primary)
 
     &:last-child
         margin-bottom: $header-height
@@ -96,7 +96,7 @@ $quotelink-color: color(primary, dark)
             color: grey(3)
 
         .Icon
-            color: color(secondary, lightest)
+            color: theme(dark, secondary, lightest)
             font-size: 13px
             position: relative
             top: 1px
@@ -104,20 +104,20 @@ $quotelink-color: color(primary, dark)
     .post-info
         +font-size($thread-post-info-size)
         padding: 5px 0
-        color: color(text-secondary)
+        color: theme(dark, text-secondary)
 
         > *
             display: inline-block
             padding: 0 3px
 
         .title
-            color: color(text-primary) !important
+            color: theme(dark, text-primary) !important
             strong
                 margin-right: 5px
 
         .id
-            font-family: $font-alt
-            color: color(text-primary)
+            font-family: font-for(ThreadPost__PostID)
+            color: theme(dark, text-primary)
 
         .name
             padding-left: 0px
@@ -165,13 +165,23 @@ $quotelink-color: color(primary, dark)
 
 
     /* 4chan links */
-    .quote
-        color: color(primary, lightest)
+    blockquote .quote
+        $quote-highlight: lighten(theme(dark, primary), 21%)
+        background: darken(grey(7), 1.618%)
+        // border-left: 2px solid theme(dark, primary, light)
+        border-left: 2px solid #3e2e2e        // #3e2e2e   // #422e2e
+        color: $quote-highlight
+        // padding: 6px 8px 6px 6px
+        padding: 4px 8px
+        padding-right: 10px
+        // background: theme(dark, primary)
+        margin-bottom: 6px
+        display: inline-block
 
     .deadlink
-        color: color(text-disabled)
+        color: theme(dark, text-disabled)
         text-decoration: line-through
-        font-family: $font-alt
+        font-family: font-for(ThreadPost__deadlink)
 
         &::after
             content: "deleted"
@@ -180,8 +190,8 @@ $quotelink-color: color(primary, dark)
             vertical-align: bottom
             margin: auto 4px
             font-size: $font-size-xsmall
-            color: color(text-secondary)
-            font-family: $font-main-light
+            color: theme(dark, text-secondary)
+            font-family: font-for(ThreadPost__deadlink)
             font-variant: small-caps
             letter-spacing: 0.075em
 
@@ -190,7 +200,7 @@ $quotelink-color: color(primary, dark)
         text-decoration: none
         font-weight: bold
         transition: 0.1s ease-out
-        font-family: $font-alt
+        font-family: font-for(ThreadPost__quotelink)
         font-size: 15px
         +clickable
 
@@ -205,7 +215,7 @@ $quotelink-color: color(primary, dark)
     .menu-toggle
         +clickable
         margin-top: 2px
-        color: color(primary)
+        color: theme(dark, primary)
         padding-right: 10px
         font-size: 22px
 

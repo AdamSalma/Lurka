@@ -15,7 +15,7 @@ const BoardPostComment = ({ title, comment, time, replies }) => {
                 <PostHeader replies={replies} time={time}/>
                 <Line />
                 <div className="op">
-                    { title && <b {...setHTML(title)} className="title" /> }
+                    { title && <div {...setHTML(title)} className="title" /> }
                     <div {...setHTML(comment)} className="comment"/>
                 </div>
             </div>

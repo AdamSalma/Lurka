@@ -6,7 +6,7 @@
     background: $board-post-color
     box-shadow: $board-post-shadow-color 0 0 0
     border: 2px solid $board-post-color
-    font-family: $font-main
+    font-family: font-for(BoardPost)
 
     // initial position offscreen, positioned via JS
     position: absolute
@@ -30,7 +30,7 @@
 
     &:hover
         transition: box-shadow .2s ease-out
-        box-shadow: 0 0 6px color(text-secondary)
+        box-shadow: 0 0 6px theme(dark, text-secondary)
 
         .counters
             opacity: 1
@@ -39,7 +39,7 @@
                 border-color: grey(7)
 
         .comment-wrap
-            border-top: color(primary)
+            border-top: theme(dark, primary)
 
         img
             // animation: zoomInThenSlowMo 6s forwards
@@ -82,10 +82,17 @@
             display: block
             padding-top: 4px
             padding-bottom: 2px
+            font-family: font-for(BoardPost__title)
+            text-overflow: ellipsis
+            word-wrap: break-word
+            white-space: nowrap
+            overflow: hidden
+            font-size: 15.5px
 
         .comment
             padding-top: 4px
             width: 100%
+            font-size: 15px
 
     a
         color: grey(1) !important

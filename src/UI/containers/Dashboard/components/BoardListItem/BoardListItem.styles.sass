@@ -10,7 +10,7 @@
     &:hover
         cursor: grab
         transition: background-color .2s $bezier-fast
-        background-color: darken(color(primary), 30%)
+        background-color: darken(theme(dark, primary), 30%)
 
     &:active
         cursor: grabbing
@@ -21,7 +21,7 @@
 
     .BoardListItem__title
         font-size: $font-size-large
-        font-family: $font-accent
+        font-family: font-for(BoardListItem__title)
         padding: 12px 24px
         text-align: right
 
@@ -32,7 +32,7 @@
         display: flex
 
     .BoardListItem__tag
-        font-family: $font-alt
+        font-family: font-for(BoardListItem__tag)
         font-size: $font-size-small
-        color: color(text-secondary)
+        color: theme(dark, text-secondary)
         padding-right: 12px

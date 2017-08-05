@@ -6,8 +6,8 @@ $navbar-central-font-size: 24px
 
 .HeaderTitle
     font-size: $navbar-central-font-size
-    font-family: $font-main
-    color: color(text-primary)
+    font-family: font-for(HeaderTitle)
+    color: theme(dark, text-primary)
     +no-select
     height: 100%
     font-size: 24px
@@ -15,12 +15,14 @@ $navbar-central-font-size: 24px
     align-items: center
 
     .Icon
-        color: color(text-secondary)
+        color: theme(dark, text-secondary)
         line-height: 1
         font-size: 22px
         position: relative
-        top: 2px
+        top: 4px
         padding-right: 0 !important
+        font-size: inherit
+        vertical-align: bottom
 
     .button
         +clickable
@@ -29,13 +31,32 @@ $navbar-central-font-size: 24px
         border: transparent 2px solid
         outline: none
         color: inherit
-        font-family: $font-accent
+        font-family: inherit
         z-index: 10
         background: grey(8)
         height: 100%
         letter-spacing: 0.25em
         padding: 8px
         white-space: nowrap
+
+    .title-small
+        display: none
+
+    @include breakpoint(to-phablet)
+        .title-normal
+            display: none
+        .title-small
+            display: initial
+
+    .Icon
+        position: relative
+        transition: all .2s ease
+        transition-property: color, top
+
+    &:hover .Icon
+        top: 4px
+        color: theme(dark, layout)
+
 
     // @include breakpoint(from-tablet) {
     //     .button

@@ -1,7 +1,8 @@
 import * as types from '~/redux/types';
-import API from '-/config/api.localhost'
-
 import Axios from 'axios';
+import API from '-/config/api.4chan'
+
+import {parseBoard} from '~/parsers';
 import {alertMessage} from '../alert'
 import {secondsAgo} from '~/utils/time'
 
@@ -34,20 +35,23 @@ export default function fetchBoard(boardID, callback) {
             type: "info"
         }))
 
-        return Axios.get(url).then( data => {
-            dispatch(receiveBoard(data))
-            dispatch(setBoard(boardID))
-            callback && callback();
-        })
-        .catch( err => {
-            console.error(err)
-            dispatch(alertMessage({
-                message: `From board ${boardID}: ${err.response.data}`,
-                type: "error",
-                time: 20000
-            }))
-            dispatch(invalidateBoard(err.response.data))
-        });
+        return Axios.get(url)
+            .then(res => res.data)
+            .then(data => parseBoard(data, boardID))
+            .then(board => {
+                dispatch(receiveBoard(board))
+                dispatch(setBoard(boardID))
+                callback && callback();
+            })
+            .catch( err => {
+                console.error(err)
+                dispatch(alertMessage({
+                    message: `From board ${boardID}: ${err.response.data}`,
+                    type: "error",
+                    time: 20000
+                }))
+                // dispatch(invalidateBoard(err.response.data))
+            });
     }
 }
 
@@ -61,7 +65,7 @@ export function requestBoard(boardID) {
 export function receiveBoard(board){
     return {
         type: types.BOARD_LOADED,
-        posts: board.data || [],
+        posts: board,
         receivedAt: Date.now()
     }
 }

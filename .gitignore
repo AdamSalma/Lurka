@@ -6,6 +6,8 @@ bash.exe.stackdump
 # Build folder: everything except
 app/*
 !app/package.json
-!app/electron.index.js
+!app/index.js
 
 img/
+dist/
+

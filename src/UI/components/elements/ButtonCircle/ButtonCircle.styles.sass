@@ -24,7 +24,7 @@ $iconcircle-circlesize: 1.8em
         font-size: inherit
         display: table-cell
         vertical-align: middle
-        color: color(text-secondary)
+        color: theme(dark, text-secondary)
         text-align: center
         z-index: 1
 
@@ -41,17 +41,17 @@ $iconcircle-circlesize: 1.8em
         @extend %Transition-In
         transform: scale(1.28)
         background: grey(7)
-        border-color: color(primary)
+        border-color: theme(dark, primary)
 
     &:hover .Icon
         @extend %Transition-In
         transform: scale(1.2)
-        color: color(text-primary)
+        color: theme(dark, text-primary)
 
     &.selected
         .Circle
-            border-color: color(primary)
-            background-color: color(primary)
+            border-color: theme(dark, primary)
+            background-color: theme(dark, primary)
 
         .Icon
-            color: color(text-primary)
+            color: theme(dark, text-primary)
