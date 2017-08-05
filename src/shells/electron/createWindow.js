@@ -64,7 +64,7 @@ function createMainWindow(opts) {
 
     if (process.env.NODE_ENV === "development") {
         main.loadURL(url.format({
-            pathname: path.join(__dirname, '..', 'UI', 'index.html'),
+            pathname: config.paths.app_html,
             protocol: 'file:',
             slashes: true
         }));
