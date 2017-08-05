@@ -1,0 +1,3 @@
+/* Electron package */
+architectures: ia32, x64, armv7l
+platforms:  linux, win32, darwin, mas
