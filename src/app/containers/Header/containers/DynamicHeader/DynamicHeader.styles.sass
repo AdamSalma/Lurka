@@ -66,6 +66,21 @@ $ani-rules: $ani-duration $ani-bezier
             transition: padding $ani-rules
             margin-right: 12px
 
+        .FullLogo__LogoVersion
+            position: absolute
+            top: 0
+            bottom: 0
+            margin: auto
+            height: 14px
+            margin-left: 42px
+            transform: translateY(16px)
+            font-family: $font-main
+
+        .FullLogo__LogoText
+            transform: translateY(-10px)
+
+
+
     .HeaderTitle
         font-size: 28px
         letter-spacing: .35em
@@ -79,7 +94,7 @@ $ani-rules: $ani-duration $ani-bezier
         font-size: 24px
         color: theme(dark, text-secondary)
         opacity: 0
-        transition-duration: .1s
+        // transition-duration: .2s
         vertical-align: middle
         margin: 0 16px
 
@@ -96,6 +111,7 @@ $ani-rules: $ani-duration $ani-bezier
     // "Watch" notification icon
     .Notification__content
         top: 0px
+        left: 30px
 
 
 // Applied when user scrolls down
@@ -132,6 +148,8 @@ $ani-rules: $ani-duration $ani-bezier
         opacity: 1
         transition: opacity $ani-duration $ani-duration/2 $ani-bezier, color .1s ease-out
 
+    .Notification__content
+        left: 26px
 
 
 // Flex positioning

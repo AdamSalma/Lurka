@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
+import config from 'config';
 
 import './FullLogo.styles';
 import {
@@ -13,6 +14,9 @@ const FullLogo = ({ className }) => {
             <Logo className="FullLogo__Logo"/>
             <div className="FullLogo__LogoText">
                 Lurka
+            </div>
+            <div className="FullLogo__LogoVersion">
+                V{config.meta.version}
             </div>
         </div>
     );

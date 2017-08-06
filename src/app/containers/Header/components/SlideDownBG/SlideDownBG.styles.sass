@@ -6,7 +6,7 @@ $icon-width: $header-icon-size
 
 $border-width: 2px
 
-$hover-offset: $icon-height / $golden-ratio
+$hover-offset: 8px
 $slider-width: $header-height - $hover-offset - $border-width
 $slider-height: $header-height * 0.75
 
@@ -16,6 +16,7 @@ $transition-in: transform .2s $bezier-fast
 .SlideDownBG
     transform: translateY(0)
     transition: $transition-out
+    position: relative
 
     &:hover, &.active
         transform: translateY($hover-offset)
@@ -25,10 +26,10 @@ $transition-in: transform .2s $bezier-fast
         content: ""
         transform: translateY(-100%) rotateX(90deg)
         transition: $transition-out
-        +size($slider-width, $slider-height)
+        // +size(60px, 100%)
         position: absolute
         left: 0
-        bottom: -$icon-height
+        bottom: 0//-$icon-height
         background: theme(dark, layout)
         z-index: -1
         border-radius: 4px 4px 0 0

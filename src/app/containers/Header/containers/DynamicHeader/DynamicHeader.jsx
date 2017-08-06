@@ -153,15 +153,14 @@ class DynamicHeader extends PureComponent {
                     </div>
 
                     <div className="vertical-icon">
-                        <Icon name={i.navbarDB}/>
-                        <span className="title">Database</span>
+                        <Icon name={i.navbarDownloads}/>
+                        <span className="title">Downloads</span>
                     </div>
 
                     <div className="vertical-icon">
                         <Icon name={i.navbarSettings}/>
                         <span className="title">Settings</span>
                     </div>
-
                 </HeaderGroup>
               </div>
             </div>
