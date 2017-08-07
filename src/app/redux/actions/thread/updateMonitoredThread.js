@@ -1,5 +1,5 @@
 import * as types from '~/redux/types';
-import Api from '-/config/api.4chan';
+import Api from 'config/api.4chan';
 import { alertMessage } from '../alert';
 
 export default function updateMonitoredThread(thread) {

@@ -1,7 +1,7 @@
 import * as types from '~/redux/types'
 import Axios from 'axios';
 
-import Api from '-/config/api.4chan'
+import Api from 'config/api.4chan'
 import { secondsAgo } from '~/utils/time'
 import { isFunction } from '~/utils/types'
 import { alertMessage } from '../alert'

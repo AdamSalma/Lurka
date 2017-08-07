@@ -1,4 +1,4 @@
-import API from '-/config/api.4chan';
+import API from 'config/api.4chan';
 
 /**
  * Standardises a 4chan thread.

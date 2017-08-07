@@ -1,4 +1,4 @@
-import config from '-/config';
+import config from 'config';
 import configureStore from './configure';
 import { loadState, saveState, loadCache } from './localStorage';
 import { invokeAfterUninterruptedDelay } from '~/utils/throttle';

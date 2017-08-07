@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-import Api from '-/config/api.4chan'
+import Api from 'config/api.4chan'
 import {parseBoardList} from '~/parsers'
 import { alertMessage } from '../alert'
 import {

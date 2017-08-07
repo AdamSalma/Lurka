@@ -1,4 +1,4 @@
-import config from '-/config';
+import config from 'config';
 
 const defaultStyles = {
     method: "color: #808080; background: #101010; font-weight: bold; padding: 1px 8px"
