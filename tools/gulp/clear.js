@@ -2,10 +2,11 @@ var del = require('del');
 
 module.exports = module.exports.default = function() {
     return del([
-        'app/**/*',
-        '!app/package.json',
-        '!app/index.js',
-        '!app/node_modules',
-        '!app/node_modules/**/*'
+        'build/**/*',
+        '!build/package.json',
+        '!build/index.js',
+        '!build/README.md',
+        '!build/node_modules',
+        '!build/node_modules/**/*'
     ])
 }

@@ -3,7 +3,7 @@ var path = require('path');
 var execSync = require('child_process').execSync
 
 var BUILD_COMMAND = "npm run build";
-var appBundlePath = path.join(__dirname, '../..', 'app', 'app.bundle.js')
+var appBundlePath = require('config').paths.app_bundle;
 
 module.exports = module.exports.default = function() {
     if (!fs.existsSync(appBundlePath) || !fs.existsSync(appBundlePath)) {

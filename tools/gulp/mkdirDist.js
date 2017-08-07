@@ -1,6 +1,5 @@
 var fs = require('fs');
-var path = require('path');
-var distPath = path.join(__dirname, '../..', 'dist');
+var distPath = require('config').paths.dist;
 
 module.exports = module.exports.default = function() {
     if (!fs.existsSync(distPath)) {
