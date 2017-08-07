@@ -7,6 +7,7 @@ module.exports = {
     navbarInfo: 'information',
     navbarRefresh: 'refresh-1',
     navbarNewThread: 'plus',
+    navbarArchive:   'archive',
 
     navbarAccount:  'person-add',
     navbarBookmark: 'bookmark-outline',
@@ -17,6 +18,7 @@ module.exports = {
     navbarMenu:     'menu',
     navbarToTop:    'arrow-doubled-up',
     navbarSearch:   'search-1',
+    navbarDownloads:'download-2',
 
     subNavbarOpen: 'chevron-down',
     subNavbarClose: 'chevron-up',

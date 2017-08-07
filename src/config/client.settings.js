@@ -14,22 +14,18 @@ window.appSettings = {
     boardOuterMargin: 30,
     boardPostMargin: 25,
 
-    // when you click on a reference in a thread
+    // when you click on a threadpost quotelink
     threadpostScrollDuration: 600,
 
-    // how long to keep a thread highlighted on scroll
+    // how long to keep a post highlighted on scroll
     threadpostScrollHighlightDuration: 2000,
 
     // The following settings can't be changed explcitly.
-    // Needs to be kept in sync with src/sass/partials/_config.sass
+    // Needs to be kept in sync with src/app/sass/partials/_config.sass
     headerHeight: 64,
     subheaderHeight: 50,
     threadWidth: 1024,
     settingsWidth: 320,
-
-    homeViewID: 'HomeView',
-    contentViewID: 'ContentView',
-    settingsViewID: 'SettingsView',
 
     iconPackName: 'lurka',
     icons: require('./icons')

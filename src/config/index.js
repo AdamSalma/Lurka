@@ -1,4 +1,4 @@
-const pkg = require('../package.json');
+const pkg = require('-/package.json');
 const env = process.env.NODE_ENV;
 
 var config = {
@@ -10,12 +10,7 @@ var config = {
   },
   meta: {
     title: pkg.name,
-    version: require('../package.json').version
-  },
-  server: {
-    schema: 'http',
-    host: 'localhost',
-    port: 3000
+    version: pkg.version
   },
   electron: {
     devPerformance: false,
@@ -27,13 +22,19 @@ var config = {
       frame: true
     },
     preloader: {
-      width: 350,
-      height: 425,
+      width: 250,
+      height: 265,
       modal: true,
       titleBarStyle: 'hidden',
       frame: false,
       title: "Lurka"
     }
+  },
+  paths: require('./paths'),
+  server: {
+    schema: 'http',
+    host: 'localhost',
+    port: 3000
   }
 }
 
