@@ -1,0 +1,41 @@
+@import '~sass/partials'
+
+.ActionButton
+    padding: 16px
+    font-family: font-for(BoardToolbar)
+    background: none
+    outline: none
+    border: theme(dark, primary) solid 1px
+    border: none
+    color: theme(dark, text-primary)
+    font-size: 17px
+    line-height: 1
+    position: relative
+    +clickable
+
+    .Icon
+        margin-bottom: 2px
+        color: theme(dark, text-primary)
+
+
+    &::before
+        content: ""
+        height: 2px
+        width: 0
+        background: theme(dark, primary, light)
+        position: absolute
+        bottom: 0
+        left: 0
+        right: 0
+        margin: 0 auto
+        transition: width .24s $ease-out-cubic
+
+    &:hover
+        &::before
+            width: 100%
+        .Icon
+            color: theme(dark, primary, light)
+
+    .title
+        font-size: inherit
+

@@ -2,11 +2,11 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames'
 import "./BoardToolbar.styles"
 
-import {Button} from '~/components'
 import {
     BoardToolbarSearchBar as SearchBar,
     TitledIcon as Icon,
-    BoardToolbarMetadata as Metadata
+    BoardToolbarMetadata as Metadata,
+    ActionButton
 } from '../../components'
 
 const i = window.appSettings.icons;
@@ -14,19 +14,27 @@ const i = window.appSettings.icons;
 const BoardToolbar = ({ className, children, posts, statistics, onSearch, onCreateThread, onViewArchive, onRefreshBoard, onSort, onFilter, onChangeLayout }) => {
     return (
         <div className={cx("BoardToolbar", className)}>
-            <SearchBar onChange={onSearch} onClick={() => alert('nigger')} showIcons/>
+            <SearchBar onChange={onSearch}/>
             <div className="BoardToolbar__Footer">
                 <Metadata className="BoardToolbar__Footer--left" posts={posts} statistics={statistics}/>
                 <div className="BoardToolbar__Footer--right">
                     <Icon onClick={onSort} name={i.boardToolbarSort} title='Sort'/>
                     <Icon onClick={onFilter} name={i.boardToolbarFilter} title='Filter'/>
-                    <Icon onClick={onChangeLayout} name={i.boardToolbarLayout} title="Layout"/>
                 </div>
             </div>
             <div className="BoardToolbar__ActionButtons">
-                <Button onClick={onCreateThread}>Create Thread</Button>
-                <Button onClick={onViewArchive}>View Archive</Button>
-                <Button onClick={onRefreshBoard}>Refresh Board</Button>
+                <ActionButton onClick={onCreateThread}>
+                    <Icon name={i.navbarNewThread}/>
+                    <div className="title">Create Thread</div>
+                </ActionButton>
+                <ActionButton onClick={onViewArchive}>
+                    <Icon name={i.navbarArchive}/>
+                    <div className="title">View Archive</div>
+                </ActionButton>
+                <ActionButton onClick={onRefreshBoard}>
+                    <Icon name={i.navbarRefresh}/>
+                    <div className="title">Refresh Board</div>
+                </ActionButton>
             </div>
         </div>
     );

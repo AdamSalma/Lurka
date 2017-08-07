@@ -1,17 +1,43 @@
-.BoardToolbarSearchBar
-    height: 60px
-    border-radius: 4px
-    flex-direction: row-reverse
-    background-color: inherit
+@import '~sass/partials'
 
-    input
-        color: theme(dark, text-primary)
-        text-align: center
-        letter-spacing: 0.225rem
-        font-variant: small-caps
-        box-shadow: inset 0 0 0 transparent
+$height: 46px
+
+.BoardToolbarSearchBar__wrapper
+    height: $height
+    border-radius: 4px
+    flex-direction: row
+    display: flex
+    align-items: center
+    background: darken(grey(7), 2%)
+    font-size: 20px
+    font-family: font-for(Searchbar)
+
+    .Icon
+        font-size: 18px;
+        display: inline-block;
+        padding: 6px 16px;
+        vertical-align: bottom
+        line-height: 1
+
+        &.search
+            color: theme(dark, text-secondary)
+
+        &.close
+            +clickable
+            position: absolute
+            right: 0
+            color: #d55250
+            font-size: 26px
+
+    .Searchbar
         background-color: inherit
+        color: theme(dark, text-primary)
+        text-align: left
+        letter-spacing: 0.225rem
+        // font-variant: small-caps
+        width: auto
+        display: inline-block
+        font-size: inherit
 
         &:active, &:focus
             color: theme(dark, text-primary)
-            box-shadow: inset 0 0 5px 0 theme(dark, primary)

@@ -1,0 +1,23 @@
+@import '~sass/partials'
+
+$spinner-size: 60px
+
+.BoardSpinner
+    width: 100vw
+    display: flex
+    justify-content: center
+    margin-top: $spinner-size / 2
+
+.BoardSpinner__spinner
+    position: relative
+    +size($spinner-size)
+    margin: 0 auto
+
+    &::before
+        content: "Loading..."
+        font-size: 20px
+        text-align: center
+        position: relative
+        bottom: -$spinner-size - 5px
+        width: inherit
+        left: -10px
