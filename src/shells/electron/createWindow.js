@@ -1,10 +1,9 @@
 import {BrowserWindow} from 'electron';
-import handleBeforeSendHeaders from './events/handleBeforeSendHeaders';
 import path from 'path';
 import url from 'url';
 
-let preloaderIndex = `file://${__dirname}/resources/preloader.${config.env.production ? 'prod' : 'dev' }.html`
-let mainIndex = `TBD`
+import handleBeforeSendHeaders from './events/handleBeforeSendHeaders';
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -36,7 +35,7 @@ function createPreloaderWindow(opts) {
 
     if (process.env.NODE_ENV === "development") {
         preloader.loadURL(url.format({
-            pathname: path.join(__dirname, 'resources', `preloader.dev.html`),
+            pathname: path.join(__dirname, 'dev', `preloader.html`),
             protocol: 'file:',
             slashes: true
         }));
@@ -63,8 +62,10 @@ function createMainWindow(opts) {
     main.webContents.session.webRequest.onBeforeSendHeaders(handleBeforeSendHeaders);
 
     if (process.env.NODE_ENV === "development") {
+        // Allow dynamic webpack content serving
+        // main.__WebpackUrl__ = config.server.url + "app.bundle.js"
         main.loadURL(url.format({
-            pathname: config.paths.app_html,
+            pathname: path.join(__dirname, 'dev', 'index.html'),
             protocol: 'file:',
             slashes: true
         }));
