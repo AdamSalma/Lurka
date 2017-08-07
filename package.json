@@ -5,7 +5,7 @@
   "description": "A 4chan desktop app for power users",
   "scripts": {
     "prestart": "npm run --silent gulp --silent ensureAppIsBuilt",
-    "start": "electron build",
+    "start": "electron build/",
     "build": "npm run gulp build",
     "clear": "npm run gulp clear",
     "dev": "concurrently -k --raw \"npm run webpack\" \"npm run electron\"",
