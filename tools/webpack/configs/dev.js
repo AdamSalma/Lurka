@@ -1,24 +1,18 @@
-const webpack = require('webpack')
-const path = require('path')
+const webpack = require('webpack');
 
-const autoprefixer = require('autoprefixer')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const WebpackBuildNotifierPlugin = require('webpack-build-notifier')
-const ConsoleClearPlugin = require('./ConsoleClearPlugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
+const ConsoleClearPlugin = require('../ConsoleClearPlugin');
 
-const config = require('../../config')
-const loaders = require('./webpack.loaders')
-const alias = require('./webpack.alias')
-const vendors = require('./vendors')
+const config  = require('config');
+const loaders = require('../loaders');
+const aliases = require('../aliases');
+const vendors = require('../vendors');
 
-const root = path.join(__dirname, "..", "..");
-const UI = path.join(root, "src", "UI");
-const app = path.join(root, "app");
-const node_modules = path.join(app, "node_modules");
 
 module.exports = {
     entry: {
-        app: path.join(UI, 'index.jsx'),
+        app: config.paths.app_entry
         // vendor: vendors
     },
     output: {
@@ -30,12 +24,12 @@ module.exports = {
     devtool: 'eval',
     resolve: {
         extensions: ['.js', '.jsx', '.css', '.scss', '.sass'],
-        alias: alias,
-        modules: ['node_modules', node_modules, UI]
+        alias: aliases,
+        modules: ['node_modules', config.paths.app_modules, config.paths.app]
     },
     module: { loaders },
     devServer: {
-        contentBase: app,
+        contentBase: config.paths.build,
         noInfo: false,
         hot: true,
         overlay: true,
@@ -63,8 +57,9 @@ module.exports = {
             "window.jQuery": "jquery"
         }),
         new HtmlWebpackPlugin({
-            template: path.join(UI, 'index.html')
+            template: config.paths.app_html,
+            inject: false
         }),
-        new ConsoleClearPlugin()
+        new ConsoleClearPlugin() // custom plugin to clear the console before each bundle
     ]
 };
