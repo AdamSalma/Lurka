@@ -1,0 +1,190 @@
+@import '~sass/partials'
+
+$width: 100vw
+$height: $header-height + $subheader-height
+
+$ani-bezier: $bezier-fast
+$ani-duration: .24s
+$ani-delay: .066s
+$ani-duration-delayed: $ani-duration - $ani-delay $ani-delay $ani-bezier
+
+$ani-rules: $ani-duration $ani-bezier
+
+=animate($properties...)
+    transition: all $ani-rules
+    transition-property: $properties
+
+
+.DynamicHeader
+    +size($width, $height)
+    position: absolute
+    background: grey(8)
+    +position(0, 0)
+    z-index: $mainheader-z-index
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12);
+    border-bottom: theme(dark, content-border) 2px solid
+    transition: height $ani-rules
+
+    .content
+        display: flex
+        +size(inherit)
+        flex-direction: row
+
+    .main-title
+        font-family: font-for(HeaderTitle)
+
+    .vertical-icon
+        text-align: center
+        font-size: 28px
+        padding-right: 16px
+        max-width: 96px
+        margin: 0
+        // transition: all $ani-rules, max-width .2s ease-out
+        // +animate(max-width, font-size, margin)
+        transition: font-size $ani-rules, margin-top $ani-rules, margin-right $ani-rules, max-width $ani-duration + .05s ease-out
+        position: relative
+
+        .title
+            font-size: 16px
+            font-family: font-for(DynamicHeader__Title)
+            display: block
+            color: theme(dark, text-secondary)
+            margin-top: -4px
+
+            transition: opacity $ani-duration .12s ease-out
+            opacity: 1
+
+    .FullLogo
+        font-family: font-for(DynamicHeader__LogoText)
+        padding-left: #{64px + 32px}
+        font-size: 28px
+        // transition: all $ani-rules
+        +animate(padding, font-size)
+
+        .Logo
+            padding: 2px
+            transition: padding $ani-rules
+            margin-right: 12px
+
+        .FullLogo__LogoVersion
+            position: absolute
+            top: 0
+            bottom: 0
+            margin: auto
+            height: 14px
+            margin-left: 42px
+            transform: translateY(16px)
+            font-family: $font-main
+
+        .FullLogo__LogoText
+            transform: translateY(-10px)
+
+
+
+    .HeaderTitle
+        font-size: 28px
+        letter-spacing: .35em
+        transition: font-size $ani-rules, letter-spacing $ani-rules
+        margin: 0 32px
+        position: relative
+
+    // Icons next to title in center
+    .shrink-icon
+        +clickable
+        font-size: 24px
+        color: theme(dark, text-secondary)
+        opacity: 0
+        // transition-duration: .2s
+        vertical-align: middle
+        margin: 0 16px
+
+        // &.shrink-icon-right
+        //     margin: 32px
+        // &.shrink-icon-left
+
+        &:hover
+            color: theme(dark, text-primary)
+
+    .Icon
+        vertical-align: middle
+
+    // "Watch" notification icon
+    .Notification__content
+        top: 0px
+        left: 30px
+
+
+// Applied when user scrolls down
+.DynamicHeader.shrink
+    height: $header-height
+
+    .HeaderTitle
+        font-size: 24px
+        letter-spacing: .25em
+
+        &::before
+            display: none
+
+    .vertical-icon
+        font-size: 24px
+        max-width: 40px
+        // transition: all $ani-rules
+        +animate(max-width, font-size, margin-top, margin-right)
+        margin-top: 24px
+        margin-right: 16px
+
+        .title
+            transition: opacity $ani-rules
+            opacity: 0
+
+    .FullLogo
+        padding-left: 64px
+        font-size: 24px
+
+        .Logo
+            padding: 8px
+
+    .shrink-icon
+        opacity: 1
+        transition: opacity $ani-duration $ani-duration/2 $ani-bezier, color .1s ease-out
+
+    .Notification__content
+        left: 26px
+
+
+// Flex positioning
+.DynamicHeader .HeaderGroup
+    padding: 0 8px
+    transition: padding $key-animation-duration $key-bezier-animation-out
+    display: flex
+    justify-content: center
+    align-items: center
+    flex: 1
+
+    &.left
+        margin-left: 0
+        margin-right: auto
+
+        > :first-child
+            margin-left: 32px
+
+        > :last-child
+            margin-right: auto
+
+    &.right
+        padding-right: 0
+        margin-left: auto
+
+        > :first-child
+            margin-left: auto
+
+        > :last-child
+            margin-right: 32px
+
+    &.center
+        margin: 0 auto
+        text-align: center
+        flex: 1
+
+    > *
+        display: inline-block

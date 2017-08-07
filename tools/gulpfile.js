@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
-var tasks = require('./tasks');
+var tasks = require('./gulp');
 
 /* App Bundle */
 gulp.task('bundle:ui', tasks.bundleUI);
