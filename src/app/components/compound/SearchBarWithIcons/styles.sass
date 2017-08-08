@@ -1,0 +1,22 @@
+@import '~sass/partials'
+
+.SearchBarWithIcons
+    display: flex
+    position: relative
+    background-color: inherit
+    +size(inherit, 3em)
+    font-size: inherit
+    line-height: 1
+
+    .Icon
+        padding: 1em
+
+        &.close-icon
+            +clickable
+            position: absolute
+            right: 0
+
+    .Searchbar
+        flex: 1
+        border-left: 1px solid transparent
+        padding-left: 0
