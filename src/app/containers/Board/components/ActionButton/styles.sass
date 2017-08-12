@@ -1,7 +1,6 @@
 @import '~sass/partials'
 
 .ActionButton
-    padding: 16px
     font-family: font-for(BoardToolbar)
     background: none
     outline: none
@@ -12,30 +11,31 @@
     line-height: 1
     position: relative
     +clickable
+    width: $board-post-width / $golden-ratio
 
     .Icon
         margin-bottom: 2px
-        color: theme(dark, text-primary)
-
-
-    &::before
-        content: ""
-        height: 2px
-        width: 0
-        background: theme(dark, primary, light)
-        position: absolute
-        bottom: 0
-        left: 0
-        right: 0
-        margin: 0 auto
-        transition: width .24s $ease-out-cubic
-
-    &:hover
-        &::before
-            width: 100%
-        .Icon
-            color: theme(dark, primary, light)
+        color: theme(dark, text-secondary)
 
     .title
         font-size: inherit
+        transition: color .24s $ease-out-cubic
+        color: theme(dark, text-secondary)
+        position: relative
+
+        &::before
+            content: ""
+            height: 2px
+            width: 0
+            background: theme(dark, primary, light)
+            position: absolute
+            bottom: -24px
+            left: 0
+            right: 0
+            margin: 0 auto
+            transition: width .24s $ease-out-cubic
+
+    &:hover .title::before
+        width: 100%
+
 

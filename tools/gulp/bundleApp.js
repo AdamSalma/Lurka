@@ -1,5 +1,5 @@
 var webpack = require('webpack');
-var serverConfig = require('../webpack/webpack.prod.server.js');
+var appConfig = require('../webpack/configs/prod');
 
 function onWebpackBundle(done) {
     return function(err, stats) {
@@ -17,5 +17,5 @@ function onWebpackBundle(done) {
 }
 
 module.exports = module.exports.default = function(done) {
-    webpack(serverConfig).run(onWebpackBundle(done))
+    webpack(appConfig).run(onWebpackBundle(done))
 }

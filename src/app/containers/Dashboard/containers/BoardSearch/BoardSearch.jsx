@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
-import './BoardSearch.styles';
+// import './BoardSearch.styles';
 
 import { SearchBar } from '~/components';
 

@@ -1,5 +1,5 @@
 var webpack = require('webpack');
-var clientConfig = require('../webpack/webpack.prod.client.js');
+var electronConfig = require('../webpack/configs/electron');
 
 function onWebpackBundle(done) {
     return function(err, stats) {
@@ -17,5 +17,5 @@ function onWebpackBundle(done) {
 }
 
 module.exports = module.exports.default = function(done) {
-    webpack(clientConfig).run(onWebpackBundle(done))
+    webpack(electronConfig).run(onWebpackBundle(done))
 }

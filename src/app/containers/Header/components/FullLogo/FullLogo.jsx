@@ -16,7 +16,7 @@ const FullLogo = ({ className }) => {
                 Lurka
             </div>
             <div className="FullLogo__LogoVersion">
-                V{config.meta.version}
+                v{config.meta.version}
             </div>
         </div>
     );

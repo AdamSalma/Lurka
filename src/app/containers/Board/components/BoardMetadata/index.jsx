@@ -12,7 +12,7 @@ const BoardMetadata = ({ className, postsShown=0, totalPosts=0, totalImages=0, t
             <div>
                 <span className="stat">Replies: {totalReplies}</span>
                 <span className="stat">Images: {totalImages}</span>
-                <span className="stat">Shitpost ratio: {totalImages ? Math.round((totalReplies / totalImages) * 100) / 100 : 0}</span>
+                {/*<span className="stat">Shitpost ratio: {totalImages ? Math.round((totalReplies / totalImages) * 100) / 100 : 0}</span>*/}
             </div>
         </div>
     );

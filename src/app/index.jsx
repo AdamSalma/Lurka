@@ -6,7 +6,7 @@ import './sass/core';
 import './events/setup';
 import './utils/polyfills';
 import './utils/logger';
-import 'config/client.settings';
+import 'config/app.config';
 
 import React from 'react';
 import ReactDOM from 'react-dom';

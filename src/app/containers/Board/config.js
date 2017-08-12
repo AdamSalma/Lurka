@@ -1,6 +1,7 @@
 const {
     boardPostMargin,
     headerHeight,
+    expandedHeaderHeight,
     subheaderHeight,
     settingsWidth,
     boardOuterMargin
@@ -25,8 +26,13 @@ export const nano = {
     sliderMinHeight: 50
 }
 
+export const scroll = {
+    headerToggleOffset: 230
+}
+
 export default {
     masonryGrid,
     masonryGridWithDrawer,
-    nano
+    nano,
+    scroll
 }

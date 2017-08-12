@@ -56,14 +56,14 @@ $ani-rules: $ani-duration $ani-bezier
 
     .FullLogo
         font-family: font-for(DynamicHeader__LogoText)
-        padding-left: #{64px + 32px}
+        padding-left: 64px + 32px + 16px
         font-size: 28px
         // transition: all $ani-rules
         +animate(padding, font-size)
 
         .Logo
             padding: 2px
-            transition: padding $ani-rules
+            transition: padding $ani-rules, margin-right $ani-rules
             margin-right: 12px
 
         .FullLogo__LogoVersion
@@ -72,13 +72,15 @@ $ani-rules: $ani-duration $ani-bezier
             bottom: 0
             margin: auto
             height: 14px
-            margin-left: 42px
+            margin-left: 19px
             transform: translateY(16px)
-            font-family: $font-main
+            font-family: $font-alt
+            opacity: 1
+            transition: opacity $ani-rules
 
         .FullLogo__LogoText
-            transform: translateY(-10px)
-
+            transform: translateY(-8px)
+            transition: transform $ani-rules
 
 
     .HeaderTitle
@@ -87,6 +89,11 @@ $ani-rules: $ani-duration $ani-bezier
         transition: font-size $ani-rules, letter-spacing $ani-rules
         margin: 0 32px
         position: relative
+
+        .Icon
+            vertical-align: top
+            color: theme(dark, text-disabled)
+            font-size: 28px
 
     // Icons next to title in center
     .shrink-icon
@@ -114,6 +121,8 @@ $ani-rules: $ani-duration $ani-bezier
         left: 30px
 
 
+
+
 // Applied when user scrolls down
 .DynamicHeader.shrink
     height: $header-height
@@ -121,6 +130,10 @@ $ani-rules: $ani-duration $ani-bezier
     .HeaderTitle
         font-size: 24px
         letter-spacing: .25em
+
+        .Icon
+            font-size: 18px
+            top: 0
 
         &::before
             display: none
@@ -143,6 +156,7 @@ $ani-rules: $ani-duration $ani-bezier
 
         .Logo
             padding: 8px
+            margin-right: 4px
 
     .shrink-icon
         opacity: 1
@@ -150,6 +164,12 @@ $ani-rules: $ani-duration $ani-bezier
 
     .Notification__content
         left: 26px
+
+    .FullLogo__LogoText
+        transform: translateY(0)
+
+    .FullLogo__LogoVersion
+        opacity: 0
 
 
 // Flex positioning

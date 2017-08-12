@@ -1,0 +1,40 @@
+@import '~sass/partials'
+
+.BoardHeader
+    .BoardHeader__search
+        padding: 96px 0
+        padding-bottom: 32px
+        width: 720px
+        margin: 0 auto
+
+
+    .BoardHeader__actions
+        display: flex
+        justify-content: center
+        padding-bottom: 32px
+
+    .ActionButton
+        text-align: center
+        font-size: 24px
+        padding: 16px 32px
+        margin: 0
+        position: relative
+
+        &:hover
+            .Icon
+                color: theme(dark, primary, light)
+            .title
+                color: theme(dark, text-primary)
+
+        .title
+            margin-top: 16px
+            font-size: 16px
+            font-family: font-for(DynamicHeader__Title)
+            display: block
+            color: theme(dark, text-secondary)
+            opacity: 1
+            letter-spacing: 0.5px
+
+        .Icon
+            color: theme(dark, text-primary)
+            padding: 4px

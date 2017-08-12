@@ -25,7 +25,7 @@ import {
 import {
     BoardPost as Post,
     BoardToolbar as Toolbar,
-    BoardHeader as Header
+    BoardHeader
 } from './assemblies';
 
 import {
@@ -44,13 +44,6 @@ export class Board extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            load: 25,
-            headerHeight: s.headerHeight,
-            scrollTop: 0,
-            isDrawerOpen: props.isDrawerOpen
-        }
-
         this.onScroll = throttleByCount(7, this.handleScroll);
         this.previousScrollTop = 0;
 
@@ -64,9 +57,6 @@ export class Board extends Component {
             isDefined(props.isSubheaderExpanded)
                  ? props.isSubheaderExpanded
                  : true;
-
-        // TO
-        window.scrollToTop = this.scrollToTop
     }
 
     @onBoardReset
@@ -134,11 +124,17 @@ export class Board extends Component {
         return (
             <div id="board" className={boardClasses} ref={b => this._board = $(b)}>
                 <div className="nano-content" onScroll={this.onScroll}>
-{/*                    <Toolbar
+                    <div className="ExpandedHeaderGap"/>
+                    {/*
+                    <Toolbar
                         posts={posts}
                         statistics={statistics}
                         onSearch={searchBoard}
-                    />*/}
+                    />
+                    */}
+                    <BoardHeader
+                        onSearch={this.handleSearch}
+                    />
                     <BoardMetadata
                         postsShown={createdPosts.length}
                         totalPosts={posts.length}
@@ -148,7 +144,7 @@ export class Board extends Component {
                     <div className="PostLinebreak"/>
                     <div className="posts" ref={x => this._postContainer = x}>
                         {isFetching && !posts.length &&
-                            <BoardSpinner/>}
+                            <BoardSpinner />}
                         {createdPosts}
                     </div>
                 </div>
@@ -188,13 +184,12 @@ export class Board extends Component {
 
     handleScroll = (e) => {
         e.stopPropagation();
-        this.revealPostsInView();
+        this.revealPostsPartiallyInView();
         this.emitScroll(e)
     }
 
     emitScroll(e) {
-        const toolbarHeight = 300;
-        const canExpandHeader = e.target.scrollTop < toolbarHeight;
+        const canExpandHeader = e.target.scrollTop < config.scroll.headerToggleOffset;
 
         if (this.isSubheaderExpanded === canExpandHeader) {
             return
@@ -293,6 +288,22 @@ export class Board extends Component {
 
     scrollTo (element, options) {
         return element.velocity("scroll", options)
+    }
+
+    handleSearch = (searchValue) => {
+        console.log("Board.handleSearch:", searchValue)
+        // Change class
+        if (searchValue === "") {
+            // remove animation-disabling class from board
+            this._board.removeClass('disable-animations')
+        } else {
+            // add animation-disabling class from board
+            this._board.addClass('disable-animations')
+        }
+
+        this.props.searchBoard(searchValue);
+        !searchValue && setTimeout(this.applyLayout, 200)
+
     }
 }
 

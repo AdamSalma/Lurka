@@ -126,6 +126,7 @@ class DynamicHeader extends PureComponent {
                     <span className="title-small">
                         {!!navbarTitle && `/${boardID}/`}
                     </span>
+                    <Icon name={i.navbarChevron}/>
                   </HeaderTitle>
 
                   <div className="shrink-icon shrink-icon-right">
@@ -175,11 +176,11 @@ class DynamicHeader extends PureComponent {
     }
 
     onTitleClick = (e) => {
-        this.state.isExpanded
-            ? this.onHeaderShrink()
-            : this.onHeaderExpand()
+        // this.state.isExpanded
+        //     ? this.onHeaderShrink()
+        //     : this.onHeaderExpand()
 
-        // emitContentViewToggle()
+        emitContentViewToggle()
     }
 
     @onContentViewToggle

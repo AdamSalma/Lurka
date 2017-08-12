@@ -4,6 +4,7 @@
     position: relative
     +set-dims(100vw, calc(100vh - $header-height))
     top: $header-height
+    padding-top: 48px
     background: theme(dark, board)
     background-image: linear-gradient(to bottom, theme(dark, board, darkest), theme(dark, board))
 
@@ -30,8 +31,8 @@
         .BoardPost
             visibility: visible !important
             opacity: 1 !important
-            animation: none !important
-            transform: none !important
+            transform-duration: 0 !important
+            animation-duration: 0 !important
 
     // Disable link clicking
     a
@@ -86,3 +87,6 @@
         height: 1px
         margin: 4px auto
         background-color: theme(dark, divider)
+
+    .ExpandedHeaderGap
+        height: $subheader-height

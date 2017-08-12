@@ -4,8 +4,8 @@
 require('babel-register');
 
 module.exports = {
-    bundleUI: require('./bundleUI'),
-    bundleServer: require('./bundleServer'),
+    bundleApp: require('./bundleApp'),
+    bundleElectron: require('./bundleElectron'),
     clear: require('./clear'),
     copyAssets: require('./copyAssets'),
     copyFonts: require('./copyFonts'),
