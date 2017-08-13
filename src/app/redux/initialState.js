@@ -32,26 +32,27 @@ export default {
 
     thread: {
         receivedAt: 0,  // unix timestamp
-        isActive: false,
-        isFetching: false,
+        lastModified: 0,  // Last-Modified header - recieved from the initial request and used to perform updates.
         didInvalidate: false,
         isBeingWatched: false,
-        posts: [],
+        isActive: false,
+        isFetching: false,
+        posts: []
     },
 
-    watch: {
-        lastRequestAt: 0, // unix timestamp
+    watcher: {
+        lastRequestAt: 0,  // unix timestamp
         entities: {
-            next: null,
-            byId: [/*
-                {
-                    url: '/api/4chan/g',       // API url to monitor
-                    interval: 10,              // seconds to pause for
-                    type: BOARD_UPDATED,       // Action to use when a url returns a 200 HTTP response code
-                    lastRequestAt: 140374197,  // unix timestamp
-                    expireOnError: true        // Remove this object when a bad status code occurs, excluding 304s
-                },
-            */]
+            queue: [
+                /*{
+                    id: 'boardId' or 'boardId/threadId'
+                    url: 'http://4chan/g',
+                    lastModified: 0  // is response header. Set initially from thread, then from updates
+                }*/
+            ],
+            results: {
+                // 'id': response.content
+            }
         }
     },
 
