@@ -37,6 +37,7 @@ class BoardSelection extends Component {
         return boardList.items.map(({short_desc, boardID, title}) => {
            return (
                 <BoardListItem
+                    key={boardID}
                     onTileClick={this.handleTileClick.bind(null, boardID)}
                     boardID={boardID}
                     className={cx('BoardSelection__Tile', {'is-current': boardID === this.props.currentBoard})}
