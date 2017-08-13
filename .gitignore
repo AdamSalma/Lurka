@@ -4,9 +4,9 @@ node_modules
 bash.exe.stackdump
 
 # Build folder: everything except
-app/*
-!app/package.json
-!app/index.js
+build/*
+!build/package.json
+!build/index.js
 
 __img__/
 dist/
