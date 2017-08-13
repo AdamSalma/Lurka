@@ -28,8 +28,7 @@ export default function createLayout(options) {
         }
 
         // sometimes called before items are rendered
-        if (!$items || !$items.length)
-            return
+        if (!$items || !$items.length) return;
 
         blocks = []
         containerWidth = $(containerSelector).width() - gutterRight - gutterLeft
@@ -45,7 +44,6 @@ export default function createLayout(options) {
     function positionItems() {
         var min, index, leftPos;
 
-        console.warn("blocks before:", blocks);
         $items && $items.each(function() {
             min = Math.min.apply(Math, blocks)
             index = blocks.indexOf(min)
@@ -56,7 +54,5 @@ export default function createLayout(options) {
 
             blocks[index] = min + this.offsetHeight + margin
         });
-
-        console.info("blocks after:", blocks);
     }
 }

@@ -16,7 +16,6 @@ class Searchbar extends PureComponent {
             ...restProps
         } = this.props;
 
-        console.error("Searchbar.Render()")
         const classNames = cx('Searchbar', className)
 
         return (
