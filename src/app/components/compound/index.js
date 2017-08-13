@@ -1,4 +1,3 @@
-export {default as Alert} from './Alert'
 export {default as Dropdown} from './Dropdown'
 export {default as DualMedia} from './DualMedia'
 export {default as ExpandedImage} from './ExpandedImage'
