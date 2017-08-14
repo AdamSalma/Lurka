@@ -4,10 +4,12 @@ import Axios from 'axios';
 import Api from 'config/api.4chan'
 import { secondsAgo } from '~/utils/time'
 import { isFunction } from '~/utils/types'
+import { normaliseApiError } from '~/utils/redux'
 import { alertMessage } from '../alert'
 
 import {getCachedThread} from '~/redux/selectors'
 import {parseThread} from '~/parsers'
+
 
 export function threadRequested(threadID) {
     console.log("Action RequestThread wth ID:", threadID);
@@ -17,12 +19,15 @@ export function threadRequested(threadID) {
     }
 }
 
-export function threadLoaded(thread) {
+export function threadLoaded(thread, lastModified) {
     console.log("Action RecieveThread:", thread);
     return {
         type: types.THREAD_LOADED,
-        posts: thread,
-        receivedAt: Date.now()
+        payload: {
+            lastModified,
+            posts: thread,
+            receivedAt: Date.now()
+        }
     }
 }
 
@@ -67,33 +72,34 @@ export default function fetchThread({ boardID, threadID, callback }) {
 
         // Perform request
         return Axios.get(url)
-            .then(res => res.data.posts)
-            .then(data => parseThread(data, boardID))
-            .then(thread => {
-                dispatch(threadLoaded(thread));
+            .then(res => {
+                const data = res.data.posts;
+                const lastModified = res.headers["last-modified"] || 0
+                const thread = parseThread(data, boardID);
+
+                dispatch(threadLoaded(thread, lastModified));
+
                 isFunction(callback) && callback();
             })
-            .catch( err => handleFetchError(err, dispatch));
-    }
-}
+            .catch( err => {
+                const error = normaliseApiError(err);
 
-export function handleFetchError(err, dispatch) {
-    err = err.response && err.response.data || err;
-    console.error(err);
-    if (err.status === 404) {
-        dispatch(alertMessage({
-            messagge: "Thread 404'd",
-            type: "error",
-        }));
-    } else {
-        dispatch(alertMessage({
-            message: err,
-            type: "error",
-            time: 20000
-        }));
-    }
+                if (err.status === 404) {
+                    dispatch(alertMessage({
+                        messagge: "Thread 404'd",
+                        type: "error",
+                    }));
+                } else {
+                    dispatch(alertMessage({
+                        message: err,
+                        type: "error",
+                        time: 20000
+                    }));
+                }
 
-    dispatch(threadInvalidated(err))
+                dispatch(threadInvalidated(err));
+            });
+    }
 }
 
 export function shouldFetchThread({ thread, settings }) {
