@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
+import './styles'
 
 import DashboardView   from './DashboardView';
 import ContentView from './ContentView';
 import MediaView from './MediaView';
+import PanelsView from './PanelsView';
 
 const Views = ({ id }) => {
     return (
@@ -10,6 +12,7 @@ const Views = ({ id }) => {
             <DashboardView />
             <ContentView />
             <MediaView />
+            <PanelsView />
         </div>
     );
 };
