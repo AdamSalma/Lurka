@@ -1,6 +1,18 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Icon, ButtonCircle } from '~/components'
 
+
+class WatchController extends Component {
+    shouldComponentUpdate() {
+        return false;
+    }
+
+    render() {
+        return <ButtonCircle>
+            <Icon name="eye-2" />
+        </ButtonCircle>
+    }
+}
 export default function(props) {
     // const {
     //     monitorThread, unmonitorThread, toggleHeaderPanel,

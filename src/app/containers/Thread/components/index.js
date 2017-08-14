@@ -8,4 +8,5 @@ export {default as MediaInfo} from './MediaInfo'
 export {default as References} from './References'
 export {default as PostID} from './PostID'
 
+export {default as ControllerButton} from './ControllerButton'
 export * from './Controllers'

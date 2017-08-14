@@ -3,27 +3,34 @@ import { connect } from 'react-redux';
 
 import {
     closeThread,
-    monitorThread,
-    unmonitorThread,
+    addWatchEntity,
+    removeWatchEntity,
     scrollHeader,
     toggleHeaderPanel,
     destroyThread,
-    cacheCurrentThread
+    cacheCurrentThread,
 } from '~/redux/actions';
 
-function mapStateToProps({ status, thread }) {
+import {
+    getBoardID,
+    getThreadID,
+    isCurrentThreadBeingWatched
+} from '~/redux/selectors';
+
+function mapStateToProps(state) {
     return {
-        boardID: status.boardID,
-        threadID: status.threadID,
-        ...thread
+        boardID: getBoardID(state),
+        threadID: getThreadID(state),
+        isBeingWatched: isCurrentThreadBeingWatched(state),
+        ...state.thread,
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         closeThread,
-        monitorThread,
-        unmonitorThread,
+        addWatchEntity,
+        removeWatchEntity,
         scrollHeader,
         toggleHeaderPanel,
         destroyThread,

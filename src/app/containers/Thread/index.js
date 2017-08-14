@@ -2,16 +2,19 @@ import React, { Component } from "react";
 import cx from 'classnames';
 import uuid from "uuid";
 import connect from './connect';
-import './styles'
+
+import Api from 'config/api.4chan';
 
 /* Components */
 import {
     SquareSpinner,
-    TimeAgo
+    TimeAgo,
+    Icon
 } from '~/components';
 import {
     Overlay,
-    ThreadHeader
+    ThreadHeader,
+    ControllerButton as CButton
 } from './components';
 import {
     ThreadPost as Post,
@@ -40,7 +43,9 @@ import {
     scrollConfig
 } from './config'
 
-const { headerHeight } = window.appSettings;
+import './styles'
+
+const { headerHeight, icons: i } = window.appSettings;
 
 
 export class Thread extends Component {
@@ -120,7 +125,6 @@ export class Thread extends Component {
         if (didInvalidate)
             return null
 
-        logger.warn("posts:",posts.length)
         return (
             <div className={cx("Thread", className)}>
                 <Overlay
@@ -141,7 +145,7 @@ export class Thread extends Component {
                         {this.renderPosts(posts)}
                     </div>
                 </div>
-                <Controls ref={ref => this._controls = ref} show={isOpen} hide={isClosing}/>
+                {this.renderControls()}
             </div>
         )
     }
@@ -154,6 +158,49 @@ export class Thread extends Component {
                       lastUpdated={posts[posts.length-1].time}
                     />
         }
+    }
+
+    renderControls() {
+        return <Controls startVisible={this.state.isOpen}
+            ref={ref => this._controls = ref}
+            leftSide={[
+                <CButton key="bookmarks">
+                    <Icon name={i.navbarBookmarks}/>
+                </CButton>,
+                this.renderWatchController()
+            ]}
+
+            rightSide={[
+                <CButton key="comment">
+                    <Icon name={i.navbarNewThread}/>
+                </CButton>,
+                <CButton key="update">
+                    <Icon name={i.navbarRefresh}/>
+                </CButton>
+            ]}
+        />
+    }
+
+    renderWatchController() {
+        const {boardID, threadID, lastModified, posts} = this.props;
+        const hasPosts = posts && posts.length
+
+        const entity = {
+            id: `${boardID}/${threadID}`,
+            url: Api.thread(boardID, threadID),
+            lastModified: lastModified,
+            postsCount: hasPosts ? posts.length : 0,
+            op: hasPosts ? posts[0] : {},
+            lastReplyAt: hasPosts ? posts[posts.length - 1].time : null
+        }
+
+        return <CButton key="watch"
+            isActive={this.props.isBeingWatched}
+            onActivate={() => this.props.addWatchEntity(entity)}
+            onDeactivate={() => this.props.removeWatchEntity(entity)}
+        >
+            <Icon name="md-clock"/>
+        </CButton>
     }
 
     renderPosts(posts) {

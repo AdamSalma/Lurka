@@ -35,11 +35,17 @@ export class ThreadPost extends PureComponent {
         bindMembersToClass(this, 'handleLargeImageClick');
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log("ThreadPost.shouldComponentUpdate")
+        return false
+    }
+
     render() {
         const { controls, post: {
             id, name, title, date, media, comment, references, time
         }} = this.props;
 
+        console.warn("ThreadPost.render()")
         return (
             <div id={"p"+id} className='ThreadPost' onClick={e => e.stopPropagation()}>
                 <div className='post-info'>
