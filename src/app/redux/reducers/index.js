@@ -5,7 +5,7 @@ import BoardlistReducer from "./BoardListReducer";
 import CacheReducer from "./CacheReducer";
 // import DisplayReducer from "./DisplayReducer";
 import ThreadReducer from "./ThreadReducer";
-import WatchReducer from "./WatchReducer";
+import WatcherReducer from "./WatcherReducer";
 import StatusReducer from "./StatusReducer";
 import SettingsReducer from "./SettingsReducer";
 
@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
     cache: CacheReducer,
     status: StatusReducer,
     settings: SettingsReducer,
-    watch: WatchReducer,
+    watcher: WatcherReducer,
 });
 
 export default rootReducer
