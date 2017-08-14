@@ -32,12 +32,12 @@ export default {
 
     thread: {
         receivedAt: 0,  // unix timestamp
-        lastModified: 0,  // Last-Modified header - recieved from the initial request and used to perform updates.
-        didInvalidate: false,
-        isBeingWatched: false,
         isActive: false,
         isFetching: false,
-        posts: []
+        didInvalidate: false,
+        isBeingWatched: false,
+        posts: [],
+        lastModified: 0  // Last-Modified header - recieved from the initial request and used to perform updates.
     },
 
     watcher: {
@@ -52,6 +52,23 @@ export default {
             ],
             results: {
                 // 'id': response.content
+            },
+            metadata: {
+                /*
+                id: {
+                    // board.post.replies
+                    // thread.posts.length
+                    postsCount: 42,
+
+                    // board.post.last_modified
+                    // thread.lastModified
+                    lastModified: 1502627939,  // normalise to int timestamp
+
+                    op: {title, media, comment},
+
+                    isFetching: true,  // TODO: dispatch action before updating. WATCH_ENTITY_UPDAT
+                }
+                */
             }
         }
     },
