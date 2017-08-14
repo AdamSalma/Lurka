@@ -22,11 +22,18 @@ window.appSettings = {
 
     // The following settings can't be changed explcitly.
     // Needs to be kept in sync with src/app/sass/partials/_config.sass
+    headerHeightExpanded: 112,
     headerHeight: 64,
-    subheaderHeight: 50,
+    subheaderHeight: 48,
     threadWidth: 1024,
     settingsWidth: 320,
 
+    // Which side of the screen alerts pop up from
+    alertPosition: "top left",
+
     iconPackName: 'lurka',
-    icons: require('./icons')
+    icons: require('./icons'),
+
+    // Backoff
+    apiBackoff: [10, 15, 20, 30, 60, 90, 120, 180, 240, 300]
 }

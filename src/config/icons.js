@@ -19,9 +19,11 @@ module.exports = {
     navbarToTop:    'arrow-doubled-up',
     navbarSearch:   'search-1',
     navbarDownloads:'download-2',
+    navbarSort:     "sort-az",
+    navbarFilter:   "filter-full",
+    navbarChevron: 'chevron-down',
 
-    subNavbarOpen: 'chevron-down',
-    subNavbarClose: 'chevron-up',
+    // subNavbarClose: 'chevron-up',
 
     searchMagnify: "search-1",
     searchClose: "times",
@@ -51,6 +53,7 @@ module.exports = {
 
     watchPanelClose: "times",
     // watcchPanelUpdate: "update",
+
 
     boardToolbarSort: "sort-az",
     boardToolbarFilter: "filter-full",
