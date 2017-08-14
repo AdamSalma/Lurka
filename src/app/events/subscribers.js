@@ -57,3 +57,11 @@ export const onHeaderShrink = function () {
 export const onHeaderExpand = function () {
     on(types.EXPAND_HEADER).apply(null, arguments);
 }
+
+export const onHeaderPanelOpen = function () {
+    on(types.OPEN_HEADER_PANEL).apply(null, arguments);
+}
+
+export const onHeaderPanelClose = function () {
+    on(types.CLOSE_HEADER_PANEL).apply(null, arguments);
+}
