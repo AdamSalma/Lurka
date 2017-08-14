@@ -4,3 +4,4 @@ export * from './board';
 export * from './cache';
 export * from './settings';
 export * from './thread';
+export * from './watcher';
