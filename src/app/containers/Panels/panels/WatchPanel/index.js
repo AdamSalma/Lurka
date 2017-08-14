@@ -1,8 +1,12 @@
-import './WatchPanel.styles'
-import React, {PureComponent} from 'react'
+import './styles'
+import React, {Component} from 'react'
 import cx from 'classnames'
+import connect from './connect';
 
-import Panel from '../../components/Panel'
+import {
+    Panel,
+    ClassTransition
+} from '../../components'
 import {
     Timer,
     TimeAgo,
@@ -11,68 +15,78 @@ import {
     Scrollable
 } from '~/components'
 
+const i = window.appSettings.icons
 
-export default class WatchPanel extends PureComponent {
-    constructor(props) {
-        super(props);
-        this.renderWatchItem = this.renderWatchItem.bind(this)
-        this.handleUpdate  = this.handleUpdate.bind(this)
-        this.handleUnwatch = this.handleUnwatch.bind(this)
-        this.handleClick   = this.handleClick.bind(this)
+
+export class WatchPanel extends Component {
+
+
+
+    // Used by parent to control UI
+    show = (args) => this.transitioner.show(args);
+    hide = (args) => this.transitioner.hide(args);
+    setTransitionerRef = (ref) => this.transitioner = ref;
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return true
     }
 
     render() {
-        const {isDrawerOpen, isActive, watch: {newPosts, threads}} = this.props
+        const { queue } = this.props
 
         const watchClass = cx('WatchPanel', {
-            'show-description': !threads && !threads.length,
-        })
+            'show-description': !queue || !queue.length,
+        });
 
-        return <Panel isActive={isActive} className={watchClass} isDrawerOpen={isDrawerOpen}>
-            <div className="watch-title"><h4>Watch List</h4></div>
-            <div className="description">
-                Threads that are being watched will appear here.
-                To add a thread, click on the watch button in an open thread.
-            </div>
-            <Scrollable className="tilt-container">
-                {this.renderMonitoredThreads(threads)}
-            </Scrollable>
-        </Panel>
+        return (
+            <ClassTransition effect="fade scale" ref={this.setTransitionerRef} className={watchClass}>
+                <div className="watch-title"><h4>Thread Watcher</h4></div>
+                <div className="description">
+                    Threads that are being watched will appear here.
+                    To add a thread, click on the watch button in an open thread or right click on a board post.
+                </div>
+                <Scrollable className="tilt-container">
+                    {this.renderWatchEntityGroups(queue)}
+                </Scrollable>
+            </ClassTransition>
+        );
+
     }
 
-    renderMonitoredThreads(threads) {
-
-        const uniqueBoards = threads
-            .map( thread => thread.boardID )
+    renderWatchEntityGroups(queue) {
+        const boards = queue
+            .map( entity => entity.id.split('/')[0])
             .filter((value, index, self) => self.indexOf(value) === index)
 
-        return uniqueBoards.map( uniqueBoard => {
+        return boards.map( boardID => {
             return (
-                <div className="watch-group" key={uniqueBoard}>
+                <div className="watch-group" key={boardID}>
                     <div className="board-header">
-                        <span>{`/${uniqueBoard}/`}</span>
+                        <span>{`/${boardID}/`}</span>
                     </div>
-                    {threads
-                        .filter(thread => thread.boardID === uniqueBoard)
-                        .map(this.renderWatchItem)
+                    {queue
+                        .filter(entity => entity.id.split('/')[0] === boardID)
+                        .map(this.renderWatchEntity)
                     }
                 </div>
             )
-        })
+        });
     }
 
-    renderWatchItem(thread) {
+    renderWatchEntity = (entity) => {
+        console.warn(entity);
+
         return <WatchItem
-            key={thread.threadID}
-            updateInterval={this.props.settings.threadUpdateInterval}
-            thread={thread}
-            onUpdate={this.handleUpdate.bind(null, thread)}
-            onUnwatch={this.handleUnwatch.bind(null, thread.threadID)}
-            onClick={this.handleClick.bind(null, thread)}
+            key={entity.id}
+            entity={entity}
+            metadata={this.props.metadata[entity.id]}
+            onUpdate={() => this.handleUpdate(entity)}
+            onUnwatch={() => this.handleUnwatch(entity.id)}
+            onClick={() => this.handleClick(entity)}
         />
     }
 
-    handleUpdate(thread, event) {
+    handleUpdate (thread, event) {
         console.log("handleUpdate");
         if (event) {
             event.stopPropagation()
@@ -80,7 +94,7 @@ export default class WatchPanel extends PureComponent {
         this.props.updateMonitoredThread(thread)
     }
 
-    handleUnwatch(threadID, event) {
+    handleUnwatch (threadID, event) {
         console.log("handleUnwatch");
         if (event) {
             event.stopPropagation()
@@ -88,7 +102,7 @@ export default class WatchPanel extends PureComponent {
         this.props.unmonitorThread(threadID)
     }
 
-    handleClick({boardID, threadID}) {
+    handleClick ({boardID, threadID}) {
         console.log('Fetching thread');
         const {fetchThread, closeThread, status} = this.props
         closeThread(() => fetchThread(boardID, threadID))
@@ -100,15 +114,13 @@ export default class WatchPanel extends PureComponent {
 const WatchItem = props => {
     const {
         updateInterval, onUpdate, onUnwatch, onClick,
-        thread: {
-            newPosts=0,
-            threadID,
-            boardID,
-            totalPosts,
+        metadata: {
             didInvalidate,
             isFetching,
             lastReplyAt,
-            op: { title, media, comment, time }
+            newPosts=0,
+            postsCount,
+            op
         }
     } = props;
 
@@ -116,7 +128,7 @@ const WatchItem = props => {
         "has-new": newPosts > 0  // TODO: && state.watchedOpenedFor5Secs || hovered
     })
 
-    const postText = newPosts>0 ? newPosts : "No new posts"
+    const postText = newPosts > 0 ? newPosts : "No new posts"
 
     return (
         <div className="watch-item tilter" onClick={onClick}>
@@ -124,13 +136,13 @@ const WatchItem = props => {
 
             {/* Content */}
                 <div className="thumbnail">
-                    <img src={media.thumbnail} />
+                    <img src={op.media.thumbnail} />
                 </div>
                 <div className="watch-post">
                     <span
                         className="text"
                         dangerouslySetInnerHTML={{
-                            __html: title ? title : comment
+                            __html: op.title ? op.title : op.comment
                         }}
                     />
 
@@ -142,7 +154,7 @@ const WatchItem = props => {
                                 {postText}
                             </div>
                             <div className="total-posts">
-                                Total: {totalPosts}
+                                Total: {postsCount}
                             </div>
                             <div className="timeago">
                                 <TimeAgo time={lastReplyAt} canToggle={false}/>
@@ -172,3 +184,5 @@ const WatchItem = props => {
         </div>
     )
 }
+
+export default connect(WatchPanel)
