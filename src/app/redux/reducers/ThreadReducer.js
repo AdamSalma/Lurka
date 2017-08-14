@@ -19,9 +19,10 @@ export default createReducer(initialState.thread, {
 
     [types.THREAD_LOADED]: (state, action) =>
         mergeState(state, {
-            posts: action.posts,
             isFetching: false,
-            receivedAt: action.receivedAt
+            posts: action.payload.posts,
+            receivedAt: action.payload.receivedAt,
+            lastModified: action.payload.lastModified
         }),
 
     [types.THREAD_DESTROYED]: (state, action) =>
