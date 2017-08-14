@@ -27,6 +27,7 @@ import {
     emitContentViewToggle,
     emitSubHeaderToggle,
     emitSettingsToggle,
+    emitOpenHeaderPanel,
     onContentViewToggle,
     onHeaderShrink,
     onHeaderExpand
@@ -141,24 +142,24 @@ class DynamicHeader extends PureComponent {
 
                 </HeaderGroup>
                 <HeaderGroup className='right'>
-                    <div className="vertical-icon">
+                    <div className="vertical-icon" onClick={() => this.openPanel("watcher")}>
                         <Notification number={1}>
                           <Icon name={i.navbarEye}/>
                         </Notification>
                         <span className="title">Watcher</span>
                     </div>
 
-                    <div className="vertical-icon">
+                    <div className="vertical-icon" onClick={() => this.openPanel("bookmarks")}>
                         <Icon name={i.navbarBookmark}/>
                         <span className="title">Bookmarks</span>
                     </div>
 
-                    <div className="vertical-icon">
+                    <div className="vertical-icon" onClick={() => this.openPanel("bookmarks")}>
                         <Icon name={i.navbarDownloads}/>
                         <span className="title">Downloads</span>
                     </div>
 
-                    <div className="vertical-icon">
+                    <div className="vertical-icon" onClick={() => this.openPanel("bookmarks")}>
                         <Icon name={i.navbarSettings}/>
                         <span className="title">Settings</span>
                     </div>
@@ -212,6 +213,10 @@ class DynamicHeader extends PureComponent {
 
     toggleComplete = () => {
         this.setState({ isToggling: false })
+    }
+
+    openPanel(panelID) {
+        emitOpenHeaderPanel({panelID, closeIfOpen: true})
     }
 
 }
