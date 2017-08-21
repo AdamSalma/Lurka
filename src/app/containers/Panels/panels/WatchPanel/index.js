@@ -3,10 +3,8 @@ import React, {Component} from 'react'
 import cx from 'classnames'
 import connect from './connect';
 
-import {
-    Panel,
-    ClassTransition
-} from '../../components'
+import WatchEntity from './WatchEntity'
+import { SlideTransition } from '../../components'
 import {
     Timer,
     TimeAgo,
@@ -27,10 +25,6 @@ export class WatchPanel extends Component {
     hide = (args) => this.transitioner.hide(args);
     setTransitionerRef = (ref) => this.transitioner = ref;
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return true
-    }
-
     render() {
         const { queue } = this.props
 
@@ -39,16 +33,17 @@ export class WatchPanel extends Component {
         });
 
         return (
-            <ClassTransition effect="fade scale" ref={this.setTransitionerRef} className={watchClass}>
-                <div className="watch-title"><h4>Thread Watcher</h4></div>
+            <div>
+            <SlideTransition effect="from top" ref={this.setTransitionerRef} className={watchClass}>
+                <div className="watch-title"><h3>Thread Watcher</h3></div>
                 <div className="description">
-                    Threads that are being watched will appear here.
-                    To add a thread, click on the watch button in an open thread or right click on a board post.
+                    Get notified when a thread updates! (and when you are replied to)
                 </div>
                 <Scrollable className="tilt-container">
                     {this.renderWatchEntityGroups(queue)}
                 </Scrollable>
-            </ClassTransition>
+            </SlideTransition>
+            </div>
         );
 
     }
@@ -76,7 +71,7 @@ export class WatchPanel extends Component {
     renderWatchEntity = (entity) => {
         console.warn(entity);
 
-        return <WatchItem
+        return <WatchEntity
             key={entity.id}
             entity={entity}
             metadata={this.props.metadata[entity.id]}
@@ -88,17 +83,11 @@ export class WatchPanel extends Component {
 
     handleUpdate (thread, event) {
         console.log("handleUpdate");
-        if (event) {
-            event.stopPropagation()
-        }
         this.props.updateMonitoredThread(thread)
     }
 
     handleUnwatch (threadID, event) {
         console.log("handleUnwatch");
-        if (event) {
-            event.stopPropagation()
-        }
         this.props.unmonitorThread(threadID)
     }
 
@@ -107,82 +96,6 @@ export class WatchPanel extends Component {
         const {fetchThread, closeThread, status} = this.props
         closeThread(() => fetchThread(boardID, threadID))
     }
-}
-
-
-
-const WatchItem = props => {
-    const {
-        updateInterval, onUpdate, onUnwatch, onClick,
-        metadata: {
-            didInvalidate,
-            isFetching,
-            lastReplyAt,
-            newPosts=0,
-            postsCount,
-            op
-        }
-    } = props;
-
-    const postClasses = cx("new-posts", {
-        "has-new": newPosts > 0  // TODO: && state.watchedOpenedFor5Secs || hovered
-    })
-
-    const postText = newPosts > 0 ? newPosts : "No new posts"
-
-    return (
-        <div className="watch-item tilter" onClick={onClick}>
-            <div className="watch-content">
-
-            {/* Content */}
-                <div className="thumbnail">
-                    <img src={op.media.thumbnail} />
-                </div>
-                <div className="watch-post">
-                    <span
-                        className="text"
-                        dangerouslySetInnerHTML={{
-                            __html: op.title ? op.title : op.comment
-                        }}
-                    />
-
-                    {/* Watch Stats */}
-                    { isFetching ?
-                        <div className="watch-stats"><div className="updating">Updating</div></div>
-                        : (<div className="watch-stats">
-                            <div className={postClasses}>
-                                {postText}
-                            </div>
-                            <div className="total-posts">
-                                Total: {postsCount}
-                            </div>
-                            <div className="timeago">
-                                <TimeAgo time={lastReplyAt} canToggle={false}/>
-                            </div>
-                        </div>)
-                    }
-                </div>
-
-
-            </div>
-            <div className="watch-controls">
-                <div className="watch-close" onClick={onUnwatch}>
-                    <Icon name={i.watchPanelClose}/>
-                </div>
-                <div className="watch-update" onClick={onUpdate}>
-                    <Icon name={i.watchPanelUpdate}/>
-                </div>
-            </div>
-
-            <Timer
-                displayCounter={false}
-                seconds={updateInterval}
-                autoreset={true}
-                active={!didInvalidate}
-                onTimerEnd={onUpdate}
-            />
-        </div>
-    )
 }
 
 export default connect(WatchPanel)

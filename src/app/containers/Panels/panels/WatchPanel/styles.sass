@@ -27,18 +27,23 @@ $_img_container_width: $watch-panel-width / 5
     right: 0
     position: absolute
 
+    .watch-title
+        text-align: center
+        font-family: $font-main-semibold !important
+
+    .description
+        display: none
+        position: relative
+        font-size: $font-size-small
+        font-family: $font-main-semibold
+        padding: 0 40px
+        margin-top: 60px
+
     &.show-description
         .description
             display: initial !important
         .tilt-container
             display: none !important
-
-    .description
-        display: none
-        font-size: 18px
-        padding: 20px
-        padding-top: 60px
-
 
     .nano-pane
         width: 5px
