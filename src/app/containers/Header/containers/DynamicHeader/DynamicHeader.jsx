@@ -28,9 +28,10 @@ import {
     emitSubHeaderToggle,
     emitSettingsToggle,
     emitOpenHeaderPanel,
+    emitBoardReset,
     onContentViewToggle,
     onHeaderShrink,
-    onHeaderExpand
+    onHeaderExpand,
 } from '~/events';
 
 /* Helpers */
@@ -70,12 +71,11 @@ class DynamicHeader extends PureComponent {
             cycleContentNav,
             toggleDrawer,
             togglePanel,
+            fetchBoard,
             // State
             boardID,
             threadID,
-            isThreadOpen,
             isDrawerOpen,
-            activePanel,
             boardList
         } = this.props
 
@@ -85,7 +85,7 @@ class DynamicHeader extends PureComponent {
         });
 
         // TODO: Use selector for this:
-        const navbarTitle = boardList.items.length
+        const navbarTitle = boardID && boardList.items.length
             && boardList.items.find(b => b.boardID === boardID).short_desc
 
         // <Icon
@@ -113,11 +113,13 @@ class DynamicHeader extends PureComponent {
                 </HeaderGroup>
                 <HeaderGroup className='center' onMouseEnter={this.onTitleHover}>
 
+
+                  <div className="shrink-icon shrink-icon-right">
+                    <Icon name={i.navbarArchive}/>
+                  </div>
+
                   <div className="shrink-icon shrink-icon-left">
                     <Icon name={i.navbarNewThread}/>
-                  </div>
-                  <div className="shrink-icon shrink-icon-left">
-                    <Icon name={i.navbarSearch}/>
                   </div>
 
                   <HeaderTitle onClick={this.onTitleClick} className="main-title">
@@ -130,14 +132,13 @@ class DynamicHeader extends PureComponent {
                     <Icon name={i.navbarChevron}/>
                   </HeaderTitle>
 
-                  <div className="shrink-icon shrink-icon-right">
-                    <Notification number={1}>
+
+                  <div className="shrink-icon shrink-icon-right" onClick={this.refreshBoard}>
                       <Icon name={i.navbarRefresh}/>
-                    </Notification>
                   </div>
 
-                  <div className="shrink-icon shrink-icon-right">
-                    <Icon name={i.navbarToTop}/>
+                  <div className="shrink-icon shrink-icon-left" onClick={this.scrollToSearchbar}>
+                    <Icon name={i.navbarSearch}/>
                   </div>
 
                 </HeaderGroup>
@@ -217,6 +218,15 @@ class DynamicHeader extends PureComponent {
 
     openPanel(panelID) {
         emitOpenHeaderPanel({panelID, closeIfOpen: true})
+    }
+
+    refreshBoard = () => {
+        emitBoardReset(0); // duration=0
+        this.props.fetchBoard(this.props.boardID);
+    }
+
+    scrollToSearchbar = () => {
+        emitBoardReset(600); // duration=0
     }
 
 }
