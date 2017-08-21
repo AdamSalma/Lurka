@@ -1,40 +1,21 @@
 @import '~sass/partials'
 
-%fade-in
-    opacity: 1
 
-%fade-out
-    opacity: 0
+.SlideTransition
+    transition: transform $speed-fast $bezier-fast, opacity $speed-fastest $bezier-fast
 
-%scale-in
-    transform: scale(1)
+    &.SlideTransition--animate-in
+        transform: translate(0, 0)
+        opacity: 1
 
-%scale-out
-    transform: scale(0.8)
+    &.SlideTransition--animate-out
+        opacity: 0
 
-
-
-.ClassTransition
-    &.ClassTransition--fade-effect
-        transition: opacity $speed-fast $bezier-fast
-        &.ClassTransition--animate-in
-            @extend %fade-in
-        &.ClassTransition--animate-out
-            @extend %fade-out
-
-    &.ClassTransition--scale-effect
-        transition: transform $speed-fast $bezier-fast
-        &.ClassTransition--animate-in
-            @extend %scale-in
-        &.ClassTransition--animate-out
-            @extend %scale-out
-
-    &.ClassTransition--fade-scale-effect
-        transition: transform $speed-fastest $bezier-fast, opacity $speed-fastest $bezier-fast
-
-        &.ClassTransition--animate-in
-            @extend %scale-in
-            @extend %fade-in
-        &.ClassTransition--animate-out
-            @extend %scale-out
-            @extend %fade-out
+        &.SlideTransition--from-left
+            transform: translate(-100%, 0)
+        &.SlideTransition--from-right
+            transform: translate(100%, 0)
+        &.SlideTransition--from-top
+            transform: translate(0, -100%)
+        &.SlideTransition--from-bottom
+            transform: translate(0, 100%)

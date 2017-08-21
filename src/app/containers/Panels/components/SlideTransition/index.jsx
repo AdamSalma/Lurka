@@ -4,7 +4,7 @@ import {isFunction} from '~/utils/types';
 import './styles';
 
 
-class ClassTransition extends Component {
+class SlideTransition extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,17 +12,13 @@ class ClassTransition extends Component {
         }
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return nextState !== this.state
-    }
-
     render() {
         const { className, effect, children, ...restProps } = this.props;
 
         const classEffect = this.getEffectClass(effect);
         const classes = cx('SlideTransition', className, classEffect, {
-            "ClassTransition--directionanimate-in": !this.state.isHidden,
-            "ClassTransition--animate-out": this.state.isHidden
+            "SlideTransition--animate-in": !this.state.isHidden,
+            "SlideTransition--animate-out": this.state.isHidden
         });
 
         return (
@@ -33,31 +29,33 @@ class ClassTransition extends Component {
     }
 
     show = ({ callback, duration=240 }) => {
-        console.log("ClassTransition.show()")
+        console.log("SlideTransition.show()")
         isFunction(callback) && setTimeout(() => {console.warn('SETTIMEOUT'); callback()}, duration);
         this.setState({ isHidden: false });
     }
 
     hide = ({ callback, duration=240 }) => {
-        console.log("ClassTransition.hide()")
+        console.log("SlideTransition.hide()")
         this.setState({ isHidden: true });
         isFunction(callback) && setTimeout(callback, duration);
     }
 
     getEffectClass(effect) {
         switch (effect) {
-            case "scale":
-                return "ClassTransition--scale-effect"
-            case "fade":
-                return "ClassTransition--fade-effect"
-            case "fade scale":
-            case "scale fade":
+            case "from left":
+                return "SlideTransition--from-left"
+            case "from right":
+                return "SlideTransition--from-right"
+            case "from top":
+                return "SlideTransition--from-top"
+            case "from bottom":
+                return "SlideTransition--from-bottom"
             default:
-                return "ClassTransition--fade-scale-effect"
+                throw new Error("No SlideTransition effect specified")
         }
     }
 }
 
-ClassTransition.displayName = 'ClassTransition';
+SlideTransition.displayName = 'SlideTransition';
 
-export default ClassTransition;
+export default SlideTransition;

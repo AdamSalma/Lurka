@@ -1,19 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 import {isFunction} from '~/utils/types';
 import './styles';
 
 
-class ClassTransition extends Component {
+class ClassTransition extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
             isHidden: true
         }
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return nextState !== this.state
     }
 
     render() {
