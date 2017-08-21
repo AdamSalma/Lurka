@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 /**
  * Converts a timestamp to seconds ago
  * @param  {Integer} timestamp - From calling Date.now()
@@ -48,3 +50,12 @@ export const getShortTimeAgo = (time) => {
 
     return Math.floor(secs) + 's ago';
 }
+
+
+export const timestampToGMT = (timestamp) => {
+  // return moment(timestamp).format('ddd[,] M MMM YYYY hh:mm:ss [GMT]')
+  return moment(timestamp).utc().format('ddd[,] D MMM YYYY HH:mm:ss [GMT]')
+}
+
+window.timestampToGMT = () => timestampToGMT.bind(null, Date.now());
+window.moment = moment

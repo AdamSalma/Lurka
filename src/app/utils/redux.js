@@ -19,3 +19,8 @@ export const createReducer = (initialState, handlers) =>
 export const mergeState = function() {
     return Object.assign.bind(null, {}).apply(null, arguments)
 }
+
+
+export const normaliseApiError = (err) => {
+    return err && err.response ? err.response : {}
+}
