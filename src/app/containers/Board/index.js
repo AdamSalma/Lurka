@@ -60,9 +60,8 @@ export class Board extends Component {
     }
 
     @onBoardReset
-    onBoardReset() {
-        this.scrollToTop({duration: 0})
-        emitHeaderExpand()
+    onBoardReset(duration=0) {
+        this.scrollToTop({ duration, complete: emitHeaderExpand})
     }
 
     @onAppReady
@@ -87,7 +86,7 @@ export class Board extends Component {
 
         const onWindowResize =
             // Must be in callback because this.applyLayout changes
-            invokeAfterUninterruptedDelay(50, () => this.applyLayout())
+            invokeAfterUninterruptedDelay(50, this.applyLayout)
 
         $(window).resize(onWindowResize)
 
@@ -272,11 +271,11 @@ export class Board extends Component {
     }
 
     scrollToTop = (options) => {
-        options = options || {
+        options = Object.assign({}, {
             duration: 1000,
-            easing: 'ease',
+            easing: 'ease-in-out',
             mobileHA: false
-        }
+        }, options)
 
         const $scrollArea = this._board.find('.nano-content');
         const $firstChild = $scrollArea.find(">:first-child");
