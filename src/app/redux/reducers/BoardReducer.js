@@ -6,7 +6,8 @@ export default createReducer(initialState.board, {
     [types.BOARD_REQUESTED]: (state, action) =>
         mergeState(state, {
             isFetching: true,
-            didInvalidate: false
+            didInvalidate: false,
+            posts: []
         }),
 
     [types.BOARD_LOADED]: (state, action) =>
