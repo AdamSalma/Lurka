@@ -21,10 +21,11 @@ $bg-2: grey(8)
 .ContentView
     +set-dims(100vw, 100vh)
     position: fixed
-    z-index: $contentpage-z-index
+    // z-index: $contentpage-z-index
 
 .PanelsView
     z-index: $headerpanelview-z-index
+    z-index: 500
     position: relative
     top: $header-height
     // +size(100vw, 100vh)

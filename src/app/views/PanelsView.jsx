@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import cx from 'classnames'
 
-import {HeaderPanels as Panels} from '~/containers'
+import { Panels } from '~/containers'
 
 import {
     onHeaderPanelOpen,
@@ -70,9 +70,10 @@ export class PanelsView extends Component {
         if (this.modalstate.isOpen && this.modalstate.id === panelID) {
             if (closeIfOpen) {
                 this.closePanel()
+            } else {
+                console.warn(`Panel '${panelID}' is already open.`)
             }
 
-            console.warn(`Request to open panel '${panelID}' rejected. Is already open.`)
             return
         }
 
@@ -128,8 +129,7 @@ export class PanelsView extends Component {
 
     handlePanelClose( callback ) {
         this.modalstate.isOpen = false;
-        this.unmountPanel();
-        isFunction(callback) && callback()
+        this.unmountPanel( callback );
     }
 
     getHeaderPanel(panelID) {
