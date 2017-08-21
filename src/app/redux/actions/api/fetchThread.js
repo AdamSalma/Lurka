@@ -82,19 +82,28 @@ export default function fetchThread({ boardID, threadID, callback }) {
                 isFunction(callback) && callback();
             })
             .catch( err => {
-                const error = normaliseApiError(err);
+                console.error("FetchThread error:", err);
 
-                if (err.status === 404) {
-                    dispatch(alertMessage({
-                        messagge: "Thread 404'd",
-                        type: "error",
-                    }));
-                } else {
-                    dispatch(alertMessage({
-                        message: err,
-                        type: "error",
-                        time: 20000
-                    }));
+                if (process.env.NODE_ENV === "development") {
+                    // For debugging
+                    console.warn("Attached error to window._threadError");
+                    window._threadError = err
+                }
+
+                if (err.response) {
+                    const { status } = err.response;
+                    if (status === 404) {
+                        dispatch(alertMessage({
+                            message: "Thread 404'd",
+                            type: "error",
+                        }));
+                    } else {
+                        dispatch(alertMessage({
+                            message: `${err.response.message} (${status})`,
+                            type: "error",
+                            time: 20000
+                        }));
+                    }
                 }
 
                 dispatch(threadInvalidated(err));

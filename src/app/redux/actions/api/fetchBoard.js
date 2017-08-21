@@ -46,7 +46,7 @@ export default function fetchBoard(boardID, callback) {
             .catch( err => {
                 console.error(err)
                 dispatch(alertMessage({
-                    message: `From board ${boardID}: ${err.response.data}`,
+                    message: `/${boardID}/ fetch error: ${err.response.data}`,
                     type: "error",
                     time: 20000
                 }))
