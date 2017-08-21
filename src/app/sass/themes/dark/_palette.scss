@@ -1,11 +1,9 @@
 // Main color palette
-$dark-palette:   (
+$dark-palette: (
     primary:          $primary,
     secondary:        $secondary,
     links:            c(picton),
-    greentext:        c(swamp),
-    fourchan:         c(fern),
-    reddit:           c(vermilion),
+    greentext:       #a4c73b,
     favourite:        c(putty),
     anon-name:        c(putty),
     content-border:   grey(7),
@@ -20,6 +18,6 @@ $dark-palette:   (
     settings-drawer:  grey(8),
     board:            grey(7),
     text-selection:   $primary,
-    thread-quote:     #da7c7b,
+    thread-quote:     #e44a49,
 );
     // layout:         #  c3362b,
