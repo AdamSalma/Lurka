@@ -31,6 +31,9 @@ window.appSettings = {
     // Which side of the screen alerts pop up from
     alertPosition: "top left",
 
+    // Notification messages etc. Reusable.
+    errors: require('./errors'),
+
     iconPackName: 'lurka',
     icons: require('./icons'),
 
