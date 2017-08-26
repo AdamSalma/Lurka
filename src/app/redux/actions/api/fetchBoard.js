@@ -1,56 +1,47 @@
 import * as types from '~/redux/types';
-import Axios from 'axios';
-import Api from 'config/api.4chan'
+import Api from '~/api'
 
-import {parseBoard} from '~/parsers';
 import {alertMessage} from '../alert'
 import {secondsAgo} from '~/utils/time'
 
+import alerts from './alerts';
+
 
 export default function fetchBoard(boardID, callback) {
-    const url = Api.board(boardID)
-    console.log('Action FetchBoard()', url);
+    console.log('Action FetchBoard()', boardID);
 
     return (dispatch, getState) => {
-        const state = getState()
-        if (!shouldRequestBoard(state)) {
-            console.warn(`Board request rejected: ${url}`)
-            return
-        }
+        const state = getState();
 
-        if ( boardCachedAndRecent(state, boardID)) {
+        if (boardCachedAndRecent(state, boardID)) {
             dispatch(loadBoardFromCache(state, boardID))
             dispatch(setBoard(boardID))
             // TODO: Use timeago for cache alerts to show how old cached item is
-            dispatch(alertMessage({
-                message: `Loaded from cache: /${boardID}/`,
-                type: "success"
-            }))
+            dispatch(alerts.cachedBoardLoaded(boardID))
             return
         }
 
         dispatch(requestBoard(boardID))
-        dispatch(alertMessage({
-            message: `Requesting /${boardID}/`,
-            type: "info"
-        }))
+        dispatch(alerts.requestingBoard(boardID));
 
-        return Axios.get(url)
-            .then(res => res.data)
-            .then(data => parseBoard(data, boardID))
+        return Api.fetchBoard(boardID)
             .then(board => {
                 dispatch(receiveBoard(board))
                 dispatch(setBoard(boardID))
                 callback && callback();
             })
             .catch( err => {
-                console.error(err)
-                dispatch(alertMessage({
-                    message: `/${boardID}/ fetch error: ${err.response.data}`,
-                    type: "error",
-                    time: 20000
-                }))
-                // dispatch(invalidateBoard(err.response.data))
+                console.error(`/${boardID}/ fetch error:`, err);
+
+                if (err.response) {
+                    dispatch(alerts.badStatusCodeAlert(err.response))
+                } else if (err.request) {
+                    dispatch(alerts.noResponseAlert())
+                } else {
+                    dispatch(alerts.internalErrorAlert(err))
+                }
+
+                dispatch(invalidateBoard(err))
             });
     }
 }
@@ -72,7 +63,8 @@ export function receiveBoard(board){
 
 export function invalidateBoard(error) {
     return {
-        type: types.BOARD_INVALIDATED
+        type: types.BOARD_INVALIDATED,
+        error
     }
 }
 

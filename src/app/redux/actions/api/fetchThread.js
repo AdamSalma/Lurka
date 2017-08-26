@@ -1,14 +1,11 @@
+import Api from '~/api'
 import * as types from '~/redux/types'
-import Axios from 'axios';
 
-import Api from 'config/api.4chan'
 import { secondsAgo } from '~/utils/time'
 import { isFunction } from '~/utils/types'
-import { normaliseApiError } from '~/utils/redux'
-import { alertMessage } from '../alert'
 
 import {getCachedThread} from '~/redux/selectors'
-import {parseThread} from '~/parsers'
+import alerts from './alerts'
 
 
 export function threadRequested(threadID) {
@@ -41,18 +38,14 @@ export function threadInvalidated(error) {
 
 
 export default function fetchThread({ boardID, threadID, callback }) {
-    const url = Api.thread(boardID, threadID)
-
+    console.log("Action fetchThread", arguments)
     return (dispatch, getState) => {
         const state = getState()
 
         // Try loading from cache
         if (threadCachedAndRecent(state, threadID)) {
-            dispatch(threadCacheLoaded(state, threadID));
-            dispatch(alertMessage({
-                message: `Loading thread ${threadID} from history`,
-                type: "success"
-            }));
+            dispatch(cachedThreadLoaded(state, threadID));
+            dispatch(alerts.cachedThreadLoaded());
             isFunction(callback) && callback();
             return
         }
@@ -65,45 +58,23 @@ export default function fetchThread({ boardID, threadID, callback }) {
 
         // Prepare request
         dispatch(threadRequested(threadID));
-        dispatch(alertMessage({
-            message: `Requesting thread ${threadID}`,
-            type: 'info'
-        }));
+        dispatch(alerts.requestingThread(threadID));
 
         // Perform request
-        return Axios.get(url)
-            .then(res => {
-                const data = res.data.posts;
-                const lastModified = res.headers["last-modified"] || 0
-                const thread = parseThread(data, boardID);
-
+        return Api.fetchThread({boardID, threadID})
+            .then(({ thread, lastModified }) => {
                 dispatch(threadLoaded(thread, lastModified));
-
                 isFunction(callback) && callback();
             })
             .catch( err => {
-                console.error("FetchThread error:", err);
-
-                if (process.env.NODE_ENV === "development") {
-                    // For debugging
-                    console.warn("Attached error to window._threadError");
-                    window._threadError = err
-                }
+                console.error(`Thread fetch error (${boardID}/${threadID}):`, err);
 
                 if (err.response) {
-                    const { status } = err.response;
-                    if (status === 404) {
-                        dispatch(alertMessage({
-                            message: "Thread 404'd",
-                            type: "error",
-                        }));
-                    } else {
-                        dispatch(alertMessage({
-                            message: `${err.response.message} (${status})`,
-                            type: "error",
-                            time: 20000
-                        }));
-                    }
+                    dispatch(alerts.badStatusCodeAlert(err.response))
+                } else if (err.request) {
+                    dispatch(alerts.noResponseAlert())
+                } else {
+                    dispatch(alerts.internalErrorAlert())
                 }
 
                 dispatch(threadInvalidated(err));
@@ -133,7 +104,7 @@ export function threadCachedAndRecent(state, threadID) {
     return cachedThread && secondsAgo(cachedThread.receivedAt) < maxThreadAge
 }
 
-export function threadCacheLoaded(state, threadID) {
+export function cachedThreadLoaded(state, threadID) {
     return {
         type: types.THREAD_CACHE_LOADED,
         payload: getCachedThread(state, threadID),

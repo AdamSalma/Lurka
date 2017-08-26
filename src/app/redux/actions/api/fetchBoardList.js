@@ -1,41 +1,46 @@
-import Axios from 'axios';
+// import Axios from 'axios';
+// import Api from 'config/api.4chan'
+// import {parseBoardList} from '~/parsers'
 
-import Api from 'config/api.4chan'
-import {parseBoardList} from '~/parsers'
-import { alertMessage } from '../alert'
+import Api from '~/api'
+
 import {
     BOARD_LIST_REQUESTED,
     BOARD_LIST_LOADED,
     BOARD_LIST_INVALIDATED
 } from '~/redux/types';
+import {isFunction} from '~/utils/types';
+import alerts from './alerts';
 
-
-
-export default function fetchBoardList() {
-    const url = Api.boardlist()
-    console.log(`Action fetchBoardList() to ${url}`);
+export default function fetchBoardList(callback) {
     return (dispatch, getState) => {
-        if (shouldFetchBoardList(getState())) {
-            dispatch(requestBoardList())
-
-            return Axios.get(url)
-                .then( res => res.data.boards)
-                .then( boards => parseBoardList(boards))
-                .then( boardList => dispatch(receiveBoardList(boardList)))
-                .catch( err => {
-                    console.error(err)
-                    dispatch(alertMessage({
-                        message: `From boardlist: ${err.response.data}`,
-                        type: "error",
-                        time: 20000
-                    }))
-                    dispatch(invalidateBoardlist(err.response.data || err))
-                });
+        if (!shouldFetchBoardList(getState())) {
+            console.warn("Boardlist fetch rejected; Already fetched and is recent")
+            isFunction(callback) && callback()
+            return
         }
+
+        dispatch(boardlistRequested())
+
+        return Api.fetchBoardList()
+            .then( boardList => dispatch(receiveBoardList(boardList)))
+            .catch( err => {
+                console.error(`Boardlist fetch error:`, err);
+
+                if (err.response) {
+                    dispatch(alerts.badStatusCodeAlert(err.response))
+                } else if (err.request) {
+                    dispatch(alerts.noResponseAlert())
+                } else {
+                    dispatch(alerts.internalErrorAlert(err))
+                }
+
+                dispatch(invalidateBoardlist(err))
+            });
     }
 }
 
-export function requestBoardList() {
+export function boardlistRequested() {
     return {
         type: BOARD_LIST_REQUESTED
     }
