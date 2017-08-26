@@ -12,8 +12,9 @@ export default {
 
     boardList: {
         didInvalidate: false,
-        favourites: [],
-        items: []
+        receivedAt: 0,
+        items: [],
+        favourites: []
     },
 
     cache: {

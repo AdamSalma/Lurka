@@ -19,7 +19,8 @@ export default createReducer(initialState.board, {
 
     [types.BOARD_INVALIDATED]: (state, action) =>
         mergeState(state, {
-            didInvalidate: true
+            didInvalidate: true,
+            isFetching: false
         }),
 
     [types.BOARD_DESTROYED]: (state, action) =>
