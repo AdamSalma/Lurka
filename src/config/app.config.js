@@ -25,11 +25,14 @@ window.appSettings = {
     headerHeightExpanded: 112,
     headerHeight: 64,
     subheaderHeight: 48,
-    threadWidth: 1024,
+    threadWidth: 850,
     settingsWidth: 320,
 
     // Which side of the screen alerts pop up from
     alertPosition: "top left",
+
+    // Duration, type and message for alerts
+    alerts: require('./alerts'),
 
     // Notification messages etc. Reusable.
     errors: require('./errors'),
