@@ -4,9 +4,9 @@ module.exports = {
     navbarForwards: "arrow-big-right",
     navbarBackwards: "arrow-big-left",
 
-    navbarInfo: 'information',
-    navbarRefresh: 'refresh-1',
-    navbarNewThread: 'plus',
+    navbarInfo:      'information',
+    navbarRefresh:   'refresh-1-1',
+    navbarNewThread: 'edit-write',
     navbarArchive:   'archive',
 
     navbarAccount:  'person-add',
@@ -41,6 +41,7 @@ module.exports = {
 
     boardPostReplyCount: "mesage-1",
     boardPostImageCount: "image",
+    boardToTopChevron: "chevron-up",
 
     // threadPostImageFullscreen: 'arrow-expand',
 
@@ -52,7 +53,7 @@ module.exports = {
     threadPostControlsHide: "minus-circle",
 
     watchPanelClose: "times",
-    // watcchPanelUpdate: "update",
+    watchPanelUpdate: "refresh-1-1",
 
 
     boardToolbarSort: "sort-az",
@@ -65,11 +66,14 @@ module.exports = {
     subheaderToolbarSort: "sort-az",
     subheaderToolbarFilter: "filter-full",
     subheaderToolbarChangeLayout: "layout",
-    subheaderToolbarNewThread: "plus-1",
+    subheaderToolbarNewThread: "edit-write",
     subheaderToolbarRefresh: "refresh-1",
     subheaderToolbarArchive: "archive",
     subheaderToolbarSettings: "settings",
     subheaderToolbarRedo: "forwards",
-    subheaderToolbarUndo: "backwards"
+    subheaderToolbarUndo: "backwards",
+
+
+    dashboardReturn: "arrow-doubled-left"
 
 }
