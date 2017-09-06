@@ -113,57 +113,57 @@ class DynamicHeader extends PureComponent {
                 </HeaderGroup>
                 <HeaderGroup className='center' onMouseEnter={this.onTitleHover}>
 
-
-                  <div className="shrink-icon shrink-icon-right">
-                    <Icon name={i.navbarArchive}/>
-                  </div>
-
-                  <div className="shrink-icon shrink-icon-left">
+                  <SlideDownBG className="hide-on-expanded">
+                    <div className="shrink-icon shrink-icon-left" >
                     <Icon name={i.navbarNewThread}/>
-                  </div>
+                    </div>
+                  </SlideDownBG>
 
+                  <SlideDownBG className="HeaderTitle--wrapper">
                   <HeaderTitle onClick={this.onTitleClick} className="main-title">
-                    <span className="title-normal">
-                        {!!navbarTitle && navbarTitle}
-                    </span>
-                    <span className="title-small">
-                        {!!navbarTitle && `/${boardID}/`}
-                    </span>
-                    <Icon name={i.navbarChevron}/>
+                    {!!navbarTitle && <span className="title-normal">{navbarTitle}</span>}
+                    {!!navbarTitle && <span className="title-small">/{boardID}/</span>}
+                    {!!navbarTitle && <Icon name={i.navbarChevron}/>}
                   </HeaderTitle>
+                  </SlideDownBG>
 
-
-                  <div className="shrink-icon shrink-icon-right" onClick={this.refreshBoard}>
+                  <SlideDownBG onClick={this.refreshBoard} className="hide-on-expanded">
+                    <div className="shrink-icon shrink-icon-right" >
                       <Icon name={i.navbarRefresh}/>
-                  </div>
-
-                  <div className="shrink-icon shrink-icon-left" onClick={this.scrollToSearchbar}>
-                    <Icon name={i.navbarSearch}/>
-                  </div>
+                    </div>
+                  </SlideDownBG>
 
                 </HeaderGroup>
                 <HeaderGroup className='right'>
-                    <div className="vertical-icon" onClick={() => this.openPanel("watcher")}>
-                        <Notification number={1}>
-                          <Icon name={i.navbarEye}/>
-                        </Notification>
-                        <span className="title">Watcher</span>
-                    </div>
+                    <SlideDownBG onClick={() => this.openPanel("watcher")}>
+                        <div className="vertical-icon" >
+                            <Notification number={1}>
+                              <Icon name={i.navbarEye}/>
+                            </Notification>
+                            <span className="title">Watcher</span>
+                        </div>
+                    </SlideDownBG>
 
-                    <div className="vertical-icon" onClick={() => this.openPanel("bookmarks")}>
-                        <Icon name={i.navbarBookmark}/>
-                        <span className="title">Bookmarks</span>
-                    </div>
+                    <SlideDownBG onClick={() => this.openPanel("bookmarks")}>
+                        <div className="vertical-icon" >
+                            <Icon name={i.navbarBookmark}/>
+                            <span className="title">Bookmarks</span>
+                        </div>
+                    </SlideDownBG>
 
-                    <div className="vertical-icon" onClick={() => this.openPanel("bookmarks")}>
-                        <Icon name={i.navbarDownloads}/>
-                        <span className="title">Downloads</span>
-                    </div>
+                    <SlideDownBG onClick={() => this.openPanel("bookmarks")}>
+                        <div className="vertical-icon" >
+                            <Icon name={i.navbarDownloads}/>
+                            <span className="title">Downloads</span>
+                        </div>
+                    </SlideDownBG>
 
-                    <div className="vertical-icon" onClick={() => this.openPanel("bookmarks")}>
-                        <Icon name={i.navbarSettings}/>
-                        <span className="title">Settings</span>
-                    </div>
+                    <SlideDownBG onClick={() => this.openPanel("bookmarks")}>
+                        <div className="vertical-icon" >
+                            <Icon name={i.navbarSettings}/>
+                            <span className="title">Settings</span>
+                        </div>
+                    </SlideDownBG>
                 </HeaderGroup>
               </div>
             </div>

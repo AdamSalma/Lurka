@@ -34,11 +34,20 @@ $ani-rules: $ani-duration $ani-bezier
         font-family: font-for(HeaderTitle)
 
     .vertical-icon
+        +clickable
         text-align: center
         font-size: 28px
-        padding-right: 16px
+        padding: 8px
         max-width: 96px
         margin: 0
+
+        // TESTING PROPERTIES
+        height: 100%
+        display: flex
+        align-items: center
+        flex-direction: column
+        justify-content: center
+
         // transition: all $ani-rules, max-width .2s ease-out
         // +animate(max-width, font-size, margin)
         transition: font-size $ani-rules, margin-top $ani-rules, margin-right $ani-rules, max-width $ani-duration + .05s ease-out
@@ -87,30 +96,25 @@ $ani-rules: $ani-duration $ani-bezier
         font-size: 28px
         letter-spacing: .35em
         transition: font-size $ani-rules, letter-spacing $ani-rules
-        margin: 0 32px
+        margin: 0 1em
         position: relative
 
         .Icon
             vertical-align: top
             color: theme(dark, text-disabled)
+            // color: theme(dark, primary, light)
             font-size: 28px
 
     // Icons next to title in center
     .shrink-icon
         +clickable
-        font-size: 24px
+        font-size: 20px
         color: theme(dark, text-secondary)
         opacity: 0
-        // transition-duration: .2s
-        vertical-align: middle
-        margin: 0 16px
-
-        // &.shrink-icon-right
-        //     margin: 32px
-        // &.shrink-icon-left
-
-        &:hover
-            color: theme(dark, text-primary)
+        padding: 0 .6em
+        position: relative
+        top: 17px
+        margin: 0 4px
 
     .Icon
         vertical-align: middle
@@ -120,6 +124,8 @@ $ani-rules: $ani-duration $ani-bezier
         top: 0px
         left: 30px
 
+    .hide-on-expanded
+        opacity: 0
 
 
 
@@ -127,13 +133,18 @@ $ani-rules: $ani-duration $ani-bezier
 .DynamicHeader.shrink
     height: $header-height
 
+    .hide-on-expanded
+        opacity: 1
+
     .HeaderTitle
         font-size: 21.5px
         letter-spacing: .25em
+        margin: 0 8px
+        margin-right: 0px
+
 
         .Icon
-            font-size: 18px
-            top: 0
+            display: none !important
 
         &::before
             display: none
@@ -141,9 +152,8 @@ $ani-rules: $ani-duration $ani-bezier
     .vertical-icon
         font-size: 24px
         max-width: 40px
-        // transition: all $ani-rules
         +animate(max-width, font-size, margin-top, margin-right)
-        margin-top: 24px
+        margin-top: 12px
         margin-right: 16px
 
         .title

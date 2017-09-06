@@ -3,10 +3,12 @@ import cx from 'classnames';
 
 import './SlideDownBG.styles';
 
-const SlideDownBG = ({ className, children }) => {
+const SlideDownBG = ({ className, children, ...restProps }) => {
     return (
-        <div className={cx('SlideDownBG', className)}>
-            {children}
+        <div className={cx('SlideDownBG', className)} {...restProps}>
+            <div className="SlideDownBG__slidee">
+                {children}
+            </div>
         </div>
     );
 };

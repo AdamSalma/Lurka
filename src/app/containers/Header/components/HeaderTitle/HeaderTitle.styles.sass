@@ -14,6 +14,8 @@ $navbar-central-font-size: 24px
     display: flex
     align-items: center
     letter-spacing: 0.25em
+    // letter-spacing: 0.075px
+    // font-family: $font-main-semibold !important
 
     .Icon
         color: theme(dark, text-secondary)
@@ -34,11 +36,29 @@ $navbar-central-font-size: 24px
         color: inherit
         font-family: inherit
         z-index: 10
-        background: grey(8)
+        // background: grey(8)
         height: calc(100% - 2px);
         letter-spacing: inherit
         padding: 8px
         white-space: nowrap
+
+
+        .Icon
+            position: absolute
+            top: 50%
+            transform: translateY(-50%)
+            opacity: 1
+            transition: opacity .3s $bezier-fast
+
+    &:hover
+        .Icon
+            opacity: 0
+
+    // .HeaderTitle--wrapper
+
+
+    .title-normal
+        animation: fade-in-top 1s $bezier-fast forwards
 
     .title-small
         display: none
@@ -48,15 +68,6 @@ $navbar-central-font-size: 24px
             display: none
         .title-small
             display: initial
-
-    .Icon
-        position: relative
-        transition: all .2s ease
-        transition-property: color, top
-
-    &:hover .Icon
-        top: 4px
-        color: theme(dark, layout)
 
 
     // @include breakpoint(from-tablet) {
