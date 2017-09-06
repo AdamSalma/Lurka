@@ -27,7 +27,7 @@ export const nano = {
 }
 
 export const scroll = {
-    headerToggleOffset: 230
+    headerToggleOffset: 264
 }
 
 export default {
