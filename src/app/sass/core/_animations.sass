@@ -1,8 +1,8 @@
 @keyframes opac
-	100% 
+	100%
 		opacity: 0.95
 
-	
+
 @keyframes rotate
     100%
         transform: rotate(359.9deg)
@@ -10,8 +10,8 @@
 
 @keyframes spin
     0%
-        transform: rotate(0deg)  
-    
+        transform: rotate(0deg)
+
     100%
         transform: rotate(360deg)
 
@@ -23,7 +23,7 @@
 
     100%
         opacity: 1
-        transform: scale(1)    
+        transform: scale(1)
 
 
 @keyframes ellipsis
@@ -48,24 +48,73 @@
 
 
 
-@keyframes bounce 
-  from, 20%, 53%, 80%, to 
+@keyframes bounce
+  from, 20%, 53%, 80%, to
     animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000)
     transform: translate3d(0,0,0)
 
-  40%, 43% 
+  40%, 43%
     animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060)
     transform: translate3d(0, -30px, 0)
 
-  70% 
+  70%
     animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060)
     transform: translate3d(0, -15px, 0)
 
-  90% 
+  90%
     transform: translate3d(0,-4px,0)
 
-
-
-.bounce 
+.bounce
   animation-name: bounce
   transform-origin: center bottom
+
+
+
+@keyframes fade-in-top
+    0%
+        opacity: 0
+        transform: translateY(-32px)
+    100%
+        opacity: 1
+        transform: translateY(0)
+
+@keyframes fade-in-left
+    0%
+        opacity: 0
+        transform: translateX(-32px)
+    100%
+        opacity: 1
+        transform: translateX(0)
+
+@keyframes fade-in-right
+    0%
+        opacity: 0
+        transform: translateX(32px)
+    100%
+        opacity: 1
+        transform: translateX(0)
+
+@keyframes fade-in-bottom
+    0%
+        opacity: 0
+        transform: translateY(32px)
+    100%
+        opacity: 1
+        transform: translateY(0)
+
+
+@keyframes fade-in-scale-in
+    0%
+        opacity: 0
+        transform: scale(0.86)
+    100%
+        opacity: 1
+        transform: scale(1)
+
+@keyframes fade-in-scale-out
+    0%
+        opacity: 0
+        transform: scale(1.14)
+    100%
+        opacity: 1
+        transform: scale(1)
