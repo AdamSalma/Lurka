@@ -37,15 +37,15 @@ export function threadInvalidated(error) {
 }
 
 
-export default function fetchThread({ boardID, threadID, callback }) {
-    console.log("Action fetchThread", arguments)
+export default function fetchThread({ boardID, threadID, callback, noCache=false }) {
+    console.log(`Action fetchThread: ${boardID} - ${threadID}`, arguments)
     return (dispatch, getState) => {
         const state = getState()
 
         // Try loading from cache
-        if (threadCachedAndRecent(state, threadID)) {
+        if (!noCache && threadCachedAndRecent(state, threadID)) {
             dispatch(cachedThreadLoaded(state, threadID));
-            dispatch(alerts.cachedThreadLoaded());
+            dispatch(alerts.cachedThreadLoaded(threadID));
             isFunction(callback) && callback();
             return
         }
@@ -57,8 +57,8 @@ export default function fetchThread({ boardID, threadID, callback }) {
         }
 
         // Prepare request
-        dispatch(threadRequested(threadID));
         dispatch(alerts.requestingThread(threadID));
+        dispatch(threadRequested(threadID));
 
         // Perform request
         return Api.fetchThread({boardID, threadID})

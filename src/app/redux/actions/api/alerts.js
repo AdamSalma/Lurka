@@ -5,7 +5,7 @@ const { errors } = window.appSettings;
 export default {
     internalErrorAlert: (error) => {
         return alertMessage({
-            message: errors.api.internalError,
+            message: errors.apiInternalError,
             type: "error",
             time: 20000
         })
@@ -13,15 +13,15 @@ export default {
 
     badStatusCodeAlert: ({ status, statusText }) => {
         return alertMessage({
-            message: `${status} - ${statusText}`,
+            message: `${statusText} (${status})`,
             type: "error",
-            time: 5000
+            time: 6000
         })
     },
 
     noResponseAlert: () => {
         return alertMessage({
-            message: errors.api.noResponse,
+            message: errors.apiNoResponse,
             type: "error",
             time: 20000
         })
