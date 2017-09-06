@@ -52,6 +52,7 @@ module.exports = {
     threadPostControlsImageSearch: "search-2",
     threadPostControlsHide: "minus-circle",
 
+
     watchPanelClose: "times",
     watchPanelUpdate: "refresh-1-1",
 
@@ -74,6 +75,13 @@ module.exports = {
     subheaderToolbarUndo: "backwards",
 
 
-    dashboardReturn: "arrow-doubled-left"
+    dashboardReturn: "arrow-doubled-left",
+
+    threadControlsCinema: "coverflow",
+    threadControlsClock: "ios-clock",
+
+    cinemaPreviousMedia: "chevron-left",
+    cinemaNextMedia: "chevron-right",
+    cinemaClose: "times"
 
 }
