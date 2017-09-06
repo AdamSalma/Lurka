@@ -6,11 +6,11 @@ import store from '~/redux/store';
 
 import Views from '~/views';
 import Preloader from './Preloader';
+import ThemeProvider from './ThemeProvider'
 import Alerts from '../Alerts';
 import Watcher from '../Watcher';
 
 const { alertPosition } = window.appSettings
-
 
 const App = () => (
     <main>
@@ -23,7 +23,9 @@ const App = () => (
 
 const AppContainer = () => (
     <Provider store={store}>
-        <App />
+        <ThemeProvider>
+            <App />
+        </ThemeProvider>
     </Provider>
 );
 
