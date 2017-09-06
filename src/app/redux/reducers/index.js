@@ -2,8 +2,8 @@ import { combineReducers } from 'redux';
 
 import BoardReducer from "./BoardReducer";
 import BoardlistReducer from "./BoardListReducer";
+import CinemaReducer from "./CinemaReducer";
 import CacheReducer from "./CacheReducer";
-// import DisplayReducer from "./DisplayReducer";
 import ThreadReducer from "./ThreadReducer";
 import WatcherReducer from "./WatcherReducer";
 import StatusReducer from "./StatusReducer";
@@ -13,7 +13,7 @@ import SettingsReducer from "./SettingsReducer";
 const rootReducer = combineReducers({
     boardList: BoardlistReducer,
     board: BoardReducer,
-    // display: DisplayReducer,
+    cinema: CinemaReducer,
     thread: ThreadReducer,
     cache: CacheReducer,
     status: StatusReducer,

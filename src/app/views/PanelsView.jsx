@@ -29,8 +29,6 @@ export class PanelsView extends Component {
             HeaderPanel: null,
             isHeaderExpanded: true  // is expanded by default
         }
-
-        window.doIt = emitOpenHeaderPanel.bind(null, {panelID: "bookmarks"})
     }
 
     componentDidUpdate(prevProps, prevState) {

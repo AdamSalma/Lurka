@@ -87,6 +87,12 @@ export const PAGE_SCROLL_STARTED = "PAGE_SCROLL_STARTED"
 export const PAGE_SCROLL_ENDED = "PAGE_SCROLL_ENDED"
 
 
+/* Cinema */
+export const CINEMA_OPENED = "CINEMA_OPENED"
+export const CINEMA_CLOSED = "CINEMA_CLOSED"
+export const CINEMA_TIMELINE_UPDATED = "CINEMA_TIMELINE_UPDATED"
+export const CINEMA_TIMELINE_CYCLED = "CINEMA_TIMELINE_CYCLED"
+export const CINEMA_TIMELINE_CLEARED = "CINEMA_TIMELINE_CLEARED"
 
 // TODO: IDEA -- store pubsub variables in localstorage. pubsub state tree
 // TODO: IDEA -- preloader start page is LURKA in caps, big font size. underneath to the right is "loading..."
@@ -94,3 +100,4 @@ export const PAGE_SCROLL_ENDED = "PAGE_SCROLL_ENDED"
 // TODO: IDEA -- Nested reducers
 // TODO: IDEA -- scroll events using throttled pub-sub. BOARD_SCROLLED THREAD_SCROLLED and toggle navbar based on that.
 // TODO: IDEA -- move state's internal settings to config/public.settings.js
+

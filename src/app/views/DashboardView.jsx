@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import cx from 'classnames'
 
 import Dashboard from '~/containers/Dashboard';
@@ -12,9 +12,5 @@ const DashboardView = ({ className }) => {
 };
 
 DashboardView.displayName = 'DashboardView';
-
-DashboardView.propTypes = {
-    className: PropTypes.string,
-};
 
 export default DashboardView;

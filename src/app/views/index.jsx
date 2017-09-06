@@ -3,7 +3,7 @@ import './styles'
 
 import DashboardView   from './DashboardView';
 import ContentView from './ContentView';
-import MediaView from './MediaView';
+import CinemaView from './CinemaView';
 import PanelsView from './PanelsView';
 
 const Views = ({ id }) => {
@@ -11,7 +11,7 @@ const Views = ({ id }) => {
         <div id={id} className="Views">
             <DashboardView />
             <ContentView />
-            <MediaView />
+            <CinemaView />
             <PanelsView />
         </div>
     );

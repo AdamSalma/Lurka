@@ -83,6 +83,21 @@ export default {
         // canReply
     },
 
+    cinema: {
+        isActive: false,
+        isGridActive: false,
+        entities: {
+            count: 0,
+            viewPosition: 0,
+            timeline: {
+                previous: [],
+                current: null,
+                next: [],
+
+            }
+        }
+    },
+
     settings: {
         internal: {
             // Internal settings that the user should not have access to

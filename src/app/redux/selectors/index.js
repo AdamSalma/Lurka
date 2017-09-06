@@ -1,5 +1,6 @@
 export * from './board'
 export * from './boardlist'
+export * from './cinema'
 export * from './settings'
 export * from './status'
 export * from './thread'
