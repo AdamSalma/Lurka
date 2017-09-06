@@ -60,7 +60,7 @@ export function watchEntityRequested(payload) {
     }
 }
 
-export function watchEntityInvalidated(err) {
+export function watchEntityInvalidated(payload) {
     return {
         type: types.WATCH_ENTITY_INVALIDATED,
         payload: payload

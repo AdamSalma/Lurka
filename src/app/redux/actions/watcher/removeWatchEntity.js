@@ -1,6 +1,7 @@
 import * as types from '~/redux/types';
 import { alertMessage } from '../alert';
 
+const {alerts} = window.appSettings
 
 export default function removeWatchEntity({ id }) {
     console.log("Action removeWatchEntity");
@@ -9,14 +10,10 @@ export default function removeWatchEntity({ id }) {
         const state = getState();
 
         if (!isRegistered(id, state)) {
-            const message = `Entity '${id}' is not being watched.`
+            const message = alerts.watchEntityAlreadyRemoved(id);
 
             console.error(message);
-            dispatch(alertMessage({
-                'type': 'warning',
-                'message': message,
-                'duration': 5000
-            }));
+            dispatch(alertMessage(message));
 
             return
         }
