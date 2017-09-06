@@ -33,7 +33,7 @@ const Video = (props) => {
         <div className={[
             "video-wrapper",
             className
-        ].join(' ')}>
+        ].join(' ')} onClick={e => e.stopPropagation()}>
             <video
                 className="video"
                 {...restProps}>

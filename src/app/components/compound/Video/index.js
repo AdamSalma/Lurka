@@ -19,24 +19,19 @@ export default videoConnect(
         }
     }),
     (videoEl, state) => ({
-        onFullscreenClick: (e) => {
-            e.stopPropagation();
+        onFullscreenClick: () => {
             api.toggleFullscreen(videoEl)
         },
-        onVolumeClick: (e) => {
-            e.stopPropagation();
+        onVolumeClick: () => {
             api.toggleMute(videoEl, state)
         },
-        onPlayPauseClick: (e) => {
-            e.stopPropagation();
+        onPlayPauseClick: () => {
             api.togglePause(videoEl, state)
         },
         onVolumeChange: (e) => {
-            e.stopPropagation();
             api.setVolume(videoEl, state, e.target.value)
         },
         onSeekChange: (e) => {
-            e.stopPropagation();
             api.setCurrentTime(videoEl, state, e.target.value * state.duration / 100);
         }
     })

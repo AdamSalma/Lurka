@@ -14,9 +14,14 @@ $video-controls-background-color: grey(9)
     line-height: normal
     overflow: visible
     padding: 0
+    position: relative
 
     &:focus
         outline: 0
+
+    .Icon
+        display: table;
+        position: relative;
 
 
 .video-wrapper
@@ -24,6 +29,7 @@ $video-controls-background-color: grey(9)
     // font-family: Helvetica
     font-size: 13px
     color: $video-highlight-color
+    +size(100%)
 
     &:hover .video-controls
         opacity: 1
