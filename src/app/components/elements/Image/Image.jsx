@@ -14,6 +14,10 @@ class Image extends PureComponent {
         this.imageProps = Object.assign({}, imageProps)
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return nextProps.src === this.props.src
+    }
+
     render() {
         if (!this.state.isVisible)
             return this.renderPlaceholder(this.props)
