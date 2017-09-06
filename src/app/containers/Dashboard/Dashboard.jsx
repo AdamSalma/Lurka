@@ -1,13 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
-import { DragDropContextProvider } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 
 import {BoardList, BoardSelection} from './containers';
 import {HomeBoard} from './components';
-import {Logo, Scrollable} from '~/components';
+import {Logo, Scrollable, Icon} from '~/components';
 
 import './Dashboard.styles';
+
+import {
+    emitContentViewToggle
+} from '~/events'
+
+const i = window.appSettings.icons;
 
 class Dashboard extends Component {
     static propTypes = {
@@ -21,20 +25,20 @@ class Dashboard extends Component {
     render() {
         const { className } = this.props;
         return (
-            <DragDropContextProvider backend={HTML5Backend}>
-                <div className="Dashboard">
-                    <div className="Dashboard__header">
-                        <BoardList accepts="BoardListItem"/>
-                        {/*<Logo/>*/}
-                        <HomeBoard />
-                    </div>
-                    <div className="Dashboard__boards">
-                        <Scrollable>
-                            <BoardSelection />
-                        </Scrollable>
+            <div className="Dashboard">
+                <div className="header">
+                    {/*<BoardList accepts="BoardListItem"/>
+                    {<Logo/>}
+                    <HomeBoard />*/}
+
+                    <div className="icon-button" onClick={emitContentViewToggle}>
+                        <Icon name={i.dashboardReturn}/>
                     </div>
                 </div>
-            </DragDropContextProvider>
+                <Scrollable className="boards">
+                    <BoardSelection />
+                </Scrollable>
+            </div>
         );
     }
 }

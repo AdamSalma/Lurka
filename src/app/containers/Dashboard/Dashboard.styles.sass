@@ -3,11 +3,24 @@
 .Dashboard
     +size(100vw, 100vh)
 
-    .Dashboard__header
-        +size(100%, 40%)
-        background-color: grey(6)
+    .header
+        height: $header-height
+        // background-color: grey(8)
         padding: 12px 80px
+        display: flex
+        align-items: center
 
-    .Dashboard__boards
-        +size(100%, 60%)
+        .icon-button
+            +clickable
+            padding: 16px
+            font-size: 24px
+
+    .boards
+        +size(100%, 100%)
         background-color: grey(6)
+
+        .scrollable
+            display: flex !important
+            align-items: center
+            justify-content: center
+

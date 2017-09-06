@@ -1,6 +1,7 @@
 @import '~sass/partials'
 
 .BoardListItem
+    +clickable
     display: flex
     padding: 4px 0
     background-color: grey(8)
@@ -8,12 +9,8 @@
 
 
     &:hover
-        cursor: grab
         transition: background-color .2s $bezier-fast
         background-color: darken(theme(dark, primary), 30%)
-
-    &:active
-        cursor: grabbing
 
 .BoardListItem__title-wrap
     display: inline-block
