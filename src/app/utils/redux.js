@@ -4,10 +4,11 @@
  * multiple handlers
  */
 export const createReducer = (initialState, handlers) =>
-    (state=initialState, action) =>
-        handlers.hasOwnProperty(action.type)
+    function (state=initialState, action) {
+        return action.type in handlers
             ? handlers[action.type](state, action)
             : state;
+    }
 
 /**
  * Extend a state object without mutating it.

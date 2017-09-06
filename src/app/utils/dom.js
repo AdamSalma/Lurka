@@ -28,3 +28,12 @@ export const isElementInViewport = (el) => {
         rect.right <= window.innerWidth
     );
 }
+
+export const isElementPartiallyInViewport = (el) => {
+    const rect = el.getBoundingClientRect();
+
+    return (
+        rect.top <= window.innerHeight &&
+        rect.bottom >= 0
+    );
+}

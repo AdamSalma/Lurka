@@ -66,14 +66,20 @@ export const invokeOnceThenAgainAfterUninterruptedDelay = (delay, callback) => {
 
     return function () {
         if (calls === 0) {
-            return callback.apply(null, arguments)
+            calls++
+            callback(null, arguments)
+            setTimeout(() => {
+                calls--
+            }, delay)
+            return
         }
 
         calls++
         setTimeout(() => {
             calls--
-            if (calls === 0)
+            if (calls === 0) {
                 callback.apply(null, arguments)
+            }
         }, delay)
     }
 }
@@ -103,3 +109,4 @@ export const invokeAtBeginingEndAndByCount = ({delay, count, callback}) => {
         }, delay)
     }
 }
+
