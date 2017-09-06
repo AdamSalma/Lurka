@@ -40,7 +40,7 @@ export default function parseBoardList( boardList ) {
 
         return {
             boardID,
-            title,
+            title: title.split('/').join(' / '),  // x/y => x / y (to allow text wrapping)
             url,
             short_desc: `${url} - ${title}`,
             description: meta_description,
