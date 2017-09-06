@@ -22,17 +22,26 @@ export class Alerts extends PureComponent {
         return this.props.alertMessage !== message
     }
 
-    showAlert (message, {type, time, icon}=config) {
-        if (type === 'info') {
-            icon = <AlertInfo/>
-        }
+    showAlert (message, options) {
+        options = Object.assign({}, config, options);
+        options.icon = this.getIcon(options.type);
 
-        this._msg.show(<div>{message}</div>)
+        this._msg.show(message, options)
+    }
+
+    getIcon( type ) {
+        switch (type){
+            case 'info':
+                return <AlertInfo/>
+            case 'warning':
+                return 'info'
+        }
     }
 
     render() {
         return (
             <Alert
+                className="Alerts"
                 ref={el => this._msg = el}
                 position={this.props.position}
                 offset={this.props.offset}
