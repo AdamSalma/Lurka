@@ -5,6 +5,7 @@ import cx from 'classnames';
 import './styles';
 import config from './config'
 import connect from './connect'
+import Utils from '~/utils'
 
 // Other
 import {
@@ -13,14 +14,15 @@ import {
     Tooltip,
     CircleSpinner as Spinner,
     Button,
-    MasonryGrid,
+    MasonryGrid as BoardGrid,
     Line
 } from '~/components';
 
 import {
     NoSearchResults,
     BoardMetadata,
-    BoardSpinner
+    BoardSpinner,
+    ToTopButton
 } from './components';
 import {
     BoardPost as Post,
@@ -30,11 +32,9 @@ import {
 
 import {
     emitThreadOpen, emitHeaderExpand, emitHeaderShrink,
-    onAppReady, onSettingsToggle, onBoardReset
+    onAppReady, onSettingsToggle, onBoardReset, onHeaderExpand, onHeaderShrink
 } from '~/events'
 
-import {throttleByCount, invokeAfterUninterruptedDelay} from '~/utils/throttle';
-import {isDefined} from '~/utils/types'
 
 const s = window.appSettings
 
@@ -44,17 +44,18 @@ export class Board extends Component {
     constructor(props) {
         super(props);
 
-        this.onScroll = throttleByCount(7, this.handleScroll);
+        // this.onScroll = Utils.throttle.throttleByCount(7, this.handleScroll);
+        this.onScroll = Utils.throttle.invokeThenIgnoreForPeriod(50, this.handleScroll);
         this.previousScrollTop = 0;
 
-        this.applyLayout = MasonryGrid(
+        this.applyLayout = BoardGrid(
             props.isDrawerOpen
                 ? config.masonryGridWithDrawer
                 : config.masonryGrid
         );
 
         this.isSubheaderExpanded =
-            isDefined(props.isSubheaderExpanded)
+            Utils.types.isDefined(props.isSubheaderExpanded)
                  ? props.isSubheaderExpanded
                  : true;
     }
@@ -71,7 +72,7 @@ export class Board extends Component {
 
     @onSettingsToggle
     onSettingsToggle(isDrawerOpen) {
-        this.applyLayout = MasonryGrid(
+        this.applyLayout = BoardGrid(
             isDrawerOpen
                 ? config.masonryGridWithDrawer
                 : config.masonryGrid
@@ -80,13 +81,29 @@ export class Board extends Component {
         setTimeout(this.revealPostsInView, 400);
     }
 
+    @onHeaderExpand
+    onHeaderExpand() {
+        this.toggleToTopButton({visible: false})
+    }
+
+    @onHeaderShrink
+    onHeaderShrink() {
+        this.toggleToTopButton({visible: true})
+    }
+
+    toggleToTopButton = ({visible}) => {
+        visible
+            ? this._toTop.show()
+            : this._toTop.hide()
+    }
+
     componentDidMount() {
         // Board scroller
         this.updateScroller(config.nano);
 
         const onWindowResize =
             // Must be in callback because this.applyLayout changes
-            invokeAfterUninterruptedDelay(50, this.applyLayout)
+            Utils.throttle.invokeAfterUninterruptedDelay(50, this.applyLayout)
 
         $(window).resize(onWindowResize)
 
@@ -112,7 +129,7 @@ export class Board extends Component {
     }
 
     render() {
-        const { posts, isFetching, statistics, searchBoard } = this.props;
+        const { posts, isFetching, statistics, searchBoard, didInvalidate } = this.props;
 
         const boardClasses = cx('Board', 'nano', {
             'disable-animations': this.props.isBeingSearched
@@ -124,26 +141,38 @@ export class Board extends Component {
             <div id="board" className={boardClasses} ref={b => this._board = $(b)}>
                 <div className="nano-content" onScroll={this.onScroll}>
                     <div className="ExpandedHeaderGap"/>
-                    {/*
-                    <Toolbar
-                        posts={posts}
-                        statistics={statistics}
-                        onSearch={searchBoard}
+                    {!isFetching && !didInvalidate &&
+                        <BoardHeader
+                            onSearch={this.handleSearch}
+                        />
+                    }
+                    {!isFetching && !didInvalidate &&
+                        <BoardMetadata
+                            postsShown={createdPosts.length}
+                            totalPosts={posts.length}
+                            totalImages={statistics.images}
+                            totalReplies={statistics.replies}
+                        />
+                    }
+                    {!isFetching && !didInvalidate &&
+                        <div className="PostLinebreak"/>
+                    }
+                    {didInvalidate &&
+                        <div>
+                            BOARD INVALIDATED PLACEHOLDER
+                        </div>
+                    }
+
+                    <ToTopButton startHidden
+                        ref={(el) => this._toTop = el}
+                        onClick={() => this.scrollToTop({
+                            duration: 600
+                        })}
                     />
-                    */}
-                    <BoardHeader
-                        onSearch={this.handleSearch}
-                    />
-                    <BoardMetadata
-                        postsShown={createdPosts.length}
-                        totalPosts={posts.length}
-                        totalImages={statistics.images}
-                        totalReplies={statistics.replies}
-                    />
-                    <div className="PostLinebreak"/>
+
                     <div className="posts" ref={x => this._postContainer = x}>
                         {isFetching && !posts.length &&
-                            <BoardSpinner />}
+                            <Spinner />}
                         {createdPosts}
                     </div>
                 </div>
@@ -273,7 +302,7 @@ export class Board extends Component {
     scrollToTop = (options) => {
         options = Object.assign({}, {
             duration: 1000,
-            easing: 'ease-in-out',
+            easing: [0.455, 0.03, 0.515, 0.955],
             mobileHA: false
         }, options)
 

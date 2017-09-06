@@ -54,32 +54,6 @@
             box-shadow: 0 1px 4px grey(10)
             background-color: theme(dark, layout, darkest)
 
-
-    .Board__SpinnerWrapper
-        width: 100vw
-        display: flex
-        justify-content: center
-        margin-top: 30px
-
-    .Board__Spinner
-        $spinner-size: 60px
-        position: relative
-        +size($spinner-size)
-        margin: 0 auto
-
-        &::before
-            content: "Loading..."
-            font-size: 20px
-            text-align: center
-            position: relative
-            bottom: -$spinner-size - 5px
-            width: inherit
-            left: -10px
-            // left: -5px
-            // transform: translateX(50%)
-
-            // top: 80px
-
     .PostLinebreak
         $gutter: 60px
 
