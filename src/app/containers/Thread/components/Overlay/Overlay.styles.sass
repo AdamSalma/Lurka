@@ -1,7 +1,7 @@
 @import '~sass/partials'
 
 .Overlay
-    +set-dims(100%, 100%)
+    +set-dims(100%, calc(100% - $header-height))
     z-index: 10
     position: absolute
     background-color: grey(9)
@@ -10,6 +10,7 @@
     opacity: 0
     transition: opacity .2s ease-out
     pointer-events: none
+    background-image: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.9));
 
     &.Overlay-active
         pointer-events: auto

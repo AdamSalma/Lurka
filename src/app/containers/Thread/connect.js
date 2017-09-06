@@ -9,6 +9,7 @@ import {
     toggleHeaderPanel,
     destroyThread,
     cacheCurrentThread,
+    toggleCinema
 } from '~/redux/actions';
 
 import {
@@ -34,7 +35,8 @@ function mapDispatchToProps(dispatch) {
         scrollHeader,
         toggleHeaderPanel,
         destroyThread,
-        cacheCurrentThread
+        cacheCurrentThread,
+        toggleCinema
     }, dispatch)
 }
 
