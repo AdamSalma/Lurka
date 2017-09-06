@@ -25,17 +25,25 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-[class^="lurka-"]:before,
-[class*=" lurka-"]:before {
-  font-family: "lurka" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+// [class*="md"] {
+//   vertical-align: middle !important
+// }
+[class^="lurka-"],
+[class*=" lurka-"] {
+  // Material design icons aren't centered properly
+  // when used with external services (Fontastic)
+
+  &:before {
+    font-family: "lurka" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
 
@@ -164,18 +172,6 @@
 }
 .lurka-stats-growth:before {
   content: "\52";
-}
-.lurka-chevron-left:before {
-  content: "\53";
-}
-.lurka-chevron-right:before {
-  content: "\54";
-}
-.lurka-chevron-down:before {
-  content: "\55";
-}
-.lurka-chevron-up:before {
-  content: "\56";
 }
 .lurka-mesage-1:before {
   content: "\57";
@@ -315,17 +311,11 @@
 .lurka-align-right:before {
   content: "\7e";
 }
-.lurka-amazon:before {
-  content: "\5c";
-}
 .lurka-angle-right:before {
   content: "\e000";
 }
 .lurka-angle-up:before {
   content: "\e001";
-}
-.lurka-apple:before {
-  content: "\e002";
 }
 .lurka-bar-chart:before {
   content: "\e006";
@@ -644,4 +634,34 @@
 }
 .lurka-download:before {
   content: "\e069";
+}
+.lurka-refresh-3:before {
+  content: "\e06a";
+}
+.lurka-file-add:before {
+  content: "\e06b";
+}
+.lurka-plus-2:before {
+  content: "\e06c";
+}
+.lurka-coverflow:before {
+  content: "\e06d";
+}
+.lurka-coverflow-line:before {
+  content: "\e06e";
+}
+.lurka-movie:before {
+  content: "\e06f";
+}
+.lurka-chevron-down:before {
+  content: "\53";
+}
+.lurka-chevron-left:before {
+  content: "\54";
+}
+.lurka-chevron-right:before {
+  content: "\55";
+}
+.lurka-chevron-up:before {
+  content: "\56";
 }
