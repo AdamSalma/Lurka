@@ -20,6 +20,10 @@ export default createReducer(initialState.cinema, {
 
     [types.CINEMA_TIMELINE_CYCLED]: (state, action) => {
         return merge({ entities: action.payload }, state);
+    },
+
+    [types.THREAD_DESTROYED]: (state, action) => {
+        return merge({ entities: initialState.cinema.entities }, state);
     }
 
     // [types.WATCH_ENTITY_ADDED]: (state, action) => {
