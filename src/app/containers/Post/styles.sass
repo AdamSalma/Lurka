@@ -1,0 +1,42 @@
+@import '~sass/partials'
+
+$post-width: 400px
+$post-height: 500px
+// $post-container-gap: calc(((100vw - #{$thread-width}) / 2 - (#{$post-width} - #{$thread-offset} / 2)) / 2)
+$post-positioner-width: calc(((100vw - #{$thread-offset}) / 2 ))
+
+
+
+.PostPositioner
+    display: flex
+    justify-content: center
+    align-items: center
+    position: fixed
+    left: 0
+    right: 0
+    top: $header-height
+    bottom: 0
+    margin: auto 0
+
+    z-index: 999
+
+    // left: $post-container-gap
+    right: auto
+    left: 0
+    width: $post-positioner-width
+
+    .position-left
+        min-width: 300px
+
+
+    .Post
+        background: grey
+        +size($post-width, $post-height)
+        max-width: 100%
+        width: $thread-width / $golden-ratio
+        min-width: 350px
+        width: 100%
+        margin: 0 $thread-offset / 3
+
+        opacity: 0
+        transform: scale(0.6)

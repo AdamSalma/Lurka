@@ -6,6 +6,7 @@ export const OPEN_MEDIA_REEL = "OPEN_MEDIA_REEL"
 
 export const THREAD_OPEN = "THREAD_OPEN"
 export const THREAD_CLOSE = "THREAD_CLOSE"
+export const THREAD_MOVE = "THREAD_MOVE"
 
 export const SUB_HEADER_TOGGLE = "SUB_HEADER_TOGGLE"
 
@@ -19,3 +20,5 @@ export const EXPAND_HEADER = "EXPAND_HEADER"
 
 export const OPEN_HEADER_PANEL = "OPEN_HEADER_PANEL"
 export const CLOSE_HEADER_PANEL = "CLOSE_HEADER_PANEL"
+
+export const POST_TOGGLE = "POST_TOGGLE"

@@ -24,12 +24,14 @@ import {
 
 /* Events */
 import ThreadEvents from './events/setup';
-import { emitSubHeaderToggle } from '~/events/publishers';
 import {
     onSettingsToggle,
+    emitSubHeaderToggle,
     onThreadOpen,
-    onThreadClose
-} from '~/events/subscribers';
+    onThreadClose,
+    onThreadMove,
+    emitPostToggle
+} from '~/events';
 
 /* Utilities */
 import utils from '~/utils';
@@ -46,7 +48,7 @@ import './styles'
 
 const { headerHeight, threadWidth, icons: i } = window.appSettings;
 
-class ThreadMediaRegistery {
+class ThreadMediaRegistry {
     constructor(context) {
         this.expandedMedia = {}
         this.thread = context
@@ -65,9 +67,7 @@ class ThreadMediaRegistery {
             () => {
                 console.log("webmScrollHandler", video.getBoundingClientRect())
                 if (!utils.dom.isElementPartiallyInViewport(video)) {
-                    console.error("PAUSING VIDEO !!!");
-                    console.error("PAUSING VIDEO !!!");
-                    console.error("PAUSING VIDEO !!!");
+                    console.log("Pausing thread")
                     video.pause();
                     this.thread.removeEventListener("scroll", onScroll, false);
                 }
@@ -175,6 +175,8 @@ export class Thread extends Component {
 
         this.expandedMediaByPostId = {}
 
+        // For toggling thread/post when clicking on overlay
+        this.isPostOpen = false
     }
 
     @onThreadOpen
@@ -199,14 +201,53 @@ export class Thread extends Component {
         }
     }
 
+    @onThreadMove
+    onThreadMove({ position, duration=400, easing=[0.23, 1, 0.32, 1], callback }) {
+        if (process.env.NODE_ENV !== "production") {
+            if (!position) {
+                throw new Error("onThreadMove: No position supplied")
+            }
+        }
+
+        if (this.isMovingThread) {
+            console.warn("onThreadMove rejected; is moving")
+            return
+        }
+
+        this.isMovingThread = true
+
+        if (position === "right") {
+            this._controls.hide()
+            this.isPostOpen = true
+            this.animateWrapper({ translateX: "25%" }, {
+                duration, easing,
+                complete: () => this.handleThreadMove(callback)
+            })
+        } else {
+            this._controls.show()
+            this.isPostOpen = false
+            // revert to center
+            this.animateWrapper({ translateX: 0 }, {
+                duration, easing,
+                complete: () => this.handleThreadMove(callback)
+             })
+        }
+    }
+
+    handleThreadMove(callback) {
+        console.log("handleThreadMove")
+        this.isMovingThread = false
+        utils.types.isFunction(callback) && callback()
+    }
+
     componentDidMount() {
         console.log("Thread mounted");
 
         // Creates the initial scroller
         this.updateScroller(this.scrollerOpts);
 
-        // Handle media registery
-        this.mediaRegistery = new ThreadMediaRegistery(this._thread)
+        // Handle media registry
+        this.mediaRegistery = new ThreadMediaRegistry(this._thread)
     }
 
     // shouldComponentUpdate({thread}, nextState) {
@@ -231,13 +272,16 @@ export class Thread extends Component {
             // "fadein-boxshadow": isOpen && !isClosing && !isOpening
         });
 
-        if (didInvalidate)
+        if (didInvalidate) {
+            // TODO: Expand on this. Keep overlay, add error message, closes
+            // thread after 3s timeout
             return null
+        }
 
         return (
             <div className={cx("Thread", className)}>
                 <Overlay
-                    onClick={this.closeThread}
+                    onClick={this.handleOverlayClick}
                     ref={ ref => this._overlay = ref}>
                     <SquareSpinner
                         isSpinning={!posts.length && (isFetching || isOpening)}
@@ -259,6 +303,19 @@ export class Thread extends Component {
         )
     }
 
+    handleOverlayClick = () => {
+        if (this.isPostOpen) {
+            // Close post if it's open
+            emitPostToggle({ override: false })
+        } else {
+            // Otherwise close the thread
+           this.closeThread()
+        }
+
+        // This is a safeguard against accidental clicks outside of the post
+        // box without closing the thread
+    }
+
     renderHeader(posts) {
         if (posts && posts.length && posts[0]) {
             posts.length
@@ -274,7 +331,7 @@ export class Thread extends Component {
             ref={ref => this._controls = ref}
             leftSide={[
                 <CButton key="cinema"
-                    onActivate={() => { console.log("cinema click", this.props); this.props.toggleCinema()}}
+                    onActivate={this.props.toggleCinema}
                     onDeactivate={this.props.toggleCinema}
                 >
                     <Icon name={i.threadControlsCinema}/>
@@ -283,7 +340,10 @@ export class Thread extends Component {
             ]}
 
             rightSide={[
-                <CButton key="comment">
+                <CButton key="post"
+                    onActivate={this.togglePost}
+                    onDeactivate={this.togglePost}
+                >
                     <Icon name={i.navbarNewThread}/>
                 </CButton>,
                 <CButton key="update">
@@ -291,6 +351,12 @@ export class Thread extends Component {
                 </CButton>
             ]}
         />
+    }
+
+    togglePost() {
+        return emitPostToggle({
+            context: "thread"
+        })
     }
 
     renderWatchController() {
@@ -418,6 +484,10 @@ export class Thread extends Component {
 
     updateScroller(args) {
         this._threadWrap && $(this._threadWrap).nanoScroller(args);
+    }
+
+    animateWrapper(styles, options) {
+        this._threadWrap && $(this._threadWrap).velocity(styles, options);
     }
 
     animateThread(styles, options) {

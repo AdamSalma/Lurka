@@ -34,6 +34,10 @@ export const onThreadClose = function () {
     on(types.THREAD_CLOSE).apply(null, arguments);
 }
 
+export const onThreadMove = function () {
+    on(types.THREAD_MOVE).apply(null, arguments);
+}
+
 export const onSubHeaderToggle = function () {
     on(types.SUB_HEADER_TOGGLE).apply(null, arguments);
 }
@@ -64,4 +68,8 @@ export const onHeaderPanelOpen = function () {
 
 export const onHeaderPanelClose = function () {
     on(types.CLOSE_HEADER_PANEL).apply(null, arguments);
+}
+
+export const onPostToggle = function () {
+    on(types.POST_TOGGLE).apply(null, arguments);
 }

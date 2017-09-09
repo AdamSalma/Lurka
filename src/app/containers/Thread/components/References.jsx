@@ -7,9 +7,7 @@ const References = ({ refs }) => {
     return refs && refs.length ? <div className='references'>
         <Line/>
         <span className="reference-header">
-            <span className="reply-count">({refs.length}) </span>
-            <Icon name={i.threadPostReferences}/>
-            quoted by:
+            Replies ({refs.length})
         </span>
         {refs.map( ref =>
             <span key={ref} className="quote">
