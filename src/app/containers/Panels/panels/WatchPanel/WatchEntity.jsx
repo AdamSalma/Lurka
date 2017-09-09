@@ -1,3 +1,14 @@
+import React from 'react';
+import cx from 'classnames';
+
+import {
+    TimeAgoShort,
+    Icon
+} from '~/components'
+import utils from '~/utils'
+
+const i = window.appSettings.icons
+
 const WatchEntity = props => {
     const {
         updateInterval, onUpdate, onUnwatch, onClick,
@@ -8,7 +19,8 @@ const WatchEntity = props => {
             newPosts=0,
             postsCount,
             op
-        }
+        },
+        entity: {id}
     } = props;
 
     const postClasses = cx("new-posts", {
@@ -26,17 +38,15 @@ const WatchEntity = props => {
                     <img src={op.media.thumbnail} />
                 </div>
                 <div className="watch-post">
-                    <span
-                        className="text"
-                        dangerouslySetInnerHTML={{
-                            __html: op.title ? op.title : op.comment
-                        }}
+                    <span className="text"
+                        {...utils.react.setHTML(op.title ? op.title : op.comment)}
                     />
 
                     {/* Watch Stats */}
                     { isFetching ?
                         <div className="watch-stats"><div className="updating">Updating</div></div>
                         : (<div className="watch-stats">
+                            {id}
                             <div className={postClasses}>
                                 {postText}
                             </div>
@@ -44,7 +54,7 @@ const WatchEntity = props => {
                                 Total: {postsCount}
                             </div>
                             <div className="timeago">
-                                <TimeAgo time={lastReplyAt} canToggle={false}/>
+                                <TimeAgoShort time={lastReplyAt}/>
                             </div>
                         </div>)
                     }
@@ -61,13 +71,8 @@ const WatchEntity = props => {
                 </div>
             </div>
 
-            <Timer
-                displayCounter={false}
-                seconds={updateInterval}
-                autoreset={true}
-                active={!didInvalidate}
-                onTimerEnd={onUpdate}
-            />
         </div>
     )
 }
+
+export default WatchEntity

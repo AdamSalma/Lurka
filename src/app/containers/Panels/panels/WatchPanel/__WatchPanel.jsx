@@ -20,6 +20,10 @@ export default class WatchPanel extends PureComponent {
             'show-description': !threads && !threads.length,
         })
 
+        console.error(watch)
+        console.error(watch)
+        console.error(watch)
+        console.error(watch)
         return <Panel isActive={isActive} className={watchClass} isDrawerOpen={isDrawerOpen}>
             <div className="watch-title"><h4>Watch List</h4></div>
             <div className="description">

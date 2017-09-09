@@ -12,6 +12,7 @@ import {
     Line,
     Scrollable
 } from '~/components'
+import {emitThreadClose} from '~/events';
 
 const i = window.appSettings.icons
 
@@ -34,7 +35,7 @@ export class WatchPanel extends Component {
 
         return (
             <div>
-            <SlideTransition effect="from top" ref={this.setTransitionerRef} className={watchClass}>
+            <SlideTransition effect="from right" ref={this.setTransitionerRef} className={watchClass}>
                 <div className="watch-title"><h3>Thread Watcher</h3></div>
                 <div className="description">
                     Get notified when a thread updates! (and when you are replied to)
@@ -81,20 +82,25 @@ export class WatchPanel extends Component {
         />
     }
 
-    handleUpdate (thread, event) {
+    handleUpdate (entity) {
         console.log("handleUpdate");
-        this.props.updateMonitoredThread(thread)
+        this.props.updateMonitoredThread(entity)
     }
 
-    handleUnwatch (threadID, event) {
+    handleUnwatch (entityId) {
         console.log("handleUnwatch");
-        this.props.unmonitorThread(threadID)
+        this.props.unmonitorThread(entityId)
     }
 
-    handleClick ({boardID, threadID}) {
-        console.log('Fetching thread');
-        const {fetchThread, closeThread, status} = this.props
-        closeThread(() => fetchThread(boardID, threadID))
+    handleClick (entity) {
+        const id = entity.id.split('/');
+        const boardID = id[0];
+        const threadID = id[1];
+
+        console.warn(boardID, threadID);
+
+        console.log('Fetching watchpanel thread. Board:', boardID, "Thread:", threadID);
+        emitThreadClose(() => this.props.fetchThread({boardID, threadID, noCache: true}))
     }
 }
 

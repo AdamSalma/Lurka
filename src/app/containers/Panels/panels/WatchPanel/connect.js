@@ -16,7 +16,6 @@ import {
 } from '~/redux/selectors';
 
 function mapStateToProps(state) {
-    console.error("WatchPanel.mapStateToProps")
     return {
         boardID: getBoardID(state),
         threadID: getThreadID(state),
