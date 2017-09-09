@@ -1,10 +1,11 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import './styles'
 
 import DashboardView   from './DashboardView';
 import ContentView from './ContentView';
 import CinemaView from './CinemaView';
 import PanelsView from './PanelsView';
+import PostView from './PostView';
 
 const Views = ({ id }) => {
     return (
@@ -13,14 +14,11 @@ const Views = ({ id }) => {
             <ContentView />
             <CinemaView />
             <PanelsView />
+            <PostView />
         </div>
     );
 };
 
 Views.displayName = 'Views';
-
-Views.propTypes = {
-    id: PropTypes.string,
-};
 
 export default Views;

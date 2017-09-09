@@ -12,10 +12,6 @@ import {
 
 import { onContentViewToggle } from '~/events/subscribers';
 
-import {
-    bindMembersToClass
-} from '~/utils/react';
-
 const {
     headerHeight
 } = window.appSettings
@@ -34,8 +30,6 @@ class ContentView extends Component {
             hideEasing:   [0.23, 1, 0.32, 1],
             showEasing:   [0.23, 1, 0.32, 1]
         }
-
-        bindMembersToClass(this, 'toggleViewState');
     }
 
     @onContentViewToggle
@@ -66,7 +60,7 @@ class ContentView extends Component {
         });
     }
 
-    toggleViewState() {
+    toggleViewState = () => {
         this.setState({
             inView: !this.state.inView
         })

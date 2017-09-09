@@ -7,6 +7,7 @@ import './styles';
 import * as config from './config'
 import CinemaInterface from './CinemaInterface'
 import {CurrentMedia as Media} from './components'
+import {Overlay} from '~/components'
 
 class Cinema extends Component {
 
@@ -31,16 +32,16 @@ class Cinema extends Component {
 
         console.warn("Cinema RENDER")
 
-        const { timeline, cycleCinemaTimeline, toggleCinema } = this.props;
+        const { timeline, cycleCinemaTimeline } = this.props;
 
         return (
             <div className='Cinema'
                 onMouseMove={this.handleMouseMove}>
-
+                <Overlay onClick={this.closeCinema} />
                 <CinemaInterface
                     hidden={this.state.hideInterface}
                     timeline={timeline}
-                    closeCinema={() => toggleCinema(false)}
+                    closeCinema={this.closeCinema}
                     cycleTimeline={cycleCinemaTimeline}
                     >
                     {this.renderMedia(timeline)}
@@ -50,6 +51,8 @@ class Cinema extends Component {
     }
 
     renderMedia({ current }) {
+
+        console.log("Current media:", current)
         if (current){
             return <Media {...current}/>
         }
@@ -75,6 +78,10 @@ class Cinema extends Component {
                 })
             }
         }, config.interfaceFadeOutDelay)
+    }
+
+    closeCinema = () => {
+        this.props.toggleCinema(false)
     }
 }
 

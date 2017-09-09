@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import cx from 'classnames';
 import { Image } from '~/components';
 import './ExpandedImage.styles';
@@ -10,19 +10,18 @@ const ExpandedImage = ({ className, srcThumbnail, srcExpanded, ...restProps }) =
         backgroundImage: `url(${srcThumbnail})`
     }
 
+    console.error("ExpandedImage render")
+
     // Else is loading fullsize image
     return (
         <div className={cx('ExpandedImage', className)} {...restProps}>
             <div className="ExpandedImage__blurred-thumbnail" style={thumbnailStyles}/>
-            <Image className="ExpandedImage__expanded" src={srcExpanded}/>
+            <img className="ExpandedImage__expanded" src={srcExpanded}/>
         </div>
     );
 };
+            // <Image className="ExpandedImage__expanded" src={srcExpanded}/>
 
 ExpandedImage.displayName = 'ExpandedImage';
-
-ExpandedImage.propTypes = {
-    className: PropTypes.string,
-};
 
 export default ExpandedImage;

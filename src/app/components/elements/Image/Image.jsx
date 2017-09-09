@@ -1,8 +1,8 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import classes from 'classnames'
 
 
-class Image extends PureComponent {
+class Image extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,10 +12,6 @@ class Image extends PureComponent {
         // Filter props and assign to image specific props
         let { hideUntilLoaded, loader, ...imageProps } = props;
         this.imageProps = Object.assign({}, imageProps)
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return nextProps.src === this.props.src
     }
 
     render() {
