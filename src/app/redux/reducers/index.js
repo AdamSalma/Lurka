@@ -6,16 +6,17 @@ import CinemaReducer from "./CinemaReducer";
 import CacheReducer from "./CacheReducer";
 import ThreadReducer from "./ThreadReducer";
 import WatcherReducer from "./WatcherReducer";
-import StatusReducer from "./StatusReducer";
+import PostReducer from "./PostReducer";
 import SettingsReducer from "./SettingsReducer";
+import StatusReducer from "./StatusReducer";
 
-// TODO: Add PostReducer
 const rootReducer = combineReducers({
     boardList: BoardlistReducer,
     board: BoardReducer,
     cinema: CinemaReducer,
     thread: ThreadReducer,
     cache: CacheReducer,
+    post: PostReducer,
     status: StatusReducer,
     settings: SettingsReducer,
     watcher: WatcherReducer,

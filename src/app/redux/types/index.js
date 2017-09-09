@@ -94,6 +94,12 @@ export const CINEMA_TIMELINE_UPDATED = "CINEMA_TIMELINE_UPDATED"
 export const CINEMA_TIMELINE_CYCLED = "CINEMA_TIMELINE_CYCLED"
 export const CINEMA_TIMELINE_CLEARED = "CINEMA_TIMELINE_CLEARED"
 
+
+/* Post */
+export const POST_OPENED = "POST_OPENED"
+export const POST_CLOSED = "POST_CLOSED"
+
+
 // TODO: IDEA -- store pubsub variables in localstorage. pubsub state tree
 // TODO: IDEA -- preloader start page is LURKA in caps, big font size. underneath to the right is "loading..."
 // TODO: IDEA -- url for electron and webpack: make iffe in src/config.js
