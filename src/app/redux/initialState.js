@@ -75,12 +75,15 @@ export default {
     },
 
     post: {
+        isOpen: false,
+        position: null,  // center/left (depending on viewport + context)
+        context: null,  // board/thread
         isAuthenticated: false,
-        type: null,  // thread/comment
-        references: [],
-        message: null,  // user input
-        upload: null
-        // canReply
+        entities: {
+            references: [],
+            message: null,  // user input
+            upload: null
+        }
     },
 
     cinema: {
@@ -115,7 +118,7 @@ export default {
         threadUpdateInterval: 5,
         autoMute: false,
 
-        // Details for non-internal settings. Used for providing desciptions etc to user.
+        // Details for non-internal settings. Used for providing descriptions etc to user.
         details: settingDetails
     }
 }
