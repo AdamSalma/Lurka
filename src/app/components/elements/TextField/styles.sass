@@ -1,0 +1,69 @@
+@import '~sass/partials'
+
+.TextField
+    position: relative
+    margin-bottom: 1.5em
+    font-size: 1em
+
+    input
+        font-size: inherit
+        width: inherit
+        padding: 10px 10px 10px 5px
+        display: block
+        border: none
+        border-bottom: 1px solid #757575
+        outline: none !important
+
+        &::-webkit-input-placeholder
+            opacity: 0
+            padding-left: 3px
+
+        &:focus::-webkit-input-placeholder
+            opacity: 0.3
+
+    .bar
+        position: relative
+        display: block
+
+        &::after
+            content: ''
+            height: 2px
+            width: 0
+            bottom: 0px
+            position: absolute
+            background: inherit
+            transition: 0.2s ease all
+            margin: 0 auto
+            left: 0
+            right: 0
+
+    label
+        color: #999
+        font-size: 1em
+        font-weight: normal
+        position: absolute
+        pointer-events: none
+        left: 3px
+        top: .6em
+        transition: 0.2s ease all
+
+        // .placeholder
+        //     font-size: .8em
+        //     font-variant: small-caps
+        //     display: inline-block
+        //     vertical-align: middle
+        //     margin-left: 4px
+
+        //     &::before
+        //         content: "("
+        //     &::after
+        //         content: ")"
+
+
+    &.is-active
+        .bar::after
+            width: 100%
+
+        label
+            top: -1em
+            font-size: .8em

@@ -36,7 +36,6 @@ class Searchbar extends PureComponent {
     }
 
     focus = () => {
-        console.log(this._searchbar)
         this._searchbar && this._searchbar.focus()
     }
 
