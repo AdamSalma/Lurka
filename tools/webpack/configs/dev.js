@@ -1,13 +1,13 @@
-const webpack = require('webpack');
+import webpack from 'webpack';
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
-const ConsoleClearPlugin = require('../ConsoleClearPlugin');
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import WebpackBuildNotifierPlugin from 'webpack-build-notifier';
+import ConsoleClearPlugin from '../ConsoleClearPlugin';
 
-const config  = require('config');
-const loaders = require('../loaders');
-const aliases = require('../aliases');
-const vendors = require('../vendors');
+import config  from 'config';
+import loaders from '../loaders';
+import aliases from '../aliases';
+import vendors from '../vendors';
 
 
 module.exports = {

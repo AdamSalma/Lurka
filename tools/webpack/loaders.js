@@ -1,4 +1,4 @@
-module.exports = createLoaders((loaders) => [
+module.exports = injectLoaders((loaders) => [
     {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -14,7 +14,7 @@ module.exports = createLoaders((loaders) => [
         use: loaders.css
     },
     {
-        test: /.(png|gif|woff(2)?|eot|ttf|svg|otf)(\?[a-z0-9=\.]+)?$/,
+        test: /\.(png|gif|woff(2)?|eot|ttf|svg|otf)(\?[a-z0-9=\.]+)?$/,
         use: loaders.url
     },
     {
@@ -27,7 +27,9 @@ module.exports = createLoaders((loaders) => [
     }
 ])
 
-function createLoaders(callback) {
+// Creates the loader configurations then injects them into a callback to
+// create the loader array used by webpack
+function injectLoaders(createLoaders) {
     const cssLoader = {
         loader: 'css-loader',
         options: {
@@ -67,6 +69,7 @@ function createLoaders(callback) {
         options: { cacheDirectory: true }
     }
 
+    // These rules define how
     const loaders = {
         sass: [styleLoader, cssLoader, postcssLoader, sassLoader],
         css: [styleLoader, cssLoader, postcssLoader],
@@ -75,5 +78,5 @@ function createLoaders(callback) {
         ignore: ['ignore-loader']
     }
 
-    return callback(loaders);
+    return createLoaders(loaders);
 }

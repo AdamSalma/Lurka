@@ -1,23 +1,23 @@
-const webpack = require('webpack');
+import webpack from 'webpack';
 
-const config  = require('config');
-const loaders = require('../loaders');
-const aliases = require('../aliases');
-const vendors = require('../vendors');
+import paths from 'config/paths';
+import loaders from '../loaders';
+import aliases from '../aliases';
+import vendors from '../vendors';
 
 
 module.exports = {
     target: 'electron-main',
-    entry: config.paths.electron_entry,
+    entry: paths.electron_entry,
     output: {
-        path: config.paths.build,
+        path: paths.build,
         filename: 'electron.bundle.js',
     },
     devtool: 'eval',
     resolve: {
         extensions: ['.js', '.jsx', '.css', '.scss', '.sass', '.json'], // .json for babel package.json
         alias: aliases,
-        modules: ['node_modules', config.paths.app_modules]
+        modules: ['node_modules', paths.app_modules]
     },
     module: { loaders },
     plugins: [
@@ -38,7 +38,7 @@ module.exports = {
         //       screw_ie8: true
         //     }
         // }),
-        new webpack.NoEmitOnErrorsPlugin(),
+        // new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': JSON.stringify('production')

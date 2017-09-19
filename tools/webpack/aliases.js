@@ -5,21 +5,32 @@
  * The aliases in .babelrc are relative so they are converted to absolute.
  */
 
-var readBabelrcUp = require('read-babelrc-up');
-var config = require('config');
-var path = require('path')
-var aliases = {}
+import readBabelrcUp from 'read-babelrc-up';
+import paths from 'config/paths';
+import path from 'path';
 
-readBabelrcUp()
-    .then(result => result.babel.plugins)
-    .then(parsePlugins)
-    .then(mapAliases)
-    .catch( err => {
-        throw err
-    })
+var webpackAliases = {}
 
-function parsePlugins(plugins) {
-    var toString = Object.prototype.toString;
+// Some modules cause Webpack to output warnings when building.
+// This hides the errors by aliasing each module.
+const WARNING_PLUGIN_ALIASES = [
+    // 'babel-register',
+    // 'babel-core'
+];
+
+const babelrc = readBabelrcUp.sync();
+const babelrcAliases = parseBabelrc(babelrc);
+
+mapAliases(babelrcAliases, webpackAliases);
+
+fixModuleWarnings(WARNING_PLUGIN_ALIASES);
+
+export default webpackAliases;
+
+
+function parseBabelrc(babelrc) {
+    const toString = Object.prototype.toString;
+    const {plugins} = babelrc.babel;
 
     for (var i = 0; i < plugins.length; i++) {
         // Check if plugin is array
@@ -33,12 +44,16 @@ function parsePlugins(plugins) {
     }
 }
 
-function mapAliases(aliasObj) {
-    for (var key in aliasObj) {
-        if (aliasObj.hasOwnProperty(key)) {
-            aliases[key] = path.join(config.paths.root, aliasObj[key]);
+function mapAliases(source, target) {
+    for (var key in source) {
+        if (source.hasOwnProperty(key)) {
+            target[key] = path.join(paths.root, source[key]);
         }
     }
 }
 
-module.exports = module.exports.default = aliases
+function fixModuleWarnings(packages) {
+    packages.forEach(module => {
+        webpackAliases[module] = path.join(paths.app_modules, module);
+    });
+}

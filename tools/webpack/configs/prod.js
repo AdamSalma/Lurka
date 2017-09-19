@@ -1,13 +1,14 @@
 const webpack = require('webpack');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
-const ConsoleClearPlugin = require('../ConsoleClearPlugin');
+import WebpackBuildNotifierPlugin from 'webpack-build-notifier';
+import ConsoleClearPlugin from '../ConsoleClearPlugin';
+import ManifestPlugin from 'webpack-manifest-plugin';
 
-const config  = require('config');
-const loaders = require('../loaders');
-const aliases = require('../aliases');
-const vendors = require('../vendors');
+import config from 'config';
+import loaders from '../loaders';
+import aliases from '../aliases';
+import vendors from '../vendors';
 
 
 module.exports = {
@@ -52,8 +53,34 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             template: config.paths.app_html,
-            inject: false
+            inject: false,
+            chunksSortMode: "dependency",
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeRedundantAttributes: true,
+                useShortDoctype: true,
+                removeEmptyAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                keepClosingSlash: true,
+                minifyJS: true,
+                minifyCSS: true,
+                minifyURLs: true
+            }
         }),
-        new ConsoleClearPlugin() // custom plugin to clear the console before each bundle
-    ]
+        new ManifestPlugin({
+          fileName: 'asset-manifest.json',
+        }),
+        // Custom plugin to clear the console before each bundle
+        new ConsoleClearPlugin()
+    ],
+    // Some libraries import Node modules but don't use them in the browser.
+    // Tell Webpack to provide empty mocks for them so importing them works.
+    node: {
+        dgram: 'empty',
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty',
+        child_process: 'empty'
+    }
 };
