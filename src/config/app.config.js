@@ -9,6 +9,25 @@ if (typeof window === 'undefined') {
     global.window = {}  // For tests
 }
 
+window.Lurka = {};
+window.Lurka.defaultTheme = require('./theme');
+
+if (process.env.NODE_ENV !== "production") {
+    const dev = window.Lurka.development = {}
+    dev.performanceTest = (duration=5000) => {
+        const Perf = window.Perf = window.Perf || require('react-addons-perf');
+        Perf.start()
+        setTimeout(() => {
+            Perf.stop();
+            Perf.printDOM();
+            Perf.printWasted();
+        }, duration)
+    }
+
+    dev.$ = $
+
+}
+
 window.appSettings = {
     // The spacing between board posts
     boardOuterMargin: 30,
@@ -28,6 +47,8 @@ window.appSettings = {
     threadWidth: 850,
     settingsWidth: 320,
 
+    theme: require('./theme'),
+
     // Which side of the screen alerts pop up from
     alertPosition: "top left",
 
@@ -43,3 +64,6 @@ window.appSettings = {
     // Backoff
     apiBackoff: [10, 15, 20, 30, 60, 90, 120, 180, 240, 300]
 }
+
+
+export default window.appSettings;
