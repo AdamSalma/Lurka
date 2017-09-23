@@ -9,7 +9,8 @@ import Api from 'config/api.4chan';
 import {
     SquareSpinner,
     TimeAgo,
-    Icon
+    Icon,
+    Scrollable
 } from '~/components';
 import {
     Overlay,
@@ -17,13 +18,13 @@ import {
     ControllerButton as CButton
 } from './components';
 import {
-    ThreadPost as Post,
-    ThreadControls as Controls
+    ThreadControls as Controls,
+    ThreadPosts
 } from './containers';
 
 
 /* Events */
-import ThreadEvents from './events/setup';
+import MediaRegistry from './events/MediaRegistry';
 import {
     onSettingsToggle,
     emitSubHeaderToggle,
@@ -48,114 +49,12 @@ import './styles'
 
 const { headerHeight, threadWidth, icons: i } = window.appSettings;
 
-class ThreadMediaRegistry {
-    constructor(context) {
-        this.expandedMedia = {}
-        this.thread = context
-        this.events = ThreadEvents(context)
-    }
-
-    getPostById( id ) {
-        return this.thread.querySelector('#p' + id)
-    }
-
-    isExpanded = ( id ) => this.expandedMedia[id] || false
-
-    addWebmScrollListener( post, callback ) {
-        const video = post.querySelector('video')
-        const onScroll = utils.throttle.throttleByCount(7,
-            () => {
-                console.log("webmScrollHandler", video.getBoundingClientRect())
-                if (!utils.dom.isElementPartiallyInViewport(video)) {
-                    console.log("Pausing thread")
-                    video.pause();
-                    this.thread.removeEventListener("scroll", onScroll, false);
-                }
-            }
-        )
-
-        this.thread.addEventListener("scroll", onScroll, false)
-        console.log("Added webm scroll event listener");
-    }
-
-    /**
-     * Scroll media into view if necessary and setup Webm pausing when user
-     * scrolls webm out of viewport for increased performance
-     */
-    onMediaToggle = ({ media, id }) => {
-        console.log(arguments)
-        console.groupCollapsed('%cMediaToggled', 'color: skyblue; background: #212121');
-        let shouldScroll = true;
-        const isExpanded = this.isExpanded(id);
-        const post = this.getPostById(id);
-        // Initialise options with default values (assumes closing):
-        const scrollOpts = {
-            highlightPost: scrollConfig.highlightPost,
-            offset: scrollConfig.postOffset,
-            scrollDuration: scrollConfig.closeDuration,
-        }
-
-        console.log(`Media is ${isExpanded ? 'closing' : 'opening'}. (id: ${id})`);
-        console.log("Expanded media by post:", this.expandedMediaByPostId);
-
-        if (isExpanded) {
-            const { top } = post.getBoundingClientRect();
-
-            console.log("Media top", top);
-            console.log("Is media below header?", top > 14);
-
-            if (top > scrollConfig.headerOffset) {
-                // dont scroll down if the user has scrolled back up
-                console.log("Media below header: not scrolling");
-                shouldScroll = false
-            }
-
-        } else {
-            // Prepare to oepn media
-            const threadHeight = window.innerHeight - headerHeight
-            let renderHeight = media.width > threadWidth
-                ? media.height * (threadWidth / media.width)
-                : media.height;
-
-            console.log("Render height:", renderHeight);
-            console.log("Original height:", media.height);
-            console.log("Thread height:", threadHeight);
-
-            let isLargeImage = renderHeight > threadHeight;
-
-            scrollOpts.ease = scrollConfig.openEase
-            scrollOpts.scrollDuration = scrollConfig.openDuration
-            scrollOpts.offset = isLargeImage
-                ? scrollConfig.imageOffset
-                : scrollConfig.postOffset;
-
-            if (media.filetype === ".webm") {
-                console.info("Setting up webm scroll event");
-                this.addWebmScrollListener(post);
-            }
-        }
-
-        if (shouldScroll) {
-            console.log("Scrolling to post using opts:", scrollOpts);
-            this.events.scrollToPost($(post), scrollOpts);
-        }
-
-        else {
-            console.log("Media scroll rejected");
-        }
-
-        // Toggle media state
-        this.expandedMedia[id] = !isExpanded;
-
-        console.groupEnd();
-    }
-}
-
 export class Thread extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
+        // Prefer viewState over state to avoid re-rendering.
+        this.viewState = {
             isDrawerOpen: props.isDrawerOpen || false,
             isOpen: props.isThreadOpen || false,
             isOpening: false,
@@ -173,8 +72,6 @@ export class Thread extends Component {
             this.handleScroll
         );
 
-        this.expandedMediaByPostId = {}
-
         // For toggling thread/post when clicking on overlay
         this.isPostOpen = false
     }
@@ -183,7 +80,7 @@ export class Thread extends Component {
     onThreadOpen(callback) {
         console.log("Event: onThreadOpen");
         // Ignore if already open or opening
-        if (!this.state.isOpen && !this.state.isOpening) {
+        if (!this.viewState.isOpen && !this.viewState.isOpening) {
             this.openThread(callback);
         } else {
             utils.types.isFunction(callback) && callback()
@@ -194,7 +91,7 @@ export class Thread extends Component {
     onThreadClose(callback) {
         console.log("Event: onThreadClose");
         // Ignore if already closed
-        if (this.state.isOpen) {
+        if (this.viewState.isOpen) {
             this.closeThread(callback);
         } else {
             utils.types.isFunction(callback) && callback()
@@ -247,7 +144,7 @@ export class Thread extends Component {
         this.updateScroller(this.scrollerOpts);
 
         // Handle media registry
-        this.mediaRegistery = new ThreadMediaRegistry(this._thread)
+        this.mediaRegistery = new MediaRegistry(this.scrollComponent._scroller, scrollConfig)
     }
 
     // shouldComponentUpdate({thread}, nextState) {
@@ -256,6 +153,7 @@ export class Thread extends Component {
     // }
 
     componentDidUpdate(prevProps, prevState) {
+        console.error(this.props.theme)
         if (this.props.isFetching && !prevProps.isFetching) {
             this._overlay.show();
         }
@@ -263,18 +161,18 @@ export class Thread extends Component {
 
     render() {
         const { isFetching, didInvalidate, posts, className } = this.props;
-        const { isOpen, isOpening, isClosing, isDrawerOpen } = this.state;
+        const { isOpen, isOpening, isClosing, isDrawerOpen } = this.viewState;
 
         console.info(`Thread updated: isOpen: ${isOpen}, isOpening: ${isOpening}, isClosing: ${isClosing}`);
-        const threadWrapClasses = cx('wrapper', 'nano', {
+        const threadContainerClasses = cx('wrapper', 'nano', {
             "center-left": isDrawerOpen,
             "make-visible": isOpening || isOpen && !isClosing,
             // "fadein-boxshadow": isOpen && !isClosing && !isOpening
         });
 
         if (didInvalidate) {
-            // TODO: Expand on this. Keep overlay, add error message, closes
-            // thread after 3s timeout
+            // TODO: Expand on this. Keep overlay, add error message, close
+            // thread after 5s timeout
             return null
         }
 
@@ -288,16 +186,32 @@ export class Thread extends Component {
                     />
                 </Overlay>
 
-                <div ref={ref => this._threadWrap = ref} className={threadWrapClasses}>
+                <Scrollable
+                    className="content"
+                    containerProps={{className:threadContainerClasses}}
+                    ref={ref => this.scrollComponent = ref}
+                    onClick={this.closeThread}
+                >
+                    {this.renderHeader(posts)}
+                    <ThreadPosts posts={posts}
+                        quickRender={isOpening || !isOpen && !isClosing}
+                        mediaRegistery={this.mediaRegistery}
+                        ref={ref => this._postsRef = ref}
+                    />
+                    {/*this.renderPosts(posts)*/}
+                </Scrollable>
+
+                {/*<div ref={ref => this._threadWrap = ref} className={threadContainerClasses}>
                     <div
                       className='content nano-content'
                       ref={ref => this._thread = ref}
                       onClick={this.closeThread}
-                      onScroll={undefined/*this.onScroll*/}>
+                      onScroll={undefined /*this.onScroll}>
                         {this.renderHeader(posts)}
                         {this.renderPosts(posts)}
                     </div>
-                </div>
+                </div>*/}
+
                 {this.renderControls()}
             </div>
         )
@@ -318,16 +232,17 @@ export class Thread extends Component {
 
     renderHeader(posts) {
         if (posts && posts.length && posts[0]) {
-            posts.length
-            return <ThreadHeader
-                      OP={posts[0]}
-                      lastUpdated={posts[posts.length-1].time}
-                    />
+            return (
+                <ThreadHeader
+                  OP={posts[0]}
+                  lastUpdated={posts[posts.length-1].time}
+                />
+            );
         }
     }
 
     renderControls() {
-        return <Controls startVisible={this.state.isOpen}
+        return <Controls startVisible={this.viewState.isOpen}
             ref={ref => this._controls = ref}
             leftSide={[
                 <CButton key="cinema"
@@ -387,7 +302,7 @@ export class Thread extends Component {
             return null
         }
 
-        const {isOpen, isClosing} = this.state;
+        const {isOpen, isClosing} = this.viewState;
         const quickRender = !isOpen && !isClosing
         const _posts = []
         var post;
@@ -418,8 +333,8 @@ export class Thread extends Component {
         // Must have separate invocations
         this.updateScroller({ scroll: "top" });
         this.updateScroller({ stop: true });
+        this.setViewState({ isOpening: true })
 
-        this.setState({ isOpening: true });
         // emitSubHeaderToggle(true, {
             // delay: 200
         // });
@@ -435,10 +350,17 @@ export class Thread extends Component {
         logger.method('threadDidOpen');
         this.updateScroller({ scroll: "top", stop: false });
         this._controls.show();
-        this.setState({
+        this.setViewState({
             isOpen: true,
             isOpening: false
-        }, this.updateScroller);
+        });
+        this.updateScroller({ scroll: "top" })
+
+        // Render all posts - only ~ 8 posts are rendered initially for the
+        // animation slide in. This makes the rest of the posts be rendered too.
+        this.forceUpdate()
+        // this._postsRef.renderAllPosts()
+
         utils.types.isFunction(callback) && callback();
     }
 
@@ -463,7 +385,7 @@ export class Thread extends Component {
     threadDidClose = (callback, element) => {
         this.updateScroller({ scroll: "top" });
         logger.method("threadDidClose")
-        this.setState({ isOpen: false });
+        this.setViewState({ isOpen: false });
         this.isClosed = true;
         this.props.cacheCurrentThread();
         this.props.destroyThread();
@@ -483,15 +405,40 @@ export class Thread extends Component {
     }
 
     updateScroller(args) {
-        this._threadWrap && $(this._threadWrap).nanoScroller(args);
+        this.scrollComponent && this.scrollComponent.updateScroller(args);
+    }
+
+    setViewState(nextViewState) {
+        this.viewState = Object.assign({}, this.viewState, nextViewState);
+        this.updateViewFromState()
+    }
+
+    updateViewFromState(){
+        if (!this.scrollComponent || !this.scrollComponent._container)
+            return;
+
+        const view = this.scrollComponent._container;
+        const {isOpen, isOpening, isClosing, isClosed} = this.viewState;
+
+        console.warn(view);
+        console.warn(view);
+        console.warn(view);
+
+        if (isOpening || isOpen && !isClosing) {
+            view.classList.add('make-visible');
+        } else {
+            view.classList.remove('make-visible');
+        }
     }
 
     animateWrapper(styles, options) {
-        this._threadWrap && $(this._threadWrap).velocity(styles, options);
+        this.scrollComponent && this.scrollComponent._container &&
+            $(this.scrollComponent._container).velocity(styles, options);
     }
 
     animateThread(styles, options) {
-        this._thread && $(this._thread).velocity(styles, options);
+        this.scrollComponent && this.scrollComponent._scroller &&
+            $(this.scrollComponent._scroller).velocity(styles, options);
     }
 }
 
