@@ -10,8 +10,6 @@ const ExpandedImage = ({ className, srcThumbnail, srcExpanded, ...restProps }) =
         backgroundImage: `url(${srcThumbnail})`
     }
 
-    console.error("ExpandedImage render")
-
     // Else is loading fullsize image
     return (
         <div className={cx('ExpandedImage', className)} {...restProps}>

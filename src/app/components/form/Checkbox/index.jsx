@@ -1,5 +1,5 @@
-import './Checkbox.styles'
 import React from 'react';
+import './styles'
 
 export default ({onChange, isChecked}) => {
     const uid = "p"+Date.now()

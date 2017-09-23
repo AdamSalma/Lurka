@@ -3,7 +3,7 @@ import './TimeAgo.styles'
 import React, { PureComponent, PropTypes } from 'react';
 import moment from 'moment'
 
-import Tooltip from '../Tooltip'
+import {Tooltip} from '~/components'
 
 export default class TimeAgo extends PureComponent {
     constructor(props) {

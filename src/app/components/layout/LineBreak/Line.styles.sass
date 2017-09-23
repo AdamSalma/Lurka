@@ -1,10 +1,12 @@
 @import '~sass/partials'
 
+$color: var(--divider)
+
 .Line
     display: block
     height: 1px
     border: 0
-    background-color: theme(dark, divider)
+    background-color: $color
     margin: 0.8em 0 0.2em
     padding: 0
     position: relative
@@ -17,7 +19,7 @@
         width: 60px
         left: -60px
         background-size: 100%
-        background-image: linear-gradient(to left,theme(dark, divider),rgba(255,255,255,0))
+        background-image: linear-gradient(to left, $color, rgba(255,255,255,0))
 
     &::after
         content: ""
@@ -27,4 +29,4 @@
         width: 60px
         right: -60px
         background-size: 100%
-        background-image: linear-gradient(to right,theme(dark, divider),rgba(255,255,255,0))
+        background-image: linear-gradient(to right, $color, rgba(255,255,255,0))

@@ -16,7 +16,7 @@ $iconcircle-circlesize: 1.8em
         +size(inherit)
         display: table-cell
         vertical-align: middle
-        color: theme(dark, text-secondary)
+        color: var(--textSecondary)
         text-align: center
         transition: all .2s
         z-index: 1
@@ -36,16 +36,16 @@ $iconcircle-circlesize: 1.8em
         .Circle
             background: grey(7)
             transform: scale(1.25)
-            border-color: theme(dark, primary)
+            border-color: var(--primary)
 
         .Icon
             transform: scale(1.2)
-            color: theme(dark, text-primary)
+            color: var(--textPrimary)
 
     &.selected
         .Circle
-            border-color: theme(dark, primary)
-            background-color: theme(dark, primary)
+            border-color: var(--primary)
+            background-color: var(--primary)
 
         .Icon
-            color: theme(dark, text-primary)
+            color: var(--textPrimary)
