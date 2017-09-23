@@ -1,9 +1,10 @@
 import config from 'config';
 import configureStore from './configure';
-import { loadState, saveState, loadCache } from './localStorage';
+import { loadState, saveState, loadCache } from '~/utils/localStorage';
 import { invokeAfterUninterruptedDelay } from '~/utils/throttle';
 
 const state = config.env.production ? loadState() : undefined;
+// const state = loadState();
 const store = configureStore(state);
 const onDispatch = () => saveState(store.getState());
 const throttle = invokeAfterUninterruptedDelay(250, onDispatch);

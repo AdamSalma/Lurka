@@ -8,6 +8,7 @@
 
 import * as conversions from './conversions'
 import * as dom from './dom'
+import * as localStorage from './localStorage'
 import * as react from './react'
 import * as redux from './redux'
 import * as throttle from './throttle'
@@ -16,7 +17,7 @@ import * as types from './types'
 
 
 export default {
-    conversions, dom, react, redux, throttle, time, types
+    conversions, dom, react, redux, throttle, time, types, localStorage
 }
 
 
