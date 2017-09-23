@@ -21,7 +21,7 @@ module.exports = {
     navbarDownloads:'download-2',
     navbarSort:     "sort-az",
     navbarFilter:   "filter-full",
-    navbarChevron: 'chevron-down',
+    navbarChevron:  'chevron-down-1',
 
     // subNavbarClose: 'chevron-up',
 
@@ -82,6 +82,9 @@ module.exports = {
 
     cinemaPreviousMedia: "chevron-left",
     cinemaNextMedia: "chevron-right",
-    cinemaClose: "times"
+    cinemaClose: "times",
+
+    postSubmit: "paper-plane",
+    postClose: "times"
 
 }
