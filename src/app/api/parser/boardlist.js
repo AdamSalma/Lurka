@@ -1,3 +1,46 @@
+
+/**
+ * Hardcoded board categories - 4chan's API doesn't provide it.
+ * Could be obtained by web scraping their front page but is not efficient
+ *
+ * @type {Object}
+ */
+export const categories = [{
+    category: "Japanese Culture",
+    boards: ['a', 'c', 'w', 'm', 'cgl', 'cm', 'n', 'jp']
+}, {
+    category: "Video Games",
+    boards: ['v', 'vg', 'vp', 'vr']
+}, {
+    category: "Intrests",
+    boards: ['co', 'g', 'tv', 'k', 'o', 'an', 'tg', 'sp', 'asp', 'sci', 'his', 'int', 'out', 'toy']
+}, {
+    category: "Creative",
+    boards: ['i', 'po', 'p', 'ck', 'ic', 'wg', 'lit', 'mu', 'fa', '3', 'gd', 'diy', 'wsg', 'qst']
+}, {
+    category: "Other",
+    boards: ['biz', 'trv', 'fit', 'x', 'adv', 'lgbt', 'news', 'wsr', 'vip']
+}, {
+    category: "Misc",
+    boards: ['b', 'r9k', 'pol', 'bant', 'soc', 's4s']
+}, {
+    category: "Adult",
+    boards: ['s', 'hc', 'hm', 'h', 'e', 'u', 'd', 'y', 't', 'hr', 'gif', 'aco', 'r']
+}]
+
+export const getBoardCategory = (boardID) => {
+    for (var i = 0; i < categories.length; i++) {
+        if (categories[i].boards.indexOf(boardID) >= 0) {
+            console.warn("FOUND ITTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
+            return categories[i].category
+        }
+    }
+
+    // New boards will be added over time - these will get put into "New" until
+    // a patch is applied.
+    return "New"
+}
+
 /**
  * Standardises a 4chan boardlist into a global format.
  *
@@ -44,6 +87,7 @@ export default function parseBoardList( boardList ) {
             url,
             short_desc: `${url} - ${title}`,
             description: meta_description,
+            category: getBoardCategory(boardID),
             info: {
                 is_archived,
                 max_filesize,
