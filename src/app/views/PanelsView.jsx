@@ -13,6 +13,7 @@ import {
     onHeaderExpand,
     onHeaderShrink
 } from '~/events';
+
 import {isFunction} from '~/utils/types';
 
 export class PanelsView extends Component {
@@ -34,7 +35,7 @@ export class PanelsView extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (this.modalstate.isPreparingToOpen) {
             // Open on next tick - otherwise doesn't animate
-            setTimeout(this.openPanel, 1);
+            setTimeout(this.openPanel, 2);
         }
     }
 
@@ -55,6 +56,7 @@ export class PanelsView extends Component {
             <section className={classNames}>
                 {this.state.HeaderPanel && <this.state.HeaderPanel
                     ref={this.setHeaderPanelRef}
+                    closePanel={this.closePanel}
                 />}
             </section>
         );
@@ -104,17 +106,15 @@ export class PanelsView extends Component {
 
 
     openPanel = (callback) => {
-        console.log("openPanel()", this._panel)
-        console.log("openPanel()", this._panel.show)
         this._panel.show({
             callback: () => this.handlePanelOpen(callback)
         });
     }
 
-    closePanel(callback) {
+    closePanel = (callback) => {
         console.log("closePanel()")
         this._panel.hide({
-            callback: () => this.handlePanelClose(callback)
+            callback: () => this.onPanelHidden(callback)
         });
     }
 
@@ -125,9 +125,9 @@ export class PanelsView extends Component {
         isFunction(callback) && callback()
     }
 
-    handlePanelClose( callback ) {
+    onPanelHidden( callback ) {
         this.modalstate.isOpen = false;
-        this.unmountPanel( callback );
+        this.unmountHiddenPanel( callback );
     }
 
     getHeaderPanel(panelID) {
@@ -145,8 +145,12 @@ export class PanelsView extends Component {
         }
     }
 
-    unmountPanel(callback) {
-        this.setState({HeaderPanel: null}, callback)
+    unmountHiddenPanel(callback) {
+        if (isFunction(callback)) {
+            this.setState({ HeaderPanel: null }, callback)
+        } else {
+            this.setState({ HeaderPanel: null })
+        }
     }
 
     @onHeaderExpand
