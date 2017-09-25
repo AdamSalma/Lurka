@@ -110,7 +110,6 @@ export default {
         },
 
         // External settings the user can configure:
-        theme: 'dark',
         homeBoard: 'g',
         nsfw: false,
         downloadLocation: '~/Downloads/Lurka',

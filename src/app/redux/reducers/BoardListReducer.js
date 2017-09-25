@@ -1,6 +1,7 @@
 import * as types from '../types'
 import initialState from '../initialState';
 import { createReducer, mergeState } from '~/utils/redux';
+import merge from 'updeep';
 
 export default createReducer(initialState.boardList, {
     [types.BOARD_LIST_REQUESTED]: (state, action) =>
@@ -13,8 +14,9 @@ export default createReducer(initialState.boardList, {
             didInvalidate: true
         }),
 
-    [types.BOARD_LIST_LOADED]: (state, action) =>
-        mergeState(state, action.payload),
+    [types.BOARD_LIST_LOADED]: (state, action) => {
+        return merge(action.payload, state)
+    },
 
     [types.BOARD_LIST_ADD_FAVOURITE]: (state, action) =>
         mergeState(state, {
