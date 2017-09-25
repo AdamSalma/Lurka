@@ -53,7 +53,7 @@ export default class Scrollable extends PureComponent {
     render () {
         const {
             children, className, containerProps={},
-            onScroll, scrollOpts,
+            onScroll, scrollOpts, translate3d,
             ...restProps
         } = this.props;
 
@@ -65,7 +65,7 @@ export default class Scrollable extends PureComponent {
                 <div
                     className={scrollerClasses}
                     ref={el => this._scroller = el}
-                    style={{transform: "translate3d(0, 0, 0)"}  /*<- performance boost using hardware accelleration */}
+                    style={translate3d && {transform: "translate3d(0, 0, 0)"}  /*<- performance boost using hardware accelleration */}
                     {...restProps}>
                     {children}
                 </div>

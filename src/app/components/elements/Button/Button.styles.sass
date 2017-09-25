@@ -1,16 +1,30 @@
 @import '~sass/partials'
 
 .Button
+    +clickable
+    position: relative
+    display: inline-block
     padding: 6px 12px
-    border: none
+    border: 1px solid rgba(0, 0, 0, 0)
     outline: none
     border-radius: 2px
-    cursor: pointer
     color: var(--textPrimary)
-    background: grey(6)
+    background: var(--primary)
     margin: 6px
     font-family: font-for(Button)
     text-align: center
+    padding: .61538462em 1em
+    touch-action: manipulation
+    text-decoration: none
+    min-height: 2.46153846em
+    vertical-align: middle
+    box-sizing: border-box
+    background-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.2) 100%)
 
-    background-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.2) 100%);
-    transition: all .24s $bezier-fast
+    &.border-accent
+        border: 1px solid var(--primary)
+        background: inherit
+        transition: background .2s ease-out
+
+        &:hover
+            background: var(--primary)
