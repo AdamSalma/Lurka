@@ -1,4 +1,4 @@
-@import '~sass/partials'
+@import '~sass/utils'
 
 @mixin linear-gradient($direction: 0deg, $color-stops...)
     background: $color-stops
@@ -14,10 +14,26 @@ $shadow: lighten($background, 8%)
     // box-shadow: 0 0 0 $shadow
     box-shadow: 0 2px 2px 0 rgba(10,10,10,0.16), 0 0 0 1px rgba(10,10,10,0.08);
     transition: box-shadow .2s cubic-bezier(0.4, 0.0, 0.2, 1)
+    position: relative
+
+    &::before
+        content: ""
+        position: absolute
+        height: 2px
+        width: 0
+        background: $primary-highlight
+        transition: width .2s ease-out
+        margin: 0 auto
+        bottom: 0
+        right: 0
+        left: 0
 
     &.SearchBarWithIcons--is-focused, &:hover
         box-shadow: 0 3px 6px 0 rgba(10,10,10,0.2), 0 0 0 1px rgba(10,10,10,0.08);
         // background-color: grey(4)
         // box-shadow: 0 2px 2px $shadow
+
+    &.SearchBarWithIcons--is-focused::before
+        width: 100%
 
 
