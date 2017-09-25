@@ -47,7 +47,7 @@ import {
 
 import './styles'
 
-const { headerHeight, threadWidth, icons: i } = window.appSettings;
+const i = window.appSettings.icons;
 
 export class Thread extends Component {
     constructor(props) {
@@ -186,7 +186,7 @@ export class Thread extends Component {
                     />
                 </Overlay>
 
-                <Scrollable
+                <Scrollable translate3d
                     className="content"
                     containerProps={{className:threadContainerClasses}}
                     ref={ref => this.scrollComponent = ref}

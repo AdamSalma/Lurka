@@ -63,9 +63,3 @@ export class ThreadControls extends Component {
 }
 
 export default ThreadControls
-/*
-    TODO: when making reply box section: use this to send:
-    <Icon name="publish" />
-    OR
-    <Icon name="telegram" />
- */

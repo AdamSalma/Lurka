@@ -1,6 +1,8 @@
 import utils from '~/utils';
 import setupEvents from './setup';
 
+const { headerHeight, threadWidth } = window.appSettings;
+
 export default class mediaRegistry {
     constructor(context, config) {
         this.expandedMedia = {}
