@@ -1,6 +1,10 @@
 import './DynamicHeader.styles';
 import React, { PureComponent, PropTypes } from 'react';
 import cx from 'classnames';
+import {MdMenu, MdKeyboardArrowDown, MdFileDownload} from 'react-icons/lib/md';
+// import {GoArrowDown} from 'react-icons/lib/go';
+import {IoArrowDownA} from 'react-icons/lib/io';
+
 
 /* Header Specific components */
 import {
@@ -123,7 +127,7 @@ class DynamicHeader extends PureComponent {
                   <HeaderTitle onClick={this.onTitleClick} className="main-title">
                     {!!navbarTitle && <span className="title-normal">{navbarTitle}</span>}
                     {!!navbarTitle && <span className="title-small">/{boardID}/</span>}
-                    {!!navbarTitle && <Icon name={i.navbarChevron}/>}
+                    {!!navbarTitle && <MdKeyboardArrowDown color="#777"/>}
                   </HeaderTitle>
                   </SlideDownBG>
 
@@ -135,7 +139,7 @@ class DynamicHeader extends PureComponent {
 
                 </HeaderGroup>
                 <HeaderGroup className='right'>
-                    <SlideDownBG onClick={() => this.openPanel("watcher")}>
+                    <SlideDownBG onClick={this.toggleWatchPanel}>
                         <div className="vertical-icon" >
                             <Notification number={1}>
                               <Icon name={i.navbarEye}/>
@@ -144,21 +148,21 @@ class DynamicHeader extends PureComponent {
                         </div>
                     </SlideDownBG>
 
-                    <SlideDownBG onClick={() => this.openPanel("bookmarks")}>
+                    <SlideDownBG onClick={this.toggleBookmarkPanel}>
                         <div className="vertical-icon" >
                             <Icon name={i.navbarBookmark}/>
                             <span className="title">Bookmarks</span>
                         </div>
                     </SlideDownBG>
 
-                    <SlideDownBG onClick={() => this.openPanel("bookmarks")}>
+                    <SlideDownBG onClick={this.toggleDownloadsPanel}>
                         <div className="vertical-icon" >
-                            <Icon name={i.navbarDownloads}/>
+                            <IoArrowDownA/>
                             <span className="title">Downloads</span>
                         </div>
                     </SlideDownBG>
 
-                    <SlideDownBG onClick={() => this.openPanel("bookmarks")}>
+                    <SlideDownBG onClick={this.toggleSettingsPanel}>
                         <div className="vertical-icon" >
                             <Icon name={i.navbarSettings}/>
                             <span className="title">Settings</span>
@@ -216,9 +220,14 @@ class DynamicHeader extends PureComponent {
         this.setState({ isToggling: false })
     }
 
-    openPanel(panelID) {
+    togglePanel(panelID) {
         emitOpenHeaderPanel({panelID, closeIfOpen: true})
     }
+
+    toggleWatchPanel = () => this.togglePanel("watcher");
+    toggleBookmarkPanel = () => this.togglePanel("bookmarks");
+    toggleDownloadsPanel = () => this.togglePanel("downloads");
+    toggleSettingsPanel = () => this.togglePanel("settings");
 
     refreshBoard = () => {
         emitBoardReset(0); // duration=0

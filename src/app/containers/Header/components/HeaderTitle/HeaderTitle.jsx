@@ -2,10 +2,7 @@ import './HeaderTitle.styles';
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames'
 
-import { Tooltip, IconCircle } from '~/components';
-import { bindMembersToClass } from '~/utils/react'
-
-const i = window.appSettings.icons
+import { IconCircle } from '~/components';
 
 class HeaderTitle extends Component {
     constructor(props) {
@@ -13,7 +10,6 @@ class HeaderTitle extends Component {
         this.state = {
             hovering: false
         }
-        bindMembersToClass(this, 'handleMouseLeave', 'handleMouseEnter');
     }
 
     render () {
@@ -40,13 +36,13 @@ class HeaderTitle extends Component {
         )
     }
 
-    handleMouseEnter() {
+    handleMouseEnter = () => {
         this.setState({
             hovering: true
         });
     }
 
-    handleMouseLeave() {
+    handleMouseLeave = () => {
         this.setState({
             hovering: false
         });
