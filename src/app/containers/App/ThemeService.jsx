@@ -49,9 +49,8 @@ export class ThemeService  {
 
         // Keys will always be fixed
         Object.keys(defaultTheme).forEach( key => {
-            const variable = this.extractVariable(key)
-            // change `--variable` into `variable`
-            theme[key] = variable.substr(2);
+            const variable = this.extractVariable(`--${key}`);
+            theme[key] = variable;
         });
 
         return theme;
