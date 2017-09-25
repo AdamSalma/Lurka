@@ -1,17 +1,11 @@
-import {DragSource} from 'react-dnd'
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import cx from 'classnames';
 
 import './BoardSelection.styles';
 
 import {emitContentViewToggle, emitBoardReset, emitThreadClose} from '~/events/publishers';
-import {bindMembersToClass} from '~/utils/react';
 
 class BoardSelection extends Component {
-    static propTypes = {
-        className: PropTypes.string,
-    };
-
     render() {
         const { boardList, currentBoard } = this.props;
         console.log(boardList, currentBoard);

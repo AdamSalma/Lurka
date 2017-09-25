@@ -6,7 +6,7 @@ import Dashboard from '~/containers/Dashboard';
 const DashboardView = ({ className }) => {
     return (
         <section className={cx('View DashboardView', className)}>
-            <Dashboard />
+            {/*<Dashboard />*/}
         </section>
     );
 };

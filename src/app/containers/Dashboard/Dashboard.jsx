@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import cx from 'classnames';
 
 import {BoardList, BoardSelection} from './containers';
@@ -14,10 +14,6 @@ import {
 const i = window.appSettings.icons;
 
 class Dashboard extends Component {
-    static propTypes = {
-        className: PropTypes.string,
-    };
-
     constructor(props) {
         super(props);
     }
