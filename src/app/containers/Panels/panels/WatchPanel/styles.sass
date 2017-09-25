@@ -12,7 +12,7 @@ $watch-group-size: 32px
 $watch-right-gutter-width: 6px
 
 
-$watch-accent-color: theme(dark, primary, darkest)
+$watch-accent-color: var(--primaryDarkest)
 
 $_img_container_width: $watch-panel-width / 5
 
@@ -144,7 +144,7 @@ $_img_container_width: $watch-panel-width / 5
             line-height: $watch-text-height-2
             // padding: 5px 0
             font-size: 12px
-            color: theme(dark, text-secondary)
+            color: var(--textSecondary)
 
             > *
                 display: inline-block
@@ -165,7 +165,7 @@ $_img_container_width: $watch-panel-width / 5
             margin: 6px 6px 0
 
             &:hover
-                background: theme(dark, primary, dark)
+                background: var(--primaryDark)
                 &.watch-update
                     background: theme(dark, secondary, light)
 

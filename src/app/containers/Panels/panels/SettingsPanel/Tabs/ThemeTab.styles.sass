@@ -1,0 +1,47 @@
+@import '~sass/partials'
+
+.ThemeTab
+
+    .color-picker
+        position: absolute
+        z-index: 1
+
+    .variables
+        display: flex
+        flex-wrap: wrap
+        width: inherit
+        font-size: .9em
+        font-family: $font-main-light
+
+        .variable
+            +no-select
+            +clickable
+            position: relative
+            padding: .5em 1em
+            width: 33%
+            display: flex
+            align-items: center
+            overflow: hidden
+
+            &:hover
+                .color
+                    transform: scale(12) translateX(20%)
+
+                .name
+                    transform: translateX(-10px)
+
+        .name
+            transition: transform .2s ease-out
+            display: inline-block
+            margin-left: 2.618em
+            text-shadow: 1px 1px 2px black
+            pointer-events: none
+
+        .color
+            z-index: -1
+            transition: transform .2s ease-out
+            position: absolute
+            +circle(1.618em)
+            // border: 1px solid
+            box-shadow: 0 0 4px
+

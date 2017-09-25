@@ -34,7 +34,6 @@ export class WatchPanel extends Component {
         });
 
         return (
-            <div>
             <SlideTransition effect="from right" ref={this.setTransitionerRef} className={watchClass}>
                 <div className="watch-title"><h3>Thread Watcher</h3></div>
                 <div className="description">
@@ -44,7 +43,6 @@ export class WatchPanel extends Component {
                     {this.renderWatchEntityGroups(queue)}
                 </Scrollable>
             </SlideTransition>
-            </div>
         );
 
     }
