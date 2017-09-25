@@ -13,7 +13,7 @@ $logo-padding: 8px
 
     &::before
         +size(100%, 2px)
-        background-color: theme(dark, primary)
+        background-color: var(--primary)
         top: 0
         position: absolute
         left: 0
@@ -31,12 +31,12 @@ $logo-padding: 8px
         position: relative
         align-self: center
         line-height: 1
-        color: theme(dark, text-primary)
+        color: var(--textPrimary)
         // top: -$logo-padding / 2 - $logo-offset
         // margin-left: -2px
 
     .FullLogo__LogoVersion
-        color: theme(dark, text-disabled)
+        color: var(--textDisabled)
         display: block
         font-size: 14px
 
@@ -46,4 +46,4 @@ $logo-padding: 8px
         // font-style: uppercase
 
     &:hover .FullLogo__LogoText
-        color: theme(dark, layout)
+        color: var(--primary)

@@ -1,22 +1,21 @@
 @import '~sass/partials'
 
-$thread-post-control-width: 200px
-$quotelink-color: theme(dark, primary)
+$thread-post-control-width: 200px  // TODO: move to injected variables
+$quotelink-color: var(--primary)
+$post-color: var(--threadPostBackground)
+$highlight-color: var(--postHighlight)
 
 .ThreadPost
-    background-color: $thread-post-color
     display: block
-    width: $thread-width - 4px
-    text-align: left
-    padding: 2px 8px
     position: relative
+    width: $thread-width - 4px
+    padding: 2px 8px
+    text-align: left
+    background-color: $post-color
     transition: background .2s .1s ease-out
     border-bottom: grey(9) solid 4px
     border-left: grey(9) solid 5px
     overflow: hidden
-
-    @include breakpoint(to-tablet)
-        width: 100% !important
 
     &:before
         content: ""
@@ -24,16 +23,16 @@ $quotelink-color: theme(dark, primary)
         position: absolute
         +position(0, 0)
         +set-dims(2px, 100%)
-        background: theme(dark, $thread-post-color)
+        background: $post-color
 
     &.highlight
         position: relative
-        background: theme(dark, highlight)
+        background: $highlight-color
         transition: none !important
 
         &:before
             transition: none !important
-            background: theme(dark, primary)
+            background: var(--primary)
 
     &:last-child
         margin-bottom: $header-height
@@ -105,7 +104,7 @@ $quotelink-color: theme(dark, primary)
     .post-info
         +font-size($thread-post-info-size)
         padding: 5px 0
-        color: theme(dark, text-secondary)
+        color: var(--textSecondary)
         padding-left: 4px
 
         > *
@@ -113,13 +112,13 @@ $quotelink-color: theme(dark, primary)
             padding: 0 3px
 
         .title
-            color: theme(dark, text-primary) !important
+            color: var(--textPrimary) !important
             strong
                 margin-right: 5px
 
         .id
             font-family: font-for(ThreadPost__PostID)
-            color: theme(dark, text-primary)
+            color: var(--textPrimary)
 
         .name
             padding-left: 0px
@@ -183,7 +182,7 @@ $quotelink-color: theme(dark, primary)
             margin-right: 3px
 
     .deadlink
-        color: theme(dark, text-disabled)
+        color: var(--textDisabled)
         text-decoration: line-through
         font-family: font-for(ThreadPost__deadlink)
 
@@ -194,7 +193,7 @@ $quotelink-color: theme(dark, primary)
             vertical-align: bottom
             margin: auto 4px
             font-size: $font-size-xsmall
-            color: theme(dark, text-secondary)
+            color: var(--textSecondary)
             font-family: font-for(ThreadPost__deadlink)
             font-variant: small-caps
             letter-spacing: 0.075em
@@ -219,7 +218,7 @@ $quotelink-color: theme(dark, primary)
     .menu-toggle
         +clickable
         margin-top: 2px
-        color: theme(dark, primary)
+        color: var(--primary)
         padding-right: 10px
         font-size: 22px
 
@@ -230,7 +229,7 @@ $quotelink-color: theme(dark, primary)
         position: absolute
         right: 0
         top: 0
-        background-color: $thread-post-color
+        background-color: $post-color
         padding: 8px 6px 0 0
         z-index: 1
         transform: translateX($thread-post-control-width)

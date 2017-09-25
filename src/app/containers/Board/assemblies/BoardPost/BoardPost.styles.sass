@@ -1,11 +1,16 @@
 @import '~sass/partials'
 
+$post-color: var(--boardPostBackground)
+$shadow: var(--boardPostShadow)
+$slideup-distance: 200px
+$board-gutter-bottom: 220px
+
 .BoardPost
     +clickable
     width: $board-post-width
-    background: $board-post-color
-    box-shadow: $board-post-shadow-color 0 0 0
-    border: 2px solid $board-post-color
+    background: $post-color
+    box-shadow: $shadow 0 0 0
+    border: 2px solid $post-color
     font-family: font-for(BoardPost)
 
     // initial position offscreen, positioned via JS
@@ -20,19 +25,23 @@
     transform: translateY(0)
     transition: all .4s ease-out
     transition-property: top, left, box-shadow
-    +will-change(top)
-    +will-change(left)
+    +will-change(top, left)
 
-    margin-bottom: 220px
+    margin-bottom: $board-gutter-bottom
 
     &.animate
         visibility: visible
-        transform: translateY(200px)
+        transform: translateY($slideup-distance)
         animation: moveUp 0.65s ease forwards
 
     &:hover
-        transition: box-shadow .2s ease-out
-        box-shadow: 0 0 6px theme(dark, text-secondary)
+        transition: box-shadow .2s $easeOutExpo, background .2s $easeOutExpo
+        // box-shadow: 0 0 6px var(--textSecondary)
+        box-shadow: 0 0 6px var(--primary)
+
+        background: var(--postHighlight)
+        border-color: transparent
+
 
         .counters
             opacity: 1
@@ -41,7 +50,7 @@
                 border-color: grey(7)
 
         .comment-wrap
-            border-top: theme(dark, primary)
+            // border-top: var(--primary) solid 1px
 
         img
             // animation: zoomInThenSlowMo 6s forwards

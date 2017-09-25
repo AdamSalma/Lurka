@@ -10,7 +10,7 @@
 
     &:hover
         transition: background-color .2s $bezier-fast
-        background-color: darken(theme(dark, primary), 30%)
+        background-color: var(--primaryDarkest)
 
 .BoardListItem__title-wrap
     display: inline-block
@@ -31,5 +31,5 @@
     .BoardListItem__tag
         font-family: font-for(BoardListItem__tag)
         font-size: $font-size-small
-        color: theme(dark, text-secondary)
+        color: var(--textSecondary)
         padding-right: 12px

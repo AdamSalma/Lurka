@@ -2,10 +2,10 @@
 
 .Board
     position: relative
-    +set-dims(100vw, calc(100vh - $header-height))
+    +set-dims(100vw, 100vh)
     top: $header-height
     padding-top: 48px
-    background: theme(dark, board)
+    background: var(--board)
     background-image: linear-gradient(to bottom, theme(dark, board, darkest), theme(dark, board))
 
     .nano-pane
@@ -40,7 +40,7 @@
 
     .Button
         // background-image: linear-gradient(to bottom, grey(5), grey(6))
-        // background-image: linear-gradient(to bottom, theme(dark, layout), theme(dark, layout, dark))
+        // background-image: linear-gradient(to bottom, var(--primary), theme(dark, layout, dark))
         background-color: theme(dark, layout, dark)
         margin: 12px 24px
         font-family: font-for(Board__Button)
@@ -50,7 +50,7 @@
         text-shadow: 0 1px 1px grey(4)
 
         &:hover
-            // background-image: linear-gradient(to top, theme(dark, layout), theme(dark, layout, dark))
+            // background-image: linear-gradient(to top, var(--primary), theme(dark, layout, dark))
             box-shadow: 0 1px 4px grey(10)
             background-color: theme(dark, layout, darkest)
 
@@ -60,7 +60,7 @@
         width: calc(100vw - #{$gutter*2})
         height: 1px
         margin: 4px auto
-        background-color: theme(dark, divider)
+        background-color: var(--divider)
 
     .ExpandedHeaderGap
         height: $subheader-height

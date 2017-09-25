@@ -4,9 +4,9 @@
     font-family: font-for(BoardToolbar)
     background: none
     outline: none
-    border: theme(dark, primary) solid 1px
+    border: var(--primary) solid 1px
     border: none
-    color: theme(dark, text-primary)
+    color: var(--textPrimary)
     font-size: 17px
     line-height: 1
     position: relative
@@ -15,19 +15,19 @@
 
     .Icon
         margin-bottom: 2px
-        color: theme(dark, text-secondary)
+        color: var(--textSecondary)
 
     .title
         font-size: inherit
         transition: color .24s $ease-out-cubic
-        color: theme(dark, text-secondary)
+        color: var(--textSecondary)
         position: relative
 
         &::before
             content: ""
             height: 2px
             width: 0
-            background: theme(dark, primary, light)
+            background: var(--primaryLight)
             position: absolute
             bottom: -24px
             left: 0

@@ -5,7 +5,7 @@ $navbar-central-font-size: 24px
 .ContentButtonGroup
     font-size: $navbar-central-font-size
     font-family: font-for(Header__ContentButtonGroup)
-    color: theme(dark, text-primary)
+    color: var(--textPrimary)
     +no-select
 
     .arrow
@@ -31,7 +31,7 @@ $navbar-central-font-size: 24px
         background: none
         border: none
         outline: none
-        color: theme(dark, primary)
+        color: var(--primary)
         margin: 0 8px
         padding: 0 2px
         transition: color .15s ease-in
@@ -39,5 +39,5 @@ $navbar-central-font-size: 24px
         top: -1px
 
         &:hover
-            color: theme(dark, text-primary)
-            text-shadow: 0 0 40px theme(dark, primary, darkest)
+            color: var(--textPrimary)
+            text-shadow: 0 0 40px var(--primaryDarkest)

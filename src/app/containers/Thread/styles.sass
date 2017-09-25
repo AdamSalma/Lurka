@@ -41,8 +41,7 @@ $thread-end-gap: 200px
         width: calc(100% + 19px)
         overflow-x: hidden
         overflow-y: scroll
-        // top: 100vh
-        line-height: $thread-line-height
+        line-height: $line-height
         background: $thread-color
         transform: translateY(100vh) translateZ(0)
         opacity: 1
@@ -73,3 +72,8 @@ $thread-end-gap: 200px
             margin: 0 auto
         .nano-pane
             background: none
+
+
+    @include breakpoint(to-tablet)
+        .ThreadPost, .ThreadHeader
+            width: 100% !important

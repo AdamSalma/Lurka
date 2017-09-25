@@ -26,7 +26,7 @@
     z-index: $mainheader-z-index
     // box-shadow: 0 2px 5px grey(10)
     // box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12);
-    border-bottom: theme(dark, content-border) 2px solid
+    border-bottom: var(--contentBorder) 2px solid
 
     &.shrink-on
         +shrink-on
@@ -36,7 +36,7 @@
         position: absolute
         +position(-2px, 0)
         +set-dims(100%, 2px)
-        background: theme(dark, content-border)
+        background: var(--contentBorder)
 
     .background
         // opacity: 0.95
@@ -88,11 +88,11 @@
             +clickable
             font-size: $header-icon-size
             padding: 16px
-            color: theme(dark, text-primary)
+            color: var(--textPrimary)
             text-shadow: 2px 2px 1px grey(10)
 
             &:hover, &:active
-                // color: theme(dark, primary)
+                // color: var(--primary)
                 transition: color .2s ease-out
 
         .IconCircle

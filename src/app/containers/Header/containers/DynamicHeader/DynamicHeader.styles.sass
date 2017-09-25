@@ -22,7 +22,7 @@ $ani-rules: $ani-duration $ani-bezier
     +position(0, 0)
     z-index: $mainheader-z-index
     box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12);
-    border-bottom: theme(dark, content-border) 2px solid
+    border-bottom: var(--contentBorder) 2px solid
     transition: height $ani-rules
 
     .content
@@ -57,7 +57,7 @@ $ani-rules: $ani-duration $ani-bezier
             font-size: 16px
             font-family: font-for(DynamicHeader__Title)
             display: block
-            color: theme(dark, text-secondary)
+            color: var(--textSecondary)
             margin-top: -4px
 
             transition: opacity $ani-duration .12s ease-out
@@ -101,15 +101,15 @@ $ani-rules: $ani-duration $ani-bezier
 
         .Icon
             vertical-align: top
-            color: theme(dark, text-disabled)
-            // color: theme(dark, primary, light)
+            color: var(--textDisabled)
+            // color: var(--primaryLight)
             font-size: 28px
 
     // Icons next to title in center
     .shrink-icon
         +clickable
         font-size: 20px
-        color: theme(dark, text-secondary)
+        color: var(--textSecondary)
         opacity: 0
         padding: 0 .6em
         position: relative
