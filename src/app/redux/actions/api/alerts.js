@@ -1,11 +1,9 @@
 import { alertMessage } from '../alert'
 
-const { errors } = window.appSettings;
-
 export default {
     internalErrorAlert: (error) => {
         return alertMessage({
-            message: errors.apiInternalError,
+            message: Lurka.errors.apiInternalError,
             type: "error",
             time: 20000
         })
@@ -21,7 +19,7 @@ export default {
 
     noResponseAlert: () => {
         return alertMessage({
-            message: errors.apiNoResponse,
+            message: Lurka.errors.apiNoResponse,
             type: "error",
             time: 20000
         })

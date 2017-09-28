@@ -5,7 +5,7 @@ import {Icon} from '~/components';
 
 import './HomeBoard.styles';
 
-const i = window.appSettings.icons;
+const i = Lurka.icons;
 
 const HomeBoard = ({ className, onClick, homeBoard }) => {
     return (

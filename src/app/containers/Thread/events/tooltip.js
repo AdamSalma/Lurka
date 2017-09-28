@@ -4,7 +4,7 @@ var tooltipNode;
 var $highlightedPost;
 var modifiedQuotelinks = [];
 
-const { headerHeight } = window.appSettings;
+const { headerHeight } = Lurka.settings;
 
 const highlightClass = 'highlight';
 const animateClass = ' ' + 'animate';

@@ -2,12 +2,12 @@ import React from 'react';
 import { Provider } from 'react-redux';
 
 import store from '~/redux/store';
-import settings from 'config/app.config'
-
 import Views from '~/views';
 import Preloader from './Preloader';
 import Alerts from '../Alerts';
 import Watcher from '../Watcher';
+
+const {alertPosition} = window.Lurka;
 
 const App = () => (
     <Provider store={store}>
@@ -15,7 +15,7 @@ const App = () => (
             <Views />
             <Preloader />
             <Watcher />
-            <Alerts position={settings.alertPosition} />
+            <Alerts position={alertPosition} />
         </main>
     </Provider>
 );

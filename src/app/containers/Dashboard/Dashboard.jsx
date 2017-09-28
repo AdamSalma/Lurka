@@ -11,7 +11,7 @@ import {
     emitContentViewToggle
 } from '~/events'
 
-const i = window.appSettings.icons;
+const i = Lurka.icons;
 
 class Dashboard extends Component {
     constructor(props) {

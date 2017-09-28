@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import connect from './connect'
 
-const { apiBackoff } = window.appSettings;
+const { apiBackoff } = Lurka.settings;
 
 
 export class Watcher extends Component {

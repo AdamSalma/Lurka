@@ -5,7 +5,7 @@ import './styles'
 import { Icon } from '~/components'
 import { bindMembersToClass } from '~/utils/react'
 
-const i = window.appSettings.icons;
+const i = Lurka.icons;
 
 class Searchbar extends PureComponent {
     setRef = (ref) => this._searchbar = ref

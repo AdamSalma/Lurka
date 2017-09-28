@@ -32,7 +32,7 @@ import { onContentViewToggle } from '~/events/subscribers';
 /* Helpers */
 import { bindMembersToClass } from '~/utils/react';
 
-const i = window.appSettings.icons;
+const i = Lurka.icons;
 
 
 class MainHeader extends PureComponent {

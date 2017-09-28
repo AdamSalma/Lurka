@@ -7,7 +7,7 @@ import {
 } from '~/components'
 import utils from '~/utils'
 
-const i = window.appSettings.icons
+const i = Lurka.icons
 
 const WatchEntity = props => {
     const {

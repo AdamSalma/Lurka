@@ -3,7 +3,7 @@ import cx from 'classnames';
 import { Icon } from '~/components';
 import './styles';
 
-const i = window.appSettings.icons;
+const i = Lurka.icons;
 
 class ToTopButton extends React.Component {
     constructor(props) {

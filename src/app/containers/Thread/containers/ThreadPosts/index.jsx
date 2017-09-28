@@ -20,7 +20,7 @@ class ThreadPosts extends Component {
         const posts = this.props.posts;
 
         if (!posts || !posts.length) {
-            console.warn("Could not render posts. Received:", posts);
+            console.warn("Thread could not render posts. Received:", posts);
             return null
         }
 
@@ -29,7 +29,7 @@ class ThreadPosts extends Component {
         for (var i = 0; i < posts.length; i++) {
             if (quickRender && i >= 8) {
                 // Performance bonus when animating thread into view
-                console.warn("Quick render");
+                console.warn("Quick thread render");
                 break
             }
 

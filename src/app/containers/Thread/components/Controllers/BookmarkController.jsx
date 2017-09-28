@@ -1,7 +1,7 @@
 import React from 'react'
 import { IconCircle } from '~/components'
 
-const i = window.appSettings.icons
+const i = Lurka.icons
 export default function(props) {
     // const { } = props;
 

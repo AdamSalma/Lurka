@@ -20,8 +20,8 @@ import {emitContentViewToggle} from '~/events/publishers';
 import { bindMembersToClass } from '~/utils/react';
 import { isFunction } from '~/utils/types';
 
-const i = window.appSettings.icons;
-const {subheaderHeight, headerHeight} = window.appSettings
+const i = Lurka.icons;
+const {subheaderHeight, headerHeight} = Lurka.settings
 
 
 class SubHeader extends PureComponent {

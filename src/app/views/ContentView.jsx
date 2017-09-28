@@ -12,9 +12,7 @@ import {
 
 import { onContentViewToggle } from '~/events/subscribers';
 
-const {
-    headerHeight
-} = window.appSettings
+const {headerHeight} = Lurka.settings
 
 
 class ContentView extends Component {

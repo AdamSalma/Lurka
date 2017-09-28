@@ -4,7 +4,7 @@ import {
     VideoSpinner
 } from '~/components'
 
-const i = window.appSettings.icons;
+const i = Lurka.icons;
 
 const OverlayIcon = ({ error, paused, loading }) => {
     if (!error && !loading || paused)

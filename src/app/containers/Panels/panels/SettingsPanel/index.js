@@ -15,7 +15,7 @@ import {
 
 import * as SettingTabs from './Tabs';
 
-const i = window.appSettings.icons
+const i = Lurka.icons
 
 export class SettingsPanel extends Component {
     // Used by parent to control UI

@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import * as components from '~/components'
 
-const i = window.appSettings.icons;
+const i = Lurka.icons;
 
 const CloseCinema = ({ className, onClick }) => {
     return (

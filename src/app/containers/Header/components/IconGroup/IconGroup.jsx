@@ -11,7 +11,7 @@ import {
     emitDrawerToggle
 } from '~/events/publishers'
 
-const i = window.appSettings.icons;
+const i = Lurka.icons;
 
 const IconGroup = (props) => {
     const {

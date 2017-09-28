@@ -1,7 +1,7 @@
 import utils from '~/utils';
 import setupEvents from './setup';
 
-const { headerHeight, threadWidth } = window.appSettings;
+const { headerHeight, threadWidth } = Lurka.settings;
 
 export default class mediaRegistry {
     constructor(context, config) {

@@ -10,7 +10,7 @@ import {
     ExpandedImage
 } from '~/components'
 
-const i = window.appSettings.icons;
+const i = Lurka.icons;
 
 const Media = ({ media, onMediaToggle }) => {
     if (!media)

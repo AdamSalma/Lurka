@@ -9,7 +9,7 @@ import {
     ActionButton
 } from '../../components'
 
-const i = window.appSettings.icons;
+const i = Lurka.icons;
 
 const BoardToolbar = ({ className, children, posts, statistics, onSearch, onCreateThread, onViewArchive, onRefreshBoard, onSort, onFilter, onChangeLayout }) => {
     return (

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Icon, Tooltip } from '~/components'
 
-const i = window.appSettings.icons
+const i = Lurka.icons
 
 const PostToolbar = ({ onImageDownload, onReply, onImageSearch, onReport, onPostHide }) => {
     // TODO: Add functionality to thread icons

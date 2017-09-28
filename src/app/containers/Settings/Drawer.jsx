@@ -12,7 +12,7 @@ import { bindMembersToClass } from '~/utils/react'
 import Settings from './Settings'
 import { onSettingsToggle } from '~/events/subscribers';
 
-const { settingsWidth } = window.appSettings;
+const { settingsWidth } = Lurka.settings;
 
 
 class Drawer extends PureComponent {

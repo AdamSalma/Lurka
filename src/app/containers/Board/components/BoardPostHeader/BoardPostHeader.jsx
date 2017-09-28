@@ -8,7 +8,7 @@ import {
 
 import './BoardPostHeader.styles';
 
-const i = window.appSettings.icons
+const i = Lurka.icons
 
 export default ({time, replies}) => {
     return <div className="BoardPostHeader">

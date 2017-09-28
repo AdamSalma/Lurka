@@ -5,7 +5,7 @@ import './styles';
 import {ActionButton, BoardSearch} from '../../components';
 import {Icon} from '~/components'
 
-const i = window.appSettings.icons;
+const i = Lurka.icons;
 
 class BoardHeader extends Component {
     constructor(props) {

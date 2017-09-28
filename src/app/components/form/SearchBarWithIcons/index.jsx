@@ -5,7 +5,7 @@ import './styles';
 import {isDefined} from '~/utils/types';
 import {invokeAfterUninterruptedDelay} from '~/utils/throttle'
 
-const i = window.appSettings.icons;
+const i = Lurka.icons;
 
 class SearchBarWithIcons extends PureComponent {
     constructor(props) {

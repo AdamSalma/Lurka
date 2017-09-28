@@ -7,7 +7,7 @@ import {
     FileInput
 } from '~/components';
 
-const i = window.appSettings.icons;
+const i = Lurka.icons;
 
 class PostForm extends Component {
     constructor(props) {

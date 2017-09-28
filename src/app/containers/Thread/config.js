@@ -1,4 +1,4 @@
-const { headerHeight } = window.appSettings;
+const { headerHeight } = Lurka.settings;
 
 export const animationStyles = {
     in: {

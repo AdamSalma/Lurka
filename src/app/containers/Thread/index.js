@@ -47,7 +47,7 @@ import {
 
 import './styles'
 
-const i = window.appSettings.icons;
+const i = Lurka.icons;
 
 export class Thread extends Component {
     constructor(props) {
@@ -153,7 +153,6 @@ export class Thread extends Component {
     // }
 
     componentDidUpdate(prevProps, prevState) {
-        console.error(this.props.theme)
         if (this.props.isFetching && !prevProps.isFetching) {
             this._overlay.show();
         }

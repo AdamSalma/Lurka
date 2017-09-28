@@ -1,7 +1,7 @@
 import React from 'react';
 import {Icon} from '~/components';
 
-const i = window.appSettings.icons;
+const i = Lurka.icons;
 
 function hasAudio (video={}) {
     return video.mozHasAudio ||

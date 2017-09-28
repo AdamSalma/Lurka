@@ -41,7 +41,7 @@ import {
 /* Helpers */
 import { bindMembersToClass } from '~/utils/react';
 
-const i = window.appSettings.icons;
+const i = Lurka.icons;
 const headerToggleDuration = 200
 
 

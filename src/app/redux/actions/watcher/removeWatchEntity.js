@@ -1,7 +1,7 @@
 import * as types from '~/redux/types';
 import { alertMessage } from '../alert';
 
-const {alerts} = window.appSettings
+const {alerts} = Lurka;
 
 export default function removeWatchEntity({ id }) {
     console.log("Action removeWatchEntity");

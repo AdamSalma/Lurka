@@ -5,7 +5,7 @@ const {
     subheaderHeight,
     settingsWidth,
     boardOuterMargin
-} = window.appSettings;
+} = Lurka.settings;
 
 
 export const masonryGrid = {

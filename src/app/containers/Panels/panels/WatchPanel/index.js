@@ -14,7 +14,7 @@ import {
 } from '~/components'
 import {emitThreadClose} from '~/events';
 
-const i = window.appSettings.icons
+const i = Lurka.icons
 
 
 export class WatchPanel extends Component {

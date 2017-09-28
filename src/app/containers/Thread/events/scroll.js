@@ -4,7 +4,7 @@ const {
     headerHeight,
     threadpostScrollDuration,
     threadpostScrollHighlightDuration
-} = window.appSettings;
+} = Lurka.settings;
 
 const isRequired = () => { throw new Error('param is required'); };
 

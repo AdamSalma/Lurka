@@ -2,9 +2,9 @@ import { createSelector } from 'reselect'
 
 export const getPostIsOpen = state => state.post.isOpen
 export const getPostPosition = () => {
-    const config = window.appSettings
+    const {postPositionLeftBreakpoint} = Lurka.settings;
 
-    if (window.innerWidth < config.postPositionLeftBreakpoint) {
+    if (window.innerWidth < postPositionLeftBreakpoint) {
         return "center"
     }
 

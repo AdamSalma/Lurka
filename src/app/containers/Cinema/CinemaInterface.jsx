@@ -7,13 +7,7 @@ import {
     CloseCinema
 } from './components';
 
-const i = window.appSettings.icons
-
 class CinemaInterface extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const { className, hidden, timeline, children, closeCinema } = this.props;
 
@@ -23,8 +17,8 @@ class CinemaInterface extends Component {
 
         return (
             <div className='CinemaInterface'>
-                <PreviousMediaButton disabled={!timeline.previous.length} className={classes} onClick={this.cyclePrevious}/>
                 {children}
+                <PreviousMediaButton disabled={!timeline.previous.length} className={classes} onClick={this.cyclePrevious}/>
                 <NextMediaButton disabled={!timeline.next.length} className={classes} onClick={this.cycleNext}/>
                 <CloseCinema onClick={closeCinema} className={classes}/>
             </div>

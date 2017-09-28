@@ -1,7 +1,7 @@
 import React from 'react'
 import {Icon} from '~/components'
 
-const i = window.appSettings.icons;
+const i = Lurka.icons;
 
 export default ({ onClick, className, ariaLabel }) => {
     return (

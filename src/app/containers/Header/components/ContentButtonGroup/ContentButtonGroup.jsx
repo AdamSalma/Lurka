@@ -2,7 +2,7 @@ import './ContentButtonGroup.styles';
 import React, { PropTypes } from 'react';
 import { Icon } from '~/components';
 
-const i = window.appSettings.icons
+const i = Lurka.icons
 
 const ContentButtonGroup = ({className, children, onArrowClick, onButtonClick}) => {
     return (

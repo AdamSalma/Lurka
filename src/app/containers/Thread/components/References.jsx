@@ -1,7 +1,7 @@
 import React from 'react'
 import {Icon, Line} from '~/components'
 
-const i = window.appSettings.icons;
+const i = Lurka.icons;
 
 const References = ({ refs }) => {
     return refs && refs.length ? <div className='references'>

@@ -3,14 +3,16 @@ import cx from 'classnames';
 import { ChromePicker as ColorPicker } from 'react-color'
 
 import './ThemeTab.styles';
+import ThemeService from '~/themes/ThemeService';
 import {Scrollable} from '~/components';
 import {emitThemeChange} from '~/events'
-import ThemeService from '~/containers/App/ThemeService'
 import utils from '~/utils';
 
 class ThemeTab extends Component {
     constructor(props) {
         super(props);
+
+        this.themeServer = ThemeService()
         this.state = {
             displayColorPicker: false,
             currentVariable: null,
