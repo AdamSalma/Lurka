@@ -34,4 +34,8 @@ export default class Api {
             .then(res => res.data.boards)
             .then(boardList => parser.parseBoardList(boardList))
     }
+
+    fetchArchive({boardID, threadID}) {
+
+    }
 }

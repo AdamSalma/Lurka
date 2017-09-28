@@ -31,7 +31,6 @@ export const categories = [{
 export const getBoardCategory = (boardID) => {
     for (var i = 0; i < categories.length; i++) {
         if (categories[i].boards.indexOf(boardID) >= 0) {
-            console.warn("FOUND ITTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
             return categories[i].category
         }
     }
