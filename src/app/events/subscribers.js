@@ -73,3 +73,7 @@ export const onHeaderPanelClose = function () {
 export const onPostToggle = function () {
     on(types.POST_TOGGLE).apply(null, arguments);
 }
+
+export const onThemeChange = function () {
+    on(types.THEME_CHANGE).apply(null, arguments);
+}

@@ -27,3 +27,5 @@ export const emitCloseHeaderPanel = dispatch.bind(null, types.CLOSE_HEADER_PANEL
 export const emitUpdateWatchEntity = dispatch.bind(null, types.UPDATE_WATCH_ENTITY);
 
 export const emitPostToggle = dispatch.bind(null, types.POST_TOGGLE);
+
+export const emitThemeChange = dispatch.bind(null, types.THEME_CHANGE);
