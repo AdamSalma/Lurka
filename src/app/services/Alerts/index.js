@@ -53,5 +53,9 @@ export class Alerts extends PureComponent {
 
 }
 
+Alerts.defaultProps = {
+    position: "bottom left"
+}
+
 export default connect(Alerts)
 
