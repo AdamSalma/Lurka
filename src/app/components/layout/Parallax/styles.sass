@@ -1,0 +1,22 @@
+@import '~sass/utils'
+
+.ParallaxArea
+    perspective: 1px
+    height: 100%
+    perspective-origin: right
+    overflow-x: hidden
+    width: 100%
+
+.ParallaxForeground, .ParallaxBackground
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    transform-origin: right
+
+.ParallaxBackground
+    transform: translateZ(-1px) scale(2);
+
+.ParallaxForeground
+    transform: translateZ(0);
