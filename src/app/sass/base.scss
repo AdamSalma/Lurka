@@ -1,6 +1,10 @@
 // Sass Utilities
 @import 'utils';
 
+// Vendors
+@import "vendor/normalize";
+@import "vendor/nanoscroll";
+
 // Fonts
 @import 'base/typography';
 @import 'base/icons';
@@ -9,8 +13,4 @@
 @import 'base/reset';
 @import 'base/animations';
 @import 'base/classes';
-@import 'base/vendor';
 
-@import "vendor/normalize";
-@import "vendor/nanoscroll";
-@import "vendor/neutron";
