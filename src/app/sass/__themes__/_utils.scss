@@ -1,9 +1,9 @@
 @function warm-tint($color, $amount: 3) {
-    @return adjust-color($color, $red: +5, $blue: -2);
+    @return adjust-color($color, $red: $amount, $blue: -$amount);
 }
 
-@function cold-tint($color) {
-    @return adjust-color($color, $red: -2, $blue: +5);
+@function cold-tint($color, $amount: 3) {
+    @return adjust-color($color, $red: -$amount, $blue: $amount);
 }
 
 

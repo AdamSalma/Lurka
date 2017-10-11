@@ -6,14 +6,13 @@
     @return $c;
 };
 
+
 $primary: c(punch);
 $primary: #f12b24; // youtube
 $primary: #E74C3C;
 $primary: #A50100; // periphery
 $primary: #b73433; // periphery light
 $primary: #b73433; // material design
-$primary: #e44a49;
-// $primary: #ffa15d;
 
 // $primary: lighten(c(punch), 10%);
 // $primary: #D13438;
@@ -25,7 +24,15 @@ $secondary: #4285F4;
 $background-tint: $secondary;
 
 
+@function color-tint($color) {
+    // @return adjust-color($color, $red: -2, $blue: 2);
+    // @return adjust-color($color, $red: -2, $green: -1);
+    @return adjust-color($color, $red: 3, $blue: -3);
+}
+
 // Helper functions end
+
+
 
 // Function to access to the color palette. Takes a color name and shade. E.g:
 // color(primary, light)
