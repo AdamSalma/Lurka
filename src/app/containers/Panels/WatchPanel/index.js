@@ -4,7 +4,7 @@ import cx from 'classnames'
 import connect from './connect';
 
 import WatchEntity from './WatchEntity'
-import { SlideTransition } from '../../components'
+import { SlideTransition } from '../components'
 import {
     Timer,
     TimeAgo,
@@ -18,8 +18,6 @@ const i = Lurka.icons
 
 
 export class WatchPanel extends Component {
-
-
 
     // Used by parent to control UI
     show = (args) => this.transitioner.show(args);

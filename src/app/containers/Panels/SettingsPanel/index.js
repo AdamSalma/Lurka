@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import cx from 'classnames';
 // import connect from './connect';
 
-import { ClassTransition } from '../../components';
+import { ClassTransition } from '../components';
 import {
     Icon,
     Line,

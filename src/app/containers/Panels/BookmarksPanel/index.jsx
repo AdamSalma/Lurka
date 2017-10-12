@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import cx from 'classnames';
 import './styles';
 
-import {ClassTransition} from '../../components';
+import {ClassTransition} from '../components';
 import {emitCloseHeaderPanel} from '~/events';
 
 class BookmarksPanel extends Component {

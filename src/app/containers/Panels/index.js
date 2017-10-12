@@ -1,10 +1,12 @@
-import WatchPanel from './panels/WatchPanel'
-import BookmarksPanel from './panels/BookmarksPanel'
-// import ArchivePanel from './panels/ArchivePanel'
-import SettingsPanel from './panels/SettingsPanel'
+import WatchPanel from './WatchPanel'
+import BookmarksPanel from './BookmarksPanel'
+// import ArchivePanel from './ArchivePanel'
+import SettingsPanel from './SettingsPanel'
+import MenuPanel from './MenuPanel'
 
 export default {
     WatchPanel,
     BookmarksPanel,
-    SettingsPanel
+    SettingsPanel,
+    MenuPanel
 }
