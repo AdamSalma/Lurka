@@ -14,14 +14,14 @@ $settings-width: 200px
 
     &:hover
         .header
-            color: grey(1)
+            color: $text-primary
 
     .header
         font-size: $settings-font-size-large + 2
-        color: tint($settings-color, 30%)
+        color: $grey-light
         padding-bottom: 2px
         width: $settings-width
-        border-bottom: 1px solid grey(5)
+        border-bottom: 1px solid $grey-lightest
         margin-bottom: 20px 0
         transition: color .2s
 
@@ -41,25 +41,25 @@ $settings-width: 200px
             content: ":"
 
         &:hover
-            color: grey(1)
+            color: $text-primary
             .description
                 opacity: 1
                 padding-left: 10px
                 height: initial
 
             .value
-                color: var(--primary)
+                color: $text-primary
 
     .group-name
         font-size: $settings-font-size-medium
-        color: tint($settings-color,  30%)
+        color: $grey-light
 
     .description
         opacity: 0
         transition: all .2s ease-in
         padding-top: inherit
         padding-left: 0
-        color: grey(1)
+        color: $text-primary
         font-size: 13px
         height: 0
         overflow: hidden

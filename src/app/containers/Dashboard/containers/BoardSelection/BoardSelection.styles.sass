@@ -18,7 +18,7 @@
         // flex-basis: 112px
         min-width: 112px
 
-        background: grey(7)
+        background: $grey
         font-size: 18px
         padding: 28px 12px
         margin: $margin*$golden-ratio $margin
@@ -29,7 +29,7 @@
         overflow: hidden
 
         &.is-current
-            // background: grey(6)
+            // background: $grey-light
             background: var(--primaryDarkest)
             .slash
                 color: var(--textSecondary)
@@ -42,7 +42,7 @@
             z-index: 100
 
             // .slash
-            //     color: lighten(mix(var(--primary), grey(5), 8%), 10%)
+            //     color: lighten(mix(var(--primary), $grey-lightest, 8%), 10%)
 
             .boardID
                 // opacity: 0
@@ -85,4 +85,4 @@
 
         .slash
             transition: color .3s cubic-bezier(.25,.8,.25,1);
-            color: grey(5)
+            color: $grey-lightest

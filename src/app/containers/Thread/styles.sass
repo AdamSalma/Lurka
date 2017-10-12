@@ -32,7 +32,7 @@ $thread-end-gap: 200px
             display: initial !important
 
         &.fadein-boxshadow
-            box-shadow: 0 0 4px grey(10)
+            box-shadow: 0 0 4px $grey-darkest
             transition: box-shadow $animation-speed-normal $bezier-slow
 
     .content
@@ -50,7 +50,7 @@ $thread-end-gap: 200px
     .nano-pane
         +nano-can-expand(12px)
         width: $thread-scroller-width
-        background: grey(9)
+        background: $grey-darkest
         z-index: 2
         margin-top: $header-height
 
@@ -63,7 +63,7 @@ $thread-end-gap: 200px
     .Thread__end-gap
         height: $thread-end-gap
         width: $thread-width - 4px
-        // border-left: grey(9) solid 5px
+        // border-left: $grey-darkest solid 5px
 
 
     &.layout--posts-fit

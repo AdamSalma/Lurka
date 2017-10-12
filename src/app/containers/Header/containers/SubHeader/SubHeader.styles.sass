@@ -1,7 +1,7 @@
 @import '~sass/utils'
 
 $header-navbar-padding: 68px
-$subheader-border-color: grey(5)
+$subheader-border-color: $grey-lightest
 // $subheader-border-color: var(--primary)
 
 .SubHeader
@@ -25,8 +25,8 @@ $subheader-border-color: grey(5)
 
     .background
         transition: opacity $animation-speed-fast $bezier-fast
-        background: grey(8)
-        // background: grey(6)
+        background: $grey-dark
+        // background: $grey-light
         +set-dims(inherit, inherit)
         position: absolute
         z-index: -1
@@ -53,7 +53,7 @@ $subheader-border-color: grey(5)
         align-items: center
         padding: $header-padding
         border-bottom: 2px $subheader-border-color solid
-        box-shadow: 0 0 5px grey(10)
+        box-shadow: 0 0 5px $grey-darkest
 
 
     .HeaderItem
@@ -88,10 +88,10 @@ $subheader-border-color: grey(5)
             min-width: 100%
             height: $subheader-height * 0.66
             border-radius: 4px
-            background: grey(7)
+            background: $grey
 
             input
-                color: grey(1)
+                color: $text-primary
                 text-align: center
                 min-width: 100%
                 padding-left: 10px

@@ -13,7 +13,7 @@ $shadow: lighten($background, 8%)
     background-color: var(--boardSearchbar)
     // box-shadow: 0 0 0 $shadow
     box-shadow: 0 2px 2px 0 rgba(10,10,10,0.16), 0 0 0 1px rgba(10,10,10,0.08);
-    transition: box-shadow .2s cubic-bezier(0.4, 0.0, 0.2, 1)
+    transition: box-shadow .2s cubic-bezier(0.4, 0.0, 0.2, 1), background-color .2s cubic-bezier(0.4, 0.0, 0.2, 1)
     position: relative
 
     &::before
@@ -21,7 +21,7 @@ $shadow: lighten($background, 8%)
         position: absolute
         height: 2px
         width: 0
-        background: $primary-lightest
+        // background: $primary
         transition: width .2s ease-out
         margin: 0 auto
         bottom: 0
@@ -33,7 +33,10 @@ $shadow: lighten($background, 8%)
         // background-color: grey(4)
         // box-shadow: 0 2px 2px $shadow
 
-    &.SearchBarWithIcons--is-focused::before
-        width: 100%
+    &.SearchBarWithIcons--is-focused
+        background-color: var(--postHighlight)
+
+        &::before
+            width: 100%
 
 

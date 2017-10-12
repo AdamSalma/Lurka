@@ -13,8 +13,8 @@ $highlight-color: var(--postHighlight)
     text-align: left
     background-color: $post-color
     transition: background .2s .1s ease-out
-    border-bottom: grey(9) solid 4px
-    border-left: grey(9) solid 5px
+    border-bottom: $grey-darkest solid 4px
+    border-left: $grey-darkest solid 5px
     overflow: hidden
 
     &:before
@@ -40,7 +40,7 @@ $highlight-color: var(--postHighlight)
     /* Tooltip */
     &.tip
         z-index: $thread-tooltip-z-index
-        border: 2px solid grey(6)
+        border: 2px solid $grey-light
         position: absolute
         max-width: 800px
         width: auto
@@ -80,6 +80,7 @@ $highlight-color: var(--postHighlight)
 
 
     blockquote
+        +font-size(0)
         margin: 15px 25px
         margin-top: 0
         color: #e7e7e8;
@@ -96,13 +97,13 @@ $highlight-color: var(--postHighlight)
             color: grey(3)
 
         .Icon
-            color: theme(dark, secondary, lightest)
+            color: $primary-lightest
             font-size: 13px
             position: relative
             top: 1px
 
     .post-info
-        +font-size($thread-post-info-size)
+        +font-size(-1)
         padding: 5px 0
         color: var(--textSecondary)
         padding-left: 4px
@@ -168,10 +169,9 @@ $highlight-color: var(--postHighlight)
 
     /* 4chan links */
     blockquote .quote
-        background-color: darken(grey(7), 1.618%)
-        // border-left: 2px solid darken(theme(dark, greentext), 24%)        // #3e2e2e   // #422e2e
+        background-color: $grey-dark
         // border-left: 2px solid grey        // #3e2e2e   // #422e2e
-        color: theme(dark, greentext)
+        color: $greentext
         // padding: 6px 8px 6px 6px
         padding: 4px 8px
         padding-right: 10px
@@ -248,7 +248,7 @@ $highlight-color: var(--postHighlight)
             &:last-child
                 margin-left: 0
 
-    &:hover .menu
-        transform: translateX(0)
-        transition: transform $animation-speed-fast $bezier-fast
+    // &:hover .menu
+        // transform: translateX(0)
+        // transition: transform $animation-speed-fast $bezier-fast
 

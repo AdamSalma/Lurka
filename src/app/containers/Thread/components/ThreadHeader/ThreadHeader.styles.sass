@@ -1,8 +1,8 @@
 @import '~sass/utils'
 
-$border-color: grey(9)
-$background-color: grey(7)
-// $stat-color: theme(dark, layout, lightest)
+$border-color: $grey-darkest
+$background-color: $grey
+// $stat-color: $primary-lightest
 $stat-color: var(--textPrimary)
 
 .ThreadHeader
@@ -26,7 +26,7 @@ $stat-color: var(--textPrimary)
         display: flex
         justify-content: center
         color: var(--textSecondary)
-        +font-size($font-size-small)
+        +font-size(-1)
         align-items: center
 
         .last-updated

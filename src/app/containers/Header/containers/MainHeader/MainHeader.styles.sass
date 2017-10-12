@@ -3,7 +3,7 @@
 =hover-animation--slide
     &::before
         +size(0, 2px)
-        color: grey(1)
+        color: $text-primary
 
     &:hover::before
         width: 100%
@@ -24,7 +24,7 @@
     +position(0, 0)
     // top: -$header-height  // hide on start
     z-index: $mainheader-z-index
-    // box-shadow: 0 2px 5px grey(10)
+    // box-shadow: 0 2px 5px $grey-darkest
     // box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12);
     border-bottom: var(--contentBorder) 2px solid
 
@@ -40,7 +40,7 @@
 
     .background
         // opacity: 0.95
-        background: grey(8)
+        background: $grey-dark
         +set-dims(100%, 100%)
         position: absolute
         z-index: -1
@@ -89,7 +89,7 @@
             font-size: $header-icon-size
             padding: 16px
             color: var(--textPrimary)
-            text-shadow: 2px 2px 1px grey(10)
+            text-shadow: 2px 2px 1px $grey-darkest
 
             &:hover, &:active
                 // color: var(--primary)
@@ -109,8 +109,8 @@
         cursor: pointer
 
     .navtip
-        border: grey(5) solid 1px
-        box-shadow: 0 1px 4px 1px grey(10)
+        border: $grey-lightest solid 1px
+        box-shadow: 0 1px 4px 1px $grey-darkest
         padding: 12px
         margin-top: 10px
         transform: translateY($header-height) translateX(-50%) !important;

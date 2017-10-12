@@ -14,7 +14,7 @@ $board-toolbar-width: $thread-width / $golden-ratio
 
 .BoardToolbar
     +size($board-toolbar-width, $total-height)
-    background: grey(6)
+    background: $grey-light
     position: relative
     margin: $margin-top auto $margin-bottom
     border: solid 1px grey(4)
@@ -24,7 +24,7 @@ $board-toolbar-width: $thread-width / $golden-ratio
         align-items: center
         height: $total-height - $searchbar-height - 2
         padding: 0 16px
-        background: grey(7)
+        background: $grey
         line-height: 1;
 
         &--right

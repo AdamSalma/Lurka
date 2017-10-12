@@ -6,7 +6,7 @@
     bottom: 0
     // left: 0
     left: -$navbar-width
-    background: grey(8)
+    background: $grey-dark
     display: flex
     flex-direction: column
     +no-select
@@ -43,11 +43,11 @@
             font-weight: 400
             line-height: 1
             display: inline-block
-            background: grey(1)
-            color: grey(6)
+            background: $text-primary
+            color: $grey-light
             text-align: center
             border-radius: 0 4px 4px 0
-            border: grey(6)
+            border: $grey-light
 
 
 
@@ -70,7 +70,7 @@
         .Icon
             float: right
             position: relative
-            color: grey(5)
+            color: $grey-lightest
             font-size: $navbar-icon-size
             transition: color .2s ease-in-out
             padding-right: 2px
@@ -78,7 +78,7 @@
             margin-top: -2px
 
             &.mdi-star
-                color: theme(dark, favourite) !important
+                // color: theme(dark, favourite) !important
 
 
 
@@ -101,17 +101,17 @@
                 text-transform: capitalize
 
         .favourite
-            background: theme(dark, favourite)
-            color: grey(10)
+            // background: theme(dark, favourite)
+            color: $grey-darkest
             flex: 2
 
         .disabled
-            background: grey(7) !important
+            background: $grey !important
             color: var(--textDisabled)
-            text-shadow: 0 0 1px grey(8)
+            text-shadow: 0 0 1px $grey-dark
 
         .NSFW
-            color: theme(dark, secondary-text)
+            color: $text-secondary
             ::after
                 content: " "
 
@@ -119,4 +119,4 @@
     /* Shrink size of scrollbar */
     .nano-pane
         width: 4px
-        background: grey(8)
+        background: $grey-dark

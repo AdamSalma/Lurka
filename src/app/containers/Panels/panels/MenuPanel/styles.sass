@@ -1,0 +1,67 @@
+@import '~sass/utils'
+
+.MenuPanel
+    background: green
+    width: 426px - 30px * $golden-ratio
+    position: fixed
+    height: 100%
+    height: calc(100% - #{$header-height})
+    display: flex
+    flex-direction: row
+    border-top: 2px solid $grey-dark
+    border-right: 2px solid $grey-dark
+    +box-shadow(3)
+
+
+    &::before
+        // content: ""
+        width: 100%
+        height: 2px
+        position: absolute
+        margin: 0 auto
+        left: 0
+        right: 0
+        top: -2px
+        z-index: 1
+        background: $primary
+
+
+    &.Header--expanded
+        height: calc(100% - #{$header-height + $subheader-height})
+
+    .icon-gutter
+        +font-size(3)
+        $width: $golden-ratio * 2rem
+        +size($width, 100%)
+        padding-top: $width / 4
+        padding-bottom: $width / 7
+        background: $grey
+        display: flex
+        flex-direction: column
+        color: $text-secondary
+        display: none
+
+        li
+            +size($width)
+            display: inline-block
+            text-align: center
+            line-height: 2em
+
+        li.push-up
+            margin-top: auto
+
+    .content
+        flex: 1
+        height: 100%
+        background: $grey-light
+
+.MenuPage
+    margin: 2rem
+    overflow: hidden
+
+    .Title
+        padding-bottom: 2rem
+        font-family: $font-alt
+        font-weight: 400
+        letter-spacing: .25rem
+        text-align: left !important

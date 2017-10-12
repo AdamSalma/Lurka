@@ -19,9 +19,9 @@ $_img_container_width: $watch-panel-width / 5
 .WatchPanel
     +set-dims($watch-panel-width, $watch-panel-height)
 
-    background: grey(8)
+    background: $grey-dark
     padding: 6px $watch-right-gutter-width 0 6px !important
-    border: grey(6) solid 1px !important
+    border: $grey-light solid 1px !important
     resize: both
     overflow: hidden
     right: 0
@@ -54,7 +54,7 @@ $_img_container_width: $watch-panel-width / 5
         margin-bottom: 6px
 
         .nano-slider
-            background: grey(6) !important
+            background: $grey-light !important
 
 
     .watch-group
@@ -82,7 +82,7 @@ $_img_container_width: $watch-panel-width / 5
         overflow: hidden
         min-height: $watch-item-height
         clear: both
-        background: grey(9)
+        background: $grey-darkest
         padding: 2px
         margin-bottom: 2px
 
@@ -167,9 +167,7 @@ $_img_container_width: $watch-panel-width / 5
             &:hover
                 background: var(--primaryDark)
                 &.watch-update
-                    background: theme(dark, secondary, light)
-
-
+                    background: $grey-lightest
 
 
 
@@ -255,14 +253,14 @@ $_img_container_width: $watch-panel-width / 5
         .watch-close
             +square($watch-item-height)
             z-index: 1
-            background: grey(7)
+            background: $grey
             text-align: center
             position: absolute
             right: 0
             top: 0
             cursor: pointer
             font-size: 20px
-            box-shadow: -2px 0 5px grey(7)
+            box-shadow: -2px 0 5px $grey
             line-height: $watch-item-height
 
             > *

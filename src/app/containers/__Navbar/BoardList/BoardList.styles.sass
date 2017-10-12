@@ -9,9 +9,9 @@ $boards-width: 45%
     max-height: 500px
     margin: 0 auto
     text-align: left
-    border: grey(7) solid 1px
+    border: $grey solid 1px
     position: relative
-    background-color: grey(8)
+    background-color: $grey-dark
     // display: none
 
     .searchbar
@@ -24,8 +24,8 @@ $boards-width: 45%
         .Icon
             font-size: 18px
             padding: 0 8px
-            border: grey(7) solid 1px
-            background: grey(5)
+            border: $grey solid 1px
+            background: $grey-lightest
             line-height: $searchbar-height
             +clickable
 
@@ -64,7 +64,7 @@ $boards-width: 45%
             padding: 10px 30px
 
         input
-            color: grey(1)
+            color: $text-primary
             font-family: $font-alt
             font-weight: bold
             font-size: 18px
@@ -73,13 +73,13 @@ $boards-width: 45%
             border: 1px solid var(--primaryDark)
             border-radius: 2px
             transition: box-shadow .2s ease-out
-            box-shadow: 0 2px 4px grey(8)
-            text-shadow: 0 0 1px grey(7)
+            box-shadow: 0 2px 4px $grey-dark
+            text-shadow: 0 0 1px $grey
             +clickable
             position: relative
 
             &:active
-                box-shadow: 0 -2px 5px grey(8)
+                box-shadow: 0 -2px 5px $grey-dark
                 top: 1px
 
 
@@ -87,13 +87,13 @@ $boards-width: 45%
         position: relative
 
         > *
-            background: grey(8) !important
-            border-color: grey(7) !important
+            background: $grey-dark !important
+            border-color: $grey !important
 
         .Icon
             float: right
             position: relative
-            color: grey(5)
+            color: $grey-lightest
             font-size: 20px
             line-height: 24px
             transition: color .3s
@@ -103,9 +103,9 @@ $boards-width: 45%
 
         &:hover
             > *
-                background: grey(7) !important
+                background: $grey !important
             .mdi-star-outline
-                color: grey(1)
+                color: $text-primary
 
 
     // Misc stuff
@@ -114,7 +114,7 @@ $boards-width: 45%
         width: auto !important
 
     .nano-pane
-        background-color: grey(7)
+        background-color: $grey
 
     .nano-slider
-        background-color: grey(8) !important
+        background-color: $grey-dark !important
