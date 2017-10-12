@@ -24,23 +24,33 @@ $greentext: var(--greenText)
 // ----------
 // Typography
 // ----------
-$font-dir: 'fonts/';
-$icon-dir: 'icons/';
+$font-dir: 'fonts/'
 
-$line-height: 1.618;
+$line-height: 1.618
 
-$font-size-xsmall: 12px;
-$font-size-small: 13px;
-$font-size-medium: 16px;
-$font-size-large: 20px;
-$font-size-xlarge: 24px;
+$font-size-xsmall : 12px
+$font-size-small  : 13px
+$font-size-medium : 16px
+$font-size-large  : 20px
+$font-size-xlarge : 24px
 
-$spacing-sizes: (0: 0rem, 1: 0.25rem, 2: 0.5rem, 3: 1rem, 4: 2rem, 5: 4rem, 6: 8rem) !default;
+// Used in `utils/margin` and `utils/padding`
+$spacing-sizes: (0: 0rem, 1: 0.25rem, 2: 0.5rem, 3: 1rem, 4: 2rem, 5: 4rem, 6: 8rem) !default
+
+$font-main          : "OpenSans-Regular"
+$font-main-light    : "OpenSans-Light"
+$font-main-bold     : "OpenSans-Bold"
+$font-main-semibold : "OpenSans-Semibold"
+$font-alt           : "Raleway-Regular"
+$font-accent        : "FaricyNew-Light"
+
+// Used to auto-generate fonts with @font-face
+$font-list: $font-main, $font-main-light, $font-main-bold, $font-main-semibold, $font-alt, $font-accent
 
 // -----
 // Other
 // -----
-$golden-ratio: 1.61803398874989
+$golden-ratio: 1.618034
 $board-scroller-width: 4px
 $thread-scroller-width: 4px
 
