@@ -1,12 +1,13 @@
 body
-    background: grey(8) !important
+    background: $grey-dark !important
     color: var(--textPrimary)
-    font-family: font-for(body)
+    font-family: font-for(body), sans-serif
     overflow: hidden
     line-height: $line-height
     max-width: 960px
     margin-left: auto
     margin-right: auto
+    scroll-behavior: smooth
 
 // from NeutronCss
 html
@@ -22,7 +23,7 @@ h1, h2, h3, h4, h5, h6
 	font-family: font-for(HeaderTags)
 
 a
-	color: theme(dark, links)
+	color: #4EADF3
 
 #App
     width: 100vw
@@ -55,8 +56,14 @@ textarea:focus, input:focus
     // background-color: var(--primaryLight)
 
 // Nano stuff
-.nano-slider
-    background: var(--primary) !important
+.nano
+    .nano-content:focus
+        outline: none !important
+    .nano-slider
+        background: var(--primary) !important
+    .nano-pane
+        width: 4px
+        border-radius: 0 !important
 
 img
     +no-select
