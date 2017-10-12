@@ -1,0 +1,12 @@
+$font-ratio: $golden-ratio // 1.618...
+$font-ratio: 1.5    // perfect fifth
+$font-ratio: 1.25   // major third
+$font-ratio: 1.125  // major second
+$font-ratio: 1.2    // minor third
+
+
+@mixin font-size($size: 0, $unit: 1rem)
+    font-size: font-size($size, $unit)
+
+@function font-size($size, $unit)
+    @return pow($font-ratio, $size) * $unit

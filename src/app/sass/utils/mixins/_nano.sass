@@ -5,12 +5,12 @@
     &:hover, &:active
         width: $width
         transition: width .24s $bezier-fast
-        box-shadow: inset 2px 0 2px grey(8)
+        box-shadow: inset 2px 0 2px $grey-dark
 
         .nano-slider
             width: 50%
             margin: 0 auto
 
-=nano-rect($width)
+=nano-rect($width:4px)
     width: $width
     border-radius: 0 !important

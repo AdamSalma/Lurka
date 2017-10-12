@@ -1,10 +1,11 @@
+@import 'variables';
+
 // Grid library
 @import 'vendor/neutron';
 
 // Themes + color palettes
-@import 'utils/themes';
+// @import 'utils/themes';
 
-@import 'utils/variables';
 
 // Other sass helpers
 @import 'utils/functions';
