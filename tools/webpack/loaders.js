@@ -31,7 +31,7 @@ module.exports = injectLoaders((loaders) => [
 // create the loader array used by webpack
 function injectLoaders(createLoaders) {
     const cssLoader = {
-        loader: 'css-loader',
+        loader: require.resolve('css-loader'),
         options: {
             importLoaders: 1,
             sourceMap: true
@@ -39,7 +39,7 @@ function injectLoaders(createLoaders) {
     }
 
     const postcssLoader = {
-        loader: 'postcss-loader',
+        loader: require.resolve('postcss-loader'),
         options: {
             sourceMap: true,
             plugins: (loader) => [require('autoprefixer')()]
@@ -47,12 +47,12 @@ function injectLoaders(createLoaders) {
     }
 
     const sassLoader = {
-        loader: 'sass-loader',
+        loader: require.resolve('sass-loader'),
         options: { sourceMap: true }
     }
 
     const styleLoader = {
-        loader: 'style-loader',
+        loader: require.resolve('style-loader'),
         options: { sourceMap: true }
     }
 
@@ -65,7 +65,7 @@ function injectLoaders(createLoaders) {
     }
 
     const babelLoader = {
-        loader: 'babel-loader',
+        loader: require.resolve('babel-loader'),
         options: { cacheDirectory: true }
     }
 
