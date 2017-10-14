@@ -48,16 +48,21 @@ export class PanelsView extends Component {
     }
 
     render() {
+        const { isHeaderExpanded, HeaderPanel } = this.state
         const classNames = cx('View', 'PanelsView', {
-            "PanelsView--header-expanded": this.state.isHeaderExpanded
+            "PanelsView--header-expanded": isHeaderExpanded
         });
+
 
         return (
             <section className={classNames}>
-                {this.state.HeaderPanel && <this.state.HeaderPanel
-                    ref={this.setHeaderPanelRef}
-                    closePanel={this.closePanel}
-                />}
+                {HeaderPanel &&
+                    <HeaderPanel
+                      ref={this.setHeaderPanelRef}
+                      closePanel={this.closePanel}
+                      isHeaderExpanded={isHeaderExpanded}
+                    />
+                }
             </section>
         );
     }
@@ -104,16 +109,15 @@ export class PanelsView extends Component {
         this.setState({HeaderPanel});
     }
 
-
     openPanel = (callback) => {
-        this._panel.show({
+        this._panel && this._panel.show({
             callback: () => this.handlePanelOpen(callback)
         });
     }
 
     closePanel = (callback) => {
         console.log("closePanel()")
-        this._panel.hide({
+        this._panel && this._panel.hide({
             callback: () => this.onPanelHidden(callback)
         });
     }
@@ -140,6 +144,8 @@ export class PanelsView extends Component {
                 return Panels.DownloadsPanel
             case "settings":
                 return Panels.SettingsPanel
+            case "menu":
+                return Panels.MenuPanel
             default:
                 throw new Error(`${panelID} is not a valid panel ID`)
         }
