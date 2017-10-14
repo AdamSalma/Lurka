@@ -40,9 +40,12 @@ $ease-map: (
     quint-in-out : cubic-bezier(0.860, 0.000, 0.070, 1.000),
 
     // Back
-    back-in  : cubic-bezier(0.600, -0.280, 0.735, 0.045),
-    back-out  : cubic-bezier(0.175,  0.885, 0.320, 1.275),
-    back-in-out  : cubic-bezier(0.680, -0.550, 0.265, 1.550)
+    back-in      : cubic-bezier(0.600, -0.280, 0.735, 0.045),
+    back-out     : cubic-bezier(0.175,  0.885, 0.320, 1.275),
+    back-in-out  : cubic-bezier(0.680, -0.550, 0.265, 1.550),
+
+    google-in   : cubic-bezier(0.4, 0, 1, 1),
+    google-out    : cubic-bezier(0, 0, 0.2, 1)
 );
 
 // Usage: ease(expo, in-out)

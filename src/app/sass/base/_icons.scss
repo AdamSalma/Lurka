@@ -35,14 +35,35 @@
 .icon-schedule:before {
   content: "\e8b5";
 }
+.icon-flag:before {
+  content: "\e153";
+}
 .icon-attach_file:before {
   content: "\e226";
+}
+.icon-attachment:before {
+  content: "\e2bc";
+}
+.icon-autorenew:before {
+  content: "\e863";
+}
+.icon-photo_camera:before {
+  content: "\e412";
+}
+.icon-close2:before {
+  content: "\e5cd";
 }
 .icon-palette:before {
   content: "\e40a";
 }
 .icon-mode_edit:before {
   content: "\e254";
+}
+.icon-crop_free:before {
+  content: "\e3c2";
+}
+.icon-dashboard:before {
+  content: "\e871";
 }
 .icon-delete:before {
   content: "\e872";
@@ -71,6 +92,9 @@
 .icon-highlight_off:before {
   content: "\e888";
 }
+.icon-home:before {
+  content: "\e88a";
+}
 .icon-keyboard_arrow_down:before {
   content: "\e313";
 }
@@ -92,11 +116,20 @@
 .icon-more_vert:before {
   content: "\e5d4";
 }
+.icon-photo_size_select_large:before {
+  content: "\e433";
+}
 .icon-publish:before {
   content: "\e255";
 }
 .icon-settings:before {
   content: "\e8b8";
+}
+.icon-skip_next:before {
+  content: "\e044";
+}
+.icon-skip_previous:before {
+  content: "\e045";
 }
 .icon-star_border:before {
   content: "\e83a";
@@ -119,6 +152,12 @@
 .icon-view_carousel:before {
   content: "\e8eb";
 }
+.icon-view_day:before {
+  content: "\e8ed";
+}
+.icon-view_module:before {
+  content: "\e8f0";
+}
 .icon-volume_down:before {
   content: "\e04d";
 }
@@ -130,6 +169,9 @@
 }
 .icon-volume_up:before {
   content: "\e050";
+}
+.icon-watch_later:before {
+  content: "\e924";
 }
 .icon-whatshot:before {
   content: "\e80e";
@@ -166,6 +208,18 @@
 }
 .icon-video-camera:before {
   content: "\f03d";
+}
+.icon-image:before {
+  content: "\f03e";
+}
+.icon-photo:before {
+  content: "\f03e";
+}
+.icon-picture-o:before {
+  content: "\f03e";
+}
+.icon-expand:before {
+  content: "\f065";
 }
 .icon-bookmark-o:before {
   content: "\f097";
@@ -244,6 +298,12 @@
 }
 .icon-reload:before {
   content: "\e904";
+}
+.icon-comment:before {
+  content: "\f02b";
+}
+.icon-comment-discussion:before {
+  content: "\f04f";
 }
 .icon-search2:before {
   content: "\f02e";
