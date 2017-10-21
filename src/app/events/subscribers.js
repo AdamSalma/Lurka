@@ -62,6 +62,10 @@ export const onHeaderExpand = function () {
     on(types.EXPAND_HEADER).apply(null, arguments);
 }
 
+export const onHeaderToggled = function () {
+    on(types.HEADER_TOGGLED).apply(null, arguments);
+}
+
 export const onHeaderPanelOpen = function () {
     on(types.OPEN_HEADER_PANEL).apply(null, arguments);
 }
@@ -76,4 +80,12 @@ export const onPostToggle = function () {
 
 export const onThemeChange = function () {
     on(types.THEME_CHANGE).apply(null, arguments);
+}
+
+export const onOpenContextMenu = function () {
+    on(types.OPEN_CONTEXT_MENU).apply(null, arguments);
+}
+
+export const onCloseContextMenu = function () {
+    on(types.CLOSE_CONTEXT_MENU).apply(null, arguments);
 }

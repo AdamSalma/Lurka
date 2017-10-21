@@ -23,9 +23,14 @@ export const emitHeaderShrink = dispatch.bind(null, types.SHRINK_HEADER);
 
 export const emitOpenHeaderPanel = dispatch.bind(null, types.OPEN_HEADER_PANEL);
 export const emitCloseHeaderPanel = dispatch.bind(null, types.CLOSE_HEADER_PANEL);
+export const emitHeaderToggled = dispatch.bind(null, types.HEADER_TOGGLED);
 
 export const emitUpdateWatchEntity = dispatch.bind(null, types.UPDATE_WATCH_ENTITY);
 
 export const emitPostToggle = dispatch.bind(null, types.POST_TOGGLE);
 
 export const emitThemeChange = dispatch.bind(null, types.THEME_CHANGE);
+
+export const emitContextMenuOpen = dispatch.bind(null, types.OPEN_CONTEXT_MENU);
+export const emitContextMenuClose = dispatch.bind(null, types.CLOSE_CONTEXT_MENU);
+
