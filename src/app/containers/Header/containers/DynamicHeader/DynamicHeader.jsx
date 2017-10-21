@@ -32,10 +32,11 @@ import {
     emitSubHeaderToggle,
     emitSettingsToggle,
     emitOpenHeaderPanel,
+    emitHeaderToggled,
     emitBoardReset,
     onContentViewToggle,
     onHeaderShrink,
-    onHeaderExpand,
+    onHeaderExpand
 } from '~/events';
 
 /* Helpers */
@@ -43,6 +44,21 @@ import { bindMembersToClass } from '~/utils/react';
 
 const i = Lurka.icons;
 const headerToggleDuration = 200
+
+
+
+const ButtonIndent = ({ className, children, ...restProps }) => {
+    return (
+        <div className={cx('ButtonIndent', className)} {...restProps}>
+            {children}
+        </div>
+    );
+};
+
+ButtonIndent.displayName = 'ButtonIndent';
+
+
+
 
 
 class DynamicHeader extends PureComponent {
@@ -58,6 +74,40 @@ class DynamicHeader extends PureComponent {
             isContentInView: true,
             isExpanded: true,
             isToggling: false
+        }
+    }
+
+
+    @onHeaderShrink
+    onHeaderShrink = () => {
+        if (this.state.isExpanded) {
+            this.setState(
+                { isExpanded: false, isToggling: true },
+                () => setTimeout(this.toggleComplete, headerToggleDuration)
+            );
+        }
+    }
+
+    @onHeaderExpand
+    onHeaderExpand = () => {
+        if (!this.state.isExpanded) {
+            this.setState(
+                { isExpanded: true, isToggling: true },
+                () => setTimeout(this.toggleComplete, headerToggleDuration)
+            );
+        }
+    }
+
+    @onContentViewToggle
+    onContentViewToggle() {
+        this.setState({
+            isContentInView: !this.state.isContentInView
+        });
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.isExpanded !== prevState.isExpanded) {
+            emitHeaderToggled(this.state.isExpanded);
         }
     }
 
@@ -83,9 +133,11 @@ class DynamicHeader extends PureComponent {
             boardList
         } = this.props
 
+        const {isExpanded} = this.state
+
         const headerClass = cx('DynamicHeader', {
             // 'drawer-open': isDrawerOpen,
-            'shrink': !this.state.isExpanded,
+            'shrink': !isExpanded,
         });
 
         // TODO: Use selector for this:
@@ -113,61 +165,68 @@ class DynamicHeader extends PureComponent {
               <div className='background' />
               <div className='content'>
                 <HeaderGroup className='left'>
+                  <ButtonIndent onClick={this.toggleMenuPanel}>
+                    <div className="vertical-icon menu" >
+                        <Icon name={i.navbarMenu}/>
+                        <span className="title">Menu</span>
+                    </div>
+                  </ButtonIndent>
                   <FullLogo className="DynamicHeader__FullLogo"/>
                 </HeaderGroup>
                 <HeaderGroup className='center' onMouseEnter={this.onTitleHover}>
 
-                  <SlideDownBG className="hide-on-expanded">
+                  <ButtonIndent className="hide-on-expanded">
                     <div className="shrink-icon shrink-icon-left" >
-                    <Icon name={i.navbarNewThread}/>
+                      <Icon name={i.navbarNewThread}/>
                     </div>
-                  </SlideDownBG>
+                  </ButtonIndent>
 
-                  <SlideDownBG className="HeaderTitle--wrapper">
-                  <HeaderTitle onClick={this.onTitleClick} className="main-title">
-                    {!!navbarTitle && <span className="title-normal">{navbarTitle}</span>}
-                    {!!navbarTitle && <span className="title-small">/{boardID}/</span>}
-                    {!!navbarTitle && <MdKeyboardArrowDown color="#777"/>}
-                  </HeaderTitle>
-                  </SlideDownBG>
+                  <ButtonIndent className="HeaderTitle--wrapper">
+                  { !isExpanded && <HeaderTitle onClick={this.onTitleClick} className="main-title">
+                      {!!navbarTitle && <span className="title-normal">{navbarTitle}</span>}
+                      {!!navbarTitle && <span className="title-small">/{boardID}/</span>}
+                      {!!navbarTitle && <Icon name={i.navbarChevron}/>}
+                    </HeaderTitle>
+                  }
+                  </ButtonIndent>
 
-                  <SlideDownBG onClick={this.refreshBoard} className="hide-on-expanded">
+                  <ButtonIndent onClick={this.refreshBoard} className="hide-on-expanded">
                     <div className="shrink-icon shrink-icon-right" >
                       <Icon name={i.navbarRefresh}/>
                     </div>
-                  </SlideDownBG>
+                  </ButtonIndent>
 
                 </HeaderGroup>
                 <HeaderGroup className='right'>
-                    <SlideDownBG onClick={this.toggleWatchPanel}>
+                    <ButtonIndent onClick={this.toggleWatchPanel}>
                         <div className="vertical-icon" >
                             <Notification number={1}>
                               <Icon name={i.navbarEye}/>
                             </Notification>
                             <span className="title">Watcher</span>
                         </div>
-                    </SlideDownBG>
+                    </ButtonIndent>
 
-                    <SlideDownBG onClick={this.toggleBookmarkPanel}>
+                    <ButtonIndent onClick={this.toggleBookmarkPanel}>
                         <div className="vertical-icon" >
                             <Icon name={i.navbarBookmark}/>
                             <span className="title">Bookmarks</span>
                         </div>
-                    </SlideDownBG>
+                    </ButtonIndent>
 
-                    <SlideDownBG onClick={this.toggleDownloadsPanel}>
+                    <ButtonIndent onClick={this.toggleDownloadsPanel}>
                         <div className="vertical-icon" >
-                            <IoArrowDownA/>
+                            <Icon name={i.navbarDownloads}/>
                             <span className="title">Downloads</span>
                         </div>
-                    </SlideDownBG>
+                    </ButtonIndent>
 
-                    <SlideDownBG onClick={this.toggleSettingsPanel}>
+                    <ButtonIndent onClick={this.toggleSettingsPanel}>
                         <div className="vertical-icon" >
                             <Icon name={i.navbarSettings}/>
                             <span className="title">Settings</span>
                         </div>
-                    </SlideDownBG>
+                    </ButtonIndent>
                 </HeaderGroup>
               </div>
             </div>
@@ -189,33 +248,6 @@ class DynamicHeader extends PureComponent {
         emitContentViewToggle()
     }
 
-    @onContentViewToggle
-    onContentViewToggle() {
-        this.setState({
-            isContentInView: !this.state.isContentInView
-        });
-    }
-
-    @onHeaderShrink
-    onHeaderShrink = () => {
-        if (this.state.isExpanded) {
-            this.setState(
-                { isExpanded: false, isToggling: true },
-                () => setTimeout(this.toggleComplete, headerToggleDuration)
-            );
-        }
-    }
-
-    @onHeaderExpand
-    onHeaderExpand = () => {
-        if (!this.state.isExpanded) {
-            this.setState(
-                { isExpanded: true, isToggling: true },
-                () => setTimeout(this.toggleComplete, headerToggleDuration)
-            );
-        }
-    }
-
     toggleComplete = () => {
         this.setState({ isToggling: false })
     }
@@ -228,6 +260,7 @@ class DynamicHeader extends PureComponent {
     toggleBookmarkPanel = () => this.togglePanel("bookmarks");
     toggleDownloadsPanel = () => this.togglePanel("downloads");
     toggleSettingsPanel = () => this.togglePanel("settings");
+    toggleMenuPanel = () => this.togglePanel("menu");
 
     refreshBoard = () => {
         emitBoardReset(0); // duration=0
