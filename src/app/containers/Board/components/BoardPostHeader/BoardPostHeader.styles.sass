@@ -6,19 +6,25 @@
     display: flex
 
     padding: 0 12px
-    color: var(--textSecondary)
-    font-size: $font-size-small
+    color: $text-secondary
     font-family: font-for(BoardPostHeader)
+    +font-size(-2)
+    font-variant: small-caps
 
     .counter
         display: inline-block
         padding: 0 3px
+        line-height: 1
 
         &.timeago
             margin-right: auto
 
+            &::first-letter
+                text-transform: uppercase
+
     .Icon
         margin-right: 2px
+        line-height: inherit
         &::before
             vertical-align: top
 

@@ -1,5 +1,3 @@
-export {default as ActionButton} from './ActionButton'
-export {default as SideIconGroup} from './SideIconGroup'
 export {default as NoSearchResults} from './NoSearchResults'
 export {default as BoardPostHeader} from './BoardPostHeader'
 export {default as BoardSpinner} from './BoardSpinner'

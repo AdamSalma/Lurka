@@ -1,12 +1,7 @@
-import React, { PropTypes } from 'react';
-import {setHTML} from '~/utils/react';
-
-import {
-    BoardPostHeader as PostHeader
-} from '.';
-import {Line} from '~/components';
-
-
+import React from 'react';
+import { setHTML } from '~/utils/react';
+import { BoardPostHeader as PostHeader } from '.';
+import { Line } from '~/components';
 
 const BoardPostComment = ({ title, comment, time, replies }) => {
     return (
@@ -15,7 +10,9 @@ const BoardPostComment = ({ title, comment, time, replies }) => {
                 <PostHeader replies={replies} time={time}/>
                 <Line />
                 <div className="op">
-                    { title && <div {...setHTML(title)} className="title" /> }
+                    { title &&
+                        <div {...setHTML(title)} className="title" />
+                    }
                     <div {...setHTML(comment)} className="comment"/>
                 </div>
             </div>
@@ -24,9 +21,5 @@ const BoardPostComment = ({ title, comment, time, replies }) => {
 };
 
 BoardPostComment.displayName = 'BoardPostComment';
-
-BoardPostComment.propTypes = {
-    className: PropTypes.string,
-};
 
 export default BoardPostComment;
