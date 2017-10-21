@@ -15,7 +15,7 @@ export default function createLayout(options) {
         outerMargin,
         $items,
         containerWidth,
-        blocks
+        columns
 
     return (reuseElements=false) => {
         discoverItems(reuseElements)
@@ -30,14 +30,14 @@ export default function createLayout(options) {
         // sometimes called before items are rendered
         if (!$items || !$items.length) return;
 
-        blocks = []
+        columns = []
         containerWidth = $(containerSelector).width() - gutterRight - gutterLeft
         colWidth = $items.outerWidth() + margin
         colCount = Math.floor(containerWidth / colWidth)
         outerMargin = containerWidth - colCount * colWidth
 
         for (let i=0; i < colCount; i++) {
-            blocks.push(margin)
+            columns.push(margin)
         }
     }
 
@@ -45,14 +45,14 @@ export default function createLayout(options) {
         var min, index, leftPos;
 
         $items && $items.each(function() {
-            min = Math.min.apply(Math, blocks)
-            index = blocks.indexOf(min)
+            min = Math.min.apply(Math, columns)
+            index = columns.indexOf(min)
             leftPos = gutterLeft + outerMargin/2 + margin/2 + (index * colWidth)
 
             this.style.top = gutterTop + min + 'px'
             this.style.left = leftPos + 'px'
 
-            blocks[index] = min + this.offsetHeight + margin
+            columns[index] = min + this.offsetHeight + margin
         });
     }
 }
