@@ -1,18 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
 import cx from 'classnames';
+
 import './styles';
+import { Icon } from '~/components';
+import { isFunction } from '~/utils/types'
 
-const FileInput = ({ className, ...restProps }) => {
-    const uid = "id"+Date.now();
+const i = Lurka.icons;
 
-    return (
-        <div className={cx("FileInput", className)}>
-            <input {...restProps} id={uid} type="file"/>
-            <label for={uid}>Choose a file</label>
-        </div>
-    );
-};
+class styles extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            fileName: null
+        }
+    }
 
-FileInput.displayName = 'FileInput';
+    handleChange = (e) => {
+        const fileName = e.target.value.split(/(\\|\/)/g).pop()
 
-export default FileInput;
+        this.setState({ fileName }, () => {
+            isFunction(this.props.onChange) && this.props.onChange(e, fileName)
+        })
+    }
+
+    render() {
+        const { className, ...restProps } = this.props;
+        const { fileName } = this.state;
+        const uid = "id"+Date.now();
+
+        return (
+            <div className={cx("FileInput", className)}>
+                <input {...restProps} id={uid} type="file" onChange={this.handleChange}/>
+                <label htmlFor={uid}>
+                    <Icon name={i.fileInput}/>
+                    {fileName &&
+                        <div className="FileInput__filename">
+                            {fileName}
+                        </div>
+                    }
+                </label>
+            </div>
+        );
+    }
+}
+
+export default styles;

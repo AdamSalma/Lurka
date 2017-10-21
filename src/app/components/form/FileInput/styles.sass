@@ -1,9 +1,15 @@
 @import '~sass/utils'
 
-.InputFile
-    color: white
-    background-color: black
+.FileInput
+    +font-size(3)
+    display: flex
+    position: relative
+    align-items: center
+    color: $text-primary
+    height: 1.5em
+    line-height: 1.5em
 
+    // Hide the ugly input
     input
         width: 0.1px
         height: 0.1px
@@ -11,14 +17,44 @@
         overflow: hidden
         position: absolute
         z-index: -1
+        top: 0
 
-    .inputfile + label
-        font-size: 1.25em
-        font-weight: 700
+    label
+        +clickable
+        +circle(1.5em)
+        background-color: $primary
+        border-radius: 50%
+        font-size: inherit
         color: inherit
-        background-color: inherit
-        display: inline-block
+        display: inline-flex
+        align-items: center
+        justify-content: center
+        margin: 0
 
-    .inputfile:focus + label,
-    .inputfile + label:hover
-        background-color: var(--primary)
+        .Icon
+            top: -1px
+            z-index: 1
+            position: relative
+
+    input:focus + label,
+    input + label:hover
+        background-color: $primary
+
+    .FileInput__filename
+        +font-size(-1)
+        display: inline-block
+        padding-left: 1.5rem
+        padding-right: 1em
+        position: absolute
+        background: $primary-dark
+        height: 100%
+        left: 1.5rem
+        top: 0
+        vertical-align: middle
+        border-radius: 0 1.5em 1.5em 0
+        line-height: inherit
+        text-overflow: ellipsis
+        word-wrap: break-word
+        white-space: nowrap
+        overflow: hidden
+        max-width: 90%
