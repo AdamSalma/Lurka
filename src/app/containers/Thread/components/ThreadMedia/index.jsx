@@ -1,4 +1,4 @@
-import './Media.styles'
+import './styles'
 import React from 'react'
 
 import {
