@@ -15,6 +15,7 @@ import {
     getBoardPostsBySearch,
     getBoardPostsByFilter,
     getBoardStatistics,
+    getCurrentBoardInfo,
     isBoardBeingSearched,
     isBoardFetching,
     isBoardFiltered,
@@ -23,6 +24,7 @@ import {
 function mapStateToProps(state) {
     return {
         boardID: getBoardID(state),
+        currentBoard: getCurrentBoardInfo(state),
         posts: getBoardPosts(state),
         postsBySearchTerm: getBoardPostsBySearch(state),
         postsByFilterTerm: getBoardPostsByFilter(state),

@@ -15,7 +15,10 @@ import {
     CircleSpinner as Spinner,
     Button,
     MasonryGrid as BoardGrid,
-    Line
+    Line,
+    Scrollable,
+    SidePullout,
+    Parallax
 } from '~/components';
 
 import {
@@ -31,12 +34,9 @@ import {
 } from './assemblies';
 
 import {
-    emitThreadOpen, emitHeaderExpand, emitHeaderShrink,
+    emitThreadOpen, emitHeaderExpand, emitHeaderShrink, emitContextMenuOpen,
     onAppReady, onSettingsToggle, onBoardReset, onHeaderExpand, onHeaderShrink
 } from '~/events'
-
-
-const s = window.appSettings
 
 
 export class Board extends Component {
@@ -107,6 +107,12 @@ export class Board extends Component {
 
         $(window).resize(onWindowResize)
 
+        if (this.props.posts.length) {
+            setTimeout(this.applyLayout(), 500)
+        }
+
+        /* REMOVE ME!!! */
+
         // Hover over board posts reveals more info
         // catchTooltip(board);  // TODO: Implement catchtooltip on board
     }
@@ -125,57 +131,74 @@ export class Board extends Component {
     }
 
     componentWillUnmount() {
-        this._board.off();
+        $(this.boardRef).off();
+    }
+
+    setScrollerRef = ref => this.scroller = ref
+    setPostsRef = ref => this._postContainer = ref
+
+    get boardRef() {
+        return this.scroller._container
     }
 
     render() {
-        const { posts, isFetching, statistics, searchBoard, didInvalidate } = this.props;
+        const { posts, isFetching, statistics, searchBoard, didInvalidate, currentBoard={} } = this.props;
 
+
+        const isActive = !isFetching && !didInvalidate;
         const boardClasses = cx('Board', 'nano', {
             'disable-animations': this.props.isBeingSearched
-        })
+        });
 
-        const createdPosts = this.createPosts();
+        // Posts get filtered by search etc
+        const BoardPosts = this.createPosts();
+
+
 
         return (
-            <div id="board" className={boardClasses} ref={b => this._board = $(b)}>
-                <div className="nano-content" onScroll={this.onScroll}>
+            <div className="BoardWrapper" onContextMenu={(e) => emitContextMenuOpen({
+                ContextMenu: <div>Board ContextMenu</div>,
+                event: e
+            })}>
+                <Scrollable translate3d
+                    containerProps={{className:boardClasses, id: "board"}}
+                    ref={this.setScrollerRef}
+                    className="ParallaxArea"
+                    onScroll={this.onScroll}>
                     <div className="ExpandedHeaderGap"/>
-                    {!isFetching && !didInvalidate &&
-                        <BoardHeader
-                            onSearch={this.handleSearch}
-                        />
-                    }
-                    {!isFetching && !didInvalidate &&
+                    <BoardHeader
+                        isDisabled={isFetching || didInvalidate}
+                        isSpinnerActive={isFetching && !didInvalidate}
+                        isActive={isActive}
+                        ErrorMessage={didInvalidate && "Error loading board"}
+                        onSearch={this.handleSearch}
+                        boardID={currentBoard.boardID}
+                        boardTitle={currentBoard.title}
+                    />
+                    {/*<Parallax.Background className="BoardParallax--header">
+                    </Parallax.Background>
+                    <Parallax.Foreground className="BoardParallax--posts">
+                    </Parallax.Foreground>*/}
+                    {isActive &&
                         <BoardMetadata
-                            postsShown={createdPosts.length}
+                            postsShown={BoardPosts.length}
                             totalPosts={posts.length}
                             totalImages={statistics.images}
                             totalReplies={statistics.replies}
                         />
                     }
-                    {!isFetching && !didInvalidate &&
-                        <div className="PostLinebreak"/>
-                    }
-                    {didInvalidate &&
-                        <div>
-                            BOARD INVALIDATED PLACEHOLDER
-                        </div>
-                    }
-
-                    <ToTopButton startHidden
-                        ref={(el) => this._toTop = el}
-                        onClick={() => this.scrollToTop({
-                            duration: 600
-                        })}
-                    />
-
-                    <div className="posts" ref={x => this._postContainer = x}>
-                        {isFetching && !posts.length &&
-                            <Spinner />}
-                        {createdPosts}
+                    {isActive && <div className="PostLinebreak"/>}
+                    <div className="posts" ref={this.setPostsRef} onContextMenu={(e) => emitContextMenuOpen({
+                        ContextMenu: <div>BoardPost ContextMenu</div>,
+                        event: e
+                    })}>
+                        {BoardPosts}
                     </div>
-                </div>
+                </Scrollable>
+                <ToTopButton startHidden
+                    ref={(el) => this._toTop = el}
+                    onClick={() => this.scrollToTop({duration: 600})}
+                />
             </div>
         );
     }
@@ -276,9 +299,9 @@ export class Board extends Component {
         this.updateScroller({ scroll:"top" });
         this.applyLayout();
         this.revealPostsPartiallyInView();
-        this._board.trigger('scroll');
+        var scrollEvent = new CustomEvent("scroll");
+        this.boardRef.dispatchEvent(scrollEvent);
     }
-
 
     handlePostClick = (threadID) => {
         // Fetch if user not highlighting any text
@@ -296,7 +319,7 @@ export class Board extends Component {
     }
 
     updateScroller(args) {
-        this._board.nanoScroller(args);
+        this.scroller.updateScroller(args);
     }
 
     scrollToTop = (options) => {
@@ -306,7 +329,7 @@ export class Board extends Component {
             mobileHA: false
         }, options)
 
-        const $scrollArea = this._board.find('.nano-content');
+        const $scrollArea = $(this.boardRef).find('.nano-content');
         const $firstChild = $scrollArea.find(">:first-child");
 
         options.container = $scrollArea
@@ -323,10 +346,10 @@ export class Board extends Component {
         // Change class
         if (searchValue === "") {
             // remove animation-disabling class from board
-            this._board.removeClass('disable-animations')
+            this.boardRef.classList.remove('disable-animations')
         } else {
             // add animation-disabling class from board
-            this._board.addClass('disable-animations')
+            this.boardRef.classList.add('disable-animations')
         }
 
         this.props.searchBoard(searchValue);

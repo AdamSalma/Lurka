@@ -1,12 +1,17 @@
 @import '~sass/utils'
 
+$boardheader-height: 236px
+$gradient: linear-gradient(to bottom, $grey-dark, $grey)
+$header-offset: 150px
+
 .Board
     position: relative
     +set-dims(100vw, 100vh)
     top: $header-height
     padding-top: 48px
     background: var(--board)
-    background-image: linear-gradient(to bottom, theme(dark, board, darkest), theme(dark, board))
+    // background-image: $gradient
+    // background: $grey-dark
 
     .nano-pane
         +nano-can-expand(12px)
@@ -39,20 +44,20 @@
         pointer-events: none
 
     .Button
-        // background-image: linear-gradient(to bottom, grey(5), grey(6))
-        // background-image: linear-gradient(to bottom, var(--primary), theme(dark, layout, dark))
-        background-color: theme(dark, layout, dark)
         margin: 12px 24px
-        font-family: font-for(Board__Button)
-        border: theme(dark, layout, darkest) solid 1px
-        box-shadow: 0 1px 1px grey(10)
-        transition: all .2s
-        text-shadow: 0 1px 1px grey(4)
+    //     // background-image: linear-gradient(to bottom, $grey-lightest, $grey-light)
+    //     // background-image: linear-gradient(to bottom, var(--primary), theme(dark, layout, dark))
+    //     background-color: theme(dark, layout, dark)
+    //     font-family: font-for(Board__Button)
+    //     border: theme(dark, layout, darkest) solid 1px
+    //     box-shadow: 0 1px 1px $grey-darkest
+    //     transition: all .2s
+    //     text-shadow: 0 1px 1px grey(4)
 
-        &:hover
-            // background-image: linear-gradient(to top, var(--primary), theme(dark, layout, dark))
-            box-shadow: 0 1px 4px grey(10)
-            background-color: theme(dark, layout, darkest)
+    //     &:hover
+    //         // background-image: linear-gradient(to top, var(--primary), theme(dark, layout, dark))
+    //         box-shadow: 0 1px 4px $grey-darkest
+    //         background-color: theme(dark, layout, darkest)
 
     .PostLinebreak
         $gutter: 60px
@@ -64,3 +69,15 @@
 
     .ExpandedHeaderGap
         height: $subheader-height
+
+    // Parallax
+    .BoardParallax--header
+        top: $header-offset * 0.75
+
+    .BoardParallax--posts
+        top: $boardheader-height + $header-offset
+        background: var(--board)
+        +size(100vw, 100vh)
+        background: $grey-dark
+        border-top: 3px $grey solid
+
