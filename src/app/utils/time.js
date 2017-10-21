@@ -57,5 +57,5 @@ export const timestampToGMT = (timestamp) => {
   return moment(timestamp).utc().format('ddd[,] D MMM YYYY HH:mm:ss [GMT]')
 }
 
-window.timestampToGMT = () => timestampToGMT.bind(null, Date.now());
-window.moment = moment
+
+export const nextTick = (callback) => setTimeout(callback, 1);

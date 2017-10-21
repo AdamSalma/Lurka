@@ -14,10 +14,11 @@ import * as redux from './redux'
 import * as throttle from './throttle'
 import * as time from './time'
 import * as types from './types'
+import * as designPatterns from './designPatterns'
 
 
 export default {
-    conversions, dom, react, redux, throttle, time, types, localStorage
+    conversions, dom, react, redux, throttle, time, types, localStorage, designPatterns
 }
 
 

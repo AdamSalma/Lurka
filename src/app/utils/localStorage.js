@@ -7,26 +7,24 @@ export const saveCache = (cache) => save('cache', cache)
 export const clearCache = () => remove('cache');
 
 export const load = (key) => {
-	console.groupCollapsed(`%clocalStorage.load(${key})`, 'background: #666; color: gold');
 	try {
-		const serializedCache = localStorage.getItem(key);
-		if (serializedCache === null) {
+		const serializedData = localStorage.getItem(key);
+		if (serializedData === null) {
 			console.warn("Data was null");
 			return undefined
 		}
-		const data = JSON.parse(serializedState);
+		const data = JSON.parse(serializedData);
 		console.log("Loaded data:", data);
 		return data
 	} catch (err) {
 		console.error(err);
 		return undefined
 	}
-	console.groupEnd()
 }
 
 
 export const save = (key, data) => {
-	console.groupCollapsed(`%clocalStorage.save(${key})`, 'background: #666; color: gold');
+	console.groupCollapsed(`%clocalStorage.save(${key})`, 'background: #272727; color: gold; padding: 2px');
 	console.log("Saving data:", data);
 	try {
 		const serializedData = JSON.stringify(data);
@@ -40,7 +38,7 @@ export const save = (key, data) => {
 
 
 export const remove = (key) => {
-	console.log(`%clocalStorage.clear(${key})`, 'background: #666; color: gold');
+	console.log(`%clocalStorage.clear(${key})`, 'background: #272727; color: gold');
 	try {
 		localStorage.removeItem(key);
 	} catch (err) {
