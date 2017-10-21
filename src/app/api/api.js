@@ -1,5 +1,5 @@
 import endpoints from 'config/api.4chan'
-import parser from './parser'
+import Parser from './parser'
 
 export default class Api {
     constructor(client) {
@@ -11,7 +11,7 @@ export default class Api {
         return this.client
             .get(url, config)
             .then(res => res.data)
-            .then(board => parser.parseBoard(board, boardID))
+            .then(board => Parser.parseBoard(board, boardID))
     }
 
     fetchThread({ boardID, threadID }, config) {
@@ -21,7 +21,7 @@ export default class Api {
             .then(res => {
                 const thread = res.data.posts;
                 return {
-                    thread: parser.parseThread(thread, boardID),
+                    thread: Parser.parseThread(thread, boardID),
                     lastModified: res.headers["last-modified"] || 0
                 }
             })
@@ -32,10 +32,14 @@ export default class Api {
         return this.client
             .get(url, config)
             .then(res => res.data.boards)
-            .then(boardList => parser.parseBoardList(boardList))
+            .then(boardList => Parser.parseBoardList(boardList))
     }
 
     fetchArchive({boardID, threadID}) {
+        // TODO:  Web scrape archive and parse into consumable structure
+    }
+
+    submitThreadPost() {
 
     }
 }
