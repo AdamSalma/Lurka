@@ -116,11 +116,20 @@
 .icon-more_vert:before {
   content: "\e5d4";
 }
+.icon-movie_creation:before {
+  content: "\e404";
+}
+.icon-ondemand_video:before {
+  content: "\e63a";
+}
 .icon-photo_size_select_large:before {
   content: "\e433";
 }
 .icon-publish:before {
   content: "\e255";
+}
+.icon-reply:before {
+  content: "\e15e";
 }
 .icon-settings:before {
   content: "\e8b8";
@@ -191,6 +200,9 @@
 .icon-sort-alphabetically:before {
   content: "\e902";
 }
+.icon-film:before {
+  content: "\f008";
+}
 .icon-close:before {
   content: "\f00d";
 }
@@ -241,6 +253,18 @@
 }
 .icon-angle-down:before {
   content: "\f107";
+}
+.icon-mail-reply:before {
+  content: "\f112";
+}
+.icon-reply2:before {
+  content: "\f112";
+}
+.icon-mail-reply-all:before {
+  content: "\f122";
+}
+.icon-reply-all:before {
+  content: "\f122";
 }
 .icon-paper-plane:before {
   content: "\f1d8";
