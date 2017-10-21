@@ -1,5 +1,5 @@
 import './Notification.styles'
-import React, { PropTypes } from 'react';
+import React from 'react';
 import cx from 'classnames'
 
 const Notification = ({ className, children, number=0 }) => {
@@ -17,9 +17,5 @@ const Notification = ({ className, children, number=0 }) => {
 };
 
 Notification.displayName = 'Notification';
-
-Notification.propTypes = {
-    className: PropTypes.string,
-};
 
 export default Notification;

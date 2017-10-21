@@ -12,7 +12,7 @@
     .double-bounce1, .double-bounce2
         +size(inherit)
         border-radius: 50%
-        background-color: var(--primary)
+        background-color: $primary
         position: absolute
         top: 0
         left: 0
@@ -22,7 +22,7 @@
 
     .double-bounce2
         animation-delay: -.5s
-        background-color: theme(dark, layout, darkest)
+        background-color: $primary-darkest
 
 
     @-webkit-keyframes sk-bounce
