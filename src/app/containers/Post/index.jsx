@@ -3,15 +3,16 @@ import cx from 'classnames';
 
 import './styles';
 import PostPositioner from './PostPositioner';
+import PostForm from './PostForm';
 import config from './config';
+import connect from './connect';
 
 import {
     onPostToggle,
+    onPostReferenced,
     emitThreadMove,
 } from '~/events'
-import utils from '~/utils'
-
-
+import { isDefined, isFunction } from '~/utils/types'
 
 export class Post extends Component {
     static defaultProps = {
@@ -34,7 +35,7 @@ export class Post extends Component {
             return
         }
 
-        if (utils.types.isDefined(override)) {
+        if (isDefined(override)) {
             if (override === this.state.isOpen) {
                 console.warn("Post override rejected; is in desired state");
                 return
@@ -46,6 +47,45 @@ export class Post extends Component {
         } else {
             this.preparePostForOpen(...arguments)
         }
+    }
+
+    // @onPostReferenced
+    onPostReferenced( postId ) {
+        this.form.appendToComment(
+            `<span class="quotelink">
+
+            </span>`
+        )
+    }
+
+    render() {
+        const { centered, context, isOpen } = this.state;
+
+        console.log(`Post.render(): centered: ${centered}, context: ${context}`)
+
+        if (!isOpen) {
+            return null
+        }
+
+        const header = this.getContextSpecificHeader(context)
+
+        return (
+            <PostPositioner centered={centered} onClick={this.preparePostForClose}>
+                {centered && <div>
+                    OVERLAY
+                </div>}
+                <div className="Post" ref={ref => this._post = ref} onClick={e => e.stopPropagation()}>
+                    <PostForm
+                        theme="black"
+                        className="PostForm"
+                        header={header}
+                        close={this.preparePostForClose}
+                        ref={ref => this.form = ref}
+                        onSubmit={this.handlePostSubmission}
+                    />
+                </div>
+            </PostPositioner>
+        );
     }
 
     preparePostForOpen({ context }) {
@@ -75,7 +115,7 @@ export class Post extends Component {
 
     }
 
-    preparePostForClose() {
+    preparePostForClose = () => {
         this.isDisabled = true
         const {centered, context} = this.state;
 
@@ -95,7 +135,7 @@ export class Post extends Component {
                 })
             })
         } else {
-            this.animateOut( () => {
+            this.animateOut(() => {
                 this.setState(futureState);
             })
         }
@@ -118,26 +158,53 @@ export class Post extends Component {
         return true
     }
 
-    render() {
-        const { centered, context, isOpen } = this.state;
+    handlePostSubmission = (post) => {
+        console.log("Post.handlePostSubmission()")
 
-        console.log(`Post.render(): centered: ${centered}, context: ${context}`)
+        const validationErrors = this.validatePost(post)
 
-        if (!isOpen) {
-            return null
+        if (validationErrors) {
+            return this.invalidateForm(validationErrors);
         }
 
-        return (
-            <PostPositioner centered={centered}>
-                {centered && <div>
-                    OVERLAY
-                </div>}
-                <div className="Post" ref={ref => this._post = ref}>
-                    {context === "thread" && <div>IN THREAD. </div>}
-                    POST!!!
-                </div>
-            </PostPositioner>
-        );
+        const { context } = this.state;
+
+        if (context === "thread") {
+            this.props.submitThreadPost(post)
+        } else if (context === "board") {
+            this.props.submitBoardPost(post)
+        } else {
+            throw new Error("InvalidContext: Post context was not 'thread' or 'board'")
+        }
+    }
+
+    validatePost() {
+        // Needs access to the max chars and timeout
+
+        // for now
+        return
+    }
+
+    invalidateForm(errorList) {
+        // For now
+        return
+
+        this.setState({ showInvalidationMessage: true });
+
+        setTimeout(() =>
+            this.setState({
+                 showInvalidationMessage: false
+            }),
+        config.invalidationMessageDuration)
+
+    }
+
+    getContextSpecificHeader(context) {
+        if (context === "thread") {
+            return <h4>Reply to thread</h4>
+        } else {
+            return <h4>Create thread</h4>
+        }
     }
 
     animateIn = (callback) => {
@@ -148,7 +215,7 @@ export class Post extends Component {
             duration: 300,
             easing: [0.23, 1, 0.32, 1],
             complete: () => {
-                utils.types.isFunction(callback) && callback()
+                isFunction(callback) && callback()
                 this.isDisabled = false
             }
         })
@@ -162,15 +229,15 @@ export class Post extends Component {
             duration: 200,
             easing: [0.23, 1, 0.32, 1],
             complete: () => {
-                utils.types.isFunction(callback) && callback()
+                isFunction(callback) && callback()
                 this.isDisabled = false
             }
         })
     }
 
     animate(styles, options) {
-        this._post && $(this._post).velocity(styles, options);
+        this._post && $(this._post).stop().velocity(styles, options);
     }
 }
 
-export default Post;
+export default connect(Post);
