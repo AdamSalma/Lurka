@@ -51,8 +51,8 @@ class TextField extends Component {
                     onBlur={this.handleBlur}
                     ref={this.setInputRef}
                 />
-                <span className="bar" style={barStyles}/>
-                <label style={labelStyles}>{label}</label>
+                <span className="bar"/>
+                <label>{label}</label>
             </div>
         );
     }
