@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import {getBoardID} from './status';
 
 // State
 export const getBoardListItems = (state) => state.boardList.items
@@ -30,4 +31,11 @@ export const getFavouriteBoards = createSelector(
     (faveIDs, boards) =>
         faveIDs.map( boardID =>
             boards.find( board => board.boardID === boardID))
+)
+
+export const getCurrentBoardInfo = createSelector(
+    getBoardID,
+    getBoardListItems,
+    (currentBoardID, boardList) =>
+        boardList.find( board => board.boardID === currentBoardID )
 )

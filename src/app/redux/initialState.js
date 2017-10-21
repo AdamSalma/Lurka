@@ -110,7 +110,7 @@ export default {
         },
 
         // External settings the user can configure:
-        homeBoard: 'g',
+        homeBoard: 'fit',
         nsfw: false,
         downloadLocation: '~/Downloads/Lurka',
         boardUpdateInterval: 15,
