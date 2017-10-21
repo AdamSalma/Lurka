@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import classes from "classnames";
 import utils from '~/utils';
+import './styles'
 
 export default class Scrollable extends PureComponent {
 
@@ -60,12 +61,19 @@ export default class Scrollable extends PureComponent {
         const containerClasses = classes(containerProps.className, "nano");
         const scrollerClasses = classes(className, "nano-content");
 
+        const styles = {}
+
+        if (translate3d) {
+            // Performance boost using hardware accelleration
+            styles.transform = "translate3d(0, 0, 0)"
+        }
+
         return (
             <div {...containerProps} className={containerClasses} ref={el => this._container = el}>
                 <div
                     className={scrollerClasses}
                     ref={el => this._scroller = el}
-                    style={translate3d && {transform: "translate3d(0, 0, 0)"}  /*<- performance boost using hardware accelleration */}
+                    style={styles}
                     {...restProps}>
                     {children}
                 </div>
