@@ -14,8 +14,8 @@ $radio-button-size: 20px
             transition: color $key-animation-duration $key-bezier-animation-in
 
         &:hover .Radio__circle
-            background: grey(7)
-            border: 2px solid grey(8)
+            background: $grey
+            border: 2px solid $grey-dark
 
     .RadioGroup__label
         display: inline-block
@@ -35,9 +35,9 @@ $radio-button-size: 20px
 
         .Radio__circle
             +circle($radio-button-size)
-            background: grey(9)
+            background: $grey-darkest
             position: relative
-            border: 2px solid grey(9)
+            border: 2px solid $grey-darkest
             transition: background-color $key-animation-duration ease-out
 
             &::after
