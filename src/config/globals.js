@@ -11,23 +11,24 @@ Lurka.defaultTheme = "dark-red"
 
 if (process.env.NODE_ENV !== "production") {
     // IIFE allows the `require()` to only happen once.
-    Lurka.performanceTest = ((testDuration=5000) => {
-        const Perf =  require('react-addons-perf');
-        return () => {
-            Perf.start()
-            setTimeout(() => {
-                Perf.stop();
-                Perf.printDOM();
-                Perf.printWasted();
-            }, testDuration);
-        }
-    })();
+    // Lurka.performanceTest = ((testDuration=5000) => {
+    //     const Perf =  require('react-addons-perf');
+    //     return () => {
+    //         Perf.start()
+    //         setTimeout(() => {
+    //             Perf.stop();
+    //             Perf.printDOM();
+    //             Perf.printWasted();
+    //         }, testDuration);
+    //     }
+    // })();
 
     // JQuery is only global inside webpack
     Lurka.$ = $
+    Lurka.Axios = require('axios').default
 }
 
-Lurka.iconPackName = 'lurka';
+Lurka.iconPackName = 'icon';
 Lurka.icons = require('./icons');
 
 // Duration, type and message for alerts
@@ -54,12 +55,16 @@ Lurka.settings = {
     subheaderHeight: 48,
     threadWidth: 850,
     settingsWidth: 320,
+    boardPostWidth: 232,
 
     // Seconds to backoff when making a request
     apiBackoff: [10, 15, 20, 30, 60, 90, 120, 180, 240, 300],
 
+    // Captcha
+    siteKey: "6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc",
+
     // Which side of the screen alerts pop up from
-    alertPosition: "top left"
+    alertPosition: "bottom left"
 }
 
 // Makes object immutable.
