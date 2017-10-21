@@ -3,13 +3,14 @@ import path from 'path';
 import url from 'url';
 
 import handleBeforeSendHeaders from './events/handleBeforeSendHeaders';
+import handleRedirect from './events/handleRedirect';
 
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let main, preloader
 
-const createWindow = () => {
+export default function createWindow () {
     createPreloaderWindow();
     createMainWindow();
 
@@ -24,28 +25,25 @@ const createWindow = () => {
     });
 }
 
-export default createWindow
-
 function createPreloaderWindow(opts) {
     if (preloader)
        return preloader
 
     preloader = new BrowserWindow(config.electron.preloader)
 
+    var preloaderPath;
 
     if (process.env.NODE_ENV === "development") {
-        preloader.loadURL(url.format({
-            pathname: path.join(__dirname, 'dev', `preloader.html`),
-            protocol: 'file:',
-            slashes: true
-        }));
+        preloaderPath = path.join(__dirname, 'dev', `preloader.html`)
     } else {
-        preloader.loadURL(url.format({
-            pathname: path.join(__dirname, "preloader.html"),
-            protocol: 'file:',
-            slashes: true
-        }));
+        preloaderPath = path.join(__dirname, "preloader.html")
     }
+
+    preloader.loadURL(url.format({
+        pathname: preloaderPath,
+        protocol: 'file:',
+        slashes: true
+    }));
 
     preloader.on('closed', () => {
         preloader = null
@@ -61,21 +59,22 @@ function createMainWindow(opts) {
     // Set custom headers to bypass 4chan image block
     main.webContents.session.webRequest.onBeforeSendHeaders(handleBeforeSendHeaders);
 
+    // Open links in browser
+    main.webContents.on('new-window', handleRedirect)
+
+    var indexPath;
+
     if (process.env.NODE_ENV === "development") {
-        // Allow dynamic webpack content serving
-        // main.__WebpackUrl__ = config.server.url + "app.bundle.js"
-        main.loadURL(url.format({
-            pathname: path.join(__dirname, 'dev', 'index.html'),
-            protocol: 'file:',
-            slashes: true
-        }));
+        indexPath = path.join(__dirname, 'dev', 'index.html')
     } else {
-        main.loadURL(url.format({
-            pathname: path.join(__dirname, 'index.html'),
-            protocol: 'file:',
-            slashes: true
-        }));
+        indexPath = path.join(__dirname, 'index.html')
     }
+
+    main.loadURL(url.format({
+        pathname: indexPath,
+        protocol: 'file:',
+        slashes: true
+    }));
 
     main.on('closed', () => {
         main = null
