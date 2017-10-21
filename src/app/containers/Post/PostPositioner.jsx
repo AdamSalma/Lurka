@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
 
-const PostPositioner = ({ className, children, centered }) => {
+const PostPositioner = ({ className, children, centered, onClick }) => {
     const classes = cx('PostPositioner', className, {
         "position-left": !centered,
         "position-centered": centered
     });
 
     return (
-        <div className={classes}>
+        <div className={classes} onClick={onClick}>
             {children}
         </div>
     );

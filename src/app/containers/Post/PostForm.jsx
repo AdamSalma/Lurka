@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
-// import Recaptcha from 'react-recaptcha'
+import Recaptcha from 'react-recaptcha'
 import {
+    FileInput,
     TextField,
+    TextArea,
     Icon,
     IconCircle,
-    FileInput
+    ButtonCircle,
 } from '~/components';
 
 const i = Lurka.icons;
+const { siteKey } = Lurka.settings;
 
 class PostForm extends Component {
     constructor(props) {
@@ -27,11 +30,6 @@ class PostForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-
-        if (!this.isFormValid()) {
-            this.invalidateForm()
-            return
-        }
 
         const { name, options, comment } = this.state;
 
@@ -59,66 +57,51 @@ class PostForm extends Component {
           <form className={className} onSubmit={this.handleSubmit}>
             <div className="post-header">
                 {header}
-                <IconCircle className="post-close" name={i.postClose} onClick={close}/>
             </div>
             <TextField
-                theme={theme}
-                className="post-name"
-                label="Name"
-                name="name"
-                placeholder="Anonymous"
-                onChange={this.handleInputChange}
-                ref={this.setNameRef}
+              theme={theme}
+              className="post-name"
+              label="Name"
+              name="name"
+              placeholder="Anonymous"
+              onChange={this.handleInputChange}
+              ref={this.setNameRef}
             />
             <TextField
-                theme={theme}
-                className="post-options"
-                label="Options"
-                name="options"
-                ref={this.setOptionsRef}
-                onChange={this.handleInputChange}/>
-            <textarea
+              theme={theme}
+              className="post-options"
+              label="Options"
+              name="options"
+              ref={this.setOptionsRef}
+              onChange={this.handleInputChange}
+            />
+            <TextArea
               className="post-comment"
               name="comment"
+              label="Comment"
               ref={this.setCommentRef}
               onChange={this.handleInputChange}
             />
-           {/* <Recaptcha
+           <Recaptcha
               ref={e => this._recaptcha = e}
-              sitekey={sitekey}
+              sitekey={siteKey}
               size="compact"
               render="explicit"
-              verifyCallback={verifyCallback}
-              onloadCallback={callback}
-              expiredCallback={expiredCallback}
-            />*/}
-            <FileInput className="post-file-wrapper"/>
-            <div className="post-submit-wrapper">
-                <Icon name={i.postSubmit}/>
+              theme="dark"
+              verifyCallback={() => console.log("verifyCallback", arguments)}
+              onloadCallback={() => console.log("onloadCallback", arguments)}
+              expiredCallback={() => console.log("expiredCallback", arguments)}
+            />
+            <script src="https://www.google.com/recaptcha/api.js" async defer/>
+            <div className="PostForm__decision">
+                <FileInput className="post-file-wrapper"/>
+                <button type="text" className="post-submit">
+                    <Icon name={i.postSubmit}/>
+                    <span className="text">Send</span>
+                </button>
             </div>
           </form>
         )
-    }
-
-    isFormValid() {
-        // Needs access to the max chars and timeout
-
-        // for now
-        return true
-    }
-
-    invalidateForm() {
-        // For now
-        return
-
-        this.setState({ showInvalidationMessage: true });
-
-        setTimeout(() =>
-            this.setState({
-                 showInvalidationMessage: false
-            }),
-        config.invalidationMessageDuration)
-
     }
 }
 
