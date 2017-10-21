@@ -1,8 +1,8 @@
 @import '~sass/utils'
 
 $video-highlight-color: var(--primary)
-$video-volume-fill-color: grey(1)
-$video-controls-background-color: grey(9)
+$video-volume-fill-color: $text-primary
+$video-controls-background-color: $grey-darkest
 
 =_video-button
     +clickable
@@ -199,7 +199,7 @@ $video-controls-background-color: grey(9)
             right: 0
             transform: translateY(-50%)
             font-size: 60px
-            color: grey(1)
+            color: $text-primary
 
     button .Icon
         padding: 5px
