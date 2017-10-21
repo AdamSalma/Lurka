@@ -1,7 +1,6 @@
 // Enable electron to access app dependencies (not just dev-deps)
-require('module').globalPaths.push(
-    require('path').join(__dirname, "../../..", "build", "node_modules")
-);
+var node_modules = require('path').join(__dirname, "../../..", "build", "node_modules")
+require('module').globalPaths.push(node_modules);
 
 // Enable es6+
 require('babel-register');
