@@ -10,5 +10,5 @@ export default function ( props ) {
         className: classes('Icon', props.className, iconName)
     })
 
-    return <span {...newProps}/>
+    return <span {...newProps} aria-hidden="true" />
 }

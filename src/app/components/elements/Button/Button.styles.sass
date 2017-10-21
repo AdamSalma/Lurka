@@ -2,6 +2,9 @@
 
 .Button
     +clickable
+    // +box-shadow(2)
+    box-shadow: 0 5px 14px -7px $grey-darkest
+    transition: box-shadow .3s ease(sine, out)
     position: relative
     display: inline-block
     padding: 6px 12px
@@ -19,12 +22,16 @@
     min-height: 2.46153846em
     vertical-align: middle
     box-sizing: border-box
+    font-smoothing: antialiased
     background-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.2) 100%)
 
     &.border-accent
         border: 1px solid var(--primary)
-        background: inherit
+        background: none
         transition: background .2s ease-out
 
         &:hover
             background: var(--primary)
+
+    &:hover
+        box-shadow: 0 7px 14px -5px $grey-darkest

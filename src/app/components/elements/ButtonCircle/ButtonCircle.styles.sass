@@ -1,13 +1,14 @@
 @import '~sass/utils'
 
 $iconcircle-icon-size: 1em
-$iconcircle-circlesize: 1.8em
+$iconcircle-circlesize: 2em
 
-%Transition-Out
-    transition: all $animation-speed-normal $delay-fast $bezier-fast
+@mixin TransitionOut
+    transition: transform .24s ease(google, in)
 
-%Transition-In
-    transition: all $animation-speed-fast $bezier-slow
+@mixin TransitionIn
+    transition: transform .24s ease(google, out)
+
 
 // Component
 .ButtonCircle
@@ -20,38 +21,39 @@ $iconcircle-circlesize: 1.8em
 
     .Icon
         +size(inherit)
-        @extend %Transition-Out
-        font-size: inherit
+        +TransitionOut
+        // font-size: 1.618em
+        +font-size(3)
         display: table-cell
-        vertical-align: bottom
-        color: var(--textSecondary)
+        vertical-align: middle
+        color: $text-secondary
         text-align: center
         z-index: 1
 
     .Circle
         +circle(inherit)
-        @extend %Transition-Out
+        +TransitionOut
         transform: scale(1)
         position: absolute
-        background: grey(8)
-        border: 1px solid grey(6)
+        background: $grey
+        border: 2px solid $grey-lightest
         z-index: -1
 
     &:hover .Circle
-        @extend %Transition-In
+        +TransitionIn
         transform: scale(1.28)
-        background: grey(7)
-        border-color: var(--primary)
+        background: $highlight-color
+        border-color: $primary
 
     &:hover .Icon
-        @extend %Transition-In
+        +TransitionIn
         transform: scale(1.2)
-        color: var(--textPrimary)
+        color: $text-primary
 
     &.selected
         .Circle
-            border-color: var(--primary)
-            background-color: var(--primary)
+            border-color: $primary
+            // background-color: $primary
 
         .Icon
-            color: var(--textPrimary)
+            color: $text-primary
