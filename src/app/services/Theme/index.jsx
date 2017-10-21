@@ -1,6 +1,6 @@
 import React from 'react';
 import { onThemeChange } from '~/events';
-import {ServiceComponent} from '~/components';
+import ServiceComponent from '../ServiceComponent'
 import ThemeHelper from '~/themes/ThemeHelper'
 
 /**

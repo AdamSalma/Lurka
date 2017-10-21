@@ -1,7 +1,7 @@
 import React from 'react'
 
 import connect from './connect'
-import { ServiceComponent } from '~/components'
+import ServiceComponent from '../ServiceComponent'
 import {onAppReady, emitAppReady} from '~/events';
 
 
