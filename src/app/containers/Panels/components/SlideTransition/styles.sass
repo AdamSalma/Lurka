@@ -2,14 +2,14 @@
 
 
 .SlideTransition
-    transition: transform $speed-fast $bezier-fast, opacity $speed-fastest $bezier-fast
+    transition: transform $speed-fast
+    transition-timing-function: $bezier-fast
 
     &.SlideTransition--animate-in
         transform: translate(0, 0)
-        opacity: 1
 
     &.SlideTransition--animate-out
-        opacity: 0
+        transition-timing-function: $bezier-slow
 
         &.SlideTransition--from-left
             transform: translate(-100%, 0)
