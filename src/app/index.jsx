@@ -2,15 +2,27 @@ import 'babel-polyfill';
 import 'velocity-animate';
 import 'nanoscroller';
 
+import 'config/globals';
+import './themes';
 import './sass/base';
 import './events/setup';
-import './utils/polyfills';  // TODO: not needed. Remove
 import './utils/logger';
-import 'config/app.config';  // TODO: Replace window reference with import
-import './containers/App/ThemeService';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './containers/App';
+import App from './components/App';
 
-ReactDOM.render(<App />, document.querySelector('#App'));
+render(App);
+
+// Re-renders the application on src change
+if (module.hot) {
+  module.hot.accept(() => {
+    const NextApp = require('./components/App').default;
+    render(NextApp);
+  });
+}
+
+// Hoisted
+function render(App) {
+    ReactDOM.render(<App />, document.querySelector('#App'));
+}
