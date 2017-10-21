@@ -13,14 +13,12 @@ const tooltipClass = 'ThreadPost tip';
 // Space between the tooltip and the quote link
 const tooltipMargin = 5
 
-// When a person quotes multiple posts, what text should be used to
-// distinguish the post you're on from the other posts
-// e.g. hover over a quote, a tooltip pops up with multple quotes. Which one is
-// replying to the post you're on?
+// When someone quotes multiple posts, this is appended to the current quote
+// to distinguish it from the others.
 const quoteDistinguisher = " (This)";
 
-// Distance from the right side of the screen. When to render the tooltip on
-// the left instead of the right
+// Distance from the right side of the screen. Used to determine when to render
+// the tooltip on the left instead of the right
 const rightThreshold = 200;
 
 export const createTooltipCreator = ($thread) => {
@@ -31,6 +29,8 @@ export const createTooltipCreator = ($thread) => {
               $post = $thread.find(href),
               linkPos = target.getBoundingClientRect()  // abs position of link
 
+        console.groupCollapsed('%cQuotelink Tooltip', 'color:gold');
+
         highlightQuotedIDIfMultiple($post, target);
 
         if (isElementInViewport($post[0])) {
@@ -38,8 +38,6 @@ export const createTooltipCreator = ($thread) => {
             $highlightedPost = $post
             return
         }
-
-        console.groupCollapsed('%c Tooltip', 'color:gold');
 
         let left, top, el = document.createElement('div')
 
@@ -124,18 +122,15 @@ function highlightQuotedIDIfMultiple($post, target) {
     const id = findParentWithClass(target, 'ThreadPost').id.replace('p', '');
     const $quotes = $post.find('blockquote .quotelink');
 
-    if ($quotes.length <= 1) {
-        console.info("Tooltip contained single quote");
+    if ($quotes.length == 1) {
+        // Tooltip only has 1 quote. No need to highlight it.
         return
     }
 
-
-    $quotes.each( function( ) {
+    $quotes.each(function() {
         if (this.text.includes(id)) {
             this.text += quoteDistinguisher;
             modifiedQuotelinks.push(this);
-        } else {
-            console.info(`${id} not in ${this.text}`)
         }
     });
 }
