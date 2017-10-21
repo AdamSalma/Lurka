@@ -1,5 +1,6 @@
 import './Media.styles'
 import React from 'react'
+
 import {
     Icon,
     Image,
@@ -7,10 +8,15 @@ import {
     Video,
     DualMedia,
     ButtonCircle,
-    ExpandedImage
+    ThreadImageContextMenu as ContextMenu
 } from '~/components'
 
+import ThreadImage from '../ThreadImage';
+
+import { emitContextMenuOpen } from '~/events'
+
 const i = Lurka.icons;
+
 
 const Media = ({ media, onMediaToggle }) => {
     if (!media)
@@ -18,11 +24,13 @@ const Media = ({ media, onMediaToggle }) => {
 
     const { thumbnail, srcLarge, filetype, height, width } = media
 
-    // TODO: Lazy load thread thumbnails
     return (
         <DualMedia
             className="ThreadMedia"
             onClick={onMediaToggle}
+            onContextMenu={event => emitContextMenuOpen({
+                event, ContextMenu: <ContextMenu media={media}/>
+            })}
             thumbnail={<Image src={thumbnail}/>}>
             {
                 filetype === ".webm"
@@ -32,28 +40,16 @@ const Media = ({ media, onMediaToggle }) => {
                         className="ThreadMedia--expanded"
                       />
                     : (
-                        // <ThreadImage src={srcLarge} onClick={onLargeImageClick}/>
-                        <ExpandedImage
-                            width={width}
-                            height={height}
-                            srcExpanded={srcLarge}
-                            srcThumbnail={thumbnail}
+                        <ThreadImage
+                          width={width}
+                          height={height}
+                          src={srcLarge}
+                          thumbnail={thumbnail}
                         />
                     )
             }
         </DualMedia>
     )
-}
-
-const ThreadImage = ({ src, onClick }) => {
-    return (
-        <ImageWithChild className="ThreadMedia--expanded ThreadMedia--IWC" src={src}>
-            <ButtonCircle className="ThreadMedia__FullscreenIcon"
-                onClick={onClick}>
-                <Icon name={i.threadPostImageFullscreen}/>
-            </ButtonCircle>
-        </ImageWithChild>
-    );
 }
 
 Media.displayName = 'Media';
