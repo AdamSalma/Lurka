@@ -18,13 +18,14 @@ import {
 } from '../../components';
 import { setHTML } from '~/utils/react';
 
+const { boardPostWidth } = Lurka.settings;
 
-const BoardPost = ({ onClick, onImageLoad, post, className }) => {
+const BoardPost = ({ onClick, onImageLoad, post, className, onContextMenu }) => {
     let { thumbnail, width, height } = post.media;
-    height *= (232/width);  //  Calculates placeholder height before image loads. 232 is post width
+    height *= (boardPostWidth/width);  //  Calculates placeholder height before image loads. 232 is post width
 
     return (
-        <div id={"t" + post.id} className={cx("BoardPost", className)} onClick={ onClick }>
+        <div id={"t" + post.id} className={cx("BoardPost", className)} onClick={onClick} onContextMenu={onContextMenu}>
             <Image
                 src={thumbnail}
                 height={height}

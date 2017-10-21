@@ -1,16 +1,14 @@
 @import '~sass/utils'
 
-$post-color: var(--boardPostBackground)
-$shadow: var(--boardPostShadow)
 $slideup-distance: 200px
 $board-gutter-bottom: 220px
 
 .BoardPost
     +clickable
     width: $board-post-width
-    background: $post-color
-    box-shadow: $shadow 0 0 0
-    border: 2px solid $post-color
+    background: $board-post-color
+    box-shadow: $board-post-shadow-color 0 0 0
+    border: 2px solid $board-post-color
     font-family: font-for(BoardPost)
 
     // initial position offscreen, positioned via JS
@@ -25,13 +23,13 @@ $board-gutter-bottom: 220px
     transform: translateY(0)
     transition: all .4s ease-out
     transition-property: top, left, box-shadow
-    +will-change(top, left)
+    +will-change(transform)
 
     margin-bottom: $board-gutter-bottom
 
     &.animate
         visibility: visible
-        transform: translateY($slideup-distance)
+        transform: translateY($slideup-distance) translate3d(0,0,0)
         animation: moveUp 0.65s ease forwards
 
     &:hover
@@ -39,23 +37,21 @@ $board-gutter-bottom: 220px
         // box-shadow: 0 0 6px var(--textSecondary)
         box-shadow: 0 0 6px var(--primary)
 
-        background: var(--postHighlight)
+        background: $highlight-color
         border-color: transparent
+        transform: translateY(400px) !important
 
 
         .counters
             opacity: 1
 
             > div
-                border-color: grey(7)
+                border-color: $grey
 
-        .comment-wrap
-            // border-top: var(--primary) solid 1px
-
-        img
-            // animation: zoomInThenSlowMo 6s forwards
-            transform: scale(1.05)
-            transition: transform 2.4s ease-out
+        // img
+        //     // animation: zoomInThenSlowMo 6s forwards
+        //     transform: scale(1.05)
+        //     transition: transform 2.4s ease-out
 
     .image-wrap
         user-select: none
@@ -71,7 +67,7 @@ $board-gutter-bottom: 220px
         display: inherit
         margin: 0 auto
         height: auto
-        transition: transform .4s ease-out
+        // transition: transform .4s ease-out
 
 
     .comment-wrap
@@ -80,7 +76,7 @@ $board-gutter-bottom: 220px
         background: inherit
         top: 0
         transition: top .2s ease-out
-        box-shadow: grey(8) -4px 0 4px
+        box-shadow: $grey-dark -4px 0 4px
         max-height: $board-post-comment-max-height
 
     .op
@@ -106,9 +102,9 @@ $board-gutter-bottom: 220px
             font-size: 15px
 
     a
-        color: grey(1) !important
+        color: $text-primary !important
         text-decoration: none
 
     .Line
         width: $board-post-width / 2
-        margin: 4px auto 0
+        margin: 6px auto 2px
