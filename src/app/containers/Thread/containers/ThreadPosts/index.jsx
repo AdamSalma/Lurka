@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
+
 import Post from '../ThreadPost'
+import { ThreadPostContextMenu as ContextMenu } from '~/components';
+
+import { emitContextMenuOpen } from '~/events'
+
 
 class ThreadPosts extends Component {
     constructor(props) {
@@ -10,7 +15,7 @@ class ThreadPosts extends Component {
     render() {
         const { className, quickRender } = this.props;
         return (
-            <div className={cx('ThreadPosts', className)}>
+            <div className={cx('ThreadPosts', className)} >
                 {this.renderPosts(quickRender)}
             </div>
         );
@@ -33,18 +38,22 @@ class ThreadPosts extends Component {
                 break
             }
 
-            console.log('Thread render in progress');
-
-            _posts.push(this.renderPost(posts[i]))
+            _posts.push(this.renderPost(posts[i], i))
         }
 
         return _posts
     }
 
-    renderPost(post) {
-        return <Post key={post.id} post={post} onMediaToggle={
-            () => this.props.mediaRegistery.onMediaToggle(post)
-        }/>
+    renderPost(post, index) {
+        return (
+            <Post key={post.id}
+              post={post}
+              onMediaToggle={() => this.props.mediaRegistery.onMediaToggle(post)}
+              onContextMenu={event => emitContextMenuOpen({
+                event, ContextMenu: <ContextMenu post={post} index={index}/>
+              })}
+            />
+        )
     }
 
     renderAllPosts() {

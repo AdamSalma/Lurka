@@ -68,9 +68,7 @@ export class Thread extends Component {
             // scrollerMinHeight etc ...
         }
 
-        this.onScroll = utils.throttle.throttleByCount(8,
-            this.handleScroll
-        );
+        this.onScroll = throttleByCount(8, this.handleScroll);
 
         // For toggling thread/post when clicking on overlay
         this.isPostOpen = false
@@ -189,7 +187,7 @@ export class Thread extends Component {
                     className="content"
                     containerProps={{className:threadContainerClasses}}
                     ref={ref => this.scrollComponent = ref}
-                    onClick={this.closeThread}
+
                 >
                     {this.renderHeader(posts)}
                     <ThreadPosts posts={posts}

@@ -3,7 +3,7 @@
 $thread-post-control-width: 200px  // TODO: move to injected variables
 $quotelink-color: var(--primary)
 $post-color: var(--threadPostBackground)
-$highlight-color: var(--postHighlight)
+$highlight-color: $highlight-color
 
 .ThreadPost
     display: block
@@ -171,7 +171,7 @@ $highlight-color: var(--postHighlight)
     blockquote .quote
         background-color: $grey-dark
         // border-left: 2px solid grey        // #3e2e2e   // #422e2e
-        color: $greentext
+        color: $quote-color
         // padding: 6px 8px 6px 6px
         padding: 4px 8px
         padding-right: 10px

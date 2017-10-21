@@ -6,7 +6,8 @@ import {
     TimeAgo,
     Pipe,
     ToggleOnClick,
-    Image
+    Image,
+    Icon
 } from '~/components';
 
 import {
@@ -25,6 +26,7 @@ import { emitMediaReelOpen } from '~/events/publishers';
 
 import { getShortTimeAgo } from '~/utils/time';
 
+const i = Lurka.icons
 
 export class ThreadPost extends PureComponent {
     constructor(props) {
@@ -41,13 +43,12 @@ export class ThreadPost extends PureComponent {
     }
 
     render() {
-        const { controls, post: {
+        const { controls, onContextMenu, post: {
             id, name, title, date, media, comment, references, time
         }} = this.props;
 
-        console.warn("ThreadPost.render()")
         return (
-            <div id={"p"+id} className='ThreadPost'>
+            <div id={"p"+id} className='ThreadPost' onContextMenu={onContextMenu}>
                 <div className='post-info'>
                     <span className='name'>{name}</span>
                     <PostID id={id}/>
@@ -69,23 +70,26 @@ export class ThreadPost extends PureComponent {
     }
 }
 
-const FunctionalThreadPost = ({ controls, post, onMediaToggle }) => {
-    const {id, name, title, date, media, comment, references, time} = post;
+const FunctionalThreadPost = ({ controls, post, onMediaToggle, openControls, onContextMenu }) => {
+    // const {id, name, title, date, media, comment, references, time} = post;
 
-    // TODO: Remove threadpost onClick propagation abd put a check on the thread onClick
     return (
-        <div id={"p"+id} className='ThreadPost' onClick={e => e.stopPropagation()}>
+        <div id={"p" + post.id} className='ThreadPost' onContextMenu={onContextMenu}>
             <div className='post-info'>
-                <span className='name'>{name}</span>
-                <PostID id={id}/>
+                <span className='name'>{post.name}</span>
+                <PostID id={post.id}/>
                 <Pipe />
-                <TimeAgo time={time}/>
-                <PostToolbar controls={controls}/>
+                <TimeAgo time={post.time}/>
+                <div onClick={openControls} className="ThreadPost__controls">
+                    <div className="menu-toggle">
+                        <Icon name={i.threadPostMenu} />
+                    </div>
+                </div>
             </div>
-            <MediaInfo media={media}/>
-            <Media media={media} onMediaToggle={onMediaToggle}/>
-            <Comment comment={comment}/>
-            <References refs={references}/>
+            <MediaInfo media={post.media}/>
+            <Media media={post.media} onMediaToggle={onMediaToggle}/>
+            <Comment comment={post.comment}/>
+            <References refs={post.references}/>
         </div>
     );
 };
