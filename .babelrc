@@ -6,12 +6,12 @@
     ["module-resolver", {
       "alias": {
         "-": ".",
-        "~": "./src/app",
+        "~": "./app",
         "package": "./package.json",
-        "config": "./src/config",
-        "sass": "./src/app/sass",
+        "config": "./config",
+        "sass": "./app/sass",
         "images": "./public/images",
-        "shells": "./src/shells"
+        "shells": "./shells"
       }
     }]
   ],

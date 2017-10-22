@@ -14,7 +14,7 @@
     "clear": "npm run gulp clear",
     "webpack": "webpack-dev-server --env=development --watch --debug --color --config tools/webpack",
     "webpack:preview": "webpack-dev-server --env=preview --watch --debug --color --config tools/webpack",
-    "electron": "npm run env:dev electron ./src/shells/electron",
+    "electron": "npm run env:dev electron ./shells/electron",
     "test": "npm run mocha",
     "test:watch": "npm run mocha -R min -w",
     "mocha": "npm run env:test mocha --opts tools/mocha/mocha.opts --",
