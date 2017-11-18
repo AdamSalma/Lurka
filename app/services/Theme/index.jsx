@@ -1,7 +1,7 @@
 import React from 'react';
 import { onThemeChange } from '~/events';
 import ServiceComponent from '../ServiceComponent'
-import ThemeHelper from '~/themes/ThemeHelper'
+import CSSInjector from '~/themes/CSSInjector'
 
 /**
  * Theme change handler
@@ -10,9 +10,9 @@ import ThemeHelper from '~/themes/ThemeHelper'
 export class ThemeService extends ServiceComponent {
     @onThemeChange
     onThemeChange(themeObj) {
-        ThemeHelper.injectTheme(themeObj);
-        const themeVars = ThemeHelper.extractVariables();
-        ThemeHelper.saveTheme(themeVars);
+        CSSInjector.injectTheme(themeObj);
+        const themeVars = CSSInjector.extractVariables();
+        CSSInjector.saveTheme(themeVars);
     }
 }
 

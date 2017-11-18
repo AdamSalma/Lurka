@@ -3,7 +3,7 @@ import cx from 'classnames';
 import { ChromePicker as ColorPicker } from 'react-color'
 
 import './ThemeTab.styles';
-import ThemeHelper from '~/themes/ThemeHelper';
+import CSSInjector from '~/themes/CSSInjector';
 import {Scrollable} from '~/components';
 import {emitThemeChange} from '~/events'
 import utils from '~/utils';
@@ -15,7 +15,7 @@ class ThemeTab extends Component {
         this.state = {
             displayColorPicker: false,
             currentVariable: null,
-            variables: ThemeHelper.extractVariables(),
+            variables: CSSInjector.extractVariables(),
             colorPickerPosition: {}
         }
 

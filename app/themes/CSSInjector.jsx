@@ -6,7 +6,7 @@ import Registry from './registry'
  * CSS4 variable injector
  * All injection/extraction passes through this class.
  */
-export class ThemeHelper {
+class CSSInjector {
     constructor(theme) {
         this.theme = theme;
         this.injectTheme(theme);
@@ -47,5 +47,4 @@ export class ThemeHelper {
     }
 }
 
-// Singleton
-export default ThemeHelper;
+export default CSSInjector;

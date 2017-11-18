@@ -4,7 +4,7 @@
  * Tries to get theme from localstorage, otherwise loads
  * default built-in theme.
  */
-import ThemeHelper from './ThemeHelper';
+import CSSInjector from './CSSInjector';
 import registry from './registry';
 import utils from '~/utils';
 
@@ -14,4 +14,4 @@ const defaultTheme = () => registry.defaultTheme;
 const theme = customTheme() || defaultTheme();
 
 // Loads theme by injecting it into the DOM as CSS4 variables
-ThemeHelper.injectTheme(theme);
+CSSInjector.injectTheme(theme);
