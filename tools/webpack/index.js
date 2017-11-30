@@ -18,6 +18,9 @@ module.exports = module.exports.default = function getConfig(env) {
         case "production":
             return require('./configs/prod');
 
+        case "test":
+            return require('./configs/test');
+
         /**
          * Shell configs
          */

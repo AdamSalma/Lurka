@@ -1,31 +1,7 @@
-module.exports = injectLoaders((loaders) => [
-    {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: loaders.babel,
-    },
-    {
-        test: /\.sass|scss$/,
-        exclude: /node_modules/,
-        use: loaders.sass
-    },
-    {
-        test: /\.css$/,
-        use: loaders.css
-    },
-    {
-        test: /\.(png|gif|woff(2)?|eot|ttf|svg|otf)(\?[a-z0-9=\.]+)?$/,
-        use: loaders.url
-    },
-    {
-        test: /\.(md|ejs)$/,
-        use: loaders.ignore
-    },
-    {
-        test: /\LICENSE$/,
-        use: loaders.ignore
-    }
-])
+export const normalRules = injectLoaders(createNormalRules);
+export const testRules = injectLoaders(createTestRules);
+export default normalRules
+
 
 // Creates the loader configurations then injects them into a callback to
 // create the loader array used by webpack
@@ -79,4 +55,58 @@ function injectLoaders(createLoaders) {
     }
 
     return createLoaders(loaders);
+}
+
+
+function createNormalRules(loaders) {
+    return [{
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: loaders.babel,
+    }, {
+        test: /\.sass|scss$/,
+        exclude: /node_modules/,
+        use: loaders.sass
+    }, {
+        test: /\.css$/,
+        use: loaders.css
+    }, {
+        test: /\.(png|gif|woff(2)?|eot|ttf|svg|otf)(\?[a-z0-9=\.]+)?$/,
+        use: loaders.url
+    }, {
+        test: /\.(md|ejs)$/,
+        use: loaders.ignore
+    }, {
+        test: /\LICENSE$/,
+        use: loaders.ignore
+    }]
+}
+
+
+/**
+ * Test Rules
+ * Same as normal, but ignores all stylesheets
+ */
+function createTestRules (loaders) {
+    return [{
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: loaders.babel,
+    }, {
+        test: /\.sass|scss$/,
+        exclude: /node_modules/,
+        use: loaders.ignore
+    }, {
+        test: /\.css$/,
+        use: loaders.ignore
+    }, {
+        test: /\.(png|gif|woff(2)?|eot|ttf|svg|otf)(\?[a-z0-9=\.]+)?$/,
+        use: loaders.url
+    }, {
+        test: /\.(md|ejs)$/,
+        use: loaders.ignore
+    }, {
+        test: /\LICENSE$/,
+        use: loaders.ignore
+    }]
 }
