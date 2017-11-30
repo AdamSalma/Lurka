@@ -1,5 +1,10 @@
 # Lurka TODO's
 
+### This is outdated as hell. Will update it soon but for now run "npm start" and sit back!
+
+---
+
+
 Also contains a few ideas that may or may not happen.
 
 ### Content:
@@ -9,7 +14,7 @@ Also contains a few ideas that may or may not happen.
     - [x] threads
     - [ ] archives
 - [ ] Embedded content (Youtube etc...)
-  
+
 ### UI:
 - [x] Dark interface
 - [x] Masonry type grid layout (like pintrest / windows 10 start menu)
@@ -35,7 +40,7 @@ Also contains a few ideas that may or may not happen.
 - [x] Access archives from content providers.
 - [x] Settings.
 - [ ] User stylesheets - (figure out how to do this...)
-- [ ] Keyboard shortcuts - next post, save image of current post, 
+- [ ] Keyboard shortcuts - next post, save image of current post,
 - [ ] Scroll between posts in thread using clicks
 - [ ] Watch multiple threads for new posts
 - [x] Thread controls
@@ -58,7 +63,7 @@ Also contains a few ideas that may or may not happen.
 - [ ] Electron exe. Maybe even an installer...
 - [x] Custom logging library for backend
 
-### Tests 
+### Tests
 Less of a priority until things are where they should be!
 #### Fronend
 - [ ] Components
@@ -73,7 +78,7 @@ Less of a priority until things are where they should be!
   - [ ] Settings
   - [ ] Status
 - [x] Constants
-  
+
 
 # Libraries to look at/implement
 - nock - testing http in isolation
@@ -83,7 +88,7 @@ Less of a priority until things are where they should be!
 - q - promises
 - sentry - realtime error tracking. use with raven
 - lusca - Application security for express. (express-sessoion, cookie-session)
-- tab - Unix-style tables for command-line utilities. implement into current logger 
+- tab - Unix-style tables for command-line utilities. implement into current logger
 
 
 
@@ -96,5 +101,5 @@ Less of a priority until things are where they should be!
 - store archives frontend using couchdb
 - row of thread options: quote, save, info, replies
 - reference section: extra box on the side that has posters id. underneath it contains all ids that referred to it. hovering/clicking on any ID scrolls thread to that ID
-- board/provider title on top of board. 
+- board/provider title on top of board.
 - header hidden on contentpage top, but on scroll past ^^ title, scrolls down. like google news iOS app
