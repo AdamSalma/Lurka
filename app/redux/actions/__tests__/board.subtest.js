@@ -25,7 +25,7 @@ const mockState = {
 
 const boardID = "g"
 
-export default describe.bind(null, 'Board', () => {
+export default createSuite('Board', () => {
   // it('creates BOARD_REQUESTED', () => {
   //   const fn = fetchBoard(boardID);
   //   expect(fn).toBeA('function');
@@ -52,7 +52,8 @@ export default describe.bind(null, 'Board', () => {
 
   it('creates BOARD_INVALIDATED action', () => {
     expect(invalidateBoard("")).toEqual({
-      type: types.BOARD_INVALIDATED
+      type: types.BOARD_INVALIDATED,
+      error: ""
     });
   });
 

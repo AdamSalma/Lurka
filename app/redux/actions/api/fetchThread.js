@@ -52,7 +52,7 @@ export default function fetchThread({ boardID, threadID, callback, noCache=false
 
         // Apply request timeout
         if (!shouldFetchThread(state)) {
-            console.warn('Thread request rejected:', url);
+            console.warn('Thread request rejected:', boardID, threadID);
             return
         }
 

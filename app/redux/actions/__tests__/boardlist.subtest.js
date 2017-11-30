@@ -18,18 +18,18 @@ const dispatch = expect.createSpy();
 
 const provider = "4chan"
 
-describe.bind(null, 'Actions', () => {
+export default createSuite('BoardList', () => {
 
-  it('creates BOARD_LIST_REQUESTED', () => {
-    const fn = fetchBoardList(provider);
-    expect(fn).toBeA('function');
-    const getState = () => ({ boardList: { items: {}, didInvalidate: null } });
+  // it('creates BOARD_LIST_REQUESTED', () => {
+  //   const fn = fetchBoardList(provider);
+  //   expect(fn).toBeA('function');
+  //   const getState = () => ({ boardList: { items: {}, didInvalidate: null } });
 
-    fn(dispatch, getState);
-    expect(dispatch).toHaveBeenCalledWith({ type: BOARD_LIST_REQUESTED });
+  //   fn(dispatch, getState);
+  //   expect(dispatch).toHaveBeenCalledWith({ type: BOARD_LIST_REQUESTED });
 
-    // expect(dispatch).toHaveBeenCalledWith({ type: BOARD_LIST_REQUESTED });
-  });
+  //   // expect(dispatch).toHaveBeenCalledWith({ type: BOARD_LIST_REQUESTED });
+  // });
 
   // it('creates BOARD_REQUESTED action', () => {
   //   const fn = fetchBoard({ provider: '4chan' });

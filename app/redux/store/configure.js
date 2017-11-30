@@ -8,15 +8,23 @@ export default function configureStore(preloadedState) {
   const composeEnhancers =
         window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
+  const middleware = [ thunkMiddleware ];
+
+  if (process.env.NODE_ENV === `development`) {
+    const { logger } = require(`redux-logger`);
+
+    middleware.push(createLogger({
+      collapsed: true,
+      duration: true,
+      diff: true
+    }));
+  }
+
   const store = createStore(
     rootReducer,
     preloadedState,
     composeEnhancers(
-      applyMiddleware(thunkMiddleware, createLogger({
-        collapsed: true,
-        duration: true,
-        diff: true
-      }))
+      applyMiddleware(...middleware)
     )
   );
 
