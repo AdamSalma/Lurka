@@ -9,7 +9,7 @@ if (typeof window === 'undefined') {
 window.Lurka = {};
 Lurka.defaultTheme = "dark-red"
 
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV === "development") {
     // IIFE allows the `require()` to only happen once.
     // Lurka.performanceTest = ((testDuration=5000) => {
     //     const Perf =  require('react-addons-perf');

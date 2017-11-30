@@ -19,7 +19,18 @@ var config = {
       title: "Lurka",
       titleBarStyle: 'hidden',
       autoHideMenuBar: true,
-      frame: true
+      frame: true,
+      darkTheme: true,
+      webPreferences: {
+        // Boolean - When setting `false`, it will disable the same-origin policy (Usually using testing websites by people), and set `allowDisplayingInsecureContent` and `allowRunningInsecureContent` to `true` if these two options are not set by user. Default is `true`.
+        webSecurity: false,
+        // Boolean - Allow an https page to display content like images from http URLs. Default is `false`.
+        allowDisplayingInsecureContent: true,
+
+        // Boolean - Allow a https page to run JavaScript, CSS or plugins from http URLs. Default is `false`.
+        allowRunningInsecureContent: true,
+
+      }
     },
     preloader: {
       width: 250,
