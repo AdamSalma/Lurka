@@ -33,7 +33,7 @@
     "OLDpreview": "electron ./build/",
     "OLDbundle:ui": "npm run gulp bundle:ui",
     "OLDbundle:electron": "webpack --env=electron --color --config tools/webpack",
-    "OLDpackage": "electron-packager build Lurka --all --out dist",
+    "OLDpackage": "electron-packager build Lurka --all --out dist"
   },
   "repository": {
     "type": "git",
