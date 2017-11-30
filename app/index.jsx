@@ -13,7 +13,6 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 
 import Axios from 'axios'
-
 render(App);
 
 // Re-renders the application on src change
@@ -26,7 +25,7 @@ if (module.hot) {
 
 // Hoisted
 function render(App) {
-    ReactDOM.render(<App />, document.querySelector('#App'));
+    ReactDOM.render(<App/>, document.querySelector('#App'));
 }
 
 window.postMessage = (data, url) => {
