@@ -17,6 +17,6 @@ class Registry {
     }
 }
 
-Registry.defaultTheme = Registry.getTheme(window.Lurka.defaultTheme);
+Registry.defaultTheme = Registry.getTheme(Lurka.defaultTheme);
 
 export default Registry
