@@ -8,3 +8,7 @@ cache:
   - node_modules
   - build/node_modules
 install: true
+branches:
+  only:
+  - master
+  - develop
