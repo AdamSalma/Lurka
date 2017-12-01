@@ -9,9 +9,7 @@ node_js:
 #   - build/node_modules
 before_install:
   npm run uninstall && npm cache clean --force && npm install
-install:
-  sudo npm install cross-env
-  npm install
+install: true
 branches:
   only:
   - master
