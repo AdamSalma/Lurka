@@ -2,13 +2,10 @@
 language: node_js
 node_js:
   - 6
-cache: false  # Enabling the cache seems to break travis.
-  # directories:
-  # - node_modules
-  # - build/node_modules
 before_install:
   npm run uninstall && npm cache clean --force
-install: true
+install:
+  npm install
 branches:
   only:
   - master
