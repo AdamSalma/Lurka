@@ -2,13 +2,15 @@
 language: node_js
 node_js:
   - 6
-  - 8
-cache:
-  directories:
-  - node_modules
-  - build/node_modules
-install: true
+before_install:
+  npm run uninstall && npm cache clean --force
+install:
+  npm install
 branches:
   only:
   - master
   - develop
+  - travis-ci
+os:
+  - linux
+  - osx
