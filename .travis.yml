@@ -8,7 +8,7 @@ cache:
   - node_modules
   - build/node_modules
 install:
-  npm i cross-env
+  sudo npm install cross-env
   npm install
 branches:
   only:
