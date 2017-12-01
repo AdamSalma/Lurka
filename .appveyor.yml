@@ -14,6 +14,11 @@ install:
 cache:
   - "%LOCALAPPDATA%\\Yarn"
 
+branches:
+  only:
+    - master
+    - develop
+
 # Post-install test scripts.
 test_script:
   # Output useful info for debugging.
@@ -24,3 +29,4 @@ test_script:
 
 # Don't actually build.
 build: off
+
