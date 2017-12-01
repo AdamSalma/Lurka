@@ -2,10 +2,7 @@
 language: node_js
 node_js:
   - 6
-before_install:
-  npm run uninstall && npm cache clean --force
-install:
-  npm install
+install: true
 branches:
   only:
   - master
