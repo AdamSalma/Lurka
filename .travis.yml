@@ -11,3 +11,6 @@ branches:
   - master
   - develop
   - travis-ci
+os:
+  - linux
+  - osx
