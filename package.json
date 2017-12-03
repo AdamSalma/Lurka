@@ -44,9 +44,10 @@
     "4chan browser",
     "Image board",
     "Memes",
-    "Viewer",
     "Desktop",
-    "Chrome Extension"
+    "Desktop-application",
+    "Chrome Extension",
+    "Power user"
   ],
   "license": "MIT",
   "bugs": {

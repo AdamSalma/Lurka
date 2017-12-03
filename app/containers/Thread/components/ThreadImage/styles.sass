@@ -75,12 +75,21 @@
         animation: scaleIn .48s ease-in-out forwards
 
         &.animate-out
-            // animation-direction: reverse !important
             animation: scaleOut .24s ease-in forwards reverse
+
+        &.hide
+            display: none
 
     img
         width: 100%
 
+    .ThreadImageModal__zoom
+        animation: none !important
+        transform: scale(1)
+        transition: transform .1s
+
+        &:active
+            cursor: grab
 
 
         // .Icon
