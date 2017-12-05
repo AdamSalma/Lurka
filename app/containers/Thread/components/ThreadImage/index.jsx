@@ -16,14 +16,24 @@ class ThreadImage extends React.Component {
         this.modal = {
             isExpanded: false,
             ref: null,
-            transitionDuration: 250,
-            isZoomed: false,
-            zoomStep: 0.2,
-            zoom: 1
+            transitionInDuration: 480
         }
 
-        this.handleZoomImgScroll =
-            utils.throttle.invokeThenIgnoreForPeriod(50, this.handleZoomImgScroll)
+        this.zoom = {
+            isZoomed: false,
+            zoomStep: 0.2,
+            zoomAmount: 1,
+            isDragging: false,
+            dragStep: 20,
+            dragOffsetY: 0,
+            dragOffsetX: 0,
+            mouseDownEvent: null,
+            maxZoomIn: 2,
+            maxZoomOut: 0.5,
+        }
+
+        // this.handleZoomImgScroll =
+        //     utils.throttle.throttleByCount(3, this.handleZoomImgScroll)
     }
 
     setImageRef = ref => this._image = ref;
@@ -70,7 +80,7 @@ class ThreadImage extends React.Component {
         utils.time.nextTick(() => {
             this._overlay.show();
             this._image.classList.add('hide');
-            setTimeout(this.onModalAnimationComplete, this.modal.transitionDuration);
+            setTimeout(this.onModalAnimationComplete, this.modal.transitionInDuration);
         })
     }
 
@@ -96,9 +106,10 @@ class ThreadImage extends React.Component {
 
         return <div
           className="ThreadImageModal__contents"
-          onClick={this.closeImageModal}>
+          onMouseUp={this.closeImageModal}
+          onWheel={this.handleZoomImgScroll}>
             <div>
-                <Overlay ref={this.setOverlayRef}>
+                <Overlay ref={this.setOverlayRef} onClick={this.closeImageModal}>
                     Scroll to zoom
                 </Overlay>
                 <ExpandedImage
@@ -113,9 +124,9 @@ class ThreadImage extends React.Component {
               className="ThreadImageModal__image ThreadImageModal__zoom hide"
               srcThumbnail={thumbnail}
               srcExpanded={src}
-              onScroll={this.handleZoomImgScroll}
-              onMouseDown={this.handleZoomImgMouseUp}
-              onMouseUp={this.handleZoomImgMouseDown}
+              onMouseDown={this.handleZoomImgMouseDown}
+              onMouseMove={this.handleZoomImgMouseMove}
+              onMouseUp={this.handleZoomImgMouseUp}
               style={{
                 // `style` also contains scale, which we dont want
                 width: style.width,
@@ -187,8 +198,8 @@ class ThreadImage extends React.Component {
     closeImageModal = (e) => {
         // User friendly close
         this._overlay.hide();
-        this.modalImageRef.classList.remove('hide')
         this.zoomImageRef.classList.add('hide')
+        this.modalImageRef.classList.remove('hide')
         this.revertOffsetStyles(e);
 
         var ref = this.modal.ref
@@ -203,56 +214,95 @@ class ThreadImage extends React.Component {
 
     onModalAnimationComplete = () => {
         // Setup zooming
-        $(this.modal.ref).on('mousewheel', this.handleZoomImgScroll)
+        // $(this.modal.ref).on('mousewheel', this.handleZoomImgScroll)
         this.zoomImageRef.classList.remove('hide')
         this.modalImageRef.classList.add('hide')
     }
 
     handleZoomImgScroll = (event) => {
-        const delta = event.originalEvent.wheelDelta;
+        console.log("handleZoomImgScroll")
+        // TODO: instead of zooming to the center, zoom based where the mouse is
+        const delta = event.deltaY;
         const mouseX = event.pageX;
         const mouseY = event.pageY;
+        console.warn(mouseX, mouseY, delta)
 
-        const zoomStep = delta > 0 ? this.modal.zoomStep : -this.modal.zoomStep;
 
-        this.modal.zoom += zoomStep
 
-        this.zoomImageRef.style.transform = `scale(${this.modal.zoom})`
+        const zoomStep = event.deltaY < 0 ? this.zoom.zoomStep : -this.zoom.zoomStep;
+        const nextZoom = this.zoom.zoomAmount + zoomStep
 
+        const tooBig = nextZoom > this.zoom.maxZoomIn
+        const tooSmall = this.zoom.maxZoomOut > nextZoom
+
+        console.warn("tooBig", tooBig);
+        console.warn("tooSmall", tooSmall);
+
+        // Check zoom in/out limits
+        if (tooBig || tooSmall) {
+            console.warn("Zoom limit reached. Not zooming further", nextZoom);
+            return;
+        }
+        // Increase / decrease zoom amount depending on scroll direction
+        this.zoom.zoomAmount = nextZoom
+
+        this.zoomImageRef.style.transform =
+            `scale(${nextZoom}) translate(${this.zoom.dragOffsetX}, ${this.zoom.dragOffsetY})`
     }
 
-    handleZoomImgMouseDown(e) {
-        this._zoomMouseDownEvent = e
+    handleZoomImgMouseDown = (e) => {
+        console.warn("MouseDown")
+        e.stopPropagation()
+        this.zoom.mouseDownEvent = e
     }
-    handleZommImgMouseMove(e) {
-        if (this._zoomMouseDownEvent) {
-            this._dragging = true
-            this.dragZoomImg(e)
+    handleZoomImgMouseMove = (e) => {
+        console.warn("MouseMove")
+        if (this.zoom.mouseDownEvent) {
+            this.zoom.isDragging = true
+            this.dragZoomImg({
+                fromEvent: this.zoom.mouseDownEvent,
+                toEvent: e
+            });
+            this.zoom.mouseDownEvent = e;
         }
     }
-    handleZoomImgMouseUp(e) {
-        if (this._dragging) {
-            this._dragging = false
-            delete this._zoomMouseDownEvent
+    handleZoomImgMouseUp = (e) => {
+        console.warn("MouseUp")
+        if (this.zoom.isDragging) {
             e.stopPropagation();
-        } else {
-            this.closeImageModal();
+            this.zoom.isDragging = false
+            delete this.zoom.mouseDownEvent
         }
     }
-    dragZoomImg(e) {
-        this.modal.ref.querySelector('')
+
+    dragZoomImg = ({ fromEvent, toEvent }) => {
+        const { zoomAmount } = this.zoom;
+        var offsetX, offsetY;
+        var diffX = fromEvent.pageX - toEvent.pageX;
+        var diffY = fromEvent.pageY - toEvent.pageY;
+
+        console.log("Diff: X", diffX, "Y", diffY);
+        return
+        this.zoomImageRef.style.transform =
+            `scale(${this.zoom.zoomAmount}) translate(${offsetX}, ${offsetY})`
     }
 
     get zoomImageRef () {
-        return this.modal.ref.querySelector('.ThreadImageModal__zoom')
+        if (!this._zoomImageRef) {
+            this._zoomImageRef = this.modal.ref.querySelector('.ThreadImageModal__zoom');
+        }
+        return this._zoomImageRef
     }
 
     get modalImageRef () {
-        return this.modal.ref.querySelector('.ThreadImageModal__image')
+        if (!this._modalImageRef) {
+            this._modalImageRef = this.modal.ref.querySelector('.ThreadImageModal__image')
+        }
+        return this._modalImageRef;
     }
 
     onModalImageMouseUp = (e) => {
-        if (this.modal.isZoomed) {
+        if (this.zoom.isZoomed) {
             // Ignore mouseUp's because the user is dragging the image. We dont
             // want the click event to propagate otherwise it will close the image
             e.stopPropagation();

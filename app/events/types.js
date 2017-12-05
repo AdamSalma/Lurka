@@ -12,8 +12,8 @@ export const SUB_HEADER_TOGGLE = "SUB_HEADER_TOGGLE"
 
 export const RESET_BOARD = "RESET_BOARD"
 
-export const OPEN_MODAL = "OPEN_MODAL"
-export const CLOSE_MODAL = "CLOSE_MODAL"
+export const MODAL_OPEN = "MODAL_OPEN"
+export const MODAL_CLOSE = "MODAL_CLOSE"
 
 export const SHRINK_HEADER = "SHRINK_HEADER"
 export const EXPAND_HEADER = "EXPAND_HEADER"
@@ -21,6 +21,8 @@ export const HEADER_TOGGLED = "HEADER_TOGGLED"
 
 export const OPEN_HEADER_PANEL = "OPEN_HEADER_PANEL"
 export const CLOSE_HEADER_PANEL = "CLOSE_HEADER_PANEL"
+
+export const UPDATE_WATCH_ENTITY = "UPDATE_WATCH_ENTITY"
 
 export const POST_TOGGLE = "POST_TOGGLE"
 
