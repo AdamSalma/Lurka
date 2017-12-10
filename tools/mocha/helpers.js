@@ -1,14 +1,12 @@
 import path from 'path';
 import paths from 'config/paths';
 import glob from 'glob';
+import ReactTestRenderer from 'react-test-renderer';
 
 
-var reactDomTestUtils = path.join(paths.app_modules, 'react-dom/test-utils')
-const { createRenderer } = require(reactDomTestUtils);
 
-
-export const shallow = (component) => {
-  const renderer = createRenderer();
+export const shallow = (Component) => {
+  const renderer = ReactTestRenderer.create(Component);
 
   renderer.render(component);
 

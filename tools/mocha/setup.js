@@ -1,39 +1,63 @@
+import jsdom from 'jsdom';
+import expect from 'expect';
+import expectJSX from 'expect-jsx';
+import {createSuite, discoverTests} from './helpers';
+import { configure, shallow, mount, render } from 'enzyme';
+import ReactTestRenderer from 'react-test-renderer';
+import Adapter from 'enzyme-adapter-react-15';
+
+
 process.env.BABEL_ENV = 'test';
 process.env.NODE_ENV = 'test';
 process.env.PUBLIC_URL = '';
 
-import jsdom from 'jsdom';
-import expect from 'expect';
-import expectJSX from 'expect-jsx';
-import ignore from 'ignore-styles'
-import {shallow, createSuite, discoverTests} from './helpers';
+expect.extend(expectJSX);
+configure({ adapter: new Adapter() });
 
+/**
+ * Setup testing utils
+ */
 global.Lurka = {}
 global.expect = expect;
 global.shallow = shallow;
+global.mount = mount;
+global.render = render;
 global.createSuite = createSuite;
-global.discoverTests = discoverTests
 
-expect.extend(expectJSX);
-ignore(['.sass', '.scss', '.css'])
 
-const dom = new jsdom.JSDOM('<!DOCTYPE html><html><head></head><body></body></html>');
+/**
+ * Setup stubs
+ */
+const dom = new jsdom.JSDOM('<html><body></body></html>');
 
 global.window = dom.window;
 global.document = dom.window.document;
 global.navigator = window.navigator;  // velocity-animate
 global.CustomEvent = window.CustomEvent;  // custom
-// global.global = {}
 
-// Makes the script crash on unhandled rejections instead of silently
-// ignoring them. In the future, promise rejections that are not handled will
-// terminate the Node.js process with a non-zero exit code.
-process.on('unhandledRejection', err => {
-  throw err;
-});
+global.$ = require('jquery');
+require('nanoscroller');
+require('velocity-animate');
 
 
-// Suppresses logging in tests that pass
+/**
+ * Prevent mocha tests from breaking when trying to require styles/svg
+ */
+function noop() {
+    return {};
+};
+
+require.extensions['.svg'] = noop;
+require.extensions['.png'] = noop;
+require.extensions['.sass'] = noop;
+require.extensions['.scss'] = noop;
+require.extensions['.css'] = noop;
+console.group = console.groupEnd = () => undefined;
+
+
+/**
+ * Suppresses logging in tests that pass
+ */
 var util = require('util');
 var log = require('fs').createWriteStream('stdout.log');
 
@@ -50,4 +74,11 @@ console.log = console.info = function(t) {
 };
 
 
-require.extensions['.svg'] = () => 1;
+/**
+ * Makes the script crash on unhandled rejections instead of silently
+ * ignoring them. In the future, promise rejections that are not handled will
+ * terminate the Node.js process with a non-zero exit code.
+ */
+process.on('unhandledRejection', err => {
+  throw err;
+});
