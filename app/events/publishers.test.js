@@ -82,21 +82,21 @@ export default createSuite('Publishers', () => {
     expect(dispatched).toBe(true);
   });
 
-  // it('emits MODAL_OPEN', () => {
-  //   receive(types.MODAL_OPEN, () => {
-  //       dispatched = true;
-  //   });
-  //   publishers.emitModalOpen();
-  //   expect(dispatched).toBe(true);
-  // });
+  it('emits MODAL_OPEN', () => {
+    receive(types.MODAL_OPEN, () => {
+        dispatched = true;
+    });
+    publishers.emitModalOpen();
+    expect(dispatched).toBe(true);
+  });
 
-  // it('emits MODAL_CLOSE', () => {
-  //   receive(types.MODAL_CLOSE, () => {
-  //       dispatched = true;
-  //   });
-  //   publishers.emitModalClose();
-  //   expect(dispatched).toBe(true);
-  // });
+  it('emits MODAL_CLOSE', () => {
+    receive(types.MODAL_CLOSE, () => {
+        dispatched = true;
+    });
+    publishers.emitModalClose();
+    expect(dispatched).toBe(true);
+  });
 
   it('emits SHRINK_HEADER', () => {
     receive(types.SHRINK_HEADER, () => {
