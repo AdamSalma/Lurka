@@ -3,7 +3,7 @@ import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import rootReducer from '../reducers';
 
-export default function configureStore(preloadedState) {
+export default function configureStore(initialState) {
   // This is for a chrome addon called redux devtools. Very useful.
   const composeEnhancers =
         window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -22,7 +22,7 @@ export default function configureStore(preloadedState) {
 
   const store = createStore(
     rootReducer,
-    preloadedState,
+    initialState,
     composeEnhancers(
       applyMiddleware(...middleware)
     )
