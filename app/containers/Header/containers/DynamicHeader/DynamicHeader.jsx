@@ -1,10 +1,6 @@
 import './DynamicHeader.styles';
 import React, { PureComponent, PropTypes } from 'react';
 import cx from 'classnames';
-import {MdMenu, MdKeyboardArrowDown, MdFileDownload} from 'react-icons/lib/md';
-// import {GoArrowDown} from 'react-icons/lib/go';
-import {IoArrowDownA} from 'react-icons/lib/io';
-
 
 /* Header Specific components */
 import {
