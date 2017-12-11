@@ -1,0 +1,126 @@
+@import '~sass/utils'
+
+$spacing: 1.2rem
+$boardheader-searchbar-width: 720px
+
+.BoardHeader
+    animation: fade-in-top .3s $bezier-fast forwards
+
+    &.BoardHeader--disabled
+        > .BoardHeader__subcontents
+            opacity: 0
+
+    &.BoardHeader--animate
+        > .BoardHeader__subcontents
+            animation: fade-in-top .3s $bezier-fast forwards
+
+    .BoardHeader__title
+        padding-top: $spacing * 3
+        height: 180px
+
+        .Title
+            animation: fade-in-top .3s $bezier-fast forwards
+
+    .BoardHeader__metacontent
+        position: relative
+
+    .BoardHeader__subcontents
+        opacity: 1
+        width: $boardheader-searchbar-width
+        margin: 0 auto
+
+    .spinner-wrap
+        // +size(10rem)
+        top: 3rem
+        left: 0
+        right: 0
+        margin: 0 auto
+        display: flex
+        flex-direction: column
+        position: absolute
+
+        .spinner-text
+            margin: 0 auto
+            margin-top: 1rem
+            letter-spacing: .3rem
+
+        .spinner
+            position: relative
+            +size(4rem)
+
+
+
+    .BoardHeader__search
+        // padding: 64px 0
+        // padding-bottom: 24px
+        // padding-bottom: $spacing * 2
+        padding-top: $spacing * 2
+        // +padding($bottom: 0)
+        width: $boardheader-searchbar-width
+        margin: 0 auto
+
+
+    .BoardHeader__btns
+        display: flex
+        margin-top: $spacing * 1
+        margin-bottom: $spacing * 5
+
+    .BoardHeader__btn
+        +font-size(0)
+        width: 7.5rem
+        background: $grey-light
+        background: transparent
+        position: relative
+        border: 1px solid $grey-darkest
+        transform: translateY(0)
+        transition: transform .3s, box-shadow .3s
+        margin: 0
+
+        &.push-left
+            margin-left: auto
+
+        // background: linear-gradient(to bottom, $primary-dark, $primary-darkest)
+
+        // &::before
+        //     content: ""
+        //     transform: scaleX(0)
+        //     width: 100%
+        //     height: 1px
+        //     background: $primary-dark
+        //     // background: $grey
+        //     position: absolute
+        //     bottom: 0
+        //     left: 0
+        //     right: 0
+        //     margin: 0 auto
+        //     transition: transform .3s ease(sine, in-out)
+
+        &:hover, &:focus
+            background: rgba(255,255,255,0.02)
+            +box-shadow(1)
+            transform: translateY(-2px)
+            // &::before
+            //     transform: scaleX(1)
+            .title
+                color: $text-secondary
+
+        &:active
+            +box-shadow(0)
+            transform: translateY(4px)
+            transition: transform .05s ease-out
+
+        .Icon
+            // +font-size(2)
+            color: $text-primary
+            // margin-bottom: 2px
+
+        .title
+            font-family: font-for(DynamicHeader__Title)
+            display: inline-block
+            color: $text-primary !important
+            opacity: 1
+            letter-spacing: 0.5px
+            font-size: inherit
+            transition: color .24s ease(cubic, in-out)
+            color: var(--textSecondary)
+            position: relative
