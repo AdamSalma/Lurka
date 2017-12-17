@@ -23,6 +23,22 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+.icon-chat:before {
+  content: "\e906";
+}
+.icon-comments:before {
+  content: "\e907";
+}
+.icon-reply3:before {
+  content: "\e908";
+}
+.icon-expand2:before {
+  content: "\e909";
+}
+.icon-collapse:before {
+  content: "\e90a";
+}
 .icon-ac_unit:before {
   content: "\eb3b";
 }
@@ -34,6 +50,9 @@
 }
 .icon-schedule:before {
   content: "\e8b5";
+}
+.icon-add:before {
+  content: "\e145";
 }
 .icon-flag:before {
   content: "\e153";
@@ -200,6 +219,9 @@
 .icon-sort-alphabetically:before {
   content: "\e902";
 }
+.icon-plus:before {
+  content: "\f067";
+}
 .icon-film:before {
   content: "\f008";
 }
@@ -296,6 +318,9 @@
 .icon-download2:before {
   content: "\e9c5";
 }
+.icon-link:before {
+  content: "\e9cb";
+}
 .icon-eye:before {
   content: "\e9ce";
 }
@@ -329,6 +354,9 @@
 .icon-comment-discussion:before {
   content: "\f04f";
 }
+.icon-plus2:before {
+  content: "\f05d";
+}
 .icon-search2:before {
   content: "\f02e";
 }
@@ -346,4 +374,7 @@
 }
 .icon-arrow-down2:before {
   content: "\e905";
+}
+.icon-plus3:before {
+  content: "\e90b";
 }
