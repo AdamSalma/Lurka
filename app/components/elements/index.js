@@ -1,6 +1,7 @@
 export {default as Button} from './Button'
 export {default as ButtonCircle} from './ButtonCircle'
 export {default as ButtonWithPopout} from './ButtonWithPopout'
+export {default as Card} from './Card'
 export {default as Counter} from './Counter'
 export {default as Elipses} from './Elipses'
 export {default as Icon} from './Icon'
