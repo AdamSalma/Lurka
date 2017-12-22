@@ -1,8 +1,9 @@
 import React from 'react';
 import './style'
+import mapPropsToClasses from './classes';
 
 const Title = ({ size=1, ...restProps }) => {
-    restProps.className = mapTitleStyleClasses(restProps)
+    restProps.className = mapPropsToClasses(restProps)
 
     switch (size) {
         case 1: return <h1 {...restProps}/>
@@ -11,6 +12,8 @@ const Title = ({ size=1, ...restProps }) => {
         case 4: return <h4 {...restProps}/>
         case 5: return <h5 {...restProps}/>
         case 6: return <h6 {...restProps}/>
+        default:
+            throw new Error(`Title size ${size} doesn't exist`)
     }
 };
 
@@ -23,38 +26,3 @@ Title.defaultProps = {
 Title.displayName = 'Title';
 
 export default Title;
-
-
-const createPropMapper = (ComponentClassName) => (props) => {
-    const classNames = [ComponentClassName, props.className];
-
-    Object.keys(props).forEach( prop => {
-        if (prop in styleClasses) {
-            // e.g. if "weight" in props, get weight[prop value]
-            classNames.push(styleClasses[prop][props[prop]])
-
-            delete props[prop]
-        }
-    });
-
-    return classNames.join(" ");
-}
-
-const mapTitleStyleClasses = createPropMapper("Title")
-
-const styleClasses = {
-    font: {
-        primary: "font-primary",
-        secondary: "font-secondary"
-    },
-    weight: {
-        light: "weight-light",
-        normal: "weight-normal",
-        bold: "weight-bold"
-    },
-    align: {
-        center: "align-center",
-        left: "align-left",
-        right: "align-right"
-    }
-}
