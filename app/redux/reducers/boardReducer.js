@@ -51,8 +51,8 @@ export default createReducer(initialState.board, {
             search: action.payload || null
         }),
 
-    [types.BOARD_SCROLLED_TO_BOTTOM]: (state, action) =>
+    [types.BOARD_SORTED]: (state, action) =>
         mergeState(state, {
-            limit: action.payload
+            ...action.payload
         }),
 })
