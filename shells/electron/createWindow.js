@@ -2,6 +2,7 @@ import {BrowserWindow} from 'electron';
 import path from 'path';
 import url from 'url';
 
+import createServer from './server';
 import handleBeforeSendHeaders from './events/handleBeforeSendHeaders';
 import handleRedirect from './events/handleRedirect';
 
@@ -29,9 +30,11 @@ export default function createWindow () {
         main.show();
         main.setFullScreen(true);
         preloader.close();
+        createServer(8000)
 
-        if (config.env.development)
-            main.webContents.openDevTools('right');
+        if (process.env.NODE_ENV === "development") {
+            main.webContents.openDevTools('bottom');
+        }
     });
 }
 

@@ -82,23 +82,43 @@ class PostForm extends Component {
               ref={this.setCommentRef}
               onChange={this.handleInputChange}
             />
+
+{/*
            <Recaptcha
               ref={e => this._recaptcha = e}
-              sitekey={siteKey}
+              sitekey="6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc"
               size="compact"
               render="explicit"
               theme="dark"
               verifyCallback={() => console.log("verifyCallback", arguments)}
               onloadCallback={() => console.log("onloadCallback", arguments)}
               expiredCallback={() => console.log("expiredCallback", arguments)}
-            />
-            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-            <div className="g-recaptcha" data-sitekey="6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc"></div>
+            />*/}
+{/*           <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+*/}
+            {/* Kind of works:
 
-            {/*<iframe src="https://www.google.com/recaptcha/api/fallback?k=6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc"
-                frameborder="0" scrolling="no"
-                style={{width: "302px", height: "422px", "border-style": "none"}}>
-            </iframe>*/}
+            <Recaptcha2 siteKey={siteKey}/>
+            */}
+
+
+            {/*<div dangerouslySetInnerHTML={this.captchaIFrame}/>*/}
+            <iframe src="https://www.google.com/recaptcha/api2/anchor?k=6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc&co=aHR0cDovL2JvYXJkcy40Y2hhbi5vcmc6ODA.&amp;hl=en&amp;v=r20171011122914&amp;theme=dark&amp;size=normal&amp;cb=5dmlh0tzrhkb"
+              title="recaptcha widget" width="304" height="78" frameborder="0" scrolling="no"
+              sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox">
+            </iframe>
+
+            {/*<iframe src="https://www.google.com/recaptcha/api2/anchor?k=6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc&amp;co=aHR0cDovL2JvYXJkcy40Y2hhbi5vcmc6ODA.&amp;hl=en&amp;v=r20171011122914&amp;theme=light&amp;size=normal&amp;cb=5dmlh0tzrhkb" title="recaptcha widget" width="304" height="78" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe>*/}
+
+            {/*<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+            <div className="g-recaptcha" data-sitekey="6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc"></div>*/}
+
+{/*            <iframe src="https://www.google.com/recaptcha/api/challenge?k=6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc"
+                frameBorder="0" scrolling="no" allow-scripts allow-popups allow-forms
+                style={{width: "302px", height: "422px", borderStyle: "none"}}>
+            </iframe>
+*/}
+
             <div className="PostForm__decision">
                 <FileInput className="post-file-wrapper"/>
                 <button type="text" className="post-submit">
@@ -109,6 +129,45 @@ class PostForm extends Component {
           </form>
         )
     }
+
+    get captchaIFrame() {
+        return {
+          __html: `
+            <iframe src="https://www.google.com/recaptcha/api2/anchor?k=6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc&co=aHR0cDovL2JvYXJkcy40Y2hhbi5vcmc6ODA.&amp;hl=en&amp;v=r20171011122914&amp;theme=dark&amp;size=normal&amp;cb=5dmlh0tzrhkb"
+              title="recaptcha widget" width="304" height="78" frameborder="0" scrolling="no"
+              sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox">
+            </iframe>
+          `
+            // <iframe src="https://www.google.com/recaptcha/api/fallback?k=${siteKey}"
+            //     frameBorder="0" scrolling="no" allow-scripts allow-popups allow-forms
+            //     style={{width: "302px", height: "422px", borderStyle: "none"}}>
+            // </iframe>
+        }
+    }
 }
 
 export default PostForm
+
+
+
+class Recaptcha2 extends Component {
+
+    componentDidMount() {
+      if (window.grecaptcha) {
+        console.error("Recaptcha exists - rendering...");
+
+        grecaptcha.render(this._container, {
+          theme: "dark",
+          sitekey: this.props.siteKey
+        })
+      } else {
+        console.error("No Recaptcha")
+      }
+    }
+    render() {
+      return <div id="g-recaptcha" ref={ref => this._container = ref}/>
+    }
+}
+
+// https://www.google.com/recaptcha/api2/anchor?k=6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc&co=ZmlsZTo.&hl=en&v=r20171011122914&theme=dark&size=normal&cb=xpcdl3c8wq5y
+// https://www.google.com/recaptcha/api2/anchor?k=6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc&co=aHR0cDovL2JvYXJkcy40Y2hhbi5vcmc6ODA.&amp;hl=en&amp;v=r20171011122914&amp;theme=light&amp;size=normal&amp;cb=5dmlh0tzrhkb" title="recaptcha widget" width="304" height="78" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe>
