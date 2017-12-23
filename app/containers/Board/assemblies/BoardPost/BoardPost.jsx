@@ -25,7 +25,7 @@ const BoardPost = ({ onClick, onImageLoad, post, className, onContextMenu }) => 
     height *= (boardPostWidth/width);  //  Calculates placeholder height before image loads. 232 is post width
 
     return (
-        <div id={"t" + post.id} className={cx("BoardPost", className)} onClick={onClick} onContextMenu={onContextMenu}>
+        <button id={"t" + post.id} className={cx("BoardPost", className)} onClick={onClick} onContextMenu={onContextMenu}>
             <Image
                 src={thumbnail}
                 height={height}
@@ -37,7 +37,7 @@ const BoardPost = ({ onClick, onImageLoad, post, className, onContextMenu }) => 
                 time={post.time}
                 replies={post.replies}
             />
-        </div>
+        </button>
     )
 }
 

@@ -2,24 +2,41 @@ import React, { Component } from 'react';
 import cx from 'classnames';
 
 import './styles';
-import {BoardSearch} from '../../components';
+import {BoardSearch, BoardMetadata, SortByArea} from '../../components';
 import {
     Icon,
     ActionButton,
     Title,
     CircleSpinner,
-    ButtonWithPopout
+    ButtonWithPopout,
+    HoverUnderline,
+    Checkbox
 } from '~/components'
+
 
 const i = Lurka.icons;
 
 class BoardHeader extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isSorting: props.isSorting || false,
+            isFiltering: props.isFiltering || false
+        }
     }
 
     render() {
-        const { className, onSearch, boardID, boardTitle, isDisabled, isSpinnerActive, ErrorMessage, isActive } = this.props;
+        const {
+            className, onSearch,
+            boardID, boardTitle,
+            isDisabled, isSpinnerActive,
+            ErrorMessage, isActive,
+            sortBy, onSort,
+            onRefresh, onOpenMenu,
+            isFavourite, onFavouriteToggle,
+            handlePostOpen
+        } = this.props;
+
         const classes = cx(
             'BoardHeader',
             isDisabled && 'BoardHeader--disabled',
@@ -28,16 +45,22 @@ class BoardHeader extends Component {
             className
         );
 
-        const props = this.props;
+        const isFavouriteClasses = cx("meta favourite-board", { "isFavourite": isFavourite})
+
+        const {isSorting, isFiltering} = this.state;
 
         return (
             <div className={classes}>
                 <div className="BoardHeader__title">
-                    <Title size={1} weight="light" align="center">
-                        {boardTitle && `/${boardID}/ - ${boardTitle}`}
+                    <Title size={1} weight="normal" align="center" onClick={onOpenMenu}>
+                        {boardTitle && boardTitle}
                     </Title>
+                    <div className="BoardHeader__Metadata">
+                        <span className="meta autorefresh"><button onClick={onRefresh}>Refresh</button></span>
+                        <span className={isFavouriteClasses}><button onClick={onFavouriteToggle}>Favourite</button></span>
+                    </div>
                 </div>
-                <div className="BoardHeader__metacontent">
+                <div className="BoardHeader__loading">
                     {isSpinnerActive &&
                         <div className="spinner-wrap">
                             <CircleSpinner className="spinner" />
@@ -52,25 +75,87 @@ class BoardHeader extends Component {
                         </div>
                     }
                 </div>
-                <div className="BoardHeader__subcontents">
+                <div className="BoardHeader__content">
                     <div className="BoardHeader__search">
                         <BoardSearch
                             onChange={onSearch}
                             placeholder="Search"
                         />
                     </div>
-                    <div className="BoardHeader__btns">
-                        <ButtonWithPopout className="BoardHeader__btn"
-                          onClick={this.handleSort}
+                    <div className="BoardHeader__subcontent">
+                        <div className="title" onClick={handlePostOpen}>
+                            <Icon name={i.plus} className="lower-icon"/>
+                            <HoverUnderline children={
+                              <span className="new-thread gap-left">New thread</span>
+                            }/>
+                        </div>
+                        <div className="title push-left" onClick={this.toggleSort}>
+                            <HoverUnderline>
+                                <div>Sort By <Icon name={i.chevronDown}/></div>
+                            </HoverUnderline>
+                        </div>
+                        <div className="title" onClick={this.toggleFilter}>
+                            <HoverUnderline>
+                                <div>Filter <Icon name={i.chevronDown}/></div>
+                            </HoverUnderline>
+                        </div>
+                    </div>
+                </div>
+                { isSorting &&
+                    <div className="BoardHeader__subarea">
+                        {isSorting &&
+                            <SortByArea
+                                className="BoardHeader__SortByArea"
+                                sortBy={sortBy}
+                                onSortByBumpOrder={this.handleSortByBumpOrder}
+                                onSortByLastReply={this.handleSortByLastReply}
+                                onSortByCreationDate={this.handleSortByCreationDate}
+                                onSortByReplyCount={this.handleSortByReplyCount}
+                            />
+                        }
+                    </div>
+                }
+            </div>
+        );
+    }
+
+    handleSortByBumpOrder = () => this.onSort("bumporder");
+    handleSortByLastReply = () => this.onSort("lastreply");
+    handleSortByCreationDate = () => this.onSort("creationdate");
+    handleSortByReplyCount = () => this.onSort("replycount");
+    onSort = (sortBy) => {
+        this.props.onSort(sortBy)
+        this.toggleSort()
+    }
+    handleSearch = () => {}
+    // handleCreateThread = () => {}
+    // handleViewArchive = () => {}
+    // handleRefreshBoard = () => {}
+    toggleSort = () => {
+        this.setState(state => ({
+            isSorting: !state.isSorting
+        }))
+    }
+    toggleFilter = () => {
+        this.setState(state => ({
+            isFiltering: !state.isFiltering
+        }))
+    }
+}
+
+export default BoardHeader;
+
+                        {/*<ButtonWithPopout className="BoardHeader__btn push-left"
+                          onClick={this.toggleSort}
                           popout={<Icon name={i.navbarSort}/>}>
-                            <div className="title">Sort by</div>
                         </ButtonWithPopout>
                         <ButtonWithPopout className="BoardHeader__btn"
-                          onClick={this.handleFilter}
+                          onClick={this.toggleFilter}
                           popout={<Icon name={i.navbarFilter}/>}>
-                            <div className="title">Filter</div>
-                        </ButtonWithPopout>
-                        <ButtonWithPopout className="BoardHeader__btn push-left"
+                        </ButtonWithPopout>*/}
+
+
+                    {/*    <ButtonWithPopout className="BoardHeader__btn push-left"
                           onClick={this.handleCreateThread}
                           popout={<Icon name={i.navbarNewThread}/>}>
                             <div className="title">Create</div>
@@ -79,19 +164,4 @@ class BoardHeader extends Component {
                           onClick={this.handleRefreshBoard}
                           popout={<Icon name={i.navbarRefresh}/>}>
                             <div className="title">Refresh</div>
-                        </ButtonWithPopout>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
-    handleSearch = () => {}
-    handleCreateThread = () => {}
-    // handleViewArchive = () => {}
-    handleRefreshBoard = () => {}
-    handleSort = () => {}
-    handleFilter = () => {}
-}
-
-export default BoardHeader;
+                        </ButtonWithPopout>*/}

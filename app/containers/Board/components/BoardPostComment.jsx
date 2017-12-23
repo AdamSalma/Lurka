@@ -5,7 +5,7 @@ import { Line } from '~/components';
 
 const BoardPostComment = ({ title, comment, time, replies }) => {
     return (
-        <div className="comment-wrap">
+        <div className="comment-wrap" tabIndex="-1">
             <div className="comment-slider">
                 <PostHeader replies={replies} time={time}/>
                 <Line />

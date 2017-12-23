@@ -1,32 +1,42 @@
 @import '~sass/utils'
 
 $spacing: 1.2rem
-$boardheader-searchbar-width: 720px
+$max-width: 720px
 
 .BoardHeader
     animation: fade-in-top .3s $bezier-fast forwards
+    margin-top: $spacing * 2
+    margin-bottom: $spacing * 5
+    color: $text-secondary
 
     &.BoardHeader--disabled
-        > .BoardHeader__subcontents
+        > .BoardHeader__content
             opacity: 0
 
     &.BoardHeader--animate
-        > .BoardHeader__subcontents
+        > .BoardHeader__content
             animation: fade-in-top .3s $bezier-fast forwards
 
     .BoardHeader__title
-        padding-top: $spacing * 3
-        height: 180px
+        padding: $spacing * 3 0
+        padding-bottom: $spacing * 2
+        margin: 0 auto
+        max-width: $max-width
 
         .Title
+            +clickable
             animation: fade-in-top .3s $bezier-fast forwards
+            color: $text-primary
 
-    .BoardHeader__metacontent
+
+
+
+    .BoardHeader__loading
         position: relative
 
-    .BoardHeader__subcontents
+    .BoardHeader__content
         opacity: 1
-        width: $boardheader-searchbar-width
+        width: $max-width
         margin: 0 auto
 
     .spinner-wrap
@@ -48,36 +58,127 @@ $boardheader-searchbar-width: 720px
             position: relative
             +size(4rem)
 
-
-
     .BoardHeader__search
-        // padding: 64px 0
-        // padding-bottom: 24px
-        // padding-bottom: $spacing * 2
-        padding-top: $spacing * 2
-        // +padding($bottom: 0)
-        width: $boardheader-searchbar-width
+        width: $max-width
         margin: 0 auto
-
+        color: $text-secondary
 
     .BoardHeader__btns
         display: flex
-        margin-top: $spacing * 1
-        margin-bottom: $spacing * 5
-
-    .BoardHeader__btn
-        +font-size(0)
-        width: 7.5rem
-        background: $grey-light
-        background: transparent
-        position: relative
-        border: 1px solid $grey-darkest
-        transform: translateY(0)
-        transition: transform .3s, box-shadow .3s
         margin: 0
 
-        &.push-left
+
+    // // DELETE ME
+    // .BoardHeader__btn
+    //     +font-size(0)
+    //     width: 7.5rem
+    //     background: $grey-light
+    //     background: transparent
+    //     position: relative
+    //     border: 1px solid $grey-darkest
+    //     transform: translateY(0)
+    //     transition: transform .3s, box-shadow .3s
+    //     margin: 0
+
+    //     &.push-left
+    //         margin-left: auto
+
+
+
+    $subcontent-scale: .6rem
+
+    .BoardHeader__Metadata
+        padding: 0
+        width: auto
+        +font-size(-1)
+        padding-bottom: $subcontent-scale
+        display: flex
+        justify-content: flex-end
+        justify-content: center
+        width: $max-width
+        margin: $spacing * 3 auto 0
+
+        button
+            +clickable
+            background: transparent
+            color: $text-primary
+            border: $grey-lightest 2px solid
+            outline: none
+            padding: .4rem 2rem
+            transition: border-color .1s ease-out
+            line-height: 30px
+
+            &:hover
+                border-color: $primary-dark
+
+            font-variant: small-caps
+            letter-spacing: 1.2px
+            text-transform: lowercase
+            // border: transparent 2px solid
+            +font-size(1)
+            margin: 0 1rem
+            // background: $primary-dark
+            // border: $primary 2px solid
+
+        .boardID
+            &:before
+                content: "/ "
+            &:after
+                content: " /"
+
+            +font-size(3)
+            padding: .4rem 2rem
+            color: $text-secondary !important
+            line-height: 30px
+            font-family: $font-main-light
+
+    .BoardHeader__subcontent
+        display: flex
+        +font-size(-1)
+        color: $text-secondary
+        padding-top: $subcontent-scale
+        // padding: $subcontent-scale
+        // text-decoration: uppercase !important
+
+        .push-left
             margin-left: auto
+
+        .gap-left
+            padding-left: $subcontent-scale
+
+        .lower-icon
+            position: relative
+            top: 1px
+
+        .new-thread
+            margin-left: $subcontent-scale
+            padding: 0
+            padding-bottom: 2px
+
+        .title
+            padding-left: $subcontent-scale
+            text-transform: uppercase
+            font-variant: small-caps
+            vertical-align: top
+            cursor: pointer
+
+    .BoardHeader__SortByArea
+        width: $max-width
+        margin: 2rem auto
+        position: relative
+        display: flex
+        justify-content: center
+
+        .Card
+            +clickable
+            +size(8rem)
+            background: rgba(255,255,255, 0.04)
+            padding: 1rem
+            margin: .8rem
+            display: flex
+            justify-content: center
+            align-items: center
+
 
         // background: linear-gradient(to bottom, $primary-dark, $primary-darkest)
 
@@ -95,32 +196,32 @@ $boardheader-searchbar-width: 720px
         //     margin: 0 auto
         //     transition: transform .3s ease(sine, in-out)
 
-        &:hover, &:focus
-            background: rgba(255,255,255,0.02)
-            +box-shadow(1)
-            transform: translateY(-2px)
-            // &::before
-            //     transform: scaleX(1)
-            .title
-                color: $text-secondary
+        // &:hover, &:focus
+        //     background: rgba(255,255,255,0.02)
+        //     +box-shadow(1)
+        //     transform: translateY(-2px)
+        //     // &::before
+        //     //     transform: scaleX(1)
+        //     .title
+        //         color: $text-secondary
 
-        &:active
-            +box-shadow(0)
-            transform: translateY(4px)
-            transition: transform .05s ease-out
+        // &:active
+        //     +box-shadow(0)
+        //     transform: translateY(4px)
+        //     transition: transform .05s ease-out
 
-        .Icon
-            // +font-size(2)
-            color: $text-primary
-            // margin-bottom: 2px
+        // .Icon
+        //     // +font-size(2)
+        //     color: $text-primary
+        //     // margin-bottom: 2px
 
-        .title
-            font-family: font-for(DynamicHeader__Title)
-            display: inline-block
-            color: $text-primary !important
-            opacity: 1
-            letter-spacing: 0.5px
-            font-size: inherit
-            transition: color .24s ease(cubic, in-out)
-            color: var(--textSecondary)
-            position: relative
+        // .title
+        //     font-family: font-for(DynamicHeader__Title)
+        //     display: inline-block
+        //     color: $text-primary !important
+        //     opacity: 1
+        //     letter-spacing: 0.5px
+        //     font-size: inherit
+        //     transition: color .24s ease(cubic, in-out)
+        //     color: var(--textSecondary)
+        //     position: relative
