@@ -1,4 +1,6 @@
 export {default as ActionButton} from './ActionButton'
+export {default as Alert} from './Alert'
+export {default as HoverUnderline} from './HoverUnderline'
 export {default as Notification} from './Notification'
 export {default as TextSelectionPopup} from './TextSelectionPopup'
 export {default as Tooltip} from './Tooltip'

@@ -1,6 +1,9 @@
 import { details as settingDetails } from './settings'
 
 export default {
+    api: {
+        board: { }, // timestamp: [post, post, post]
+    },
     status: {
         alertMessage: null,  // reveal status to user
         provider: '4chan',
@@ -28,6 +31,7 @@ export default {
         didInvalidate: false,
         posts: [],
         filters: [],
+        sortBy: 'bumporder', // default. one of: bumporder, lastreply, creationdate, replycount
         search: ''
     },
 
@@ -110,7 +114,7 @@ export default {
         },
 
         // External settings the user can configure:
-        homeBoard: 'fit',
+        homeBoard: 'biz',
         nsfw: false,
         downloadLocation: '~/Downloads/Lurka',
         boardUpdateInterval: 15,

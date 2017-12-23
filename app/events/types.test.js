@@ -65,6 +65,14 @@ export default createSuite('Types', () => {
     expect(types.CLOSE_HEADER_PANEL).toEqual('CLOSE_HEADER_PANEL');
   });
 
+  it('contains HEADER_PANEL_OPENED', () => {
+    expect(types.HEADER_PANEL_OPENED).toEqual('HEADER_PANEL_OPENED');
+  });
+
+  it('contains HEADER_PANEL_CLOSED', () => {
+    expect(types.HEADER_PANEL_CLOSED).toEqual('HEADER_PANEL_CLOSED');
+  });
+
   it('contains UPDATE_WATCH_ENTITY', () => {
     expect(types.UPDATE_WATCH_ENTITY).toEqual('UPDATE_WATCH_ENTITY');
   });

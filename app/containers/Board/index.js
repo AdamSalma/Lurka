@@ -34,7 +34,7 @@ import {
 } from './assemblies';
 
 import {
-    emitThreadOpen, emitHeaderExpand, emitHeaderShrink, emitContextMenuOpen,
+    emitThreadOpen, emitHeaderExpand, emitHeaderShrink, emitContextMenuOpen, emitOpenHeaderPanel, emitPostToggle,
     onAppReady, onSettingsToggle, onBoardReset, onHeaderExpand, onHeaderShrink
 } from '~/events'
 
@@ -174,6 +174,13 @@ export class Board extends Component {
                         onSearch={this.handleSearch}
                         boardID={currentBoard.boardID}
                         boardTitle={currentBoard.title}
+                        onSort={this.props.onSort}
+                        sortBy={this.props.sortBy}
+                        onRefresh={this.handleRefresh}
+                        onOpenMenu={this.handleOpenMenu}
+                        onFavouriteToggle={this.handleFavouriteToggle}
+                        isFavourite={this.props.isFavourite}
+                        handlePostOpen={this.handlePostOpen}
                     />
                     {/*<Parallax.Background className="BoardParallax--header">
                     </Parallax.Background>
@@ -183,9 +190,11 @@ export class Board extends Component {
                         <BoardMetadata
                             postsShown={BoardPosts.length}
                             totalPosts={posts.length}
-                            totalImages={statistics.images}
-                            totalReplies={statistics.replies}
+                            prefix=""
+                            suffix=""
                         />
+                            // totalImages={statistics.images}
+                            // totalReplies={statistics.replies}
                     }
                     {isActive && <div className="PostLinebreak"/>}
                     <div className="posts" ref={this.setPostsRef} onContextMenu={(e) => emitContextMenuOpen({
@@ -355,6 +364,36 @@ export class Board extends Component {
         this.props.searchBoard(searchValue);
         !searchValue && setTimeout(this.applyLayout, 200)
 
+    }
+
+    handleRefresh = () => {
+        const { fetchBoard, boardID } = this.props;
+
+        fetchBoard(boardID)
+    }
+
+    handleOpenMenu = () => {
+        emitOpenHeaderPanel({
+            panelID: "menu",
+            closeIfOpen: false
+        })
+    }
+
+    handleFavouriteToggle = () => {
+        const { isFavourite, boardID } = this.props;
+        console.warn("isFavourite", isFavourite);
+
+        if (isFavourite) {
+            this.props.removeBoardFromFavourites(boardID)
+        } else {
+            this.props.addBoardToFavourites(boardID)
+        }
+    }
+
+    handlePostOpen() {
+        emitPostToggle({
+            context: "board"
+        })
     }
 }
 

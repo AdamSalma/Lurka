@@ -32,7 +32,9 @@ import {
     emitBoardReset,
     onContentViewToggle,
     onHeaderShrink,
-    onHeaderExpand
+    onHeaderExpand,
+    onHeaderPanelOpened,
+    onHeaderPanelClosed
 } from '~/events';
 
 /* Helpers */
@@ -43,9 +45,9 @@ const headerToggleDuration = 200
 
 
 
-const ButtonIndent = ({ className, children, ...restProps }) => {
+const ButtonIndent = ({ className, children, isActive, ...restProps }) => {
     return (
-        <div className={cx('ButtonIndent', className)} {...restProps}>
+        <div className={cx('ButtonIndent', className, { "is-active": isActive })} {...restProps}>
             {children}
         </div>
     );
@@ -69,7 +71,8 @@ class DynamicHeader extends PureComponent {
         this.state = {
             isContentInView: true,
             isExpanded: true,
-            isToggling: false
+            isToggling: false,
+            panelID: null
         }
     }
 
@@ -99,6 +102,16 @@ class DynamicHeader extends PureComponent {
         this.setState({
             isContentInView: !this.state.isContentInView
         });
+    }
+
+    @onHeaderPanelOpened
+    onHeaderPanelOpened(panelID) {
+        this.setState({ panelID })
+    }
+
+    @onHeaderPanelClosed
+    onHeaderPanelClosed(panelID) {
+        this.setState({ panelID: panelID })
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -140,6 +153,7 @@ class DynamicHeader extends PureComponent {
         const navbarTitle = boardID && boardList.items.length
             && boardList.items.find(b => b.boardID === boardID).short_desc
 
+        console.warn("PanelID: ", this.state.panelID)
         // <Icon
         //    name={i.navbarBackwards}
         //  className='DynamicHeader__backwards' />
@@ -161,7 +175,7 @@ class DynamicHeader extends PureComponent {
               <div className='background' />
               <div className='content'>
                 <HeaderGroup className='left'>
-                  <ButtonIndent onClick={this.toggleMenuPanel}>
+                  <ButtonIndent onClick={this.toggleMenuPanel} isActive={this.state.panelID == "menu"}>
                     <div className="vertical-icon menu" >
                         <Icon name={i.navbarMenu}/>
                         <span className="title">Menu</span>
@@ -194,7 +208,7 @@ class DynamicHeader extends PureComponent {
 
                 </HeaderGroup>
                 <HeaderGroup className='right'>
-                    <ButtonIndent onClick={this.toggleWatchPanel}>
+                    <ButtonIndent onClick={this.toggleWatchPanel} isActive={this.state.panelID === "watcher"}>
                         <div className="vertical-icon" >
                             <Notification number={1}>
                               <Icon name={i.navbarEye}/>
@@ -203,21 +217,21 @@ class DynamicHeader extends PureComponent {
                         </div>
                     </ButtonIndent>
 
-                    <ButtonIndent onClick={this.toggleBookmarkPanel}>
+                    <ButtonIndent onClick={this.toggleBookmarkPanel} isActive={this.state.panelID === "bookmarks"}>
                         <div className="vertical-icon" >
                             <Icon name={i.navbarBookmark}/>
                             <span className="title">Bookmarks</span>
                         </div>
                     </ButtonIndent>
 
-                    <ButtonIndent onClick={this.toggleDownloadsPanel}>
+                    <ButtonIndent onClick={this.toggleDownloadsPanel} isActive={this.state.panelID === "downloads"}>
                         <div className="vertical-icon" >
                             <Icon name={i.navbarDownloads}/>
                             <span className="title">Downloads</span>
                         </div>
                     </ButtonIndent>
 
-                    <ButtonIndent onClick={this.toggleSettingsPanel}>
+                    <ButtonIndent onClick={this.toggleSettingsPanel} isActive={this.state.panelID == "settings"}>
                         <div className="vertical-icon" >
                             <Icon name={i.navbarSettings}/>
                             <span className="title">Settings</span>
@@ -241,7 +255,8 @@ class DynamicHeader extends PureComponent {
         //     ? this.onHeaderShrink()
         //     : this.onHeaderExpand()
 
-        emitContentViewToggle()
+        // emitContentViewToggle()
+        this.scrollToSearchbar()
     }
 
     toggleComplete = () => {
@@ -263,8 +278,8 @@ class DynamicHeader extends PureComponent {
         this.props.fetchBoard(this.props.boardID);
     }
 
-    scrollToSearchbar = () => {
-        emitBoardReset(600); // duration=0
+    scrollToSearchbar = (duration=600) => {
+        emitBoardReset(duration);
     }
 
 }

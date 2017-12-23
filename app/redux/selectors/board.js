@@ -2,12 +2,15 @@ import { createSelector } from 'reselect'
 
 export const getIsBoardFetching = state => state.board.isFetching
 export const getBoardPosts = state => state.board.posts
+export const getMutableBoardPosts = state => getBoardPosts(state).slice(0)
 export const getBoardSearchTerms = state => state.board.search
 export const getBoardFilterTerms = state => state.board.filters
 export const isBoardBeingSearched = state => !!state.board.search;
 export const isBoardFiltered = state => state.board.filters.length > 0
 export const isBoardFetching = state => state.board.isFetching
-
+export const getBoardSortBy = state => state.board.sortBy
+export const getBoardReceivedAt = state => state.board.receivedAt
+export const getRawBoardPosts = state => state.api.board[ getBoardReceivedAt(state) ]
 
 export const getBoardPostsBySearch = createSelector(
     getBoardPosts,
@@ -15,9 +18,10 @@ export const getBoardPostsBySearch = createSelector(
     (posts, search) =>
         posts.filter(({ title="", comment="" }) =>
             title.toLowerCase().includes(search) || comment.toLowerCase().includes(search)
-
     )
 )
+
+
 
 export const getBoardPostsByFilter = createSelector(
     getBoardPosts,

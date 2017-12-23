@@ -25,6 +25,11 @@ $board-gutter-bottom: 220px
     transition-property: top, left, box-shadow
     +will-change(transform)
 
+    // Reset button defaults
+    padding: 0
+    margin: 0
+    color: $text-primary
+
     margin-bottom: $board-gutter-bottom
 
     &.animate
@@ -32,11 +37,11 @@ $board-gutter-bottom: 220px
         transform: translateY($slideup-distance) translate3d(0,0,0)
         animation: moveUp 0.65s ease forwards
 
-    &:hover
+    &:hover, &:focus, &:active
         transition: box-shadow .2s $easeOutExpo, background .2s $easeOutExpo
         // box-shadow: 0 0 6px var(--textSecondary)
         box-shadow: 0 0 6px var(--primary)
-
+        outline: none
         background: $highlight-color
         border-color: transparent
         transform: translateY(400px) !important
@@ -58,7 +63,6 @@ $board-gutter-bottom: 220px
         position: relative
         overflow: hidden
 
-
     img
         max-width: 100%
         min-width: 100%
@@ -68,7 +72,6 @@ $board-gutter-bottom: 220px
         margin: 0 auto
         height: auto
         // transition: transform .4s ease-out
-
 
     .comment-wrap
         padding-top: 6px
@@ -86,15 +89,13 @@ $board-gutter-bottom: 220px
         word-wrap: break-word !important
 
         .title
+            +ellipsis
             display: block
             padding-top: 4px
             padding-bottom: 2px
             font-family: font-for(BoardPost__title)
-            text-overflow: ellipsis
-            word-wrap: break-word
-            white-space: nowrap
-            overflow: hidden
             font-size: 15.5px
+            letter-spacing: -0.007rem
 
         .comment
             padding-top: 4px

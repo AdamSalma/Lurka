@@ -1,0 +1,21 @@
+@import '~sass/utils'
+
+.Card
+    display: inline-block
+    padding: 1rem
+    +box-shadow(1)
+    // background: $grey-lightest
+    transition: box-shadow .24s ease-out
+    text-align: center
+
+    &:hover
+        +box-shadow(2)
+
+
+    &.Card__size-medium
+        padding: 1em
+        margin: .5em
+        +font-size(1)
+
+    &.Card__is-active
+        border: 2px solid $primary-dark
