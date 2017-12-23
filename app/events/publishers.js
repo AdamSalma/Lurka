@@ -24,6 +24,8 @@ export const emitHeaderToggled = dispatch.bind(null, types.HEADER_TOGGLED);
 
 export const emitOpenHeaderPanel = dispatch.bind(null, types.OPEN_HEADER_PANEL);
 export const emitCloseHeaderPanel = dispatch.bind(null, types.CLOSE_HEADER_PANEL);
+export const emitHeaderPanelOpened = dispatch.bind(null, types.HEADER_PANEL_OPENED);
+export const emitHeaderPanelClosed = dispatch.bind(null, types.HEADER_PANEL_CLOSED);
 
 export const emitUpdateWatchEntity = dispatch.bind(null, types.UPDATE_WATCH_ENTITY);
 

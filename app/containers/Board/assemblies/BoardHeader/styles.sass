@@ -61,7 +61,19 @@ $max-width: 720px
     .BoardHeader__search
         width: $max-width
         margin: 0 auto
-        color: $text-secondary
+
+        > .SearchBarWithIcons
+            color: $text-secondary
+            // border-bottom: $grey-lightest 2px solid
+            transition: border-color .1s ease-out
+
+            &:hover, &.SearchBarWithIcons--is-focused
+                border-color: $primary-dark
+                +box-shadow(1)
+
+        .Searchbar::-webkit-input-placeholder
+            color: $text-secondary
+            font-family: $font-main-light
 
     .BoardHeader__btns
         display: flex
@@ -98,25 +110,31 @@ $max-width: 720px
         width: $max-width
         margin: $spacing * 3 auto 0
 
-        button
-            +clickable
-            background: transparent
-            color: $text-primary
-            border: $grey-lightest 2px solid
-            outline: none
-            padding: .4rem 2rem
-            transition: border-color .1s ease-out
-            line-height: 30px
+        // button
+        //     +clickable
+        //     background: transparent
+        //     color: $text-secondary
+        //     border: $grey-lightest 2px solid
+        //     outline: none
+        //     padding: .4rem 2rem
+        //     transition: border-color .1s ease-out, color .1s ease-out
+        //     letter-spacing: 1.2px
+        //     +font-size(0)
+        //     margin: 0 1rem
+        //     font-family: $font-main-light
 
-            &:hover
-                border-color: $primary-dark
+        //     &:hover, &.is-active
+        //         border-color: $primary-dark
+        //         color: $text-primary
 
-            font-variant: small-caps
-            letter-spacing: 1.2px
-            text-transform: lowercase
+        //     &:active
+        //         border-color: $primary-dark
+        //         color: $text-primary
+        //         background: $primary-dark
+
+            // font-variant: small-caps
+            // text-transform: lowercase
             // border: transparent 2px solid
-            +font-size(1)
-            margin: 0 1rem
             // background: $primary-dark
             // border: $primary 2px solid
 

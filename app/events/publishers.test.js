@@ -138,6 +138,22 @@ export default createSuite('Publishers', () => {
     expect(dispatched).toBe(true);
   });
 
+  it('emits HEADER_PANEL_OPENED', () => {
+    receive(types.HEADER_PANEL_OPENED, () => {
+        dispatched = true;
+    });
+    publishers.emitCloseHeaderPanel();
+    expect(dispatched).toBe(true);
+  });
+
+  it('emits HEADER_PANEL_CLOSED', () => {
+    receive(types.HEADER_PANEL_CLOSED, () => {
+        dispatched = true;
+    });
+    publishers.emitCloseHeaderPanel();
+    expect(dispatched).toBe(true);
+  });
+
   it('emits UPDATE_WATCH_ENTITY', () => {
     receive(types.UPDATE_WATCH_ENTITY, () => {
         dispatched = true;

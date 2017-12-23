@@ -10,7 +10,8 @@ import {
     CircleSpinner,
     ButtonWithPopout,
     HoverUnderline,
-    Checkbox
+    Checkbox,
+    Button
 } from '~/components'
 
 
@@ -45,7 +46,7 @@ class BoardHeader extends Component {
             className
         );
 
-        const isFavouriteClasses = cx("meta favourite-board", { "isFavourite": isFavourite})
+        const isFavouriteClasses = cx("meta favourite-board", { "isFavourite": isFavourite })
 
         const {isSorting, isFiltering} = this.state;
 
@@ -55,10 +56,12 @@ class BoardHeader extends Component {
                     <Title size={1} weight="normal" align="center" onClick={onOpenMenu}>
                         {boardTitle && boardTitle}
                     </Title>
-                    <div className="BoardHeader__Metadata">
-                        <span className="meta autorefresh"><button onClick={onRefresh}>Refresh</button></span>
-                        <span className={isFavouriteClasses}><button onClick={onFavouriteToggle}>Favourite</button></span>
-                    </div>
+                    {!isSpinnerActive &&
+                        <div className="BoardHeader__Metadata">
+                            <span className="meta autorefresh"><Button onClick={onRefresh}>Refresh</Button></span>
+                            <span className={isFavouriteClasses}><Button onClick={onFavouriteToggle}>Favourite</Button></span>
+                        </div>
+                    }
                 </div>
                 <div className="BoardHeader__loading">
                     {isSpinnerActive &&

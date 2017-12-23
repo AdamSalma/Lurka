@@ -369,12 +369,7 @@ export class Board extends Component {
     handleRefresh = () => {
         const { fetchBoard, boardID } = this.props;
 
-        fetchBoard(boardID, () => {
-            emitOpenHeaderPanel({
-                panelID: "menu",
-                closeIfOpen: true
-            })
-        })
+        fetchBoard(boardID)
     }
 
     handleOpenMenu = () => {

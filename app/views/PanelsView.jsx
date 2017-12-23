@@ -4,14 +4,14 @@ import cx from 'classnames'
 import { Panels } from '~/containers'
 
 import {
+    emitHeaderPanelOpened,
+    emitHeaderPanelClosed,
+
     onHeaderPanelOpen,
     onHeaderPanelClose,
 
-    emitOpenHeaderPanel,
-    emitCloseHeaderPanel,
-
     onHeaderExpand,
-    onHeaderShrink
+    onHeaderShrink,
 } from '~/events';
 
 import {isFunction} from '~/utils/types';
@@ -31,11 +31,10 @@ export class PanelsView extends Component {
 
         if (this.modalstate.isOpen && this.modalstate.id === panelID) {
             if (closeIfOpen) {
-                this.closePanel()
-            } else {
-                console.warn(`Panel '${panelID}' is already open.`)
+                return this.closePanel();
             }
 
+            console.warn(`Panel '${panelID}' is already open.`);
             return
         }
 
@@ -103,10 +102,13 @@ export class PanelsView extends Component {
         );
     }
 
-    prepareToOpen(HeaderPanel) {
+    prepareToOpen = (HeaderPanel) => {
         console.log("prepareToOpen()")
         this.modalstate.isPreparingToOpen = true;
-        this.setState({HeaderPanel});
+        this.setState({ HeaderPanel }, () => {
+            console.error("Broadcasting with:", this.modalstate.id)
+            emitHeaderPanelOpened(this.modalstate.id)
+        });
     }
 
     openPanel = (callback) => {
@@ -132,6 +134,7 @@ export class PanelsView extends Component {
     onPanelHidden( callback ) {
         this.modalstate.isOpen = false;
         this.unmountHiddenPanel( callback );
+        emitHeaderPanelClosed(this.modalstate.id)
     }
 
     getHeaderPanel(panelID) {

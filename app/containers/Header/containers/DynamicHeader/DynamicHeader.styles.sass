@@ -272,7 +272,7 @@ $ani-rules: $ani-duration $ani-bezier
         transform: scaleX(0)
         animation: RemoveUnderline .3s cubic-bezier(0.4,0,0.2,1)
 
-    &:hover
+    &:hover, &.is-active
         &::before
             transform: scaleX(1)
             animation: AddUnderline .3s cubic-bezier(0.4,0,0.2,1)
@@ -296,10 +296,13 @@ $ani-rules: $ani-duration $ani-bezier
 
 .DynamicHeader.shrink .ButtonIndent
     &::before, &::after
-        bottom: 14px
+        // bottom: 10px
         left: -8px
         right: 8px
+    &::before
+        bottom: -4px
     &::after
+        top: -6px
         height: $header-height
-        top: 12px
-        bottom: 0
+        // top: 0
+        // bottom: 0
