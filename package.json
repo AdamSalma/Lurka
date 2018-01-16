@@ -3,6 +3,7 @@
   "name": "Lurka",
   "version": "0.15.0",
   "description": "A 4chan desktop app for power users",
+  "main": "build/index.js",
   "scripts": {
     "__CORE__": "These scripts will get you going with Lurka",
     "start": "concurrently -k --raw \"npm run webpack\" \"npm run electron\"",
@@ -13,7 +14,8 @@
     "build": "npm run gulp build",
     "build:app": "npm run gulp build:app",
     "build:electron": "npm run gulp build:electron",
-    "package": "npm run gulp package",
+    "package": "npm run gulp package --",
+    "OLDpackage": "electron-packager build Lurka --all --out dist",
     "__HELPERS__": "Utils for common things I need",
     "clear": "npm run gulp clear",
     "reinstall": "npm run uninstall && npm install",
@@ -32,8 +34,7 @@
     "OLDprepreview": "npm run --silent gulp --silent ensureAppIsBuilt",
     "OLDpreview": "electron ./build/",
     "OLDbundle:ui": "npm run gulp bundle:ui",
-    "OLDbundle:electron": "webpack --env=electron --color --config tools/webpack",
-    "OLDpackage": "electron-packager build Lurka --all --out dist"
+    "OLDbundle:electron": "webpack --env=electron --color --config tools/webpack"
   },
   "repository": {
     "type": "git",
@@ -53,8 +54,20 @@
   "bugs": {
     "url": "https://github.com/AdamSalma/Lurka/issues"
   },
+  "build": {
+    "appId": "lurka",
+    "productName": "Lurka",
+    "files": [
+        "build/**/*"
+    ],
+    "directories": {
+        "buildResources": "build",
+        "output": "dist"
+    }
+  },
   "homepage": "https://github.com/AdamSalma/Lurka#readme",
   "devDependencies": {
+    "argv-parse": "^1.0.1",
     "autoprefixer": "^7.1.2",
     "axios-mock-adapter": "^1.9.0",
     "babel-loader": "^7.1.1",
@@ -73,6 +86,7 @@
     "css-loader": "^0.28.4",
     "del": "^3.0.0",
     "electron": "^1.6.11",
+    "electron-builder": "^19.52.1",
     "electron-packager": "^9.1.0",
     "electron-squirrel-startup": "^1.0.0",
     "electron-winstaller": "^2.6.3",
@@ -82,7 +96,7 @@
     "expect": "1.20.2",
     "expect-jsx": "^3.0.0",
     "file-loader": "^0.11.2",
-    "gulp": "^3.9.1",
+    "gulp": "git+https://git@github.com/gulpjs/gulp.git#4.0",
     "html-webpack-plugin": "^2.29.0",
     "ignore-loader": "^0.1.1",
     "ignore-styles": "^5.0.1",
@@ -99,6 +113,7 @@
     "react-addons-perf": "^15.4.2",
     "react-hot-loader": "3.0.0-beta.2",
     "read-babelrc-up": "^0.2.0",
+    "redux-mock-store": "^1.3.0",
     "rimraf": "^2.6.2",
     "run-sequence": "^2.2.0",
     "sass-loader": "^6.0.6",
