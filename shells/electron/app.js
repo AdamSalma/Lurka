@@ -8,7 +8,11 @@ if (process.env.NODE_ENV === "production" && require('./events/handleSquirrel')(
   canStartApp = false
 }
 
+console.log("Lurka: Starting app...")
 if (canStartApp) {
+
+  throw new Error(indexPath)
+
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.

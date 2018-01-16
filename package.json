@@ -58,11 +58,11 @@
     "appId": "lurka",
     "productName": "Lurka",
     "files": [
-        "build/**/*"
+      "build/**/*"
     ],
     "directories": {
-        "buildResources": "build",
-        "output": "dist"
+      "buildResources": "build",
+      "output": "dist"
     }
   },
   "homepage": "https://github.com/AdamSalma/Lurka#readme",
@@ -85,7 +85,7 @@
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.4",
     "del": "^3.0.0",
-    "electron": "^1.6.11",
+    "electron": "^1.7.10",
     "electron-builder": "^19.52.1",
     "electron-packager": "^9.1.0",
     "electron-squirrel-startup": "^1.0.0",

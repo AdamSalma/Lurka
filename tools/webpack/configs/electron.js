@@ -6,8 +6,8 @@ import aliases from '../aliases';
 import vendors from '../vendors';
 
 
-module.exports = {
-    target: 'electron-main',
+const config = {
+    "target": "electron-main",
     entry: paths.electron_entry,
     output: {
         path: paths.build,
@@ -46,3 +46,7 @@ module.exports = {
         })
     ]
 };
+
+// config.target = webpackTargetElectronRenderer(config);
+
+module.exports = module.exports.default = config

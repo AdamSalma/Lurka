@@ -80,6 +80,8 @@ function createMainWindow(opts) {
         indexPath = path.join(__dirname, 'index.html')
     }
 
+    // console.log("index.html path:", indexPath)
+    throw new Error(indexPath)
     main.loadURL(url.format({
         pathname: indexPath,
         protocol: 'file:',
