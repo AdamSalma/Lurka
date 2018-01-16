@@ -2,7 +2,7 @@ const onBeforeSendHeaders = (details, callback) => {
     if (process.env.NODE_ENV === "development") {
         if (details.url.includes('localhost')) {
             // webpack-dev-server doesn't like its headers played with
-            return callback({ cancel:false })
+            return callback({ cancel: false })
         }
     }
 
@@ -26,7 +26,8 @@ const onBeforeSendHeaders = (details, callback) => {
         details.requestHeaders['Origin'] = "http://boards.4chan.org";
     }
 
-    details.requestHeaders['User-Agent'] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0";
+    // details.requestHeaders['User-Agent'] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0";
+    details.requestHeaders['User-Agent'] = "Android";
     details.requestHeaders['DNT'] = 1;
     details.requestHeaders['Referer'] = undefined;
 
@@ -37,3 +38,7 @@ const onBeforeSendHeaders = (details, callback) => {
 }
 
 export default onBeforeSendHeaders;
+// https://www.google.com/recaptcha/api2/anchor?k=6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc&co=aHR0cDovL2JvYXJkcy40Y2hhbi5vcmc6ODA.&hl=en&v=r20171212152908&theme=light&size=normal&cb=v7phjo87w3gx
+// https://www.google.com/recaptcha/api2/anchor?k=6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc&co=aHR0cDovL2JvYXJkcy40Y2hhbi5vcmc6ODA.&hl=en&v=r20171212152908&theme=dark &size=normal
+// https://www.google.com/recaptcha/api2/anchor?k=6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc&co=dGVzdDovL3c.&hl=en&v=r20171212152908&theme=dark&size=normal&cb=z28m7kbp1m9a
+// https://www.google.com/recaptcha/api2/anchor?k=6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc&co=dGVzdDovL3c.&hl=en&v=r20171212152908&theme=dark&size=normal&cb=8fzkk8ouba9i

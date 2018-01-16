@@ -44,6 +44,9 @@ module.exports = {
         inline: true,
         port: config.server.port,
         host: config.server.host,
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        },
         stats: { maxModules: 0 }, // disable modules
     },
     plugins: [

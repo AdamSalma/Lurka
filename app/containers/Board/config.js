@@ -23,7 +23,8 @@ export const masonryGridWithDrawer = Object.assign({}, masonryGrid, {
 
 export const nano = {
     sliderMaxHeight: 400,
-    sliderMinHeight: 50
+    sliderMinHeight: 50,
+    alwaysVisible: true
 }
 
 export const scroll = {

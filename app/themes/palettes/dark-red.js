@@ -9,7 +9,7 @@ import { warmTint, coldTint } from '../utils';
 
 export const darkRed = {
     // *** Primary ***
-    primary:         '#e44a49',
+    primary:         '#bf3b3b',
     get primaryDark () { return c(this.primary).alpha(0.5) },
     get primaryDarkest () { return c(this.primary).alpha(0.22) },
     get primaryLight () { return c(this.primary).lighten(0.1).saturate(0.1) },

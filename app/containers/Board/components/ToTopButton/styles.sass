@@ -1,55 +1,63 @@
 @import '~sass/utils'
 
 $size: 64px
+$width: $size * $gld
+$height: $size * 1.333
+// @error $height
+$right: $board-scroller-width * 2 - 1
+
 $icon-size: 52px
 
+
 .ToTopButton
-    position: fixed
     +clickable
-    +size($size)
+    +size($width, $height)
     +no-select
+    position: fixed
+    right: $right
+    bottom: $width / $gld
     z-index: $board-to-top-button
-    background: $grey
+    background: $grey-lightest
     border: 2px solid $grey-lightest
-    border-radius: 50%
+    border-right: 2px solid transparent
+    // border-radius: 50%
     text-align: center
-    margin: $size / 2
-    right: 0
-    bottom: 0
-    transform: translateY($size * 1.5) scale(1)
+    // margin: $size / 2
+    transform: translateX(#{$width + $right}) scale(1)
     transition: transform .24s $bezier-fast, border-color .24s $bezier-fast
+    overflow: hidden
+    color: $text-secondary
 
     &.is-visible
-        transform: translateY(0)
+        transform: translateX(0)
 
     &:hover
         border-color: var(--primaryDark)
-        transform: scale(1.3)
+        // transform: scale(1.3)
         background: $highlight-color
 
-        .Icon
+        .ToTopButton__icon
             top: 0
             transform: scale(1.3) translateY(0)
+            color: $text-secondary
 
-        .text
+        .ToTopButton__text
             opacity: 0
 
-
-
-    .Icon
+    &__icon
         font-size: $icon-size
         display: block
         transform: translateY(-6px) scale(1)
-        transition: transform .3s
+        transition: transform .24s,
 
-    .text
+    &__text
         font-size: $size / 4
         font-variant: small-caps
         text-transform: lowercase;
         position: relative
         top: -24px
         font-family: $font-main-light
-        transition: opacity .3s
+        transition: opacity .24s
 
 
 

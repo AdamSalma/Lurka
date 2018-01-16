@@ -19,7 +19,7 @@ $max-width: 720px
 
     .BoardHeader__title
         padding: $spacing * 3 0
-        padding-bottom: $spacing * 2
+        padding-bottom: $spacing * 4
         margin: 0 auto
         max-width: $max-width
 
@@ -101,14 +101,13 @@ $max-width: 720px
 
     .BoardHeader__Metadata
         padding: 0
-        width: auto
         +font-size(-1)
         padding-bottom: $subcontent-scale
         display: flex
         justify-content: flex-end
         justify-content: center
         width: $max-width
-        margin: $spacing * 3 auto 0
+        margin: $spacing * 1 auto 0
 
         // button
         //     +clickable
@@ -186,10 +185,14 @@ $max-width: 720px
         position: relative
         display: flex
         justify-content: center
+        background: $grey-light
+        height: 8rem
+        padding: 1rem 1rem
+        animation: fade-in-top .4s ease-out
 
         .Card
             +clickable
-            +size(8rem)
+            width: 10rem
             background: rgba(255,255,255, 0.04)
             padding: 1rem
             margin: .8rem

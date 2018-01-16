@@ -25,8 +25,8 @@ class ToTopButton extends React.Component {
 
         return (
             <div className={classes} onClick={this.props.onClick}>
-                <Icon name={i.boardToTopChevron}/>
-                <div className="text">To Top</div>
+                <Icon className="ToTopButton__icon" name={i.boardToTopChevron}/>
+                <div className="ToTopButton__text">To Top</div>
             </div>
         );
     };

@@ -56,12 +56,6 @@ class BoardHeader extends Component {
                     <Title size={1} weight="normal" align="center" onClick={onOpenMenu}>
                         {boardTitle && boardTitle}
                     </Title>
-                    {!isSpinnerActive &&
-                        <div className="BoardHeader__Metadata">
-                            <span className="meta autorefresh"><Button onClick={onRefresh}>Refresh</Button></span>
-                            <span className={isFavouriteClasses}><Button onClick={onFavouriteToggle}>Favourite</Button></span>
-                        </div>
-                    }
                 </div>
                 <div className="BoardHeader__loading">
                     {isSpinnerActive &&
@@ -114,8 +108,15 @@ class BoardHeader extends Component {
                                 onSortByLastReply={this.handleSortByLastReply}
                                 onSortByCreationDate={this.handleSortByCreationDate}
                                 onSortByReplyCount={this.handleSortByReplyCount}
+                                SortingLoader={<CircleSpinner className="SortByArea__Spinner"/>}
                             />
                         }
+                    </div>
+                }
+                {!isSpinnerActive &&
+                    <div className="BoardHeader__Metadata">
+                        <span className="meta autorefresh"><Button onClick={onRefresh}>Refresh</Button></span>
+                        <span className={isFavouriteClasses}><Button onClick={onFavouriteToggle}>Favourite</Button></span>
                     </div>
                 }
             </div>
