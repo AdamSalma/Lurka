@@ -1,6 +1,4 @@
-export const normalRules = injectLoaders(createNormalRules);
-export const testRules = injectLoaders(createTestRules);
-export default normalRules
+export default injectLoaders(createNormalRules);
 
 
 // Creates the loader configurations then injects them into a callback to
@@ -45,13 +43,19 @@ function injectLoaders(createLoaders) {
         options: { cacheDirectory: true }
     }
 
+    const htmlLoader = {
+        loader: require.resolve('html-loader')
+    }
+
     // These rules define how
     const loaders = {
         sass: [styleLoader, cssLoader, postcssLoader, sassLoader],
         css: [styleLoader, cssLoader, postcssLoader],
         babel: [babelLoader],
         url: [urlLoader],
-        ignore: ['ignore-loader']
+        ignore: ['ignore-loader'],
+        html: [htmlLoader]
+
     }
 
     return createLoaders(loaders);
@@ -79,6 +83,10 @@ function createNormalRules(loaders) {
     }, {
         test: /\LICENSE$/,
         use: loaders.ignore
+    }, {
+        test: /\.(html)$/,
+        exclude: /node_modules/,
+        use: loaders.html
     }]
 }
 

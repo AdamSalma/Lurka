@@ -14,6 +14,7 @@ var paths = {
     app_bundle:     join('build', 'app.bundle.js'),
     dist:           join('dist'),
     electron_entry: join('shells', 'electron', 'index.js'),
+    logo:           join('public', 'images', 'logo.png'),
 }
 
 module.exports = module.exports.default = paths;

@@ -1,37 +1,52 @@
 import {BrowserWindow} from 'electron';
+import Mustache from 'mustache';
 import path from 'path';
 import url from 'url';
 
+import config from 'config';
+import paths from 'config/paths';
 import handleBeforeSendHeaders from './events/handleBeforeSendHeaders';
 import handleRedirect from './events/handleRedirect';
 
-/**
- * IDEAS:
- *
- * 1) Parse templates with mustache:
- *    File -> html string -> data URL => inject into BrowserWindow
- *
- * 2) Bundle electron code before use.
- *    Bundle output to build/ then use that for production build as well as dev.
- *
- */
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let main, preloader
+let main, preloader,
+    mainView, preloaderView;
+
+
+if (process.env.NODE_ENV == "production") {
+    mainView = renderView(require("./views/main.html"), {
+        scriptSrc: path.join(__dirname, "app.bundle.js")
+    });
+    preloaderView = renderView(require("./views/preloader.html"), {
+        logoSrc: paths.logo
+    });
+} else {
+    mainView = renderView(require("./views/main.html"), {
+        scriptSrc: config.server.url
+    });
+    preloaderView = renderView(require("./views/preloader.html"), {
+        logoSrc: paths.logo
+    });
+}
+
+console.info("main.html path:", mainView)
+console.info("preloader.html path:", preloaderView)
 
 export default function createWindow () {
     createPreloaderWindow();
     createMainWindow();
+
+    if (process.env.NODE_ENV == "development") {
+        main.webContents.openDevTools('right');
+    }
 
     // Display UI when bundled and ready
     main.once('ready-to-show', () => {
         main.show();
         main.setFullScreen(true);
         preloader.close();
-
-        if (config.env.development)
-            main.webContents.openDevTools('right');
     });
 }
 
@@ -39,22 +54,9 @@ function createPreloaderWindow(opts) {
     if (preloader)
        return preloader
 
-    preloader = new BrowserWindow(config.electron.preloader)
+    preloader = new BrowserWindow(config.electron.preloader);
 
-    var preloaderPath;
-
-    if (process.env.NODE_ENV === "development") {
-        preloaderPath = path.join(__dirname, 'dev', `preloader.html`)
-    } else {
-        preloaderPath = path.join(__dirname, "preloader.html")
-    }
-
-    preloader.loadURL(url.format({
-        pathname: preloaderPath,
-        protocol: 'file:',
-        slashes: true
-    }));
-
+    preloader.loadURL(preloaderView);
     preloader.on('closed', () => {
         preloader = null
     });
@@ -69,26 +71,19 @@ function createMainWindow(opts) {
     // Set custom headers to bypass 4chan image block
     main.webContents.session.webRequest.onBeforeSendHeaders(handleBeforeSendHeaders);
 
-    // Open links in browser
-    main.webContents.on('new-window', handleRedirect)
+    // Open links in browser instead of new electron window
+    main.webContents.on('new-window', handleRedirect);
 
-    var indexPath;
-
-    if (process.env.NODE_ENV === "development") {
-        indexPath = path.join(__dirname, 'dev', 'index.html')
-    } else {
-        indexPath = path.join(__dirname, 'index.html')
-    }
-
-    // console.log("index.html path:", indexPath)
-    throw new Error(indexPath)
-    main.loadURL(url.format({
-        pathname: indexPath,
-        protocol: 'file:',
-        slashes: true
-    }));
-
+    main.loadURL(mainView);
     main.on('closed', () => {
         main = null
     });
+}
+
+
+// Helper to render views
+// https://github.com/electron/electron/issues/1146
+function renderView(view, viewParams={}) {
+    const data = Mustache.render(view, viewParams);
+    return 'data:text/html;charset=UTF-8,' + encodeURIComponent(data);
 }

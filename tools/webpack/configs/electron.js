@@ -7,7 +7,7 @@ import vendors from '../vendors';
 
 
 const config = {
-    "target": "electron-main",
+    target: "electron-main",
     entry: paths.electron_entry,
     output: {
         path: paths.build,
@@ -18,6 +18,9 @@ const config = {
         extensions: ['.js', '.jsx', '.css', '.scss', '.sass', '.json'], // .json for babel package.json
         alias: aliases,
         modules: ['node_modules', paths.app_modules]
+    },
+    node: {
+      __dirname: false
     },
     module: { loaders },
     plugins: [
