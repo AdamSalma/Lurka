@@ -12,27 +12,19 @@ import handleRedirect from './events/handleRedirect';
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let main, preloader,
-    mainView, preloaderView;
+    mainPath, preloaderPath;
 
 
 if (process.env.NODE_ENV == "production") {
-    mainView = renderView(require("./views/main.html"), {
-        scriptSrc: path.join(__dirname, "app.bundle.js")
-    });
-    preloaderView = renderView(require("./views/preloader.html"), {
-        logoSrc: paths.logo
-    });
+    mainPath = path.join(__dirname, 'main.html');
+    preloaderPath = path.join(__dirname, 'preloader.html');
 } else {
-    mainView = renderView(require("./views/main.html"), {
-        scriptSrc: config.server.url
-    });
-    preloaderView = renderView(require("./views/preloader.html"), {
-        logoSrc: paths.logo
-    });
+    mainPath = path.join(__dirname, 'views', 'main.html');
+    preloaderPath = path.join(__dirname, 'views', 'preloader.html');
 }
 
-console.info("main.html path:", mainView)
-console.info("preloader.html path:", preloaderView)
+console.info("main.html path:", mainPath);
+console.info("preloader.html path:", preloaderPath);
 
 export default function createWindow () {
     createPreloaderWindow();
@@ -56,7 +48,13 @@ function createPreloaderWindow(opts) {
 
     preloader = new BrowserWindow(config.electron.preloader);
 
-    preloader.loadURL(preloaderView);
+    // preloader.loadURL(preloaderPath);
+    preloader.loadURL(url.format({
+        pathname: preloaderPath,
+        protocol: 'file:',
+        slashes: true
+    }));
+
     preloader.on('closed', () => {
         preloader = null
     });
@@ -74,7 +72,14 @@ function createMainWindow(opts) {
     // Open links in browser instead of new electron window
     main.webContents.on('new-window', handleRedirect);
 
-    main.loadURL(mainView);
+    main.loadURL(url.format({
+        pathname: mainPath,
+        protocol: 'file:',
+        slashes: true
+    }));
+
+    //main.loadURL(mainPath);
+
     main.on('closed', () => {
         main = null
     });

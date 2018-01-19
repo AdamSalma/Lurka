@@ -1,9 +1,10 @@
 import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import paths from 'config/paths';
-import loaders from '../loaders';
 import aliases from '../aliases';
 import vendors from '../vendors';
+import createLoaders from '../loaders';
 
 
 const config = {
@@ -22,7 +23,7 @@ const config = {
     node: {
       __dirname: false
     },
-    module: { loaders },
+    module: { loaders: createLoaders("production") },
     plugins: [
         // new webpack.optimize.UglifyJsPlugin({
         //     warnings: false,

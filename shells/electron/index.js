@@ -1,6 +1,6 @@
-console.log("Lurka: Starting app 2...")
-if (process.env.NODE_ENV != "production") {
+if (process.env.NODE_ENV !== "production") {
     // Enable es6+
+    console.log('Registring babel');
     require('babel-register');
 }
 

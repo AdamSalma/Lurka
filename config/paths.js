@@ -8,13 +8,14 @@ var paths = {
     root:           join(),
     app:            join('app'),
     app_entry:      join('app', 'index.jsx'),
-    app_html:       join('app', 'index.html'),
     build:          join('build'),
     app_modules:    join('build', 'node_modules'),
     app_bundle:     join('build', 'app.bundle.js'),
     dist:           join('dist'),
     electron_entry: join('shells', 'electron', 'index.js'),
     logo:           join('public', 'images', 'logo.png'),
+    app_html:       join('public', 'main.html'),
+    app_preloader:  join('public', 'preloader.html'),
 }
 
 module.exports = module.exports.default = paths;

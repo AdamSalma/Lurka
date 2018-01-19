@@ -3,9 +3,11 @@ import createWindow from './createWindow';
 
 let canStartApp = true;
 
-// Check for squirrel events in production
-if (process.env.NODE_ENV === "production" && require('./events/handleSquirrel')(app)) {
-  canStartApp = false
+// Check for squirrel update events in production
+if (process.env.NODE_ENV === "production") {
+  if (require('./events/handleSquirrel')(app)) {
+    canStartApp = false;
+  }
 }
 
 if (canStartApp) {

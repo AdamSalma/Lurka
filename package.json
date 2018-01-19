@@ -109,6 +109,7 @@
     "mocha-webpack": "^1.0.1",
     "multiple-glob": "0.0.3",
     "mustache": "^2.3.0",
+    "mustache-loader": "^1.2.0",
     "node-sass": "^4.5.0",
     "postcss-loader": "^2.0.6",
     "postcss-nested": "^2.0.2",

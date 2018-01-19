@@ -6,7 +6,8 @@ import ConsoleClearPlugin from '../ConsoleClearPlugin';
 import ManifestPlugin from 'webpack-manifest-plugin';
 
 import config from 'config';
-import loaders from '../loaders';
+import paths from 'config/paths';
+import createLoaders from '../loaders';
 import aliases from '../aliases';
 import vendors from '../vendors';
 
@@ -24,9 +25,9 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx', '.css', '.scss', '.sass'],
         alias: aliases,
-        modules: ['node_modules', config.paths.app_modules/*, config.paths.app*/]
+        modules: ['node_modules', config.paths.app_modules]  // Because of split package.json
     },
-    module: { loaders },
+    module: { loaders: createLoaders("production") },
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
             warnings: false,
@@ -45,6 +46,11 @@ module.exports = {
               screw_ie8: true,
             },
         }),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            "window.jQuery": "jquery"
+        }),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
@@ -52,9 +58,10 @@ module.exports = {
             }
         }),
         new HtmlWebpackPlugin({
-            template: config.paths.app_html,
-            inject: false,
+            template: paths.app_html,
+            filename: 'main.html',
             chunksSortMode: "dependency",
+            inject: false,
             minify: {
                 removeComments: true,
                 collapseWhitespace: true,
@@ -67,6 +74,11 @@ module.exports = {
                 minifyCSS: true,
                 minifyURLs: true
             }
+        }),
+        new HtmlWebpackPlugin({
+            template: paths.app_preloader,
+            filename: 'preloader.html',
+            inject: false,
         }),
         new ManifestPlugin({
           fileName: 'asset-manifest.json',
