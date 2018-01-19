@@ -1,7 +1,8 @@
 node_modules
 *.log
 *.sublime*
-bash.exe.stackdump
+*.stackdump
+github_token.txt
 
 # Build folder: everything except
 build/*

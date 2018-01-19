@@ -49,8 +49,8 @@ module.exports = {
     },
     plugins: [
         new WebpackBuildNotifierPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
         new webpack.NamedModulesPlugin(),
+        new webpack.NoEmitOnErrorsPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         // new webpack.optimize.CommonsChunkPlugin({
         //     name: "vendor",

@@ -1,9 +1,5 @@
 const webpack = require('webpack');
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-import WebpackBuildNotifierPlugin from 'webpack-build-notifier';
-import ConsoleClearPlugin from '../ConsoleClearPlugin';
-import ManifestPlugin from 'webpack-manifest-plugin';
 
 import config from 'config';
 import paths from 'config/paths';
@@ -79,12 +75,7 @@ module.exports = {
             template: paths.app_preloader,
             filename: 'preloader.html',
             inject: false,
-        }),
-        new ManifestPlugin({
-          fileName: 'asset-manifest.json',
-        }),
-        // Custom plugin to clear the console before each bundle
-        new ConsoleClearPlugin()
+        })
     ],
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.

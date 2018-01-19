@@ -26,7 +26,7 @@ if (process.env.NODE_ENV == "production") {
 console.info("main.html path:", mainPath);
 console.info("preloader.html path:", preloaderPath);
 
-export default function createWindow () {
+export default function createWindows(app) {
     createPreloaderWindow();
     createMainWindow();
 
