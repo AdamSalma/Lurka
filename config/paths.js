@@ -16,6 +16,7 @@ var paths = {
     logo:           join('public', 'images', 'logo.png'),
     app_html:       join('public', 'main.html'),
     app_preloader:  join('public', 'preloader.html'),
+    github_token:   join('github_token.txt')  // you have to make this to be able to publish
 }
 
 module.exports = module.exports.default = paths;

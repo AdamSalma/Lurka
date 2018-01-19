@@ -1,6 +1,7 @@
 import argv from 'argv-parse';
 import { Platform, Arch } from "electron-builder";
 import paths from './paths';
+import fs from 'fs';
 
 
 const args = argv({
@@ -24,7 +25,7 @@ export default function getElectronPackageConfig(opts = args) {
 
     if (opts.current) {
         return withDefaults({
-            targets: Platform.current().createTarget();
+            targets: Platform.current().createTarget()
         });
     }
 
@@ -40,7 +41,8 @@ export default function getElectronPackageConfig(opts = args) {
     return Object.assign({}, windowsConfig, macConfig, linuxConfig, {
         targets: [
             Platform.WINDOWS.createTarget("nsis", Arch.ia32, Arch.x64),
-            Platform.MAC.createTarget("nsis", Arch.ia32, Arch.x64),
+            Platform.MAC.createTarget()
+            Platform.LINUX.createTarget()
         ]
     })
 }
@@ -60,10 +62,19 @@ const windowsConfig = withDefaults({
 const macConfig = withDefaults({
     targets: Platform.MAC.createTarget(),
     category: "your.app.category.type",
-      target: [
+    target: [
         "zip",
         "dmg"
-      ]
+    ],
+    dmg: {
+        contents: [{
+            x: 130, y: 220
+        }, {
+            x: 410, y: 220,
+            type: "link",
+            path: "/Applications"
+        }]
+    }
 });
 
 
@@ -71,7 +82,7 @@ const macConfig = withDefaults({
  * Linux configuration
  */
 const linuxConfig = withDefaults({
-    targets: Platform.LINUX.createTarget()
+    targets: Platform.LINUX.createTarget(),
 });
 
 
@@ -100,7 +111,17 @@ function withDefaults(config) {
             "buildResources": paths.build,
             "output": paths.dist,
             "app": paths.build
+        },
+        publish: {
+            provider: "github",
+            token: getGithubToken(),
         }
 
     }, config);
+}
+
+
+function getGithubToken() {
+    const file = fs.readFileSync(paths.github_token);
+    return file.toString().split("\n")[0]
 }
