@@ -28,6 +28,7 @@ const createPackager = (platforms) => (done) =>
 
 
 /* Build */
+gulp.task('build', gulp.series(gulp.parallel('build:app', 'build:electron')));
 gulp.task('build:electron', tasks.buildElectron);
 gulp.task('build:app', tasks.buildApp);
 gulp.task('build:clear', gulp.series(tasks.clear, gulp.parallel('build:app', 'build:electron')));
