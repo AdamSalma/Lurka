@@ -73,8 +73,8 @@ export const mkdirDist = (done) => {
 
 /* Packaging tasks */
 
-export const packageBuild = (done) => {
-    const config = getElectronPackageConfig();  // uses process.argv
+export const packageBuild = (done, args="current") => {
+    const config = getElectronPackageConfig(args);
 
     console.log(JSON.stringify(config, null, 4))
     require('electron-builder')

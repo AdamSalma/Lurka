@@ -1,17 +1,20 @@
-import argv from 'argv-parse';
+import minimist from 'minimist';
 import { Platform, Arch } from "electron-builder";
 import paths from './paths';
 import fs from 'fs';
 
-
-const args = argv({
-    "windows":  { alias: "w" },
-    "mac":      { alias: "m" },
-    "osx":      { alias: "o" },
-    "linux":    { alias: "l" },
-    "current":  { alias: "c" },
-    "portable": { alias: "p"}
-});
+const options = {
+    boolean: [
+        "travis",
+        "appveyor",
+        "windows",
+        "mac",
+        "osx",
+        "linux",
+        "current",
+        "portable"
+    ]
+};
 
 
 /**
@@ -20,108 +23,171 @@ const args = argv({
  *
  * @return {Object} The config file
  */
-export default function getElectronPackageConfig(opts = args) {
-    const portable = opts.portable ? "portable" : "";
+export default function getElectronPackageConfig(args) {
+    const opts = minimist(args, options);
+    const withDefaults = createDefaulter(opts);
 
+    // Use current platform
     if (opts.current) {
-        return withDefaults({
-            targets: Platform.current().createTarget()
-        });
+        console.info("Packaging for current platform");
+        return withDefaults(currentConfig);
+    }
+    /**
+     * CI/CD
+     */
+
+    // Windows (AppVeyor deployments)
+    if (opts.appveyor) {
+        console.info("Packaging for Appveyor (Windows)");
+        return withDefaults(appveyorConfig, args);
     }
 
-    if (opts.windows)
-        return windowsConfig
+    // Mac + Linux (Travis CI packages)
+    if (opts.travis) {
+        console.info("Packaging for TravisCI (Mac + Linux)");
+        return withDefaults(travisConfig, args);
+    }
 
-    if (opts.mac || opts.osx)
-        return macConfig
+    /**
+     * SINGULAR
+     */
 
-    if (opts.linux)
-        return linuxConfig
+    // Windows
+    if (opts.windows) {
+        console.info("Packaging for Windows");
+        return withDefaults(windowsConfig);
+    }
 
-    return Object.assign({}, windowsConfig, macConfig, linuxConfig, {
-        targets: [
-            Platform.WINDOWS.createTarget("nsis", Arch.ia32, Arch.x64),
-            Platform.MAC.createTarget()
-            Platform.LINUX.createTarget()
-        ]
-    })
+    // OSx
+    if (opts.mac || opts.osx) {
+        console.info("Packaging for MacOS");
+        return withDefaults(macConfig);
+    }
+
+    // Single Linux packaging
+    if (opts.linux) {
+        console.info("Packaging for Linux");
+        return withDefaults(linuxConfig);
+    }
+
+    // Otherwise, use whatever platform you're on
+    console.info("No platform specified. Packaging will match current platform.");
+    return withDefaults(currentConfig);
 }
 
 
 /**
- * Windows configuration
+ * Windows Configuration
  */
-const windowsConfig = withDefaults({
-    targets: Platform.WINDOWS.createTarget("nsis", Arch.ia32, Arch.x64)
-});
+const windowsConfig = {
+    targets: Platform.WINDOWS.createTarget(["nsis", "portable"], Arch.ia32, Arch.x64)
+};
 
 
 /**
- * Ma configuration
+ * Mac configuration
  */
-const macConfig = withDefaults({
+const macConfig = {
     targets: Platform.MAC.createTarget(),
-    category: "your.app.category.type",
-    target: [
-        "zip",
-        "dmg"
-    ],
-    dmg: {
-        contents: [{
-            x: 130, y: 220
-        }, {
-            x: 410, y: 220,
-            type: "link",
-            path: "/Applications"
-        }]
+    config: {
+        target: [
+            "zip",
+            "dmg"
+        ],
+        dmg: {
+            contents: [{
+                x: 130, y: 220
+            }, {
+                x: 410, y: 220,
+                type: "link",
+                path: "/Applications"
+            }]
+        }
     }
-});
+};
 
 
 /**
  * Linux configuration
  */
-const linuxConfig = withDefaults({
-    targets: Platform.LINUX.createTarget(),
+const linuxConfig = {
+    targets: Platform.LINUX.createTarget()
+};
+
+
+/**
+ * Current Platform package config
+ */
+const currentConfig = {
+    targets: Platform.current().createTarget()
+};
+
+
+/**
+ * Appveyor Configuration
+ */
+const appveyorConfig = {
+    targets: [
+        Platform.WINDOWS.createTarget("nsis", Arch.ia32, Arch.x64),
+        Platform.WINDOWS.createTarget("portable", Arch.ia32, Arch.x64)
+    ],
+    publish: {
+        provider: "github",
+        token: getGithubToken(),
+    }
+};
+
+
+/**
+ * Travis Configuration
+ */
+const travisConfig = Object.assign({}, macConfig, linuxConfig, {
+    targets: [
+        macConfig.targets,
+        linuxConfig.targets
+    ],
+    publish: {
+        provider: "github",
+        token: getGithubToken(),
+    }
 });
 
 
 /**
  * Helper to write 'DRY'er configs
  */
-function withDefaults(config) {
-    return Object.assign({
-        "appId": "lurka",
-        "productName": "Lurka",
-        "name": "Lurka",
-        "files":
-        // {
-        //     "from": paths.build,
-        //     "to": paths.dist, //"path/to/destination",
-        //     "filter": ["**/*", "!node_modules", "!README"]
-        //   },
-        [
+const createDefaulter = args => config => {
+    const configDefaults = {
+        appId: "lurka",
+        productName: "Lurka",
+        files: [
             "build/**/*",
             "build/*.ttf",
             "build/*.js",
             "build/*.json",
             "build/index.js"
         ],
-        "directories": {
+        directories: {
             "buildResources": paths.build,
             "output": paths.dist,
             "app": paths.build
         },
-        publish: {
-            provider: "github",
-            token: getGithubToken(),
-        }
+        portable: args.portable
+    }
 
-    }, config);
+    const mergedDefaults = Object.assign({}, configDefaults, config.config);
+
+    return Object.assign({}, config, {
+        config: mergedDefaults
+    });
 }
 
 
 function getGithubToken() {
-    const file = fs.readFileSync(paths.github_token);
-    return file.toString().split("\n")[0]
+    // Reads from github_token.txt on project root. You have to create it ;)
+    try {
+        return fs.readFileSync(paths.github_token).toString().split("\n")[0];
+    } catch (err) {
+        console.log(`No github_token.txt exists at ${paths.github_token} so can't publish.`)
+    }
 }
