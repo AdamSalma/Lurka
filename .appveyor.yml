@@ -1,32 +1,42 @@
+os: unstable
+
 # Test against this version of Node.js
 environment:
+  # Is Encrypted:
+  GH_TOKEN: ISNl7lASplYpC+3rLN6gmC0BTKSyP36RgUet4ANBFwoZYk8uYqxuvDs9SrulZUvF
   matrix:
-  # node.js
-  - nodejs_version: "6"
+    # node.js
+    - nodejs_version: "6"
 
 # Install scripts. (runs after repo cloning)
 install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
+  - set CI=true
+  - set PATH=%APPDATA%\npm;%PATH%
   # install modules
   - yarn
 
 cache:
   - "%LOCALAPPDATA%\\Yarn"
 
+matrix:
+  fast_finish: true
+
 branches:
   only:
     - master
     - develop
+
+build: off
+version: '{build}'
+shallow_clone: true
+clone_depth: 1
 
 # Post-install test scripts.
 test_script:
   # Output useful info for debugging.
   - node --version
   - npm --version
-  # run tests
   - npm test
-
-# Don't actually build.
-build: off
-
+  - npm run package:appveyor
