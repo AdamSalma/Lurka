@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
 
-import BoardReducer from "./BoardReducer";
-import BoardlistReducer from "./BoardListReducer";
-import CinemaReducer from "./CinemaReducer";
-import CacheReducer from "./CacheReducer";
-import ThreadReducer from "./ThreadReducer";
-import WatcherReducer from "./WatcherReducer";
-import PostReducer from "./PostReducer";
-import SettingsReducer from "./SettingsReducer";
-import StatusReducer from "./StatusReducer";
+import BoardReducer from "./boardReducer";
+import BoardlistReducer from "./boardListReducer";
+import CinemaReducer from "./cinemaReducer";
+import CacheReducer from "./cacheReducer";
+import ThreadReducer from "./threadReducer";
+import WatcherReducer from "./watcherReducer";
+import PostReducer from "./postReducer";
+import SettingsReducer from "./settingsReducer";
+import StatusReducer from "./statusReducer";
 
 const rootReducer = combineReducers({
     boardList: BoardlistReducer,
