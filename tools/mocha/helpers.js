@@ -37,5 +37,5 @@ export const discoverTests = (cwd, ...pattern) => {
 }
 
 export const injectMockStore = (Component) => {
-  return <>
+  return 
 }
