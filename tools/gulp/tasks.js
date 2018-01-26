@@ -75,11 +75,11 @@ export const mkdirDist = (done) => {
 
 export const packageBuild = (done, args="current") => {
     const config = getElectronPackageConfig(args);
+    console.dir(config);
 
-    console.log(JSON.stringify(config, null, 4))
     require('electron-builder')
         .build(config)
-        .then(() => console.log("ayyyy lmao"))
+        .then(() => console.log("Packaging is complete! Open dist/ to see the output"))
         .then(done)
         // .then(() => console.log("App is packaged"))
         .catch((error) => {

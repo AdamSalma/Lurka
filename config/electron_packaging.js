@@ -16,6 +16,7 @@ const options = {
     ]
 };
 
+process.env.DEBUG = "electron-builder"
 
 /**
  * Uses process.argv or the passed in argument to determine which config should be used.
@@ -32,6 +33,7 @@ export default function getElectronPackageConfig(args) {
         console.info("Packaging for current platform");
         return withDefaults(currentConfig);
     }
+
     /**
      * CI/CD
      */
@@ -122,19 +124,31 @@ const currentConfig = {
     targets: Platform.current().createTarget()
 };
 
+const publish = {
+    provider: "github",
+    token: getGithubToken(),
+    owner: "AdamSalma",
+    repo: "Lurka",
+    releaseType: "prerelease"
+};
 
 /**
  * Appveyor Configuration
  */
 const appveyorConfig = {
-    targets: [
-        Platform.WINDOWS.createTarget("nsis", Arch.ia32, Arch.x64),
-        Platform.WINDOWS.createTarget("portable", Arch.ia32, Arch.x64)
-    ],
-    publish: {
-        provider: "github",
-        token: getGithubToken(),
-    }
+  targets: Platform.WINDOWS.createTarget(
+    ["nsis", "portable"],
+    Arch.ia32,
+    Arch.x64
+  ),
+  config: {
+    artifactName: "Lurka-",
+    publish
+  },
+  nsis: {
+    oneClick: false,
+    // artifactName: "${productName}-${version}-${os}${arch}.exe"
+  }
 };
 
 
@@ -142,44 +156,27 @@ const appveyorConfig = {
  * Travis Configuration
  */
 const travisConfig = Object.assign({}, macConfig, linuxConfig, {
-    targets: [
-        macConfig.targets,
-        linuxConfig.targets
-    ],
-    publish: {
-        provider: "github",
-        token: getGithubToken(),
-    }
+    config: { publish },
+    targets: [macConfig.targets, linuxConfig.targets]
 });
 
 
 /**
  * Helper to write 'DRY'er configs
  */
-const createDefaulter = args => config => {
-    const configDefaults = {
+const createDefaulter = args => build => {
+    const config = Object.assign({}, {
         appId: "lurka",
         productName: "Lurka",
-        files: [
-            "build/**/*",
-            "build/*.ttf",
-            "build/*.js",
-            "build/*.json",
-            "build/index.js"
-        ],
+        files: ["build/**/*"],
         directories: {
-            "buildResources": paths.build,
-            "output": paths.dist,
-            "app": paths.build
+            "buildResources": "build",
+            "output": "dist",
         },
-        portable: args.portable
-    }
-
-    const mergedDefaults = Object.assign({}, configDefaults, config.config);
-
-    return Object.assign({}, config, {
-        config: mergedDefaults
-    });
+        artifactName: "${productName}-${version}-${os}${arch}.exe"
+    }, build.config);
+    
+    return Object.assign({ config }, build, config);
 }
 
 
