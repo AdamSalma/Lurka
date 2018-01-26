@@ -142,12 +142,11 @@ const appveyorConfig = {
     Arch.x64
   ),
   config: {
-    artifactName: "Lurka-",
-    publish
+    publish,
+    artifactName: "${productName}-${version}-${os}${arch}.exe"
   },
   nsis: {
-    oneClick: false,
-    // artifactName: "${productName}-${version}-${os}${arch}.exe"
+    oneClick: false
   }
 };
 
@@ -182,8 +181,9 @@ const createDefaulter = args => build => {
 
 function getGithubToken() {
     // Reads from github_token.txt on project root. You have to create it ;)
+    // Or, set GH_TOKEN
     try {
-        return fs.readFileSync(paths.github_token).toString().split("\n")[0];
+        return process.env.GH_TOKEN || fs.readFileSync(paths.github_token).toString().split("\n")[0];
     } catch (err) {
         console.log(`No github_token.txt exists at ${paths.github_token} so can't publish.`)
     }
