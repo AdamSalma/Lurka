@@ -3,7 +3,7 @@ os: unstable
 # Test against this version of Node.js
 environment:
   # Is Encrypted:
-  GH_TOKEN: ISNl7lASplYpC+3rLN6gmC0BTKSyP36RgUet4ANBFwoZYk8uYqxuvDs9SrulZUvF
+  GH_TOKEN: x2jkNPuuroRIwLHO8xpFuOLprcGnTbokQnFF3gWAQUstPdCUDVQIu+bs19OytDy8
   matrix:
     # node.js
     - nodejs_version: "6"
@@ -27,6 +27,7 @@ branches:
   only:
     - master
     - develop
+    - appveyor
 
 build: off
 version: '{build}'
