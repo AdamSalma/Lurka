@@ -1,7 +1,7 @@
 {
   "author": "Adam Salma <adam3salma@gmail.com>",
   "name": "Lurka",
-  "version": "1.0.1-alpha",
+  "version": "1.0.0-alpha",
   "description": "A 4chan desktop app for power users",
   "main": "build/index.js",
   "scripts": {
@@ -42,17 +42,6 @@
     "OLDpreview": "electron ./build/",
     "OLDbundle:ui": "npm run gulp bundle:ui",
     "OLDbundle:electron": "webpack --env=electron --color --config tools/webpack"
-  },
-  "build": {
-    "appId": "lurka",
-    "productName": "Lurka",
-    "files": [
-      "build/**/*"
-    ],
-    "directories": {
-      "buildResources": "build",
-      "output": "dist"
-    }
   },
   "repository": {
     "type": "git",

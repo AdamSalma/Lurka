@@ -129,7 +129,7 @@ const publish = {
     token: getGithubToken(),
     owner: "AdamSalma",
     repo: "Lurka",
-    releaseType: "prerelease"
+    releaseType: "draft"
 };
 
 /**
@@ -137,13 +137,13 @@ const publish = {
  */
 const appveyorConfig = {
   targets: Platform.WINDOWS.createTarget(
-    ["nsis", "portable"],
+    "nsis",
     Arch.ia32,
     Arch.x64
   ),
   config: {
     publish,
-    artifactName: "${productName}-${version}-${os}${arch}.exe"
+    compression: "store"
   },
   nsis: {
     oneClick: false
