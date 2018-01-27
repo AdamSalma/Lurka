@@ -40,4 +40,4 @@ test_script:
   - node --version
   - npm --version
   - npm test
-  - npm run package:appveyor
+  - npm run publish:appveyor
