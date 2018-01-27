@@ -21,7 +21,6 @@ module.exports = {
         path: "/",
         pathinfo: true,
         publicPath: config.server.url,
-        assetsSubDirectory: 'static',
         filename: '[name].bundle.js',
         // Point sourcemap entries to original disk location (format as URL on Windows)
         devtoolModuleFilenameTemplate: info => {

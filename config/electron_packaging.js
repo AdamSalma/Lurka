@@ -113,7 +113,7 @@ const macConfig = {
  * Linux configuration
  */
 const linuxConfig = {
-    targets: Platform.LINUX.createTarget()
+    targets: Platform.LINUX.createTarget(["deb"])
 };
 
 
@@ -172,7 +172,7 @@ const createDefaulter = args => build => {
             "buildResources": "build",
             "output": "dist",
         },
-        artifactName: "${productName}-${version}-${os}${arch}.exe"
+        artifactName: "${productName}-${version}-${os}${arch}.${ext}"
     }, build.config);
     
     return Object.assign({ config }, build, config);
