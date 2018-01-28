@@ -161,6 +161,8 @@ const travisConfig = Object.assign({}, macConfig, linuxConfig, {
  * Helper to write 'DRY'er configs
  */
 const createDefaulter = args => build => {
+    const artifactName = "${productName}-${version}-${os}${arch}.${ext}";
+
     const config = Object.assign({}, {
         appId: "lurka",
         productName: "Lurka",
@@ -169,10 +171,10 @@ const createDefaulter = args => build => {
             "buildResources": "build",
             "output": "dist",
         },
-        artifactName: "${productName}-${version}-${os}${arch}.${ext}"
+        artifactName,
     }, build.config);
     
-    return Object.assign({ config }, build, config);
+    return Object.assign({ config, artifactName }, build, config);
 }
 
 
