@@ -34,7 +34,7 @@ export default class Scrollable extends PureComponent {
             console.warn("No onScroll set for Scrollable. Received:", onScroll);
             return
         }
-        console.warn("Setting onScroll listener for Scrollable");
+        console.log("Setting onScroll listener for Scrollable");
 
         var ticking = false;
 

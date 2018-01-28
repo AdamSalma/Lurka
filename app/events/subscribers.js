@@ -74,6 +74,10 @@ export const onHeaderPanelClose = function () {
     on(types.CLOSE_HEADER_PANEL).apply(null, arguments);
 }
 
+export const onUpdateWatchEntity = function () {
+    on(types.UPDATE_WATCH_ENTITY).apply(null, arguments);
+}
+
 export const onPostToggle = function () {
     on(types.POST_TOGGLE).apply(null, arguments);
 }

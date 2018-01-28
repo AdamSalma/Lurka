@@ -20,10 +20,10 @@ export const emitModalClose = dispatch.bind(null, types.MODAL_CLOSE);
 
 export const emitHeaderExpand = dispatch.bind(null, types.EXPAND_HEADER);
 export const emitHeaderShrink = dispatch.bind(null, types.SHRINK_HEADER);
+export const emitHeaderToggled = dispatch.bind(null, types.HEADER_TOGGLED);
 
 export const emitOpenHeaderPanel = dispatch.bind(null, types.OPEN_HEADER_PANEL);
 export const emitCloseHeaderPanel = dispatch.bind(null, types.CLOSE_HEADER_PANEL);
-export const emitHeaderToggled = dispatch.bind(null, types.HEADER_TOGGLED);
 
 export const emitUpdateWatchEntity = dispatch.bind(null, types.UPDATE_WATCH_ENTITY);
 
