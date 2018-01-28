@@ -3,7 +3,7 @@ os: unstable
 # Test against this version of Node.js
 environment:
   # Is Encrypted:
-  GH_TOKEN: ISNl7lASplYpC+3rLN6gmC0BTKSyP36RgUet4ANBFwoZYk8uYqxuvDs9SrulZUvF
+  GH_TOKEN: x2jkNPuuroRIwLHO8xpFuOLprcGnTbokQnFF3gWAQUstPdCUDVQIu+bs19OytDy8
   matrix:
     # node.js
     - nodejs_version: "6"
@@ -13,6 +13,7 @@ install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
   - set CI=true
+  - set DEBUG=electron-builder
   - set PATH=%APPDATA%\npm;%PATH%
   # install modules
   - yarn
@@ -27,6 +28,7 @@ branches:
   only:
     - master
     - develop
+    - appveyor
 
 build: off
 version: '{build}'
@@ -39,4 +41,4 @@ test_script:
   - node --version
   - npm --version
   - npm test
-  - npm run package:appveyor
+  - npm run publish:appveyor

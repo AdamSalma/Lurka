@@ -77,6 +77,9 @@ export default function getElectronPackageConfig(args) {
     return withDefaults(currentConfig);
 }
 
+// The setup filename
+const artifactName = "${productName}-${version}-${os}${arch}.${ext}";
+
 
 /**
  * Windows Configuration
@@ -90,22 +93,25 @@ const windowsConfig = {
  * Mac configuration
  */
 const macConfig = {
-    targets: Platform.MAC.createTarget(),
-    config: {
-        target: [
-            "zip",
-            "dmg"
-        ],
-        dmg: {
-            contents: [{
-                x: 130, y: 220
-            }, {
-                x: 410, y: 220,
-                type: "link",
-                path: "/Applications"
-            }]
+  targets: Platform.MAC.createTarget(),
+  config: {
+    target: ["zip", "dmg"],
+    dmg: {
+      contents: [
+        {
+          x: 130,
+          y: 220
+        },
+        {
+          x: 410,
+          y: 220,
+          type: "link",
+          path: "/Applications"
         }
+      ],
+      artifactName
     }
+  }
 };
 
 
@@ -113,7 +119,7 @@ const macConfig = {
  * Linux configuration
  */
 const linuxConfig = {
-    targets: Platform.LINUX.createTarget()
+    targets: Platform.LINUX.createTarget(["deb"])
 };
 
 
@@ -129,25 +135,19 @@ const publish = {
     token: getGithubToken(),
     owner: "AdamSalma",
     repo: "Lurka",
-    releaseType: "prerelease"
+    releaseType: "draft"
 };
 
 /**
  * Appveyor Configuration
  */
 const appveyorConfig = {
-  targets: Platform.WINDOWS.createTarget(
-    ["nsis", "portable"],
-    Arch.ia32,
-    Arch.x64
-  ),
-  config: {
-    artifactName: "Lurka-",
-    publish
-  },
+  targets: Platform.WINDOWS.createTarget("nsis", Arch.ia32, Arch.x64),
   nsis: {
     oneClick: false,
-    // artifactName: "${productName}-${version}-${os}${arch}.exe"
+    allowToChangeInstallationDirectory: true,
+    installerIcon:
+    artifactName, publish
   }
 };
 
@@ -165,6 +165,7 @@ const travisConfig = Object.assign({}, macConfig, linuxConfig, {
  * Helper to write 'DRY'er configs
  */
 const createDefaulter = args => build => {
+
     const config = Object.assign({}, {
         appId: "lurka",
         productName: "Lurka",
@@ -173,17 +174,18 @@ const createDefaulter = args => build => {
             "buildResources": "build",
             "output": "dist",
         },
-        artifactName: "${productName}-${version}-${os}${arch}.exe"
+        artifactName,
     }, build.config);
-    
-    return Object.assign({ config }, build, config);
+
+    return Object.assign({ config, artifactName }, build, config);
 }
 
 
 function getGithubToken() {
     // Reads from github_token.txt on project root. You have to create it ;)
+    // Or, set GH_TOKEN
     try {
-        return fs.readFileSync(paths.github_token).toString().split("\n")[0];
+        return process.env.GH_TOKEN || fs.readFileSync(paths.github_token).toString().split("\n")[0];
     } catch (err) {
         console.log(`No github_token.txt exists at ${paths.github_token} so can't publish.`)
     }

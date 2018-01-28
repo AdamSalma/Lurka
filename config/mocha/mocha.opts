@@ -1,10 +1,9 @@
 --compilers js:babel-core/register
--R spec
--r tools/mocha/setup.js
+-r config/mocha/setup.js
 -r config/globals
 -r app/utils/logger
 --use_strict
 --colors
 --debug
 --no-exit
-{./app/**/*.test.*,./app/**/*.test-suite.*}
+./app/**/*.test.*

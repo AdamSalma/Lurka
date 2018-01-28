@@ -3,13 +3,13 @@ import path from 'path';
 
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackBuildNotifierPlugin from 'webpack-build-notifier';
-import ConsoleClearPlugin from '../ConsoleClearPlugin';
+import ConsoleClearPlugin from './ConsoleClearPlugin';
 
 import config  from 'config';
 import paths from 'config/paths';
-import createLoaders from '../loaders';
-import aliases from '../aliases';
-import vendors from '../vendors';
+import createLoaders from './loaders';
+import aliases from './aliases';
+import vendors from './vendors';
 
 
 module.exports = {
@@ -21,7 +21,6 @@ module.exports = {
         path: "/",
         pathinfo: true,
         publicPath: config.server.url,
-        assetsSubDirectory: 'static',
         filename: '[name].bundle.js',
         // Point sourcemap entries to original disk location (format as URL on Windows)
         devtoolModuleFilenameTemplate: info => {

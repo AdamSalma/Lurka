@@ -7,9 +7,9 @@ const middlewares = []
 const mockStore = configureStore(middlewares)
 
 export default createSuite("Board", () => {
-  it("mounts", () => {
-    shallow(<Board/>);
-  });
+  // it("mounts", () => {
+  //   shallow(<Board/>);
+  // });
 
   // integrationTests();
 

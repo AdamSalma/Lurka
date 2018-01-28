@@ -3,13 +3,13 @@ import path from 'path';
 
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackBuildNotifierPlugin from 'webpack-build-notifier';
-import ConsoleClearPlugin from '../ConsoleClearPlugin';
+import ConsoleClearPlugin from './ConsoleClearPlugin';
 
 import config  from 'config';
 import paths from 'config/paths';
-import createLoaders from '../loaders';
-import aliases from '../aliases';
-import vendors from '../vendors';
+import createLoaders from './loaders';
+import aliases from './aliases';
+import vendors from './vendors';
 
 
 module.exports = {
