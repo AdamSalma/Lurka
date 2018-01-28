@@ -1,11 +1,11 @@
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import config from 'config';
 import paths from 'config/paths';
-import createLoaders from '../loaders';
-import aliases from '../aliases';
-import vendors from '../vendors';
+import createLoaders from './loaders';
+import aliases from './aliases';
+import vendors from './vendors';
 
 
 module.exports = {

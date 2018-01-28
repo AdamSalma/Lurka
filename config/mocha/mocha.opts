@@ -1,5 +1,5 @@
 --compilers js:babel-core/register
--r tools/mocha/setup.js
+-r config/mocha/setup.js
 -r config/globals
 -r app/utils/logger
 --use_strict

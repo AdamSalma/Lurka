@@ -2,9 +2,9 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import paths from 'config/paths';
-import aliases from '../aliases';
-import vendors from '../vendors';
-import createLoaders from '../loaders';
+import aliases from './aliases';
+import vendors from './vendors';
+import createLoaders from './loaders';
 
 
 const config = {
