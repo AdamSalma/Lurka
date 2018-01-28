@@ -177,4 +177,8 @@ export default createSuite('Types', () => {
     expect(types.DRAWER_TOGGLED).toEqual('DRAWER_TOGGLED');
   });
 
+  it('contains BOARD_SORTED', () => {
+    expect(types.BOARD_SORTED).toEqual('BOARD_SORTED');
+  });
+
 });

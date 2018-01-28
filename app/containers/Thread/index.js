@@ -24,7 +24,7 @@ import {
 
 
 /* Events */
-import MediaRegistry from './events/MediaRegistry';
+import MediaRegistry from './events/mediaRegistry';
 import {
     onSettingsToggle,
     emitSubHeaderToggle,

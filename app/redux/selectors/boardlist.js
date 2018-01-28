@@ -10,6 +10,7 @@ export const isFavouriteBoard = (state, boardID) =>
     getFavouriteBoards(state)
         .find(el => el.boardID === boardID)
 
+
 export const getBoardsOrderedAlphabetically = createSelector(
     getBoardListItems,
     (boards) => {
@@ -38,4 +39,12 @@ export const getCurrentBoardInfo = createSelector(
     getBoardListItems,
     (currentBoardID, boardList) =>
         boardList.find( board => board.boardID === currentBoardID )
+)
+
+export const getCurrentBoardIsFavourite = createSelector(
+    getBoardID,
+    getFavouriteBoards,
+    (boardID, favourites) => {
+        return !!favourites.find(el => el.boardID === boardID)
+    }
 )

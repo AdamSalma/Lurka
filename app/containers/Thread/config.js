@@ -2,7 +2,7 @@ const { headerHeight } = Lurka.settings;
 
 export const animationStyles = {
     in: {
-        translateY: [headerHeight, "100vh"],
+        translateY: [0, "100vh"],
         translateZ: 0, // Force hardware acceleration by animating a 3D property
         scale: [1,1],
         opacity: [1, 1],

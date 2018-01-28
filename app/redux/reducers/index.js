@@ -1,25 +1,27 @@
 import { combineReducers } from 'redux';
 
-import BoardReducer from "./boardReducer";
-import BoardlistReducer from "./boardListReducer";
-import CinemaReducer from "./cinemaReducer";
-import CacheReducer from "./cacheReducer";
-import ThreadReducer from "./threadReducer";
-import WatcherReducer from "./watcherReducer";
-import PostReducer from "./postReducer";
-import SettingsReducer from "./settingsReducer";
-import StatusReducer from "./statusReducer";
+import apiReducer from "./apiReducer";
+import boardReducer from "./boardReducer";
+import boardlistReducer from "./boardListReducer";
+import cinemaReducer from "./cinemaReducer";
+import cacheReducer from "./cacheReducer";
+import threadReducer from "./threadReducer";
+import watcherReducer from "./watcherReducer";
+import postReducer from "./postReducer";
+import settingsReducer from "./settingsReducer";
+import statusReducer from "./statusReducer";
 
 const rootReducer = combineReducers({
-    boardList: BoardlistReducer,
-    board: BoardReducer,
-    cinema: CinemaReducer,
-    thread: ThreadReducer,
-    cache: CacheReducer,
-    post: PostReducer,
-    status: StatusReducer,
-    settings: SettingsReducer,
-    watcher: WatcherReducer,
+    api: apiReducer,
+    boardList: boardlistReducer,
+    board: boardReducer,
+    cinema: cinemaReducer,
+    thread: threadReducer,
+    cache: cacheReducer,
+    post: postReducer,
+    status: statusReducer,
+    settings: settingsReducer,
+    watcher: watcherReducer,
 });
 
 export default rootReducer

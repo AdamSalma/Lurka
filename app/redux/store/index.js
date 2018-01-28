@@ -3,18 +3,25 @@ import configureStore from './configure';
 import { loadState, saveState, loadCache } from '~/utils/localStorage';
 import { invokeAfterUninterruptedDelay } from '~/utils/throttle';
 
-const state = config.env.production ? loadState() : undefined;
-// const state = loadState();
-const store = configureStore(state);
-const onDispatch = () => saveState(store.getState());
-const throttle = invokeAfterUninterruptedDelay(250, onDispatch);
+var state;
 
-store.subscribe( throttle );
+if (process.env.NODE_ENV === "production") {
+    state = localStorage.loadState();
+}
+
+const store = configureStore(state);
+
+// Save state to localstorage whenever an action is fired.
+const onAnyDispatch = invokeAfterUninterruptedDelay(250,
+    () => saveState(store.getState())
+);
+
+store.subscribe(onAnyDispatch);
 
 export default store;
 
 
-if (config.env.development) {
+if (process.env.NODE_ENV === "development") {
     window.getState = store.getState;
     window.getCache = loadCache;
 

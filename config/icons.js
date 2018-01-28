@@ -24,6 +24,8 @@ module.exports = {
     navbarChevron:  'chevron-down',
 
     // subNavbarClose: 'chevron-up',
+    //
+    plus: "plus",
 
     searchMagnify: 'search2',
     searchMagnify4: 'search4',
@@ -78,6 +80,8 @@ module.exports = {
     boardToolbarInfo: 'info',
     boardToolbarOpen: 'chevron-up',
     boardToolbarClose: 'chevron-down',
+
+    chevronDown: "chevron-down",
 
     subheaderToolbarSort: 'sort-alphabetically',
     subheaderToolbarFilter: 'filter',

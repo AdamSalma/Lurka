@@ -4,14 +4,14 @@ import cx from 'classnames'
 import { Panels } from '~/containers'
 
 import {
+    emitHeaderPanelOpened,
+    emitHeaderPanelClosed,
+
     onHeaderPanelOpen,
     onHeaderPanelClose,
 
-    emitOpenHeaderPanel,
-    emitCloseHeaderPanel,
-
     onHeaderExpand,
-    onHeaderShrink
+    onHeaderShrink,
 } from '~/events';
 
 import {isFunction} from '~/utils/types';
@@ -22,6 +22,41 @@ export class PanelsView extends Component {
         isOpening: false,
         isOpen: false,
         id: null
+    }
+
+    @onHeaderPanelOpen
+    onHeaderPanelOpen({ panelID, closeIfOpen=false }) {
+        console.log("onHeaderPanelOpen()")
+        const HeaderPanel = this.getHeaderPanel(panelID);
+
+        if (this.modalstate.isOpen && this.modalstate.id === panelID) {
+            if (closeIfOpen) {
+                return this.closePanel();
+            }
+
+            console.warn(`Panel '${panelID}' is already open.`);
+            return
+        }
+
+        this.modalstate.id = panelID
+
+        if (this.modalstate.isOpen) {
+            return this.closePanel(() => this.prepareToOpen(HeaderPanel))
+        }
+
+        this.prepareToOpen(HeaderPanel);
+    }
+
+    @onHeaderPanelClose
+    onHeaderPanelClose(callback) {
+        console.log("onHeaderPanelClose()")
+
+        if (this.modalstate.isOpen) {
+            this.closePanel(callback)
+        } else {
+            isFunction(callback) && callback()
+            console.warn("onHeaderPanelClose rejected. No modal was open to be closed.")
+        }
     }
 
     constructor(props) {
@@ -67,46 +102,13 @@ export class PanelsView extends Component {
         );
     }
 
-    @onHeaderPanelOpen
-    onHeaderPanelOpen({ panelID, closeIfOpen=false }) {
-        console.log("onHeaderPanelOpen()")
-        const HeaderPanel = this.getHeaderPanel(panelID);
-
-        if (this.modalstate.isOpen && this.modalstate.id === panelID) {
-            if (closeIfOpen) {
-                this.closePanel()
-            } else {
-                console.warn(`Panel '${panelID}' is already open.`)
-            }
-
-            return
-        }
-
-        this.modalstate.id = panelID
-
-        if (this.modalstate.isOpen) {
-            return this.closePanel(() => this.prepareToOpen(HeaderPanel))
-        }
-
-        this.prepareToOpen(HeaderPanel);
-    }
-
-    @onHeaderPanelClose
-    onHeaderPanelClose(callback) {
-        console.log("onHeaderPanelClose()")
-
-        if (this.modalstate.isOpen) {
-            this.closePanel(callback)
-        } else {
-            isFunction(callback) && callback()
-            console.warn("onHeaderPanelClose rejected. No modal was open to be closed.")
-        }
-    }
-
-    prepareToOpen(HeaderPanel) {
+    prepareToOpen = (HeaderPanel) => {
         console.log("prepareToOpen()")
         this.modalstate.isPreparingToOpen = true;
-        this.setState({HeaderPanel});
+        this.setState({ HeaderPanel }, () => {
+            console.error("Broadcasting with:", this.modalstate.id)
+            emitHeaderPanelOpened(this.modalstate.id)
+        });
     }
 
     openPanel = (callback) => {
@@ -132,6 +134,7 @@ export class PanelsView extends Component {
     onPanelHidden( callback ) {
         this.modalstate.isOpen = false;
         this.unmountHiddenPanel( callback );
+        emitHeaderPanelClosed(this.modalstate.id)
     }
 
     getHeaderPanel(panelID) {

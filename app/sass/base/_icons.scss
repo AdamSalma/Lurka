@@ -23,6 +23,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-chat:before {
+  content: "\e906";
+}
+.icon-comments:before {
+  content: "\e907";
+}
+.icon-reply3:before {
+  content: "\e908";
+}
+.icon-expand2:before {
+  content: "\e909";
+}
+.icon-collapse:before {
+  content: "\e90a";
+}
 .icon-ac_unit:before {
   content: "\eb3b";
 }
@@ -34,6 +49,9 @@
 }
 .icon-schedule:before {
   content: "\e8b5";
+}
+.icon-add:before {
+  content: "\e145";
 }
 .icon-flag:before {
   content: "\e153";
@@ -200,6 +218,9 @@
 .icon-sort-alphabetically:before {
   content: "\e902";
 }
+.icon-plus:before {
+  content: "\f067";
+}
 .icon-film:before {
   content: "\f008";
 }
@@ -230,8 +251,20 @@
 .icon-picture-o:before {
   content: "\f03e";
 }
+.icon-chevron-left2:before {
+  content: "\f053";
+}
+.icon-chevron-right2:before {
+  content: "\f054";
+}
 .icon-expand:before {
   content: "\f065";
+}
+.icon-chevron-up2:before {
+  content: "\f077";
+}
+.icon-chevron-down2:before {
+  content: "\f078";
 }
 .icon-bookmark-o:before {
   content: "\f097";
@@ -296,6 +329,9 @@
 .icon-download2:before {
   content: "\e9c5";
 }
+.icon-link:before {
+  content: "\e9cb";
+}
 .icon-eye:before {
   content: "\e9ce";
 }
@@ -329,10 +365,13 @@
 .icon-comment-discussion:before {
   content: "\f04f";
 }
+.icon-plus2:before {
+  content: "\f05d";
+}
 .icon-search2:before {
   content: "\f02e";
 }
-.icon-chevron-up-1:before {
+.icon-chevron-up:before {
   content: "\e066";
 }
 .icon-chevron-down:before {
@@ -346,4 +385,19 @@
 }
 .icon-arrow-down2:before {
   content: "\e905";
+}
+.icon-chevron-thin-down:before {
+  content: "\e90d";
+}
+.icon-chevron-thin-left:before {
+  content: "\e90e";
+}
+.icon-chevron-thin-right:before {
+  content: "\e90f";
+}
+.icon-chevron-thin-up:before {
+  content: "\e910";
+}
+.icon-plus3:before {
+  content: "\e90b";
 }
