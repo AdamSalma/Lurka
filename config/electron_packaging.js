@@ -141,10 +141,7 @@ const appveyorConfig = {
     Arch.ia32,
     Arch.x64
   ),
-  config: {
-    publish,
-    compression: "store"
-  },
+  config: { publish },
   nsis: {
     oneClick: false
   }
