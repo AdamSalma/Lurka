@@ -77,6 +77,9 @@ export default function getElectronPackageConfig(args) {
     return withDefaults(currentConfig);
 }
 
+// The setup filename
+const artifactName = "${productName}-${version}-${os}${arch}.${ext}";
+
 
 /**
  * Windows Configuration
@@ -90,22 +93,25 @@ const windowsConfig = {
  * Mac configuration
  */
 const macConfig = {
-    targets: Platform.MAC.createTarget(),
-    config: {
-        target: [
-            "zip",
-            "dmg"
-        ],
-        dmg: {
-            contents: [{
-                x: 130, y: 220
-            }, {
-                x: 410, y: 220,
-                type: "link",
-                path: "/Applications"
-            }]
+  targets: Platform.MAC.createTarget(),
+  config: {
+    target: ["zip", "dmg"],
+    dmg: {
+      contents: [
+        {
+          x: 130,
+          y: 220
+        },
+        {
+          x: 410,
+          y: 220,
+          type: "link",
+          path: "/Applications"
         }
+      ],
+      artifactName
     }
+  }
 };
 
 
@@ -136,14 +142,12 @@ const publish = {
  * Appveyor Configuration
  */
 const appveyorConfig = {
-  targets: Platform.WINDOWS.createTarget(
-    "nsis",
-    Arch.ia32,
-    Arch.x64
-  ),
-  config: { publish },
+  targets: Platform.WINDOWS.createTarget("nsis", Arch.ia32, Arch.x64),
   nsis: {
-    oneClick: false
+    oneClick: false,
+    allowToChangeInstallationDirectory: true,
+    installerIcon:
+    artifactName, publish
   }
 };
 
@@ -161,7 +165,6 @@ const travisConfig = Object.assign({}, macConfig, linuxConfig, {
  * Helper to write 'DRY'er configs
  */
 const createDefaulter = args => build => {
-    const artifactName = "${productName}-${version}-${os}${arch}.${ext}";
 
     const config = Object.assign({}, {
         appId: "lurka",
@@ -173,7 +176,7 @@ const createDefaulter = args => build => {
         },
         artifactName,
     }, build.config);
-    
+
     return Object.assign({ config, artifactName }, build, config);
 }
 
