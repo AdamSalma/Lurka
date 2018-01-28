@@ -6,6 +6,7 @@ var config = {
     raw: env,
     production: env === 'production' || env === 'prod',
     development: env === 'development' || env === 'dev',
+    dev: env === 'development' || env === 'dev',
     testing: env === 'testing' || env === 'test'
   },
   meta: {

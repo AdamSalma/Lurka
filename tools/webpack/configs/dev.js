@@ -6,7 +6,8 @@ import WebpackBuildNotifierPlugin from 'webpack-build-notifier';
 import ConsoleClearPlugin from '../ConsoleClearPlugin';
 
 import config  from 'config';
-import loaders from '../loaders';
+import paths from 'config/paths';
+import createLoaders from '../loaders';
 import aliases from '../aliases';
 import vendors from '../vendors';
 
@@ -20,6 +21,7 @@ module.exports = {
         path: "/",
         pathinfo: true,
         publicPath: config.server.url,
+        assetsSubDirectory: 'static',
         filename: '[name].bundle.js',
         // Point sourcemap entries to original disk location (format as URL on Windows)
         devtoolModuleFilenameTemplate: info => {
@@ -35,7 +37,7 @@ module.exports = {
         alias: aliases,
         modules: ['node_modules', config.paths.app_modules, config.paths.app]
     },
-    module: { loaders },
+    module: { loaders: createLoaders("development") },
     devServer: {
         contentBase: config.paths.build,
         noInfo: false,
@@ -48,8 +50,8 @@ module.exports = {
     },
     plugins: [
         new WebpackBuildNotifierPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
         new webpack.NamedModulesPlugin(),
+        new webpack.NoEmitOnErrorsPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         // new webpack.optimize.CommonsChunkPlugin({
         //     name: "vendor",
@@ -66,8 +68,8 @@ module.exports = {
             "window.jQuery": "jquery"
         }),
         new HtmlWebpackPlugin({
-            template: config.paths.app_html,
-            inject: false
+            template: paths.app_html,
+            inject: 'body'
         }),
         new ConsoleClearPlugin() // custom plugin to clear the console before each bundle
     ],

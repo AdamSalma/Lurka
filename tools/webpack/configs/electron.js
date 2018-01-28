@@ -1,13 +1,14 @@
 import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import paths from 'config/paths';
-import loaders from '../loaders';
 import aliases from '../aliases';
 import vendors from '../vendors';
+import createLoaders from '../loaders';
 
 
-module.exports = {
-    target: 'electron-main',
+const config = {
+    target: "electron-main",
     entry: paths.electron_entry,
     output: {
         path: paths.build,
@@ -19,7 +20,10 @@ module.exports = {
         alias: aliases,
         modules: ['node_modules', paths.app_modules]
     },
-    module: { loaders },
+    node: {
+      __dirname: false
+    },
+    module: { loaders: createLoaders("production") },
     plugins: [
         // new webpack.optimize.UglifyJsPlugin({
         //     warnings: false,
@@ -46,3 +50,7 @@ module.exports = {
         })
     ]
 };
+
+// config.target = webpackTargetElectronRenderer(config);
+
+module.exports = module.exports.default = config

@@ -18,7 +18,7 @@ cd Lurka && npm install
 ## Development mode
 This will run Lurka through `localhost:3000` in your browser:
 ```bash
-npm run dev
+npm start
 ```
 - You can change the default port from `config/index.js`
 - Works with [Redux devtools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)
@@ -26,7 +26,7 @@ npm run dev
 ## Production mode
 This runs as a desktop application using Electron:
 ```bash
-npm start
+npm run preview
 ```
 Note: It will build the application before starting, but this will only happen once.
 
