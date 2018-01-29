@@ -24,3 +24,11 @@ os:
 
 script:
   - npm run publish:travis
+
+addons:
+  apt:
+    packages:
+    - build-essential
+    - libxext-dev
+    - libxtst-dev
+    - libxkbfile-dev
