@@ -16,4 +16,4 @@ describe("Integration", () => {
   it('shallow render test', () => {
     shallow(<App />);
   });
-})
+});

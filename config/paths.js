@@ -12,7 +12,7 @@ var paths = {
     app_modules:    join('build', 'node_modules'),
     app_bundle:     join('build', 'app.bundle.js'),
     dist:           join('dist'),
-    electron_entry: join('shells', 'electron', 'index.js'),
+    electron_entry: join('electron', 'index.js'),
     logo:           join('public', 'images', 'logo.png'),
     app_html:       join('public', 'main.html'),
     app_preloader:  join('public', 'preloader.html'),
