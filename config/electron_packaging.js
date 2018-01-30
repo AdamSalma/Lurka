@@ -157,7 +157,10 @@ const appveyorConfig = {
 /**
  * Travis Configuration
  */
-if (process.env.TRAVIS) {
+console.log(`\n\n${process.env}\n\n`);
+console.dir(process.env);
+
+if (process.env.CI && process.env.TRAVIS) {
   const travisConfig =
     process.env.TRAVIS_OS_NAME === "osx"
       ? withPublishing(macConfig)
