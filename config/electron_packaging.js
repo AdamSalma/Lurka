@@ -18,76 +18,16 @@ const options = {
 
 process.env.DEBUG = "electron-builder";
 
-/**
- * Uses process.argv or the passed in argument to determine which config should be used.
- * If none are met, an error is thrown.
- *
- * @return {Object} The config file
- */
-export default function getElectronPackageConfig(args) {
-  const opts = minimist(args, options);
-  const withDefaults = createDefaulter(opts);
-
-  // Use current platform
-  if (opts.current) {
-    console.info("Packaging for current platform");
-    return withDefaults(currentConfig);
-  }
-
-  /**
-   * CI/CD
-   */
-
-  // Windows (AppVeyor deployments)
-  if (opts.appveyor) {
-    console.info("Packaging for Appveyor (Windows)");
-    return withDefaults(appveyorConfig, args);
-  }
-
-  // Mac + Linux (Travis CI packages)
-  if (opts.travis) {
-    console.info("Packaging for TravisCI (Mac + Linux)");
-    return withDefaults(travisConfig, args);
-  }
-
-  /**
-   * SINGULAR
-   */
-
-  // Windows
-  if (opts.windows) {
-    console.info("Packaging for Windows");
-    return withDefaults(windowsConfig);
-  }
-
-  // OSx
-  if (opts.mac || opts.osx) {
-    console.info("Packaging for MacOS");
-    return withDefaults(macConfig);
-  }
-
-  // Single Linux packaging
-  if (opts.linux) {
-    console.info("Packaging for Linux");
-    return withDefaults(linuxConfig);
-  }
-
-  // Otherwise, use whatever platform you're on
-  console.info("No platform specified. Packaging will match current platform.");
-  return withDefaults(currentConfig);
-}
-
 // The setup filename
 const artifactName = "${productName}-${version}-${os}${arch}.${ext}";
 // Publishing options
 const publish = {
   provider: "github",
-  token: null,
+  token: getGithubToken(),
   owner: "AdamSalma",
   repo: "Lurka",
   releaseType: "draft"
 };
-
 
 /**
  * Windows Configuration
@@ -157,14 +97,69 @@ const appveyorConfig = {
 /**
  * Travis Configuration
  */
-console.log(`\n\n${process.env}\n\n`);
-console.dir(process.env);
+const travisConfig =
+  process.env.TRAVIS_OS_NAME === "osx"
+    ? withPublishing(macConfig)
+    : withPublishing(linuxConfig);
 
-if (process.env.CI && process.env.TRAVIS) {
-  const travisConfig =
-    process.env.TRAVIS_OS_NAME === "osx"
-      ? withPublishing(macConfig)
-      : withPublishing(linuxConfig);
+
+/**
+ * Uses process.argv or the passed in argument to determine which config should be used.
+ * If none are met, an error is thrown.
+ *
+ * @return {Object} The config file
+ */
+export default function getElectronPackageConfig(args) {
+  const opts = minimist(args, options);
+  const withDefaults = createDefaulter(opts);
+
+  // Use current platform
+  if (opts.current) {
+    console.info("Packaging for current platform");
+    return withDefaults(currentConfig);
+  }
+
+  /**
+   * CI/CD
+   */
+
+  // Windows (AppVeyor deployments)
+  if (opts.appveyor) {
+    console.info("Packaging for Appveyor (Windows)");
+    return withDefaults(appveyorConfig, args);
+  }
+
+  // Mac + Linux (Travis CI packages)
+  if (opts.travis) {
+    console.info("Packaging for TravisCI (Mac + Linux)");
+    return withDefaults(travisConfig, args);
+  }
+
+  /**
+   * SINGULAR
+   */
+
+  // Windows
+  if (opts.windows) {
+    console.info("Packaging for Windows");
+    return withDefaults(windowsConfig);
+  }
+
+  // OSx
+  if (opts.mac || opts.osx) {
+    console.info("Packaging for MacOS");
+    return withDefaults(macConfig);
+  }
+
+  // Single Linux packaging
+  if (opts.linux) {
+    console.info("Packaging for Linux");
+    return withDefaults(linuxConfig);
+  }
+
+  // Otherwise, use whatever platform you're on
+  console.info("No platform specified. Packaging will match current platform.");
+  return withDefaults(currentConfig);
 }
 
 /**
