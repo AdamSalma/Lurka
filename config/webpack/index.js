@@ -9,26 +9,26 @@ module.exports = module.exports.default = function getConfig(env) {
          */
         case "dev":
         case "development":
-            return require('./configs/dev');
+            return require('./webpack.dev');
 
         case "preview":
-            return require('./configs/preview');
+            return require('./webpack.preview');
 
         case "prod":
         case "production":
-            return require('./configs/prod');
+            return require('./webpack.prod');
 
         case "test":
-            return require('./configs/test');
+            return require('./webpack.test');
 
         /**
          * Shell configs
          */
         case "electron":
-            return require('./configs/electron');
+            return require('./webpack.electron');
 
         case "chrome":
-            return require('./configs/chrome');
+            return require('./webpack.chrome');
     }
 
     throw new Error(`No webpack config found for env '${env}'`);

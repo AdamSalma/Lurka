@@ -3,12 +3,13 @@ import path from 'path';
 
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackBuildNotifierPlugin from 'webpack-build-notifier';
-import ConsoleClearPlugin from '../ConsoleClearPlugin';
+import ConsoleClearPlugin from './ConsoleClearPlugin';
 
 import config  from 'config';
-import loaders from '../loaders';
-import aliases from '../aliases';
-import vendors from '../vendors';
+import paths from 'config/paths';
+import createLoaders from './loaders';
+import aliases from './aliases';
+import vendors from './vendors';
 
 
 module.exports = {
@@ -35,7 +36,7 @@ module.exports = {
         alias: aliases,
         modules: ['node_modules', config.paths.app_modules, config.paths.app]
     },
-    module: { loaders },
+    module: { loaders: createLoaders("production") },
     devServer: {
         contentBase: config.paths.build,
         noInfo: false,

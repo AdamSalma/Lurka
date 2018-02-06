@@ -1,16 +1,34 @@
----
+sudo: required
+dist: trusty
+
 language: node_js
+
 node_js:
   - 6
+
 before_install:
   npm run uninstall && npm cache clean --force
+
 install:
   npm install
+
 branches:
   only:
-  - master
-  - develop
-  - travis-ci
+    - master
+    - develop
+    - travis-ci
+
 os:
   - linux
   - osx
+
+script:
+  - npm run publish:travis
+
+addons:
+  apt:
+    packages:
+    - build-essential
+    - libxext-dev
+    - libxtst-dev
+    - libxkbfile-dev

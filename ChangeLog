@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.0.0 TBC
+### Added
+- Distributable versions of Lurka for Windows Mac and Linux
+- Lots of stuff... Will expand on this at some point
+
+
 ## v0.15.0 09/08/2017
 ### Added
 - Electron development environment - fullscreen window instead of using localhost via browser.

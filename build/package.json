@@ -1,6 +1,6 @@
 {
   "name": "Lurka",
-  "version": "0.15.0",
+  "version": "1.0.0-alpha",
   "description": "A 4chan desktop application",
   "author": "Adam Salma <adam3salma@gmail.com>",
   "homepage": "https://github.com/AdamSalma/Lurka#readme",
@@ -11,7 +11,8 @@
     "axios": "^0.17.1",
     "classnames": "^2.2.5",
     "deep-freeze-node": "^1.1.3",
-    "electron-squirrel-startup": "^1.0.0",
+    "electron-log": "^2.2.14",
+    "electron-updater": "^2.19.1",
     "fs-promise": "^2.0.2",
     "jquery": "^3.2.1",
     "moment": "^2.18.1",

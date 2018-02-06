@@ -1,3 +1,5 @@
+import React from 'react';
+
 import path from 'path';
 import paths from 'config/paths';
 import glob from 'glob';
@@ -30,4 +32,8 @@ export const discoverTests = (cwd, ...pattern) => {
 
     var files = glob.sync(pattern, {cwd: cwd})
     throw new Error(files);
+}
+
+export const injectMockStore = (Component) => {
+  return 
 }

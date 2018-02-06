@@ -1,9 +1,13 @@
 import {BrowserWindow, protocol} from 'electron';
+import {BrowserWindow} from 'electron';
+import Mustache from 'mustache';
 import path from 'path';
 import url from 'url';
 import fs from 'fs';
 
 
+import config from 'config';
+import paths from 'config/paths';
 import handleBeforeSendHeaders from './events/handleBeforeSendHeaders';
 import handleRedirect from './events/handleRedirect';
 
@@ -24,28 +28,28 @@ import handleRedirect from './events/handleRedirect';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let main, preloader
+let main, preloader,
+    mainPath, preloaderPath;
 
-let preloaderPath, indexPath;
 
-if (process.env.NODE_ENV === "development") {
-    indexPath = path.join(__dirname, 'dev', 'index.html')
-    preloaderPath = path.join(__dirname, 'dev', `preloader.html`)
+if (process.env.NODE_ENV == "production") {
+    mainPath = path.join(__dirname, 'main.html');
+    preloaderPath = path.join(__dirname, 'preloader.html');
 } else {
-    indexPath = path.join(__dirname, 'index.html')
-    preloaderPath = path.join(__dirname, "preloader.html")
+    mainPath = path.join(__dirname, 'views', 'main.html');
+    preloaderPath = path.join(__dirname, 'views', 'preloader.html');
 }
 
+console.info("main.html path:", mainPath);
+console.info("preloader.html path:", preloaderPath);
 
-var port = 9615;
-export default function createWindow () {
-    require('http').createServer(function (req, res) {
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      res.end(fs.readFileSync(indexPath));
-    }).listen(port);
-
+export default function createWindows(app) {
     createPreloaderWindow();
     createMainWindow(port);
+
+    if (process.env.NODE_ENV == "development") {
+        main.webContents.openDevTools('right');
+    }
 
     // Display UI when bundled and ready
     main.once('ready-to-show', () => {
@@ -65,7 +69,7 @@ function createPreloaderWindow(opts) {
 
     preloader = new BrowserWindow(config.electron.preloader)
 
-
+    // preloader.loadURL(preloaderPath);
     preloader.loadURL(url.format({
         pathname: preloaderPath,
         protocol: 'file:',
@@ -116,8 +120,6 @@ function createMainWindow(opts) {
     //         // }
     //     })
     // })
-    // Open links in browser
-    main.webContents.on('new-window', handleRedirect)
 
     // Register protocol to allow recaptcha
     // https://github.com/electron/electron/issues/8414
@@ -153,15 +155,28 @@ function createMainWindow(opts) {
     // })
 
 
+    // Open links in browser instead of new electron window
+    main.webContents.on('new-window', handleRedirect);
+
     main.loadURL(url.format({
-        pathname: indexPath,
+        pathname: mainPath,
         protocol: 'file:',
         slashes: true
     }));
+
+    //main.loadURL(mainPath);
 
     main.on('closed', () => {
         main = null
     });
 
 
+}
+
+
+// Helper to render views
+// https://github.com/electron/electron/issues/1146
+function renderView(view, viewParams={}) {
+    const data = Mustache.render(view, viewParams);
+    return 'data:text/html;charset=UTF-8,' + encodeURIComponent(data);
 }
