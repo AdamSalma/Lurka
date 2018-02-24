@@ -12,15 +12,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 
-import Axios from 'axios'
 render(App);
 
 // Re-renders the application on src change
 if (module.hot) {
-  module.hot.accept(() => {
-    const NextApp = require('./components/App').default;
-    render(NextApp);
-  });
+    module.hot.accept(() => {
+        const NextApp = require('./components/App').default;
+        render(NextApp);
+    });
 }
 
 // Hoisted
@@ -29,49 +28,69 @@ function render(App) {
 }
 
 
-// global.postMessage = (data, url, target) => {
-//     // console.error("*postMessage* to:\n\tUrl:", url, "\n\tData:", data, "\n\tTarget:", target)
+import Axios from 'axios'
+((post) => {
+    window.postMessage = (data, url, target) => {
+        console.error("*postMessage* to:\n\tUrl:", url, "\n\tData:", data, "\n\tTarget:", target)
+        return post(data, url, target);
+    }
+})(window.postMessage)
 
-//     // var cache_bust = 1
-//     target = target || parent
+// const originalPostMessage = window.postMessage
+// global.postMessage = window.postMessage = (data, url, target) => {
+//   // console.error("*postMessage* to:\n\tUrl:", url, "\n\tData:", data, "\n\tTarget:", target)
 
-//     // if (url === "*") {
-//     //     console.error("'all' url sent. Using originalPostMessage")
-//     //     return originalPostMessage(data, url, target)
-//     // }
+//   return originalPostMessage(data, url, target);
+//   // var cache_bust = 1
+//   target = target || parent;
 
-//     // target.location = url.replace( /#.*$/, '' ) + '#' + (+new Date) + (cache_bust++) + '&' + data;
-//     Axios.post(url, data, {
-//         'Host': "www.4chan.org",
-//         'Origin': "www.4chan.org",
-//         'User-Agent' : "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0",
-//         'DNT': 1,
-//         'Referer': null
-//     }).then(res => {
-//         console.error("Response from:\n\tUrl:", url, "\n\tData:", data, "\n\tTarget:", target, "\n\Response:", res)
-//         // var event = document.createEvent('CustomEvent');
-//         // event.initCustomEvent("message", true, true, res.data);
-//         var event = new CustomEvent("message", {
-//             data: res.data,
-//             origin: url,
-//             source: target
-//         });
+//   // if (url === "*") {
+//   //     console.error("'all' url sent. Using originalPostMessage")
+//   // }
 
-//         if (global.captchaIframeWindow) {
-//             captchaIframeWindow.dispatchEvent(event)
-//         }
-//         target.dispatchEvent(event);
-//         global.dispatchEvent(event)
+//   // target.location = url.replace( /#.*$/, '' ) + '#' + (+new Date) + (cache_bust++) + '&' + data;
+//   Axios.post(url, data, {
+//     Host: "www.4chan.org",
+//     Origin: "www.4chan.org",
+//     "User-Agent":
+//       "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0",
+//     DNT: 1,
+//     Referer: null
+//   })
+//     .then(res => {
+//       console.error(
+//         "Response from:\n\tUrl:",
+//         url,
+//         "\n\tData:",
+//         data,
+//         "\n\tTarget:",
+//         target,
+//         "\nResponse:",
+//         res
+//       );
+//       // var event = document.createEvent('CustomEvent');
+//       // event.initCustomEvent("message", true, true, res.data);
+//       var event = new CustomEvent("message", {
+//         data: res.data,
+//         origin: url,
+//         source: target
+//       });
 
-//     }).catch(err => {
-//         console.log(err);
-//         console.log(err.response);
-//         console.log(err.response.data);
+//       if (global.captchaIframeWindow) {
+//         captchaIframeWindow.dispatchEvent(event);
+//       }
+//       target.dispatchEvent(event);
+//       global.dispatchEvent(event);
 //     })
-// }
+//     .catch(err => {
+//       console.log(err);
+//       console.log(err.response);
+//       console.log(err.response.data);
+//     });
+// };
 
 window.addEventListener("message", (event) => {
-    console.warn("Event received:", event)
+    console.error("Event received:", event)
 }, false)
 
 

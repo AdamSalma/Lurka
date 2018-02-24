@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 // import Recaptcha from 'react-recaptcha'
-import GRecaptcha from 'react-grecaptcha'
+// import GRecaptcha from 'react-grecaptcha'
 import {
     FileInput,
     TextField,
@@ -97,10 +97,11 @@ class PostForm extends Component {
             />
           */}
 {/*
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 */}
-
-            <Recaptcha3/>
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<Recaptcha3/>
+{/*
+            <Recaptcha3/>*/}
             {/* Kind of works:
             <Recaptcha2 siteKey="6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc" />{siteKey}
 
@@ -179,7 +180,7 @@ class Recaptcha2 extends Component {
         console.error("Recaptcha exists - rendering...");
 
         grecaptcha.render(this._container, {
-          "sitekey": this.props.siteKey,
+          "sitekey": siteKey,
           "theme": "dark",
           "error-callback": this.errorCallback,
           callback: this.onSuccess,
@@ -211,7 +212,7 @@ class Recaptcha2 extends Component {
     }
 
     render() {
-      return <div ref={ref => this._container = ref} data-sitekey={this.props.siteKey }/>
+      return <div ref={ref => this._container = ref} data-sitekey={siteKey }/>
     }
 
     onSuccess(err) {
@@ -249,8 +250,8 @@ class Recaptcha3 extends Component {
         // })(this._container.contentWindow.XMLHttpRequest.prototype.open, this._container);
 
         global.captchaIframeWindow = this._container.contentWindow
-        // this._container.src = 'https://www.google.com/recaptcha/api2/anchor?k=6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc&co=aHR0cDovL2JvYXJkcy40Y2hhbi5vcmc6ODA.&hl=en&v=r20171212152908&theme=light&size=normal&cb=ejwja24gnh4z'
-        this._container.src = 'https://www.google.com/recaptcha/api/fallback?k=6Ldt1v8SAAAAAP03MKtLNIr84FgUVu6KYk7KYx2N'
+        this._container.src = 'https://www.google.com/recaptcha/api2/anchor?k=6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc&co=aHR0cDovL2JvYXJkcy40Y2hhbi5vcmc6ODA.&hl=en&v=r20171212152908&theme=light&size=normal&cb=ejwja24gnh4z'
+        // this._container.src = 'https://www.google.com/recaptcha/api/fallback?k=6Ldt1v8SAAAAAP03MKtLNIr84FgUVu6KYk7KYx2N'
       }, 1)
     }
 
@@ -270,12 +271,10 @@ class Recaptcha3 extends Component {
     onSuccess(err) {
       // alert("On Success " + err)
 
-
     }
 
     expiredCallback(err) {
       // alert("Expired Callback " + err)
-
 
     }
 

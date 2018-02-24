@@ -1,5 +1,4 @@
 import {BrowserWindow, protocol} from 'electron';
-import {BrowserWindow} from 'electron';
 import Mustache from 'mustache';
 import path from 'path';
 import url from 'url';
@@ -45,7 +44,7 @@ console.info("preloader.html path:", preloaderPath);
 
 export default function createWindows(app) {
     createPreloaderWindow();
-    createMainWindow(port);
+    createMainWindow();
 
     if (process.env.NODE_ENV == "development") {
         main.webContents.openDevTools('right');

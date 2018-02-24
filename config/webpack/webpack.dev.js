@@ -46,7 +46,8 @@ module.exports = {
         port: config.server.port,
         host: config.server.host,
         headers: {
-            'Access-Control-Allow-Origin': '*'
+            'Access-Control-Allow-Origin': '*',
+            'X-Frame-Options': 'ALLOW-FROM http://boards.4chan.org'
         },
         stats: { maxModules: 0 }, // disable modules
     },
