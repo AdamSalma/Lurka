@@ -2,8 +2,10 @@ import React from 'react';
 import './style'
 import mapPropsToClasses from './classes';
 
-const Title = ({ size=1, ...restProps }) => {
-    restProps.className = mapPropsToClasses(restProps)
+const Title = (props) => {
+    const { size, font, weight, align, ...restProps} = props
+
+    restProps.className = mapPropsToClasses(props)
 
     switch (size) {
         case 1: return <h1 {...restProps}/>

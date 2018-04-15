@@ -26,6 +26,7 @@ $_img_container_width: $watch-panel-width / 5
     overflow: hidden
     right: 0
     position: absolute
+    border: 1px solid white
 
     box-shadow: -7px 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 
@@ -37,13 +38,14 @@ $_img_container_width: $watch-panel-width / 5
         display: none
         position: relative
         font-size: $font-size-small
-        font-family: $font-main-semibold
-        padding: 0 40px
-        margin-top: 60px
+        font-family: $font-main
+        padding: 0 2em
+
+
 
     &.show-description
         .description
-            display: initial !important
+            display: block !important
         .tilt-container
             display: none !important
 

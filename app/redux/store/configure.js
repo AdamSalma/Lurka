@@ -1,9 +1,12 @@
+/**
+ * Configures how the redux store is set up
+ */
+
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import rootReducer from '../reducers';
 
-export default function configureStore(initialState) {
+export default function configureStore(rootReducer, initialState) {
   // This is for a chrome addon called redux devtools. Very useful.
   const composeEnhancers =
         window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

@@ -142,8 +142,13 @@ export class Thread extends Component {
         this.updateScroller(this.scrollerOpts);
 
         // Handle media registry
-        this.mediaRegistery = new MediaRegistry(this.scrollComponent._scroller, scrollConfig)
+        setTimeout(() => {
+            let scrollElement = this.scrollComponent._scroller;
+            this.mediaRegistery = new MediaRegistry(scrollElement, scrollConfig);
+        }, 25);
     }
+
+
 
     // shouldComponentUpdate({thread}, nextState) {
     //     return thread.isThreadOpen !== this.props.thread.isThreadOpen ||

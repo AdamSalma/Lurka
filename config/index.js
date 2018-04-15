@@ -42,7 +42,8 @@ var config = {
       modal: true,
       titleBarStyle: 'hidden',
       frame: false,
-      title: "Lurka"
+      title: "Lurka",
+      transparent: true
     }
   },
   paths: require('./paths'),

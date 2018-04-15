@@ -27,11 +27,14 @@ function render(App) {
     ReactDOM.render(<App/>, document.querySelector('#App'));
 }
 
+process.on("uncaughtException", function(err) {
+    console.error("uncaughtException:", err);
+});
 
 import Axios from 'axios'
 ((post) => {
     window.postMessage = (data, url, target) => {
-        console.error("*postMessage* to:\n\tUrl:", url, "\n\tData:", data, "\n\tTarget:", target)
+        console.warn("*postMessage* to:\n\tUrl:", url, "\n\tData:", data, "\n\tTarget:", target)
         return post(data, url, target);
     }
 })(window.postMessage)
@@ -89,23 +92,23 @@ import Axios from 'axios'
 //     });
 // };
 
-window.addEventListener("message", (event) => {
-    console.error("Event received:", event)
-}, false)
+// window.addEventListener("message", (event) => {
+//     console.error("Event received:", event)
+// }, false)
 
 
 
-(function(open) {
+// (function(open) {
 
-    XMLHttpRequest.prototype.open = function(method, url, async, user, pass) {
+//     XMLHttpRequest.prototype.open = function(method, url, async, user, pass) {
 
-        console.error("XMLHttpRequest:", method, url);
+//         console.error("XMLHttpRequest:", method, url);
 
-        // this.addEventListener("readystatechange", function() {
-        //     console.log(this.readyState); // this one I changed
-        // }, false);
+//         // this.addEventListener("readystatechange", function() {
+//         //     console.log(this.readyState); // this one I changed
+//         // }, false);
 
-        open.call(this, method, url, async, user, pass);
-    };
+//         open.call(this, method, url, async, user, pass);
+//     };
 
-})(XMLHttpRequest.prototype.open);
+// })(XMLHttpRequest.prototype.open);
