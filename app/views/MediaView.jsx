@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames'
 
-import MediaViewer from '~/containers/MediaViewer';
+import MediaViewer from '~/modules/MediaViewer';
 
 const MediaView = ({ className }) => {
     return (
