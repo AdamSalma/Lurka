@@ -5,10 +5,11 @@ $subheader-border-color: $grey-lightest
 // $subheader-border-color: var(--primary)
 
 .SubHeader
+
     position: absolute
     +set-dims(100%, $subheader-height)
 
-    top: $header-height - $subheader-height - 2px
+    top: $header-height - $subheader-height
     transform: translateY($subheader-height) translateZ(0)
     backface-visibility: hidden
     left: 0
@@ -16,17 +17,14 @@ $subheader-border-color: $grey-lightest
     margin: 0 auto
     font-size: $subheader-font-size
     z-index: $subheader-z-index + 100
-    +will-change(transform)
+    // +will-change(transform)
     box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12);
-
-    &:hover .background
-        opacity: 0.95
-
+    backface-visibility: hidden
+    z-index: 1
 
     .background
         transition: opacity $animation-speed-fast $bezier-fast
         background: $grey-dark
-        // background: $grey-light
         +set-dims(inherit, inherit)
         position: absolute
         z-index: -1
@@ -49,12 +47,15 @@ $subheader-border-color: $grey-lightest
         height: 100%
         line-height: 1
         display: flex
-        flex-wrap: block
+        // flex-wrap: block
         align-items: center
-        padding: $header-padding
+        // padding: $header-padding
         border-bottom: 2px $subheader-border-color solid
         box-shadow: 0 0 5px $grey-darkest
+        padding: 0 2em
 
+    .Button
+        margin: 0 .5em
 
     .HeaderItem
         padding: 0 20px
@@ -80,7 +81,7 @@ $subheader-border-color: $grey-lightest
         display: auto 0
         display: inline-block
         padding: 0
-        width: 720px
+        width: 300px
         margin: 0 12px
 
 
@@ -122,3 +123,10 @@ $subheader-border-color: $grey-lightest
 
     .navigation
         margin-right: auto
+
+    .Button
+        // height: 6px
+        font-size: 1em
+        padding-top: 0
+        padding-bottom: 0
+

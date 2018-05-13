@@ -14,6 +14,8 @@ import { SearchBar } from '~/components';
 
 import {onSubHeaderToggle} from '~/events/subscribers';
 
+import { Button } from '~/components';
+
 // TODO: Is this needed?
 import {emitContentViewToggle} from '~/events/publishers';
 
@@ -22,7 +24,6 @@ import { isFunction } from '~/utils/types';
 
 const i = Lurka.icons;
 const {subheaderHeight, headerHeight} = Lurka.settings
-
 
 class SubHeader extends PureComponent {
     static propTypes = {
@@ -35,29 +36,30 @@ class SubHeader extends PureComponent {
             isOpen: true
         }
 
-        bindMembersToClass(this, 'onSubHeaderToggle');
 
-        this.animateInStyles = {
-            translateY: subheaderHeight,
-            translateZ: 0,
-            opacity: 1,
-        }
+        // TODO: Remove this. Dynamic Header handles animation
 
-        this.animateInOpts = {
-            duration: 400,
-            easing: [0, 0, 0.2, 1]
-        }
+        // this.animateInStyles = {
+        //     translateY: subheaderHeight,
+        //     translateZ: 0,
+        //     opacity: 1,
+        // }
 
-        this.animateOutStyles = {
-            translateY: 0,
-            translateZ: 0,
-            opacity: 0,
-        }
+        // this.animateInOpts = {
+        //     duration: 400,
+        //     easing: [0, 0, 0.2, 1]
+        // }
 
-        this.animateOutOpts = {
-            duration: 375,
-            easing: [0.25, 0.46, 0.45, 0.94],
-        }
+        // this.animateOutStyles = {
+        //     translateY: 0,
+        //     translateZ: 0,
+        //     opacity: 0,
+        // }
+
+        // this.animateOutOpts = {
+        //     duration: 375,
+        //     easing: [0.25, 0.46, 0.45, 0.94],
+        // }
     }
 
     render() {
@@ -68,29 +70,29 @@ class SubHeader extends PureComponent {
             searchBoard
         } = this.props
 
-        return (
-            <div className='SubHeader' ref={r => this._subheader = r}>
-              <div className='background' />
-              <div className='content'>
-                <div className="segment navigation">
-                      <Icon name={i.subheaderToolbarNewThread} title='Create Thread'/>
-                      <Icon name={i.subheaderToolbarRefresh} title='Refresh'/>
-                </div>
-                <div className="segment toolbar">
-                    <HeaderGroup className='SubHeader--left'>
-                    </HeaderGroup>
-                    <HeaderGroup className='SubHeader--center SubHeader__search'>
-                      <SearchBar placeholder={`Quick search`} onChange={searchBoard}/>
-                    </HeaderGroup>
-                    <HeaderGroup className='SubHeader--right'>
-                    </HeaderGroup>
-                  </div>
-                  <div className="segment settings">
-                      <Icon name={i.subheaderToolbarSettings} title='Settings'/>
-                  </div>
-                </div>
+        return <div className="SubHeader" ref={r => (this._subheader = r)}>
+            <div className="background" />
+            <div className="content">
+              <div className="segment navigation">
+                <Button>New Thread</Button>
+                <Button>Refresh</Button>
+                <Icon name={i.subheaderToolbarRefresh} title="Refresh" />
+              </div>
+              <div className="segment toolbar">
+                {/* <HeaderGroup className="SubHeader--left" /> */}
+                <HeaderGroup className="SubHeader--center SubHeader__search">
+                  <SearchBar placeholder={`Quick search`} onChange={searchBoard} />
+                </HeaderGroup>
+                {/* <HeaderGroup className="SubHeader--right" /> */}
+              </div>
+              <div className="segment settings">
+                <Button>Sort</Button>
+                <Button>Filter</Button>
+                <Button>To Top</Button>
+                {/* <Icon name={i.subheadertoolbarsettings} title="Settings" /> */}
+              </div>
             </div>
-        )
+          </div>;
     }
 
             // <div className='content'>
@@ -114,32 +116,32 @@ class SubHeader extends PureComponent {
             //   </div>
 
 
-    @onSubHeaderToggle
-    onSubHeaderToggle(override, customAni, callback) {
-        let willBeOpen;
+    // @onSubHeaderToggle
+    // onSubHeaderToggle(override, customAni, callback) {
+    //     let willBeOpen;
 
-        if (override !== undefined) {
-            if (override === this.state.isOpen)
-                return
-            willBeOpen = !!override
-        } else {
-            willBeOpen = !this.state.isOpen
-        }
+    //     if (override !== undefined) {
+    //         if (override === this.state.isOpen)
+    //             return
+    //         willBeOpen = !!override
+    //     } else {
+    //         willBeOpen = !this.state.isOpen
+    //     }
 
-        const options = Object.assign(willBeOpen ? this.animateInOpts : this.animateOutOpts, customAni);
-        const styles = willBeOpen ? this.animateInStyles : this.animateOutStyles;
+    //     const options = Object.assign(willBeOpen ? this.animateInOpts : this.animateOutOpts, customAni);
+    //     const styles = willBeOpen ? this.animateInStyles : this.animateOutStyles;
 
-        options.complete = () => {
-            this.setState({isOpen: willBeOpen});
-            isFunction(callback) && callback();
-        }
+    //     options.complete = () => {
+    //         this.setState({isOpen: willBeOpen});
+    //         isFunction(callback) && callback();
+    //     }
 
-        this.animate(styles, options);
-    }
+    //     this.animate(styles, options);
+    // }
 
-    animate(styles, options) {
-        this._subheader && $(this._subheader).velocity(styles, options);
-    }
+    // animate(styles, options) {
+    //     this._subheader && $(this._subheader).velocity(styles, options);
+    // }
 }
 
 export default SubHeader;

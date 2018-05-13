@@ -159,7 +159,7 @@ $ani-rules: $ani-duration $ani-bezier
 .DynamicHeader.shrink
     height: $header-height
     background: $header-shrunk-color
-    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12)
+    // box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12)
 
     .hide-on-expanded
         opacity: 1
@@ -181,7 +181,7 @@ $ani-rules: $ani-duration $ani-bezier
         font-size: 24px
         max-width: 40px
         +animate(max-width, font-size, margin-top, margin-right)
-        margin-top: 16px
+        margin-top: 6px
         margin-right: 16px
 
         .title
@@ -295,14 +295,16 @@ $ani-rules: $ani-duration $ani-bezier
 
 
 .DynamicHeader.shrink .ButtonIndent
+    height: 100%
+
     &::before, &::after
         // bottom: 10px
         left: -8px
         right: 8px
     &::before
-        bottom: -4px
+        bottom: 0
     &::after
-        top: -6px
+        top: -2px
         height: $header-height
         // top: 0
         // bottom: 0
