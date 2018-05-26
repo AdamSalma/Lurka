@@ -10,7 +10,7 @@ import {
     HeaderGroup,
     TitledIcon,
     HeaderButtonIcon as Icon } from '../../components';
-import { SearchBar } from '~/components';
+import { SearchBarWithIcons } from '~/components';
 
 import {onSubHeaderToggle} from '~/events/subscribers';
 
@@ -80,15 +80,15 @@ class SubHeader extends PureComponent {
               </div>
               <div className="segment toolbar">
                 {/* <HeaderGroup className="SubHeader--left" /> */}
-                <HeaderGroup className="SubHeader--center SubHeader__search">
-                  <SearchBar placeholder={`Quick search`} onChange={searchBoard} />
-                </HeaderGroup>
                 {/* <HeaderGroup className="SubHeader--right" /> */}
               </div>
               <div className="segment settings">
-                <Button>Sort</Button>
+                <HeaderGroup className="SubHeader--center SubHeader__search">
+                  <SearchBarWithIcons placeholder="Search Board" onChange={searchBoard} />
+                </HeaderGroup>
+                {/* <Button>Sort</Button>
                 <Button>Filter</Button>
-                <Button>To Top</Button>
+                <Button>To Top</Button> */}
                 {/* <Icon name={i.subheadertoolbarsettings} title="Settings" /> */}
               </div>
             </div>

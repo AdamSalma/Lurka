@@ -16,15 +16,15 @@ $subheader-border-color: $grey-lightest
     right: 0
     margin: 0 auto
     font-size: $subheader-font-size
-    z-index: $subheader-z-index + 100
+    // z-index: $subheader-z-index + 100
     // +will-change(transform)
     box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12);
     backface-visibility: hidden
-    z-index: 1
+    z-index: 11
 
     .background
         transition: opacity $animation-speed-fast $bezier-fast
-        background: $grey-dark
+        background: var(--interfaceColor)
         +set-dims(inherit, inherit)
         position: absolute
         z-index: -1
@@ -52,13 +52,12 @@ $subheader-border-color: $grey-lightest
         // padding: $header-padding
         border-bottom: 2px $subheader-border-color solid
         box-shadow: 0 0 5px $grey-darkest
-        padding: 0 2em
+        padding-left: .5em
 
     .Button
         margin: 0 .5em
 
     .HeaderItem
-        padding: 0 20px
         transition: padding $key-animation-duration $key-bezier-animation-out
 
         &.SubHeader--left
@@ -85,24 +84,27 @@ $subheader-border-color: $grey-lightest
         margin: 0 12px
 
 
-        .Searchbar
-            min-width: 100%
-            height: $subheader-height * 0.66
-            border-radius: 4px
-            background: $grey
+        .SearchBarWithIcons
+            // $offset: 20px
+
+            background: var(--headerSearchbar)
+            // min-width: 100%
+            // height: $subheader-height * 0.66
+            // border-radius: 4px
 
             input
                 color: $text-primary
-                text-align: center
-                min-width: 100%
-                padding-left: 10px
-                letter-spacing: 0.225rem
-                font-variant: small-caps
-                box-shadow: inset 0 0 0 transparent
+                // padding-left: $offset
+            //     text-align: left
+            //     min-width: 100%
+            //     padding-left: 10px
+            //     letter-spacing: 0.225rem
+            //     font-variant: small-caps
+            //     box-shadow: inset 0 0 0 transparent
 
-                &:active, &:focus
-                    color: var(--textPrimary)
-                    box-shadow: inset 0 0 5px 0 var(--primary)
+            //     &:active, &:focus
+            //         color: var(--textPrimary)
+            //         box-shadow: inset 0 0 5px 0 var(--primary)
 
     .SubHeader__Pipe
         padding: 0 16px
