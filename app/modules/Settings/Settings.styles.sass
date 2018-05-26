@@ -1,0 +1,71 @@
+@import '~sass/utils'
+
+$settings-width: 200px
+
+.Settings
+    position: absolute
+    left: 20px
+    top: 30px
+    text-align: left
+    color: $settings-color
+    font-family: font-for(Settings)
+    font-size: $settings-font-size-small
+    transition: height .3s
+
+    &:hover
+        .header
+            color: $text-primary
+
+    .header
+        font-size: $settings-font-size-large + 2
+        color: $grey-light
+        padding-bottom: 2px
+        width: $settings-width
+        border-bottom: 1px solid $grey-lightest
+        margin-bottom: 20px 0
+        transition: color .2s
+
+    .group
+        transition: height .3s
+
+    .setting
+        padding: 4px 24px
+        padding-right: 0
+        position: relative
+        +clickable
+
+        > span
+            padding-right: 4px
+
+        .name::after
+            content: ":"
+
+        &:hover
+            color: $text-primary
+            .description
+                opacity: 1
+                padding-left: 10px
+                height: initial
+
+            .value
+                color: $text-primary
+
+    .group-name
+        font-size: $settings-font-size-medium
+        color: $grey-light
+
+    .description
+        opacity: 0
+        transition: all .2s ease-in
+        padding-top: inherit
+        padding-left: 0
+        color: $text-primary
+        font-size: 13px
+        height: 0
+        overflow: hidden
+
+
+    .value
+        transition: color .2s ease-out
+        font-family: font-for(Settings__value)
+        font-weight: bold

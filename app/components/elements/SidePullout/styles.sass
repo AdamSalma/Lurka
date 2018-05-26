@@ -1,0 +1,44 @@
+@import '~sass/utils'
+
+.SidePulloutArea
+    display: flex
+    position: fixed
+    +size(auto, 100vh)
+    top: 0
+    left: 0
+    flex-direction: column
+    justify-content: space-around
+    z-index: 999999999
+
+.SidePulloutItem
+    position: absolute
+    display: flex
+    flex-direction: row
+    height: 3em
+    line-height: 3em
+    white-space: nowrap
+    background: $grey-dark
+    transition: transform .3s $easeInCubic
+    +clickable
+
+    &.left
+        flex-direction: row-reverse
+        transform: translateX(-100%)
+
+    &.right
+        right: 0
+
+    &:hover
+        transition: transform .3s .05s $easeInOutCubic
+        transform: translateX(0)
+
+.SidePulloutHandle
+    +padding(0, 2)
+    background: $primary
+    position: absolute
+    right: 0
+    transform: translateX(100%)
+
+.SidePulloutContent
+    +padding(0, 3, 0, 4)
+    display: inline-block

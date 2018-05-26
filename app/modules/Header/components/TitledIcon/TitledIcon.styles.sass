@@ -1,0 +1,22 @@
+@import '~sass/utils'
+
+.TitledIcon
+    +clickable
+    font-size: $subheader-font-size
+    padding-right: 16px
+    color: var(--textSecondary)
+    transition: color .2s ease-out
+
+    &:hover, &:active
+        color: var(--textPrimary)
+
+        .Icon
+            color: var(--textPrimary)
+
+    &:last-child
+        padding-right: 0
+        margin-right: 0
+
+    .Icon
+        font-size: $subheader-icon-size
+        vertical-align: middle

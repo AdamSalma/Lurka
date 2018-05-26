@@ -1,0 +1,111 @@
+@import '~sass/utils'
+
+$slideup-distance: 200px
+$board-gutter-bottom: 220px
+
+.BoardPost
+    +clickable
+    width: $board-post-width
+    background: $board-post-color
+    box-shadow: $board-post-shadow-color 0 0 0
+    border: 2px solid $board-post-color
+    font-family: font-for(BoardPost)
+
+    // initial position offscreen, positioned via JS
+    position: absolute
+    top: 100vh
+    overflow: hidden
+    text-align: center
+    border-radius: 4px 4px 0 0
+
+    visibility: hidden
+    opacity: 0
+    transform: translateY(0)
+    transition: all .4s ease-out
+    transition-property: top, left, box-shadow
+    +will-change(transform)
+
+    // Reset button defaults
+    padding: 0
+    margin: 0
+    color: $text-primary
+
+    margin-bottom: $board-gutter-bottom
+
+    &.animate
+        visibility: visible
+        transform: translateY($slideup-distance) translate3d(0,0,0)
+        animation: moveUp 0.65s ease forwards
+
+    &:hover, &:focus, &:active
+        transition: box-shadow .2s $easeOutExpo, background .2s $easeOutExpo
+        // box-shadow: 0 0 6px var(--textSecondary)
+        box-shadow: 0 0 6px var(--primary)
+        outline: none
+        background: $highlight-color
+        border-color: transparent
+        transform: translateY(400px) !important
+
+
+        .counters
+            opacity: 1
+
+            > div
+                border-color: $grey
+
+        // img
+        //     // animation: zoomInThenSlowMo 6s forwards
+        //     transform: scale(1.05)
+        //     transition: transform 2.4s ease-out
+
+    .image-wrap
+        user-select: none
+        position: relative
+        overflow: hidden
+
+    img
+        max-width: 100%
+        min-width: 100%
+        height: auto
+        max-height: 400px
+        display: inherit
+        margin: 0 auto
+        height: auto
+        // transition: transform .4s ease-out
+
+    .comment-wrap
+        padding-top: 6px
+        position: relative
+        background: inherit
+        top: 0
+        transition: top .2s ease-out
+        box-shadow: $grey-dark -4px 0 4px
+        max-height: $board-post-comment-max-height
+
+    .op
+        padding: 0 15px
+        padding-bottom: 10px
+        width: 100%
+        word-wrap: break-word !important
+
+        .title
+            +ellipsis
+            display: block
+            padding-top: 4px
+            padding-bottom: 2px
+            font-family: font-for(BoardPost__title)
+            font-size: 15.5px
+            letter-spacing: -0.007rem
+
+        .comment
+            padding-top: 4px
+            width: 100%
+            font-size: 15px
+
+    a
+        color: $text-primary !important
+        text-decoration: none
+
+    .Line
+        width: $board-post-width / 2
+        margin: 6px auto 2px

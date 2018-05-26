@@ -1,0 +1,47 @@
+@import '~sass/utils'
+
+
+$transition-out: transform $animation-speed-fast $delay-fast $bezier-slow
+$transition-in: transform .2s $bezier-fast
+
+.SlideDownBG
+    height: 100%
+    display: flex
+    align-items: center
+    justify-content: center
+    overflow: hidden
+    position: relative
+
+    .SlideDownBG__slidee
+        height: 100%
+        transform: translateY(0)
+        transition: $transition-out
+
+
+    &::before
+        content: ""
+        transform: translateY(-100%)
+        transition: $transition-out
+        +size(100%)
+        height: 100% !important
+        // display: table-cell
+
+        position: absolute
+        left: 0
+        top: 0//-$icon-height
+        background: var(--primary)
+        z-index: -1
+        // border-radius: 4px 4px 0 0
+        // border: $border-width solid darken(var(--primary), 2%)
+        // border-bottom: none
+
+
+    &:hover, &.active
+        &::before
+            transition: $transition-in
+            transform: translateY(0)
+
+        .SlideDownBG__slidee
+            transform: translateY(8px)
+            transition: $transition-in
+

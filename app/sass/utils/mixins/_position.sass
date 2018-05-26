@@ -1,0 +1,37 @@
+%pos-horizon
+    left: 0
+    right: 0
+
+%pos-vertical
+    top: 0
+    bottom: 0
+
+=position($top:auto, $left:auto, $bottom:auto, $right:auto)
+    top: $top
+    left: $left
+    bottom: $bottom
+    right: $right
+
+=center($width, $height:$width)
+    width: $width
+    height: $height
+    position: absolute
+    margin: auto
+    @extend %pos-horizon
+    @extend %pos-vertical
+
+=center-horizontal($width)
+    width: $width
+    position: absolute
+    margin: 0 auto
+    @extend %cenH
+
+=center-vertical($height)
+    height: $height
+    position: relative
+    transform: translateY(-50%)
+
+=absolute($top:auto, $left:auto)
+    position: absolute
+    top: $top
+    left: $left

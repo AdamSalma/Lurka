@@ -1,0 +1,17 @@
+@import '~sass/utils'
+
+.ThreadOverlay
+    +set-dims(100%, 100%)
+    z-index: 10
+    position: absolute
+    background-color: $grey-darkest
+    top: 0
+    left: 0
+    opacity: 0
+    transition: opacity .2s ease-out
+    pointer-events: none
+    background-image: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.9));
+
+    &.Overlay-active
+        pointer-events: auto
+        opacity: .95

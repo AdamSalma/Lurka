@@ -1,0 +1,35 @@
+@import '~sass/utils'
+
+.BoardListItem
+    +clickable
+    display: flex
+    padding: 4px 0
+    background-color: $grey-dark
+    transition: background-color .15s .05s $bezier-slow
+
+
+    &:hover
+        transition: background-color .2s $bezier-fast
+        background-color: var(--primaryDarkest)
+
+.BoardListItem__title-wrap
+    display: inline-block
+    min-width: 230px
+
+    .BoardListItem__title
+        font-size: $font-size-large
+        font-family: font-for(BoardListItem__title)
+        padding: 12px 24px
+        text-align: right
+
+.BoardListItem__metadata-wrap
+    display: inline-block
+    .BoardListItem__description
+    .BoardListItem__tags
+        display: flex
+
+    .BoardListItem__tag
+        font-family: font-for(BoardListItem__tag)
+        font-size: $font-size-small
+        color: var(--textSecondary)
+        padding-right: 12px

@@ -1,0 +1,69 @@
+@import '~sass/utils'
+
+$drawer-border-left-color: $header-border-color
+
+.Drawer
+    position: absolute
+    right: 0
+    top: 0
+    height: 100vh
+    background-color: $grey-dark
+    width: $drawer-width
+    z-index: 500
+    // border-left: 2px solid var(--primaryDarkest)
+    // border-left: 2px solid var(--primaryDarkest)
+
+    transform: translateX(0);
+    will-change: transform
+
+    &.is-open
+        transition: transform $key-animation-duration $key-bezier-animation-in
+        transform: translateX(-$board-scroller-width);
+
+    &.is-closed
+        transition: transform $key-animation-duration $key-bezier-animation-out
+        transform: translateX(100%);
+
+    .Searchbar
+        background-color: $grey-dark
+        height: $header-height
+        border-bottom: 2px solid $drawer-border-left-color
+        // border-left: 2px solid var(--primaryDarkest)
+        border-left: 2px solid $drawer-border-left-color
+        color: var(--textPrimary) !important
+
+        .Icon.search
+            padding-left: 24px
+            font-size: $header-icon-size
+
+    .container
+        border-left: 2px solid $drawer-border-left-color
+        height: 100%
+        padding: 20px 20px 0 24px
+
+        .SortPanel
+            font-family: $font-main-light
+
+    .content
+
+    .footer
+        height: $header-height // TODO: make own variable
+        position: absolute
+        bottom: 0
+        left: 0
+        width: 100%
+
+        display: flex
+        align-items: center
+
+        .LogoText
+            margin-left: 0
+            margin-right: auto
+
+        $drawer-icon-size: 22px
+        .Icon
+            font-size:
+            margin: 0 4px
+            padding: 0 4px
+            +pseudo-circle($drawer-icon-size+4, var(--primary))
+            +center-icon

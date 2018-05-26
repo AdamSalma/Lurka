@@ -1,0 +1,43 @@
+@import '~sass/utils'
+
+$searchbar-height: 60px
+$total-height: $searchbar-height * $golden-ratio
+$margin-top: $total-height
+$margin-bottom: $total-height * $golden-ratio - 29px + 40px
+
+$icon-width: $searchbar-height
+$board-toolbar-width: $thread-width / $golden-ratio
+
+
+=vertical-margin($top, $bottom:$top)
+    margin: $top 0 $bottom
+
+.BoardToolbar
+    +size($board-toolbar-width, $total-height)
+    background: $grey-light
+    position: relative
+    margin: $margin-top auto $margin-bottom
+    border: solid 1px grey(4)
+
+    &__Footer
+        display: flex
+        align-items: center
+        height: $total-height - $searchbar-height - 2
+        padding: 0 16px
+        background: $grey
+        line-height: 1;
+
+        &--right
+            margin-left: auto
+
+        &--left
+            margin-right: auto
+
+    &__ActionButtons
+        // IDEA: space action buttons out with golden ratio and make them bigger (in relation to the posts? ooo font size too)
+        +vertical-margin(44px)
+        display: flex
+        justify-content: space-around
+        align-items: center
+        position: relative
+        width: 100%

@@ -1,0 +1,88 @@
+@import '~sass/utils'
+
+.BoardSelection
+    display: flex
+    flex-wrap: wrap
+    align-items: center
+    // justify-content: center
+    margin: 0 $header-height
+
+    .BoardSelection__Tile
+        $margin: 8px
+
+        display: flex
+        flex-flex: column wrap
+        justify-content: center
+        align-items: center
+        // flex: 0 0 112px
+        // flex-basis: 112px
+        min-width: 112px
+
+        background: $grey
+        font-size: 18px
+        padding: 28px 12px
+        margin: $margin*$golden-ratio $margin
+        position: relative
+
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        transition: box-shadow .3s cubic-bezier(.25,.8,.25,1), transform .3s cubic-bezier(.25,.8,.25,1)
+        overflow: hidden
+
+        &.is-current
+            // background: $grey-light
+            background: var(--primaryDarkest)
+            .slash
+                color: var(--textSecondary)
+            // box-shadow: none !important
+            // transform: none !important
+
+        &:hover
+            box-shadow: 0 12px 16px rgba(0,0,0,0.25), 0 5px 5px rgba(0,0,0,0.22);
+            transform: translateY(-4px) scale(1.3)
+            z-index: 100
+
+            // .slash
+            //     color: lighten(mix(var(--primary), $grey-lightest, 8%), 10%)
+
+            .boardID
+                // opacity: 0
+                transform: translate(0, -52%) scale(0.45)
+                color: var(--textSecondary)
+                top: 0
+                left: 0
+
+            .title
+                opacity: 1
+                transform: translateY(20%)
+
+        .boardID
+            color: var(--textPrimary)
+            font-family: font-for(BoardSelection__boardID)
+            letter-spacing: 2px
+            font-size: 24px
+            transform: translateY(0) scale(1)
+            height: 100%
+            transition: all .4s $bezier-fast
+            transition-property: opacity, transform, font-size
+            opacity: 1
+
+        .title
+            max-width: 100%
+            height: 100%
+            color: var(--textSecondary)
+            font-size: 13px
+            text-align: center
+            opacity: 0
+            position: absolute
+            transform: translateY(200%)
+            transition: all .4s $bezier-fast
+            transition-property: opacity, transform
+            display: table
+
+        .description
+            opacity: 0
+            position: absolute
+
+        .slash
+            transition: color .3s cubic-bezier(.25,.8,.25,1);
+            color: $grey-lightest

@@ -1,0 +1,123 @@
+@import '~sass/utils'
+
+=hover-animation--slide
+    &::before
+        +size(0, 2px)
+        color: $text-primary
+
+    &:hover::before
+        width: 100%
+        transition: width .24s $bezier-
+
+
+// IDEA: Continue here
+=shrink-on
+    .content
+        transition: all .3s ease
+        // transform: rotateX(40deg) translateY(-20px)
+
+
+
+.MainHeader
+    position: absolute
+    +set-dims(100vw, $header-height)
+    +position(0, 0)
+    // top: -$header-height  // hide on start
+    z-index: $mainheader-z-index
+    // box-shadow: 0 2px 5px $grey-darkest
+    // box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12);
+    border-bottom: var(--contentBorder) 2px solid
+
+    &.shrink-on
+        +shrink-on
+
+    &:before
+        content: ""
+        position: absolute
+        +position(-2px, 0)
+        +set-dims(100%, 2px)
+        background: var(--contentBorder)
+
+    .background
+        // opacity: 0.95
+        background: $grey-dark
+        +set-dims(100%, 100%)
+        position: absolute
+        z-index: -1
+
+    .content
+        width: 100%
+        // max-width: $thread-width * $golden-ratio
+        margin: 0 auto
+        display: flex
+        flex-wrap: block
+        align-items: center
+        height: 100%
+        padding: $header-padding
+        position: relative
+
+    .HeaderGroup
+        padding: 0 8px
+        transition: padding $key-animation-duration $key-bezier-animation-out
+        display: flex
+        justify-content: center
+        flex: 1
+
+        &.MainHeader--left
+            margin-left: 0
+            margin-right: auto
+            > :last-child
+                margin-right: auto
+
+        &.MainHeader--right
+            padding-right: 0
+            margin-left: auto
+            > :first-child
+                margin-left: auto
+
+        &.MainHeader--center
+            margin: 0 auto
+            // align-self: center
+            text-align: center
+            flex: 1
+
+        > *
+            display: inline-block
+
+        .Icon
+            +clickable
+            font-size: $header-icon-size
+            padding: 16px
+            color: var(--textPrimary)
+            text-shadow: 2px 2px 1px $grey-darkest
+
+            &:hover, &:active
+                // color: var(--primary)
+                transition: color .2s ease-out
+
+        .IconCircle
+            display: inline-table
+
+    .Logo
+        top: 4px
+        padding: 8px
+
+    .HeaderItem__logo
+        margin-right: 0
+
+    .Navbar__logo
+        cursor: pointer
+
+    .navtip
+        border: $grey-lightest solid 1px
+        box-shadow: 0 1px 4px 1px $grey-darkest
+        padding: 12px
+        margin-top: 10px
+        transform: translateY($header-height) translateX(-50%) !important;
+
+    .MainHeader__menu-icon
+        display: inline-block
+        line-height: 1
+
+    .IconGroup > div:last-child
+        margin-right: 1em

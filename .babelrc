@@ -2,12 +2,16 @@
   "plugins": [
     "react-hot-loader/babel",
     "transform-decorators-legacy",
+    "transform-async-to-generator",
     ["module-resolver", {
       "alias": {
-        "-": "./",
-        "~": "./src/UI",
-        "sass": "./src/UI/sass/",
-        "public": "./src/Server/public"
+        "-": ".",
+        "~": "./app",
+        "package": "./package.json",
+        "config": "./config",
+        "sass": "./app/sass",
+        "images": "./public/images",
+        "shells": "./shells"
       }
     }]
   ],

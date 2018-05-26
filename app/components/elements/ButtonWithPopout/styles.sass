@@ -1,0 +1,31 @@
+@import '~sass/utils'
+
+.ButtonWithPopout
+    position: relative
+    line-height: 1em
+
+    .popout
+        opacity: 0
+        transform: translateX(1em)
+        position: absolute
+        left: 1em
+        top: 0
+        bottom: 0
+        margin: auto 0
+        transition: transform .3s ease(back, out), opacity .3s ease(back, out)
+        display: flex
+        align-items: center
+
+    .content
+        transform: translateX(0)
+        transition: transform .3s ease(back, out)
+
+    &:hover, &:focus
+        color: $text-primary
+
+        .popout
+            transform: translateX(0)
+            opacity: 1
+
+        .content
+            transform: translateX(2/3*1em)

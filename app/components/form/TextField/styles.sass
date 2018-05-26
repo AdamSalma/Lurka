@@ -1,0 +1,82 @@
+@import '~sass/utils'
+
+
+$font-ratio: .6em
+
+.TextField
+    position: relative
+    margin-bottom: 1em + $font-ratio
+    background: $grey-lightest
+
+    input
+        font-size: inherit
+        width: inherit
+        padding: $font-ratio
+        display: block
+        border: none
+        border-bottom: 1px solid $grey-light
+        outline: none !important
+        background-color: inherit
+        color: $text-primary
+        transition: background .24s ease(google, out)
+
+        &::-webkit-input-placeholder
+            opacity: 0
+            padding-left: 3px
+
+        &:focus::-webkit-input-placeholder
+            opacity: 0.5
+
+    .bar
+        position: relative
+        display: block
+
+        &::after
+            content: ''
+            position: absolute
+            left: 0
+            right: 0
+            bottom: -2px
+            height: 2px
+            width: 100%
+            transform: scaleX(0)
+            margin: 0 auto
+            transition: transform .24s ease(google, out)
+
+    label
+        color: #999
+        font-size: 1em
+        font-weight: normal
+        position: absolute
+        pointer-events: none
+        top: 0
+        left: 0
+        transform: scale(1) translate(1em, $font-ratio)
+        transition: 0.2s ease all
+
+        // .placeholder
+        //     font-size: .8em
+        //     font-variant: small-caps
+        //     display: inline-block
+        //     vertical-align: middle
+        //     margin-left: 4px
+
+        //     &::before
+        //         content: "("
+        //     &::after
+        //         content: ")"
+
+
+    &.is-active
+        .bar::after
+            transform: scaleX(1)
+            background-color: $primary
+
+        label
+            $top: -1em + -$font-ratio
+            $left: 3px
+            transform: scale(0.8) translate(-$left, $top)
+            color: $primary
+
+        input
+            background: linear-gradient(to top, rgba(104, 48, 48, 0.04), transparent 50%)

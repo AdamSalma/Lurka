@@ -1,0 +1,80 @@
+@import '~sass/utils'
+
+
+$thread-animate-in-speed: .850s
+$thread-animate-in-easing: $bezier-fast
+
+$thread-animate-out-speed: .150s
+$thread-animate-out-easing: $bezier-fast
+
+$thread-end-gap: 200px
+
+.Thread
+    .wrapper
+        display: none
+        +set-dims($thread-width, 100vh)
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        margin: 0 auto
+        z-index: 10
+        overflow: hidden
+        box-shadow: 0 0 0 black
+
+        @include breakpoint(to-tablet)
+            width: 100% !important
+
+        &.center-left
+            right: $drawer-width
+
+        &.make-visible
+            display: initial !important
+
+        &.fadein-boxshadow
+            box-shadow: 0 0 4px $grey-darkest
+            transition: box-shadow $animation-speed-normal $bezier-slow
+
+    .content
+        top: $header-height + $subheader-height
+        +will-change(transform)
+        position: absolute
+        width: calc(100% + 19px)
+        overflow-x: hidden
+        overflow-y: scroll
+        line-height: $line-height
+        background: $thread-color
+        // transform: translateY(100vh) translateZ(0)
+        opacity: 1
+        transform: scale(1)
+
+    .nano-pane
+        +nano-can-expand(12px)
+        width: $thread-scroller-width
+        background: $grey-darkest
+        z-index: 2
+        margin-top: $header-height
+
+    .Thread__start-gap
+        height: $subheader-height
+        width: $thread-width - 4px
+        border-left: transparent solid 5px
+
+
+    .Thread__end-gap
+        height: $thread-end-gap
+        width: $thread-width - 4px
+        // border-left: $grey-darkest solid 5px
+
+
+    &.layout--posts-fit
+        .ThreadPost
+            display: table
+            margin: 0 auto
+        .nano-pane
+            background: none
+
+
+    @include breakpoint(to-tablet)
+        .ThreadPost, .ThreadHeader
+            width: 100% !important

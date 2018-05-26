@@ -1,0 +1,22 @@
+# Lurka/Services
+
+### What they do
+Services are components that are attached to the React DOM tree but do not render any html.
+
+They listen to events and perform different functions based on the service type.
+
+# Examples
+
+### Watcher
+Polls a url at given intervals and triggers an action when the url's content is updated via the "Last-Modified" http header.
+Is used to watch 4chan threads in the background to allow the user to be notified when an update occurs.
+
+### Preloader
+Loads the initial content if none is available. Performs two requests: get the 4chan boardList, and get the "default" board to start on.
+
+### Theme
+Injects CSS4 variables into the DOM and listens for an updateTheme event which will save the updated theme in the browser (localStorage)
+
+### Context Menu
+Listens for a Open/Close event and appends a context menu to the DOM then positions it in relation to the users cursor.
+

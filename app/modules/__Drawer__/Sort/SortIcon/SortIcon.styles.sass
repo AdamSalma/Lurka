@@ -1,0 +1,24 @@
+@import '~sass/utils'
+
+
+$drawer-sort-icon-size: 24px
+$drawer-sort-icon-width: 34px
+
+.SortIcon
+    background-color: inherit
+    color: var(--textSecondary)
+    border-color: $header-border-color
+    outline: none
+    padding: 3px 5px
+    box-shadow: 0 0 2px $grey-darkest
+    margin-right: 8px
+
+    &.active
+        background: var(--primary)
+        color: var(--textPrimary)
+        border-color: transparent
+        box-shadow: 0 0 2px var(--primaryDarkest)
+
+    .Icon
+        font-size: $drawer-sort-icon-size
+        +center-icon

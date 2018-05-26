@@ -1,0 +1,7 @@
+# Lurka/tools
+
+A collection of tools that is used to build and test Lurka.
+
+### Mocha -> Test utils (Tests are alongside src code)
+### Webpack -> Code bundling (joining all depenencies into a single file)
+### Gulp -> Code packaging (Into electron distributables)

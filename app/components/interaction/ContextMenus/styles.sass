@@ -1,0 +1,61 @@
+@import '~sass/utils'
+
+@keyframes bounceIn
+    from
+        transform: translateY(7px)
+    to
+        transform: translateY(0)
+
+
+.ContextMenuWrapper
+    +will-change(top, left)
+    z-index: 999999
+    position: absolute
+    animation: bounceIn $speed-fast $bezier-bounce forwards
+    transition: all $speed-fast ease(expo)
+    transition-property: top, left
+
+.ContextMenu
+    +no-select
+    +font-size(-1)
+    +box-shadow(4)
+    display: flex
+    flex-direction: column
+    background: $interface-color
+    background: linear-gradient(to bottom, $interface-color, $grey)
+    border: 2px solid $grey-light
+    color: $text-secondary
+    border-radius: 2px
+
+    .ContextMenuItem
+        +clickable
+        padding: .5rem 1rem
+        background: transparent
+        transition: background .24s ease(google, out)
+
+        &:hover
+            background: $primary-dark
+            transition: background .12s ease-out
+            color: $text-primary
+
+        // Child Spacing
+        > *
+            padding-right: 1rem
+            &:last-child
+                padding-right: 0
+
+    .ContextMenuSeperator
+        margin: .4em
+
+    a
+        color: inherit
+        text-decoration: none
+
+    .ContextMenuHeader
+        +font-size(-1)
+        text-align: center
+        line-height: 1em
+        display: inline-block
+        vertical-align: middle
+        padding: 14px 6px
+        text-overflow: ellipsis

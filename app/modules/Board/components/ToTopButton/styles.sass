@@ -1,0 +1,55 @@
+@import '~sass/utils'
+
+$size: 64px
+$icon-size: 52px
+
+.ToTopButton
+    position: fixed
+    +clickable
+    +size($size)
+    +no-select
+    z-index: $board-to-top-button
+    background: $grey
+    border: 2px solid $grey-lightest
+    border-radius: 50%
+    text-align: center
+    margin: $size / 2
+    right: 0
+    bottom: 0
+    transform: translateY($size * 1.5) scale(1)
+    transition: transform .24s $bezier-fast, border-color .24s $bezier-fast
+
+    &.is-visible
+        transform: translateY(0)
+
+    &:hover
+        border-color: var(--primaryDark)
+        transform: scale(1.3)
+        background: $highlight-color
+
+        .Icon
+            top: 0
+            transform: scale(1.3) translateY(0)
+
+        .text
+            opacity: 0
+
+
+
+    .Icon
+        font-size: $icon-size
+        display: block
+        transform: translateY(-6px) scale(1)
+        transition: transform .3s
+
+    .text
+        font-size: $size / 4
+        font-variant: small-caps
+        text-transform: lowercase;
+        position: relative
+        top: -24px
+        font-family: $font-main-light
+        transition: opacity .3s
+
+
+

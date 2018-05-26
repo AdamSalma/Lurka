@@ -1,0 +1,106 @@
+@import '~sass/utils'
+
+// There are two identical animations here because we are doing a reverse animation
+// when the image is closed. However, because of a bug (feature) with the
+// "iteration count" prop, animating the same thing a second time
+// without a "reset" (like removing the animation) causes the browser to not
+// do anything because the iteration prop is seen as "complete"
+// Thus we need two animations:
+
+@keyframes scaleIn
+    to
+        transform: scale(1) translateX(0) translateY(0)
+
+@keyframes scaleOut
+    to
+        transform: scale(1) translateX(0) translateY(0)
+
+
+.ThreadImage
+    position: relative
+
+    &:hover .ThreadImage__icon
+        opacity: .5
+        transition-timing-function: ease(google, out)
+
+    .ThreadImage__icon
+        +clickable
+        +font-size(3)
+        position: absolute
+        top: 0
+        right: 0
+        padding: .5rem
+        margin: .5rem
+        background: $grey
+        border: $grey-lightest solid 2px
+        border-radius: 50%
+        opacity: 0
+        line-height: 1
+        transition: all .24s ease(google, in)
+        transition-property: opacity, transform
+        transform: scale(1)
+        transform-origin: top right
+
+        &:hover
+            $scale-factor: .24
+            opacity: 1
+            transition-timing-function: ease(google, out)
+            transition-property: opacity, transform
+            transform: scale(1 + $scale-factor)
+            background: $highlight-color
+            border-color: $primary
+
+    // Hides the image while the modal is open
+    .ThreadImage__image.hide
+        visibility: hidden
+
+
+.ThreadImageModal
+    z-index: $thread-image-modal-z-index
+    position: fixed
+    width: 100vw
+    height: 100vh
+    top: 0
+    left: 0
+
+    .ThreadImageModal__image
+        +box-shadow(4)
+        position: fixed
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        margin: auto
+        z-index: 11
+        animation: scaleIn .48s ease-in-out forwards
+
+        &.animate-out
+            animation: scaleOut .24s ease-in forwards reverse
+
+        &.hide
+            display: none
+
+    img
+        width: 100%
+
+    .ThreadImageModal__zoom
+        animation: none !important
+        transform: scale(1)
+        transition: transform .1s
+
+        &:active
+            cursor: grab
+
+
+        // .Icon
+        //     text-shadow: 0 0 0 $grey
+
+        //     &:hover
+        //         text-shadow: 0 0 1px $grey-dark
+
+        // .ThreadMedia__FullscreenIcon
+
+
+// .ThreadImage
+//     .ThreadImage__wrapper
+//         position: relative

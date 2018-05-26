@@ -1,0 +1,59 @@
+@import '~sass/utils'
+
+$iconcircle-icon-size: 1em
+$iconcircle-circlesize: 2em
+
+@mixin TransitionOut
+    transition: transform .24s ease(google, in)
+
+@mixin TransitionIn
+    transition: transform .24s ease(google, out)
+
+
+// Component
+.ButtonCircle
+    +clickable
+    +size($iconcircle-circlesize)
+    font-size: 24px
+    position: relative
+    display: inline-block
+    margin: 0 9px
+
+    .Icon
+        +size(inherit)
+        +TransitionOut
+        // font-size: 1.618em
+        +font-size(3)
+        display: table-cell
+        vertical-align: middle
+        color: $text-secondary
+        text-align: center
+        z-index: 1
+
+    .Circle
+        +circle(inherit)
+        +TransitionOut
+        transform: scale(1)
+        position: absolute
+        background: $grey
+        border: 2px solid $grey-lightest
+        z-index: -1
+
+    &:hover .Circle
+        +TransitionIn
+        transform: scale(1.28)
+        background: $highlight-color
+        border-color: $primary
+
+    &:hover .Icon
+        +TransitionIn
+        transform: scale(1.2)
+        color: $text-primary
+
+    &.selected
+        .Circle
+            border-color: $primary
+            // background-color: $primary
+
+        .Icon
+            color: $text-primary
