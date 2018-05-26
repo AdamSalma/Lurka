@@ -1,18 +1,19 @@
 import utils from '~/utils';
-import setupEvents from './setup';
 
 const { headerHeight, threadWidth } = Lurka.settings;
 
 export default class mediaRegistry {
-    constructor(context, config) {
-        this.expandedMedia = {}
-        this.thread = context
+    constructor(threadRef, scrollToPost, config) {
+        this.threadRef = threadRef;
+        this.scrollToPost = scrollToPost
         this.config = config;
-        this.events = setupEvents(context)
+
+        // Holds a reference to all media expanded
+        this.expandedMedia = {}
     }
 
     getPostById( id ) {
-        return this.thread.querySelector('#p' + id)
+        return this.threadRef.querySelector('#p' + id)
     }
 
     isExpanded = ( id ) => this.expandedMedia[id] || false
@@ -27,12 +28,12 @@ export default class mediaRegistry {
                 if (!utils.dom.isElementPartiallyInViewport(video)) {
                     console.log("Pausing webm")
                     video.pause();
-                    this.thread.removeEventListener("scroll", onScroll, {passive: true});
+                    this.threadRef.removeEventListener("scroll", onScroll, {passive: true});
                 }
             }
         )
 
-        this.thread.addEventListener("scroll", onScroll, {passive: true})
+        this.threadRef.addEventListener("scroll", onScroll, {passive: true})
         console.log("Added webm scroll event listener");
     }
 
@@ -95,7 +96,7 @@ export default class mediaRegistry {
 
         if (shouldScroll) {
             console.log("Scrolling to post using opts:", scrollOpts);
-            this.events.scrollToPost($(postEl), scrollOpts);
+            this.scrollToPost($(postEl), scrollOpts);
         }
 
         else {

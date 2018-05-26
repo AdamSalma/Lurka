@@ -24,6 +24,7 @@ import {
 
 
 /* Events */
+import setupThreadEvents from './events/setup';
 import MediaRegistry from './events/mediaRegistry';
 import {
     onSettingsToggle,
@@ -47,7 +48,9 @@ import {
 
 import './styles'
 
+
 const i = Lurka.icons;
+
 
 export class Thread extends Component {
     constructor(props) {
@@ -78,22 +81,26 @@ export class Thread extends Component {
     onThreadOpen(callback) {
         console.log("Event: onThreadOpen");
         // Ignore if already open or opening
-        if (!this.viewState.isOpen && !this.viewState.isOpening) {
-            this.openThread(callback);
-        } else {
-            utils.types.isFunction(callback) && callback()
+        if (this.viewState.isOpen || this.viewState.isOpening) {
+            return utils.types.isFunction(callback) && callback()
         }
+
+        // Only open when is in a closed state
+        this.setupThreadEvents();
+        this.openThread(callback);
     }
 
     @onThreadClose
     onThreadClose(callback) {
         console.log("Event: onThreadClose");
-        // Ignore if already closed
-        if (this.viewState.isOpen) {
-            this.closeThread(callback);
-        } else {
-            utils.types.isFunction(callback) && callback()
+        if (!this.viewState.isOpen) {
+            // Ignore if closed
+            return utils.types.isFunction(callback) && callback()
         }
+
+        // Close only when open
+        this.teardownThreadEvents();
+        this.closeThread(callback);
     }
 
     @onThreadMove
@@ -125,7 +132,7 @@ export class Thread extends Component {
             this.animateWrapper({ translateX: 0 }, {
                 duration, easing,
                 complete: () => this.handleThreadMove(callback)
-             })
+            })
         }
     }
 
@@ -137,12 +144,24 @@ export class Thread extends Component {
 
     componentDidMount() {
         console.log("Thread mounted");
+    }
+
+    setupThreadEvents = () => {
+        const threadReference = this.scrollComponent._scroller;
+
+        this.events = setupThreadEvents(threadReference);
 
         // Creates the initial scroller
         this.updateScroller(this.scrollerOpts);
 
         // Handle media registry
-        this.mediaRegistery = new MediaRegistry(this.scrollComponent._scroller, scrollConfig)
+        this.mediaRegistery = new MediaRegistry(threadReference, this.events.scrollToPost, scrollConfig)
+    }
+
+    teardownThreadEvents = () => {
+        this.events.teardownThreadEvents();
+        this.mediaRegistery = null;
+        this.events = null;
     }
 
     // shouldComponentUpdate({thread}, nextState) {
@@ -389,6 +408,9 @@ export class Thread extends Component {
         utils.types.isFunction(callback) && callback(element);
         // is second invocation, fixes bug when thread open/closed quickly
         this._controls.hide();
+        console.log(this)
+        this.teardownThreadEvents();
+
     }
 
     handleScroll = (e) => {
