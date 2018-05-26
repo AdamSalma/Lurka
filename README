@@ -1,5 +1,7 @@
 # Lurka
 
+[![Build Status](https://travis-ci.org/AdamSalma/Lurka.svg?branch=develop)](https://travis-ci.org/AdamSalma/Lurka) [![Build status](https://ci.appveyor.com/api/projects/status/5qs30y1aqd25dw2v/branch/master?svg=true)](https://ci.appveyor.com/project/AdamSalma/lurka/branch/master)
+
 This repository contains the source code for Lurka, a 4chan desktop application.
 
 Lurka is still under development. The plan is to eventually have a separate repo/CDN to download the compiled app from.
