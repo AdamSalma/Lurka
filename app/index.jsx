@@ -48,7 +48,7 @@ window.postMessage = (data, url) => {
     }).catch(err => {
         console.log(err)
         console.log(err.response)
-        err.response.data && console.log(err.response.data);
+        err.response && console.log(err.response.data);
     })
 }
 
