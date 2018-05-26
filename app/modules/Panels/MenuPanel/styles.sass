@@ -1,7 +1,7 @@
 @import '~sass/utils'
 
 .MenuPanel
-    background: green
+    background: var(--interfaceColor)
     width: 426px - 30px * $golden-ratio
     position: fixed
     height: 100%
@@ -35,7 +35,6 @@
         +size($width, 100%)
         padding-top: $width / 4
         padding-bottom: $width / 7
-        background: $grey
         display: flex
         flex-direction: column
         color: $text-secondary
@@ -53,7 +52,6 @@
     .content
         flex: 1
         height: 100%
-        background: $grey-light
 
 .MenuPage
     padding-top: 2rem
