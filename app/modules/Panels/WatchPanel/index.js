@@ -35,10 +35,15 @@ export class WatchPanel extends Component {
             <SlideTransition effect="from right" ref={this.setTransitionerRef} className={watchClass}>
                 <div className="watch-title"><h3>Thread Watcher</h3></div>
                 <div className="description">
-                    Get notified when a thread updates! (and when you are replied to)
+                    No posts are currently being watched
                 </div>
                 <Scrollable className="tilt-container">
                     {this.renderWatchEntityGroups(queue)}
+                    <div className="Controls">
+                        controls here
+                        <h4> oi
+                        </h4>
+                    </div>
                 </Scrollable>
             </SlideTransition>
         );

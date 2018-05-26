@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames'
 
-import Cinema from '~/containers/Cinema';
+import Cinema from '~/modules/Cinema';
 
 const CinemaView = ({ className }) => {
     return (

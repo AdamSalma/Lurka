@@ -2,12 +2,12 @@ import {createTooltipCreator, destroyTooltip} from './tooltip';
 import createPostScroller from './scroll';
 import setupFullscreen from './media';
 
-var $thread;
 
 export default function setupThreadEvents(thread) {
-    if (!$thread) {
-        $thread = $(thread);
-    }
+    var $thread = $(thread);
+    // if (!$thread) {
+    //     $thread = $(thread);
+    // }
 
     setupFullscreen($thread);
     const scrollToPost = createPostScroller($thread, destroyTooltip);
@@ -27,11 +27,11 @@ export default function setupThreadEvents(thread) {
 
         switch (event.type) {
             case 'click':
-                return scrollToPost(href);
+                scrollToPost(href); break;
             case 'mouseenter':
-                return createTooltip(event);
+                createTooltip(event); break;
             case 'mouseleave':
-                return destroyTooltip(event);
+                destroyTooltip(event); break;
             default:
                 throw new Error(`Uncaught event: ${event.type}`);
         }
@@ -42,7 +42,7 @@ export default function setupThreadEvents(thread) {
         createTooltip,
         destroyTooltip,
         teardownThreadEvents: function() {
-            $thread.off();
+            $thread.off("click mouseenter mouseleave", ".quotelink");
             $thread = null
         }
     }

@@ -39,6 +39,7 @@ import {
 
 /* Helpers */
 import { bindMembersToClass } from '~/utils/react';
+import SubHeader from '../SubHeader/SubHeader';
 
 const i = Lurka.icons;
 const headerToggleDuration = 200
@@ -171,6 +172,7 @@ class DynamicHeader extends PureComponent {
 
 
         return (
+            <div>
             <div className={headerClass}>
               <div className='background' />
               <div className='content'>
@@ -185,11 +187,11 @@ class DynamicHeader extends PureComponent {
                 </HeaderGroup>
                 <HeaderGroup className='center' onMouseEnter={this.onTitleHover}>
 
-                  <ButtonIndent className="hide-on-expanded">
+                  {/* <ButtonIndent className="hide-on-expanded">
                     <div className="shrink-icon shrink-icon-left" >
                       <Icon name={i.navbarNewThread}/>
                     </div>
-                  </ButtonIndent>
+                  </ButtonIndent> */}
 
                   <ButtonIndent className="HeaderTitle--wrapper">
                   { !isExpanded && <HeaderTitle onClick={this.onTitleClick} className="main-title">
@@ -200,11 +202,11 @@ class DynamicHeader extends PureComponent {
                   }
                   </ButtonIndent>
 
-                  <ButtonIndent onClick={this.refreshBoard} className="hide-on-expanded">
+                  {/* <ButtonIndent onClick={this.refreshBoard} className="hide-on-expanded">
                     <div className="shrink-icon shrink-icon-right" >
                       <Icon name={i.navbarRefresh}/>
                     </div>
-                  </ButtonIndent>
+                  </ButtonIndent> */}
 
                 </HeaderGroup>
                 <HeaderGroup className='right'>
@@ -217,7 +219,7 @@ class DynamicHeader extends PureComponent {
                         </div>
                     </ButtonIndent>
 
-                    <ButtonIndent onClick={this.toggleBookmarkPanel} isActive={this.state.panelID === "bookmarks"}>
+{/*                     <ButtonIndent onClick={this.toggleBookmarkPanel} isActive={this.state.panelID === "bookmarks"}>
                         <div className="vertical-icon" >
                             <Icon name={i.navbarBookmark}/>
                             <span className="title">Bookmarks</span>
@@ -230,7 +232,7 @@ class DynamicHeader extends PureComponent {
                             <span className="title">Downloads</span>
                         </div>
                     </ButtonIndent>
-
+ */}
                     <ButtonIndent onClick={this.toggleSettingsPanel} isActive={this.state.panelID == "settings"}>
                         <div className="vertical-icon" >
                             <Icon name={i.navbarSettings}/>
@@ -239,6 +241,8 @@ class DynamicHeader extends PureComponent {
                     </ButtonIndent>
                 </HeaderGroup>
               </div>
+            </div>
+            <SubHeader boardID={boardID} threadID={threadID}/>
             </div>
         )
     }

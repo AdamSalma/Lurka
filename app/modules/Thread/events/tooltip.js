@@ -23,7 +23,6 @@ const rightThreshold = 200;
 
 export const createTooltipCreator = ($thread) => {
     return function (event) {
-
         const target = event.target,
               href = target.getAttribute('href'),
               $post = $thread.find(href),
@@ -99,6 +98,7 @@ export const createTooltipCreator = ($thread) => {
 }
 
 export const destroyTooltip = () => {
+    console.log("Destroying tooltip. Node is:", tooltipNode)
     if (tooltipNode) {
         document.body.removeChild(tooltipNode);
         tooltipNode = null;
@@ -107,6 +107,7 @@ export const destroyTooltip = () => {
         $highlightedPost = null;
     }
 
+    // Reverts posts from ">>123456 (This)" to ">>123345"
     if (modifiedQuotelinks.length) {
         for (let i = 0; i < modifiedQuotelinks.length; i++) {
             modifiedQuotelinks[i].text =

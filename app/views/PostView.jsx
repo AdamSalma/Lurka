@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import cx from 'classnames'
 
-import Post from '~/containers/Post';
+import Post from '~/modules/Post';
 
 class PostView extends Component {
     constructor(props) {

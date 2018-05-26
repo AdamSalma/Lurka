@@ -36,6 +36,7 @@ $thread-end-gap: 200px
             transition: box-shadow $animation-speed-normal $bezier-slow
 
     .content
+        top: $header-height + $subheader-height
         +will-change(transform)
         position: absolute
         width: calc(100% + 19px)
@@ -45,7 +46,6 @@ $thread-end-gap: 200px
         background: $thread-color
         // transform: translateY(100vh) translateZ(0)
         opacity: 1
-        top: $header-height
         transform: scale(1)
 
     .nano-pane

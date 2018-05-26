@@ -1,8 +1,10 @@
 @import '~sass/utils'
 
-$watch-item-height: 60px
-$watch-panel-width: 432px
-$watch-panel-height: 300px
+$width: 426px - 30px * $golden-ratio
+
+$height: calc(100vh - #{$header-height})
+
+$item-height: 60px
 
 $watch-text-height-1: 25px
 $watch-text-height-2: 35px
@@ -14,13 +16,14 @@ $watch-right-gutter-width: 6px
 
 $watch-accent-color: var(--primaryDarkest)
 
-$_img_container_width: $watch-panel-width / 5
+$_img_container_width: $width / 5
 
 .WatchPanel
-    +set-dims($watch-panel-width, $watch-panel-height)
+    +set-dims($width, $height)
 
-    background: $grey-dark
-    padding: 6px $watch-right-gutter-width 0 6px !important
+    background: var(--interfaceColor)
+    // padding: 6px $watch-right-gutter-width 0 6px !important
+    padding: 2rem 2rem 0 3rem
     border: $grey-light solid 1px !important
     resize: both
     overflow: hidden
@@ -29,9 +32,10 @@ $_img_container_width: $watch-panel-width / 5
 
     box-shadow: -7px 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 
-    .watch-title
-        text-align: center
-        font-family: $font-main-semibold !important
+    h3
+        // text-align: center
+
+        font-family: $font-main-light !important
 
     .description
         display: none
@@ -80,7 +84,7 @@ $_img_container_width: $watch-panel-width / 5
         align-items: center
         position: relative
         overflow: hidden
-        min-height: $watch-item-height
+        min-height: $item-height
         clear: both
         background: $grey-darkest
         padding: 2px
@@ -114,7 +118,7 @@ $_img_container_width: $watch-panel-width / 5
 
         img
             max-height: $_img_container_width
-            max-width: $watch-item-height
+            max-width: $item-height
             position: absolute
             +position(50%, 50%)
             transform: translate(-50%, -50%)
@@ -130,7 +134,7 @@ $_img_container_width: $watch-panel-width / 5
             height: $watch-text-height-1
             overflow: hidden
             line-height: $watch-text-height-1
-            width: $watch-panel-width - 130px
+            width: $width - 130px
             text-overflow: ellipsis
             white-space: nowrap
             font-size: 14px
@@ -151,7 +155,7 @@ $_img_container_width: $watch-panel-width / 5
                 margin-right: 8px
 
     .watch-controls
-        +square($watch-item-height)
+        +square($item-height)
         position: absolute
         right: 0
         top: 0
@@ -204,13 +208,13 @@ $_img_container_width: $watch-panel-width / 5
                 min-width: 48px
                 text-align: left
                 margin-right: 12px
-                line-height: $watch-item-height
+                line-height: $item-height
                 position: relative
                 overflow: hidden
 
                 img
                     max-height: $_img_container_width
-                    max-width: $watch-item-height
+                    max-width: $item-height
                     position: absolute
                     top: 50%
                     left: 50%
@@ -224,7 +228,7 @@ $_img_container_width: $watch-panel-width / 5
 
                 > *
                     height: inherit
-                    line-height: $watch-item-height
+                    line-height: $item-height
 
 
 
@@ -251,7 +255,7 @@ $_img_container_width: $watch-panel-width / 5
 
 
         .watch-close
-            +square($watch-item-height)
+            +square($item-height)
             z-index: 1
             background: $grey
             text-align: center
@@ -261,10 +265,10 @@ $_img_container_width: $watch-panel-width / 5
             cursor: pointer
             font-size: 20px
             box-shadow: -2px 0 5px $grey
-            line-height: $watch-item-height
+            line-height: $item-height
 
             > *
-                width: $watch-item-height
+                width: $item-height
                 display: inline-block
 
             &:hover
