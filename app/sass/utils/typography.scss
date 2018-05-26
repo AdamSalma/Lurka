@@ -1,0 +1,44 @@
+/**
+ * Contains a font map to allow testing component fonts from a single location.
+ */
+
+$font-palette: (
+    body: $font-main,
+    // Board
+    Board__Button: $font-accent,
+    BoardToolbar: $font-main,
+    BoardPost: $font-main,
+    BoardPost__title: $font-main-semibold,
+    BoardPostHeader: $font-main,
+    BoardListItem__title: $font-accent,
+    BoardListItem__tag: $font-alt,
+    BoardSelection__boardID: $font-accent,
+    // Thread
+    ThreadPost__deadlink: $font-main-light,
+    ThreadPost__PostID: $font-alt,
+    ThreadPost__quotelink: $font-alt,
+    ThreadHeader__title: $font-accent,
+    // Header
+    HeaderTags: $font-alt,
+    HeaderTitle: $font-main-light,
+    Header__Title__button: $font-main-light,
+    Header__ContentButtonGroup: $font-main,
+    DynamicHeader__Title: $font-main-light,
+    DynamicHeader__LogoText: $font-main-semibold,
+
+    // Settings
+    Drawer__SortPanel: $font-main-light,
+    Settings: $font-alt,
+    Settings__value: $font-main,
+    // Components
+    Hierarchy__threadID: $font-alt,
+    FullLogo: $font-main-semibold,
+    LogoText__name: $font-main,
+    LogoText__version: $font-alt,
+    Searchbar: $font-alt,
+    Button: $font-accent,
+);
+
+@function font-for($component-name) {
+    @return map-get($font-palette, $component-name);
+}

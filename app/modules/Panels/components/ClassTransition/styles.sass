@@ -1,0 +1,52 @@
+@import '~sass/utils'
+
+=fade-in
+    opacity: 1
+
+=fade-out
+    opacity: 0
+
+=scale-in
+    transform: scale(1)
+
+=scale-out
+    transform: scale(0.8)
+
+=bezier-fast
+    transition-timing-function: $bezier-fast
+
+=bezier-slow
+    transition-timing-function: $bezier-slow
+
+.ClassTransition
+    &.ClassTransition--fade-effect
+        transition: opacity $speed-fast
+
+        &.ClassTransition--animate-in
+            +fade-in
+            +bezier-fast
+        &.ClassTransition--animate-out
+            +fade-out
+            +bezier-slow
+
+    &.ClassTransition--scale-effect
+        transition: transform $speed-fast
+
+        &.ClassTransition--animate-in
+            +scale-in
+            +bezier-fast
+        &.ClassTransition--animate-out
+            +scale-out
+            +bezier-slow
+
+    &.ClassTransition--fade-scale-effect
+        transition: transform $speed-fast, opacity $speed-fastest
+
+        &.ClassTransition--animate-in
+            +scale-in
+            +fade-in
+            +bezier-fast
+        &.ClassTransition--animate-out
+            +scale-out
+            +fade-out
+            +bezier-slow

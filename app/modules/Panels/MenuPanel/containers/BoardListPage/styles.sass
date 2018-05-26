@@ -1,0 +1,63 @@
+@import '~sass/utils'
+
+.BoardListPage
+    background: $interface-color
+    height: inherit
+
+    .search
+        background: $grey-lightest
+        margin-bottom: 1rem
+
+    .toggle-buttons
+        margin-bottom: 1rem
+
+    .BoardList
+        padding: 1.5rem 0
+
+    .metadata
+        +font-size(-2)
+        position: relative
+        top: 8px
+        display: flex
+        justify-content: space-between
+
+        .note
+            text-align: right
+            color: $text-disabled
+
+        .board-count
+            color: $text-secondary
+            span
+                color: $text-primary
+
+    .BoardListItem
+        +clickable
+        +no-select
+        display: flex
+        align-items: center
+        padding: .5rem .5rem
+        transition: background .3s ease()
+        border-radius: 4px
+
+        .title-wrap
+            display: flex
+            flex-direction: row-reverse
+            +font-size(0)
+
+            .id
+                width: 4rem
+                padding-left: .25rem
+                color: $text-secondary
+                font-family: $font-main-light
+
+            .title
+                color: $text-primary
+
+        &:hover
+            transition: none
+            background: rgba(255,255,255,0.08)
+            .stickies
+
+    .is-favourite
+        .id
+            color: gold

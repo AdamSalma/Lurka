@@ -1,0 +1,20 @@
+@import '~sass/utils'
+
+.Dropdown
+    width: 100%
+    user-select: none
+
+    span.item
+        color: var(--textPrimary)
+        width: 100%
+
+        > *
+            width: 100%
+            background-color: $dropdown-color
+            border-bottom: $dropdown-color-hover solid 2px
+            padding: 8px 10px
+            cursor: pointer
+
+        &:hover
+            > *
+                background-color: $dropdown-color-hover

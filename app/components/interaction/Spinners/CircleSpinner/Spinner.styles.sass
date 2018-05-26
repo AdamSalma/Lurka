@@ -1,0 +1,42 @@
+@import '~sass/utils'
+
+.Spinner2
+    +center(60px, 60px)
+    position: fixed
+    z-index: 10
+    display: none
+
+    &.Spinner-active
+        display: initial !important
+
+    .double-bounce1, .double-bounce2
+        +size(inherit)
+        border-radius: 50%
+        background-color: $primary
+        position: absolute
+        top: 0
+        left: 0
+
+        animation: sk-bounce 1s infinite ease-in-out
+
+
+    .double-bounce2
+        animation-delay: -.5s
+        background-color: $primary-darkest
+
+
+    @-webkit-keyframes sk-bounce
+        0%, 100%
+            -webkit-transform: scale(0.0)
+        50%
+            -webkit-transform: scale(1.0)
+
+
+    @keyframes sk-bounce
+        0%, 100%
+            transform: scale(0.0)
+            -webkit-transform: scale(0.0)
+        50%
+            transform: scale(1.0)
+            -webkit-transform: scale(1.0)
+

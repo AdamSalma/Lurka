@@ -1,0 +1,21 @@
+@import '~sass/utils'
+
+
+.SlideTransition
+    transition: transform $speed-fast
+    transition-timing-function: $bezier-fast
+
+    &.SlideTransition--animate-in
+        transform: translate(0, 0)
+
+    &.SlideTransition--animate-out
+        transition-timing-function: $bezier-slow
+
+        &.SlideTransition--from-left
+            transform: translate(-100%, 0)
+        &.SlideTransition--from-right
+            transform: translate(100%, 0)
+        &.SlideTransition--from-top
+            transform: translate(0, -100%)
+        &.SlideTransition--from-bottom
+            transform: translate(0, 100%)

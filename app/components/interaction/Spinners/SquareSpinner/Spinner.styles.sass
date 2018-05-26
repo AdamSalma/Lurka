@@ -1,0 +1,14 @@
+@import '~sass/utils'
+
+.Spinner
+    +center(80px, 80px)
+    background-color: var(--primary)
+    position: fixed
+    animation: rotatespinner 1.2s infinite ease-in-out
+    z-index: 10
+    display: none
+    animation-play-state: paused
+
+    &.Spinner-active
+        display: initial !important
+        animation-play-state: running !important

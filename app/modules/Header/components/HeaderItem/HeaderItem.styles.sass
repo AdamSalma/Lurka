@@ -1,0 +1,20 @@
+@import '~sass/utils'
+
+.HeaderItem
+    display: inline-block
+
+    &.breadcrumb
+        margin: 0
+
+    &.shift-right
+        margin-left: auto
+
+    &.header-icon:last-child
+        margin-right: 20px !important
+
+        &:hover
+            background: $grey-light
+            border-color: var(--primary)
+
+        &.active
+            background: var(--primary)

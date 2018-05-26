@@ -1,0 +1,32 @@
+@import '~sass/utils'
+
+$color: var(--divider)
+
+.Line
+    display: block
+    height: 1px
+    border: 0
+    background-color: $color
+    margin: 0.8em 0 0.2em
+    padding: 0
+    position: relative
+
+    &::before
+        content: ""
+        position: absolute
+        top: 0
+        height: 1px
+        width: 60px
+        left: -60px
+        background-size: 100%
+        background-image: linear-gradient(to left, $color, rgba(255,255,255,0))
+
+    &::after
+        content: ""
+        position: absolute
+        top: 0
+        height: 1px
+        width: 60px
+        right: -60px
+        background-size: 100%
+        background-image: linear-gradient(to right, $color, rgba(255,255,255,0))

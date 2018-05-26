@@ -1,0 +1,39 @@
+@import '~sass/utils'
+
+$bg-1: $grey
+$bg-2: $grey-dark
+
+
+.Views
+    position: relative
+
+.View
+    // background: $grey-dark
+    // background: linear-gradient(135deg, $bg-2, $bg-1, $bg-2)
+    // background: url('~/images/backgrounds/dark_wall.png')
+    // position: fixed
+
+.DashboardView
+    +set-dims(100vw, 100vh)
+    z-index: $homepage-z-index
+    position: fixed
+
+.ContentView
+    +set-dims(100vw, 100vh)
+    position: fixed
+    // z-index: $contentpage-z-index
+
+.PanelsView
+    z-index: $headerpanelview-z-index
+    z-index: 500
+    position: relative
+    top: $header-height
+    // +size(100vw, 100vh)
+    top: $header-height + $subheader-height
+
+    // &.PanelsView--header-expanded
+
+.SettingsView
+    +set-dims(100vw, 100vh)
+    z-index: 100
+    top: -100%

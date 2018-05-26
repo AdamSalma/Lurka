@@ -1,11 +1,16 @@
 node_modules
 *.log
 *.sublime*
-bash.exe.stackdump
+*.stackdump
+github_token.txt
 
 # Build folder: everything except
-app/*
-!app/package.json
-!app/electron.index.js
+build/*
+!build/package.json
+!build/index.js
 
-img/
+__img__/
+dist/
+
+
+package-lock\.json

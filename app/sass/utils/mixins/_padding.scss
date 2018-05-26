@@ -1,0 +1,122 @@
+/** Padding API:
+
+All sides
+  +padding()
+  +padding($size)
+
+X - Y sides:
+  +padding($x, $y)
+
+Custom sides:
+  +padding($top, $right, $bottom, $left)
+
+Individual sides (must be explicit with side names):
+  +padding($left: $your-left)
+  +padding($right: $your-right)
+  +padding($bottom: $your-bottom)
+
+NOTE: Cannot individually specify `$top` because it clashes
+with `$size`. Use `+padding-top($your-top)` instead
+
+-------------------------
+
+Look inside `../variables.scss` for scale sizes
+
+*/
+
+@mixin padding($top: 1, $right: null, $bottom: null, $left: null) {
+  @if ($top and $right and $bottom and $left) {
+    // All
+    @include padding-top($top);
+    @include padding-right($right);
+    @include padding-bottom($bottom);
+    @include padding-left($left);
+
+  } @else if ($top and $right and $bottom) {
+    // $right becomes X
+    @include padding-top($top);
+    @include padding-x($right);
+    @include padding-bottom($bottom);
+
+  } @else if ($top and $right) {
+    // $top becomes X
+    // $right becomes Y
+    @include padding-y($top);
+    @include padding-x($right);
+
+  } @else if ($top) {
+    // $top becomes size
+    @include padding-y($top);
+    @include padding-x($top);
+  }
+
+  // Individual sides
+  @else if ($right) {
+    @include padding-right($right)
+  } @else if ($bottom) {
+    @include padding-bottom($bottom)
+  } @else if ($left) {
+    @include padding-left($left)
+  }
+
+  // All hope is lost
+  @else {
+    @error "padding(#{$top}, #{$right}, #{$bottom}, #{$left}): Invalid parameters"
+  }
+}
+
+
+/* Individual side mixins */
+@mixin padding-top($size: 1) {
+  padding-top: map-get($spacing-sizes, $size);
+}
+
+@mixin padding-bottom($size: 1) {
+  padding-bottom: map-get($spacing-sizes, $size);
+}
+
+@mixin padding-right($size: 1) {
+  @if ($size == 'auto') {
+    padding-right: auto;
+  } @else {
+    padding-right: map-get($spacing-sizes, $size);
+  }
+}
+
+@mixin padding-left($size: 1) {
+  @if ($size == 'auto') {
+    padding-left: auto;
+  } @else {
+    padding-left: map-get($spacing-sizes, $size);
+  }
+}
+
+
+/* Horizontal / Vertical mixins */
+@mixin padding-x($right: 1, $left: null) {
+  @if ($right and $left) {
+    @include padding-right($right);
+    @include padding-left($left);
+  }
+  @else if ($right and not $left) {
+    @include padding-right($right);
+    @include padding-left($right);
+  }
+  @else {
+    @error "padding-x(#{$right}, #{$left}): Invalid parameters."
+  }
+}
+
+@mixin padding-y($top: 1, $bottom: null) {
+  @if ($top and $bottom) {
+    @include padding-top($top);
+    @include padding-bottom($bottom);
+  }
+  @else if ($top and not $bottom) {
+    @include padding-top($top);
+    @include padding-bottom($top);
+  }
+  @else {
+    @error "padding-y(#{$top}, #{$bottom}): Invalid parameters."
+  }
+}

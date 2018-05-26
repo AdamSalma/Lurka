@@ -1,0 +1,83 @@
+@import '~sass/utils'
+
+$boardheader-height: 236px
+$gradient: linear-gradient(to bottom, $grey-dark, $grey)
+$header-offset: 150px
+
+.Board
+    position: relative
+    +set-dims(100vw, 100vh)
+    top: $header-height + $subheader-height
+    // padding-top: 48px
+    background: var(--contentColor)
+    // background-image: $gradient
+    // background: $grey-dark
+
+    .nano-pane
+        +nano-can-expand(12px)
+        display: block !important
+        // margin-top: $header-height + 2px
+        margin-bottom: $header-height
+        width: $board-scroller-width
+        right: 3px
+
+    .posts
+        position: relative
+        height: calc(100% - #{$header-height})
+
+    pre
+        width: 100%
+        display: inline-block
+        text-overflow: ellipsis
+        text-align: left !important
+        overflow: hidden
+
+    &.disable-animations
+        .BoardPost
+            visibility: visible !important
+            opacity: 1 !important
+            transform-duration: 0 !important
+            animation-duration: 0 !important
+
+    // Disable link clicking
+    a
+        pointer-events: none
+
+    .Button
+        margin: 12px 24px
+    //     // background-image: linear-gradient(to bottom, $grey-lightest, $grey-light)
+    //     // background-image: linear-gradient(to bottom, var(--primary), theme(dark, layout, dark))
+    //     background-color: theme(dark, layout, dark)
+    //     font-family: font-for(Board__Button)
+    //     border: theme(dark, layout, darkest) solid 1px
+    //     box-shadow: 0 1px 1px $grey-darkest
+    //     transition: all .2s
+    //     text-shadow: 0 1px 1px grey(4)
+
+    //     &:hover
+    //         // background-image: linear-gradient(to top, var(--primary), theme(dark, layout, dark))
+    //         box-shadow: 0 1px 4px $grey-darkest
+    //         background-color: theme(dark, layout, darkest)
+
+    .PostLinebreak
+        $gutter: 60px
+
+        width: calc(100vw - #{$gutter*2})
+        height: 1px
+        margin: 4px auto
+        background-color: var(--divider)
+
+    .ExpandedHeaderGap
+        height: $subheader-height
+
+    // Parallax
+    .BoardParallax--header
+        top: $header-offset * 0.75
+
+    .BoardParallax--posts
+        top: $boardheader-height + $header-offset
+        background: var(--board)
+        +size(100vw, 100vh)
+        background: $grey-dark
+        border-top: 3px $grey solid
+

@@ -1,0 +1,93 @@
+@import '~sass/utils'
+
+$cinema-control-width: 100px
+$cinema-z-index: 1000
+$background: $grey-darkest
+
+
+=interface-button-effect
+    transition: all .5s .2s $bezier-fast
+    transition-property: background, opacity
+    background: $grey-darkest
+    opacity: 0.5
+
+    &:hover
+        transition: all .2s $bezier-fast
+        transition-property: background, opacity
+        opacity: 1
+        background: $grey-darkest
+
+        .Icon
+            opacity: 1
+
+    .Icon
+        color: var(--textPrimary)
+        transition: inherit
+        transition-property: opacity
+        transition-duration: .4s
+        opacity: 0.4
+
+
+
+.Cinema
+    +size(100vw, 100vh)
+    position: fixed
+    top: 0
+    left: 0
+    background: $grey-darkest
+    z-index: $cinema-z-index
+    animation: fade-in-scale-out .4s $easeOutCubic forwards
+
+    .previous-media-button, .next-media-button
+        +clickable
+        height: calc(100vh - #{$cinema-control-width} * 2)
+        width: $cinema-control-width
+        position: absolute
+        top: 0
+        bottom: 0
+        margin: auto 0
+        text-align: center
+        z-index: 1
+        +interface-button-effect
+
+    .previous-media-button
+        left: 0
+        .Icon
+            left: -10px
+
+    .next-media-button
+        right: 0
+        .Icon
+            right: -10px
+
+    .CloseCinema
+        +clickable
+        +size($cinema-control-width)
+        +interface-button-effect
+        position: absolute
+        right: 0
+        top: 0
+
+    .Icon
+        font-size: 32px
+        +center(1em)
+        line-height: 1em
+        color: var(--textSecondary)
+
+    .current-media
+        +size(100vw, 100vh)
+        display: flex
+        align-items: center
+        justify-content: center
+
+        img
+            max-width: 100vw
+            max-height: 100vh
+
+        video
+            width: 100%
+            height: 100%
+
+
+    .CinemaInterface--hidden
+        opacity: 0

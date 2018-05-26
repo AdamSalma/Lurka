@@ -1,0 +1,75 @@
+@import '~sass/utils'
+
+@import '~sass/utils'
+
+$navbar-central-font-size: 24px
+
+.HeaderTitle
+    font-size: $navbar-central-font-size
+    font-family: $font-main !important //font-for(HeaderTitle) !important
+    color: var(--textPrimary)
+    +no-select
+    height: 100%
+    font-size: 24px
+    display: flex
+    align-items: center
+    letter-spacing: 0.25em
+    // letter-spacing: 0.075px
+    // font-family: $font-main-semibold !important
+
+    .Icon
+        color: var(--textSecondary)
+        line-height: 1
+        font-size: 22px
+        position: relative
+        top: 4px
+        padding-right: 0 !important
+        font-size: inherit
+        vertical-align: bottom
+
+    .button
+        +clickable
+        transition: color .24s $bezier-fast
+        background: none
+        border: transparent 2px solid
+        outline: none
+        color: inherit
+        font-family: inherit
+        z-index: 10
+        // background: $grey-dark
+        height: calc(100% - 2px);
+        letter-spacing: inherit
+        padding: 8px
+        white-space: nowrap
+
+
+        .Icon
+            position: absolute
+            top: 50%
+            transform: translateY(-50%)
+            opacity: 1
+            transition: opacity .3s $bezier-fast
+
+    &:hover
+        .Icon
+            opacity: 0
+
+    // .HeaderTitle--wrapper
+
+
+    .title-normal
+        animation: fade-in-top 1s $bezier-fast forwards
+
+    .title-small
+        display: none
+
+    @include breakpoint(to-phablet)
+        .title-normal
+            display: none
+        .title-small
+            display: initial
+
+
+    // @include breakpoint(from-tablet) {
+    //     .button
+    // }

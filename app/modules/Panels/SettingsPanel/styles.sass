@@ -1,0 +1,80 @@
+@import '~sass/utils'
+
+$width: $thread-width
+// $height: 100vh
+$height: calc(80vh - #{$header-height})
+
+
+// @error $grey-darkest
+// $primary
+// #cf5f5e  light
+// #eca8a7
+
+.SettingsPanel
+    +size($width, $height)
+    // max-height: $max-height
+    top: 6vh
+    right: 0
+    left: 0
+    margin: auto
+    position: absolute
+
+    background: $grey-dark
+    padding: 16px
+    border: $grey-light solid 1px !important
+    // resize: both
+
+    box-shadow: -7px 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)
+    z-index: 10
+
+    display: flex
+    flex-direction: column
+
+    .header
+        height: $header-height
+
+    .footer
+        // display: inline-flex
+        // height: $header-height
+        line-height: 1
+        flex-direction: row
+        display: flex
+        flex-flow: row nowrap
+        // justify-content: space-between
+
+    .confirm-button
+        margin-bottom: 1em
+        // font-size: 17px
+        // margin-right: 1em
+        // // font-size: 1px
+        // float: right
+
+    .SettingTabs
+        width: 100%
+        // background: green
+        height: $header-height
+        display: flex
+        padding-top: .66em
+        justify-content: space-around
+        align-items: center
+
+    .SettingTab
+        +clickable
+        border: solid 1px #ccc
+        color: #999
+        padding: .5em 1em
+        border-top-left-radius: 5px
+        border-top-right-radius: 5px
+        margin: 1px 0 0 10px
+        text-decoration: none
+        background: var(--grayLight)
+
+
+        &.active
+            background: #f9f9f9
+            color: #000
+            font-weight: bold
+            z-index: 2
+            border: 1px solid #ccc
+            border-bottom: transparent
+

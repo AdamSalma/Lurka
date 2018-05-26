@@ -1,0 +1,90 @@
+/* The classes in here are deprecated and aren't used. Kept for old sake. */
+
+.fade-overflow:before
+    content: ''
+    width: 100%
+    height: 100%
+    position: absolute
+    left: 0
+    top: 0
+    background: linear-gradient(transparent calc($thread-height - 20px), $grey)
+    overflow: hidden
+
+.fade-overflow
+    position: relative
+
+.image-loading
+    filter: blur(2px)
+    z-index: 2
+
+    &::after
+        content: ""
+        +center(100%, 100%)
+        z-index: 2
+        background-color: $text-primary
+        opacity: 0.6
+
+.hidden
+    display: none !important
+
+.flex-grid
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-between
+
+.clearfix:after
+    content: " "
+    display: table
+    clear: both
+
+.float-left
+    float: left
+
+.float-right
+    float: right
+
+.elipses::after
+    content: " ..."
+    overflow: hidden
+    display: inline-block
+    vertical-align: bottom
+    animation: ellipsis steps(4,end) .9s infinite
+    width: 0px
+    position: absolute
+    font-size: inherit
+
+.header-gap
+    height: $header-height
+    display: block
+    clear: both
+
+.disabled
+    color: var(--textDisabled)
+
+
+.hover-progress
+    transition: all 350ms cubic-bezier(.165,.84,.44,1)
+    position: absolute
+    z-index: -1
+    top: 0
+    left: 0
+    height: 100%
+    width: 0
+
+
+.tilt-container
+    perspective: 1200px
+
+    .tilter:hover, &.hover .tilter
+        transition: 0.2s
+        transform: rotateY(-8deg)
+
+    .tilter
+        transition: transform 0.4s
+        transform-style: preserve-3d
+        transform-origin: right
+        position: relative
+
+
+
+

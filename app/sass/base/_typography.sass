@@ -1,0 +1,16 @@
+/**
+ * Typography
+ *
+ * Loops through a list of font names to generate application fonts
+ */
+
+@mixin create-font($font-name)
+    @font-face
+        font-family: $font-name
+        src: url( $font-dir + $font-name + '.ttf' ) format('truetype')
+        font-weight: normal
+        font-style: normal
+
+// see /utils/typography for `$font-list`
+@each $font in $font-list
+    +create-font($font)

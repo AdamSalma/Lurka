@@ -1,0 +1,110 @@
+@import '~sass/utils'
+
+$tooltip-triangle-size: 8px
+$tooltip-color-light: $text-primary
+$tooltip-color-dark: $grey
+$tooltip-border-color: $grey-darkest
+
+$icon-arrow-facing-top: ''
+
+.Tooltip
+    position: relative
+    display: inline-block
+
+    &.Tooltip--active
+        .Tooltip__wrap
+            z-index: $tooltip-z-index
+            visibility: visible
+
+        .Tooltip__wrap--effect-fade
+            opacity: 1
+
+        .Tooltip__wrap--effect-scale
+            transform: scale(1)
+
+    .Tooltip__wrap--effect-fade
+        transition: opacity $key-animation-duration $key-bezier-animation-in
+        opacity: 0
+
+    .Tooltip__wrap--effect-scale
+        transition: transform $key-animation-duration $key-bezier-animation-in
+        transform: scale(0)
+        transform-origin: bottom left
+
+    .Tooltip__wrap  // is Tooltip
+        position: absolute
+        visibility: hidden
+        transition: transform $key-animation-duration $key-bezier-animation-in
+        color: var(--textPrimary)
+        background: $tooltip-color-dark
+        line-height: 1
+        text-align: center
+        white-space: nowrap
+        padding: 6px 12px
+        border-radius: 4px
+        border: $tooltip-border-color
+
+        &::before
+            // ::before is the triangle
+            content: ''
+            position: absolute
+            margin: auto
+            width: 0
+            height: 0
+
+        // Positioning starts
+        &.Tooltip__wrap--top
+            top: 0
+            left: 50%
+            transform: translate(-50%, -100%)
+            margin-top: -$tooltip-triangle-size
+
+            &::before
+                left: 0
+                right: 0
+                bottom: -$tooltip-triangle-size + 1px
+                border-top: $tooltip-triangle-size solid $tooltip-color-dark
+                border-right: $tooltip-triangle-size solid transparent
+                border-left: $tooltip-triangle-size solid transparent
+
+        &.Tooltip__wrap--left
+            top: 50%
+            left: 0
+            margin-left: -$tooltip-triangle-size
+            transform: translate(-100%, -50%)
+
+            &::before
+                top: 0
+                bottom: 0
+                right: -$tooltip-triangle-size + 1px
+                border-left: $tooltip-triangle-size solid $tooltip-color-dark
+                border-top: $tooltip-triangle-size solid transparent
+                border-bottom: $tooltip-triangle-size solid transparent
+
+        &.Tooltip__wrap--right
+            margin-right: -$tooltip-triangle-size
+            top: 50%
+            right: 0
+            transform: translate(100%, -50%)
+
+            &::before
+                top: 0
+                bottom: 0
+                left: -$tooltip-triangle-size + 1px
+                border-right: $tooltip-triangle-size solid $tooltip-color-dark
+                border-top: $tooltip-triangle-size solid transparent
+                border-bottom: $tooltip-triangle-size solid transparent
+
+        &.Tooltip__wrap--bottom
+            margin-bottom: -$tooltip-triangle-size
+            bottom: 0
+            left: 50%
+            transform: translate(-50%, 100%)
+
+            &::before
+                left: 0
+                right: 0
+                top: -$tooltip-triangle-size + 1px
+                border-bottom: $tooltip-triangle-size solid $tooltip-color-dark
+                border-right: $tooltip-triangle-size solid transparent
+                border-left: $tooltip-triangle-size solid transparent

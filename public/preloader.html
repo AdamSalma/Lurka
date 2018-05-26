@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Building...</title>
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #2e2c29;
+            color: white;
+            text-align: center;
+            font-family: "Segoe UI", "Lucida Grande", sans-serif;
+            height: 265px;
+            width: 250px;
+            position: relative;
+        }
+
+        .preload-text {
+            position: relative;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .versions {
+            position: absolute;
+            bottom: 10px;
+            display: flex;
+            padding: 0 10px;
+            margin: 0 auto;
+            right: 0;
+            left: 0;
+            text-align: center;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .versions .title {
+            font-size: 12px;
+            display: block;
+            color: grey;
+        }
+
+        .versions .version {
+            font-size: 11px;
+            color: darkgrey;
+        }
+
+        img {
+            margin: 30px 0 15px;
+            width: 120px;
+            height: 120px;
+            /*animation: rotate 1s ease-in-out infinite;*/
+            /*animation: rotate 1.1s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;*/
+            animation: rotate 1s .4s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+
+            100% {
+                transform: rotate(359.9deg) scale(1);
+            }
+        }
+
+        .preload-text span {
+          animation-name: blink;
+          animation-duration: 1.4s;
+          animation-iteration-count: infinite;
+          animation-fill-mode: both;
+        }
+
+        .preload-text span:nth-child(2) {
+          animation-delay: .2s;
+        }
+
+        .preload-text span:nth-child(3) {
+          animation-delay: .4s;
+        }
+
+        @keyframes blink {
+          0% {
+            opacity: .2;
+          }
+          20% {
+            opacity: 1;
+          }
+          100% {
+            opacity: .2;
+          }
+        }
+    </style>
+</head>
+<body>
+    <img src="{{logoSrc}}">
+    <div class="preload-text">{{preloaderText}}<span>.</span><span>.</span><span>.</span></div>
+    <div class="versions">
+        <span class="title">
+            Node.js <span class="version">
+                v<script>document.write(process.versions.node)</script>
+            </span>
+        </span>
+        <span class="title">
+            Electron <span class="version">
+                v<script>document.write(process.versions.electron)</script>
+            </span>
+        </span>
+    </div>
+</body>
+</html>

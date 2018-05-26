@@ -1,0 +1,48 @@
+@import '~sass/utils'
+
+.Button
+    +clickable
+    +font-size(0)
+    // +box-shadow(2)
+    box-shadow: 0 5px 14px -7px $grey-darkest
+    transition: box-shadow .3s ease(sine, out), border-color .1s ease(sine, out), color .1s ease(sine, out)
+    position: relative
+    display: inline-block
+    // padding: .4em 2em
+    // border: 1px solid rgba(0, 0, 0, 0)
+    border: $grey-lightest 2px solid
+    outline: none !important
+    border-radius: 2px
+    color: $text-secondary
+    background: transparent
+    font-family: font-for(Button)
+    text-align: center
+    padding: .61538462em 1em
+    touch-action: manipulation
+    text-decoration: none
+    min-height: 2.46153846em
+    vertical-align: middle
+    box-sizing: border-box
+    font-smoothing: antialiased
+    // background-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.2) 100%)
+    letter-spacing: 1.2px
+    font-family: $font-main-light
+
+    &:hover, &.is-active
+        border-color: $primary-dark
+        color: $text-primary
+        box-shadow: 0 7px 14px -5px $grey-darkest
+
+    &:active
+        border-color: $primary-dark
+        color: $text-primary
+        background: $primary-dark
+
+
+    &.border-accent
+        border: 1px solid var(--primary)
+        background: none
+        transition: background .2s ease-out
+
+        &:hover
+            background: var(--primary)

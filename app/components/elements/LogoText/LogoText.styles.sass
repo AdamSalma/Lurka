@@ -1,0 +1,30 @@
+@import '~sass/utils'
+
+.LogoText
+    text-align: left
+    position: relative
+    top: -2px
+    color: var(--primary)
+    font-size: 22px
+    height: 100%
+
+    .center-content
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+
+    .name
+        top: -2px
+        position: relative
+        font-size: 1em
+        font-family: font-for(LogoText__name)
+        letter-spacing: .075em
+
+    .version
+        letter-spacing: .075em
+        font-size: 13px
+        font-family: font-for(LogoText__version)
+        color: var(--textSecondary)
+        position: absolute
+        top: 21px
+        left: 4px

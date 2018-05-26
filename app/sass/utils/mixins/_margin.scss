@@ -1,0 +1,122 @@
+/** Margin API:
+
+All sides
+  +margin()
+  +margin($size)
+
+X - Y sides:
+  +margin($x, $y)
+
+Custom sides:
+  +margin($top, $right, $bottom, $left)
+
+Individual sides (must be explicit with side names):
+  +margin($left: $your-left)
+  +margin($right: $your-right)
+  +margin($bottom: $your-bottom)
+
+NOTE: Cannot individually specify `$top` because it clashes
+with `$size`. Use `+margin-top($your-top)` instead
+
+-------------------------
+
+Look inside `../variables.scss` for scale sizes
+
+*/
+
+@mixin margin($top: 1, $right: null, $bottom: null, $left: null) {
+  @if ($top and $right and $bottom and $left) {
+    // All
+    @include margin-top($top);
+    @include margin-right($right);
+    @include margin-bottom($bottom);
+    @include margin-left($left);
+
+  } @else if ($top and $right and $bottom) {
+    // $right becomes X
+    @include margin-top($top);
+    @include margin-x($right);
+    @include margin-bottom($bottom);
+
+  } @else if ($top and $right) {
+    // $top becomes X
+    // $right becomes Y
+    @include margin-y($top);
+    @include margin-x($right);
+
+  } @else if ($top) {
+    // $top becomes size
+    @include margin-y($top);
+    @include margin-x($top);
+  }
+
+  // Individual sides
+  @else if ($right) {
+    @include margin-right($right)
+  } @else if ($bottom) {
+    @include margin-bottom($bottom)
+  } @else if ($left) {
+    @include margin-left($left)
+  }
+
+  // All hope is lost
+  @else {
+    @error "margin(#{$top}, #{$right}, #{$bottom}, #{$left}): Invalid parameters"
+  }
+}
+
+
+/* Individual side mixins */
+@mixin margin-top($size: 1) {
+  margin-top: map-get($spacing-sizes, $size);
+}
+
+@mixin margin-bottom($size: 1) {
+  margin-bottom: map-get($spacing-sizes, $size);
+}
+
+@mixin margin-right($size: 1) {
+  @if ($size == 'auto') {
+    margin-right: auto;
+  } @else {
+    margin-right: map-get($spacing-sizes, $size);
+  }
+}
+
+@mixin margin-left($size: 1) {
+  @if ($size == 'auto') {
+    margin-left: auto;
+  } @else {
+    margin-left: map-get($spacing-sizes, $size);
+  }
+}
+
+
+/* Horizontal / Vertical mixins */
+@mixin margin-x($right: 1, $left: null) {
+  @if ($right and $left) {
+    @include margin-right($right);
+    @include margin-left($left);
+  }
+  @else if ($right and not $left) {
+    @include margin-right($right);
+    @include margin-left($right);
+  }
+  @else {
+    @error "margin-x(#{$right}, #{$left}): Invalid parameters."
+  }
+}
+
+@mixin margin-y($top: 1, $bottom: null) {
+  @if ($top and $bottom) {
+    @include margin-top($top);
+    @include margin-bottom($bottom);
+  }
+  @else if ($top and not $bottom) {
+    @include margin-top($top);
+    @include margin-bottom($top);
+  }
+  @else {
+    @error "margin-y(#{$top}, #{$bottom}): Invalid parameters."
+  }
+}

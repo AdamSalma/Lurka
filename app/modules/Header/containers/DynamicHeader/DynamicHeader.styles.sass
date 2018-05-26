@@ -1,0 +1,313 @@
+@import '~sass/utils'
+
+$width: 100vw
+$height: $header-height + $subheader-height
+
+$ani-bezier: $bezier-fast
+$ani-duration: .24s
+$ani-delay: .066s
+$ani-duration-delayed: $ani-duration - $ani-delay $ani-delay $ani-bezier
+
+$ani-rules: $ani-duration $ani-bezier
+
+=animate($properties...)
+    transition: all $ani-rules
+    transition-property: $properties
+
+@keyframes RemoveUnderline
+    0%
+        transform: scaleX(1)
+        opacity: 1
+    to
+        transform: scaleX(1)
+        opacity: 0
+
+@keyframes AddUnderline
+    0%
+        transform: scaleX(0)
+    to
+        transform: scaleX(1)
+
+
+.DynamicHeader
+    +size($width, $height)
+    position: absolute
+    background: var(--interfaceColor)
+    +position(0, 0)
+    z-index: $mainheader-z-index
+    // box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12)
+    // border-bottom: var(--contentBorder) 2px solid
+    transition: height $ani-rules
+
+    .content
+        display: flex
+        +size(inherit)
+        flex-direction: row
+
+    .vertical-icon
+        +clickable
+        text-align: center
+        font-size: 28px
+        padding: 8px
+        max-width: 96px
+        margin: 0
+
+        // TESTING PROPERTIES
+        height: 100%
+        // display: flex
+        // align-items: center
+        // flex-direction: column
+        // justify-content: center
+
+        // transition: all $ani-rules, max-width .2s ease-out
+        // +animate(max-width, font-size, margin)
+        transition: font-size $ani-rules, margin-top $ani-rules, margin-right $ani-rules, max-width $ani-duration + .05s ease-out
+        position: relative
+
+        .title
+            font-size: 16px
+            font-family: font-for(DynamicHeader__Title)
+            display: block
+            color: var(--textSecondary)
+            margin-top: -4px
+
+            transition: opacity $ani-duration .2s ease-in
+            // transition: opacity $ani-duration .12s ease-out
+            opacity: 1
+
+        &.menu
+            width: 5rem
+
+    .FullLogo
+        font-family: font-for(DynamicHeader__LogoText)
+        padding-left: 4rem
+        font-size: 28px
+        // transition: all $ani-rules
+        +animate(padding, font-size)
+
+        .Logo
+            padding: 8px
+            transition: padding $ani-rules, margin-right $ani-rules
+            margin-right: 12px
+
+        .FullLogo__LogoVersion
+            position: absolute
+            top: 0
+            bottom: 0
+            margin: auto
+            height: 14px
+            margin-left: 19px
+            transform: translateY(16px)
+            font-family: $font-alt
+            opacity: 1
+            transition: opacity $ani-rules
+
+        .FullLogo__LogoText
+            transform: translateY(-8px)
+            transition: transform $ani-rules
+
+
+    .main-title
+        font-family: font-for(HeaderTitle)
+        // font-size: 28px
+        +font-size(3)
+        letter-spacing: .35em
+        transition: font-size $ani-rules, letter-spacing $ani-rules
+        margin: 0 1em
+        position: relative
+
+        .Icon
+            vertical-align: top
+            color: var(--textDisabled)
+            // color: var(--primaryLight)
+            font-size: 28px
+
+    // Icons next to title in center
+    .shrink-icon
+        +clickable
+        +font-size(2)
+        // font-size: 20px
+        color: var(--textSecondary)
+        opacity: 0
+        padding: 0 .5rem
+        position: relative
+        // top: 17px
+        margin: 0 4px
+        height: 100%
+        display: flex !important
+        align-items: center
+
+    .Icon
+        vertical-align: middle
+
+    // "Watch" notification icon
+    .Notification__content
+        top: 0px
+        left: 30px
+
+    .hide-on-expanded
+        opacity: 0
+
+
+
+
+
+
+
+
+// Applied when user scrolls down
+.DynamicHeader.shrink
+    height: $header-height
+    background: var(--interfaceColor)
+    // box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12)
+
+    .hide-on-expanded
+        opacity: 1
+
+    .main-title
+        font-size: 21.5px
+        letter-spacing: .25em
+        margin: 0
+        // margin-top: 21.5px
+        // margin-right: 0px
+        margin-top: 7px
+
+
+
+        .Icon
+            display: none !important
+
+        &::before
+            display: none
+
+    .vertical-icon
+        font-size: 24px
+        max-width: 40px
+        +animate(max-width, font-size, margin-top, margin-right)
+        margin-top: 6px
+        margin-right: 16px
+
+        .title
+            transition: opacity $ani-rules
+            opacity: 0
+
+    .FullLogo
+        padding-left: 1rem
+        font-size: 24px
+
+        .Logo
+            padding: 8px
+            margin-right: 4px
+
+    .shrink-icon
+        opacity: 1
+        transition: opacity $ani-duration $ani-duration/2 $ani-bezier, color .1s ease-out
+
+    .Notification__content
+        left: 26px
+
+    .FullLogo__LogoText
+        transform: translateY(0)
+
+    .FullLogo__LogoVersion
+        opacity: 0
+
+
+
+
+
+
+
+
+
+// Flex positioning
+.DynamicHeader .HeaderGroup
+    padding: 0 8px
+    transition: padding $key-animation-duration $key-bezier-animation-out
+    display: flex
+    justify-content: center
+    align-items: center
+    flex: 1
+
+    &.left
+        margin-left: 0
+        margin-right: auto
+
+        > :first-child
+            margin-left: 2rem
+
+        > :last-child
+            margin-right: auto
+
+    &.right
+        padding-right: 0
+        margin-left: auto
+
+        > :first-child
+            margin-left: auto
+
+        > :last-child
+            margin-right: 2rem
+
+    &.center
+        margin: 0 auto
+        text-align: center
+        flex: 1
+
+    > *
+        display: inline-block
+
+.ButtonIndent
+    +no-select
+    position: relative
+    height: inherit
+    margin: 0 font-size(-1, 1px)
+
+    &::before
+        content: ""
+        position: absolute
+        +size(100%, 2px)
+        bottom: -15px
+        left: 0
+        right: 0
+        z-index: -1
+        background: $primary
+        transform: scaleX(0)
+        animation: RemoveUnderline .3s cubic-bezier(0.4,0,0.2,1)
+
+    &:hover, &.is-active
+        &::before
+            transform: scaleX(1)
+            animation: AddUnderline .3s cubic-bezier(0.4,0,0.2,1)
+        &::after
+            opacity: 1
+
+    &::after
+        transition: opacity .3s ease-out
+        content: ""
+        position: absolute
+        top: -15px
+        opacity: 0
+        left: 0
+        right: 0
+        $bgc: rgba(104, 48, 48, 0.5)
+        background: $bgc
+        background-image: linear-gradient(to top, $bgc, transparent 50%)
+        height: $header-height + $subheader-height
+        z-index: -2
+
+
+.DynamicHeader.shrink .ButtonIndent
+    height: 100%
+
+    &::before, &::after
+        // bottom: 10px
+        left: -8px
+        right: 8px
+    &::before
+        bottom: 0
+    &::after
+        top: -2px
+        height: $header-height
+        // top: 0
+        // bottom: 0
