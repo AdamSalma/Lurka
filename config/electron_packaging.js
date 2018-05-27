@@ -2,6 +2,8 @@ import minimist from "minimist";
 import { Platform, Arch } from "electron-builder";
 import paths from "./paths";
 import fs from "fs";
+import packageJson from '-/package.json'
+
 
 const availableTargets = {
   boolean: [
@@ -19,7 +21,8 @@ const availableTargets = {
 process.env.DEBUG = "electron-builder";
 
 // The setup filename
-const artifactName = "${productName}Setup-${os}${arch}.${ext}";
+const artifactName = "${productName}Setup-${os}.${ext}";
+const iconPath = "public/images/icon.ico";
 
 // Publishing options
 const publish = {
@@ -34,11 +37,15 @@ const publish = {
  * Windows Configuration
  */
 const windowsConfig = {
-  targets: Platform.WINDOWS.createTarget(
-    ["nsis", "portable"],
-    Arch.ia32,
-    Arch.x64
-  )
+  targets: Platform.WINDOWS.createTarget("nsis", Arch.ia32, Arch.x64),
+  nsis: {
+    oneClick: false,
+    allowToChangeInstallationDirectory: true,
+    installerIcon: iconPath,
+    icon: iconPath,
+    publish
+  },
+  icon: iconPath
 };
 
 /**
@@ -62,15 +69,19 @@ const macConfig = {
         }
       ],
       artifactName
-    }
-  }
+    },
+    artifactName
+  },
+  artifactName
 };
 
 /**
  * Linux configuration
  */
 const linuxConfig = {
-  targets: Platform.LINUX.createTarget(["AppImage", "deb"])
+  targets: Platform.LINUX.createTarget(["AppImage", "deb"]),
+  config: { artifactName },
+  artifactName
 };
 
 /**
@@ -84,16 +95,7 @@ const currentConfig = {
 /**
  * Appveyor Configuration
  */
-const appveyorConfig = {
-  targets: Platform.WINDOWS.createTarget("nsis", Arch.ia32, Arch.x64),
-  nsis: {
-    oneClick: false,
-    allowToChangeInstallationDirectory: true,
-    installerIcon: "public/images/icon.*",
-    icon: "public/images/icon.*",
-    publish
-  }
-};
+const appveyorConfig = withPublishing(windowsConfig);
 
 /**
  * Travis Configuration
@@ -122,22 +124,23 @@ export default function getElectronPackageConfig(args) {
 
   /**
    * CI/CD
+   * -----
    */
 
-  // Windows (AppVeyor deployments)
+  // AppVeyor CI (Windows)
   if (opts.appveyor) {
     console.info("Packaging for Appveyor (Windows)");
     return withDefaults(appveyorConfig, args);
   }
-
-  // Mac + Linux (Travis CI packages)
+  // Travis CI (Mac + Linux)
   if (opts.travis) {
     console.info("Packaging for TravisCI (Mac + Linux)");
     return withDefaults(travisConfig, args);
   }
 
   /**
-   * SINGULAR
+   * SINGLE PLATFORM
+   * ---------------
    */
 
   // Windows
@@ -145,13 +148,11 @@ export default function getElectronPackageConfig(args) {
     console.info("Packaging for Windows");
     return withDefaults(windowsConfig);
   }
-
   // OSx
   if (opts.mac || opts.osx) {
     console.info("Packaging for MacOS");
     return withDefaults(macConfig);
   }
-
   // Single Linux packaging
   if (opts.linux) {
     console.info("Packaging for Linux");
@@ -174,8 +175,8 @@ const createDefaulter = args => build => {
       productName: "Lurka",
       files: [
           "build/**/*",
-          "public/images/icon.*"
-    ],
+          "public/images/icon.ico"
+      ],
       directories: {
         buildResources: "build",
         output: "dist"
@@ -211,6 +212,7 @@ function withPublishing(build) {
     ...build,
     config: {
       ...build.config,
+      artifactName,
       publish
     }
   };

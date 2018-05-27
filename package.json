@@ -44,7 +44,7 @@
   "build": {
     "files": [
       "build/**/*",
-      "public/images/icon.*"
+      "public/images/icon.ico"
     ]
   },
   "repository": {
