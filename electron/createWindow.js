@@ -31,7 +31,7 @@ export default function createWindows(app) {
     createMainWindow();
 
     if (process.env.NODE_ENV == "development") {
-        main.webContents.openDevTools('right');
+        main.webContents.openDevTools();
     }
 
     // Display UI when bundled and ready

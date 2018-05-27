@@ -5,7 +5,8 @@ import fs from "fs";
 import packageJson from '-/package.json'
 
 // console.log(packageJson)
-process.env.GH_TOKEN = "fbf7ae65d9d47bf1ca2fe096bfbb46e42e9072d3"
+// process.env.GH_TOKEN = "fbf7ae65d9d47bf1ca2fe096bfbb46e42e9072d3";
+process.env.GH_TOKEN = "f6effa59f9de1d8027f13980dd2754d638508d84";
 // throw new Error();
 
 const availableTargets = {
@@ -82,7 +83,7 @@ const macConfig = {
  * Linux configuration
  */
 const linuxConfig = {
-  targets: Platform.LINUX.createTarget(["deb"]),
+  targets: Platform.LINUX.createTarget(["snap"]),
   config: { artifactName },
   artifactName
 };
