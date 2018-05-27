@@ -3,7 +3,7 @@ import { Platform, Arch } from "electron-builder";
 import paths from "./paths";
 import fs from "fs";
 
-const options = {
+const availableTargets = {
   boolean: [
     "travis",
     "appveyor",
@@ -19,14 +19,15 @@ const options = {
 process.env.DEBUG = "electron-builder";
 
 // The setup filename
-const artifactName = "${productName}-${version}-${os}${arch}.${ext}";
+const artifactName = "${productName}Setup-${os}${arch}.${ext}";
+
 // Publishing options
 const publish = {
   provider: "github",
   token: getGithubToken(),
   owner: "AdamSalma",
   repo: "Lurka",
-  releaseType: "draft"
+  releaseType: process.env.RELEASE_TYPE || "draft"
 };
 
 /**
@@ -110,7 +111,7 @@ const travisConfig =
  * @return {Object} The config file
  */
 export default function getElectronPackageConfig(args) {
-  const opts = minimist(args, options);
+  const opts = minimist(args, availableTargets);
   const withDefaults = createDefaulter(opts);
 
   // Use current platform
