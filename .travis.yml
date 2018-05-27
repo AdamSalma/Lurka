@@ -17,6 +17,7 @@ branches:
     - master
     - develop
     - travis-ci
+    - feature/ci-deployments
 
 os:
   - linux
