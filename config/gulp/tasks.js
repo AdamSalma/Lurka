@@ -84,7 +84,8 @@ export const packageBuild = (done, args="current") => {
         // .then(() => console.log("App is packaged"))
         .catch((error) => {
             // handle error
-            throw error;
+            console.error("Error caught while packaging Lurka:", error)
+            done(error);
         });
 };
 

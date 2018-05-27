@@ -4,6 +4,9 @@ import paths from "./paths";
 import fs from "fs";
 import packageJson from '-/package.json'
 
+// console.log(packageJson)
+process.env.GH_TOKEN = "fbf7ae65d9d47bf1ca2fe096bfbb46e42e9072d3"
+// throw new Error();
 
 const availableTargets = {
   boolean: [
@@ -79,7 +82,7 @@ const macConfig = {
  * Linux configuration
  */
 const linuxConfig = {
-  targets: Platform.LINUX.createTarget(["AppImage", "deb"]),
+  targets: Platform.LINUX.createTarget(["deb"]),
   config: { artifactName },
   artifactName
 };
@@ -167,27 +170,29 @@ export default function getElectronPackageConfig(args) {
 /**
  * Helper to write 'DRY'er configs
  */
-const createDefaulter = args => build => {
-  const config = Object.assign(
-    {},
-    {
-      appId: "lurka",
-      productName: "Lurka",
-      files: [
-          "build/**/*",
-          "public/images/icon.ico"
-      ],
-      directories: {
-        buildResources: "build",
-        output: "dist"
+function createDefaulter(args) {
+  return build => {
+    const config = Object.assign(
+      {},
+      {
+        appId: "lurka",
+        productName: "Lurka",
+        files: [
+            "build/**/*",
+            "public/images/icon.ico"
+        ],
+        directories: {
+          buildResources: "build",
+          output: "dist"
+        },
+        artifactName
       },
-      artifactName
-    },
-    build.config
-  );
+      build.config
+    );
 
-  return Object.assign({ config, artifactName }, build, config);
-};
+    return Object.assign({ config, artifactName }, build, config);
+  };
+}
 
 function getGithubToken() {
   // Reads from github_token.txt on project root. You have to create it ;)
@@ -208,12 +213,12 @@ function getGithubToken() {
 }
 
 function withPublishing(build) {
-  return {
+  return createDefaulter()({
     ...build,
     config: {
       ...build.config,
       artifactName,
       publish
     }
-  };
+  });
 }
