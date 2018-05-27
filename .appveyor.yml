@@ -2,8 +2,6 @@ os: unstable
 
 # Test against this version of Node.js
 environment:
-  # Is Encrypted:
-  GH_TOKEN: x2jkNPuuroRIwLHO8xpFuOLprcGnTbokQnFF3gWAQUstPdCUDVQIu+bs19OytDy8
   matrix:
     # node.js
     - nodejs_version: "6"
@@ -28,7 +26,7 @@ branches:
   only:
     - master
     - develop
-    - appveyor
+    - appveyor-ci
 
 build: off
 version: '{build}'
