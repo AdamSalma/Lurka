@@ -11,5 +11,5 @@ export const register = (gulp) => {
  * @return {Function}
  */
 export const createPackager = (platforms) => function packager(done) {
-    return packageBuild(done, platforms.split(' ').map(p => `--${p}`));
+    return packageBuild(platforms.split(" ").map(p => `--${p}`), done);
 }

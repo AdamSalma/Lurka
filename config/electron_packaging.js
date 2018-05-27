@@ -4,7 +4,6 @@ import paths from "./paths";
 import fs from "fs";
 import packageJson from '-/package.json'
 
-
 const availableTargets = {
   boolean: [
     "travis",
@@ -167,27 +166,29 @@ export default function getElectronPackageConfig(args) {
 /**
  * Helper to write 'DRY'er configs
  */
-const createDefaulter = args => build => {
-  const config = Object.assign(
-    {},
-    {
-      appId: "lurka",
-      productName: "Lurka",
-      files: [
-          "build/**/*",
-          "public/images/icon.ico"
-      ],
-      directories: {
-        buildResources: "build",
-        output: "dist"
+function createDefaulter(args) {
+  return build => {
+    const config = Object.assign(
+      {},
+      {
+        appId: "lurka",
+        productName: "Lurka",
+        files: [
+            "build/**/*",
+            "public/images/icon.ico"
+        ],
+        directories: {
+          buildResources: "build",
+          output: "dist"
+        },
+        artifactName
       },
-      artifactName
-    },
-    build.config
-  );
+      build.config
+    );
 
-  return Object.assign({ config, artifactName }, build, config);
-};
+    return Object.assign({ config, artifactName }, build, config);
+  };
+}
 
 function getGithubToken() {
   // Reads from github_token.txt on project root. You have to create it ;)
@@ -208,12 +209,12 @@ function getGithubToken() {
 }
 
 function withPublishing(build) {
-  return {
+  return createDefaulter()({
     ...build,
     config: {
       ...build.config,
       artifactName,
       publish
     }
-  };
+  });
 }
