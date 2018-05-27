@@ -83,7 +83,7 @@ const macConfig = {
  * Linux configuration
  */
 const linuxConfig = {
-  targets: Platform.LINUX.createTarget(["snap"]),
+  targets: Platform.LINUX.createTarget(["AppImage", "deb"]),
   config: { artifactName },
   artifactName
 };
