@@ -73,8 +73,8 @@ export const mkdirDist = (done) => {
 
 /* Packaging tasks */
 
-export const packageBuild = (done, args="current") => {
-    const config = getElectronPackageConfig(args);
+export const packageBuild = (target="current", done) => {
+    const config = getElectronPackageConfig(target);
     console.dir(config);
 
     require('electron-builder')
@@ -84,6 +84,7 @@ export const packageBuild = (done, args="current") => {
         // .then(() => console.log("App is packaged"))
         .catch((error) => {
             // handle error
+            done(error);
             throw error;
         });
 };
