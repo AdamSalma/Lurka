@@ -27,6 +27,7 @@ branches:
     - master
     - develop
     - appveyor-ci
+    - features/ci-deployments
 
 build: off
 version: '{build}'
