@@ -2,8 +2,6 @@ os: unstable
 
 # Test against this version of Node.js
 environment:
-  # Is Encrypted:
-  GH_TOKEN: 3mnajl1j8OWZMmKX8HiN8y5titQ2BXdu82dSDGnVjyvzHQA1A90aFGsKl6KCUYGt
   matrix:
     # node.js
     - nodejs_version: "6"
