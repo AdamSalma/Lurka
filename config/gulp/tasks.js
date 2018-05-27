@@ -75,7 +75,6 @@ export const mkdirDist = (done) => {
 
 export const packageBuild = (target="current", done) => {
     const config = getElectronPackageConfig(target);
-    console.dir(config);
 
     require('electron-builder')
         .build(config)
