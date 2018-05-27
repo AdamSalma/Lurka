@@ -3,10 +3,10 @@ os: unstable
 # Test against this version of Node.js
 environment:
   # Is Encrypted:
-  GH_TOKEN: x2jkNPuuroRIwLHO8xpFuOLprcGnTbokQnFF3gWAQUstPdCUDVQIu+bs19OytDy8
+  GH_TOKEN: 3mnajl1j8OWZMmKX8HiN8y5titQ2BXdu82dSDGnVjyvzHQA1A90aFGsKl6KCUYGt
   matrix:
     # node.js
-    - nodejs_version: "6"
+    - nodejs_version: "8"
 
 # Install scripts. (runs after repo cloning)
 install:
@@ -28,7 +28,7 @@ branches:
   only:
     - master
     - develop
-    - appveyor
+    - appveyor-ci
 
 build: off
 version: '{build}'
