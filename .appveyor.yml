@@ -4,7 +4,7 @@ os: unstable
 environment:
   matrix:
     # node.js
-    - nodejs_version: "6"
+    - nodejs_version: "8"
 
 # Install scripts. (runs after repo cloning)
 install:
