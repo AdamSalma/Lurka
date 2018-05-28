@@ -51,7 +51,7 @@ const windowsConfig = {
  * Mac configuration
  */
 const macConfig = {
-  targets: Platform.MAC.createTarget(),
+  targets: Platform.MAC.createTarget(["dmg"]),
   config: {
     target: ["dmg"],
     dmg: {
