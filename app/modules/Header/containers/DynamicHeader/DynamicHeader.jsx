@@ -9,7 +9,6 @@ import {
     HeaderGroup,
     BoardSpecs,
     ContentButtonGroup,
-    FullLogo,
     SlideDownBG,
     VerticallyTitledIcon as TitledIcon
 } from '../../components';
@@ -19,7 +18,8 @@ import {
     SearchBar,
     Icon,
     Notification,
-    Tooltip
+    Tooltip,
+    FullLogo
 } from '~/components';
 
 /* Events */
@@ -177,13 +177,7 @@ class DynamicHeader extends PureComponent {
               <div className='background' />
               <div className='content'>
                 <HeaderGroup className='left'>
-                  <ButtonIndent onClick={this.toggleMenuPanel} isActive={this.state.panelID == "menu"}>
-                    <div className="vertical-icon menu" >
-                        <Icon name={i.navbarMenu}/>
-                        <span className="title">Menu</span>
-                    </div>
-                  </ButtonIndent>
-                  <FullLogo className="DynamicHeader__FullLogo"/>
+                  <FullLogo/>
                 </HeaderGroup>
                 <HeaderGroup className='center' onMouseEnter={this.onTitleHover}>
 
