@@ -29,7 +29,7 @@ const publish = {
   token: getGithubToken(),
   owner: "AdamSalma",
   repo: "Lurka",
-  releaseType: process.env.RELEASE_TYPE || "draft"
+  releaseType: process.env.LURKA_RELEASE_TYPE || "draft"
 };
 
 /**
