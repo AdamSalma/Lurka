@@ -1,0 +1,55 @@
+@import '~sass/utils'
+
+$logo-offset: 3px
+$logo-padding: 8px
+$letter-spacing: .1rem
+
+.FullLogo
+    display: flex !important
+    justify-content: center
+    +clickable
+    line-height: 1
+    font-size: 26px
+    font-family: font-for(FullLogo)
+
+    &::before
+        +size(100%, 2px)
+        background-color: var(--primary)
+        top: 0
+        position: absolute
+        left: 0
+
+    .logo
+        +size($header-height - $logo-offset)
+        padding: $logo-padding + $logo-offset
+        padding: $logo-padding
+        top: 0
+
+    .wrapper
+        position: relative
+        font-family: $font-main-light
+
+        .text
+            letter-spacing: $letter-spacing
+            position: relative
+            color: var(--textPrimary)
+            transform: translateY(10px)
+            // margin-top: .4em
+
+        .version
+            color: var(--textDisabled)
+            display: block
+            font-size: 12px
+            position: absolute
+            bottom: 10px
+            left: 0
+            margin: .5em auto
+            transform: translateY(8px)
+            font-family: $font-alt
+            opacity: 1
+            margin-left: $letter-spacing
+            margin-right: $letter-spacing
+
+
+    &:hover .text
+        color: var(--primary)

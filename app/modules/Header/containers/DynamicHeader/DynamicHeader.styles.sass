@@ -80,7 +80,7 @@ $ani-rules: $ani-duration $ani-bezier
 
     .FullLogo
         font-family: font-for(DynamicHeader__LogoText)
-        padding-left: 4rem
+        padding-left: 1rem
         font-size: 28px
         // transition: all $ani-rules
         +animate(padding, font-size)
@@ -90,20 +90,10 @@ $ani-rules: $ani-duration $ani-bezier
             transition: padding $ani-rules, margin-right $ani-rules
             margin-right: 12px
 
-        .FullLogo__LogoVersion
-            position: absolute
-            top: 0
-            bottom: 0
-            margin: auto
-            height: 14px
-            margin-left: 19px
-            transform: translateY(16px)
-            font-family: $font-alt
-            opacity: 1
+        .version
             transition: opacity $ani-rules
 
-        .FullLogo__LogoText
-            transform: translateY(-8px)
+        .text
             transition: transform $ani-rules
 
 
@@ -192,12 +182,19 @@ $ani-rules: $ani-duration $ani-bezier
             opacity: 0
 
     .FullLogo
-        padding-left: 1rem
+        padding-left: 0
         font-size: 24px
 
-        .Logo
+        .logo
             padding: 8px
             margin-right: 4px
+
+        .text
+            transform: translate(4px, 18px)
+
+
+        .version
+            opacity: 0
 
     .shrink-icon
         opacity: 1
@@ -206,11 +203,6 @@ $ani-rules: $ani-duration $ani-bezier
     .Notification__content
         left: 26px
 
-    .FullLogo__LogoText
-        transform: translateY(0)
-
-    .FullLogo__LogoVersion
-        opacity: 0
 
 
 
