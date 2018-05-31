@@ -21,10 +21,11 @@ $subheader-border-color: $grey-lightest
     box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12);
     backface-visibility: hidden
     z-index: 11
+    font-size: 0.85em
 
     .background
         transition: opacity $animation-speed-fast $bezier-fast
-        background: var(--interfaceColor)
+        background: var(--contentColor)
         +set-dims(inherit, inherit)
         position: absolute
         z-index: -1
@@ -50,9 +51,12 @@ $subheader-border-color: $grey-lightest
         // flex-wrap: block
         align-items: center
         // padding: $header-padding
-        border-bottom: 2px $subheader-border-color solid
-        box-shadow: 0 0 5px $grey-darkest
-        padding-left: .5em
+        border-bottom: 2px var(--interfaceColor) solid
+        // box-shadow: 0 0 5px $grey-darkest
+        box-shadow: 0PX 3PX 7px #080808 inset, 0PX -1PX 5px #080808 inset
+
+        padding-left: 38px
+        padding-right: 14px
 
     .Button
         margin: 0 .5em
@@ -128,7 +132,7 @@ $subheader-border-color: $grey-lightest
 
     .Button
         // height: 6px
-        font-size: 1em
+        font-size: 0.85em
         padding-top: 0
         padding-bottom: 0
 

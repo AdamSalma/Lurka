@@ -11,6 +11,7 @@ import {
     onPostToggle,
     onPostReferenced,
     emitThreadMove,
+    emitSettingsToggle
 } from '~/events'
 import { isDefined, isFunction } from '~/utils/types'
 
@@ -45,6 +46,7 @@ export class Post extends Component {
         if (this.state.isOpen) {
             this.preparePostForClose(...arguments)
         } else {
+            emitSettingsToggle(false); // close drawer
             this.preparePostForOpen(...arguments)
         }
     }

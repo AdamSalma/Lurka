@@ -151,11 +151,11 @@ export class Thread extends Component {
 
         this.events = setupThreadEvents(threadReference);
 
-        // Creates the initial scroller
-        this.updateScroller(this.scrollerOpts);
-
         // Handle media registry
         this.mediaRegistery = new MediaRegistry(threadReference, this.events.scrollToPost, scrollConfig)
+
+        // Creates the initial scroller
+        this.updateScroller(this.scrollerOpts);
     }
 
     teardownThreadEvents = () => {
@@ -192,6 +192,8 @@ export class Thread extends Component {
             return null
         }
 
+        const ThreadControlsComponent = this.renderControls();
+
         return (
             <div className={cx("Thread", className)}>
                 <Overlay
@@ -206,29 +208,18 @@ export class Thread extends Component {
                     className="content"
                     containerProps={{className:threadContainerClasses}}
                     ref={ref => this.scrollComponent = ref}
-
                 >
                     {this.renderHeader(posts)}
                     <ThreadPosts posts={posts}
+                        // "quickRender" is used to increase animation performance by
+                        // rendering just a few posts initially so that the DOM load
+                        // isn't too heavy when opening the Thread via an animation
                         quickRender={isOpening || !isOpen && !isClosing}
                         mediaRegistery={this.mediaRegistery}
                         ref={ref => this._postsRef = ref}
                     />
-                    {/*this.renderPosts(posts)*/}
                 </Scrollable>
-
-                {/*<div ref={ref => this._threadWrap = ref} className={threadContainerClasses}>
-                    <div
-                      className='content nano-content'
-                      ref={ref => this._thread = ref}
-                      onClick={this.closeThread}
-                      onScroll={undefined /*this.onScroll}>
-                        {this.renderHeader(posts)}
-                        {this.renderPosts(posts)}
-                    </div>
-                </div>*/}
-
-                {this.renderControls()}
+                {ThreadControlsComponent}
             </div>
         )
     }

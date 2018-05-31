@@ -14,7 +14,7 @@ $thread-end-gap: 200px
         display: none
         +set-dims($thread-width, 100vh)
         position: absolute
-        top: 0
+        top: $header-height + $subheader-height
         left: 0
         right: 0
         margin: 0 auto
@@ -36,7 +36,7 @@ $thread-end-gap: 200px
             transition: box-shadow $animation-speed-normal $bezier-slow
 
     .content
-        top: $header-height + $subheader-height
+        // top: $header-height + $subheader-height
         +will-change(transform)
         position: absolute
         width: calc(100% + 19px)
@@ -53,7 +53,7 @@ $thread-end-gap: 200px
         width: $thread-scroller-width
         background: $grey-darkest
         z-index: 2
-        margin-top: $header-height
+        // margin-top: $header-height
 
     .Thread__start-gap
         height: $subheader-height

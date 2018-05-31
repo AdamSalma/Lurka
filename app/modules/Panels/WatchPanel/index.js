@@ -10,9 +10,10 @@ import {
     TimeAgo,
     Icon,
     Line,
-    Scrollable
+    Scrollable,
+    Button
 } from '~/components'
-import {emitThreadClose} from '~/events';
+import { emitThreadClose, emitSettingsToggle, emitPostToggle } from "~/events";
 
 const i = Lurka.icons
 
@@ -20,8 +21,15 @@ const i = Lurka.icons
 export class WatchPanel extends Component {
 
     // Used by parent to control UI
-    show = (args) => this.transitioner.show(args);
-    hide = (args) => this.transitioner.hide(args);
+    show = (args) => {
+        this.transitioner.show(args);
+        emitPostToggle({ override: false });
+        emitSettingsToggle(true)
+    }
+    hide = (args) => {
+        this.transitioner.hide(args);
+        emitSettingsToggle(false)
+    }
     setTransitionerRef = (ref) => this.transitioner = ref;
 
     render() {
@@ -31,22 +39,22 @@ export class WatchPanel extends Component {
             'show-description': !queue || !queue.length,
         });
 
-        return (
-            <SlideTransition effect="from right" ref={this.setTransitionerRef} className={watchClass}>
-                <div className="watch-title"><h3>Thread Watcher</h3></div>
-                <div className="description">
-                    No posts are currently being watched
-                </div>
-                <Scrollable className="tilt-container">
-                    {this.renderWatchEntityGroups(queue)}
-                    <div className="Controls">
-                        controls here
-                        <h4> oi
-                        </h4>
-                    </div>
-                </Scrollable>
-            </SlideTransition>
-        );
+        return <SlideTransition effect="from right" ref={this.setTransitionerRef} className={watchClass}>
+            <div className="watch-title">
+              <h3>Thread Watcher</h3>
+            </div>
+            <div className="description">
+              No posts are currently being watched
+            </div>
+            <Button onClick={emitSettingsToggle} value="hello" />
+            <Scrollable className="tilt-container">
+              {this.renderWatchEntityGroups(queue)}
+              <div className="Controls">
+                controls here
+                <h4> oi</h4>
+              </div>
+            </Scrollable>
+          </SlideTransition>;
 
     }
 

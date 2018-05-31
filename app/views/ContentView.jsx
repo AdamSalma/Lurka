@@ -7,7 +7,7 @@ import {
     Board,
     Thread,
     Header,
-    Settings as Drawer
+    // Settings as Drawer
 } from '~/modules'
 
 import { onContentViewToggle } from '~/events/subscribers';
@@ -78,7 +78,7 @@ class ContentView extends Component {
               <Header.containers.DynamicHeader />
               <Board />
               <Thread />
-              <Drawer />
+              {/* <Drawer /> */}
             </section>
         )
     }
