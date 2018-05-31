@@ -233,12 +233,12 @@ class DynamicHeader extends PureComponent {
                         </div>
                     </ButtonIndent>
  */}
-                    <ButtonIndent onClick={this.toggleSettingsPanel} isActive={this.state.panelID == "settings"}>
+                    {/* <ButtonIndent onClick={this.toggleSettingsPanel} isActive={this.state.panelID == "settings"}>
                         <div className="vertical-icon" >
                             <Icon name={i.navbarSettings}/>
                             <span className="title">Settings</span>
                         </div>
-                    </ButtonIndent>
+                    </ButtonIndent> */}
                 </HeaderGroup>
               </div>
             </div>
