@@ -1,6 +1,5 @@
 export {default as BoardSpecs} from './BoardSpecs';
 export {default as ContentButtonGroup} from './ContentButtonGroup';
-export {default as FullLogo} from './FullLogo';
 export {default as HeaderGroup} from './HeaderGroup';
 export {default as HeaderTitle} from './HeaderTitle';
 export {default as IconGroup} from './IconGroup';
