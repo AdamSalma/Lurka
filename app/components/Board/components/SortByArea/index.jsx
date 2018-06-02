@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 
 import './styles';
-import { Card } from '~/components'
+import { Card } from '~/components/UI'
 
 const SortByArea = ({ className, sortBy="bumporder", onSortByBumpOrder, onSortByLastReply, onSortByCreationDate, onSortByReplyCount }) => {
     return (

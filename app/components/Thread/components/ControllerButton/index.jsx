@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
 
-import {ButtonCircle} from '~/components';
+import {ButtonCircle} from '~/components/UI';
 import './styles';
 
 

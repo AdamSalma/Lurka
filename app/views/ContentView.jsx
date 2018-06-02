@@ -8,7 +8,7 @@ import {
     Thread,
     Header,
     // Settings as Drawer
-} from '~/modules'
+} from '~/components'
 
 import { onContentViewToggle } from '~/events/subscribers';
 

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import {
     Icon,
     VideoSpinner
-} from '~/components'
+} from '~/components/UI'
 
 const i = Lurka.icons;
 

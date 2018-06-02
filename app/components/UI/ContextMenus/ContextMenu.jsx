@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-import { Line } from '~/components'
+import { Line } from '~/components/UI'
 
 export const ContextMenu = ({ className, children, ...restProps }) => {
     return (

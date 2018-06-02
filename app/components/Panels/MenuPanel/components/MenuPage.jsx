@@ -1,5 +1,5 @@
 import React from 'react';
-import { Scrollable, Title } from '~/components'
+import { Scrollable, Title } from '~/components/UI'
 
 const MenuPage = ({ title, children, className }) => {
     return (

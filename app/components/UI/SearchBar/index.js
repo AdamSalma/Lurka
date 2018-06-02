@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import cx from 'classnames'
 import './styles'
 
-import { Icon } from '~/components'
+import { Icon } from '..'
 import { bindMembersToClass } from '~/utils/react'
 
 const i = Lurka.icons;

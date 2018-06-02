@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import cx from 'classnames'
 
-import { Panels } from '~/modules'
+import Panels from '~/components/Panels'
 
 import {
     emitHeaderPanelOpened,

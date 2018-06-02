@@ -8,7 +8,7 @@ import {
     ToggleOnClick,
     Image,
     Icon
-} from '~/components';
+} from '~/components/UI';
 
 import {
     ControlMenu,

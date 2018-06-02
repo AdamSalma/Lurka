@@ -3,7 +3,7 @@ import React, { PureComponent, PropTypes } from 'react';
 import cx from 'classnames'
 
 import SortIcon from './SortIcon'
-import {RadioGroup} from '~/components'
+import {RadioGroup} from '~/components/UI'
 
 // TODO: have draawer panels as individia; and make
 //

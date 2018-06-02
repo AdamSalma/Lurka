@@ -1,13 +1,13 @@
 import React from 'react';
 import cx from 'classnames';
-import * as components from '~/components'
+import {Icon} from '~/components/UI'
 
 const i = Lurka.icons
 
 const NextMediaButton = ({ className, ...restProps }) => {
     return (
         <div className={cx("next-media-button", className)} {...restProps}>
-            <components.Icon name={i.cinemaNextMedia}/>
+            <Icon name={i.cinemaNextMedia}/>
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles';
-import {CircleSpinner as Spinner} from '~/components'
+import {CircleSpinner as Spinner} from '~/components/UI'
 
 const BoardSpinner = () =>
     <div className="BoardSpinner">

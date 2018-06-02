@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Icon, ButtonCircle } from '~/components'
+import { Icon, ButtonCircle } from '~/components/UI'
 
 
 class WatchController extends Component {

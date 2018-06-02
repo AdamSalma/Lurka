@@ -4,7 +4,7 @@ import cx from 'classnames'
 
 import {
     SearchBar, LogoText, Icon
-} from '~/components'
+} from '~/components/UI'
 
 import { invokeAfterUninterruptedDelay } from '~/utils'
 

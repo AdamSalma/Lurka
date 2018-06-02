@@ -4,7 +4,7 @@ import cx from 'classnames'
 
 import {
     LogoText, Icon, Container
-} from '~/components'
+} from '~/components/UI'
 
 import { invokeAfterUninterruptedDelay } from '~/utils/throttle'
 import { bindMembersToClass } from '~/utils/react'

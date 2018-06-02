@@ -9,7 +9,7 @@ import {
     Icon,
     Line,
     Scrollable
-} from '~/components'
+} from '~/components/UI'
 
 
 export default class WatchPanel extends PureComponent {

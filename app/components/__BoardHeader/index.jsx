@@ -9,7 +9,7 @@ import {
     Title,
     CircleSpinner,
     ButtonWithPopout
-} from '~/components'
+} from '~/components/UI'
 
 const i = Lurka.icons;
 

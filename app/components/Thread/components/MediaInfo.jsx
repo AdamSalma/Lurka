@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon } from '~/components'
+import { Icon } from '~/components/UI'
 import { setHTML } from '~/utils/react'
 
 const MediaInfo = ({ media }) => {

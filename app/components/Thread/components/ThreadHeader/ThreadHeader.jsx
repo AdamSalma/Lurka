@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import {getShortTimeAgo} from '~/utils/time'
 
-import {TimeAgoShort} from '~/components';
+import {TimeAgoShort} from '~/components/UI';
 import { setHTML } from '~/utils/react';
 import { isDefined } from '~/utils/types';
 import './ThreadHeader.styles';

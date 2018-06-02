@@ -3,7 +3,7 @@ import {
     TimeAgo,
     Icon,
     Counter
-} from '~/components'
+} from '~/components/UI'
 
 
 import './BoardPostHeader.styles';

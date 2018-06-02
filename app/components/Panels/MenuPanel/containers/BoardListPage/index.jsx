@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import cx from 'classnames';
 
 import connect from './connect';
-import { Icon, Button, SearchBarWithIcons, Line } from '~/components';
+import { Icon, Button, SearchBarWithIcons, Line } from '~/components/UI';
 import { MenuPage } from '../../components';
 import BoardListItem from './BoardListItem';
 import './styles';

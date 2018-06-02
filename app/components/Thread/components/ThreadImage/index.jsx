@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { Icon, ExpandedImage, Zoom } from '~/components';
+import { Icon, ExpandedImage, Zoom } from '~/components/UI';
 import { Overlay } from '../';
 import cx from 'classnames';
 import utils from '~/utils';

@@ -7,7 +7,7 @@ import {
     Icon,
     IconCircle,
     ButtonCircle,
-} from '~/components';
+} from '~/components/UI';
 
 const i = Lurka.icons;
 const { siteKey } = Lurka.settings;

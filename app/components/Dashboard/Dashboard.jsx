@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import {BoardList, BoardSelection} from './containers';
 import {HomeBoard} from './components';
-import {Logo, Scrollable, Icon} from '~/components';
+import {Logo, Scrollable, Icon} from '~/components/UI';
 
 import './Dashboard.styles';
 

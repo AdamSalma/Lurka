@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon, ButtonCircle } from '~/components'
+import { Icon, ButtonCircle } from '~/components/UI'
 
 export default function(props) {
     // const { } = props;

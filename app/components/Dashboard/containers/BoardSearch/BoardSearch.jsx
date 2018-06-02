@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
 // import './BoardSearch.styles';
 
-import { SearchBar } from '~/components';
+import { SearchBar } from '~/components/UI';
 
 class BoardSearch extends Component {
     static propTypes = {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import cx from 'classnames';
 
 import Post from '../ThreadPost'
-import { ThreadPostContextMenu as ContextMenu } from '~/components';
+import { ThreadPostContextMenu as ContextMenu } from '~/components/UI';
 
 import { emitContextMenuOpen } from '~/events'
 

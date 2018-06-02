@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames'
-// import BoardSelection from '~/modules/BoardSelection';
-import Home from '~/modules/Home';
-import { Container } from '~/components';
+// import BoardSelection from '~/components/BoardSelection';
+import Home from '~/components/Home';
+import { Container } from '~/components/UI';
 import './HomeView.styles';
 
 const HomeView = ({ className, children }) => {

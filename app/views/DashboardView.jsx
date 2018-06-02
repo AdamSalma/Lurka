@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames'
 
-import Dashboard from '~/modules/Dashboard';
+import Dashboard from '~/components/Dashboard';
 
 const DashboardView = ({ className }) => {
     return (

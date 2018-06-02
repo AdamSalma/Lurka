@@ -1,7 +1,7 @@
 import './styles';
 import React from 'react';
 import cx from 'classnames';
-import { Button } from '~/components';
+import { Button } from '~/components/UI';
 
 const ButtonWithPopout = ({ className, popout, children, ...restProps }) => {
     return (

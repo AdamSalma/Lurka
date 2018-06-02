@@ -9,7 +9,7 @@ import {
     DualMedia,
     ButtonCircle,
     ThreadImageContextMenu as ContextMenu
-} from '~/components'
+} from '~/components/UI'
 
 import ThreadImage from '../ThreadImage';
 

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import cx from 'classnames';
-import {SearchBar, Icon} from '~/components';
+import {SearchBar, Icon} from '~/components/UI';
 import './styles';
 import {isDefined} from '~/utils/types';
 import {invokeAfterUninterruptedDelay} from '~/utils/throttle'

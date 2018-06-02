@@ -1,7 +1,7 @@
 import React from 'react';
 import { setHTML } from '~/utils/react';
 import { BoardPostHeader as PostHeader } from '.';
-import { Line } from '~/components';
+import { Line } from '~/components/UI';
 
 const BoardPostComment = ({ title, comment, time, replies }) => {
     return (

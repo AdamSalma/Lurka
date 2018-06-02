@@ -6,7 +6,7 @@ import './FullLogo.styles';
 import {
     Logo,
     LogoText
-} from '~/components';
+} from '~/components/UI';
 
 const FullLogo = ({ className }) => {
     return (

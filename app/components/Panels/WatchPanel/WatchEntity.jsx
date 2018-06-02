@@ -4,7 +4,7 @@ import cx from 'classnames';
 import {
     TimeAgoShort,
     Icon
-} from '~/components'
+} from '~/components/UI'
 import utils from '~/utils'
 
 const i = Lurka.icons

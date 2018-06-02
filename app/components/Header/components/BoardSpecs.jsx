@@ -6,7 +6,7 @@ import React, {
 import {
     Icon,
     Elipses
-} from '~/components';
+} from '~/components/UI';
 
 class BoardSpecs extends PureComponent {
     static propTypes = {

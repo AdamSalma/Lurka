@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import './styles';
 import { SlideTransition } from '../components'
-import { Icon, Button, SearchBarWithIcons } from '~/components'
+import { Icon, Button, SearchBarWithIcons } from '~/components/UI'
 import * as Pages from './containers';
 
 const i = Lurka.icons;

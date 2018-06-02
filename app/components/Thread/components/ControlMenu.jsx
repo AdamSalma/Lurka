@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon, Tooltip } from '~/components'
+import { Icon, Tooltip } from '~/components/UI'
 
 const i = Lurka.icons
 

@@ -20,7 +20,7 @@ import {
     Icon,
     Notification,
     Tooltip
-} from '~/components';
+} from '~/components/UI';
 
 /* Events */
 import {

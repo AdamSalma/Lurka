@@ -4,7 +4,7 @@ import { ChromePicker as ColorPicker } from 'react-color'
 
 import './ThemeTab.styles';
 import CSSInjector from '~/themes/CSSInjector';
-import {Scrollable} from '~/components';
+import {Scrollable} from '~/components/UI';
 import {emitThemeChange} from '~/events'
 import utils from '~/utils';
 

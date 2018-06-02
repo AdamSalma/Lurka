@@ -4,7 +4,7 @@ import {
     HeaderItem,
     ButtonCircle,
     Icon
-} from '~/components'
+} from '~/components/UI'
 
 const HeaderIcon = ({
         name,

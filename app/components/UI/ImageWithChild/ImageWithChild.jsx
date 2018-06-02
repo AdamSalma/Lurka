@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
-import { Image } from '~/components';
+import { Image } from '~/components/UI';
 
 const ImageWithChild = ({ className, children, ...restProps }) => {
     return (

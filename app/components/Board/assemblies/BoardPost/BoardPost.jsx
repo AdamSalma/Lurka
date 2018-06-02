@@ -9,7 +9,7 @@ import {
     Icon,
     // Image,
     Line
-} from '~/components'
+} from '~/components/UI'
 
 import {
     BoardPostHeader as Header,

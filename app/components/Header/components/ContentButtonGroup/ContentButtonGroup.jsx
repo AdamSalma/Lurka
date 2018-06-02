@@ -1,6 +1,6 @@
 import './ContentButtonGroup.styles';
 import React, { PropTypes } from 'react';
-import { Icon } from '~/components';
+import { Icon } from '~/components/UI';
 
 const i = Lurka.icons
 

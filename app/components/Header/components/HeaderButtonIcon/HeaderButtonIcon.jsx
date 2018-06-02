@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import './HeaderButtonIcon.styles';
 
-import { Icon } from '~/components';
+import { Icon } from '~/components/UI';
 
 const HeaderButtonIcon = ({ className, onClick, ...restProps }) => {
     return (

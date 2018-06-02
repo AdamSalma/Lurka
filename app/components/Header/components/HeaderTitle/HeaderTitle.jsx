@@ -2,7 +2,7 @@ import './HeaderTitle.styles';
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames'
 
-import { IconCircle } from '~/components';
+import { IconCircle } from '~/components/UI';
 
 class HeaderTitle extends Component {
     constructor(props) {

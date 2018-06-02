@@ -12,7 +12,7 @@ import {
     Line,
     Scrollable,
     Button
-} from '~/components'
+} from '~/components/UI'
 import { emitThreadClose, emitSettingsToggle, emitPostToggle } from "~/events";
 
 const i = Lurka.icons

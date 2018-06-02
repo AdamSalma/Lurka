@@ -6,7 +6,7 @@ import React, {
 import {
     Icon,
     Notification
-} from '~/components'
+} from '~/components/UI'
 import {
     emitDrawerToggle
 } from '~/events/publishers'

@@ -11,7 +11,7 @@ import {
     Button,
     Overlay,
     Tabs
-} from '~/components'
+} from '~/components/UI'
 
 import * as SettingTabs from './Tabs';
 

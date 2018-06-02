@@ -7,7 +7,7 @@ import './styles';
 import * as config from './config'
 import CinemaInterface from './CinemaInterface'
 import {CurrentMedia as Media} from './components'
-import {Overlay} from '~/components'
+import {Overlay} from '~/components/UI'
 
 class Cinema extends Component {
 

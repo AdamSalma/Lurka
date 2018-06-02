@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import './styles';
-import { Button } from '~/components';
+import { Button } from '~/components/UI';
 
 const ActionButton = ({ className, children, ...restProps }) => {
     return (

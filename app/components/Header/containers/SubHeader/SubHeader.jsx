@@ -10,11 +10,11 @@ import {
     HeaderGroup,
     TitledIcon,
     HeaderButtonIcon as Icon } from '../../components';
-import { SearchBarWithIcons } from '~/components';
+import { SearchBarWithIcons } from '~/components/UI';
 
 import {onSubHeaderToggle} from '~/events/subscribers';
 
-import { Button } from '~/components';
+import { Button } from '~/components/UI';
 
 // TODO: Is this needed?
 import {emitContentViewToggle} from '~/events/publishers';

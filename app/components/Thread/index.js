@@ -11,7 +11,7 @@ import {
     TimeAgo,
     Icon,
     Scrollable
-} from '~/components';
+} from '~/components/UI';
 import {
     Overlay,
     ThreadHeader,
@@ -380,7 +380,8 @@ export class Thread extends Component {
         emitSubHeaderToggle(false);
 
         // Close scroller otherwise thread slides down while it remains
-        this.updateScroller({ stop: true });
+        this.updateScroller({ scrollTop: 0 });
+        // this.updateScroller({ stop: true });
 
         const animationOpts = Object.assign({}, animationOptions.out, {
             complete: this.threadDidClose.bind(null, callback)

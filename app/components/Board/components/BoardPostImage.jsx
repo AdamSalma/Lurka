@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import {Image} from '~/components';
+import {Image} from '~/components/UI';
 
 const BoardPostImage = ({ src, height, onLoad}) => {
     return !isNaN(height) ? (

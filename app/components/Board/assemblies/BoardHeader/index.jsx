@@ -12,7 +12,7 @@ import {
     HoverUnderline,
     Checkbox,
     Button
-} from '~/components'
+} from '~/components/UI'
 
 
 const i = Lurka.icons;

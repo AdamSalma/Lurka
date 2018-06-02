@@ -19,7 +19,7 @@ import {
     Scrollable,
     SidePullout,
     Parallax
-} from '~/components';
+} from '~/components/UI';
 
 import {
     NoSearchResults,
@@ -152,6 +152,7 @@ export class Board extends Component {
 
         // Posts get filtered by search etc
         const BoardPosts = this.createPosts();
+        console.log("Rendered BoardPosts", BoardPosts)
 
 
 

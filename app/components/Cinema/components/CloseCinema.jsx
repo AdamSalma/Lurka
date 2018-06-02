@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-import * as components from '~/components'
+import * as components from '~/components/UI'
 
 const i = Lurka.icons;
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Icon} from '~/components'
+import {Icon} from '~/components/UI'
 
 const i = Lurka.icons;
 

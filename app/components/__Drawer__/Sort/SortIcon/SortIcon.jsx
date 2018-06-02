@@ -2,7 +2,7 @@ import './SortIcon.styles';
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
 
-import {Icon} from '~/components'
+import {Icon} from '~/components/UI'
 
 const SortIcon = ({ active, iconName, ...restProps }) => {
     return (

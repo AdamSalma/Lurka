@@ -1,3 +1,5 @@
+export * from './UI';
+
 // export {default as Alerts} from './Alerts';
 // export {default as App} from './App';
 export {default as Board} from './Board';
