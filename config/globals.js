@@ -39,8 +39,8 @@ Lurka.errors = require('./errors');
 
 Lurka.settings = {
     // The spacing between board posts
-    boardOuterMargin: 30,
-    boardPostMargin: 25,
+    boardOuterMargin: 68,
+    boardPostMargin: 34,
 
     // when you click on a threadpost quotelink
     threadpostScrollDuration: 600,
@@ -54,7 +54,7 @@ Lurka.settings = {
     headerHeight: 64,
     subheaderHeight: 48,
     threadWidth: 850,
-    settingsWidth: 320,
+    settingsWidth: 380,
     boardPostWidth: 232,
 
     // Seconds to backoff when making a request

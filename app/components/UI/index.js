@@ -13,6 +13,7 @@ export {default as DualMedia} from './DualMedia';
 export {default as Elipses} from './Elipses';
 export {default as ExpandedImage} from './ExpandedImage';
 export {default as FileInput} from './FileInput';
+export {default as FullLogo} from './FullLogo';
 export {default as HoverUnderline} from './HoverUnderline';
 export {default as Icon} from './Icon';
 export {default as IconCircle} from './IconCircle';
