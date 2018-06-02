@@ -29,10 +29,17 @@ $video-controls-background-color: $grey-darkest
     // font-family: Helvetica
     font-size: 13px
     color: $video-highlight-color
-    +size(100%)
+    color: $text-secondary
+    +size(inherit)
+    overflow: hidden
+
+    &.is-fullscreen
+        width: 100vw
+        height: 100vh
 
     &:hover .video-controls
         opacity: 1
+        transform: translateY(0)
 
     .video
         width: 100%
@@ -43,7 +50,8 @@ $video-controls-background-color: $grey-darkest
         height: 34px
         display: flex
         +position(auto, 0, 0, 0)
-        transition: opacity .2s
+        transform: translateY(34px)
+        transition: opacity .2s, transform .2s $bezier-fast
         opacity: 0
         background-color: $video-controls-background-color
 
@@ -76,7 +84,7 @@ $video-controls-background-color: $grey-darkest
             right: 5px
             bottom: 100%
             left: 5px
-            height: 56px
+            height: 68px
             background-color: $video-controls-background-color
 
         .volume-track
@@ -84,7 +92,7 @@ $video-controls-background-color: $grey-darkest
             top: 8px
             bottom: 8px
             left: 50%
-            width: 4px
+            width: 10px
             transform: translateX(-50%)
             background-color: #3e3e3e
 
@@ -110,12 +118,16 @@ $video-controls-background-color: $grey-darkest
         flex-grow: 1
         position: relative
 
+        &:hover .seek-fill
+            opacity: 1
+
         .seek-track
             position: absolute
             top: 50%
             left: 5px
-            right: 5px
+            right: 6px
             height: 4px
+            height: 1.7em
             transform: translateY(-50%)
             background-color: #3e3e3e
 
@@ -132,17 +144,22 @@ $video-controls-background-color: $grey-darkest
 
         .seek-fill
             background: $video-highlight-color
+            transition: width .45s linear, opacity .1s
+            width: 0
+            opacity: 0.65
 
         .seek-input
             width: 100%
             opacity: 0
             cursor: pointer
 
+    .vidbutton:hover
+        background-color: #000
+        display: flex
+        justify-content: center
+        align-items: center
+
     .fullscreen
-
-        &:hover
-            background-color: #000
-
         .fullscreen-button
             +_video-button
 
@@ -202,5 +219,5 @@ $video-controls-background-color: $grey-darkest
             color: $text-primary
 
     button .Icon
-        padding: 5px
-        font-size: 18px
+        padding: 7px
+        font-size: 20px

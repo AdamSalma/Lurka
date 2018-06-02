@@ -1,5 +1,6 @@
 import Video from './Video';
 import videoConnect from 'react-html5video';
+import screenfull from 'screenfull';
 
 import aria from './aria-label';
 import * as api from './api';
@@ -20,7 +21,11 @@ export default videoConnect(
     }),
     (videoEl, state) => ({
         onFullscreenClick: () => {
-            api.toggleFullscreen(videoEl)
+            console.log(videoEl)
+            if (screenfull.enabled) {
+                screenfull.toggle(videoEl.parentElement);
+                $(videoEl.parentElement).toggleClass('is-fullscreen')
+            }
         },
         onVolumeClick: () => {
             api.toggleMute(videoEl, state)

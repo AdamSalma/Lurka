@@ -5,7 +5,7 @@ const i = Lurka.icons;
 
 export default ({ onClick, paused, className, ariaLabelPlay, ariaLabelPause }) => {
     return (
-        <div className="playpause">
+        <div className="playpause vidbutton">
             <button
                 className="playpause-button"
                 onClick={onClick}

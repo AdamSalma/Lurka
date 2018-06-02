@@ -41,6 +41,7 @@ export const toggleMute = (videoEl, { volume, muted }) => {
 };
 
 export const toggleFullscreen = ({ parentElement, isFullscreen }) => {
+    console.log("Toggling fullscreen")
     videoEl.requestFullScreen =
         videoEl.requestFullscreen
         || videoEl.msRequestFullscreen

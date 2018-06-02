@@ -5,7 +5,7 @@ const i = Lurka.icons;
 
 export default ({ onClick, className, ariaLabel }) => {
     return (
-        <div className="fullscreen">
+        <div className="fullscreen vidbutton">
             <button
                 type="button"
                 onClick={onClick}

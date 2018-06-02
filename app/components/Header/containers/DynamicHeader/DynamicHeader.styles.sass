@@ -32,7 +32,7 @@ $ani-rules: $ani-duration $ani-bezier
 .DynamicHeader
     +size($width, $height)
     position: absolute
-    background: var(--interfaceColor)
+    background: var(--contentColor)
     +position(0, 0)
     z-index: $mainheader-z-index
     // box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12)
@@ -65,7 +65,8 @@ $ani-rules: $ani-duration $ani-bezier
         position: relative
 
         .title
-            font-size: 16px
+            font-size: 13px
+            letter-spacing: .07em
             font-family: font-for(DynamicHeader__Title)
             display: block
             color: var(--textSecondary)
@@ -232,7 +233,7 @@ $ani-rules: $ani-duration $ani-bezier
             margin-right: auto
 
     &.right
-        padding-right: 0
+        padding-right: 1rem
         margin-left: auto
 
         > :first-child

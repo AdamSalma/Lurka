@@ -209,7 +209,7 @@ class DynamicHeader extends PureComponent {
                             <Notification number={1}>
                               <Icon name={i.navbarEye}/>
                             </Notification>
-                            <span className="title">Watcher</span>
+                            <span className="title">Alerts</span>
                         </div>
                     </ButtonIndent>
 

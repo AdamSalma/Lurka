@@ -137,11 +137,20 @@
 .icon-movie_creation:before {
   content: "\e404";
 }
+.icon-notifications:before {
+  content: "\e7f4";
+}
 .icon-ondemand_video:before {
   content: "\e63a";
 }
+.icon-pause:before {
+  content: "\e034";
+}
 .icon-photo_size_select_large:before {
   content: "\e433";
+}
+.icon-play_arrow:before {
+  content: "\e037";
 }
 .icon-publish:before {
   content: "\e255";
@@ -232,6 +241,15 @@
 }
 .icon-times:before {
   content: "\f00d";
+}
+.icon-volume-off:before {
+  content: "\f026";
+}
+.icon-volume-down:before {
+  content: "\f027";
+}
+.icon-volume-up:before {
+  content: "\f028";
 }
 .icon-bookmark:before {
   content: "\f02f";

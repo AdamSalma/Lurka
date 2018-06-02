@@ -10,8 +10,11 @@ function hasAudio (video={}) {
 }
 
 function formatVolumeIcon(muted, volume) {
-    console.info(muted, volume)
-    if (muted)
+    console.info("Video volume - IsMuted:", muted, "Volume level:", volume)
+    if (!muted && !volume)
+        return <Icon name={i.videoVolumeMute}/>
+
+        if (muted)
         return <Icon name={i.videoVolumeOff}/>
     if (volume <= 0)
         return <Icon name={i.videoVolumeMute}/>
@@ -29,7 +32,7 @@ export default ({ onChange, onClick, getVideoEl, volume, muted, className, ariaL
     const isSilent = muted || volume <= 0;
 
     return (
-        <div className="volume">
+        <div className="volume vidbutton">
             <button
                 aria-label={isSilent
                     ? ariaLabelUnmute

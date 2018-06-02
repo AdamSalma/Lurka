@@ -62,11 +62,11 @@ const Video = (props) => {
                         ariaLabelMute={aria.mute}
                         ariaLabelUnmute={aria.unmute}
                         {...video} />
+                    <Download downloadLink={vidSrc} {...video}/>
                     <Fullscreen
                         ariaLabel={aria.fullscreen}
                         onClick={onFullscreenClick}
                         {...video} />
-                    <Download downloadLink={vidSrc} {...video}/>
                 </div>
             : null }
         </div>
