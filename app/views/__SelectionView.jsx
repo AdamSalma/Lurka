@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import BoardSelection from '~/modules/BoardSelection';
+import BoardSelection from '~/components/BoardSelection';
 // import {onSelectionViewToggle} from '~/events/subscribers';
 import {bindMembersToClass} from '~/utils/react';
 
