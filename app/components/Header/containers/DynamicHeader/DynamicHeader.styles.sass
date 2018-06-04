@@ -79,9 +79,17 @@ $ani-rules: $ani-duration $ani-bezier
         &.menu
             width: 5rem
 
+        &.no-title
+            display: flex
+            align-items: center
+            left: -.5rem
+            position: relative
+
+
     .FullLogo
         font-family: font-for(DynamicHeader__LogoText)
         padding-left: 1rem
+        // padding-right: 1rem
         font-size: 28px
         // transition: all $ani-rules
         +animate(padding, font-size)
@@ -225,6 +233,10 @@ $ani-rules: $ani-duration $ani-bezier
     &.left
         margin-left: 0
         margin-right: auto
+
+        // .Icon
+        //     color: $text-secondary
+        //     font-size: 21.5px
 
         > :first-child
             margin-left: 2rem

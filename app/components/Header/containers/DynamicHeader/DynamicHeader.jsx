@@ -162,13 +162,6 @@ class DynamicHeader extends PureComponent {
         // name={i.navbarForwards}
         //    className='DynamicHeader__forwards' />
 
-                // <HeaderGroup className='HeaderGroup__menu-icon'>
-                  // <div className="DynamicHeader__menu-icon">
-                    // <SlideDownBG>
-                        // <Icon name={i.navbarMenu}/>
-                    // </SlideDownBG>
-                  // </div>
-                // </HeaderGroup>
 
 
         return (
@@ -177,8 +170,13 @@ class DynamicHeader extends PureComponent {
               <div className='background' />
               <div className='content'>
                 <HeaderGroup className='left'>
+                  <div className="vertical-icon no-title" onClick={this.toggleMenuPanel}>
+                    <Icon name={i.navbarMenu}/>
+                  </div>
                   <FullLogo/>
+                  {/* <Icon name={i.navbarChevron}/> */}
                 </HeaderGroup>
+
                 <HeaderGroup className='center' onMouseEnter={this.onTitleHover}>
 
                   {/* <ButtonIndent className="hide-on-expanded">
@@ -203,6 +201,7 @@ class DynamicHeader extends PureComponent {
                   </ButtonIndent> */}
 
                 </HeaderGroup>
+
                 <HeaderGroup className='right'>
                     <ButtonIndent onClick={this.toggleWatchPanel} isActive={this.state.panelID === "watcher"}>
                         <div className="vertical-icon" >
@@ -236,7 +235,7 @@ class DynamicHeader extends PureComponent {
                 </HeaderGroup>
               </div>
             </div>
-            <SubHeader boardID={boardID} threadID={threadID}/>
+            {/* <SubHeader boardID={boardID} threadID={threadID}/> */}
             </div>
         )
     }
