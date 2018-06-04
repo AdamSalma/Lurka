@@ -34,8 +34,8 @@ var config = {
       }
     },
     preloader: {
-      width: 250,
-      height: 265,
+      width: 234,
+      height: 240,
       modal: true,
       titleBarStyle: 'hidden',
       frame: false,
