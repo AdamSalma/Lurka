@@ -45,7 +45,11 @@ export class Board extends Component {
         super(props);
 
         // this.onScroll = Utils.throttle.throttleByCount(7, this.handleScroll);
-        this.onScroll = Utils.throttle.invokeThenIgnoreForPeriod(50, this.handleScroll);
+        this.onScroll = Utils.throttle.invokeAtBeginingEndAndByCount({
+            count: 50,
+            delay: 100,
+            callback: this.handleScroll
+        });
         this.previousScrollTop = 0;
 
         this.applyLayout = BoardGrid(
