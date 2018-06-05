@@ -1,16 +1,13 @@
 import './Overlay.styles'
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import cx from 'classnames';
-import {bindMembersToClass} from '~/utils/react';
 
 class Overlay extends Component {
-    static propTypes = {
-        className: PropTypes.string,
-    };
-
     constructor(props) {
         super(props);
-        bindMembersToClass(this, 'show', 'hide');
+        this.state = {
+            isVisible: props.isVisible
+        }
     }
 
     componentWillUpdate(nextProps, nextState) {
@@ -20,20 +17,21 @@ class Overlay extends Component {
     }
 
     render() {
-        const { isVisible, className, children, ...restProps } = this.props;
-        return <div {...restProps} className={cx("Overlay", className, {"Overlay-active": isVisible})}>
-            {children}
-        </div>
+        const { className, ...restProps } = this.props;
+        const { isVisible } = this.state;
+        const classes = cx("Overlay", className, { "Overlay-active": isVisible });
+
+        return <div {...restProps} className={classes}/>
     }
 
-    show() {
+    show = () => {
         console.warn("Overlay.show()")
         this.setState({
             isVisible: true
         });
     }
 
-    hide() {
+    hide = () => {
         console.warn("Overlay.hide()")
         this.setState({
             isVisible: false
