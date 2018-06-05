@@ -7,6 +7,7 @@ export {default as Card} from './Card';
 export {default as Checkbox} from './Checkbox';
 export {default as ColorInput} from './ColorInput';
 export {default as Container} from './Container';
+export {default as CopyToClipboard} from './CopyToClipboard';
 export {default as Counter} from './Counter';
 export {default as Dropdown} from './Dropdown';
 export {default as DualMedia} from './DualMedia';

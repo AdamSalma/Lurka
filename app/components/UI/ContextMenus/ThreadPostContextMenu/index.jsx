@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
 
-import { Icon } from '~/components/UI'
+import { Icon, CopyToClipboard } from "~/components/UI";
 import {
     ContextMenu,
     ContextMenuItem,
@@ -29,6 +29,11 @@ class ThreadPostContextMenu extends Component {
 
         return (
             <ContextMenu className={cx('ThreadPostContextMenu', className)} onClick={this.closeMenu}>
+                {!!window.getSelection().toString() &&
+                    <ContextMenuItem>
+                        <CopyToClipboard><span>Copy</span></CopyToClipboard>
+                    </ContextMenuItem>
+                }
                 <ContextMenuItem onClick={this.onReply}>
                     <Icon name={i.threadContextMenuReply}/>
                     <span>Reply</span>
