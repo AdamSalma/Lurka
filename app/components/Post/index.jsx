@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import cx from 'classnames';
 
 import './styles';
+import { Overlay } from '~/components/UI';
 import PostPositioner from './PostPositioner';
 import PostForm from './PostForm';
 import config from './config';
@@ -27,11 +28,12 @@ export class Post extends Component {
             context: null,
             centered: true
         }
+        this.isAnimating = false;
     }
 
     @onPostToggle
     onPostToggle ({ override }) {
-        if (this.isDisabled) {
+        if (this.isAnimating) {
             console.warn("Post toggle rejected; is animating")
             return
         }
@@ -73,9 +75,7 @@ export class Post extends Component {
 
         return (
             <PostPositioner centered={centered} onClick={this.preparePostForClose}>
-                {centered && <div>
-                    OVERLAY
-                </div>}
+                <Overlay className="overlay" ref={ref => this._overlay = ref}/>
                 <div className="Post" ref={ref => this._post = ref} onClick={e => e.stopPropagation()}>
                     <PostForm
                         theme="black"
@@ -91,34 +91,37 @@ export class Post extends Component {
     }
 
     preparePostForOpen({ context }) {
-        this.isDisabled = true
         let centered = true
 
         if (this.shouldRenderToSide(context)) {
             console.warn("Rendering as dual")
             centered = false
         }
-        // else post is centered on top of thread with overlay
 
-        this.setState({
+        const futureState = {
             isOpen: true,
             centered: centered,
             context: context
-        });
+        }
+        // else post is centered on top of thread with overlay
 
         if (!centered) {
+            this.setState(futureState);
             emitThreadMove({
                 position: "right",
                 callback: this.animateIn
             });
         } else {
-            this.animateIn()
+            // Board animation - needs overlay
+            this.setState(futureState, () => {
+                this.animateIn();
+            });
         }
 
     }
 
     preparePostForClose = () => {
-        this.isDisabled = true
+        this.isAnimating = true
         const {centered, context} = this.state;
 
         const futureState = {
@@ -194,9 +197,9 @@ export class Post extends Component {
         this.setState({ showInvalidationMessage: true });
 
         setTimeout(() =>
-            this.setState({
-                 showInvalidationMessage: false
-            }),
+        this.setState({
+            showInvalidationMessage: false
+        }),
         config.invalidationMessageDuration)
 
     }
@@ -210,6 +213,7 @@ export class Post extends Component {
     }
 
     animateIn = (callback) => {
+        this.isAnimating = true
         this.animate({
             scale: [1, 0.8],
             opacity: [1, 0]
@@ -217,13 +221,14 @@ export class Post extends Component {
             duration: 300,
             easing: [0.23, 1, 0.32, 1],
             complete: () => {
+                this.isAnimating = false
                 isFunction(callback) && callback()
-                this.isDisabled = false
             }
         })
     }
 
     animateOut = (callback) => {
+        this.isAnimating = true
         this.animate({
             scale: [0.8, 1],
             opacity: [0, 1]
@@ -231,14 +236,14 @@ export class Post extends Component {
             duration: 200,
             easing: [0.23, 1, 0.32, 1],
             complete: () => {
+                this.isAnimating = false
                 isFunction(callback) && callback()
-                this.isDisabled = false
             }
         })
     }
 
     animate(styles, options) {
-        this._post && $(this._post).stop().velocity(styles, options);
+        this._post ? $(this._post).stop().velocity(styles, options) : console.log("Post reference does not exist")
     }
 }
 
