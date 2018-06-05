@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import './styles';
 import { SlideTransition } from '../components'
-import { Icon, Button, SearchBarWithIcons } from '~/components/UI'
+import { Icon, Button, SearchBarWithIcons, Overlay } from '~/components/UI'
 import * as Pages from './containers';
 
 const i = Lurka.icons;
@@ -17,9 +17,16 @@ class MenuPanel extends Component {
     }
 
     // Used by parent to control UI
-    show = (args) => this.transitioner.show(args);
-    hide = (args) => this.transitioner.hide(args);
+    show = (args) => {
+        this.transitioner.show(args);
+        this.overlay.show();
+    }
+    hide = (args) => {
+        this.transitioner.hide(args);
+        this.overlay.hide();
+    }
     setTransitionerRef = (ref) => this.transitioner = ref;
+    setOverlayRef = (ref) => this.overlay = ref;
 
     render() {
         const { className, isHeaderExpanded} = this.props;
@@ -29,6 +36,7 @@ class MenuPanel extends Component {
         });
 
         return (
+            <div>
             <SlideTransition
               effect="from left"
               className={classes}
@@ -44,6 +52,8 @@ class MenuPanel extends Component {
                     {this.getPage(this.state.page)}
                 </div>
             </SlideTransition>
+            <Overlay ref={this.setOverlayRef} style={{ width: "100vw", height: "100vh" }} onClick={this.props.closePanel} />
+            </div>
         );
     }
 
