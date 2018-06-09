@@ -12,7 +12,8 @@ $thread-end-gap: 200px
 .Thread
     .wrapper
         display: none
-        +set-dims($thread-width, 100vh)
+        width: $thread-width
+        height: calc(100vh - #{$header-height + $subheader-height})
         position: absolute
         top: $header-height + $subheader-height
         left: 0

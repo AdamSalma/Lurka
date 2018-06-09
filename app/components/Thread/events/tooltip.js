@@ -23,6 +23,7 @@ const rightThreshold = 200;
 
 export const createTooltipCreator = ($thread) => {
     return function (event) {
+        console.log("Creating thread tooltip...")
         const target = event.target,
               href = target.getAttribute('href'),
               $post = $thread.find(href),

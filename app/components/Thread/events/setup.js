@@ -37,11 +37,18 @@ export default function setupThreadEvents(thread) {
         }
     })
 
+    window._test = function () {
+        destroyTooltip()
+        $thread.off("click mouseenter mouseleave", ".quotelink");
+        $thread = null
+    }
+
     return {
         scrollToPost,
         createTooltip,
         destroyTooltip,
         teardownThreadEvents: function() {
+            destroyTooltip()
             $thread.off("click mouseenter mouseleave", ".quotelink");
             $thread = null
         }

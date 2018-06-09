@@ -18,7 +18,7 @@ const createPostScroller = ( $context, onScroll ) => {
         offset = 0,
         easing = [0.445, 0.05, 0.55, 0.95]
     }={}) {
-
+        console.log("Thread is scrolling...")
         let $item;
 
         if (isJQueryElement(target)) {

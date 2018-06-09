@@ -380,8 +380,7 @@ export class Thread extends Component {
         emitSubHeaderToggle(false);
 
         // Close scroller otherwise thread slides down while it remains
-        this.updateScroller({ scrollTop: 0 });
-        // this.updateScroller({ stop: true });
+        this.updateScroller({ stop: true });
 
         const animationOpts = Object.assign({}, animationOptions.out, {
             complete: this.threadDidClose.bind(null, callback)
