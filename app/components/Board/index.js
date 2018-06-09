@@ -112,7 +112,18 @@ export class Board extends Component {
         $(window).resize(onWindowResize)
 
         if (this.props.posts.length) {
-            setTimeout(this.applyLayout(), 500)
+            setTimeout(() => {
+                this.applyLayout();
+
+                const cancelToken = { cancel: false };
+
+                console.warn("Starting to monitor board for updates")
+                this.props.watchBoard({
+                    boardID: this.props.boardID,
+                    interval: 10000,
+                    cancelToken
+                });
+            }, 500);
         }
 
         /* REMOVE ME!!! */

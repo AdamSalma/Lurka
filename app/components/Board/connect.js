@@ -2,15 +2,16 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import {
-    fetchBoard,
-    loadMorePosts,
-    scrollHeader,
-    fetchThread,
-    searchBoard,
-    sortBoard,
-    addBoardToFavourites,
-    removeBoardFromFavourites
-} from '~/redux/actions';
+  fetchBoard,
+  loadMorePosts,
+  scrollHeader,
+  fetchThread,
+  searchBoard,
+  sortBoard,
+  addBoardToFavourites,
+  removeBoardFromFavourites,
+  watchBoard
+} from "~/redux/actions";
 
 import {
     getBoardID,
@@ -51,7 +52,8 @@ function mapDispatchToProps(dispatch) {
         searchBoard,
         addBoardToFavourites,
         removeBoardFromFavourites,
-        onSort: sortBoard
+        onSort: sortBoard,
+        watchBoard
     }, dispatch)
 }
 
