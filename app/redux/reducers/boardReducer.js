@@ -14,8 +14,17 @@ export default createReducer(initialState.board, {
         mergeState(state, {
             posts: action.posts,
             receivedAt: action.receivedAt,
-            isFetching: false
+            isFetching: false,
+            updatesAvailable: 0
         }),
+
+    [types.BOARD_UPDATED]: (state, action) => {
+        return {
+            ...state,
+            posts: action.payload
+        }
+    },
+
 
     [types.BOARD_INVALIDATED]: (state, action) =>
         mergeState(state, {
@@ -25,7 +34,8 @@ export default createReducer(initialState.board, {
 
     [types.BOARD_DESTROYED]: (state, action) =>
         mergeState(state, {
-            posts: []
+            posts: [],
+            updatesAvailable: 0
         }),
 
     [types.BOARD_FILTER_ADDED]: (state, action) =>

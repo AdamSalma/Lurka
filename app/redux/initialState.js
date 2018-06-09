@@ -32,7 +32,8 @@ export default {
         posts: [],
         filters: [],
         sortBy: 'bumporder', // default. one of: bumporder, lastreply, creationdate, replycount
-        search: ''
+        search: '',
+        updatesAvailable: 0  // how many posts have updates available in cache
     },
 
     thread: {

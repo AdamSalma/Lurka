@@ -13,23 +13,30 @@ export default function fetchBoard(boardID, callback) {
     return (dispatch, getState) => {
         const state = getState();
 
-        if (boardCachedAndRecent(state, boardID)) {
-            dispatch(loadBoardFromCache(state, boardID))
-            dispatch(setBoard(boardID))
-            // TODO: Use timeago for cache alerts to show how old cached item is
-            dispatch(alerts.cachedBoardLoaded(boardID))
-            return
-        }
+        // TODO: Remove as no longer needed; cache stores ALL board posts over time,
+        // so this would return ALL posts, not the most recent.
+
+        // if (boardCachedAndRecent(state, boardID)) {
+        //     dispatch(loadBoardFromCache(state, boardID))
+        //     dispatch(setBoard(boardID))
+        //     // TODO: Use timeago for cache alerts to show how old cached item is
+        //     dispatch(alerts.cachedBoardLoaded(boardID))
+        //     return
+        // }
 
         dispatch(requestBoard(boardID))
         dispatch(alerts.requestingBoard(boardID));
 
         return Api.fetchBoard(boardID)
+            // Storing the fetched data
             .then(board => {
-                dispatch(receiveBoard(board))
                 dispatch(setBoard(boardID))
-                callback && callback();
+                dispatch(receiveBoardPosts(board, boardID))
+                return board;
             })
+            // Let people know that the board's been fetched
+            .then((board) => callback && callback(null, board))
+            // Catch any errors
             .catch( err => {
                 console.error(`/${boardID}/ fetch error:`, err);
 
@@ -42,6 +49,8 @@ export default function fetchBoard(boardID, callback) {
                 }
 
                 dispatch(invalidateBoard(err))
+
+                callback && callback(err);
             });
     }
 }
@@ -53,11 +62,12 @@ export function requestBoard(boardID) {
     }
 }
 
-export function receiveBoard(board){
+export function receiveBoardPosts(board, boardID){
     return {
         type: types.BOARD_LOADED,
         posts: board,
-        receivedAt: Date.now()
+        receivedAt: Date.now(),
+        boardID: boardID
     }
 }
 
