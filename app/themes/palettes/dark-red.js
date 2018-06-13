@@ -42,6 +42,7 @@ theme.board                   = theme.grey;  // hsl(0, 0%, 16%) warm-tint
 theme.boardSearchbar          = theme.interfaceColor // 'rgba(255, 255, 255, 0.02)',
 theme.boardPostShadow         = c('#312d2b'),
 theme.boardPostBackground     = theme.greyDarkest;  // hsl(0, 0%, 13%) warm-tint
+theme.boardPostHover          = theme.highlight;  // hsl(0, 0%, 13%) warm-tint
 
 theme.primaryOverlay          = c(theme.primary).alpha(0.22);
 
