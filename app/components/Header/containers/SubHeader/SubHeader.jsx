@@ -67,22 +67,24 @@ class SubHeader extends PureComponent {
             boardID,
             threadID,
             boardList,
-            searchBoard
+            searchBoard,
+            navbarTitle
         } = this.props
 
         return <div className="SubHeader" ref={r => (this._subheader = r)}>
             <div className="background" />
             <div className="content">
               <div className="segment navigation">
-                <Button>New Thread</Button>
-                <Button>Refresh</Button>
-                <Icon name={i.subheaderToolbarRefresh} title="Refresh" />
+                {navbarTitle}
               </div>
               <div className="segment toolbar">
                 {/* <HeaderGroup className="SubHeader--left" /> */}
                 {/* <HeaderGroup className="SubHeader--right" /> */}
               </div>
               <div className="segment settings">
+                    <Button>New Thread</Button>
+                    <Button>Refresh</Button>
+                    <Icon name={i.subheaderToolbarRefresh} title="Refresh" />
                 <HeaderGroup className="SubHeader--center SubHeader__search">
                   <SearchBarWithIcons placeholder="Search Board" onChange={searchBoard} />
                 </HeaderGroup>

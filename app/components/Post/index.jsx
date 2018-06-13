@@ -75,7 +75,7 @@ export class Post extends Component {
 
         return (
             <PostPositioner centered={centered} onClick={this.preparePostForClose}>
-                <Overlay className="overlay" ref={ref => this._overlay = ref}/>
+                <Overlay className="overlay" ref={ref => this._overlay = ref} startVisible/>
                 <div className="Post" ref={ref => this._post = ref} onClick={e => e.stopPropagation()}>
                     <PostForm
                         theme="black"

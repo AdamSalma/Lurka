@@ -32,17 +32,19 @@ $ani-rules: $ani-duration $ani-bezier
 .DynamicHeader
     +size($width, $height)
     position: absolute
-    background: var(--contentColor)
+    background: var(--interfaceColor)
     +position(0, 0)
     z-index: $mainheader-z-index
-    // box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12)
-    // border-bottom: var(--contentBorder) 2px solid
     transition: height $ani-rules
+    background: var(--contentColor)
+    // box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12)
 
     .content
         display: flex
         +size(inherit)
         flex-direction: row
+        // border-bottom: 2px #3f3f3f solid
+        padding-left: 2rem
 
     .vertical-icon
         +clickable
@@ -50,18 +52,22 @@ $ani-rules: $ani-duration $ani-bezier
         font-size: 28px
         padding: 8px
         max-width: 96px
-        margin: 0
 
         // TESTING PROPERTIES
         height: 100%
-        // display: flex
-        // align-items: center
+        display: flex
+        align-items: center
         // flex-direction: column
         // justify-content: center
 
         // transition: all $ani-rules, max-width .2s ease-out
         // +animate(max-width, font-size, margin)
         transition: font-size $ani-rules, margin-top $ani-rules, margin-right $ani-rules, max-width $ani-duration + .05s ease-out
+        position: relative
+
+        display: flex
+        align-items: center
+        // left: -.5rem
         position: relative
 
         .title
@@ -76,14 +82,17 @@ $ani-rules: $ani-duration $ani-bezier
             // transition: opacity $ani-duration .12s ease-out
             opacity: 1
 
-        &.menu
-            width: 5rem
+        // &.menu
+        //     width: 5rem
 
-        &.no-title
-            display: flex
-            align-items: center
-            left: -.5rem
-            position: relative
+    .menu
+        margin-left: 1rem !important
+        margin-right: 1rem
+
+        // .centered
+            // margin-right: 0
+            // margin-left: 1rem
+
 
 
     .FullLogo
@@ -105,15 +114,24 @@ $ani-rules: $ani-duration $ani-bezier
         .text
             transition: transform $ani-rules
 
+    .stat
+        padding: 0 1em
+        font-size: 10.5px
 
-    .main-title
+    .title-group
+        margin-top: 14px
+        letter-spacing: 1px
+
+    .title-group
         font-family: font-for(HeaderTitle)
         // font-size: 28px
         +font-size(3)
-        letter-spacing: .35em
         transition: font-size $ani-rules, letter-spacing $ani-rules
         margin: 0 1em
         position: relative
+
+        .main-title
+            letter-spacing: .35em
 
         .Icon
             vertical-align: top
@@ -137,7 +155,7 @@ $ani-rules: $ani-duration $ani-bezier
         align-items: center
 
     .Icon
-        vertical-align: middle
+        vertical-align: -webkit-baseline-middle
 
     // "Watch" notification icon
     .Notification__content
@@ -149,7 +167,14 @@ $ani-rules: $ani-duration $ani-bezier
 
 
 
+    .board-action
+        padding: 8px
+        background: $primary
+        border-radius: 4px
+        margin: .5rem
 
+        &.first
+            margin-left: 1rem
 
 
 
@@ -183,7 +208,7 @@ $ani-rules: $ani-duration $ani-bezier
         font-size: 24px
         max-width: 40px
         +animate(max-width, font-size, margin-top, margin-right)
-        margin-top: 6px
+        margin-top: 0px
         margin-right: 16px
 
         .title
@@ -195,12 +220,12 @@ $ani-rules: $ani-duration $ani-bezier
         font-size: 24px
 
         .logo
-            padding: 8px
-            margin-right: 4px
+            padding: 16px
+            padding-right: 16px
+            margin-right: 0px
 
         .text
-            transform: translate(4px, 18px)
-
+            transform: translate(0, 18px)
 
         .version
             opacity: 0
@@ -233,15 +258,16 @@ $ani-rules: $ani-duration $ani-bezier
     &.left
         margin-left: 0
         margin-right: auto
+        justify-content: left
 
         // .Icon
         //     color: $text-secondary
         //     font-size: 21.5px
 
         > :first-child
-            margin-left: 2rem
+            margin-left: 0
 
-        > :last-child
+        > :last-ch0
             margin-right: auto
 
     &.right
@@ -262,36 +288,44 @@ $ani-rules: $ani-duration $ani-bezier
     > *
         display: inline-block
 
-.ButtonIndent
-    +no-select
-    position: relative
-    height: inherit
-    margin: 0 font-size(-1, 1px)
+.DynamicHeader .header-button
+    height: 100%
+    display: flex
+    align-items: center
+    text-align: center
+    padding: 0 1rem
 
+    // min-width: 80px
+    position: relative
+    cursor: pointer
+    // width: 4rem
+
+    // The underline
     &::before
         content: ""
-        position: absolute
         +size(100%, 2px)
-        bottom: -15px
+        position: absolute
+        bottom: -2px // for border
         left: 0
         right: 0
-        z-index: -1
+        z-index: 2
         background: $primary
         transform: scaleX(0)
         animation: RemoveUnderline .3s cubic-bezier(0.4,0,0.2,1)
 
-    &:hover, &.is-active
+    &:hover, &.active
         &::before
             transform: scaleX(1)
             animation: AddUnderline .3s cubic-bezier(0.4,0,0.2,1)
         &::after
             opacity: 1
 
+    // The background
     &::after
         transition: opacity .3s ease-out
         content: ""
         position: absolute
-        top: -15px
+        top: 0
         opacity: 0
         left: 0
         right: 0
@@ -301,18 +335,29 @@ $ani-rules: $ani-duration $ani-bezier
         height: $header-height + $subheader-height
         z-index: -2
 
+    .Icon
+        font-size: 28px
 
-.DynamicHeader.shrink .ButtonIndent
-    height: 100%
+    .header-button-title
+        font-size: 14px
+        color: $text-secondary
+        margin-top: .2rem
+        // font-variant: small-caps
+        letter-spacing: 1px
 
-    &::before, &::after
-        // bottom: 10px
-        left: -8px
-        right: 8px
-    &::before
-        bottom: 0
+
+.DynamicHeader.shrink .header-button
+    // height: 100%
+
     &::after
-        top: -2px
         height: $header-height
-        // top: 0
-        // bottom: 0
+
+    .Icon
+        font-size: 24px
+
+    .header-button-title
+        display: none
+
+    &.menu
+        margin-left: -1rem !important
+        transition: margin .24s

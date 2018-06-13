@@ -24,18 +24,19 @@ import {
 
 /* Events */
 import {
-    emitContentViewToggle,
-    emitSubHeaderToggle,
-    emitSettingsToggle,
-    emitOpenHeaderPanel,
-    emitHeaderToggled,
-    emitBoardReset,
-    onContentViewToggle,
-    onHeaderShrink,
-    onHeaderExpand,
-    onHeaderPanelOpened,
-    onHeaderPanelClosed
-} from '~/events';
+  emitContentViewToggle,
+  emitSubHeaderToggle,
+  emitSettingsToggle,
+  emitOpenHeaderPanel,
+  emitHeaderToggled,
+  emitBoardReset,
+  onContentViewToggle,
+  onHeaderShrink,
+  onHeaderExpand,
+  onHeaderPanelOpened,
+  onHeaderPanelClosed,
+  emitPostToggle
+} from "~/events";
 
 /* Helpers */
 import { bindMembersToClass } from '~/utils/react';
@@ -112,7 +113,7 @@ class DynamicHeader extends PureComponent {
 
     @onHeaderPanelClosed
     onHeaderPanelClosed(panelID) {
-        this.setState({ panelID: panelID })
+        this.setState({ panelID: null })
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -140,7 +141,8 @@ class DynamicHeader extends PureComponent {
             boardID,
             threadID,
             isDrawerOpen,
-            boardList
+            boardList,
+            boardStats
         } = this.props
 
         const {isExpanded} = this.state
@@ -170,72 +172,87 @@ class DynamicHeader extends PureComponent {
               <div className='background' />
               <div className='content'>
                 <HeaderGroup className='left'>
-                  <div className="vertical-icon no-title" onClick={this.toggleMenuPanel}>
+
+                  <HeaderButton
+                    className="menu"
+                    onClick={this.toggleMenuPanel}
+                    icon={i.navbarMenu}
+                    title="Menu"
+                    isActive={this.state.panelID === "menu"}
+                  />
+                  {/* <div className="header-button" onClick={this.toggleMenuPanel}>
+                    <div className="header-button-content">
                     <Icon name={i.navbarMenu}/>
-                  </div>
+                    <div className="header-button-title">Menu</div>
+                    </div>
+                </div> */}
+
                   <FullLogo/>
                   {/* <Icon name={i.navbarChevron}/> */}
+                  {/* <Icon className="board-action first" name="mode_edit"/> */}
+                  {/* <Icon className="board-action" name="reload"/> */}
                 </HeaderGroup>
 
                 <HeaderGroup className='center' onMouseEnter={this.onTitleHover}>
 
                   {/* <ButtonIndent className="hide-on-expanded">
                     <div className="shrink-icon shrink-icon-left" >
-                      <Icon name={i.navbarNewThread}/>
+                    <Icon name={i.navbarNewThread}/>
                     </div>
-                  </ButtonIndent> */}
+                </ButtonIndent> */}
 
-                  <ButtonIndent className="HeaderTitle--wrapper">
-                  { !isExpanded && <HeaderTitle onClick={this.onTitleClick} className="main-title">
-                      {!!navbarTitle && <span className="title-normal">{navbarTitle}</span>}
-                      {!!navbarTitle && <span className="title-small">/{boardID}/</span>}
-                      {!!navbarTitle && <Icon name={i.navbarChevron}/>}
-                    </HeaderTitle>
+                  {/* <ButtonIndent className="HeaderTitle--wrapper">
+                  { !isExpanded &&
+                        <HeaderTitle onClick={this.onTitleClick} className="main-title">
+                        {!!navbarTitle && <span className="title-normal">{navbarTitle}</span>}
+                        {!!navbarTitle && <span className="title-small">/{boardID}/</span>}
+                        {!!navbarTitle && <Icon name={i.navbarChevron}/>}
+                        </HeaderTitle>
+                    // <div className="title-group">
+                    //     { Stats:
+
+                    //     <div>
+                    //     <span className="stat replies">replies: {boardStats.replies}</span>
+                    //     <span className="stat images">images: {boardStats.images}</span>
+                    //     </div>
+                    //     }
+                    // </div>
                   }
-                  </ButtonIndent>
+                  </ButtonIndent> */}
 
                   {/* <ButtonIndent onClick={this.refreshBoard} className="hide-on-expanded">
                     <div className="shrink-icon shrink-icon-right" >
-                      <Icon name={i.navbarRefresh}/>
+                    <Icon name={i.navbarRefresh}/>
                     </div>
-                  </ButtonIndent> */}
+                </ButtonIndent> */}
 
                 </HeaderGroup>
 
                 <HeaderGroup className='right'>
-                    <ButtonIndent onClick={this.toggleWatchPanel} isActive={this.state.panelID === "watcher"}>
+                    <HeaderButton
+                        onClick={this.togglePostPanel}
+                        icon="mode_edit"
+                        title="Create"
+                        isActive={this.state.panelID === "create"}
+                    />
+                    {/* <ButtonIndent onClick={this.toggleWatchPanel} isActive={this.state.panelID === "create"}>
                         <div className="vertical-icon" >
-                            <Notification number={1}>
-                              <Icon name={i.navbarEye}/>
-                            </Notification>
-                            <span className="title">Alerts</span>
-                        </div>
-                    </ButtonIndent>
-
-{/*                     <ButtonIndent onClick={this.toggleBookmarkPanel} isActive={this.state.panelID === "bookmarks"}>
-                        <div className="vertical-icon" >
-                            <Icon name={i.navbarBookmark}/>
-                            <span className="title">Bookmarks</span>
-                        </div>
-                    </ButtonIndent>
-
-                    <ButtonIndent onClick={this.toggleDownloadsPanel} isActive={this.state.panelID === "downloads"}>
-                        <div className="vertical-icon" >
-                            <Icon name={i.navbarDownloads}/>
-                            <span className="title">Downloads</span>
-                        </div>
-                    </ButtonIndent>
- */}
-                    {/* <ButtonIndent onClick={this.toggleSettingsPanel} isActive={this.state.panelID == "settings"}>
-                        <div className="vertical-icon" >
-                            <Icon name={i.navbarSettings}/>
-                            <span className="title">Settings</span>
+                            <div>
+                              <Icon name="mode_edit"/>
+                            <span className="title">Create</span>
+                            </div>
                         </div>
                     </ButtonIndent> */}
+                    <HeaderButton
+                        onClick={this.toggleWatchPanel}
+                        icon={i.navbarEye}
+                        title="Watcher"
+                        isActive={this.state.panelID === "watcher"}
+                    />
                 </HeaderGroup>
               </div>
             </div>
-            {/* <SubHeader boardID={boardID} threadID={threadID}/> */}
+                <SubHeader navbarTitle={navbarTitle} boardID={boardID} threadID={threadID}/>
             </div>
         )
     }
@@ -269,6 +286,9 @@ class DynamicHeader extends PureComponent {
     toggleDownloadsPanel = () => this.togglePanel("downloads");
     toggleSettingsPanel = () => this.togglePanel("settings");
     toggleMenuPanel = () => this.togglePanel("menu");
+    togglePostPanel = () => {
+        emitPostToggle({ context: "board" });
+    }
 
     refreshBoard = () => {
         emitBoardReset(0); // duration=0
@@ -283,6 +303,14 @@ class DynamicHeader extends PureComponent {
 
 export default DynamicHeader;
 
+export const HeaderButton = ({ onClick, icon, title, isActive, className }) => {
+    return <div className={cx("header-button", isActive && "active", className)} onClick={onClick}>
+        <div className="header-button-content">
+          <Icon name={icon} />
+          <div className="header-button-title">{title}</div>
+        </div>
+      </div>;
+}
 
 
 /*

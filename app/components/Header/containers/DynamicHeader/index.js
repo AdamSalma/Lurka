@@ -14,16 +14,18 @@ import {
 } from '~/redux/actions';
 
 import {
-    getIsBoardFetching,
-    getBoardID,
-    getThreadID
-} from '~/redux/selectors'
+  getIsBoardFetching,
+  getBoardID,
+  getThreadID,
+  getBoardStatistics
+} from "~/redux/selectors";
 
 function mapStateToProps(state) {
     return {
         boardID: getBoardID(state),
         threadID: getThreadID(state),
         boardIsFetching: getIsBoardFetching(state),
+        boardStats: getBoardStatistics(state),
 
         // Non-selectors
         watch: state.watch,
