@@ -7,6 +7,7 @@ import {
     Board,
     Thread,
     Header,
+    WatchToolbar
     // Settings as Drawer
 } from '~/components'
 
@@ -75,9 +76,9 @@ class ContentView extends Component {
               {...restProps}
               ref={ref => this._view = ref}
               className='View ContentView'>
-              <Header.containers.DynamicHeader />
               <Board />
               <Thread />
+              <WatchToolbar/>
               {/* <Drawer /> */}
             </section>
         )

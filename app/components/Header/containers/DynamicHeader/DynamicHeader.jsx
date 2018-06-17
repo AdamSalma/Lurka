@@ -41,6 +41,7 @@ import {
 /* Helpers */
 import { bindMembersToClass } from '~/utils/react';
 import SubHeader from '../SubHeader/SubHeader';
+import SearchBarWithIcons from '../../../UI/SearchBarWithIcons/index';
 
 const i = Lurka.icons;
 const headerToggleDuration = 200
@@ -173,13 +174,13 @@ class DynamicHeader extends PureComponent {
               <div className='content'>
                 <HeaderGroup className='left'>
 
-                  <HeaderButton
+                  {/* <HeaderButton
                     className="menu"
                     onClick={this.toggleMenuPanel}
                     icon={i.navbarMenu}
                     title="Menu"
                     isActive={this.state.panelID === "menu"}
-                  />
+                  /> */}
                   {/* <div className="header-button" onClick={this.toggleMenuPanel}>
                     <div className="header-button-content">
                     <Icon name={i.navbarMenu}/>
@@ -194,7 +195,9 @@ class DynamicHeader extends PureComponent {
                 </HeaderGroup>
 
                 <HeaderGroup className='center' onMouseEnter={this.onTitleHover}>
-
+                  {/* <div className="searchbar-wrapper">
+                      <SearchBarWithIcons placeholder="Search"/>
+                  </div> */}
                   {/* <ButtonIndent className="hide-on-expanded">
                     <div className="shrink-icon shrink-icon-left" >
                     <Icon name={i.navbarNewThread}/>
@@ -229,12 +232,12 @@ class DynamicHeader extends PureComponent {
                 </HeaderGroup>
 
                 <HeaderGroup className='right'>
-                    <HeaderButton
+                    {/* <HeaderButton
                         onClick={this.togglePostPanel}
                         icon="mode_edit"
                         title="Create"
                         isActive={this.state.panelID === "create"}
-                    />
+                    /> */}
                     {/* <ButtonIndent onClick={this.toggleWatchPanel} isActive={this.state.panelID === "create"}>
                         <div className="vertical-icon" >
                             <div>
@@ -243,11 +246,20 @@ class DynamicHeader extends PureComponent {
                             </div>
                         </div>
                     </ButtonIndent> */}
-                    <HeaderButton
+
+                    {/* <HeaderButton
                         onClick={this.toggleWatchPanel}
                         icon={i.navbarEye}
                         title="Watcher"
                         isActive={this.state.panelID === "watcher"}
+                    /> */}
+
+                    <HeaderButton
+                        onClick={this.toggleSettingsPanel}
+                        icon={i.navbarSettings}
+                        icon="more_vert"
+                        title="Settings"
+                        isActive={this.state.panelID === "settings"}
                     />
                 </HeaderGroup>
               </div>
@@ -280,7 +292,7 @@ class DynamicHeader extends PureComponent {
     togglePanel(panelID) {
         emitOpenHeaderPanel({panelID, closeIfOpen: true})
     }
-
+    th
     toggleWatchPanel = () => this.togglePanel("watcher");
     toggleBookmarkPanel = () => this.togglePanel("bookmarks");
     toggleDownloadsPanel = () => this.togglePanel("downloads");

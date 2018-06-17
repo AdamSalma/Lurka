@@ -9,12 +9,12 @@ import './SubHeader.styles';
 import {
     HeaderGroup,
     TitledIcon,
-    HeaderButtonIcon as Icon } from '../../components';
+    HeaderButtonIcon } from '../../components';
 import { SearchBarWithIcons } from '~/components/UI';
 
 import {onSubHeaderToggle} from '~/events/subscribers';
 
-import { Button } from '~/components/UI';
+import { Button, Icon } from '~/components/UI';
 
 // TODO: Is this needed?
 import {emitContentViewToggle} from '~/events/publishers';
@@ -74,20 +74,31 @@ class SubHeader extends PureComponent {
         return <div className="SubHeader" ref={r => (this._subheader = r)}>
             <div className="background" />
             <div className="content">
+
               <div className="segment navigation">
-                {navbarTitle}
+                <span className="title-group" onClick={this.onMenuClick}>
+                    <span className="title">{navbarTitle} </span>
+                    <Icon className="down-icon" name={"chevron-down"/* i.navbarMenu */} />
+                    {/* <Icon className="menu-icon" name={"chevron-right"/* i.navbarMenu */}
+                </span>
+                <Button>Archive</Button>
               </div>
+
               <div className="segment toolbar">
-                {/* <HeaderGroup className="SubHeader--left" /> */}
-                {/* <HeaderGroup className="SubHeader--right" /> */}
-              </div>
-              <div className="segment settings">
-                    <Button>New Thread</Button>
-                    <Button>Refresh</Button>
-                    <Icon name={i.subheaderToolbarRefresh} title="Refresh" />
                 <HeaderGroup className="SubHeader--center SubHeader__search">
                   <SearchBarWithIcons placeholder="Search Board" onChange={searchBoard} />
                 </HeaderGroup>
+                {/* <SearchBarWithIcons placeholder="Search" /> */}
+
+                {/* <HeaderGroup className="SubHeader--left" /> */}
+                {/* <HeaderGroup className="SubHeader--right" /> */}
+              </div>
+
+              <div className="segment settings">
+                    <Button>Filter <Icon name="chevron-down"/></Button>
+                    <Button>Sort by <span style={{color: "#fff", paddingLeft: "1em"}}>Bump order</span> <Icon name="chevron-down"/></Button>
+                    {/* <Icon name={i.subheaderToolbarRefresh} title="Refresh" /> */}
+                    <Icon className="watch-toolbar-icon" name={i.navbarEye} title="Refresh" />
                 {/* <Button>Sort</Button>
                 <Button>Filter</Button>
                 <Button>To Top</Button> */}
@@ -117,6 +128,9 @@ class SubHeader extends PureComponent {
             //     </HeaderGroup>
             //   </div>
 
+    onMenuClick() {
+        emitMenuToggle();
+    }
 
     // @onSubHeaderToggle
     // onSubHeaderToggle(override, customAni, callback) {
