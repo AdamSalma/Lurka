@@ -22,6 +22,8 @@ theme.greyLight               = "hsl(0, 0%, 91%)";
 theme.grey                    = "hsl(0, 0%, 87%)";
 theme.greyDark                = "hsl(0, 0%, 83%)";
 theme.greyDarkest             = "hsl(0, 0%, 60%)";
+theme.greyBorder              = "#3f3f3f";
+
 
 // *** Text ***
 theme.textPrimary             = c('#111').alpha(1),
@@ -39,7 +41,7 @@ theme.contentColor            = '#fff';
 
 // *** Components ***
 theme.board                   = theme.grey;  // hsl(0, 0%, 16%) warm-tint
-theme.boardSearchbar          = "#e8e8dd" // 'rgba(255, 255, 255, 0.02)',
+theme.boardSearchbar          = "white" // 'rgba(255, 255, 255, 0.02)',
 theme.boardPostShadow         = c('#72685e'),
 theme.boardPostBackground     = theme.contentColor;  // hsl(0, 0%, 13%) warm-tint
 theme.boardPostHover          = theme.interfaceColor;
@@ -50,7 +52,8 @@ theme.headerSearchbar         = c('#444444'),
 theme.headerShrunk            = theme.greyLightest;
 theme.headerExpanded          = theme.greyLightest;
 
-theme.threadPostBackground    = theme.grey; // hsl(0, 0%, 16%) warm-tint
+theme.threadPostBackground    = theme.contentColor; // hsl(0, 0%, 16%) warm-tint
+theme.threadBorderColor       = theme.contentColor; // hsl(0, 0%, 16%) warm-tint
 theme.contentBorder           = theme.grey;
 
 
