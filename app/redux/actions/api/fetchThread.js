@@ -51,10 +51,10 @@ export default function fetchThread({ boardID, threadID, callback, noCache=false
         }
 
         // Apply request timeout
-        if (!shouldFetchThread(state)) {
-            console.warn('Thread request rejected:', boardID, threadID);
-            return
-        }
+        // if (!shouldFetchThread(state)) {
+        //     console.warn('Thread request rejected:', boardID, threadID);
+        //     return
+        // }
 
         // Prepare request
         dispatch(alerts.requestingThread(threadID));
