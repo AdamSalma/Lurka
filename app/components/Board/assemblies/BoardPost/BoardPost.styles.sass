@@ -1,6 +1,6 @@
 @import '~sass/utils'
 
-$slideup-distance: 200px
+$slideup-distance: 4em
 $board-gutter-bottom: 220px
 
 .BoardPost
@@ -8,7 +8,7 @@ $board-gutter-bottom: 220px
     width: $board-post-width
     background: $board-post-color
     box-shadow: $board-post-shadow-color 0 0 0
-    border: 2px solid $board-post-color
+    border: 2px solid $grey-border
     font-family: font-for(BoardPost)
 
     // initial position offscreen, positioned via JS
@@ -19,9 +19,9 @@ $board-gutter-bottom: 220px
     border-radius: 4px 4px 0 0
 
     visibility: hidden
-    opacity: 0
+    opacity: 0.25
     transform: translateY(0)
-    transition: all .4s ease-out
+    transition: all .24s ease-out
     transition-property: top, left, box-shadow
     +will-change(transform)
 
@@ -35,7 +35,7 @@ $board-gutter-bottom: 220px
     &.animate
         visibility: visible
         transform: translateY($slideup-distance) translate3d(0,0,0)
-        animation: moveUp 0.65s ease forwards
+        animation: moveUp 0.4s ease forwards
 
     &:hover, &:focus, &:active
         transition: box-shadow .2s $easeOutExpo, background .2s $easeOutExpo
