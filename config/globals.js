@@ -7,7 +7,7 @@ if (typeof window === 'undefined') {
 }
 
 window.Lurka = {};
-Lurka.defaultTheme = "dark-red"
+Lurka.defaultTheme = "light"
 
 if (process.env.NODE_ENV === "development") {
     // IIFE allows the `require()` to only happen once.

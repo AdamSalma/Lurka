@@ -5,7 +5,8 @@ import * as palettes from "./palettes";
  */
 class Registry {
     static themes = {
-        'dark-red': palettes.darkRed
+        'dark-red': palettes.darkRed,
+        'light': palettes.light
     };
 
     static getTheme(name) {

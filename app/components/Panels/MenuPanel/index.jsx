@@ -18,8 +18,9 @@ class MenuPanel extends Component {
 
     // Used by parent to control UI
     show = (args) => {
-        this.transitioner.show(args);
         this.overlay.show();
+        setTimeout(() => this.transitioner.show(args), 150)
+
     }
     hide = (args) => {
         this.transitioner.hide(args);
@@ -36,9 +37,9 @@ class MenuPanel extends Component {
         });
 
         return (
-            <div>
+            <div style={{zIndex: -100}}>
             <SlideTransition
-              effect="from left"
+              effect="from top"
               className={classes}
               ref={this.setTransitionerRef}>
                 <ul className="icon-gutter">

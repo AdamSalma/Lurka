@@ -34,9 +34,9 @@ $ani-rules: $ani-duration $ani-bezier
     position: absolute
     background: var(--interfaceColor)
     +position(0, 0)
-    z-index: $mainheader-z-index
+    z-index: $mainheader-z-index + 1
     transition: height $ani-rules
-    background: var(--contentColor)
+    background: var(--headerExpanded)
     // box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12)
 
     .content
@@ -92,6 +92,15 @@ $ani-rules: $ani-duration $ani-bezier
         // .centered
             // margin-right: 0
             // margin-left: 1rem
+
+    .searchbar-wrapper
+        width: 100%
+        text-align: left
+        padding: 0 2rem
+        // height: 1rem
+        font-size: 14.5px
+        .SearchBarWithIcons
+            background: var(--headerSearchbar)
 
 
 
@@ -283,10 +292,11 @@ $ani-rules: $ani-duration $ani-bezier
     &.center
         margin: 0 auto
         text-align: center
-        flex: 1
+        flex: 5
 
     > *
         display: inline-block
+
 
 .DynamicHeader .header-button
     height: 100%

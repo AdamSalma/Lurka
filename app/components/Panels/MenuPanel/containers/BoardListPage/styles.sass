@@ -3,6 +3,8 @@
 .BoardListPage
     background: $interface-color
     height: inherit
+    padding: 0 20px
+
 
     .search
         background: $grey-lightest
@@ -35,23 +37,27 @@
         +no-select
         display: flex
         align-items: center
-        padding: .5rem .5rem
+        padding: .2rem 0
         transition: background .3s ease()
         border-radius: 4px
 
         .title-wrap
             display: flex
             flex-direction: row-reverse
-            +font-size(0)
+            +font-size(-1)
 
             .id
-                width: 4rem
-                padding-left: .25rem
+                width: 3.2rem
+                padding-left: .1rem
                 color: $text-secondary
                 font-family: $font-main-light
 
             .title
                 color: $text-primary
+                text-overflow: ellipsis
+                white-space: nowrap
+                overflow: hidden
+                width: 150px
 
         &:hover
             transition: none

@@ -22,6 +22,8 @@ theme.greyLight               = "hsl(0, 0%, 15%)";
 theme.grey                    = "hsl(0, 0%, 13%)";
 theme.greyDark                = "hsl(0, 0%, 11%)";
 theme.greyDarkest             = "hsl(0, 0%, 7%)";
+theme.greyBorder              = "#2F3136";
+
 
 // *** Text ***
 theme.textPrimary             = c('white').alpha(1),
@@ -30,26 +32,30 @@ theme.textDisabled            = c('white').alpha(0.5),
 theme.textSelectionBackground = theme.primary;
 theme.textSelectionColor      = c(theme.primary).lighten(0.6);
 
+theme.interfaceColor          = '#202225';
+theme.contentColor            = '#2A2C31';
+
 // *** Other ***
 theme.divider                 = c('white').alpha(0.12),
 theme.greenText               = '#a4c73b'
 theme.highlight               = '#402c2a'  // mix($primary, grey(7), 10%)
-theme.interfaceColor          = '#262626'; // hsl(0, 0%, 16%) warm-tint
-theme.contentColor            = '#121212';
+theme.highlightSecondary      = 'rgba(104, 48, 48, 0.5)'
 
 // *** Components ***
-theme.board                   = theme.grey;  // hsl(0, 0%, 16%) warm-tint
-theme.boardSearchbar          = theme.interfaceColor // 'rgba(255, 255, 255, 0.02)',
+theme.board                   = theme.grey;
+theme.boardSearchbar          = theme.contentColor // 'rgba(255, 255, 255, 0.02)',
 theme.boardPostShadow         = c('#312d2b'),
-theme.boardPostBackground     = theme.greyDarkest;  // hsl(0, 0%, 13%) warm-tint
+theme.boardPostBackground     = theme.contentColor;  // hsl(0, 0%, 13%) warm-tint
+theme.boardPostHover          = theme.highlight;  // hsl(0, 0%, 13%) warm-tint
 
 theme.primaryOverlay          = c(theme.primary).alpha(0.22);
 
-theme.headerSearchbar         = c('#444444'),
+theme.headerSearchbar         = theme.contentColor,
 theme.headerShrunk            = theme.greyDark;
 theme.headerExpanded          = theme.greyDark;
 
-theme.threadPostBackground    = theme.grey; // hsl(0, 0%, 16%) warm-tint
+theme.threadPostBackground    = theme.contentColor;
+theme.threadBorderColor       = theme.interfaceColor;
 theme.contentBorder           = theme.grey;
 
 

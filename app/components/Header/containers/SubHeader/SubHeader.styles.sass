@@ -4,24 +4,26 @@ $header-navbar-padding: 68px
 $subheader-border-color: $grey-lightest
 // $subheader-border-color: var(--primary)
 
+$new-subheader-height: 50px
+
 .SubHeader
 
     position: absolute
-    +set-dims(100%, $subheader-height)
+    +set-dims(100%, $new-subheader-height)
 
-    top: $header-height - $subheader-height
-    transform: translateY($subheader-height) translateZ(0)
+    top: $header-height - $new-subheader-height
+    transform: translateY($new-subheader-height) translateZ(0)
     backface-visibility: hidden
     left: 0
     right: 0
     margin: 0 auto
     font-size: $subheader-font-size
-    border-top: 2px solid $grey-lightest
+    // border-top: 2px solid $grey-lightest
     // z-index: $subheader-z-index + 100
     // +will-change(transform)
     // box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12);
     backface-visibility: hidden
-    z-index: 11
+    z-index: 600
     font-size: 0.85em
 
     .background
@@ -56,8 +58,8 @@ $subheader-border-color: $grey-lightest
         // box-shadow: 0 0 5px $grey-darkest
         // box-shadow: 0PX 3PX 7px #080808 inset, 0PX -1PX 5px #080808 inset
 
-        padding-left: 38px
-        padding-right: 14px
+        // padding-left: 38px
+        // padding-right: 14px
 
     .Button
         margin: 0 .5em
@@ -82,19 +84,24 @@ $subheader-border-color: $grey-lightest
 
 
     .SubHeader__search
-        display: auto 0
-        display: inline-block
+        display: inline-flex
         padding: 0
-        width: 300px
-        margin: 0 12px
+        // width: 100%
+        flex: 1
 
 
         .SearchBarWithIcons
             // $offset: 20px
+            width: 100%
 
             background: var(--headerSearchbar)
+            border-bottom: 2px solid var(--greyLight)
+
+            &.SearchBarWithIcons--is-focused
+                background: var(--highlight)
+                border-bottom: 2px solid var(--primaryDark)
             // min-width: 100%
-            // height: $subheader-height * 0.66
+            // height: $new-subheader-height * 0.66
             // border-radius: 4px
 
             input
@@ -111,6 +118,7 @@ $subheader-border-color: $grey-lightest
             //         color: var(--textPrimary)
             //         box-shadow: inset 0 0 5px 0 var(--primary)
 
+
     .SubHeader__Pipe
         padding: 0 16px
 
@@ -122,10 +130,12 @@ $subheader-border-color: $grey-lightest
         display: flex
         align-items: center
         justify-content: center
+        flex: 1;
+        margin: 0 1.5em;
+        font-size: 12.5px
 
     .settings
         margin-left: auto
-        right: 13px
         position: relative
 
     .navigation
@@ -137,3 +147,38 @@ $subheader-border-color: $grey-lightest
         padding-top: 0
         padding-bottom: 0
 
+    .title-group
+        padding: 0 1em
+        line-height: 1
+        height: 100%
+        vertical-align: middle
+        width: 240px
+        text-align: center
+
+        .title
+            letter-spacing: 1px
+
+    .watch-toolbar-icon, .menu-icon
+        padding: 0 14px
+        font-size: $subheader-icon-size
+        line-height: 1
+        vertical-align: middle
+        cursor: pointer
+        height: 100%
+        position: relative
+
+    // .watch-toolbar-icon::after
+    //     content: ""
+    //     height: $subheader-height
+    //     // width: 2px
+    //     // background-color: $divider
+    //     border-right: 2px solid $divider
+    //     position: absolute
+    //     left: -1px
+    //     top: 0
+    //     bottom: 0
+    //     margin: auto 0
+
+    .segment
+        display: flex
+        align-items: center

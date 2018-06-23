@@ -24,7 +24,7 @@ export class BoardListPage extends Component {
         const BoardList = this.renderBoardList(boardList)
 
         return (
-            <MenuPage title="Boards" className="BoardListPage">
+            <MenuPage className="BoardListPage">
                 <SearchBarWithIcons placeholder="keywords, title..." className="search" onChange={this.handleSearch}/>
                 <div className="toggle-buttons">
                     <Button onClick={this.toggleAdultBoards}>18+</Button>

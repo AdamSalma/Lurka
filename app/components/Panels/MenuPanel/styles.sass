@@ -2,7 +2,8 @@
 
 .MenuPanel
     background: var(--interfaceColor)
-    width: 426px - 30px * $golden-ratio
+    // width: 426px - 30px * $golden-ratio
+    width: 250px
     position: fixed
     height: 100%
     height: calc(100% - #{$header-height})
@@ -35,7 +36,7 @@
         height: calc(100% - #{$header-height + $subheader-height})
 
     .icon-gutter
-        +font-size(3)
+        +font-size(1)
         $width: $golden-ratio * 2rem
         +size($width, 100%)
         padding-top: $width / 4
@@ -59,14 +60,14 @@
         height: 100%
 
 .MenuPage
-    padding-top: 2rem
+    padding-top: 1rem
     overflow: hidden
-    padding-left: 3rem
-    padding-right: 2rem
     overflow: hidden
+    font-size: .8rem
 
     .Title
         padding-bottom: 2rem
+        padding-left: 20px
         font-family: $font-alt
         font-weight: 400
         letter-spacing: .25rem
