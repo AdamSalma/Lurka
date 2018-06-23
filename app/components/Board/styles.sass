@@ -6,8 +6,10 @@ $header-offset: 150px
 
 .Board
     position: relative
-    +set-dims(100vw, 100vh)
+    width: calc(100vw - #{$watch-toolbar-width})
+    height: 100vh
     top: $header-height + $subheader-height
+    left: 0
     // padding-top: 48px
     background: var(--contentColor)
     // background-image: $gradient
