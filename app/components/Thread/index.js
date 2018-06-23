@@ -92,7 +92,7 @@ export class Thread extends Component {
 
     @onThreadClose
     onThreadClose(callback) {
-        console.log("Event: onThreadClose");
+        console.log("Event: onThreadClose", arguments);
         if (!this.viewState.isOpen) {
             // Ignore if closed
             return utils.types.isFunction(callback) && callback()
@@ -159,7 +159,7 @@ export class Thread extends Component {
     }
 
     teardownThreadEvents = () => {
-        this.events.teardownThreadEvents();
+        this.events && this.events.teardownThreadEvents();
         this.mediaRegistery = null;
         this.events = null;
     }
@@ -325,7 +325,7 @@ export class Thread extends Component {
 
             _posts.push(
                 <Post key={post.id} post={post} onMediaToggle={
-                    this.mediaRegistery.onMediaToggle.bind(null, post)
+                    this.mediaRegistery && this.mediaRegistery.onMediaToggle.bind(null, post)
                 }/>
             )
         }
@@ -346,11 +346,10 @@ export class Thread extends Component {
             // delay: 200
         // });
 
-        const animationOpts = Object.assign({}, animationOptions.in, {
-            complete: this.threadDidOpen.bind(null, callback)
-        });
-
-        this.animateThread(animationStyles.in, animationOpts);
+        this.animateThread(animationStyles.in, {
+            ...animationOptions.in,
+            complete: () => this.threadDidOpen(callback)
+        })
     }
 
     threadDidOpen = (callback) => {
@@ -372,24 +371,25 @@ export class Thread extends Component {
     }
 
     closeThread = (callback) => {
-        logger.method('closeThread');
+        console.log("closeThread:", arguments)
+        // logger.method('closeThread');
         this._controls.hide();
         this._overlay.hide();
-
-        // Always close subeheader on thread exit
-        emitSubHeaderToggle(false);
 
         // Close scroller otherwise thread slides down while it remains
         this.updateScroller({ stop: true });
 
-        const animationOpts = Object.assign({}, animationOptions.out, {
-            complete: this.threadDidClose.bind(null, callback)
-        });
+        // Always close subeheader on thread exit
+        // emitSubHeaderToggle(false);
 
-        this.animateThread(animationStyles.out, animationOpts);
+        this.animateThread(animationStyles.out, {
+            ...animationOptions.out,
+            complete: () => this.threadDidClose(callback)
+        });
     }
 
     threadDidClose = (callback, element) => {
+        console.log("threadDidClose", arguments)
         this.updateScroller({ scroll: "top" });
         logger.method("threadDidClose")
         this.setViewState({ isOpen: false });

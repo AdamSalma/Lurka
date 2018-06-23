@@ -3,7 +3,7 @@
 $thread-post-control-width: 200px  // TODO: move to injected variables
 $quotelink-color: var(--primary)
 $post-color: var(--threadPostBackground)
-$highlight-color: $highlight-color
+$highlight-primary: $highlight-primary
 
 .ThreadPost
     display: block
@@ -27,7 +27,7 @@ $highlight-color: $highlight-color
 
     &.highlight
         position: relative
-        background: $highlight-color
+        background: $highlight-primary
         transition: none !important
 
         &:before
@@ -167,17 +167,24 @@ $highlight-color: $highlight-color
 
     /* 4chan links */
     blockquote .quote
-        background-color: $grey-dark
+        background-color: $interface-color
+        box-shadow: 0 0 2px $interface-color
+        border-radius: 4px
         // border-left: 2px solid grey        // #3e2e2e   // #422e2e
         color: $quote-color
         // padding: 6px 8px 6px 6px
         padding: 4px 8px
         padding-right: 10px
-        display: inline-block
+        display: inline
         margin-bottom: 6px
+        line-height: 1em
+        position: relative
 
         &:first-letter
             margin-right: 3px
+
+        &::after
+            margin-top: 6px
 
     .deadlink
         color: var(--textDisabled)
