@@ -47,7 +47,7 @@
             transition-timing-function: ease(google, out)
             transition-property: opacity, transform
             transform: scale(1 + $scale-factor)
-            background: $highlight-color
+            background: $highlight-primary
             border-color: $primary
 
     // Hides the image while the modal is open
@@ -90,6 +90,39 @@
 
         &:active
             cursor: grab
+
+
+    ul.ThreadImageModal__help
+        position: fixed
+        top: 0
+        left: 0
+        padding: 1.5em
+        background: $grey-lightest
+        border: 2px solid $grey-border
+        z-index: 12
+        font-size: 12px
+        border-radius: 4px 0
+        opacity: 1
+        animation: fade-out 3s .2s $bezier-slow forwards
+
+        li
+            list-style-type: none
+            margin: 0
+            padding: 0
+            padding-bottom: .5em
+
+        li:last-child
+            padding-bottom: 0
+
+        span
+            font-size: 13px
+            color: $primary
+            font-weight: 200
+            width: 3em
+            position: relative
+            float: left
+            text-align: center
+            margin-right: .7em
 
 
         // .Icon

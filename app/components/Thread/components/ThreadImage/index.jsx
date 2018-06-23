@@ -134,15 +134,18 @@ class ThreadImage extends React.Component {
           onMouseUp={this.closeImageModal}
           onWheel={this.handleZoomImgScroll}>
             <div>
-                <Overlay ref={this.setOverlayRef}>
-                    Scroll to zoom
-                </Overlay>
+                <Overlay ref={this.setOverlayRef}/>
                 <ExpandedImage
                   className="ThreadImageModal__image"
                   srcThumbnail={thumbnail}
                   srcExpanded={src}
                   style={style}
                 />
+                <ul className="ThreadImageModal__help">
+                    <li><span>Click</span> to close</li>
+                    <li><span>Wheel</span> to zoom</li>
+                    <li><span>Drag</span> to move</li>
+                </ul>
             </div>
             <ExpandedImage
               className="ThreadImageModal__image ThreadImageModal__zoom hide"
@@ -300,37 +303,15 @@ class ThreadImage extends React.Component {
         // Calc change since start
         var offsetX = -(this.drag.startPageX - e.pageX);
         var offsetY = -(this.drag.startPageY - e.pageY);
-
-        // console.log("Transform:", transformMatrix);
-        // console.log("Mouse: X", e.pageX, "Y", e.pageY);
-        // console.log("Diff: X", offsetX, "Y", offsetY);
-
-        // console.log("ORIGINX:", this.drag.originX)
         var translateX = (offsetX + this.drag.originX) / this.zoom.zoomAmount;
         var translateY = (offsetY + this.drag.originY) / this.zoom.zoomAmount;
-
-        // if (!this.drag.hasMovedYet) {
-        //     this.drag.hasMovedYet = true;
-
-        //     // Perform initial positioning:
-        //     // User may have already dragged the image; so we need to start
-        //     // from the current translation.
-        //     var matrix = window.getComputedStyle(this.zoomImage)
-        //                        .transform
-        //                        .replace(/[^0-9\-.,]/g, '')
-        //                        .split(',');
-
-        //     translateX = offsetX + parseInt(matrix[12] || matrix[4]);  // translateX
-        //     translateY = offsetY + parseInt(matrix[13] || matrix[5]);  // translateY
-
-        // } else {
-        // }
 
         var transform = `scale(${this.zoom.zoomAmount}) translate(${translateX}px, ${translateY}px)`;
 
         // Apply the transform (jQuery handles it better than style.transform)
         $(this.zoomImage).css({transform});
 
+        // Store position
         this.drag.translateX = translateX;
         this.drag.translateY = translateY;
         this.drag.isDragging = true;
@@ -368,11 +349,11 @@ class ThreadImage extends React.Component {
 
     onModalImageMouseUp = (e) => {
         if (this.zoom.isZoomed) {
-            // Ignore mouseUp's because the user is dragging the image. We dont
+            // Ignore mouseUp events because the user is dragging the image. We dont
             // want the click event to propagate otherwise it will close the image
             e.stopPropagation();
         }
-        // Otherwise allow the click to bubble; the click will close the image
+        // If not zooming, allow the click to close the image
     }
 
     revertOffsetStyles(e) {
