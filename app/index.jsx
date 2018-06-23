@@ -31,6 +31,7 @@ function render(App) {
 
 window.postMessage = (data, url) => {
     console.warn("*postMessage* to", url, data)
+    if (!url.includes("http")) return
     Axios.post(url, data, {
         'Host': "www.4chan.org",
         'Origin': "www.4chan.org",

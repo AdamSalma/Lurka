@@ -28,12 +28,17 @@
     letter-spacing: 1.2px
     font-family: $font-main-light
 
-    &:hover, &.is-active
+    &:hover,
         border-color: $primary-dark
         color: $text-primary
         box-shadow: 0 7px 14px -5px $grey-darkest
 
-    &:active
+    &:active, &.is-active
+        background: $highlight-secondary !important
+        color: $text-primary
+        border-color: $primary-dark
+
+    &:focus
         border-color: $primary-dark
         color: $text-primary
         background: $primary-dark

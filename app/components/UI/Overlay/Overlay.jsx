@@ -17,7 +17,7 @@ class Overlay extends Component {
     }
 
     render() {
-        const { className, ...restProps } = this.props;
+        const { className, isVisible: _, ...restProps } = this.props;
         const { isVisible } = this.state;
         const classes = cx("Overlay", className, { "Overlay-active": isVisible });
 

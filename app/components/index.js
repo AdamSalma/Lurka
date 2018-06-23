@@ -10,4 +10,5 @@ export {default as Panels} from './Panels';
 export {default as Post} from './Post';
 export {default as Settings} from './Settings';
 export {default as Thread} from './Thread';
+export {default as WatchToolbar} from "./WatchToolbar";
 // export {default as Watcher} from './Watcher';
