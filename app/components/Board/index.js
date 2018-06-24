@@ -22,16 +22,14 @@ import {
 } from '~/components/UI';
 
 import {
+    BoardPost as Post,
+    BoardToolbar as Toolbar,
+    BoardHeader,
     NoSearchResults,
     BoardMetadata,
     BoardSpinner,
     ToTopButton
 } from './components';
-import {
-    BoardPost as Post,
-    BoardToolbar as Toolbar,
-    BoardHeader
-} from './assemblies';
 
 import {
     emitThreadOpen, emitHeaderExpand, emitHeaderShrink, emitContextMenuOpen, emitOpenHeaderPanel, emitPostToggle,

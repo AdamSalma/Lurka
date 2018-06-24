@@ -10,10 +10,10 @@ describe("Integration", () => {
 
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<App />, div);
+    ReactDOM.render(<Board />, div);
   });
 
   it('shallow render test', () => {
-    shallow(<App />);
+    shallow(<Board />);
   });
 });

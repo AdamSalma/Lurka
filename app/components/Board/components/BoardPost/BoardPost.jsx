@@ -15,7 +15,7 @@ import {
     BoardPostHeader as Header,
     BoardPostComment as Comment,
     BoardPostImage as Image
-} from '../../components';
+} from '.';
 import { setHTML } from '~/utils/react';
 
 const { boardPostWidth } = Lurka.settings;
