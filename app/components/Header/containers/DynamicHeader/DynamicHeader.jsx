@@ -108,7 +108,7 @@ class DynamicHeader extends PureComponent {
     }
 
     @onHeaderPanelOpened
-    onHeaderPanelOpened(panelID) {
+    onHeaderPanelOpened(panelID, opts) {
         this.setState({ panelID })
     }
 
@@ -290,9 +290,11 @@ class DynamicHeader extends PureComponent {
     }
 
     togglePanel(panelID) {
-        emitOpenHeaderPanel({panelID, closeIfOpen: true})
+        emitOpenHeaderPanel(panelID, {
+            closeIfOpen: true
+        })
     }
-    th
+
     toggleWatchPanel = () => this.togglePanel("watcher");
     toggleBookmarkPanel = () => this.togglePanel("bookmarks");
     toggleDownloadsPanel = () => this.togglePanel("downloads");

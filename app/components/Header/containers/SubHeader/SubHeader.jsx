@@ -17,7 +17,10 @@ import {onSubHeaderToggle} from '~/events/subscribers';
 import { Button, Icon } from '~/components/UI';
 
 // TODO: Is this needed?
-import {emitContentViewToggle} from '~/events/publishers';
+import {
+  emitContentViewToggle,
+  emitOpenHeaderPanel
+} from "~/events/publishers";
 
 import { bindMembersToClass } from '~/utils/react';
 import { isFunction } from '~/utils/types';
@@ -129,7 +132,10 @@ class SubHeader extends PureComponent {
             //   </div>
 
     onMenuClick() {
-        emitMenuToggle();
+        console.log("Menu click")
+        emitOpenHeaderPanel("menu", {
+            closeIfOpen: true
+        });
     }
 
     // @onSubHeaderToggle
