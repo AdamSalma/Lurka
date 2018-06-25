@@ -376,8 +376,7 @@ export class Board extends Component {
     }
 
     handleOpenMenu = () => {
-        emitOpenHeaderPanel({
-            panelID: "menu",
+        emitOpenHeaderPanel("menu", {
             closeIfOpen: false
         })
     }
