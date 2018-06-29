@@ -9,13 +9,6 @@ import * as Pages from './containers';
 const i = Lurka.icons;
 
 class MenuPanel extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            page: "boards"
-        }
-    }
-
     // Used by parent to control UI
     show = (args) => {
         this.overlay.show();
@@ -50,26 +43,14 @@ class MenuPanel extends Component {
                     <li><Icon name={i.navbarSettings}/></li>
                 </ul>
                 <div className="content">
-                    {this.getPage(this.state.page)}
+                    <Pages.BoardListPage/>
+                    {/* {this.getPage(this.state.page)} */}
                 </div>
             </SlideTransition>
             <Overlay ref={this.setOverlayRef} style={{ width: "100vw", height: "100vh" }} onClick={this.props.closePanel} />
             </div>
         );
     }
-
-    getPage(page) {
-        switch(page) {
-            case "boards":
-            default:
-                return <Pages.BoardListPage />
-        }
-    }
 }
-
-// export default withTransition({
-//     type: "slide",
-//     effect: "from left"
-// })(MenuPanel);
 
 export default MenuPanel

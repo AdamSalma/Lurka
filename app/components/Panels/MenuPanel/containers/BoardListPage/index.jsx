@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import connect from './connect';
 import { Icon, Button, SearchBarWithIcons, Line } from '~/components/UI';
-import { MenuPage } from '../../components';
+import MenuPage from '../../components';
 import BoardListItem from './BoardListItem';
 import './styles';
 import { emitCloseHeaderPanel, emitThreadClose, emitHeaderExpand } from '~/events';
@@ -25,7 +25,7 @@ export class BoardListPage extends Component {
 
         return (
             <MenuPage className="BoardListPage">
-                <SearchBarWithIcons placeholder="keywords, title..." className="search" onChange={this.handleSearch}/>
+                <SearchBarWithIcons placeholder="name or keywords" className="search" onChange={this.handleSearch}/>
                 <div className="toggle-buttons">
                     <Button onClick={this.toggleAdultBoards}>18+</Button>
                     <Button onClick={this.toggleFavouriteBoards}>Favourites</Button>
