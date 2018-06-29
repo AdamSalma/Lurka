@@ -25,8 +25,13 @@ export class PanelsView extends Component {
     }
 
     @onHeaderPanelOpen
-    onHeaderPanelOpen({ panelID, closeIfOpen=false }) {
+    onHeaderPanelOpen(panelID, opts) {
         console.log("onHeaderPanelOpen()")
+
+        opts = opts || {
+            closeIfOpen: false
+        };
+
         const HeaderPanel = this.getHeaderPanel(panelID);
 
         if (this.modalstate.isOpen && this.modalstate.id === panelID) {

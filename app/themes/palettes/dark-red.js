@@ -33,12 +33,13 @@ theme.textSelectionBackground = theme.primary;
 theme.textSelectionColor      = c(theme.primary).lighten(0.6);
 
 theme.interfaceColor          = '#202225';
+theme.interfaceHighlight      = '#2A2C31'; // hsl(0, 0%, 16%) warm-tint
 theme.contentColor            = '#2A2C31';
 
 // *** Other ***
 theme.divider                 = c('white').alpha(0.12),
 theme.greenText               = '#a4c73b'
-theme.highlight               = '#402c2a'  // mix($primary, grey(7), 10%)
+theme.highlight               = '#402c2a'
 theme.highlightSecondary      = 'rgba(104, 48, 48, 0.5)'
 
 // *** Components ***
@@ -47,6 +48,7 @@ theme.boardSearchbar          = theme.contentColor // 'rgba(255, 255, 255, 0.02)
 theme.boardPostShadow         = c('#312d2b'),
 theme.boardPostBackground     = theme.contentColor;  // hsl(0, 0%, 13%) warm-tint
 theme.boardPostHover          = theme.highlight;  // hsl(0, 0%, 13%) warm-tint
+theme.boardPostBorderColor    = theme.greyBorder
 
 theme.primaryOverlay          = c(theme.primary).alpha(0.22);
 

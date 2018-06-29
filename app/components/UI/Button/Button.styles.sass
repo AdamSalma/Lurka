@@ -2,10 +2,10 @@
 
 .Button
     +clickable
-    +font-size(0)
+    // +font-size(0)
+    font-size: inherit
     // +box-shadow(2)
-    box-shadow: 0 5px 14px -7px $grey-darkest
-    transition: box-shadow .3s ease(sine, out), border-color .1s ease(sine, out), color .1s ease(sine, out)
+    transition: border-color .1s ease(sine, out), color .1s ease(sine, out)
     position: relative
     display: inline-block
     // padding: .4em 2em
@@ -31,7 +31,6 @@
     &:hover,
         border-color: $primary-dark
         color: $text-primary
-        box-shadow: 0 7px 14px -5px $grey-darkest
 
     &:active, &.is-active
         background: $highlight-secondary !important
