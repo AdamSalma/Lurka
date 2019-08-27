@@ -9,10 +9,10 @@
 export const throttleByCount = (count, callback) => {
     var i = 0
 
-    return function() {
+    return function(...args) {
         if (i >= count) {
             i = 0
-            return callback.apply(null, arguments)
+            return callback.apply(null, args)
         }
         i++
     }
@@ -28,11 +28,11 @@ export const throttleByCount = (count, callback) => {
 export const invokeThenIgnoreForPeriod = (time, callback) => {
     var canCall = true
 
-    return function() {
+    return function(...args) {
         if (canCall) {
             canCall = false
             setTimeout(() => canCall = true, time)
-            return callback.apply(null, arguments)
+            return callback.apply(null, args)
         }
     }
 }
@@ -51,12 +51,12 @@ export const invokeThenIgnoreForPeriod = (time, callback) => {
 export const invokeAfterUninterruptedDelay = (delay, callback) => {
     var calls = 0
 
-    return function () {
+    return function (...args) {
         calls++
-        setTimeout(() => {
+        setTimeout(function() {
             calls--
             if (calls === 0)
-                callback.apply(null, arguments)
+                callback.apply(null, args)
         }, delay)
     }
 }
@@ -64,10 +64,10 @@ export const invokeAfterUninterruptedDelay = (delay, callback) => {
 export const invokeOnceThenAgainAfterUninterruptedDelay = (delay, callback) => {
     var calls = 0
 
-    return function () {
+    return function (...args) {
         if (calls === 0) {
             calls++
-            callback(null, arguments)
+            callback(null, args)
             setTimeout(() => {
                 calls--
             }, delay)
@@ -78,7 +78,7 @@ export const invokeOnceThenAgainAfterUninterruptedDelay = (delay, callback) => {
         setTimeout(() => {
             calls--
             if (calls === 0) {
-                callback.apply(null, arguments)
+                callback.apply(null, args)
             }
         }, delay)
     }
@@ -89,12 +89,12 @@ export const invokeAtBeginingEndAndByCount = ({delay, count, callback}) => {
     var calls = 0;
     var counter = 0;
 
-    return function () {
+    return function (...args) {
         if (!calls || counter >= count) {
             if (counter) {
                 counter = 0
             }
-            return callback.apply(null, arguments)
+            return callback.apply(null, args)
         }
 
         calls++
@@ -103,10 +103,9 @@ export const invokeAtBeginingEndAndByCount = ({delay, count, callback}) => {
         setTimeout(() => {
             calls--
             if (calls === 0) {
-                callback.apply(null, arguments)
+                callback.apply(null, args)
                 counter = 0
             }
         }, delay)
     }
 }
-
