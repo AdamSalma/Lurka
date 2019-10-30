@@ -19,7 +19,7 @@
     "mousetrap": "^1.6.0",
     "nanoscroller": "^0.8.7",
     "normalizr": "^3.2.3",
-    "open": "0.0.5",
+    "open": "7.0.0",
     "pub-sub-es6": "^1.4.13",
     "react": "^15.4.2",
     "react-addons-css-transition-group": "^15.4.2",
