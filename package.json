@@ -110,7 +110,7 @@
     "json-loader": "^0.5.4",
     "jsx-loader": "^0.13.2",
     "minimist": "^1.2.0",
-    "mocha": "^3.5.3",
+    "mocha": "^8.2.1",
     "mocha-jsdom": "^1.1.0",
     "mocha-webpack": "^1.0.1",
     "multiple-glob": "0.0.3",

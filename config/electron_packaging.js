@@ -166,7 +166,7 @@ export default function getElectronPackageConfig(args) {
 /**
  * Helper to write 'DRY'er configs
  */
-function createDefaulter(args) {
+function createDefaulter() {
   return build => {
     const config = Object.assign(
       {},
@@ -174,8 +174,8 @@ function createDefaulter(args) {
         appId: "lurka",
         productName: "Lurka",
         files: [
-            "build/**/*",
-            "public/images/icon.ico"
+          "build/**/*",
+          "public/images/icon.ico"
         ],
         directories: {
           buildResources: "build",

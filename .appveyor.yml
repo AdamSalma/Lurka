@@ -4,7 +4,7 @@ os: unstable
 environment:
   matrix:
     # node.js
-    - nodejs_version: "7"
+    - nodejs_version: "8"
 
 # Install scripts. (runs after repo cloning)
 install:
@@ -30,7 +30,7 @@ branches:
     - features/ci-deployments
 
 build: off
-version: '{build}'
+version: "{build}"
 shallow_clone: true
 clone_depth: 1
 

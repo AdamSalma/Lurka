@@ -18,9 +18,9 @@ var config = {
     main: {
       show: false,
       title: "Lurka",
-      titleBarStyle: 'hidden',
-      autoHideMenuBar: true,
-      frame: true,
+      // titleBarStyle: 'hidden',
+      // autoHideMenuBar: true,
+      frame: false,
       darkTheme: true,
       webPreferences: {
         // Boolean - When setting `false`, it will disable the same-origin policy (Usually using testing websites by people), and set `allowDisplayingInsecureContent` and `allowRunningInsecureContent` to `true` if these two options are not set by user. Default is `true`.
