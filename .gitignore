@@ -11,6 +11,3 @@ build/*
 
 __img__/
 dist/
-
-
-package-lock\.json
