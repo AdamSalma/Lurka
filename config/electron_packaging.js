@@ -37,14 +37,14 @@ const publish = {
  */
 const windowsConfig = {
   targets: Platform.WINDOWS.createTarget("nsis", Arch.ia32, Arch.x64),
-  nsis: {
-    oneClick: false,
-    allowToChangeInstallationDirectory: true,
-    installerIcon: iconPath,
-    icon: iconPath,
-    publish
-  },
-  icon: iconPath
+  // nsis: {
+  //   oneClick: false,
+  //   allowToChangeInstallationDirectory: true,
+  //   installerIcon: iconPath,
+  //   icon: iconPath,
+  //   publish
+  // },
+  // icon: iconPath
 };
 
 /**
@@ -171,22 +171,22 @@ function createDefaulter() {
     const config = Object.assign(
       {},
       {
-        appId: "lurka",
-        productName: "Lurka",
-        files: [
-          "build/**/*",
-          "public/images/icon.ico"
-        ],
-        directories: {
-          buildResources: "build",
-          output: "dist"
-        },
-        artifactName
+        // appId: "lurka",
+        // productName: "Lurka",
+        // files: [
+        //   "build/**/*",
+        //   "public/images/icon.ico"
+        // ],
+        // directories: {
+        //   buildResources: "build",
+        //   output: "dist"
+        // },
+        // artifactName
       },
       build.config
     );
 
-    return Object.assign({ config, artifactName }, build, config);
+    return Object.assign({ config }, build, config);
   };
 }
 
@@ -213,7 +213,7 @@ function withPublishing(build) {
     ...build,
     config: {
       ...build.config,
-      artifactName,
+      // artifactName,
       publish
     }
   });
