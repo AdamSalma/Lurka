@@ -9,6 +9,9 @@ Lurka is a fan-made desktop application for browsing [4chan](https://4chan.org),
 
 For upcoming plans and releases, check out the [Roadmap](https://github.com/AdamSalma/Lurka/projects/1). If you'd like something added, have a question or just want to say hi - raise an [issue here](https://github.com/AdamSalma/Lurka/issues).
 
+
+![Lurka Demo](public/images/short_demo.gif)
+
 <br>
 
 ## Installation
