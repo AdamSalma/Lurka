@@ -2,7 +2,7 @@ import minimist from "minimist";
 import { Platform, Arch } from "electron-builder";
 import paths from "./paths";
 import fs from "fs";
-import packageJson from '-/package.json'
+import packageJson from "-/package.json";
 
 const availableTargets = {
   boolean: [
@@ -13,8 +13,8 @@ const availableTargets = {
     "osx",
     "linux",
     "current",
-    "portable"
-  ]
+    "portable",
+  ],
 };
 
 process.env.DEBUG = "electron-builder";
@@ -29,7 +29,7 @@ const publish = {
   token: getGithubToken(),
   owner: "AdamSalma",
   repo: "Lurka",
-  releaseType: process.env.LURKA_RELEASE_TYPE || "draft"
+  releaseType: process.env.LURKA_RELEASE_TYPE || "draft",
 };
 
 /**
@@ -52,26 +52,6 @@ const windowsConfig = {
  */
 const macConfig = {
   targets: Platform.MAC.createTarget(["dmg"]),
-  config: {
-    target: ["dmg"],
-    dmg: {
-      contents: [
-        {
-          x: 130,
-          y: 220
-        },
-        {
-          x: 410,
-          y: 220,
-          type: "link",
-          path: "/Applications"
-        }
-      ],
-      artifactName
-    },
-    artifactName
-  },
-  artifactName
 };
 
 /**
@@ -79,17 +59,14 @@ const macConfig = {
  */
 const linuxConfig = {
   targets: Platform.LINUX.createTarget(["AppImage", "deb"]),
-  config: { artifactName },
-  artifactName
 };
 
 /**
  * Current Platform package config
  */
 const currentConfig = {
-  targets: Platform.current().createTarget()
+  targets: Platform.current().createTarget(),
 };
-
 
 /**
  * Appveyor Configuration
@@ -103,7 +80,6 @@ const travisConfig =
   process.env.TRAVIS_OS_NAME === "osx"
     ? withPublishing(macConfig)
     : withPublishing(linuxConfig);
-
 
 /**
  * Uses process.argv or the passed in argument to determine which config should be used.
@@ -167,7 +143,7 @@ export default function getElectronPackageConfig(args) {
  * Helper to write 'DRY'er configs
  */
 function createDefaulter() {
-  return build => {
+  return (build) => {
     const config = Object.assign(
       {},
       {
@@ -196,10 +172,7 @@ function getGithubToken() {
   try {
     return (
       process.env.GH_TOKEN ||
-      fs
-        .readFileSync(paths.github_token)
-        .toString()
-        .split("\n")[0]
+      fs.readFileSync(paths.github_token).toString().split("\n")[0]
     );
   } catch (err) {
     console.log(
@@ -214,7 +187,7 @@ function withPublishing(build) {
     config: {
       ...build.config,
       // artifactName,
-      publish
-    }
+      publish,
+    },
   });
 }
