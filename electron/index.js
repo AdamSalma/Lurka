@@ -1,11 +1,11 @@
 if (process.env.NODE_ENV !== "production") {
-    // Enable es6+
-    console.log('Registring babel');
-    require('babel-register');
+  // Enable es6+
+  console.log("Registering babel");
+  require("babel-register");
 }
 
 // Set global variables etc
-require('./setup');
+require("./setup");
 
 // Start the application
-require('./app');
+require("./app");

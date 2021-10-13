@@ -3,6 +3,7 @@ node_modules
 *.sublime*
 *.stackdump
 github_token.txt
+*.swp
 
 # Build folder: everything except
 build/*
