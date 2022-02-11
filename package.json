@@ -116,7 +116,7 @@
     "multiple-glob": "0.0.3",
     "mustache": "^2.3.0",
     "mustache-loader": "^1.2.0",
-    "node-sass": "^4.9.0",
+    "node-sass": "^7.0.0",
     "postcss-loader": "^2.0.6",
     "postcss-nested": "^2.0.2",
     "react-addons-perf": "^15.4.2",
