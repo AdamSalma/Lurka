@@ -3,7 +3,7 @@
  * By Lurka
  */
 
-import c from 'color'
+  import c from 'color'
 import themeFreeze from '../themeFreeze';
 import { warmTint, coldTint } from '../utils';
 
