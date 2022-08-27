@@ -1,24 +1,24 @@
-const pkg = require('-/package.json');
+const pkg = require("-/package.json");
 const env = process.env.NODE_ENV;
 
 var config = {
   env: {
     raw: env,
-    production: env === 'production' || env === 'prod',
-    development: env === 'development' || env === 'dev',
-    dev: env === 'development' || env === 'dev',
-    testing: env === 'testing' || env === 'test'
+    production: env === "production" || env === "prod",
+    development: env === "development" || env === "dev",
+    dev: env === "development" || env === "dev",
+    testing: env === "testing" || env === "test",
   },
   meta: {
     title: pkg.name,
-    version: pkg.version
+    version: pkg.version,
   },
   electron: {
     devPerformance: false,
     main: {
       show: false,
       title: "Lurka",
-      titleBarStyle: 'hidden',
+      titleBarStyle: "hidden",
       autoHideMenuBar: true,
       frame: true,
       darkTheme: true,
@@ -30,26 +30,25 @@ var config = {
 
         // Boolean - Allow a https page to run JavaScript, CSS or plugins from http URLs. Default is `false`.
         allowRunningInsecureContent: true,
-
-      }
+      },
     },
     preloader: {
       width: 250,
       height: 265,
       modal: true,
-      titleBarStyle: 'hidden',
+      titleBarStyle: "hidden",
       frame: false,
-      title: "Lurka"
-    }
+      title: "Lurka",
+    },
   },
-  paths: require('./paths'),
+  paths: require("./paths"),
   server: {
-    schema: 'http',
-    host: 'localhost',
-    port: 3000
-  }
-}
+    schema: "http",
+    host: "localhost",
+    port: 3333,
+  },
+};
 
-config.server.url = `${config.server.schema}://${config.server.host}:${config.server.port}/`
+config.server.url = `${config.server.schema}://${config.server.host}:${config.server.port}/`;
 
-module.exports = module.exports.default = config
+module.exports = module.exports.default = config;
