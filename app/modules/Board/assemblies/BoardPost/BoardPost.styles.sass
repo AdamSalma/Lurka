@@ -18,12 +18,12 @@ $board-gutter-bottom: 220px
     text-align: center
     border-radius: 4px 4px 0 0
 
-    visibility: hidden
-    opacity: 0
-    transform: translateY(0)
-    transition: all .4s ease-out
-    transition-property: top, left, box-shadow
-    +will-change(transform)
+    // visibility: hidden
+    // opacity: 0
+    // transform: translateY(0)
+    // transition: all .4s ease-out
+    // transition-property: top, left, box-shadow
+    // +will-change(transform)
 
     // Reset button defaults
     padding: 0
@@ -32,10 +32,11 @@ $board-gutter-bottom: 220px
 
     margin-bottom: $board-gutter-bottom
 
-    &.animate
-        visibility: visible
-        transform: translateY($slideup-distance) translate3d(0,0,0)
-        animation: moveUp 0.65s ease forwards
+    visibility: visible
+
+    // &.animate
+    //     transform: translateY($slideup-distance) translate3d(0,0,0)
+    //     animation: moveUp 0.65s ease forwards
 
     &:hover, &:focus, &:active
         transition: box-shadow .2s $easeOutExpo, background .2s $easeOutExpo
@@ -44,7 +45,7 @@ $board-gutter-bottom: 220px
         outline: none
         background: $highlight-color
         border-color: transparent
-        transform: translateY(400px) !important
+        // transform: translateY(400px) !important
 
 
         .counters
