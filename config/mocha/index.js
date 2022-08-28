@@ -1,2 +1,2 @@
-require('babel-register');
-require('./setup')
+require("@babel/register");
+require("./setup");

@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "allowJs": false,
+    "noImplicitAny": false,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": false,
+    "noUnusedLocals": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "module": "es2020",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "target": "ES6",
+    "downlevelIteration": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
+    "lib": ["ESNext", "dom"],
+    "outDir": "dist",
+    "baseUrl": "./",
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "paths": {
+      "-": ["."],
+      "~": ["./app"],
+      "frontend": ["./frontend"],
+      "package": ["./package.json"],
+      "config": ["./config"],
+      "sass": ["./app/sass"],
+      "images": ["./public/images"],
+      "shells": ["./shells"]
+    }
+  },
+  "include": ["frontend"],
+  "exclude": ["node_modules", "bin", "dist", "build"]
+}
