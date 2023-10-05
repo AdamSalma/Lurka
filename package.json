@@ -84,7 +84,7 @@
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.4",
     "del": "^3.0.0",
-    "electron": "20.1.0",
+    "electron": "22.3.25",
     "electron-builder": "23.3.3",
     "electron-packager": "16.0.0",
     "electron-squirrel-startup": "1.0.0",
